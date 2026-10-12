@@ -8,7 +8,9 @@ The B2B implementation is merged in [PR #93](https://github.com/sthamann/vendune
 
 ![Hosted company policies persisted after reloading Studio](assets/showcase/b2b-public-unit-20261012.png)
 
-A subsequent local Chrome purchase completed **RAC-f0646e6d**, **134.83 EUR**, after an independent employee approved the final reviewed checkout. Bag **0** and the order survived reload. PostgreSQL recorded one `13483`-minor-unit budget allocation and a consumed approval. The follow-up fixes current-customer forwarding on the final checkout command and moves approval request/refresh into the reviewed checkout; it preserves the exact quote and native server checks. This browser acceptance uses a simulated payment and does not by itself confirm the follow-up image's public rollout.
+A subsequent local Chrome purchase completed **RAC-f0646e6d**, **134.83 EUR**, after an independent employee approved the final reviewed checkout. Bag **0** and the order survived reload. PostgreSQL recorded one `13483`-minor-unit budget allocation and a consumed approval. The follow-up fixes current-customer forwarding on the final checkout command and moves approval request/refresh into the reviewed checkout; it preserves the exact quote and native server checks. This browser acceptance uses a simulated payment. The normal order workspace also issued `INV-00000001`, visible to the separately authorized unit colleague through the existing account order detail. The customer-session/approval fix was subsequently deployed publicly as `small-dusk-4307` (`498faf8`), Running 1/1 with zero restarts. Hosted Chrome created and reloaded a new company and unit without overriding either generated reference; cost center, EUR 1,000 monthly budget, EUR 250 approval threshold and required PO persisted. This hosted editor acceptance does not constitute a real provider charge or a public B2B purchase.
+
+![Fresh public company and purchasing unit, using generated references](assets/showcase/b2b-public-created-20261012.png)
 
 ![B2B checkout after independent approval](assets/showcase/b2b-checkout-approved-20261012.png)
 
