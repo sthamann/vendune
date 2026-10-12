@@ -14,6 +14,12 @@ import { execute } from "./logic";
 import { contentText } from "../../i18n/content-language";
 import { useAppStudioText } from "../../i18n/app-studio-i18n";
 export type RecordControl = {
+  fieldEditor?: {
+    entity: string;
+    recordId: string;
+    accepts: (field: string) => boolean;
+    set: (field: string, value: unknown) => void;
+  };
   value: () => {
     id: string;
     revision: number;
@@ -28,6 +34,12 @@ type Runtime = {
   busy: boolean;
   set: (id: string, v: unknown) => void;
   register: (id: string, c: RecordControl) => () => void;
+  editField: (
+    entity: string,
+    recordId: string,
+    field: string,
+    value: unknown,
+  ) => void;
   run: (steps: Statement[]) => Promise<void>;
   assets: (
     kind: "assets" | "asset_preview" | "asset_upload",
@@ -210,6 +222,18 @@ export default function NativeRuntime({
           setValues(latest.current);
         },
         register,
+        editField: (entity, recordId, field, value) => {
+          if (!recordId || running.current) return;
+          const editors = [...controls.current.values()]
+            .map((c) => c.fieldEditor)
+            .filter(
+              (e) =>
+                e?.entity === entity &&
+                e.recordId === recordId &&
+                e.accepts(field),
+            );
+          if (editors.length === 1) editors[0]!.set(field, value);
+        },
       }}
     >
       {children}

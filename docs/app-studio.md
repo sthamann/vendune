@@ -106,6 +106,11 @@ access preservation and proposal review still run before staging. Patch values a
 JSON-encoded only on the model wire. The server rejects no-op and invalid edits;
 no paid automatic repair loop is introduced. See the [workbench test boundaries](connected-workbench.md).
 
+An extra input for an existing record joins its form's local buffer only when
+the model and record ID identify exactly one form. Saving still uses that form's
+validated action and record revision. Two possible forms, different models or
+records, and protected core-reference fields never create an implicit binding.
+
 For Codex or Claude Code, export a credential-free development task with the current
 Manifest, schema, guides and MCP bridge configuration. Import the result, review
 permission additions and stage it through the same operations.

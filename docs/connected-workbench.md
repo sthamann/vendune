@@ -29,6 +29,10 @@ existing controls on that model agree. Changing the selected model uses that
 model's binding. Ambiguous or unrelated bindings are not guessed; the property
 inspector still lets you choose explicitly. Missing host context never triggers an
 unfiltered request.
+Standalone inputs update the local form buffer only when exactly one registered
+form has the same entity and record ID. Ambiguous forms, unrelated records/models
+and protected core-reference fields do not join. Typing makes no server write;
+the existing validated Save action sends the form's record and revision.
 
 ```mermaid
 flowchart LR
@@ -67,8 +71,11 @@ controls. After targeted editing and concrete instruction/raster examples, a rea
 local Qwen 3.6 35B call added the requested notes textbox and validated save button
 in 4.8 seconds, with all four configured translations and order context preserved.
 The generated button saved an edited form in the real browser through the native
-gateway; explicit control refresh now reloads persisted values and clears an old
-record value. Typing remains local until an explicitly bound action runs.
+gateway. A second check entered text directly in the generated input, used the
+generated button and reloaded the persisted value; the shared form-buffer binding
+is also checked against ambiguous forms, unrelated models and different records.
+Explicit control refresh reloads persisted values and clears an old record value.
+Typing remains local until an explicitly bound action runs.
 This is one observed task, not a model-quality benchmark or general guarantee.
 Preview and proposal review remain necessary; patterns are the deterministic start.
 
@@ -142,7 +149,7 @@ refund reconciliation, process restart and scoped SEPA input. Actual authorized
 PSP Sandbox/Live onboarding, every browser wallet/3DS variant, load behavior and
 complete original plugin parity remain separate acceptance requirements.
 
-Local acceptance for this update: 193 Rust units; 414 frontend tests; four-language
+Local acceptance for this update: 193 Rust units; 418 frontend tests; four-language
 localization and exact module inventory; 216 private Experience tests plus 17
 integration cases, packaged-runtime boot and PostgreSQL process restart; eight
 private payment units plus the actual two-service PostgreSQL/PSP-fixture path.

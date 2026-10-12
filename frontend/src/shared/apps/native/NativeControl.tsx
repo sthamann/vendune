@@ -43,6 +43,7 @@ export default function NativeControl({
         value={runtime?.values[block.id] ?? stored}
         onChange={(v) => {
           runtime?.set(block.id, v);
+          if (first?.id) runtime?.editField(entity.name, first.id, f.name, v);
           void runtime?.run(block.handlers?.change ?? []);
         }}
       />

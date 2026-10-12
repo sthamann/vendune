@@ -44,12 +44,22 @@ export default function NativeRecordForm({
   const [error, setError] = useState("");
   const [notice, setNotice] = useState(false);
   const setField = (name: string, value: unknown) => {
-    setFields({ ...fields, [name]: value });
+    setFields((old) => ({ ...old, [name]: value }));
     setNotice(false);
   };
   useEffect(() => {
     if (!runtime || !blockId) return;
     return runtime.register(blockId, {
+      fieldEditor: {
+        entity: entity.name,
+        recordId: id,
+        accepts: (name) =>
+          !busy &&
+          !pendingSource &&
+          !Object.hasOwn(boundFields ?? {}, name) &&
+          entity.fields.some((f) => f.name === name && !f.coreReference),
+        set: setField,
+      },
       value: () => {
         const merged = { ...fields, ...boundFields };
         for (const f of entity.fields.filter((f) => f.kind === "json"))
@@ -75,6 +85,7 @@ export default function NativeRecordForm({
     boundFields,
     pendingSource,
     busy,
+    entity,
   ]);
   return (
     <EditorBuffer.Provider
