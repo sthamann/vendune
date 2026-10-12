@@ -1,9 +1,11 @@
 /** Knowledge workspace vocabulary: sources, evidence and capabilities without fabricated learning claims. */
+import { behaviorWords } from "./behavior-i18n";
 import { cognitiveEventWords } from "./cognitive-events-i18n";
 import { experimentWords } from "./experiment-i18n";
 import { guardrailWords } from "./guardrail-i18n";
 import { useLocale } from "./i18n";
 export const knowledgeWords = {
+  behavior: behaviorWords.behavior,
   ...cognitiveEventWords,
   ...guardrailWords,
   ...experimentWords,

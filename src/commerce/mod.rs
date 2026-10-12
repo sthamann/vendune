@@ -60,6 +60,7 @@ mod product_channels;
 pub(crate) use product_channels::*;
 
 mod geography;
+pub(crate) use geography::Country;
 pub(crate) use geography::catalogue as company_countries;
 pub(crate) use geography::{country_catalogue, validate_address_geography};
 mod method_text;

@@ -295,3 +295,18 @@ An accepted submission is not a published offer; ambiguous writes must remain
 fenced. Missing source tax/payment facts require explicit review, never estimates.
 Run the registered `marketplaces` provider suite and marketplace UI regressions;
 see `docs/marketplaces.md` for current provider boundaries.
+
+## Behavioral intelligence ownership
+
+`src/cognition/behavior/` owns consent-bound native visitor observations and their
+derived report/journey graph. Reuse `session_signal_events`, native carts/accounts,
+current legal receipts, product knowledge, forced tenant RLS and composite foreign
+keys. Never introduce another analytics identity, cookie, event ledger, pricing or
+order truth. Do not record raw IP/UA, search/question text or visitor-supplied customer
+IDs. Reports need `knowledge.read`; individual journeys need `customers.pii` and
+entity links require their existing read rights. Geography requires a trusted
+server ingress; client country headers are not authoritative. Native storefront
+capture and Studio use the same HTTP/MCP contract. External frontends must adopt
+the consent-bound API explicitly; a configured Storyfront does not imply capture.
+Run `behavior_intelligence`, privacy/isolation suites and behavioral UI regressions.
+See `docs/behavior-intelligence.md` for retention, counts and learning boundaries.

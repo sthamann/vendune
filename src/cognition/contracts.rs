@@ -1,6 +1,9 @@
 //! Evidence APIs and MCP contracts dispatch into one authorized owner; the claim compiler rejects free prose.
 use super::*;
 pub(crate) fn schema(name: &str) -> Option<Value> {
+    if let Some(schema) = super::behavior::schema(name) {
+        return Some(schema);
+    }
     if let Some(schema) = experiments_schema(name) {
         return Some(schema);
     }
@@ -30,6 +33,9 @@ pub(crate) async fn invoke_contract(
     name: &str,
     v: &Value,
 ) -> Result<Value> {
+    if super::behavior::schema(name).is_some() {
+        return super::behavior::invoke(a, h, name, v).await;
+    }
     let t = merchant(a, h)?;
     auth::permit(h, "knowledge.read")?;
     if name == "knowledge.experiments" || name.starts_with("knowledge.experiment.") {

@@ -435,6 +435,16 @@
     "source": "src/routes.rs"
   },
   {
+    "path": "/api/knowledge/behavior",
+    "method": "POST",
+    "source": "src/cognition/behavior/mod.rs"
+  },
+  {
+    "path": "/api/knowledge/behavior/journey",
+    "method": "POST",
+    "source": "src/cognition/behavior/mod.rs"
+  },
+  {
     "path": "/api/knowledge/documents",
     "method": "GET",
     "source": "src/documents/mod.rs"
@@ -1153,6 +1163,21 @@
     "path": "/store-api/b2b/{operation}",
     "method": "POST",
     "source": "src/b2b/mod.rs"
+  },
+  {
+    "path": "/store-api/behavior/events",
+    "method": "DELETE",
+    "source": "src/cognition/behavior/mod.rs"
+  },
+  {
+    "path": "/store-api/behavior/events",
+    "method": "GET",
+    "source": "src/cognition/behavior/mod.rs"
+  },
+  {
+    "path": "/store-api/behavior/events",
+    "method": "POST",
+    "source": "src/cognition/behavior/mod.rs"
   },
   {
     "path": "/store-api/checkout/cart",

@@ -33,10 +33,15 @@ def run(a, b, passed):
         setup += f"INSERT INTO payment_jobs(id,tenant,attempt_id,operation,fingerprint,state) VALUES('{f['job']}','{t}','{f['attempt']}','reconcile','fixture','completed');"
     setup += f"INSERT INTO commerce_promotions(tenant,id,data) VALUES('{ta}','security-promo','{{}}');"
     setup += f"INSERT INTO products(tenant,id,name,category,description,price,tax_rate,stock) VALUES('{tb}','foreign-only','Foreign','fixture','fixture',1,19,1);"
+    setup += f"INSERT INTO sales_channels(tenant,id,data) VALUES('{tb}','foreign-channel','{{}}');"
     sql(setup)
     # Each row names its expected constraint and one valid/invalid statement. A negative
     # only counts if SQLSTATE 23503 is raised by that exact tenant constraint.
     cases = [
+        ('behavior_channel_fk', lambda f: f"INSERT INTO session_signal_events(tenant,id,session,purpose,channel_id) VALUES('{ta}','security-behavior','fixture','analytics','{('default' if f is a else 'foreign-channel')}')"),
+        ('behavior_cart_fk', lambda f: f"INSERT INTO session_signal_events(tenant,id,session,purpose,cart_id) VALUES('{ta}','security-behavior','fixture','analytics','{f['cart']['id']}')"),
+        ('behavior_customer_fk', lambda f: f"INSERT INTO session_signal_events(tenant,id,session,purpose,customer_id) VALUES('{ta}','security-behavior','fixture','analytics',(SELECT id FROM customers WHERE tenant='{f['tenant']}' AND email='{f['email']}'))"),
+        ('behavior_product_fk', lambda f: f"INSERT INTO session_signal_events(tenant,id,session,purpose,product_id) VALUES('{ta}','security-behavior','fixture','analytics','{('lamp' if f is a else 'foreign-only')}')"),
         ('hosted_frontends_app_fk', lambda f: f"UPDATE hosted_frontends SET app_id='{f['host_app']}' WHERE alias='{a['host_alias']}'"),
         ('orders_cart_scope', lambda f: f"INSERT INTO orders(id,tenant,cart_id,idempotency_key,fingerprint,data) VALUES('security-insert','{ta}','{f['free_cart']}','security-insert','fixture','{{}}')"),
         ('products_parent_scope', lambda f: f"UPDATE products SET parent_id='{('lamp' if f is a else 'foreign-only')}' WHERE tenant='{ta}' AND id='mug'"),

@@ -1,5 +1,20 @@
 # Testing, coverage and maintenance contracts
 
+## Behavioral intelligence verification — 12 October 2026
+
+The new registered `behavior_intelligence` suite runs real PostgreSQL/API/MCP
+requests with synthetic guests and customers, native cart changes and a simulated
+order. It rejects forged identity/purchases, foreign tenants, conflicting replay
+and consentless intake; checks independent withdrawal, self-export/erase, expired
+reads, hourly admission and ledger RLS with `NOSUPERUSER NOBYPASSRLS`. The existing
+`tenant_isolation` suite additionally checks all four new composite foreign keys.
+Related legal/account/knowledge suites remain green. Six UI regressions cover
+consent, scope reset, links, graph keyboard access, failed reload, search privacy
+and stale private-journey responses. Desktop/mobile screenshots use an isolated
+synthetic shop, with no paid models, customer mail or real payment calls.
+[Ownership and functional boundaries](behavior-intelligence.md).
+
+
 The prototype has automated behavior checks, actual PostgreSQL/Qdrant integration (plus legacy conversion checks),
 original Shopware comparisons and partial Lean contracts. **It is not fully tested
 at 100%, and neither coverage nor the Lean subset proves the entire system bug-free.**

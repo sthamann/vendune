@@ -1,5 +1,10 @@
 # Vendune feature guide
 
+**Visitor behavior intelligence:** consent-bound guest/customer observations, native
+orders and the current semantic product graph now meet in one channel report.
+Studio charts and private timelines use the same HTTP/MCP permissions.
+[Data flow, native owners, setup and verification](behavior-intelligence.md).
+
 **Native point of sale:** touch/scanner register as a channel type, shared checkout and documents, cash/change, provider reconciliation, flows and private app slots. [Full setup and scope](pos.md).
 
 **12 October workbench update:** editable app patterns, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. [How to use it, ownership and verification boundaries](connected-workbench.md).

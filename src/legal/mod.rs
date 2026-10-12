@@ -35,3 +35,5 @@ pub(crate) fn router() -> Router<App> {
             axum::routing::put(requests::update),
         )
 }
+
+pub(crate) use model::version as policy_version;

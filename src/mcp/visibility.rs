@@ -37,6 +37,9 @@ pub(super) fn visible(a: &App, h: &RequestContext, name: &str) -> bool {
             && auth::allowed(h, "catalog.write")
             && auth::allowed(h, "settings.write");
     }
+    if *n == "knowledge.behavior.journey" {
+        return merchant(a, h).is_ok() && auth::allowed(h, "customers.pii");
+    }
     if n.starts_with("knowledge.") {
         return merchant(a, h).is_ok()
             && auth::permit(h, "knowledge.read").is_ok()

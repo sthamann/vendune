@@ -3,6 +3,7 @@ use super::*;
 pub(crate) fn cognition_router() -> Router<App> {
     Router::new()
         .merge(contracts::router())
+        .merge(behavior::router())
         .merge(preferences::router())
         .merge(signed::router())
         .merge(stream::router())

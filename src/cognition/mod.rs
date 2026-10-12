@@ -2,6 +2,7 @@
 use crate::*;
 pub(crate) mod advisor;
 pub(crate) mod autonomy;
+pub(crate) mod behavior;
 mod claim_batches;
 mod context;
 pub(crate) mod contracts;

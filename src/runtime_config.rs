@@ -22,6 +22,7 @@ pub(crate) struct Config {
     pub private_service_origins: String,
     pub outbox_retention_days: u32,
     pub outbox_metadata_days: u32,
+    pub behavior_geo_secret: Option<String>,
     pub trusted_proxies: Vec<std::net::IpAddr>,
 }
 pub(crate) fn get() -> &'static Config {
@@ -156,6 +157,12 @@ pub(crate) fn get() -> &'static Config {
                 number("OUTBOX_RETENTION_DAYS", 90, 1, 3650),
                 36500,
             ),
+            behavior_geo_secret: env::var("BEHAVIOR_GEO_SHARED_SECRET").ok().inspect(|v| {
+                assert!(
+                    (32..=256).contains(&v.len()),
+                    "Geography ingress secret must contain 32–256 bytes"
+                );
+            }),
             trusted_proxies,
         }
     })

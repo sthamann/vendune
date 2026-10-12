@@ -1,6 +1,7 @@
 //! Bounded agent read rounds use the same capability dispatcher and current actor rights; never execute writes.
 use super::*;
 const READS: &[(&str, &str)] = &[
+    ("knowledge.behavior", "knowledge.read"),
     ("catalog.search", "catalog.read"),
     ("catalog.detail", "catalog.read"),
     ("merchant.products", "catalog.read"),

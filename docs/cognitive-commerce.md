@@ -1,5 +1,10 @@
 # Cognitive commerce: connected implementation and remaining work
 
+**Visitor behavior intelligence:** consent-bound guest/customer observations, native
+orders and the current semantic product graph now meet in one channel report.
+Studio charts and private timelines use the same HTTP/MCP permissions.
+[Data flow, native owners, setup and verification](behavior-intelligence.md).
+
 The cognition layer reads current commerce data, retrieves relevant evidence and
 proposes changes. PostgreSQL remains authoritative for products, prices, stock,
 orders, permissions, consent, evidence and jobs. Qdrant is a rebuildable index.

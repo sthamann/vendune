@@ -11,6 +11,14 @@ pub(crate) static CAPABILITIES: std::sync::LazyLock<Vec<(&'static str, &'static 
     });
 const COGNITIVE: &[(&str, &str)] = &[
     (
+        "knowledge.behavior",
+        "Read consent-bound traffic, browser, destination and product knowledge projections",
+    ),
+    (
+        "knowledge.behavior.journey",
+        "Read a private bounded customer or guest journey with PII permission",
+    ),
+    (
         "knowledge.experiments",
         "List immutable preregistered controlled experiments",
     ),
