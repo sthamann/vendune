@@ -85,7 +85,10 @@ are bounded rather than returning entire histories.
 required for individual timelines**; `customers.read`/`orders.read` govern native
 CRM/order links. Customer references in these private responses may contain email
 because the existing CRM route uses email as its key. They never enter the general
-agent read-tool list. Tenant RLS and composite foreign keys protect cart, channel,
+agent read-tool list. Deleting otherwise unreferenced products/customers clears only the corresponding
+nullable analytics reference; removing a cart/channel removes its observations.
+Existing financial dependency guards remain authoritative. Tenant RLS and composite
+foreign keys protect cart, channel,
 product and customer ownership independently of API object predicates.
 
 A visitor can export or erase the current context through the same cart token.

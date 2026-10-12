@@ -3337,8 +3337,8 @@
       "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "migrations/081-behavior-intelligence.sql": {
-      "sha256": "cac8fe3e59c557f41660295e7d7103b7bb699656672c4988af49d22e88ca2f10",
-      "review": "Behavior analytics reviewed: existing cart-locked consent predicate reused; purpose-separated withdrawal, tenant/FK scope, typed and bounded observations, private journey permissions and derived reports. New SQL/frontend/proxy adapters remain unproved; no new theorem claim."
+      "sha256": "6f5b8df29102ce895f911d12cadc8d3afca7a40f1961f9b31a813c9de122a96a",
+      "review": "Reviewed nullable product/customer reference retirement and cart/channel analytics cascade; existing financial dependency guards remain authoritative. Behavior SQL, proxy and browser adapters remain unproved."
     },
     "proof/Commerce/Claims.lean": {
       "sha256": "9ffc4b92e9fb2c3d7b91f6c3ab8e0f1a3d4a5821d5b9c656e74b1b8c3607f0bc",

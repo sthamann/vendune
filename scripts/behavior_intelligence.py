@@ -130,3 +130,14 @@ if os.environ.get('TEST_DATABASE'):
   sql(f"BEGIN; SET LOCAL ROLE {role}; SELECT set_config('rac.tenant','{t}',true); DO $probe$ BEGIN BEGIN INSERT INTO session_signal_events(tenant,id,session) VALUES('{foreign}','forged','forged'); RAISE EXCEPTION 'RLS accepted foreign row'; EXCEPTION WHEN insufficient_privilege THEN NULL; END; END $probe$; ROLLBACK;")
   print('PASS behavior ledger RLS denies absent/foreign scope under NOSUPERUSER NOBYPASSRLS',flush=True)
  finally:sql(f'DROP OWNED BY {role}; DROP ROLE {role};')
+
+if os.environ.get('TEST_DATABASE'):
+ # Observations must not prevent deletion of otherwise unreferenced native entities.
+ sql(f"INSERT INTO products(tenant,id,name,category,description,price,tax_rate,stock) VALUES('{t}','behavior-ephemeral','Ephemeral','fixture','fixture',1,19,1);")
+ probe=event('product_view','behavior-ephemeral');call('/store-api/behavior/events',probe,ch)
+ sql(f"DELETE FROM products WHERE tenant='{t}' AND id='behavior-ephemeral';")
+ assert sql(f"SELECT product_id IS NULL FROM session_signal_events WHERE tenant='{t}' AND id='{probe['eventId']}';")=='t'
+ # No cart/order/session/profile references; isolate the nullable customer FK itself.
+ sql(f"INSERT INTO customers(tenant,email,password_hash,profile) VALUES('{t}','ephemeral-{uid}@example.test','synthetic','{{}}'); UPDATE session_signal_events SET customer_id=(SELECT id FROM customers WHERE tenant='{t}' AND email='ephemeral-{uid}@example.test') WHERE tenant='{t}' AND id='{probe['eventId']}'; DELETE FROM customers WHERE tenant='{t}' AND email='ephemeral-{uid}@example.test';")
+ assert sql(f"SELECT customer_id IS NULL FROM session_signal_events WHERE tenant='{t}' AND id='{probe['eventId']}';")=='t'
+ print('PASS analytics references release deleted products/customers without removing observations or weakening tenant ownership',flush=True)
