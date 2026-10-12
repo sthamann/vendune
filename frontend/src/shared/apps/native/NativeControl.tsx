@@ -31,12 +31,10 @@ export default function NativeControl({
   useEffect(() => {
     if (
       f &&
-      ["textbox", "combobox", "checkbox", "datepicker"].includes(block.kind) &&
-      runtime?.values[block.id] === undefined &&
-      stored !== undefined
+      ["textbox", "combobox", "checkbox", "datepicker"].includes(block.kind)
     )
       runtime?.set(block.id, stored);
-  }, [stored, block.id]);
+  }, [stored, first?.id, first?.revision, block.id, block.dataField]);
   if (!f) return null;
   if (["textbox", "combobox", "checkbox", "datepicker"].includes(block.kind))
     return (

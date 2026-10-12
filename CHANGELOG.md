@@ -2,6 +2,7 @@
 
 ## Connected workbench — 12 October 2026
 
+- Native input controls reload persisted values on explicit refresh and clear stale record values; typing still makes no write.
 - AI edits target the existing Manifest through bounded JSON Patch; host-assigned versions, atomic application, no-op rejection and unchanged schema/access guards replace whole-app regeneration. A real local Qwen task produced translated, order-bound controls; broader model quality remains unbenchmarked.
 
 - Add editable Product advisor, Returns workspace and ERP handoff patterns to the existing visual App Studio.

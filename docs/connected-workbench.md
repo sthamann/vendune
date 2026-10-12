@@ -60,6 +60,9 @@ The initial full-regeneration Qwen checks did not reliably add the requested
 controls. After targeted editing and concrete instruction/raster examples, a real
 local Qwen 3.6 35B call added the requested notes textbox and validated save button
 in 4.8 seconds, with all four configured translations and order context preserved.
+The generated button saved an edited form in the real browser through the native
+gateway; explicit control refresh now reloads persisted values and clears an old
+record value. Typing remains local until an explicitly bound action runs.
 This is one observed task, not a model-quality benchmark or general guarantee.
 Preview and proposal review remain necessary; patterns are the deterministic start.
 
@@ -133,7 +136,7 @@ refund reconciliation, process restart and scoped SEPA input. Actual authorized
 PSP Sandbox/Live onboarding, every browser wallet/3DS variant, load behavior and
 complete original plugin parity remain separate acceptance requirements.
 
-Local acceptance for this update: 191 Rust units; 413 frontend tests; four-language
+Local acceptance for this update: 193 Rust units; 414 frontend tests; four-language
 localization and exact module inventory; 216 private Experience tests plus 17
 integration cases, packaged-runtime boot and PostgreSQL process restart; eight
 private payment units plus the actual two-service PostgreSQL/PSP-fixture path.
