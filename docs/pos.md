@@ -21,6 +21,12 @@ or register-specific database. The interface is an authenticated Studio workspac
 Channel inherited settings use the existing currency, tax, payment and company
 editors. The same revision history, pause/resume and dependency-aware deletion apply.
 A channel with orders is retained; historical sales cannot be erased by removing a register.
+
+Selective publication of a new staged POS channel validates the final live configuration
+and creates its native cash/collection override when none was explicitly selected.
+Current settings rights, revision/conflict checks and history still apply; publishing
+a product or app alongside it additionally requires that domain's current write rights.
+[Cross-feature integration and verification](feature-integration.md).
 POS channels do not expose a public storefront or public Store API/UCP checkout.
 
 ![Focused register with visible tender and shared prices](assets/pos/cashier-focus-en.png)

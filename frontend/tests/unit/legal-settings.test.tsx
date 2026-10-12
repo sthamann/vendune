@@ -82,3 +82,34 @@ it("read-only settings cannot enable strict checkout or edit documents", async (
     screen.queryByRole("button", { name: "Save changes" }),
   ).not.toBeInTheDocument();
 });
+it("edits bounded native analytics through the same revisioned privacy settings", async () => {
+  const request = transport();
+  render(<LegalSettings request={request} canWrite />, {
+    wrapper: LocaleProvider,
+  });
+  fireEvent.click(
+    await screen.findByRole("button", { name: "Privacy choices" }),
+  );
+  const retention = screen.getByRole("spinbutton", {
+    name: "Observation retention (1–30 days)",
+  });
+  expect(retention).toHaveValue(30);
+  expect(retention).toHaveAttribute("max", "30");
+  fireEvent.change(retention, { target: { value: "7" } });
+  fireEvent.click(
+    screen.getByRole("checkbox", {
+      name: "Enable native behavioral observations",
+    }),
+  );
+  fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
+  await waitFor(() =>
+    expect(
+      request.mock.calls.some(
+        ([, body, method]) =>
+          method === "PUT" &&
+          (body as any).data.legal.behaviorAnalytics.retentionDays === 7 &&
+          !(body as any).data.legal.behaviorAnalytics.enabled,
+      ),
+    ).toBe(true),
+  );
+});

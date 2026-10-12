@@ -8,6 +8,7 @@ import { LocaleProvider } from "../../src/shared/i18n/i18n";
 import type { Cart } from "../../src/shared/api/shop-api";
 const state = vi.hoisted(() => ({
   allowed: false,
+  nativeEnabled: true,
   preview: false,
   api: vi.fn(async (_path: string, _body: unknown, _token?: string) => ({
     stored: true,
@@ -15,6 +16,7 @@ const state = vi.hoisted(() => ({
 }));
 vi.mock("../../src/shared/legal/consent-store", () => ({
   usePurpose: () => state.allowed,
+  useConsent: () => ({ behaviorAnalyticsEnabled: state.nativeEnabled }),
 }));
 vi.mock("../../src/storefront/shell/ChannelPreview", () => ({
   channelPreview: () => state.preview,
@@ -24,6 +26,7 @@ afterEach(() => {
   cleanup();
   localStorage.clear();
   state.allowed = false;
+  state.nativeEnabled = true;
   state.preview = false;
   state.api.mockClear();
 });
@@ -338,4 +341,21 @@ it("debounces search without saving query text and cancels it on withdrawal", as
   } finally {
     vi.useRealTimers();
   }
+});
+
+it("does not capture native behavior when channel settings disable it despite analytics consent", () => {
+  state.allowed = true;
+  state.nativeEnabled = false;
+  render(
+    <BehaviorAnalytics
+      shop="one"
+      channel="default"
+      cart={cart("first")}
+      id="tee"
+      bag={false}
+      query=""
+      route="#product/tee"
+    />,
+  );
+  expect(state.api).not.toHaveBeenCalled();
 });

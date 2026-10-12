@@ -2,6 +2,8 @@
 
 This folder owns the Rust modules listed below. Each source begins with its responsibility contract. The crate currently shares internal types/imports through a facade; APIs, MCP and UCP delegate to shared domain operations.
 
+- [`access.rs`](access.rs): Current native rights for every selected domain; no environment-management privilege escalation.
+- [`final_config.rs`](final_config.rs): Validate final channel/Flow settings and initialize native POS defaults without another payment owner.
 - [`assets.rs`](assets.rs): Binary assets are immutable, staged independently through metadata/digest units; paid entitlements never clone.
 - [`categories.rs`](categories.rs): Category release units and dependency-ordered tree publication; stock is never part of a catalog release.
 - [`clone.rs`](clone.rs): Clone only catalog/configuration into a private tenant; customer/order/payment state is excluded.
@@ -14,3 +16,5 @@ This folder owns the Rust modules listed below. Each source begins with its resp
 The [source inventory](../../docs/module-inventory.md) is checked in CI. [The behavioral map](../../docs/source-map.md) identifies integration suites, and [testing](../../docs/testing.md) describes actual coverage and limits. Every file is limited to 320 lines; `main.rs` to 120.
 
 `company.rs` adds independent `company` / `company-channel:{id}` release units with linked logo copying, digest deduplication, validation and a canonical live baseline.
+
+B2B configuration/catalog units delegate to `b2b/staging.rs`; employees, financial decisions and observations remain excluded. Private B2B diffs require current read/PII rights.

@@ -72,13 +72,27 @@ channel preview and staging UI. The Rust endpoint rechecks current policy versio
 receipt expiry, channel, cart and product admission. Consent withdrawal and writes
 serialize on the same cart lock. Withdrawal deletes that context's analytics;
 withdrawal of personalization remains independent. Completed carts cannot accept
-new events. Records expire after thirty days, are immediately excluded from read
-models, and are removed in batches of at most 1,000 by the existing minute worker.
+new events. Records expire after the configured retention (default thirty days,
+range one to thirty), are immediately excluded from read models, and are removed in batches of at most 1,000 by the existing minute worker.
+
+**Settings → Legal & privacy → Privacy choices** controls native observation
+activation, retention days and events per cart/hour. These fields belong to
+`legal.behaviorAnalytics` in the existing revisioned commerce settings; sales
+channel overrides inherit independently. Reports clamp their requested window to
+current retention, and disabled analytics yields no eligible observations. The
+consent response exposes `behaviorAnalyticsEnabled`; the native frontend obeys it,
+and the server enforces it again. Changing legal configuration changes its policy
+fingerprint, so an old optional consent cannot silently authorize a new policy.
+Direct staging/preview capture returns 403, including custom API clients. Settings
+can be reviewed/published from staging; observations cannot. Longer retention is
+not enabled by this slice. Native expiration removes records in bounded batches;
+policy changes do not claim an immediate physical purge of previously stored rows.
 
 No new tracking cookie, fingerprint or stable cross-shop identity is introduced.
 Raw IP addresses, raw user-agents, search/question text and arbitrary custom event
 payloads are not stored. Identical event IDs are idempotent; conflicting replay
-returns 409. A cart context admits at most 500 events per hour. Reports and drilldowns
+returns 409. A cart context admits at most its configured hourly limit (default
+500, range one to 500). Reports and drilldowns
 are bounded rather than returning entire histories.
 
 `knowledge.read` permits aggregate reports. **`customers.pii` is additionally

@@ -10,6 +10,11 @@ export default function LegalServices({
   update: (patch: Partial<LegalConfig>) => void;
 }) {
   const { l } = useLegalText();
+  const behavior = c.behaviorAnalytics ?? {
+    enabled: true,
+    retentionDays: 30,
+    eventsPerHour: 500,
+  };
   return (
     <>
       <label>
@@ -23,6 +28,56 @@ export default function LegalServices({
         />
       </label>
       <p>{l("necessaryHint")}</p>
+      <article className="legal-service">
+        <h3>{l("behaviorSettings")}</h3>
+        <p>{l("behaviorHint")}</p>
+        <label className="legal-toggle">
+          <input
+            type="checkbox"
+            checked={behavior.enabled}
+            onChange={(e) =>
+              update({
+                behaviorAnalytics: { ...behavior, enabled: e.target.checked },
+              })
+            }
+          />
+          {l("behaviorEnabled")}
+        </label>
+        <label>
+          {l("behaviorRetention")}
+          <input
+            type="number"
+            min={1}
+            max={30}
+            value={behavior.retentionDays}
+            onChange={(e) =>
+              update({
+                behaviorAnalytics: {
+                  ...behavior,
+                  retentionDays: Number(e.target.value),
+                },
+              })
+            }
+          />
+        </label>
+        <label>
+          {l("behaviorAdmission")}
+          <input
+            type="number"
+            min={1}
+            max={500}
+            value={behavior.eventsPerHour}
+            onChange={(e) =>
+              update({
+                behaviorAnalytics: {
+                  ...behavior,
+                  eventsPerHour: Number(e.target.value),
+                },
+              })
+            }
+          />
+        </label>
+      </article>
       <div className="legal-sector-grid">
         {purposes.map((p) => (
           <label className="legal-toggle" key={p}>

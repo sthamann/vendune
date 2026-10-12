@@ -56,19 +56,19 @@ Database versions/digests are immutable and exportable JSON, not a hosted Git ID
 
 A sandbox clones product content/translations/metadata, commerce settings,
 experience configuration, rules, campaigns, flows, channels, declarative apps,
-public app records and source documents/chunks. It has a separate tenant ID and
+public app records, source documents/chunks and B2B company/unit policies/catalog selections. It has a separate tenant ID and
 inherits access from current live-shop memberships. Anonymous APIs and checkout
 are rejected. External service calls and app payment methods are disabled.
 
 Inventory is a simulation copy. Live customers, orders, payment credentials,
-payment attempts, behavior signals and learned order observations are excluded.
+payment attempts, behavior signals, learned order observations and B2B employees/spending/approvals/quotes/lists are excluded.
 Publishing a product preserves live inventory. Private app records are not copied
 because arbitrary app records can contain customer or order data. The prototype rejects cloning or snapshotting an app entity with more than 1,000 public records; it never silently truncates a release.
 
 Selectable units are `product:ID`, `app:ID`, `appdata:APP:ENTITY:RECORD`,
 `document:ID`, `rule:ID`, `promotion:ID`, `flow:ID`, `channel:ID`, `settings` and
 `experience`, `category:ID`, `company`, `company-channel:ID`,
-`settings-channel:ID` and `order-workflow`. The entire selected release is transactional. Staged digests and
+`settings-channel:ID`, `b2b-company:ID`, `b2b-unit:ID` and `order-workflow`. The entire selected release is transactional. Staged digests and
 current live content are checked against the baseline; a conflicting live edit
 rejects the release. A release receipt records actor, selections and time.
 No partial success is silently reported. New products/categories can be
@@ -181,3 +181,11 @@ explicit 250-product prototype cap, and the existing names/descriptions in all
 four languages. Imported translations are source facts, not generated guesses.
 Storyfront's broader scene/chrome localization belongs to its separate frontend;
 this workbench does not automatically translate old generated stories.
+
+## Domain rights on publication
+
+Environment management never substitutes for catalog/app/B2B permissions.
+Every selected unit requires its current native domain write right; Flow actions
+add their own permissions and use the publishing actor. Channel release uses the
+native validator and POS cash/pickup setup. B2B configuration release preserves
+live employee and spending state. [Connected audit](feature-integration.md).

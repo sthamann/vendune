@@ -50,7 +50,8 @@ pub(super) fn rights(entity: &str) -> Result<(&'static str, Option<&'static str>
         "source" => ("knowledge.read", Some("catalog.write")),
         "customer" => ("customers.read", Some("customers.write")),
         "order" => ("orders.read", None),
-        "b2bCompany" | "b2bUnit" | "b2bQuote" | "b2bList" | "b2bApproval" => ("b2b.read", None),
+        "b2bCompany" | "b2bUnit" => ("b2b.read", Some("b2b.manage")),
+        "b2bQuote" | "b2bList" | "b2bApproval" => ("b2b.read", None),
         "settings" | "checkoutChannel" | "company" | "companyChannel" | "rule" | "flow"
         | "promotion" | "channel" => ("settings.read", Some("settings.write")),
         _ => return Err(bad("Unsupported history entity")),

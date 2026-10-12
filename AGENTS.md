@@ -310,3 +310,40 @@ capture and Studio use the same HTTP/MCP contract. External frontends must adopt
 the consent-bound API explicitly; a configured Storyfront does not imply capture.
 Run `behavior_intelligence`, privacy/isolation suites and behavioral UI regressions.
 See `docs/behavior-intelligence.md` for retention, counts and learning boundaries.
+
+## Cross-feature integration continuity
+
+Read `docs/feature-integration.md` before extending POS, B2B/EDI, marketplaces or
+visitor observations. Every release selection needs its own current domain right;
+`team.manage`/environment access never delegates catalog, app or B2B authority.
+Use `marketing/channel_config.rs` for native/released channel validation and
+`marketing/flow_policy.rs` for current native/app action permissions, final settings,
+installed target/schema and activation admission inside the write transaction.
+Acquire the shared automation lifecycle lock before settings/app locks in native
+configuration writes, matching selective release. Rebind published Flow actors;
+queued execution still rechecks current rights.
+
+`b2b/staging.rs` clones only company/unit policy and catalog selection. Release
+uses `organization::save_tx` and `catalog::save_tx` in the existing transaction,
+parents first; never clone/rewind employees, approvals, quotes, lists or spending.
+History restore replays company/unit configuration only. Purchasing-policy writes
+lock the existing commerce settings before policy rows, so method/currency removal
+cannot race validation. Preserve method/currency dependencies in their shared owners.
+
+Native visitor settings belong to `legal.behaviorAnalytics` in the existing
+commerce configuration, including per-channel inheritance, history and release.
+Enabled, retention and hourly intake are enforced by the same native policy and
+current consent, not just hidden UI controls. Staging/preview API intake is denied;
+observations are never release units. External frontends require explicit adapters.
+Run affected PostgreSQL/HTTP suites and real UI regressions; keep provider/hardware
+acceptance and partial formal-proof boundaries explicit in docs and public pages.
+
+### Shared dispatcher stack boundary
+
+`capabilities::invoke` selects and returns a boxed domain future synchronously,
+before polling the selected child. Preserve this boundary across HTTP/MCP/planner
+calls; do not embed all domain futures in one asynchronous dispatcher. The Linux
+coverage build previously overflowed its worker stack on `pos.cart` despite small
+future-state sizes and passing local default-stack tests. Test actual HTTP/MCP
+operations in debug/coverage builds; raising production worker stacks or a future-
+size-only assertion is not a repair. Domain rights and native owners stay unchanged.

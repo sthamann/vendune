@@ -1,20 +1,15 @@
 //! App flow dispatch uses the same permission/schema gateway as HTTP/MCP, with a stable job key.
 use super::*;
-pub(crate) async fn validate_app_flow(
-    a: &App,
-    t: &str,
+pub(super) fn validate_manifest_flow(
     h: &RequestContext,
     f: &flows::Flow,
+    m: &apps::Manifest,
 ) -> Result<()> {
-    if f.action != "app_action" {
-        return Ok(());
-    }
     auth::permit(h, "apps.manage")?;
     let target = f
         .app_action
         .as_ref()
         .ok_or(bad("Flow app action required"))?;
-    let m = apps::package(a, t, &target.app, true).await?;
     let act = m
         .actions
         .iter()

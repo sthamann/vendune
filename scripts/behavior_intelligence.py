@@ -18,6 +18,14 @@ def fixture(prefix):
  a=call('/api/auth/register',{'workspaceId':t,'workspaceName':'Behavior fixture','name':'Owner','email':t+'@example.test','password':'Synthetic-behavior-2026!'})
  return {'x-tenant':t,'Authorization':'Bearer '+a['token']},{'x-tenant':t,'x-commerce-locale':'de-DE','User-Agent':'Chrome/150 Safari/1 Edg/150'}
 mh,sh=fixture('behavior-');fh,fs=fixture('behavior-foreign-')
+# A private merchant sandbox still must not accept client analytics via direct HTTP.
+stage=call('/api/environments',{'name':'Analytics isolation'},mh)['id']
+stage_h={**mh,'x-tenant':stage}
+stage_cart=call('/store-api/checkout/cart',{},stage_h)
+stage_h['sw-context-token']=stage_cart['token']
+stage_policy=call('/store-api/legal',h=stage_h)
+call('/store-api/privacy/consent',{'policyVersion':stage_policy['policyVersion'],'choices':{'analytics':True}},stage_h,'PUT')
+call('/store-api/behavior/events',{'eventId':uuid.uuid4().hex,'kind':'page_view','surface':'collection','viewport':'mobile'},stage_h,expected=403)
 c=call('/store-api/checkout/cart',{},sh);h={**sh,'sw-context-token':c['token']};policy=call('/store-api/legal',h=h)
 def choices(values):return call('/store-api/privacy/consent',{'policyVersion':policy['policyVersion'],'choices':values},h,'PUT')
 def event(kind='page_view',product=None):return {'eventId':uuid.uuid4().hex,'kind':kind,'productId':product,'surface':'product' if product else 'collection','viewport':'mobile','referrerHost':'example.test'}
@@ -141,3 +149,39 @@ if os.environ.get('TEST_DATABASE'):
  sql(f"INSERT INTO customers(tenant,email,password_hash,profile) VALUES('{t}','ephemeral-{uid}@example.test','synthetic','{{}}'); UPDATE session_signal_events SET customer_id=(SELECT id FROM customers WHERE tenant='{t}' AND email='ephemeral-{uid}@example.test') WHERE tenant='{t}' AND id='{probe['eventId']}'; DELETE FROM customers WHERE tenant='{t}' AND email='ephemeral-{uid}@example.test';")
  assert sql(f"SELECT customer_id IS NULL FROM session_signal_events WHERE tenant='{t}' AND id='{probe['eventId']}';")=='t'
  print('PASS analytics references release deleted products/customers without removing observations or weakening tenant ownership',flush=True)
+# Per-channel privacy settings reuse native revision/inheritance/history and selective publication.
+channel={'name':{'en-GB':'Behavior channel'},'kind':'storefront','active':True,'locales':['en-GB','de-DE'],'productIds':[]}
+call('/api/automation/channels/behavior_channel',{'revision':0,'data':channel},mh,'PUT')
+path='/api/merchant/commerce/channels/behavior_channel'
+settings=call(path,h=mh)
+settings['data']['legal']['behaviorAnalytics']={'enabled':True,'retentionDays':2,'eventsPerHour':1}
+call(path,settings,mh,'PUT')
+call(path,settings,mh,'PUT',409)
+limited={**sh,'sw-sales-channel-id':'behavior_channel'}
+cart=call('/store-api/checkout/cart',{},limited);limited['sw-context-token']=cart['token']
+pol=call('/store-api/legal',h=limited)
+consent=call('/store-api/privacy/consent',{'policyVersion':pol['policyVersion'],'choices':{'analytics':True}},limited,'PUT');assert consent['behaviorAnalyticsEnabled']
+assert call('/store-api/behavior/events',event(),limited)['retentionDays']==2
+call('/store-api/behavior/events',event(),limited,expected=429)
+r=call('/api/knowledge/behavior',{'days':30,'salesChannelId':'behavior_channel'},mh);assert r['days']==2 and r['eventsPerHour']==1
+assert call('/store-api/legal',h=sh)['data']['behaviorAnalytics']['retentionDays']==30
+settings=call(path,h=mh);settings['data']['legal']['behaviorAnalytics']['enabled']=False
+call(path,settings,mh,'PUT')
+pol=call('/store-api/legal',h=limited)
+receipt=call('/store-api/privacy/consent',{'policyVersion':pol['policyVersion'],'choices':{'analytics':True}},limited,'PUT');assert not receipt['behaviorAnalyticsEnabled']
+call('/store-api/behavior/events',event(),limited,expected=403)
+assert not call('/api/knowledge/behavior',{'salesChannelId':'behavior_channel'},mh)['totals']['events']
+history=call('/api/history/checkoutChannel/behavior_channel',h=mh);assert history['elements'][0]['actor'] and history['canRestore']
+invalid=call(path,h=mh);invalid['data']['legal']['behaviorAnalytics']['retentionDays']=31
+call(path,invalid,mh,'PUT',400)
+assert call(path,h=mh)['revision']==2
+# A staged privacy edit is selectively released through the existing settings aggregate.
+stage=call('/api/environments',{'name':'Privacy settings preview'},mh)['id']
+staged=call(path,h={**mh,'x-tenant':stage});staged['data']['legal']['behaviorAnalytics']['retentionDays']=1
+call(path,staged,{**mh,'x-tenant':stage},'PUT')
+diff=call('/api/environments/'+stage+'/diff',h=mh)['changes']
+selected=next(c for c in diff if c['key']=='settings-channel:behavior_channel')
+call('/api/environments/'+stage+'/release',{'approve':True,'selections':[{'key':selected['key'],'digest':selected['digest']}]},mh)
+assert call(path,h=mh)['data']['legal']['behaviorAnalytics']['retentionDays']==1
+assert not call('/store-api/legal',h=limited)['data']['behaviorAnalytics']['enabled']
+print('PASS inherited channel analytics settings, enforced retention/admission/disable, current consent disclosure, revision/history and selective sandbox publication')

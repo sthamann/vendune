@@ -1,5 +1,19 @@
 # Changelog
 
+## MCP dispatcher stack repair — 13 October 2026
+
+- Reproduce a real worker-stack overflow in Linux coverage CI on `pos.cart`. Select and return only the chosen boxed domain future before polling it; inactive domain futures no longer inflate the shared asynchronous dispatcher frame.
+- Retain native permission checks and HTTP/MCP/agent contracts. Real POS and B2B PostgreSQL suites pass with a 1.5 MiB worker stack locally, without increasing the production stack limit. Coverage CI remains the release gate; future-size inspection alone did not detect this poll-frame failure.
+
+## Connected feature audit and repairs — 12 October 2026
+
+- Require each selected release unit's native rights; validate current Flow action permissions and rebind its publishing actor. Share native channel validation and initialize selected POS cash/pickup defaults.
+- Reject direct analytics capture from staging/preview. Add inherited versioned enable/retention/intake settings, current-consent disclosure and matching report/Storefront admission.
+- Expose B2B entity history over the shared MCP schema and company/unit Studio controls. Restore configuration with current revision and native allocation/hierarchy validation; financial history remains inspection-only.
+- Clone/publish selected B2B company/unit policies and catalog selection through shared transactional writers, preserving live employees/spending and denying hidden/unauthorized changes.
+- Include B2B method/currency dependencies and monetary-storage guards in existing configuration/release owners. Add actual PostgreSQL/HTTP and UI regressions; no new commerce ledger or plugin source relocation.
+- Refresh owner documentation, README and complete rendered documentation. [Audit matrix and boundaries](docs/feature-integration.md).
+
 ## Visitor behavior intelligence — 12 October 2026
 
 - Native consent-bound guest/customer observations reuse the PostgreSQL event ledger, authenticated identity and native orders; no parallel analytics service or tracker identity.

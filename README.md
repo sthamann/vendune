@@ -50,6 +50,8 @@ animation. [Checkout setup and limits](docs/checkout.md).
 
 **Modular B2B:** company units, employee permissions, private catalogs, exact-currency budgets, quote negotiation, separate purchase approvals, SKU quick order and repeat lists share the native checkout and documents. An independent Rust EDI app validates EDIFACT/UBL/cXML orders and exports bounded native document profiles. [B2B setup and limits](docs/b2b-commerce.md) · [EDI app](docs/edi.md).
 
+**Connected feature audit:** POS, B2B/EDI, marketplaces and visitor intelligence now have an explicit owner/rights/version/settings/sandbox/API/MCP matrix. The audit fixes selective-release permissions, POS defaults, sandbox analytics capture and B2B history/policy publication. [Integration guide, walkthroughs and honest boundaries](docs/feature-integration.md).
+
 **Core hardening:** explicit route permissions, trusted request identity, non-owner
 RLS deployment, shared tenant/connection budgets, persistent login throttles,
 transaction-mode PgBouncer and recoverable poison-event handling now use the

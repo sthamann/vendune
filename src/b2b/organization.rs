@@ -41,9 +41,22 @@ pub(super) fn name(values: &HashMap<String, String>, settings: &commerce::Settin
     }
     Ok(())
 }
-pub(super) async fn save(a: &App, h: &RequestContext, op: &str, v: &Value) -> Result<Value> {
+pub(crate) async fn save(a: &App, h: &RequestContext, op: &str, v: &Value) -> Result<Value> {
     let t = merchant(a, h)?;
     auth::permit(h, "b2b.manage")?;
+    let mut tx = a.db.begin().await?;
+    history::context(&mut tx, h, "b2b.organization").await?;
+    let result = save_tx(&mut tx, &t, op, v).await?;
+    tx.commit().await?;
+    Ok(result)
+}
+/// Shared validated writer for HTTP, history restore and selective staging publication.
+pub(super) async fn save_tx(
+    conn: &mut sqlx::PgConnection,
+    t: &str,
+    op: &str,
+    v: &Value,
+) -> Result<Value> {
     let id = v["id"]
         .as_str()
         .filter(|s| apps::identifier(s))
@@ -52,7 +65,12 @@ pub(super) async fn save(a: &App, h: &RequestContext, op: &str, v: &Value) -> Re
         .as_i64()
         .filter(|n| *n >= 0)
         .ok_or(bad("Expected revision required (zero creates)"))?;
-    let (settings, _) = commerce::config(a, &t).await?;
+    let settings = commerce::decode_config(
+        sqlx::query_scalar("SELECT data FROM commerce_settings WHERE tenant=$1 FOR UPDATE")
+            .bind(t)
+            .fetch_one(&mut *conn)
+            .await?,
+    )?;
     let data = if op == "company.save" {
         let company: Company =
             serde_json::from_value(v["data"].clone()).map_err(|_| bad("Invalid company fields"))?;
@@ -80,8 +98,6 @@ pub(super) async fn save(a: &App, h: &RequestContext, op: &str, v: &Value) -> Re
         }
         json!(unit)
     };
-    let mut tx = a.db.begin().await?;
-    history::context(&mut tx, h, "b2b.organization").await?;
     let table = if op == "company.save" {
         "b2b_companies"
     } else {
@@ -89,7 +105,7 @@ pub(super) async fn save(a: &App, h: &RequestContext, op: &str, v: &Value) -> Re
     };
     sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,0))")
         .bind(format!("b2b:{t}:{table}:{id}"))
-        .execute(&mut *tx)
+        .execute(&mut *conn)
         .await?;
     // Serialize hierarchy changes for the whole company before taking unit row locks.
     // Per-unit locks alone permit two concurrent edits to introduce a cycle.
@@ -97,7 +113,7 @@ pub(super) async fn save(a: &App, h: &RequestContext, op: &str, v: &Value) -> Re
         let company = v["companyId"].as_str().ok_or(bad("Company required"))?;
         sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,0))")
             .bind(format!("b2b:hierarchy:{t}:{company}"))
-            .execute(&mut *tx)
+            .execute(&mut *conn)
             .await?;
     }
     let current: Option<i64> = sqlx::query_scalar(if op == "company.save" {
@@ -105,30 +121,30 @@ pub(super) async fn save(a: &App, h: &RequestContext, op: &str, v: &Value) -> Re
     } else {
         "SELECT revision FROM b2b_units WHERE tenant=$1 AND id=$2 FOR UPDATE"
     })
-    .bind(&t)
+    .bind(t)
     .bind(id)
-    .fetch_optional(&mut *tx)
+    .fetch_optional(&mut *conn)
     .await?;
     if current.unwrap_or(0) != expected {
         return Err(conflict("Company/unit changed; reload before saving"));
     }
     if op == "company.save" {
-        sqlx::query("INSERT INTO b2b_companies(tenant,id,data) VALUES($1,$2,$3) ON CONFLICT(tenant,id) DO UPDATE SET data=excluded.data,revision=b2b_companies.revision+1").bind(&t).bind(id).bind(data).execute(&mut *tx).await?;
+        sqlx::query("INSERT INTO b2b_companies(tenant,id,data) VALUES($1,$2,$3) ON CONFLICT(tenant,id) DO UPDATE SET data=excluded.data,revision=b2b_companies.revision+1").bind(t).bind(id).bind(data).execute(&mut *conn).await?;
     } else {
         let company = v["companyId"].as_str().ok_or(bad("Company required"))?;
         let parent = v["parentId"].as_str();
         let exists: bool = sqlx::query_scalar(
             "SELECT EXISTS(SELECT 1 FROM b2b_companies WHERE tenant=$1 AND id=$2)",
         )
-        .bind(&t)
+        .bind(t)
         .bind(company)
-        .fetch_one(&mut *tx)
+        .fetch_one(&mut *conn)
         .await?;
         if !exists {
             return Err(Error(StatusCode::NOT_FOUND, "Company not found".into()));
         }
         if let Some(parent) = parent {
-            let valid:bool=sqlx::query_scalar("WITH RECURSIVE ancestors AS (SELECT id,parent_id FROM b2b_units WHERE tenant=$1 AND company_id=$2 AND id=$3 UNION ALL SELECT u.id,u.parent_id FROM b2b_units u JOIN ancestors a ON u.id=a.parent_id WHERE u.tenant=$1 AND u.company_id=$2) SELECT EXISTS(SELECT 1 FROM ancestors) AND NOT EXISTS(SELECT 1 FROM ancestors WHERE id=$4)").bind(&t).bind(company).bind(parent).bind(id).fetch_one(&mut *tx).await?;
+            let valid:bool=sqlx::query_scalar("WITH RECURSIVE ancestors AS (SELECT id,parent_id FROM b2b_units WHERE tenant=$1 AND company_id=$2 AND id=$3 UNION ALL SELECT u.id,u.parent_id FROM b2b_units u JOIN ancestors a ON u.id=a.parent_id WHERE u.tenant=$1 AND u.company_id=$2) SELECT EXISTS(SELECT 1 FROM ancestors) AND NOT EXISTS(SELECT 1 FROM ancestors WHERE id=$4)").bind(t).bind(company).bind(parent).bind(id).fetch_one(&mut *conn).await?;
             if !valid {
                 return Err(bad(
                     "Unit parent is missing, belongs to another company or creates a cycle",
@@ -136,7 +152,7 @@ pub(super) async fn save(a: &App, h: &RequestContext, op: &str, v: &Value) -> Re
             }
         }
         // Currency/period changes cannot erase already reserved spending. Cancel/release or use a new unit.
-        let locked:bool=sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM b2b_units u WHERE u.tenant=$1 AND u.id=$2 AND (u.data->>'currency' IS DISTINCT FROM $3::text OR u.data->>'budgetPeriod' IS DISTINCT FROM $4::text) AND EXISTS(SELECT 1 FROM b2b_budget_allocations b WHERE b.tenant=u.tenant AND b.unit_id=u.id AND NOT b.released))").bind(&t).bind(id).bind(data["currency"].as_str()).bind(data["budgetPeriod"].as_str()).fetch_one(&mut *tx).await?;
+        let locked:bool=sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM b2b_units u WHERE u.tenant=$1 AND u.id=$2 AND (u.data->>'currency' IS DISTINCT FROM $3::text OR u.data->>'budgetPeriod' IS DISTINCT FROM $4::text) AND EXISTS(SELECT 1 FROM b2b_budget_allocations b WHERE b.tenant=u.tenant AND b.unit_id=u.id AND NOT b.released))").bind(t).bind(id).bind(data["currency"].as_str()).bind(data["budgetPeriod"].as_str()).fetch_one(&mut *conn).await?;
         if locked {
             return Err(conflict(
                 "Currency and budget period cannot change while spending allocations remain active",
@@ -145,23 +161,22 @@ pub(super) async fn save(a: &App, h: &RequestContext, op: &str, v: &Value) -> Re
         // Existing units cannot move companies: historical grants/approvals remain bound to their owner.
         let previous: Option<String> =
             sqlx::query_scalar("SELECT company_id FROM b2b_units WHERE tenant=$1 AND id=$2")
-                .bind(&t)
+                .bind(t)
                 .bind(id)
-                .fetch_optional(&mut *tx)
+                .fetch_optional(&mut *conn)
                 .await?;
         if previous.as_deref().is_some_and(|p| p != company) {
             return Err(bad("A purchasing unit cannot move to another company"));
         }
-        sqlx::query("INSERT INTO b2b_units(tenant,id,company_id,parent_id,data) VALUES($1,$2,$3,$4,$5) ON CONFLICT(tenant,id) DO UPDATE SET parent_id=excluded.parent_id,data=excluded.data,revision=b2b_units.revision+1").bind(&t).bind(id).bind(company).bind(parent).bind(data).execute(&mut *tx).await?;
+        sqlx::query("INSERT INTO b2b_units(tenant,id,company_id,parent_id,data) VALUES($1,$2,$3,$4,$5) ON CONFLICT(tenant,id) DO UPDATE SET parent_id=excluded.parent_id,data=excluded.data,revision=b2b_units.revision+1").bind(t).bind(id).bind(company).bind(parent).bind(data).execute(&mut *conn).await?;
     }
     event(
-        &mut tx,
-        &t,
+        conn,
+        t,
         "b2b.organization_changed",
         json!({"id":id,"kind":table,"revision":expected+1}),
     )
     .await?;
-    tx.commit().await?;
     Ok(json!({"id":id,"revision":expected+1}))
 }
 pub(super) async fn member(a: &App, h: &RequestContext, v: &Value) -> Result<Value> {

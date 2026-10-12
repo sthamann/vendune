@@ -1,5 +1,12 @@
 # Source responsibilities and verification map
 
+**13 October integration audit:** shared current rights, configuration versions,
+selective publication, native POS defaults, B2B history/staging and inherited visitor
+controls are mapped in the [connected feature guide](feature-integration.md).
+The [testing guide](testing.md) separates current source checks from dated hosted
+acceptance and real-provider prerequisites.
+
+
 **Visitor behavior intelligence:** consent-bound guest/customer observations, native
 orders and the current semantic product graph now meet in one channel report.
 Studio charts and private timelines use the same HTTP/MCP permissions.
@@ -287,12 +294,12 @@ this does not claim every source line or every original Shopware operation is co
 
 | File | Responsibility | Verification |
 |---|---|---|
-| [`src/verified_kernel.rs`](../src/verified_kernel.rs) | 37 pure production admission/cap policies | 80 Lean theorems; compiled Rust/Lean conformance; broken-policy mutations |
-| [`src/bin/verified_kernel.rs`](../src/bin/verified_kernel.rs) | Generated JSON comparison driver calling the real policy module | 6,227 comparison cases; generated drift guard |
+| [`src/verified_kernel.rs`](../src/verified_kernel.rs) | 51 pure production admission/cap policies | 110 Lean theorems; compiled Rust/Lean conformance; broken-policy mutations |
+| [`src/bin/verified_kernel.rs`](../src/bin/verified_kernel.rs) | Generated JSON comparison driver calling the real policy module | 155,347 comparison cases; generated drift guard |
 | [`src/payments/receipt_guard.rs`](../src/payments/receipt_guard.rs) | Checked amount conversion and provider receipt policy binding | `payments.py`; reviewed binding, not a proof of the parser |
 
-All 353 Rust modules have explicit status and review inventory in
-[`proof/manifest.json`](../proof/manifest.json). The 34 consumer modules are
+All 497 Rust modules have explicit status and review inventory in
+[`proof/manifest.json`](../proof/manifest.json). The 50 consumer modules are
 reviewed bindings, not whole-module proofs. See the
 [exact formal coverage and remaining gaps](formal-verification.md).
 
@@ -548,3 +555,15 @@ B2B comparison](b2b-commerce.md). The independent `extensions/apps/edi/` package
 bounded EDIFACT/UBL/cXML parsing, mapped private requisition import and immutable
 native document export; no Core codec or second ledger. [EDI profiles, deployment
 and network/certification limits](edi.md).
+
+## Shared publication and observation owners
+
+`marketing/channel_config.rs` owns transactional channel admission for native
+writes and releases; `marketing/flow_policy.rs` checks current action rights.
+`staging/access.rs` checks each selected domain and `final_config.rs` validates the
+final aggregate/POS defaults. `b2b/staging.rs` clones only configuration/catalogs
+and delegates publication to the same organization/catalog transactional writers.
+`legal/model.rs` owns inherited visitor settings; behavior capture/report/journey
+and consent disclosure consume that same policy. Shared history exposes B2B
+configuration over HTTP/MCP without financial rewind. No second settings, audit
+or analytics ledger is introduced. [Integration map and limits](feature-integration.md).

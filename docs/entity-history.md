@@ -76,7 +76,7 @@ media ownership and channel inheritance remain authoritative.
 `POST /api/history/{entity}/{id}/{version}/restore` accepts
 `{ "approve": true, "revision": 7, "side": "before" }` (`after` also supported).
 Entity names are `product`, `category`, `customer`, `order`, `settings`, `company`,
-`companyChannel`, `checkoutChannel`, `rule`, `flow`, `promotion`, `channel`, `source`.
+`companyChannel`, `checkoutChannel`, `rule`, `flow`, `promotion`, `channel`, `source`, `b2bCompany`, `b2bUnit`, `b2bQuote`, `b2bList`, `b2bApproval`.
 Shared settings/company IDs are `base`; customer IDs are URL-encoded emails.
 A history version must match the exact entity and owning tenant.
 
@@ -98,3 +98,12 @@ requests/failures. Existing CRM, checkout, automation, staging and international
 integration suites remain required. The extracted group-basis policy has a Lean
 exactness/unknown-group contract and negative mutations; SQL, UI, snapshot and
 async adapters remain unproved.
+
+## B2B history
+
+Company/unit configuration restores delegate to native B2B writes, with current
+revision, hierarchy and active spending guards. Current employees, catalog
+selection and financial decisions are not rewound. Quotes/lists/approvals are
+inspection-only here; use their own current commands for legitimate changes.
+Studio guards unsaved unit/catalog changes before restore. HTTP and MCP use the
+same B2B/PII rights; a foreign history version never grants authority.

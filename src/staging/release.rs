@@ -35,6 +35,7 @@ pub(crate) async fn release(
     if keys.len() != req.selections.len() {
         return Err(bad("Duplicate selection"));
     }
+    access::permit(&h, &keys)?;
     let mut tx = a.db.begin().await?;
     history::context(&mut tx, &h, "staging.release").await?;
     marketing::lock_config(&mut tx, &t).await?;
@@ -80,6 +81,11 @@ pub(crate) async fn release(
     .await?;
     let current = snapshot(&mut tx, &id).await?;
     let actual = snapshot(&mut tx, &t).await?;
+    for key in keys.iter().filter(|k| k.starts_with("flow:")) {
+        let flow: marketing::Flow =
+            serde_json::from_value(current[key].clone()).map_err(|_| bad("Invalid flow"))?;
+        marketing::authorize_flow(&h, &flow)?;
+    }
     for s in &req.selections {
         let value = current.get(&s.key).ok_or(bad("Unknown change"))?;
         if hash(&value.to_string()) != s.digest || base["stage"].get(&s.key) == Some(value) {
@@ -87,6 +93,20 @@ pub(crate) async fn release(
         }
         if actual.get(&s.key) != base["live"].get(&s.key) {
             return Err(conflict("Live content changed; resolve before release"));
+        }
+    }
+    // Validate against the current live operational type before it can be overwritten.
+    // The complete aggregate (including jointly selected categories/settings) is checked below.
+    for key in keys.iter().filter(|k| k.starts_with("channel:")) {
+        let old = actual.get(key).and_then(|v| v["kind"].as_str());
+        let new = current[key]["kind"].as_str();
+        if old.is_some_and(|old| {
+            (old == "pos") != (new == Some("pos"))
+                || (old == "marketplace") != (new == Some("marketplace"))
+        }) {
+            return Err(conflict(
+                "Operational channel type cannot be changed; create a new channel",
+            ));
         }
     }
     categories::publish(&mut tx, &t, &current, &keys).await?;
@@ -98,6 +118,8 @@ pub(crate) async fn release(
             commerce::publish_scope(&mut tx, &t, channel, value).await?;
         } else if s.key == "company" || s.key.starts_with("company-channel:") {
             company::publish(&mut tx, &t, &id, &s.key, value).await?;
+        } else if s.key.starts_with("b2b-company:") || s.key.starts_with("b2b-unit:") {
+            // Policy/catalog units publish below through their shared native writers.
         } else if s.key.starts_with("category:") {
             // Category units were published above in parent-first dependency order.
         } else if s.key == "order-workflow" {
@@ -183,7 +205,13 @@ pub(crate) async fn release(
                 sqlx::query(sqlx::AssertSqlSafe(sql.as_str()))
                     .bind(&t)
                     .bind(unit)
-                    .bind(value)
+                    .bind(if kind == "flow" {
+                        let mut flow = value.clone();
+                        flow["actor"] = json!(header(&h, "x-rac-user").unwrap_or("unknown"));
+                        flow
+                    } else {
+                        value.clone()
+                    })
                     .execute(&mut *tx)
                     .await?;
             }
@@ -203,36 +231,18 @@ pub(crate) async fn release(
         base["stage"][&s.key] = value.clone();
         base["live"][&s.key] = if s.key == "company" || s.key.starts_with("company-channel:") {
             company::live_value(&mut tx, &t, &s.key).await?
+        } else if s.key.starts_with("flow:") {
+            sqlx::query_scalar("SELECT data FROM commerce_flows WHERE tenant=$1 AND id=$2")
+                .bind(&t)
+                .bind(&s.key[5..])
+                .fetch_one(&mut *tx)
+                .await?
         } else {
             value.clone()
         };
     }
-    // Validate references against the final aggregate, including jointly selected new rules.
-    for key in &keys {
-        if let Some((kind, unit)) = key.split_once(':') {
-            if ["rule", "promotion", "flow", "channel"].contains(&kind) {
-                marketing::validate_references(
-                    &mut tx,
-                    &t,
-                    if kind == "rule" { "rules" } else { kind },
-                    unit,
-                    &current[key],
-                )
-                .await?;
-            }
-            if kind == "channel"
-                && !matches!(
-                    current[key]["visibility"].as_str(),
-                    None | Some("public" | "private")
-                )
-            {
-                return Err(bad("Invalid channel visibility"));
-            }
-            if kind == "channel" && unit == "default" && current[key]["kind"] != "storefront" {
-                return Err(bad("Main channel must remain storefront"));
-            }
-        }
-    }
+    crate::b2b::publish_configuration(&mut tx, &t, &keys, &current).await?;
+    final_config::validate(&mut tx, &t, &h, &keys, &current, &actual, &mut base).await?;
     let release = uid();
     let selected = json!(keys);
     sqlx::query("UPDATE shop_environments SET baseline=$1 WHERE tenant=$2")

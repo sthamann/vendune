@@ -13,3 +13,5 @@ Verify real behavior with the registered `legal_privacy`, `tenant_isolation` and
 `email_tests` suites. The two pure admission decisions are extracted to Lean;
 surrounding SQL, provider delivery and legal sufficiency are not proved.
 See [configuration, architecture and limits](../../docs/european-operation.md).
+
+`Config.behavior_analytics` owns native observation activation, retention and cart/hour admission. Consent disclosure and capture/report/journey read this same inherited revisioned policy. Its policy fingerprint requires renewed optional consent after edits. Staging API capture is rejected, independently of UI suppression.

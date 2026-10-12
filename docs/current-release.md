@@ -1,4 +1,15 @@
-# Current release — 12 October 2026
+# Current release — 13 October 2026
+
+**Connected source audit — 13 October:** POS, B2B/EDI, marketplaces and visitor
+intelligence share native version, rights, settings, sandbox, API/MCP and event
+owners. The audit closes selective-release permission gaps, app Flow admission,
+POS defaults, staging analytics capture and B2B history/policy publication. A real
+Linux coverage MCP stack overflow is repaired in the shared dispatcher without
+raising worker limits. [Integration matrix and walkthroughs](feature-integration.md)
+· [Current test evidence and proof boundary](testing.md).
+
+This source audit does not establish a new public Core deployment. The following
+hosted/browser acceptance entries retain their original dates and image evidence.
 
 **Cashier workspace — 12 October:** dedicated focus mode, customer/card selection, audited percentage/fixed adjustments, existing-model advice and system-printer invoice layouts now reuse the same commerce owners. Isolated native POS/provider/account suites pass. Local Chrome completed a customer-bound discounted sale, issued its immutable invoice and reached print preview without a physical print. [Setup, exact rights, acceptance and boundaries](pos.md).
 
@@ -18,7 +29,7 @@ A subsequent local Chrome purchase completed **RAC-f0646e6d**, **134.83 EUR**, a
 
 App Studio exposes B2B, POS and PII permissions for both actions and embedded editor surfaces. A regression compares this selectable set with the native permission registry and verifies saving B2B action/surface restrictions.
 
-The current local full unit run passes 449 frontend tests in 81 files. The formal subset has 48 extracted policies and 104 properties, with 147,934 compiled comparisons and no mismatch; 133 deliberately broken policy variants are rejected. Database/network/UI behavior remains outside those proofs.
+The B2B acceptance run recorded above passed 449 frontend tests in 81 files. Its formal subset had 48 extracted policies and 104 properties, with 147,934 compiled comparisons and no mismatch; 133 deliberately broken policy variants were rejected. Database/network/UI behavior remains outside those proofs.
 
 **Native POS local acceptance — 12 October:** a new channel type reuses shared checkout, exact cash/change, inventory, orders, invoices/PDF, currencies, coupons and Flow/App/MCP contracts. Browser and isolated PostgreSQL tests cover synthetic sales; a local provider fixture covers confirmed capture. This section describes implemented/tested code and does not itself confirm hosted deployment or a real terminal charge. [Usage and limits](pos.md).
 

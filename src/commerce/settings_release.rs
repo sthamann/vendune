@@ -39,7 +39,9 @@ pub(crate) async fn validate_settings_release(
             .await?;
     let next = decode_config(value)?;
     validate_config(&next)?;
-    super::method_usage::guard(tx, t, &decode_config(previous.clone())?, &next, None).await?;
+    let previous = decode_config(previous.clone())?;
+    currencies::routes_guard(tx, t, &previous.currencies, &next.currencies).await?;
+    super::method_usage::guard(tx, t, &previous, &next, None).await?;
     let tax_ids = next.taxes.iter().map(|v| v.id.clone()).collect::<Vec<_>>();
     let stranded:bool=sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM products WHERE tenant=$1 AND extra->>'taxClassId' IS NOT NULL AND NOT(extra->>'taxClassId'=ANY($2)))").bind(t).bind(tax_ids).fetch_one(&mut **tx).await?;
     if stranded {
