@@ -2,10 +2,15 @@
 import { useAssistantText } from "../../shared/i18n/app-assistant-i18n";
 import type { Manifest } from "../../shared/apps/native/types";
 import Icon from "../../shared/ui/Icon";
+// Matches the native permission registry; the editor regression detects drift.
 export const appScopes = [
+  "pos.use",
+  "b2b.read",
+  "b2b.manage",
   "catalog.read",
   "catalog.write",
   "customers.read",
+  "customers.pii",
   "customers.write",
   "orders.read",
   "orders.write",

@@ -1,6 +1,7 @@
 /** Bind the purchase to the reviewed cart and total; the server remains the pricing authority. */
 import { shopApi, type Cart, type Order } from "../../shared/api/shop-api";
 import { responseError } from "../../shared/i18n/errors-i18n";
+import { customerSessionHeaders } from "../../shared/api/customer-session";
 export async function placeCheckoutOrder(
   cart: Cart,
   locale: string,
@@ -15,6 +16,7 @@ export async function placeCheckoutOrder(
         "Idempotency-Key": `browser-${cart.id}`,
         "x-commerce-locale": locale,
         "x-tenant": tenant,
+        ...customerSessionHeaders(tenant),
         "sw-sales-channel-id": channel,
         "x-commerce-currency": cart.price.currency ?? "EUR",
         "x-commerce-cart-revision": String(cart.revision),

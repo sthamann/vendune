@@ -13,6 +13,7 @@ import type { Company, CompanyDetail } from "../../shared/b2b/types";
 import EntityHistory from "../../shared/history/EntityHistory";
 import Quotes from "./Quotes";
 import UnitEditor from "./UnitEditor";
+import { organizationReference } from "./reference";
 import "../../shared/b2b/b2b.css";
 export default function B2BWorkspace({
   request,
@@ -76,7 +77,7 @@ export default function B2BWorkspace({
   const fresh = () => {
     setDetail(undefined);
     setDraft({
-      id: crypto.randomUUID().replaceAll("-", ""),
+      id: organizationReference(),
       revision: 0,
       data: { name: {}, active: true, vatId: "" },
     });

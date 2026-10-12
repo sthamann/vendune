@@ -26,8 +26,8 @@ shared selling context; an unrelated SaaS merchant remains a separate tenant.
 2. Create a purchasing unit. Choose its currency, cost center and optional budget/approval threshold. Amount inputs explicitly use minor units: `100000` is EUR 1,000.00, not EUR 100,000.
 3. Assign two existing customers: a buyer and a different approver. Keep independent rights explicit. Pause access instead of deleting historical identities.
 4. Sign in as the buyer in the storefront. Open **Account → Company purchasing**, select the unit and enter a purchase-order reference. Add products, use SKU lines or a saved list.
-5. Request an offer or approval. As the merchant, open the quote inbox; as the approver, open that unit's inbox. Review current line items and amount before approving.
-6. Complete the ordinary checkout. The resulting order stores the company/unit/PO and consumes the approval/offer and budget atomically. Generate an invoice in the existing order detail; permitted unit colleagues can open the same PDF.
+5. Optionally request an offer; the merchant negotiates it in the quote inbox. For purchase approval, open the native checkout and first review addresses, delivery, payment and total. Then use **Request purchase approval** inside checkout. A different approver reviews the unit inbox and confirms the exact current quote.
+6. Use **Refresh** in checkout to read the confirmed approval without changing the cart revision, then place the order. Changed items, price, methods or policy require another review and approval. A pending approval or exceeded budget disables purchase, including direct form submission. The resulting order stores the company/unit/PO and consumes the approval/offer and budget atomically. Generate an invoice in the existing order detail; permitted unit colleagues can open the same PDF.
 
 ```mermaid
 flowchart LR
@@ -56,7 +56,19 @@ These unretouched captures show a synthetic local merchant and buyer. A unit cos
 
 ![The same account at 390 × 844 without horizontal overflow](assets/showcase/b2b-buyer-mobile-20261012.png)
 
+A complete local Chrome buyer → independent approver → checkout run saved order **RAC-f0646e6d**, **134.83 EUR**, and Bag **0**. After reloading, the same order remained visible. PostgreSQL held exactly one unreleased `13483`-minor-unit EUR budget allocation and the consumed approval. The shared final-order transport now forwards the current tenant-scoped customer session; a read-only approval refresh preserves checkout review, while changed price/revision invalidates it. These are synthetic products/contact details and a simulated payment.
+
+![Independent approval confirmed inside the reviewed checkout](assets/showcase/b2b-checkout-approved-20261012.png)
+
+![Actual local order completion persisted after reload](assets/showcase/b2b-purchase-completed-20261012.png)
+
 Reopening the account preserves its current unit and purchase-order reference. The unit/PO restoration, independent employee grants, list ownership and one-field language inheritance have UI regressions; approval completion, native order, PDF and Flow effects have HTTP/PostgreSQL acceptance.
+
+### Hosted configuration acceptance
+
+The hosted B2B source tree from PR #93 passed both full CI runs, its migration job completed, and the Core reached Running, 1/1. A synthetic company and unit were saved through Studio, reloaded and reopened with their original EUR budget, approval threshold, cost center and required PO. During this test a digit-led UUID exposed an invalid generated reference; the shared generator now guarantees the native identifier contract, with a regression covering both editors. The capture uses explicit valid references. It confirms hosted configuration persistence, not certified EDI transport or a real provider charge.
+
+![Public company and unit configuration after reload](assets/showcase/b2b-public-unit-20261012.png)
 
 ## HTTP, MCP and app integration
 

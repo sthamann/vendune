@@ -7,6 +7,7 @@ Each file starts with its responsibility. See [the source inventory](../../../..
 ## Modules
 
 - [`download.ts`](download.ts): Authenticated binary download, never placing session credentials in a URL.
+- [`customer-session.ts`](customer-session.ts): Current tenant-scoped customer identity shared by Store API and final checkout submission; guest requests omit the header.
 - [`merchant-session.ts`](merchant-session.ts): Private merchant-session rejection signals shared by all JSON transports.
 - [`request-json.ts`](request-json.ts): Coalesce simultaneous identical core reads with complete identity; no persisted response cache.
 - [`shop-api.ts`](shop-api.ts): shop api: Typed commerce contracts, merchant/store transports and binary download helper.

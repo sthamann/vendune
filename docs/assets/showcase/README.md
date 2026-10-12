@@ -1,5 +1,7 @@
 # Vendune homepage showcase — capture provenance
 
+`b2b-public-unit-20261012.png` is an unretouched public Chrome capture on `app.vendune.ai`, after saving and reloading synthetic company `nord_business_demo` and unit `nord_procurement`. Budget is EUR 1,000.00, approval threshold EUR 250.00; required purchase-order reference and cost center persisted. The `lean-oranges-8265` source tree is identical to the B2B PR #93 merge. Explicit valid references were used after discovering a digit-led UUID generation bug. No employee credentials, external EDI transport, email, AI call or actual charge are involved.
+
 [Open the showcase](https://sthamann.github.io/vendune/index.html#demo) · [Complete feature guide](../../features.md) · [Earlier capture provenance](../feature-tour/README.md)
 
 The 6 October collection contains six selectable workflows and six expandable
@@ -123,3 +125,7 @@ Original preview/renderer chrome still contains English wording.
 ## Native B2B captures — 12 October 2026
 
 `b2b-company-20261012.png` shows the English native company/unit workspace. `b2b-buyer-20261012.png` and `b2b-buyer-mobile-20261012.png` show the German buyer account after actual unit selection, PO entry, two-SKU quick order and approval request. Mobile was measured at 390 × 844: document/account/content width 390px without horizontal overflow. All are unretouched loopback captures from an isolated synthetic tenant; displayed emails use `example.test`. A real unit edit persisted with native actor/revision history. No real payment, partner EDI transport, email or AI call was made. These captures do not establish hosted rollout or partner certification.
+
+`b2b-checkout-approved-20261012.png` and `b2b-purchase-completed-20261012.png` are unretouched local Chrome captures from the isolated B2B fixture. A different existing employee approved the reviewed PO-BROWSER-2 cart; the buyer then saved RAC-f0646e6d for 134.83 EUR. Order and Bag 0 persisted after reload. PostgreSQL confirmed one 13483-minor-unit allocation and a consumed approval. Displayed contact/address data is fictional, payment simulated; no external email/model/provider charge was made.
+
+`b2b-public-created-20261012.png` is an unretouched public Chrome capture of image `small-dusk-4307` (`498faf8`), after creating and reloading B2B Release Acceptance / Procurement EU with automatically generated valid references. Monthly budget EUR 1,000, approval above EUR 250, cost center and required PO persisted. No new employee access was granted, and no real payment, external EDI transmission or provider inference occurred.

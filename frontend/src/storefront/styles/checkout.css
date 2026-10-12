@@ -349,3 +349,17 @@
   > input:not([type="checkbox"]) {
   width: 100%;
 }
+.vendune-checkout .checkout-b2b {
+  padding: 1.25rem;
+  margin-block: 1rem;
+  border: 1px solid var(--shop-border, #d6dfdb);
+  border-radius: 1rem;
+  background: var(--shop-surface, #fff);
+}
+.vendune-checkout .checkout-b2b p {
+  margin-block: 0.75rem;
+  line-height: 1.5;
+}
+.vendune-checkout .checkout-b2b button {
+  margin: 0.5rem 0.5rem 0.5rem 0;
+}
