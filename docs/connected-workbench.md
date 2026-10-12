@@ -122,7 +122,7 @@ refund reconciliation, process restart and scoped SEPA input. Actual authorized
 PSP Sandbox/Live onboarding, every browser wallet/3DS variant, load behavior and
 complete original plugin parity remain separate acceptance requirements.
 
-Local acceptance for this update: 191 Rust units; 410 frontend tests; four-language
+Local acceptance for this update: 191 Rust units; 413 frontend tests; four-language
 localization and exact module inventory; 216 private Experience tests plus 17
 integration cases, packaged-runtime boot and PostgreSQL process restart; eight
 private payment units plus the actual two-service PostgreSQL/PSP-fixture path.
