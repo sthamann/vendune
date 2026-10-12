@@ -20,7 +20,7 @@ it("refreshes persisted control values and clears previous-record edits without 
     readAction: "list_guides",
   };
   let records: any[] = [{ id: "first", revision: 1, title: "Stored title" }];
-  const request = vi.fn(async () => ({ elements: records }));
+  const request = vi.fn(async (_path: string) => ({ elements: records }));
   render(
     <NativeAppView
       app={m.id}
