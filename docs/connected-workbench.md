@@ -9,6 +9,12 @@ acceptance step; the checks below use isolated shops and local provider fixtures
 Open **Developers → New app** and choose Product advisor, Returns workspace or
 ERP handoff. Each opens an ordinary editable Manifest with translated labels.
 
+![Working app patterns in the German App Studio](assets/feature-tour/app-workbench-patterns.jpg)
+
+This capture uses a synthetic local shop. Choose a pattern, edit its controls and
+data bindings, preview it in a private sandbox, then review the version before
+staging. The same workflow is available to coding agents.
+
 | Pattern | Included | Explicit boundary |
 |---|---|---|
 | Product advisor | Owned product reference, private editor and public read-only product card | Advice content; an autonomous AI adviser requires its explicit app action/tool configuration |
