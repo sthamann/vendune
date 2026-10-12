@@ -11,12 +11,11 @@ class Model(BaseHTTPRequestHandler):
   if self.path=='/api/embed':out={'embeddings':[[1.0]+[0.0]*1023 for _ in v['input']]}
   else:
    assert self.path=='/api/chat';seen.append(v)
-   m=copy.deepcopy(state['manifest']);m['version']='0.2.0';m.pop('actions',None)
-   # Simulate an untrusted model trying to broaden existing data exposure.
-   m['entities'][0]['publicRead']=True
-   m['entities'][0]['fields'][0]['coreReference']='customer'
-   if state['invalid']:m['entities'][0]['fields']=[]
-   out={'message':{'content':json.dumps({'manifest':m,'summary':m['name']})},'done_reason':'stop'}
+   m=copy.deepcopy(state['manifest'])
+   control={'id':'ai_title','kind':'textbox','entity':m['entities'][0]['name'],'dataField':m['entities'][0]['fields'][1]['name'],'readAction':'list_'+m['entities'][0]['name'],'title':m['name'],'contextBinding':m['views'][0]['blocks'][0]['contextBinding']}
+   edits=[('/views/0/blocks/-',control),('/entities/0/publicRead',True),('/entities/0/fields/0/coreReference','customer')]
+   if state['invalid']:edits=[('/entities/0/fields',[])]
+   out={'message':{'content':json.dumps({'patch':[{'op':'add','path':path,'valueJson':json.dumps(value)} for path,value in edits],'summary':m['name']})},'done_reason':'stop'}
   self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(json.dumps(out).encode())
 model=ThreadingHTTPServer(('127.0.0.1',0),Model);threading.Thread(target=model.serve_forever,daemon=True).start()
 with socket.socket() as s:s.bind(('127.0.0.1',0));port=s.getsockname()[1]
@@ -46,8 +45,9 @@ try:
  assert b['state']=='draft' and b['environment']==stage
  assert not generated['entities'][0]['publicRead'] and generated['entities'][0]['fields'][0]['coreReference']=='product'
  assert not any(s['app']==m['id'] for s in call('/api/apps/surfaces')['surfaces'])
- kinds=seen[0]['format']['properties']['manifest']['properties']['views']['items']['properties']['blocks']['items']['properties']['kind']['enum']
- assert all(k in kinds for k in ['textbox','combobox','button','frame','tabs']) and seen[0]['options']['num_predict']==8192
+ assert seen[0]['format']['properties']['patch'] and seen[0]['options']['num_predict']==8192
+ assert generated['views'][0]['blocks'][-1]['kind']=='textbox' and generated['views'][0]['blocks'][-1]['contextBinding']==m['views'][0]['blocks'][0]['contextBinding']
+ assert generated['version']=='0.1.1' and generated['id']==m['id']
  call('/api/developer/builds/'+b['id']+'/stage',{'approve':True,'digest':b['digest']})
  assert any(x['id']==b['id'] and x['state']=='staged' for x in call('/api/developer')['builds'])
  state['invalid']=True;call('/api/developer/generate',payload,400)

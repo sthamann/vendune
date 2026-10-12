@@ -239,6 +239,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/developer/drafts.rs](../src/developer/drafts.rs) | Actor-private, optimistic mutable autosaves; these never install or alter a published package. |
 | [src/developer/generation.rs](../src/developer/generation.rs) | Structured provider output becomes a reviewable immutable manifest; it cannot write files or call shell tools. |
 | [src/developer/generation_contract.rs](../src/developer/generation_contract.rs) | Generated revisions preserve existing storage and access boundaries; destructive changes require manual schema review. |
+| [src/developer/generation_edits.rs](../src/developer/generation_edits.rs) | Bounded RFC 6902 edits modify the canonical Manifest; this is model wire adaptation, not an app runtime. |
 | [src/developer/mod.rs](../src/developer/mod.rs) | Prompt-generated declarative apps and native coding-agent handoff, never unsandboxed model code. |
 | [src/developer/preview.rs](../src/developer/preview.rs) | F5 runs the shared native app runtime in an actor-private expiring staging clone; no build/version/release is created. |
 | [src/developer/routes.rs](../src/developer/routes.rs) | Developer HTTP transport and coding-agent task export; explicit staging precedes live release. |

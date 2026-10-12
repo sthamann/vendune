@@ -61,7 +61,7 @@ inference; concurrent withdrawal or changes return localized retry guidance.
 
 > **Graph-native apps:** map app-owned nodes, relationships and selected native fields in App Studio or the same coding-agent manifest. Current tenant rights and record revisions remain authoritative across API, MCP and planner context. [Example and contract](extensions/apps/ontology-care/README.md).
 
-**Merged release and acceptance:** [complete change summary, integration paths and measured test gaps](docs/release-acceptance-2026-10-09.md). The 12 October workbench checks cover 191 Rust units, 410 frontend tests and the targeted integration suites; hosted rollout and real providers have separate acceptance gates.
+**Merged release and acceptance:** [complete change summary, integration paths and measured test gaps](docs/release-acceptance-2026-10-09.md). The 12 October workbench checks cover 193 Rust units, 418 frontend tests and the targeted integration suites; hosted rollout and real providers have separate acceptance gates.
 
 **9 October public update:** the private Experience service now runs original Storyfront Studio and Cinematic presentation. Fresh AI catalog/image creation, original review/build/publication and a live German product-answer scene were checked. Core still owns prices, stock and orders. [Live acceptance and remaining boundaries](docs/current-release.md#public-original-storyfront-update--9-october-2026).
 
@@ -72,7 +72,7 @@ including after reload. Canceling keeps the Bag. The original Studio overview
 uses the actual connected catalogue and live address. [Screenshots and exact acceptance](docs/current-release.md#checkout-continuity).
 
 
-**12 October workbench update:** editable app patterns, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. [How to use it, ownership and verification boundaries](docs/connected-workbench.md).
+**12 October workbench update:** editable app patterns, targeted AI edits to existing apps, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. A real local model added translated, order-bound controls; browser checks verified saving and explicit reload. [How to use it, ownership and verification boundaries](docs/connected-workbench.md).
 
 ## Get started
 

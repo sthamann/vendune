@@ -31,12 +31,10 @@ export default function NativeControl({
   useEffect(() => {
     if (
       f &&
-      ["textbox", "combobox", "checkbox", "datepicker"].includes(block.kind) &&
-      runtime?.values[block.id] === undefined &&
-      stored !== undefined
+      ["textbox", "combobox", "checkbox", "datepicker"].includes(block.kind)
     )
       runtime?.set(block.id, stored);
-  }, [stored, block.id]);
+  }, [stored, first?.id, first?.revision, block.id, block.dataField]);
   if (!f) return null;
   if (["textbox", "combobox", "checkbox", "datepicker"].includes(block.kind))
     return (
@@ -45,6 +43,7 @@ export default function NativeControl({
         value={runtime?.values[block.id] ?? stored}
         onChange={(v) => {
           runtime?.set(block.id, v);
+          if (first?.id) runtime?.editField(entity.name, first.id, f.name, v);
           void runtime?.run(block.handlers?.change ?? []);
         }}
       />

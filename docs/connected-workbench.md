@@ -9,6 +9,12 @@ acceptance step; the checks below use isolated shops and local provider fixtures
 Open **Developers → New app** and choose Product advisor, Returns workspace or
 ERP handoff. Each opens an ordinary editable Manifest with translated labels.
 
+![Working app patterns in the German App Studio](assets/feature-tour/app-workbench-patterns.jpg)
+
+This capture uses a synthetic local shop. Choose a pattern, edit its controls and
+data bindings, preview it in a private sandbox, then review the version before
+staging. The same workflow is available to coding agents.
+
 | Pattern | Included | Explicit boundary |
 |---|---|---|
 | Product advisor | Owned product reference, private editor and public read-only product card | Advice content; an autonomous AI adviser requires its explicit app action/tool configuration |
@@ -23,6 +29,13 @@ existing controls on that model agree. Changing the selected model uses that
 model's binding. Ambiguous or unrelated bindings are not guessed; the property
 inspector still lets you choose explicitly. Missing host context never triggers an
 unfiltered request.
+Standalone inputs update the local form buffer only when exactly one registered
+form has the same entity and record ID. Ambiguous forms, unrelated records/models
+and protected core-reference fields do not join. Typing makes no server write;
+the existing validated Save action sends the form's record and revision.
+At runtime, raster rows grow to fit actual labels and editor contents; small
+model-supplied heights no longer hide inputs behind a card's internal scrollbar.
+Tables retain their own bounded scrolling and mobile layouts stack normally.
 
 ```mermaid
 flowchart LR
@@ -48,10 +61,26 @@ not only table/cards/form/text. A local model receives an 8,192-token output cei
 for app definitions instead of the 2,000-token ceiling for smaller tasks. This is a
 maximum, not a guarantee of complete or correct output. Model quality itself was
 not benchmarked against a paid/live model in these hermetic checks.
-An additional local Qwen inference check retained the existing storage contract
-but did not reliably add the requested controls. Valid JSON is not task completion;
-the preview and explicit proposal review remain necessary. The editable patterns
-are the deterministic starting path.
+Existing-app editing now asks for bounded RFC 6902 changes instead of rewriting the
+entire Manifest. The model sends JSON-encoded patch values; Rust applies them to a
+clone, preserves storage/access contracts and assigns the next free patch version.
+The resulting normal Manifest passes the same native validator and immutable-build
+path. Empty/no-op proposals, protected metadata, invalid pointers and destructive
+schema edits fail before a build is saved. Creation without a current Manifest
+continues to use the complete native schema. No second app language/runtime exists.
+
+The initial full-regeneration Qwen checks did not reliably add the requested
+controls. After targeted editing and concrete instruction/raster examples, a real
+local Qwen 3.6 35B call added the requested notes textbox and validated save button
+in 4.8 seconds, with all four configured translations and order context preserved.
+The generated button saved an edited form in the real browser through the native
+gateway. A second check entered text directly in the generated input, used the
+generated button and reloaded the persisted value; the shared form-buffer binding
+is also checked against ambiguous forms, unrelated models and different records.
+Explicit control refresh reloads persisted values and clears an old record value.
+Typing remains local until an explicitly bound action runs.
+This is one observed task, not a model-quality benchmark or general guarantee.
+Preview and proposal review remain necessary; patterns are the deterministic start.
 
 Existing app identity, persisted entities/field types, core references, validation,
 public exposure and surface/action rights survive generated edits. External service
@@ -103,6 +132,7 @@ reported.
 |---|---|
 | `frontend/src/admin/developer/app-recipes.ts`, `AppRecipes.tsx` | Patterns compiled through the existing wizard; UI tests exercise an owned order-bound save without refund calls |
 | `AppProposalReview.tsx`, `app-proposal.ts`, `useAppStudio.ts` | Explicit review, staleness protection and same native version lifecycle; frontend interaction tests |
+| `src/developer/generation_edits.rs` | Bounded JSON Patch model wire, atomic Manifest edits and host-assigned versions; no app runtime |
 | `src/developer/generation_contract.rs` | Existing schema/access/integration preservation; rejected removal/type-change unit cases |
 | `src/planner.rs`, `proposal_apply.rs`, `translations/routes.rs` | One approved translation job owner; actual Rust/PostgreSQL planner/approval/restart/isolation suite |
 | `src/experience.rs`, `usePersonalization.ts` | Explainable category ordering and scope/consent boundaries; existing controlled experiment suite and late-response UI regression |
@@ -122,7 +152,7 @@ refund reconciliation, process restart and scoped SEPA input. Actual authorized
 PSP Sandbox/Live onboarding, every browser wallet/3DS variant, load behavior and
 complete original plugin parity remain separate acceptance requirements.
 
-Local acceptance for this update: 191 Rust units; 413 frontend tests; four-language
+Local acceptance for this update: 193 Rust units; 418 frontend tests; four-language
 localization and exact module inventory; 216 private Experience tests plus 17
 integration cases, packaged-runtime boot and PostgreSQL process restart; eight
 private payment units plus the actual two-service PostgreSQL/PSP-fixture path.

@@ -8,6 +8,47 @@ import NativeRecordForm from "../../src/shared/apps/native/NativeRecordForm";
 import { ContentLanguage } from "../../src/shared/i18n/ContentLanguage";
 import { template } from "../../src/admin/developer/app-model";
 import SandboxPreview from "../../src/admin/developer/SandboxPreview";
+it("refreshes persisted control values and clears previous-record edits without writing on typing", async () => {
+  const m = template();
+  m.entities[0].fields[0].translatable = false;
+  const block = {
+    id: "title_input",
+    kind: "textbox" as const,
+    title: { en: "Title" },
+    entity: "guides",
+    dataField: "title",
+    readAction: "list_guides",
+  };
+  let records: any[] = [{ id: "first", revision: 1, title: "Stored title" }];
+  const request = vi.fn(async (_path: string) => ({ elements: records }));
+  render(
+    <NativeAppView
+      app={m.id}
+      native={{
+        view: { ...m.views![0], blocks: [block] },
+        entities: m.entities,
+      }}
+      allowedActions={["list_guides"]}
+      request={request}
+      mainLocale="en-GB"
+    />,
+    { wrapper: LocaleProvider },
+  );
+  const input = await screen.findByRole("textbox", { name: "Title" });
+  await waitFor(() => expect(input).toHaveValue("Stored title"));
+  await userEvent.clear(input);
+  await userEvent.type(input, "Unsaved local edit");
+  expect(request).toHaveBeenCalledTimes(1);
+  records = [{ id: "first", revision: 2, title: "Reloaded title" }];
+  await userEvent.click(screen.getByRole("button", { name: "Refresh" }));
+  await waitFor(() => expect(input).toHaveValue("Reloaded title"));
+  records = [];
+  await userEvent.click(screen.getByRole("button", { name: "Refresh" }));
+  await waitFor(() => expect(input).toHaveValue(""));
+  expect(
+    request.mock.calls.every(([path]) => path.endsWith("list_guides")),
+  ).toBe(true);
+});
 it("reads a bounded page, renders literal source text and rejects unlisted actions", async () => {
   const m = template();
   const v = {
