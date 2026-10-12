@@ -92,16 +92,17 @@ def check():
     assert 'DATABASE_RUNTIME_URL' in architecture and 'DB_RLS_REQUIRED' in architecture
 
     showcase = json.loads((ROOT / 'docs/assets/showcase/manifest.json').read_text())
+    tours = json.loads((ROOT / 'docs/assets/showcase/tours.json').read_text())
     elements = pages['index.html'].elements
     tabs = [a for tag, a in elements if a.get('role') == 'tab']
     panels = [a for tag, a in elements if a.get('role') == 'tabpanel']
     videos = [a for tag, a in elements if tag == 'video']
     tracks = [a for tag, a in elements if tag == 'track']
-    assert len(tabs) == len(panels) == len(videos) == len(tracks) == 6
+    assert len(tabs) == len(panels) == len(videos) == len(tracks) == len(showcase['clips']) + len(tours['clips'])
     assert {a['aria-controls'] for a in tabs} == {a['id'] for a in panels}
     assert {a['aria-labelledby'] for a in panels} == {a['id'] for a in tabs}
     assert all('autoplay' not in a and 'controls' in a and a.get('preload') == 'none' for a in videos)
-    for key, row in showcase['clips'].items():
+    for key, row in (showcase['clips'] | tours['clips']).items():
         file = SITE / f'docs/assets/showcase/{key}.mp4'
         assert hashlib.sha256(file.read_bytes()).hexdigest() == row['sha256'], key
         assert file.stat().st_size == row['bytes'] and row['source'], key
@@ -112,6 +113,13 @@ def check():
         seconds = [int(h)*3600 + int(m)*60 + int(s) + int(ms)/1000 for h,m,s,ms in times]
         assert all(a <= b for a,b in zip(seconds, seconds[1:])), key
         assert seconds[-1] <= row['durationSeconds'] + .001, key
+    for key, row in tours['clips'].items():
+        assert row['audio'] is False and row['language'] == 'en'
+        assert row['width'] == 1920 and row['height'] == 1080 and row['fps'] == 30
+        assert all(0 <= chapter['start'] < row['durationSeconds'] for chapter in row['chapters'])
+        chapter_buttons = [a for tag, a in elements if a.get('data-video') == f'tour-video-{key}']
+        assert [int(a['data-seek']) for a in chapter_buttons] == [c['start'] for c in row['chapters']]
+        assert row['boundary'] and row['sourceCommit'] and row['capturedAt']
     for name, row in showcase['screenshots'].items():
         assert hashlib.sha256((SITE / 'docs/assets/showcase' / name).read_bytes()).hexdigest() == row['sha256'], name
 

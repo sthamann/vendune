@@ -1,6 +1,5 @@
 // Progressive enhancement for the demo chapters and unedited screenshot viewer.
-const showcase = document.querySelector("[data-showcase]");
-if (showcase) {
+document.querySelectorAll("[data-showcase]").forEach((showcase) => {
   const tabs = [...showcase.querySelectorAll('[role="tab"]')];
   const panels = tabs.map((tab) =>
     document.getElementById(tab.getAttribute("aria-controls")),
@@ -38,14 +37,25 @@ if (showcase) {
   });
   showcase.querySelectorAll("video").forEach((video) =>
     video.addEventListener("play", () => {
-      showcase.querySelectorAll("video").forEach((other) => {
+      document.querySelectorAll("[data-showcase] video").forEach((other) => {
         if (other !== video) other.pause();
       });
     }),
   );
   choose(0);
   showcase.classList.add("is-enhanced");
-}
+});
+
+// Chapter jumps load only after a deliberate user click.
+document.querySelectorAll("[data-showcase] [data-seek]").forEach((button) => {
+  button.addEventListener("click", async () => {
+    const video = document.getElementById(button.dataset.video);
+    const seek = () => { video.currentTime = Number(button.dataset.seek); };
+    if (video.readyState >= 1) seek();
+    else video.addEventListener("loadedmetadata", seek, { once: true });
+    try { await video.play(); } catch { video.focus(); }
+  });
+});
 
 const viewer = document.querySelector("[data-shot-viewer]");
 if (viewer && typeof viewer.showModal === "function") {

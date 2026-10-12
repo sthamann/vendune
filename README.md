@@ -134,6 +134,16 @@ terminal open; Ctrl+C stops the app and retains the database.
 
 ## See Vendune in action
 
+**New feature tours · 13 October 2026.** Actual current UI, English captions and no sound.
+
+| Connected commerce · 1:10 | Build and automate · 1:16 | Connected intelligence · 1:12 |
+| --- | --- | --- |
+| [![POS, orders and B2B](docs/assets/showcase/connected-commerce.webp)](https://sthamann.github.io/vendune/index.html#demo) | [![Visual apps, preview and release](docs/assets/showcase/build-and-automate.webp)](https://sthamann.github.io/vendune/index.html#demo) | [![Marketplace content and visitor graph](docs/assets/showcase/connected-intelligence.webp)](https://sthamann.github.io/vendune/index.html#demo) |
+
+[**Watch with chapters**](https://sthamann.github.io/vendune/index.html#demo) · [**Transcripts and capture boundaries**](docs/video-tours.md) · [**Team briefing in German and English**](https://team.vendune.ai/#tours)
+
+Recorded in an isolated local synthetic shop at merged commit `c6b3c3c`. The clips show a saved POS sale/receipt, a working app preview and an app-only sandbox release; marketplace and EDI scenes show configuration, not live external delivery.
+
 ### Shop, review, place the order
 
 One checkout combines contact, billing/delivery addresses, shipping, payment,

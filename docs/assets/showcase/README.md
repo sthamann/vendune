@@ -129,3 +129,7 @@ Original preview/renderer chrome still contains English wording.
 `b2b-checkout-approved-20261012.png` and `b2b-purchase-completed-20261012.png` are unretouched local Chrome captures from the isolated B2B fixture. A different existing employee approved the reviewed PO-BROWSER-2 cart; the buyer then saved RAC-f0646e6d for 134.83 EUR. Order and Bag 0 persisted after reload. PostgreSQL confirmed one 13483-minor-unit allocation and a consumed approval. Displayed contact/address data is fictional, payment simulated; no external email/model/provider charge was made.
 
 `b2b-public-created-20261012.png` is an unretouched public Chrome capture of image `small-dusk-4307` (`498faf8`), after creating and reloading B2B Release Acceptance / Procurement EU with automatically generated valid references. Monthly budget EUR 1,000, approval above EUR 250, cost center and required PO persisted. No new employee access was granted, and no real payment, external EDI transmission or provider inference occurred.
+
+## New connected feature tours — 13 October 2026
+
+Three English silent 1080p films use actual merged local UI with an isolated synthetic shop. See [the full chapter guide and transcripts](../../video-tours.md) and `tours.json` for source commit, boundaries, sizes and hashes. Raw recordings and authentication files remain outside this repository.
