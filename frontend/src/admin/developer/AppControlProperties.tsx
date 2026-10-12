@@ -9,7 +9,7 @@ import { isDataBlock } from "../../shared/apps/native/types";
 import { useAppStudioText } from "../../shared/i18n/app-studio-i18n";
 import { contentText } from "../../shared/i18n/content-language";
 import { useContentLanguage } from "../../shared/i18n/ContentLanguage";
-import { accepts } from "./control-model";
+import { accepts, inheritedContext } from "./control-model";
 import { binding } from "./app-model";
 import AppLogicEditor from "./AppLogicEditor";
 export default function AppControlProperties({
@@ -59,9 +59,10 @@ export default function AppControlProperties({
               onChange({
                 ...block,
                 ...binding(block.kind, e.target.value),
-                dataField: model?.fields.find((f) => accepts(block.kind, f))
-                  ?.name,
-                contextBinding: null,
+                dataField: model?.fields.find(
+                  (f) => !f.coreReference && accepts(block.kind, f),
+                )?.name,
+                contextBinding: inheritedContext(view, e.target.value),
               });
             }}
           >

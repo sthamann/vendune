@@ -1,5 +1,28 @@
 /** Pure control construction and bounded code-behind discovery keep visual edits and agent manifests identical. */
-import type { Block, Entity, Statement } from "../../shared/apps/native/types";
+import type {
+  Block,
+  Entity,
+  NativeView,
+  Statement,
+} from "../../shared/apps/native/types";
+/** Share an existing host-object binding only when every peer agrees; never infer broader access. */
+export function inheritedContext(
+  view: NativeView,
+  entity?: string,
+): Block["contextBinding"] {
+  const peers = view.blocks.filter(
+    (b) => b.entity === entity && b.contextBinding,
+  );
+  const first = peers[0]?.contextBinding;
+  return first &&
+    peers.every(
+      (b) =>
+        b.contextBinding?.field === first.field &&
+        b.contextBinding.key === first.key,
+    )
+    ? { ...first }
+    : null;
+}
 export function accepts(kind: Block["kind"], f: Entity["fields"][number]) {
   if (kind === "textbox")
     return ["string", "integer", "decimal"].includes(f.kind);

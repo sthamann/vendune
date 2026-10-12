@@ -74,6 +74,7 @@
 .native-data th,
 .native-data td {
   padding: 12px;
+  min-width: 96px;
   border-bottom: 1px solid var(--border, #dce5ef);
   max-width: 300px;
   overflow-wrap: anywhere;

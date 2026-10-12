@@ -46,14 +46,17 @@ export default function AppCanvas({
     });
   const add = (kind: Block["kind"]) => {
     const e =
-      manifest.entities.find((e) => e.fields.some((f) => accepts(kind, f))) ??
-      manifest.entities[0];
+      manifest.entities.find((e) =>
+        e.fields.some((f) => !f.coreReference && accepts(kind, f)),
+      ) ?? manifest.entities[0];
     const b = newBlock(kind, view, e?.name);
     if (
       controlKinds.includes(kind as (typeof controlKinds)[number]) &&
       isDataBlock(kind)
     )
-      b.dataField = e?.fields.find((f) => accepts(kind, f))?.name;
+      b.dataField = e?.fields.find(
+        (f) => !f.coreReference && accepts(kind, f),
+      )?.name;
     return b;
   };
   return (
