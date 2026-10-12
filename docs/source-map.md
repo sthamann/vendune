@@ -287,12 +287,12 @@ this does not claim every source line or every original Shopware operation is co
 
 | File | Responsibility | Verification |
 |---|---|---|
-| [`src/verified_kernel.rs`](../src/verified_kernel.rs) | 37 pure production admission/cap policies | 80 Lean theorems; compiled Rust/Lean conformance; broken-policy mutations |
-| [`src/bin/verified_kernel.rs`](../src/bin/verified_kernel.rs) | Generated JSON comparison driver calling the real policy module | 6,227 comparison cases; generated drift guard |
+| [`src/verified_kernel.rs`](../src/verified_kernel.rs) | 51 pure production admission/cap policies | 110 Lean theorems; compiled Rust/Lean conformance; broken-policy mutations |
+| [`src/bin/verified_kernel.rs`](../src/bin/verified_kernel.rs) | Generated JSON comparison driver calling the real policy module | 155,347 comparison cases; generated drift guard |
 | [`src/payments/receipt_guard.rs`](../src/payments/receipt_guard.rs) | Checked amount conversion and provider receipt policy binding | `payments.py`; reviewed binding, not a proof of the parser |
 
-All 353 Rust modules have explicit status and review inventory in
-[`proof/manifest.json`](../proof/manifest.json). The 34 consumer modules are
+All 497 Rust modules have explicit status and review inventory in
+[`proof/manifest.json`](../proof/manifest.json). The 50 consumer modules are
 reviewed bindings, not whole-module proofs. See the
 [exact formal coverage and remaining gaps](formal-verification.md).
 

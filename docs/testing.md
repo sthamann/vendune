@@ -16,7 +16,7 @@ run passes **224 tests** across the library, Core and bundled service binaries;
 formatting, all-target lint and production builds pass. The existing **51 extracted
 policies** match compiled Rust/Lean in **155,347 cases**, with no mismatch; this
 adds no whole-server proof. The documentation build checks **200 pages**, all
-**193 Markdown sources** and **4,847 local links/assets**. Explicit API rights,
+**193 Markdown sources** and **4,850 local links/assets**. Explicit API rights,
 modular source inventory and four-language gates remain required. Dated coverage numbers below belong to their
 original source/CI; this audit does not claim 100% coverage or whole-system proof.
 
