@@ -69,6 +69,15 @@ frame counts, final byte sizes and SHA-256 digests.
 
 ## Service and verification scope
 
+### 12 October workbench capture
+
+[app-workbench-patterns.jpg](app-workbench-patterns.jpg) shows the actual German
+App Studio in the synthetic local `workbench-preview` shop: Product advisor,
+Returns workspace and ERP handoff starting points in the same creation wizard.
+It is a browser capture, not a mockup. The returns pattern was separately tested
+with an owned order, native persistence and a real local-model edit; this image
+alone does not establish hosted or external-provider acceptance.
+
 All checkout payments are simulated. The optional model, email, Slack, OAuth,
 PayPal and private Storyfront services were not contacted for these captures.
 Provider settings illustrate configuration; “Configured” is not a health check
