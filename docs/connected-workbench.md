@@ -48,10 +48,20 @@ not only table/cards/form/text. A local model receives an 8,192-token output cei
 for app definitions instead of the 2,000-token ceiling for smaller tasks. This is a
 maximum, not a guarantee of complete or correct output. Model quality itself was
 not benchmarked against a paid/live model in these hermetic checks.
-An additional local Qwen inference check retained the existing storage contract
-but did not reliably add the requested controls. Valid JSON is not task completion;
-the preview and explicit proposal review remain necessary. The editable patterns
-are the deterministic starting path.
+Existing-app editing now asks for bounded RFC 6902 changes instead of rewriting the
+entire Manifest. The model sends JSON-encoded patch values; Rust applies them to a
+clone, preserves storage/access contracts and assigns the next free patch version.
+The resulting normal Manifest passes the same native validator and immutable-build
+path. Empty/no-op proposals, protected metadata, invalid pointers and destructive
+schema edits fail before a build is saved. Creation without a current Manifest
+continues to use the complete native schema. No second app language/runtime exists.
+
+The initial full-regeneration Qwen checks did not reliably add the requested
+controls. After targeted editing and concrete instruction/raster examples, a real
+local Qwen 3.6 35B call added the requested notes textbox and validated save button
+in 4.8 seconds, with all four configured translations and order context preserved.
+This is one observed task, not a model-quality benchmark or general guarantee.
+Preview and proposal review remain necessary; patterns are the deterministic start.
 
 Existing app identity, persisted entities/field types, core references, validation,
 public exposure and surface/action rights survive generated edits. External service
@@ -103,6 +113,7 @@ reported.
 |---|---|
 | `frontend/src/admin/developer/app-recipes.ts`, `AppRecipes.tsx` | Patterns compiled through the existing wizard; UI tests exercise an owned order-bound save without refund calls |
 | `AppProposalReview.tsx`, `app-proposal.ts`, `useAppStudio.ts` | Explicit review, staleness protection and same native version lifecycle; frontend interaction tests |
+| `src/developer/generation_edits.rs` | Bounded JSON Patch model wire, atomic Manifest edits and host-assigned versions; no app runtime |
 | `src/developer/generation_contract.rs` | Existing schema/access/integration preservation; rejected removal/type-change unit cases |
 | `src/planner.rs`, `proposal_apply.rs`, `translations/routes.rs` | One approved translation job owner; actual Rust/PostgreSQL planner/approval/restart/isolation suite |
 | `src/experience.rs`, `usePersonalization.ts` | Explainable category ordering and scope/consent boundaries; existing controlled experiment suite and late-response UI regression |

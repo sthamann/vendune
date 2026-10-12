@@ -100,6 +100,12 @@ OpenAI strict fixed-object wire schemas encode dynamic JSON as a string, restore
 it on the server and then run domain validation; Claude/local adapters preserve
 native JSON. This adaptation does not bypass the shared manifest contract.
 
+Existing in-app AI edits use bounded JSON Patch against the current Manifest,
+not full regeneration. Identity and version stay host-controlled; native validation,
+access preservation and proposal review still run before staging. Patch values are
+JSON-encoded only on the model wire. The server rejects no-op and invalid edits;
+no paid automatic repair loop is introduced. See the [workbench test boundaries](connected-workbench.md).
+
 For Codex or Claude Code, export a credential-free development task with the current
 Manifest, schema, guides and MCP bridge configuration. Import the result, review
 permission additions and stage it through the same operations.

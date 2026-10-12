@@ -211,7 +211,7 @@ impl Inference {
         let (mut request, path) = match provider {
             Provider::Platform => return Err("Invalid platform provider".into()),
             Provider::Ollama => (
-                json!({"model":model,"stream":false,"think":false,"format":schema,"options":{"temperature":0,"num_predict":if schema["properties"].get("manifest").is_some(){8192}else{2000}},"messages":[{"role":"system","content":system},{"role":"user","content":user,"images":images.iter().filter_map(|s|s.split_once(";base64,").map(|(_,b)|b)).collect::<Vec<_>>()}]}),
+                json!({"model":model,"stream":false,"think":false,"format":schema,"options":{"temperature":0,"num_predict":if schema["properties"].get("manifest").is_some() || schema["properties"].get("patch").is_some(){8192}else{2000}},"messages":[{"role":"system","content":system},{"role":"user","content":user,"images":images.iter().filter_map(|s|s.split_once(";base64,").map(|(_,b)|b)).collect::<Vec<_>>()}]}),
                 format!("{}/api/chat", self.ollama.trim_end_matches('/')),
             ),
             Provider::Openai if env::var("OPENAI_PROTOCOL").as_deref() == Ok("chat") => (

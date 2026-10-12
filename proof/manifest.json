@@ -1572,18 +1572,23 @@
     },
     "src/developer/generation.rs": {
       "status": "unproved",
-      "sha256": "0d615c678395199dfe47e59d4cf373f9c496351507855cd6615bf2f91240dd42",
-      "review": "Reviewed generated app schema and retained storage/access/service contracts, explicit merchant translation enqueue transaction and replay guards, app-only inference output budget and personalization scope/explanation adapters. Verified relevant SQL/provider/frontend fixtures; adapter changes remain outside the extracted policy proof scope."
+      "sha256": "6ab4c082c1d4020aa3565214e2784644f66eb60343206e30d31001b0aeddf27e",
+      "review": "Reviewed bounded RFC6902 model edit adapter, protected metadata and storage/access retention, atomic clone application and host versions; real local Qwen textbox/button, native HTTP staging and no-op/destructive negative cases. SQL/provider adapters remain unproved."
     },
     "src/developer/generation_contract.rs": {
       "status": "unproved",
       "sha256": "e454f9ead2cd71b7b1fe4162b90d4c2c76d3ea1095d639a22e8a43af55f8035f",
       "review": "Reviewed app schema and retained access/service/nested handler contracts, explicit translation queue replay, inference output budget and personalization adapters. The conformance driver uses seekable input for the same population to avoid native pipe stalls; extracted policy and proof scope is unchanged."
     },
+    "src/developer/generation_edits.rs": {
+      "status": "unproved",
+      "sha256": "cfbf825ee01311020dfd2bf178b08696616a4a47f506fbdc018cbc509d9e8801",
+      "review": "Reviewed bounded RFC6902 model edit adapter, protected metadata and storage/access retention, atomic clone application and host versions; real local Qwen textbox/button, native HTTP staging and no-op/destructive negative cases. SQL/provider adapters remain unproved."
+    },
     "src/developer/mod.rs": {
       "status": "unproved",
-      "sha256": "8e9c3fa0ea206827761ee24c14e49a5c9fbfae8c0bd56953a13ff1d7d72e852a",
-      "review": "Reviewed generated app schema and retained storage/access/service contracts, explicit merchant translation enqueue transaction and replay guards, app-only inference output budget and personalization scope/explanation adapters. Verified relevant SQL/provider/frontend fixtures; adapter changes remain outside the extracted policy proof scope."
+      "sha256": "a512d4ed39869c4c9e087fcfefdfb6ce6bdb9e7a0f76f17b47ac9ff0e2f08249",
+      "review": "Reviewed bounded RFC6902 model edit adapter, protected metadata and storage/access retention, atomic clone application and host versions; real local Qwen textbox/button, native HTTP staging and no-op/destructive negative cases. SQL/provider adapters remain unproved."
     },
     "src/developer/preview.rs": {
       "status": "unproved",
@@ -1727,8 +1732,8 @@
     },
     "src/inference.rs": {
       "status": "unproved",
-      "sha256": "3dbaf742cf1306e3f85da9d03caab8a6f3b6d6b8b74e35f711bf9fae93601ee7",
-      "review": "Reviewed generated app schema and retained storage/access/service contracts, explicit merchant translation enqueue transaction and replay guards, app-only inference output budget and personalization scope/explanation adapters. Verified relevant SQL/provider/frontend fixtures; adapter changes remain outside the extracted policy proof scope."
+      "sha256": "d4808f09f6c28d0dc9edf7dc76da31c93fa04e9c905e3a765da78957951653ba",
+      "review": "Reviewed bounded RFC6902 model edit adapter, protected metadata and storage/access retention, atomic clone application and host versions; real local Qwen textbox/button, native HTTP staging and no-op/destructive negative cases. SQL/provider adapters remain unproved."
     },
     "src/knowledge/embeddings.rs": {
       "status": "unproved",
@@ -2517,12 +2522,12 @@
       "review": "Production image copies historical app manifests required by Rust include_str. Public build reproduced eight missing inputs; dependency closure and negative copy-removal control pass. No Rust, schema or policy changed."
     },
     "Cargo.lock": {
-      "sha256": "12085c77a5701dbd33a4db13e567bdf2470b0128552cd6973919b702de11f5b2",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "ec340c9275dcd0ecf4dabe22abb1bd3b01ca3810f5a15b4d033509c903c7eb92",
+      "review": "Reviewed bounded RFC6902 model edit adapter, protected metadata and storage/access retention, atomic clone application and host versions; real local Qwen textbox/button, native HTTP staging and no-op/destructive negative cases. SQL/provider adapters remain unproved."
     },
     "Cargo.toml": {
-      "sha256": "aa2bfba4f56dae7f3c5e3eb8d23075c954a63310502e812bff9e191766ec006f",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "08fb2d0a03e856f67cd8a50c42b0d7516a22b83b3f761a6d4023648aa43022b2",
+      "review": "Reviewed bounded RFC6902 model edit adapter, protected metadata and storage/access retention, atomic clone application and host versions; real local Qwen textbox/button, native HTTP staging and no-op/destructive negative cases. SQL/provider adapters remain unproved."
     },
     "deploy/Dockerfile": {
       "sha256": "dc7c2c8b35843285ac1f25e3404c8c930d2dc8b0c1525ab5a3886ba028671f23",

@@ -500,3 +500,5 @@ registry. See [the performance and migration boundary](cognitive-commerce.md#lex
 | `src/checkout_page.rs` | Exact registered tenant/channel origin framing admission | Same suite: foreign origin, tenant, channel and invalid origin rejection |
 | `frontend/src/storefront/checkout/embedded-checkout.ts` | Exact-origin shopper completion and close messages | Frontend embedded-checkout unit tests |
 | Private original Storyfront bag and runtime client | Verify completed Core cart; remove only purchased quantities once; keep cancellation intact | Original cart-store and rust-commerce tests, live acceptance recorded separately |
+
+App generation edits are adapted by `src/developer/generation_edits.rs` as bounded JSON Patch into the existing Manifest; `generation_contract.rs` and `builds.rs` remain the storage/access and validation owners.

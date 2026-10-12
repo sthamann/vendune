@@ -2,6 +2,8 @@
 
 ## Connected workbench — 12 October 2026
 
+- AI edits target the existing Manifest through bounded JSON Patch; host-assigned versions, atomic application, no-op rejection and unchanged schema/access guards replace whole-app regeneration. A real local Qwen task produced translated, order-bound controls; broader model quality remains unbenchmarked.
+
 - Add editable Product advisor, Returns workspace and ERP handoff patterns to the existing visual App Studio.
 - Preserve host-object filters when adding or rebinding visual data controls; missing context prevents unfiltered requests. The actual order-bound case save is browser-verified.
 - Review model proposals and coding-agent imports before replacing the canvas; stale drafts/environment changes prevent acceptance.

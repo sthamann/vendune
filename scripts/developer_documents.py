@@ -22,6 +22,7 @@ class Model(BaseHTTPRequestHandler):
     prompt=b.get('input','');source=prompt.split('"sourceId":"')[1].split('"')[0] if '"sourceId":"' in prompt else None
     answer={'answer':{'de-DE':'Die Tasse ist spülmaschinenfest.','fr-FR':'La tasse passe au lave-vaisselle.','es-ES':'La taza es apta para lavavajillas.'}.get(behavior['mode'],'The cup is dishwasher safe.'),'source_ids':[source] if source and not behavior.get('uncited') else [],'missing_information':source is None}
    schema=b.get('text',{}).get('format',{}).get('schema') or b.get('output_config',{}).get('format',{}).get('schema') or b.get('format',{})
+   if 'patch' in schema.get('properties',{}):answer={'summary':labels,'patch':[{'op':'add','path':'/views/0/blocks/-','valueJson':json.dumps({'id':'edited_note','kind':'text','title':labels})}]}
    if schema.get('required')==['tool_calls']:answer={'tool_calls':[]}
    out={'status':'completed','output':[{'content':[{'type':'output_text','text':json.dumps(answer)}]}]}
   if self.path.endswith('/messages'):out={'stop_reason':'end_turn','content':[{'type':'text','text':json.dumps(answer)}]}
