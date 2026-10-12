@@ -1,26 +1,6 @@
 //! HTTP/MCP POS operations construct a trusted cashier context, then call existing commerce owners.
+use super::input::Input;
 use super::*;
-#[derive(Default, Deserialize)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-struct Input {
-    channel_id: Option<String>,
-    cart_token: Option<String>,
-    revision: Option<i64>,
-    items: Option<Vec<Item>>,
-    checkout: Option<commerce::CheckoutSelection>,
-    query: Option<String>,
-    after: Option<String>,
-    barcode: Option<String>,
-    request_key: Option<String>,
-    tender_minor: Option<String>,
-    total_minor: Option<String>,
-    product_id: Option<String>,
-    policy_version: Option<String>,
-    currency: Option<String>,
-    codes: Option<Vec<String>>,
-    terms: Option<bool>,
-    digital_immediate: Option<bool>,
-}
 pub(super) async fn channels(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "pos.use")?;
@@ -96,6 +76,13 @@ pub(crate) async fn invoke(
             "sw-context-token",
             token.parse().map_err(|_| bad("Invalid POS cart token"))?,
         );
+    }
+    if ["customers", "customer", "discount", "receipt"].contains(&op) {
+        // Bound the additional cashier futures so the shared MCP dispatcher retains a small stack frame.
+        return Box::pin(super::workspace_gateway::invoke(
+            a, h, channel, op, v, &input,
+        ))
+        .await;
     }
     match op {
         "currency" | "coupons" => {
@@ -246,14 +233,14 @@ pub(crate) async fn invoke(
                     .parse()
                     .map_err(|_| bad("Invalid POS reviewed total"))?,
             );
-            checkout(
+            Box::pin(checkout(
                 a,
                 &h,
                 input
                     .request_key
                     .as_deref()
                     .ok_or(bad("POS request key required"))?,
-            )
+            ))
             .await
         }
         "held" => {

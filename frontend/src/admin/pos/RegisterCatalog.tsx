@@ -16,6 +16,28 @@ export default function RegisterCatalog({
   channel: Channel;
 }) {
   const t = usePosText();
+  const search = useRef<HTMLInputElement>(null);
+  const [added, setAdded] = useState("");
+  const add = async (p: PosProduct) => {
+    const name = await r.add(p);
+    if (name) setAdded(name);
+  };
+  useEffect(() => {
+    const key = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        e.key === "/" &&
+        !target.matches("input,textarea,select") &&
+        !target.isContentEditable &&
+        !document.querySelector("dialog[open]")
+      ) {
+        e.preventDefault();
+        search.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", key);
+    return () => window.removeEventListener("keydown", key);
+  }, []);
   const { locale } = useLocale();
   const [variants, setVariants] = useState<PosProduct[] | null>(null);
   const [variantAfter, setVariantAfter] = useState<string | null>(null);
@@ -39,7 +61,7 @@ export default function RegisterCatalog({
       setFamily(p.id);
       setVariants(children);
       setVariantAfter(v.variantsPagination.nextCursor);
-    } else await r.add(p);
+    } else await add(p);
   };
   const loadVariants = async () => {
     const v = await r.command("detail", {
@@ -69,7 +91,7 @@ export default function RegisterCatalog({
           e.preventDefault();
           void r.catalog("", query.trim()).then((ps) => {
             if (ps?.length === 1) {
-              void r.add(ps[0]);
+              void add(ps[0]);
               setQuery("");
             }
           });
@@ -77,6 +99,7 @@ export default function RegisterCatalog({
       >
         <Icon name="search" />
         <input
+          ref={search}
           aria-label={t("search")}
           placeholder={t("search")}
           value={query}
@@ -85,6 +108,10 @@ export default function RegisterCatalog({
         />
         <button disabled={r.busy || !query.trim()}>{t("scan")}</button>
       </form>
+      <div className="pos-catalog-status">
+        <small>{t("shortcuts")}</small>
+        <span role="status">{added && `${t("added")}: ${added}`}</span>
+      </div>
       {error && <p role="alert">{error}</p>}
       <AppSurfaceSlot
         location="admin.pos.catalog"
@@ -117,9 +144,10 @@ export default function RegisterCatalog({
             <strong>{p.name}</strong>
             <span className="pos-product-price">
               {money(
-                typeof p.price === "number"
-                  ? p.price
-                  : (p.price.unitPrice ?? p.price.totalPrice ?? 0),
+                p.calculated_price?.unitPrice ??
+                  (typeof p.price === "number"
+                    ? p.price
+                    : (p.price.unitPrice ?? p.price.totalPrice ?? 0)),
               )}
               <Icon name="plus" />
             </span>
@@ -159,7 +187,7 @@ export default function RegisterCatalog({
             <button
               key={v.id}
               disabled={r.busy || v.stock <= 0}
-              onClick={() => void r.add(v).then(() => setVariants(null))}
+              onClick={() => void add(v).then(() => setVariants(null))}
             >
               {v.name} · {Object.values(v.options ?? {}).join(" / ")}
               <strong>

@@ -98,6 +98,10 @@ pub(crate) async fn check_locked(
             "POS settlement is unavailable in staging".into(),
         ));
     }
+    super::customer::check(tx, c).await?;
+    if c.data.pos_discount.is_some() {
+        auth::permit(h, "payments.manage")?;
+    }
     let data: Value =
         sqlx::query_scalar("SELECT data FROM sales_channels WHERE tenant=$1 AND id=$2 FOR SHARE")
             .bind(&c.tenant)

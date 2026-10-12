@@ -66,7 +66,6 @@ pub fn receipt_admissible(
 ) -> bool {
     expected == received && same_currency && confirmed
 }
-
 /// A guest address never grants the authenticated-customer rule.
 pub fn rule_authenticated(customer_present: bool, required: bool) -> bool {
     customer_present == required
@@ -308,4 +307,14 @@ pub fn b2b_approval_admissible(
     current: bool,
 ) -> bool {
     different && authorized && pending && current
+}
+
+pub fn pos_discount_admissible(
+    actor: bool,
+    currency: bool,
+    reason: bool,
+    minor: u64,
+    goods: u64,
+) -> bool {
+    actor && currency && reason && minor <= goods
 }

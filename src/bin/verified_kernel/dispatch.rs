@@ -230,6 +230,13 @@ pub(super) fn eval(j: &Value) -> Result<Value, String> {
             b("pending")?,
             b("current")?
         ))),
+        Some("pos_discount_admissible") => Ok(json!(pos_discount_admissible(
+            b("actor")?,
+            b("currency")?,
+            b("reason")?,
+            n("minor")?,
+            n("goods")?
+        ))),
         _ => Err("Unknown policy".into()),
     }
 }

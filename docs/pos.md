@@ -15,6 +15,7 @@ or register-specific database. The interface is an authenticated Studio workspac
 4. Save. Vendune adds cash and free immediate collection **to this channel's existing
    settings override**, leaving the other channels' payment and delivery settings intact.
 5. Open **Point of sale**, choose the register and search or scan a product number/EAN.
+   **Open register** on the channel opens the dedicated register mode immediately.
    Product families offer their native variants, including the main variant.
 
 Channel inherited settings use the existing currency, tax, payment and company
@@ -22,12 +23,47 @@ editors. The same revision history, pause/resume and dependency-aware deletion a
 A channel with orders is retained; historical sales cannot be erased by removing a register.
 POS channels do not expose a public storefront or public Store API/UCP checkout.
 
-![Touch register with shared prices and cash change](assets/pos/register.png)
+![Focused register with visible tender and shared prices](assets/pos/cashier-focus-en.png)
 
-[View native variant selection](assets/pos/variants.png) · [Mobile payment view](assets/pos/mobile.png)
+[View native variant selection](assets/pos/variants.png) · [Focused mobile payment view](assets/pos/cashier-mobile-en.png)
 
 On smaller screens, **Products / Current sale** switches views while keeping the
 cart and its authoritative total. Product cards and payment controls remain touch-sized.
+
+## Cashier mode, customer cards and advice
+
+**Open register mode** hides the Studio navigation and header. The product grid sits
+beside the current sale; **Back to Studio** restores the same administration. Optional
+fullscreen is a separate browser action. On mobile, Products / Current sale keeps the
+same server-owned cart. Press `/` to focus product search and Enter to scan a product
+number/EAN; a successful addition displays visible feedback. Product cards use the
+native calculated customer price, rather than the raw retail field.
+
+**Customer** opens bounded name/email/customer-number search. Scan a card whose barcode
+is the existing `customerNumber`, review the match and select it. The account, customer
+group and saved billing address come from the shared customer owner; no customer
+password/session is issued. Selecting/removing a customer reprices the current sale.
+Current tenant, cashier, revision and PII permissions are checked. Revoking PII access
+also denies an already selected cart. Customer activity/group/identity is revalidated
+under checkout locks. Cards identify customers; loyalty points, wallets and card issuance
+are not implemented by this slice.
+
+**Register discount** supports percentage presets, arbitrary percentages to two decimal
+places and fixed amounts in the current currency precision. A reason and `payments.manage`
+are required. Percentages are integer basis points; fixed amounts are integer minor units.
+The adjustment applies after configured promotions and app adjustments, through the existing
+native line allocation/tax calculation in quote and commit. It cannot exceed the goods
+value. Reducing goods below a fixed adjustment or changing its currency requires removing
+and reapplying it. The cart revision, cashier and reason are retained in transactional
+`pos.discount_changed` events. This is not a second promotion or pricing engine.
+
+**Ask Vendune** beside the register reuses the existing grounded merchant chat and its
+configured provider. The question includes the current item labels, not customer contact
+data. This panel displays advice only: it exposes no apply/payment action. Normal model
+permissions, quotas and provider configuration apply. It does not claim an automatic
+upsell effect or a new model integration.
+
+![Completed local cashier sale with shared receipt and printer controls](assets/pos/cashier-completion-en.png)
 
 ## A sale
 
@@ -56,7 +92,13 @@ order and emits one POS completion event. No terminal driver is included.
 
 After completion, **Create receipt → Open PDF** uses the ordinary immutable invoice
 owner and numbering. Seller data comes from shared/channel company settings. The
-receipt footer is snapshotted into the order so later edits cannot rewrite it. Recent
+receipt footer is snapshotted into the order so later edits cannot rewrite it. **Receipt
+printer** reads those same issued invoice lines through an authenticated POS command,
+renders text safely and opens the operating-system print dialog for 58/80 mm layouts.
+Choose an installed printer and its matching paper settings. No cart token or merchant
+credential is included in a print URL. Blocked popups produce an actionable message.
+The local Chrome acceptance reached print preview and cancelled it; it did not send
+paper to a physical receipt printer. Recent
 register sales link to the existing order-management screen, including its normal
 state transitions, cancellation documents and delivery/customer information.
 
@@ -104,6 +146,9 @@ The same operations are discoverable as MCP tools:
 | `complete` | Reviewed minor-unit total, stable request key, optional cash tender |
 | `payment`, `reconcile` | Owned attempt readiness and existing durable provider reconciliation |
 | `held`, `sales` | Cashier's open parked carts and recent channel orders |
+| `customers`, `customer` | Bounded CRM/card lookup and revision-checked account selection/removal |
+| `discount` | Reasoned cashier adjustment or explicit null removal |
+| `receipt` | Issued, channel-owned immutable invoice lines; never creates a second document |
 
 ```json
 {
@@ -118,9 +163,33 @@ The same operations are discoverable as MCP tools:
 
 Give a cashier `pos.use`, `catalog.read` and `orders.write`. Viewing recent orders
 also requires `orders.read`; cash settlement/reconciliation requires `payments.manage`.
-Receipts use `documents.create`/`documents.read`. Team/API-key revocation remains
+Customer/card access requires both `customers.read` and `customers.pii`.
+Discounts require `orders.write` and `payments.manage`. Receipts use
+`documents.create`/`documents.read`, `orders.read` and `customers.pii`. Team/API-key revocation remains
 immediate. General merchant headers or a copied POS token cannot substitute for trusted
 POS admission, including through generic MCP cart calls.
+
+### Verified acceptance and proof boundary
+
+The isolated `scripts/pos.py` suite exercises customer/card selection, real foreign
+identities, immediate PII revocation, missing/stale inputs, exact percentage/fixed
+reductions, quote/commit equality, actor recording, native customer/address order
+snapshots, immutable invoice text, MCP, concurrent completion and actual Flow execution
+for a pre-order discount event. Provider and customer-account suites preserve the existing
+checkout paths. Frontend tests cover exact discount submission, read-only advice,
+customer-card transport, calculated prices, safe print text and blocked popups.
+
+A local Chrome run selected a customer card, applied a 10% adjustment, completed
+`RAC-9ae55d99` for **60.67 EUR** under the existing customer-group pricing, received
+**39.33 EUR** change from 100 EUR, and issued `INV-00000002`. Print preview displayed
+that invoice; no real provider charge or physical print occurred. Mobile checks and
+captures are maintained with this guide.
+
+The extracted Lean policy checks the actor/currency/reason booleans and adjustment
+bound. It does not prove SQL authorization, percentage calculation, browser behavior,
+provider settlement or fiscal compliance. The real request regressions cover those
+implemented boundaries separately. New cashier domain futures are boxed to prevent
+an MCP worker stack exhaustion observed and fixed during this acceptance.
 
 ## Extend the register with apps
 
@@ -155,6 +224,8 @@ and authenticated PDF. `payment_providers.py` adds onboarding, redirect readines
 confirmed capture and one completion event through a local provider fixture. No paid
 provider call or real card charge is made. Frontend regression tests cover exact
 tender precision, cart restore and recovery after a lost completion response.
+
+The local customer/card → 10% adjustment → cash sale → invoice → print-preview acceptance recorded `RAC-9ae55d99` / `INV-00000002` at 60.67 EUR after native business-group repricing. A subsequent English walk-in sale on the final UI recorded `RAC-2688cd17` / `INV-00000003` at 74.90 EUR. Park/resume/reload and the 390px Products/Current sale switch retain the same cart; the mobile document width equals its viewport. At 1024 × 768, the payment button remains inside the visible register; translated/wrapped toolbar heights are measured instead of assumed. All 455 frontend tests in 82 files pass. The extracted POS adjustment predicate has exact authorization/reason/currency/bound properties with compiled Lean conformance; SQL locking, shared tax allocation, UI and printer adapters remain outside that proof.
 
 The production cash-admission predicate has Lean properties for exact admission,
 change conservation and unauthorized denial, with compiled conformance and negative

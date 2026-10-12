@@ -32,7 +32,7 @@ export const freshChannel = (mainLocale: string): Channel => ({
   },
 });
 export function posUrl(shop: string, channel: string) {
-  return `/?shop=${encodeURIComponent(shop)}&studio=pos&posChannel=${encodeURIComponent(channel)}#merchant`;
+  return `/?shop=${encodeURIComponent(shop)}&studio=pos&posMode=focus&posChannel=${encodeURIComponent(channel)}#merchant`;
 }
 export function channelUrl(shop: string, channel: string) {
   const publicOrigin = location.hostname.endsWith(".vendune.ai")

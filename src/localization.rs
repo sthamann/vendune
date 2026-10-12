@@ -179,6 +179,7 @@ pub(super) async fn preview_quote(
         data: Cart {
             coupons: vec![],
             pos_actor: None,
+            pos_discount: None,
             b2b: None,
             currency: String::new(),
             sales_channel: "default".into(),

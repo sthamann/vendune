@@ -72,6 +72,8 @@ import Commerce.Claims
 #print axioms CommerceKernel.pos_cash_conserves
 #print axioms CommerceKernel.pos_cash_exact
 #print axioms CommerceKernel.pos_cash_unauthorized_denied
+#print axioms CommerceKernel.pos_discount_exact
+#print axioms CommerceKernel.pos_discount_exceeds_denied
 #print axioms CommerceKernel.receipt_exact
 #print axioms CommerceKernel.receipt_exact_behavior
 #print axioms CommerceKernel.refund_bounded

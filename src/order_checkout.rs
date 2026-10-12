@@ -48,6 +48,12 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
         purchase["appConfigurations"] = json!(c.data.app_configurations);
     }
     if h.pos.is_some() {
+        if let Some(discount) = &c.data.pos_discount {
+            purchase["posDiscount"] = json!(discount);
+        }
+        if let Some(customer) = &c.data.customer_id {
+            purchase["posCustomer"] = json!(customer);
+        }
         purchase["posTender"] = json!(h.pos.as_ref().and_then(|p| p.tender_minor));
     }
     let fingerprint = hash(&format!("{}:{}", c.id, purchase));
@@ -163,6 +169,7 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
         &prepared_hooks,
     )
     .await?;
+    q = pos::adjust_quote(&c, q, &priced, &config, settings_revision)?;
     commerce::dates_conn(&mut tx, &mut q).await?;
     for i in &c.data.items {
         let p = ps.iter().find(|p| p.id == i.id).unwrap();

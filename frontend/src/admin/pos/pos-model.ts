@@ -1,5 +1,15 @@
 /** Small POS view models and exact decimal input conversion; server quotes own all calculations. */
 export type PosCart = {
+  customerId?: string;
+  customerEmail?: string;
+  customerGroup?: string;
+  posDiscount?: {
+    kind: string;
+    value: number;
+    currency: string;
+    reason: string;
+    minor: string;
+  };
   id: string;
   token: string;
   revision: number;
@@ -50,6 +60,7 @@ export type PosProduct = {
   name: string;
   productNumber?: string;
   price: { unitPrice?: number; totalPrice?: number } | number;
+  calculated_price?: { unitPrice?: number; totalPrice?: number };
   media?: { url: string }[];
   stock: number;
   minPurchase?: number;

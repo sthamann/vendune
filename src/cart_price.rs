@@ -193,6 +193,7 @@ pub(crate) async fn cart_json(a: &App, c: &StoredCart) -> Result<Value> {
         &hooks,
     )
     .await?;
+    result = pos::adjust_quote(c, result, &ps, &config, revision)?;
     result["selectionNeedsConfirmation"] = json!(changed);
     result["legal"] = json!({"requiresDigital":!config.is_business(&c.data.group) && ps.iter().any(|p|p.extra["digital"]==true),"strictCheckout":config.legal.strict_checkout});
     commerce::dates(a, &mut result).await?;
