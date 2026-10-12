@@ -27,10 +27,37 @@ it validates the existing lifecycle and checkout, not every new guard in product
 
 ![Public simulated checkout following app upgrade and restoration](assets/showcase/app-lifecycle-checkout-20261012.png)
 
+The follow-up Core is merged in [PR #90](https://github.com/sthamann/vendune/pull/90)
+(`6823f6f`). Both complete GitHub verification runs on `cdd0724` passed. The deployed
+`eminent-middle-497` image uses `cdd0724`; its complete source tree is byte-identical
+to the squash merge. Northflank confirms Running, one instance, on the existing
+0.5 vCPU / 1 GB service. No extra ERP service was created or charged.
+
+A fresh browser checkout on this deployed image saved **RAC-40dfc8d2**,
+**43.90 EUR**, including **4.90 EUR** delivery and **7.01 EUR** VAT.
+Its immutable receipt and Bag **0** persisted after reload. This was a simulated
+payment with fictional contact details, not an externally settled purchase.
+The updated public App Studio separates merchant and shopper views, hides the
+payment-provider tab for non-payment apps, and recognizes the restored package
+as an already saved version. The earlier receipt remains available after deployment.
+
+![Updated public App Studio with distinct merchant and shopper surfaces](assets/showcase/app-studio-after-release-20261012.png)
+
+![Fresh simulated checkout receipt persisted after the Core deployment](assets/showcase/app-lifecycle-after-release-20261012.png)
+
+The corrected suite includes **202 Rust tests, 433 frontend tests**, all registered
+HTTP/PostgreSQL/provider/browser-contract suites and their formal/differential/
+coverage gates. Local frontend line coverage is **64.39%**, not 100%. A separate
+fresh PostgreSQL SCRAM fixture checks actual adapter/password authentication.
+New app workflow, asynchronous SQL, provider and UI behavior remain outside Lean's
+extracted policy proofs. Qodo's local CLI was unavailable; no external local review
+is claimed. The ERP Docker dependency closure was checked, while local container
+execution was unavailable; the actual Rust adapter process was tested independently.
+
 **12 October workbench update:** editable app patterns, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. [How to use it, ownership and verification boundaries](connected-workbench.md).
 
 **Illustrated app workshops:** five practical guides now cover product advice,
-private returns, customer fields, UTC review reminders and ERP handoff. Twelve
+private returns, customer fields, UTC review reminders and ERP handoff. Fourteen
 current English browser captures show actual assistants, models, controls,
 connections and versions. Each guide includes a coding-agent task, required
 permissions, preview/release steps and explicit integration boundaries.

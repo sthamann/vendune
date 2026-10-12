@@ -21,10 +21,11 @@ six existing fields before adding anything:
 | `received_on` | Date received | Optional date |
 | `notes` | Internal working notes | Private plain text |
 
-![Order reference belongs to the app model, with public access disabled](../assets/app-tutorials/returns-model.jpg)
+![App-owned initial state, permitted transitions and immutable order reference](../assets/app-tutorials/returns-workflow-editor.png)
 
-*Actual draft model. The app refers to an owned order; it does not add returns
-implementation files or arbitrary columns to the core order module.*
+*Actual 12 October local editor. The app owns its states and immutable order
+reference; the shared API enforces the same contract. No returns implementation
+files or arbitrary columns are added to the core order module.*
 
 ## 2. Edit the workflow visually
 
@@ -65,6 +66,12 @@ status to **Under review**, save, then select Received and Closed with one save 
 reopening is needed; the form retains the confirmed revision. The record selector
 also lets you create another case for that order. This is the case status; the
 original order/payment status and amounts must remain unchanged.
+
+![Closed return case with received date preserved after a browser reload](../assets/app-tutorials/returns-case-confirmed.png)
+
+*Actual local app at order RAC-cbcfc9f0. New, Under review, Goods received and
+Closed each required one save. The received date and Closed state survived
+reload; the original order and simulated authorization were unchanged.*
 
 Try the app with a read-only teammate. The editor must not authorize saving.
 Attempting a foreign order reference must fail at the backend, without creating
