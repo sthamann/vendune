@@ -207,7 +207,7 @@ pub(crate) async fn personalization(
     };
     ps.sort_by(|x, y| score(y).cmp(&score(x)).then(x.id.cmp(&y.id)));
     Ok(Json(
-        json!({"rankedProductIds":ps.iter().map(|p|&p.id).collect::<Vec<_>>(),"adapted":rows.iter().any(|r|r.get::<i64,_>("score")>=3),"basis":"observed-session-category-affinity","stored":n==1,"candidateLimit":100,"causalUpliftProven":false}),
+        json!({"rankedProductIds":ps.iter().map(|p|&p.id).collect::<Vec<_>>(),"adapted":rows.iter().any(|r|r.get::<i64,_>("score")>=3),"basis":"observed-session-category-affinity","explanation":{"signals":["view","cart_add"],"cartWeight":3,"windowDays":30,"ownSessionOnly":true,"changesPrices":false,"categories":rows.iter().map(|r|json!({"category":r.get::<String,_>("category"),"score":r.get::<i64,_>("score")})).collect::<Vec<_>>()},"stored":n==1,"candidateLimit":100,"causalUpliftProven":false}),
     ))
 }
 /// Clear this anonymous shop session's behavior and allow the shopper to turn adaptation off.

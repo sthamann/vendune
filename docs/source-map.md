@@ -1,5 +1,7 @@
 # Source responsibilities and verification map
 
+**12 October workbench update:** editable app patterns, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. [How to use it, ownership and verification boundaries](connected-workbench.md).
+
 `main.rs` contains process setup and the module registry. It delegates migrations
 and dependencies to `bootstrap.rs` and transports to `routes.rs`. HTTP, MCP and
 UCP invoke shared operations, rather than independently reimplementing checkout.

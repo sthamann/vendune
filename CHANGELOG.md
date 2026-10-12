@@ -1,5 +1,15 @@
 # Changelog
 
+## Connected workbench — 12 October 2026
+
+- Add editable Product advisor, Returns workspace and ERP handoff patterns to the existing visual App Studio.
+- Review model proposals and coding-agent imports before replacing the canvas; stale drafts/environment changes prevent acceptance.
+- Expand native generation controls and the local app output ceiling; retain existing storage/access/service/event contracts.
+- Route approved whole-catalogue translation proposals into the existing durable draft queue, with a direct review link and idempotent replay.
+- Explain consent-bound personalization and prevent cross-shop/cart state or delayed-response reuse.
+- Companion private changes checkpoint completed imports and protect payment referral replay/disconnect state.
+- [Architecture, usage, tests and precise remaining boundaries](docs/connected-workbench.md). Local fixtures are not live-provider or hosted acceptance.
+
 ## Storyfront connection consent — 2026-10-09
 
 - Fixed the Storyfront workspace's Add integration button: it now uses the same

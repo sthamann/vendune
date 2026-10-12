@@ -5,7 +5,7 @@ mod fields;
 mod routes;
 mod worker;
 pub(crate) use apply::apply;
-pub(crate) use routes::{control, create, detail, list};
+pub(crate) use routes::{control, create, detail, enqueue, list};
 pub(crate) use worker::once;
 pub(crate) fn router() -> Router<App> {
     Router::new()

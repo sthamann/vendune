@@ -104,7 +104,7 @@ it("adds and reorders real schema blocks, then saves, stages and releases only t
     selections: [{ key: `app:${saved.manifest.id}`, digest: "release-digest" }],
   });
 });
-it("applies an agent manifest to the same canvas, preserving content and custom fields", async () => {
+it("reviews an agent manifest before updating the same canvas, preserving content and custom fields", async () => {
   setup();
   const user = userEvent.setup();
   await screen.findByText(/care_/);
@@ -121,6 +121,10 @@ it("applies an agent manifest to the same canvas, preserving content and custom 
   });
   await user.click(
     screen.getByRole("button", { name: "Apply agent JSON to canvas" }),
+  );
+  expect(screen.queryByDisplayValue("care_score")).toBeNull();
+  await user.click(
+    await screen.findByRole("button", { name: "Use this proposal" }),
   );
   await user.click(screen.getByRole("button", { name: "Data models" }));
   expect(screen.getByDisplayValue("care_score")).toBeVisible();

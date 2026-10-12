@@ -1,4 +1,5 @@
 /** CollectionView: storefront view composed from the scoped cart/controller. */
+import { useBuildingText } from "../../shared/i18n/app-building-i18n";
 import { productURL } from "../catalog/product-url";
 import { BRAND } from "../../shared/ui/Brand";
 import ImagePlaceholder from "../catalog/ImagePlaceholder";
@@ -10,6 +11,7 @@ import "../styles/shop.css";
 
 import { useStorefront } from "./StorefrontContext";
 export default function CollectionView() {
+  const b = useBuildingText();
   const {
     s,
     adapted,
@@ -46,6 +48,12 @@ export default function CollectionView() {
               )}
         </span>
       </div>
+      {adapted && (
+        <details className="shop-personalization-explanation">
+          <summary>{b("personalizationWhy")}</summary>
+          <p>{b("personalizationExplanation")}</p>
+        </details>
+      )}
       <div className="shop-filters">
         <CatalogNavigation />
         <input

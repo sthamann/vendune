@@ -1,5 +1,7 @@
 # Rust standard services and language boundaries
 
+**12 October workbench update:** editable app patterns, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. [How to use it, ownership and verification boundaries](connected-workbench.md).
+
 Vendune's commerce server and bundled Email Delivery / Google Analytics / Gmail / Slack
 service run in Rust. The connector is a separate process (`cargo build --locked --bin
 connectors`), not provider logic embedded in checkout handlers. Both services use

@@ -4,6 +4,7 @@ mod archive;
 mod builds;
 mod drafts;
 mod generation;
+mod generation_contract;
 mod preview;
 mod routes;
 pub(crate) use routes::router;

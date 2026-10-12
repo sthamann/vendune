@@ -16,6 +16,9 @@ pub(crate) struct Change {
 pub(crate) struct Proposal {
     #[serde(default)]
     pub(crate) app_action: Option<apps::AppChange>,
+    /// Queues catalogue drafts only after explicit approval; it never applies or publishes translations.
+    #[serde(default)]
+    pub(crate) translation: Option<String>,
     pub(crate) summary: String,
     pub(crate) changes: Vec<Change>,
     #[serde(default)]

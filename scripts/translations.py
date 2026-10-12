@@ -14,7 +14,12 @@ class Handler(BaseHTTPRequestHandler):
   assert self.path in ['/api/chat','/v1/responses','/v1/messages'],self.path
   captured.append(body)
   if behavior['reject']:self.send_response(429);self.end_headers();return
-  prompt=json.loads(body['input'] if 'input'in body else body['messages'][-1]['content']);assert prompt['targetLocale']=='it-IT'
+  raw=body['input'] if 'input'in body else body['messages'][-1]['content']
+  if not raw.startswith('{'):
+   value={'tool_calls':[]} if 'read-decision phase' in raw else {'summary':'Prepare missing whole catalogue translations for review','changes':[],'translation':'it-IT','experience':None,'app_action':None}
+   text=json.dumps(value)
+   self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(json.dumps({'message':{'content':text},'done_reason':'stop'}).encode());return
+  prompt=json.loads(raw);assert prompt['targetLocale']=='it-IT'
   entries=[{'path':v['path'],'text':'IT '+v['text']}for v in prompt['texts']]
   if behavior['invalid']:entries.append({'path':'/price','text':'0'})
   text=json.dumps({'translations':entries})
@@ -28,6 +33,7 @@ BASE=f'http://127.0.0.1:{port}';env={**os.environ,'BIND_ADDR':f'127.0.0.1:{port}
 # Dedicated worker and HTTP replica share leases. The normal verification server cannot consume these jobs:
 # claim-only provider pin is per job model; using the replica's providers requires routing all translation
 # processing through this fixture process. Pause the normal worker through server's HTTP role in runner.
+(ROOT/'.run').mkdir(exist_ok=True)
 env['PROCESS_ROLE']='all';public={};merchant={};checks=[];log=(ROOT/'.run/translation-contract.log').open('w');process=serve(env,BASE,log)
 def req(path,body=None,h=None,method=None,expected=200):
  r=urllib.request.Request(BASE+path,data=None if body is None else json.dumps(body).encode(),headers={'Content-Type':'application/json',**public,**(h or {})},method=method or ('POST' if body is not None else 'GET'))
@@ -55,6 +61,17 @@ try:
  assert any('Descripción fuente' in json.dumps(x,ensure_ascii=False)for x in captured)
  original=req('/api/merchant/products/mug',h=merchant);assert original['translations']['it']['name'] is None
  check('all products translate from the configured main language into durable drafts without silently changing live content')
+ plan=req('/api/agent/plan',{'instruction':'Prepare missing translations for the whole catalogue into Italian, as drafts only','inference':{'provider':'ollama','model':'translation-fixture'}},merchant)
+ task=plan['taskId'];assert plan['preview']['proposal']['translation']=='it-IT'
+ before=len(req('/api/merchant/translations',h=merchant)['jobs'])
+ req('/api/agent/tasks/'+task+'/apply',{},merchant,expected=400)
+ assert len(req('/api/merchant/translations',h=merchant)['jobs'])==before
+ applied=req('/api/agent/tasks/'+task+'/apply',{'approve':True},merchant);assert applied['translationJobId']==task
+ req('/api/agent/tasks/'+task+'/apply',{'approve':True},merchant)
+ assert len(req('/api/merchant/translations',h=merchant)['jobs'])==before+1
+ wait(task)
+ assert req('/api/merchant/products/mug',h=merchant)['translations']['it']['name'] is None
+ check('real planner preview → explicit approval → same translation queue; repeated approval creates one job and leaves live texts unchanged')
  changed=req('/api/merchant/products/chair',h=merchant);changed['translations']['es']['name']='Manual edit';req('/api/merchant/products/chair',changed,merchant,'PUT')
  # Restart the owned replica; proposals are persisted and require no repeat inference.
  calls=len(captured);stop(process);process=serve(env,BASE,log);assert detail(id)['job']['status']=='ready' and len(captured)==calls

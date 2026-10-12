@@ -47,6 +47,10 @@ export function useAppStudio(
     [baseline, setBaseline] = useState("");
   const [change, setChange] = useState<Change | null>(null),
     [reviewed, setReviewed] = useState(false);
+  const [proposal, setProposal] = useState<{
+    build: Build;
+    base: string;
+  } | null>(null);
   const epoch = useRef(0),
     running = useRef(false);
   const load = async () => {
@@ -229,14 +233,40 @@ export function useAppStudio(
       await refresh();
       setEnv(v.id);
     },
+    proposal,
+    discardProposal: () => setProposal(null),
+    acceptProposal: () => {
+      if (
+        !proposal ||
+        proposal.base !== JSON.stringify(manifest) ||
+        proposal.build.environment !== env
+      )
+        return;
+      adopt(proposal.build);
+      setProposal(null);
+    },
     generate: async (prompt: string, provider: string, model: string) => {
+      const base = JSON.stringify(manifest),
+        current = epoch.current;
+      setProposal(null);
       const b = await request("/api/developer/generate", {
         environment: env,
         prompt,
         manifest,
         inference: { provider, model },
       });
-      adopt(b);
+      if (current === epoch.current) setProposal({ build: b, base });
+    },
+    proposeImport: async (m: Manifest) => {
+      const base = JSON.stringify(manifest),
+        current = epoch.current;
+      const b = await request("/api/developer/import", {
+        environment: env,
+        prompt: "Reviewed coding-agent import",
+        summary: m.name,
+        manifest: m,
+      });
+      if (current === epoch.current) setProposal({ build: b, base });
     },
     startDraft: (m: Manifest) => {
       dispatch(m);

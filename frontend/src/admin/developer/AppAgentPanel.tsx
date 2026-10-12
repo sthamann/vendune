@@ -1,4 +1,6 @@
 /** Coding agents receive the current Manifest IR and authoritative schema; imported edits round-trip to the canvas. */
+import { useBuildingText } from "../../shared/i18n/app-building-i18n";
+import AppProposalReview from "./AppProposalReview";
 import { useControlText } from "../../shared/i18n/control-i18n";
 import { useState } from "react";
 import { useAppStudioText } from "../../shared/i18n/app-studio-i18n";
@@ -24,7 +26,8 @@ export default function AppAgentPanel({
   studio: AppStudio;
   request: RequestFn;
 }) {
-  const c = useControlText();
+  const c = useControlText(),
+    t = useBuildingText();
   const { a } = useAppStudioText(),
     { w } = useWorkbenchText();
   const [prompt, setPrompt] = useState(""),
@@ -42,6 +45,22 @@ export default function AppAgentPanel({
       <section className="app-model-card">
         <h2>{a("prompt")}</h2>
         <p>{a("hint")}</p>
+        <div className="app-agent-options">
+          <button
+            type="button"
+            className="studio-secondary"
+            onClick={() => setPrompt(t("formPrompt"))}
+          >
+            {t("formIdea")}
+          </button>
+          <button
+            type="button"
+            className="studio-secondary"
+            onClick={() => setPrompt(t("validationPrompt"))}
+          >
+            {t("validationIdea")}
+          </button>
+        </div>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -103,6 +122,7 @@ export default function AppAgentPanel({
           {!configured && <small>{w("providerMissing")}</small>}
         </form>
       </section>
+      <AppProposalReview studio={studio} />
       <section className="app-model-card">
         <h2>{w("externalAgent")}</h2>
         <p>{w("agentHint")}</p>
@@ -169,20 +189,20 @@ export default function AppAgentPanel({
         />
         <button
           className="studio-primary"
-          disabled={!json || studio.busy}
+          disabled={!json || !studio.env || studio.busy}
           onClick={() => {
             try {
               const parsed = JSON.parse(json),
                 m = (parsed.manifest ?? parsed) as Manifest;
               if (
                 !m ||
-                m.runtime !== "declarative" ||
+                !["declarative", "service"].includes(m.runtime) ||
                 !Array.isArray(m.entities) ||
                 !Array.isArray(m.views) ||
                 !Array.isArray(m.surfaces)
               )
                 throw Error(a("invalid"));
-              studio.edit(compile(m));
+              void studio.run(() => studio.proposeImport(compile(m)));
               studio.setError("");
             } catch (e) {
               studio.setError((e as Error).message);

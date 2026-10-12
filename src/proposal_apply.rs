@@ -34,15 +34,20 @@ pub(crate) async fn apply_mode(
     if !p.changes.is_empty() {
         auth::permit(h, "catalog.write")?;
     }
-    if p.experience.is_some() {
+    if p.experience.is_some() || p.translation.is_some() {
         auth::permit(h, "catalog.write")?;
+    }
+    if autonomous && p.translation.is_some() {
+        return Err(bad("Translation drafts require explicit merchant approval"));
     }
     if autonomous {
         auth::permit(h, "catalog.write")?;
         auth::permit(h, "settings.write")?;
     }
     if r.get::<bool, _>("applied") {
-        return Ok(json!({"taskId":id,"applied":true,"replayed":true}));
+        return Ok(
+            json!({"taskId":id,"applied":true,"replayed":true,"translationJobId":p.translation.as_ref().map(|_|id)}),
+        );
     }
     let settings_row =
         sqlx::query("SELECT data,revision FROM commerce_settings WHERE tenant=$1 FOR UPDATE")
@@ -87,6 +92,11 @@ pub(crate) async fn apply_mode(
     if autonomous {
         cognition::autonomy::reserve(&mut tx, t, id, h, &settings, &p, &products).await?;
     }
+    if let Some(target) = &p.translation {
+        let choice: Choice = serde_json::from_value(v["translationInference"].clone())
+            .map_err(|_| bad("Invalid translation provider"))?;
+        translations::enqueue(a, &mut tx, t, id, &settings, (target, &choice, false)).await?;
+    }
     if let Some(change) = &p.app_action {
         apps::apply_change(&mut tx, t, change, h).await?;
     }
@@ -128,5 +138,5 @@ pub(crate) async fn apply_mode(
         .execute(&mut *tx)
         .await?;
     tx.commit().await?;
-    Ok(json!({"taskId":id,"applied":true}))
+    Ok(json!({"taskId":id,"applied":true,"translationJobId":p.translation.as_ref().map(|_|id)}))
 }

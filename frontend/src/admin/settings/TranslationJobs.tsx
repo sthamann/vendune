@@ -43,7 +43,9 @@ export default function TranslationJobs({
       config.locales.find((l) => l !== config.mainLocale) ?? "",
     ),
     [overwrite, setOverwrite] = useState(false),
-    [selected, setSelected] = useState(""),
+    [selected, setSelected] = useState(
+      new URLSearchParams(location.search).get("translationJob") ?? "",
+    ),
     [drafts, setDrafts] = useState<Draft[]>([]),
     [counts, setCounts] = useState<Record<string, number>>({}),
     [cursor, setCursor] = useState<string | null>(null),

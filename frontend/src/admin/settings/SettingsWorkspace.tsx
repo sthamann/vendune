@@ -46,7 +46,11 @@ export default function SettingsWorkspace({
   const { c: ct } = useCurrencyText();
   const { r } = useCrmText();
   const { l } = useLegalText();
-  const [area, setArea] = useState<Area>("masterData");
+  const [area, setArea] = useState<Area>(() =>
+    new URLSearchParams(location.search).get("settings") === "languages"
+      ? "languages"
+      : "masterData",
+  );
   const [dirty, setDirty] = useState(false);
   const [pending, setPending] = useState<(() => void) | null>(null);
   const navigate = (action: () => void) => {

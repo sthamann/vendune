@@ -1,4 +1,5 @@
 /** Guided app kinds create normal editable manifests; all changes follow private-stage versioning. */
+import AppRecipes from "./AppRecipes";
 import { useState } from "react";
 import LocalizedField from "../../shared/i18n/LocalizedField";
 import ContentLanguagePicker from "../../shared/i18n/ContentLanguagePicker";
@@ -64,34 +65,37 @@ export default function AppAssistant({
         </button>
       </header>
       {!kind ? (
-        <div className="app-assistant-grid">
-          {appKinds.map((k) => (
-            <button
-              type="button"
-              key={k}
-              className="app-kind-card"
-              onClick={() => {
-                setKind(k);
-                setName(assistantText(k));
-                setLocation(
-                  k === "frontend" || k === "combined"
-                    ? "product.detail"
-                    : k === "admin"
-                      ? "admin.product.tab"
-                      : "admin.navigation",
-                );
-                setPublish(k === "frontend" || k === "combined");
-              }}
-            >
-              <span className={`app-kind-icon app-kind-${k}`}>
-                <Icon name={icons[k]} size={23} />
-              </span>
-              <strong>{t(k)}</strong>
-              <span>{t(`${k}Hint` as AssistantKey)}</span>
-              <Icon name="arrow" size={16} />
-            </button>
-          ))}
-        </div>
+        <>
+          <AppRecipes onCreate={onCreate} />
+          <div className="app-assistant-grid">
+            {appKinds.map((k) => (
+              <button
+                type="button"
+                key={k}
+                className="app-kind-card"
+                onClick={() => {
+                  setKind(k);
+                  setName(assistantText(k));
+                  setLocation(
+                    k === "frontend" || k === "combined"
+                      ? "product.detail"
+                      : k === "admin"
+                        ? "admin.product.tab"
+                        : "admin.navigation",
+                  );
+                  setPublish(k === "frontend" || k === "combined");
+                }}
+              >
+                <span className={`app-kind-icon app-kind-${k}`}>
+                  <Icon name={icons[k]} size={23} />
+                </span>
+                <strong>{t(k)}</strong>
+                <span>{t(`${k}Hint` as AssistantKey)}</span>
+                <Icon name="arrow" size={16} />
+              </button>
+            ))}
+          </div>
+        </>
       ) : (
         <form
           onSubmit={(e) => {

@@ -32,6 +32,7 @@ import AppStudioStatus from "./AppStudioStatus";
 import { useDesignerKeys } from "./useDesignerKeys";
 import "../styles/app-studio.css";
 import "../styles/app-assistant.css";
+import "../styles/app-building.css";
 import "../styles/app-studio-inspector.css";
 import "../styles/app-studio-panels.css";
 import "../styles/app-studio-responsive.css";

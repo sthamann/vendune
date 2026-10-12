@@ -1,5 +1,7 @@
 # Vendune feature guide
 
+**12 October workbench update:** editable app patterns, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. [How to use it, ownership and verification boundaries](connected-workbench.md).
+
 [Documentation home](documentation-site.md) · [Get started](quickstart.md) · [Exact Shopware scope](shopware-parity.md) · [Source map](source-map.md)
 
 **Updated on 9 October 2026 against merged Core `598bbec`.** This guide follows the storefront, all 15 Studio workspaces and the separate platform console. The connected intelligence, app ontology, source/consent fences and runtime hardening are described in the [complete change and acceptance record](release-acceptance-2026-10-09.md). The dated media captures retain their original provenance. [Current release and deployment boundaries](current-release.md).
