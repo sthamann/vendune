@@ -17,47 +17,49 @@ export default function AppVersions({
       <section className="app-model-card">
         <h2>{a("versions")}</h2>
         {!studio.builds.length && <p>{w("noBuilds")}</p>}
-        {studio.builds.map((b) => (
-          <article className="app-version-row" key={b.id}>
-            <div>
-              <strong>
-                {contentText(b.manifest.name, locale, studio.mainLocale)}
-              </strong>
-              <span className="soft-tag">{b.version}</span>
-              <span>{w(b.state)}</span>
-              <code>{b.digest.slice(0, 12)}</code>
-            </div>
-            <div>
-              <button
-                className="studio-secondary"
-                disabled={studio.busy}
-                onClick={() => onEdit(b)}
-              >
-                {a("edit")}
-              </button>
-              <button
-                className="studio-secondary"
-                disabled={studio.busy}
-                onClick={() => studio.adopt(b)}
-              >
-                {w("details")}
-              </button>
-              {b.state === "draft" && (
+        {studio.builds
+          .filter((b) => b.app === studio.manifest.id)
+          .map((b) => (
+            <article className="app-version-row" key={b.id}>
+              <div>
+                <strong>
+                  {contentText(b.manifest.name, locale, studio.mainLocale)}
+                </strong>
+                <span className="soft-tag">{b.version}</span>
+                <span>{w(b.state)}</span>
+                <code>{b.digest.slice(0, 12)}</code>
+              </div>
+              <div>
                 <button
-                  className="studio-primary"
+                  className="studio-secondary"
                   disabled={studio.busy}
-                  onClick={() => void studio.run(() => studio.stage(b))}
+                  onClick={() => onEdit(b)}
                 >
-                  {w("installStage")}
+                  {a("edit")}
                 </button>
-              )}
-            </div>
-            <details>
-              <summary>{w("contract")}</summary>
-              <pre>{JSON.stringify(b.manifest, null, 2)}</pre>
-            </details>
-          </article>
-        ))}
+                <button
+                  className="studio-secondary"
+                  disabled={studio.busy}
+                  onClick={() => studio.adopt(b)}
+                >
+                  {a("inspectVersion")}
+                </button>
+                {b.state === "draft" && (
+                  <button
+                    className="studio-primary"
+                    disabled={studio.busy}
+                    onClick={() => void studio.run(() => studio.stage(b))}
+                  >
+                    {w("installStage")}
+                  </button>
+                )}
+              </div>
+              <details>
+                <summary>{w("contract")}</summary>
+                <pre>{JSON.stringify(b.manifest, null, 2)}</pre>
+              </details>
+            </article>
+          ))}
       </section>
       <section className="app-model-card">
         <h2>{a("review")}</h2>

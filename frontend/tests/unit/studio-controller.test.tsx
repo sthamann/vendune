@@ -132,6 +132,34 @@ it("does not install a late session after unmount", async () => {
     pending.forEach((resolve) => resolve({ ok: true, json: async () => ({}) })),
   );
 });
+it("keeps loading distinct from sign-out when switching to a slow staging environment", async () => {
+  sessionStorage.setItem("rac-user-token", "unit-token");
+  const { fetcher } = network();
+  const { result } = renderHook(
+    () => useStudioController({ onChanged: vi.fn(), onExit: vi.fn() }),
+    { wrapper: LocaleProvider },
+  );
+  await waitFor(() => expect(result.current.connected).toBe(true));
+  const original = fetcher.getMockImplementation()!;
+  let finish!: () => void;
+  fetcher.mockImplementation((path, options) =>
+    String(path) === "/api/merchant/overview" &&
+    (options?.headers as Record<string, string>)["x-tenant"] === "stage"
+      ? new Promise((resolve) => {
+          finish = () => resolve({ ok: true, json: async () => overview });
+        })
+      : original(path, options),
+  );
+  act(() => result.current.setEnvironment("stage"));
+  await waitFor(() => expect(finish).toBeDefined());
+  expect(result.current.connected).toBe(false);
+  expect(result.current.connectionPending).toBe(true);
+  expect(result.current.auth.active).toBe(true);
+  expect(result.current.sessionExpired).toBe(false);
+  await act(async () => finish());
+  await waitFor(() => expect(result.current.connected).toBe(true));
+  expect(result.current.connectionPending).toBe(false);
+});
 it("keeps an authenticated editor mounted while changing UI language and disconnects if revalidation fails", async () => {
   sessionStorage.setItem("rac-user-token", "unit-token");
   const { fetcher } = network();

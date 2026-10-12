@@ -181,3 +181,28 @@ The package-ownership follow-up passes 193 Rust tests and 421 frontend tests acr
 PostgreSQL/provider fixtures verify app development, private previews, connector
 delivery and payment compatibility. A browser edit to an installed order-bound
 app remains present after reloading and reselecting its private sandbox.
+
+## Lifecycle and reference-app follow-up — 12 October 2026
+
+- App versions are filtered to the selected app. Saving an unchanged restored
+  draft reconnects its exact immutable build; other drafts stay dirty. New patch
+  versions are chosen from the complete history, including archived versions.
+- Native editor save controls are deduplicated only when the explicit action
+  validates and writes that same form. Missing/disabled/unrelated handlers retain
+  the host Save control. Order-bound forms support multiple named cases and one
+  save per confirmed status transition without reopening.
+- Data-model editors expose the generic workflow field, initial state, allowed
+  edges and immutable fields. The Returns package owns its own lifecycle. AI
+  presentation edits preserve this contract; they cannot quietly remove it.
+- Studio distinguishes pending workspace load from expired login and offers
+  retry for actual load failure. Assistant conversations remain mounted through
+  reauthentication, preserving the current question.
+- The ERP reference package now includes its own Rust service, app-private forced
+  RLS receipts, signed events, restart-safe deduplication and explicit uncertain
+  result reconciliation. Required operator deployment is still separate from
+  editing or publishing the Manifest. No commercial ERP parity is claimed.
+
+Actual HTTP/PostgreSQL tests reject queued writes using a superseded package,
+foreign order references and invalid transitions without record/outbox changes.
+The reference adapter tests use real Rust processes and a local ERP fixture;
+these do not establish a live merchant's ERP credentials or provider settlement.

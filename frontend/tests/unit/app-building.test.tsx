@@ -116,7 +116,10 @@ it("saves returns through the native order-bound gateway without issuing a refun
   const user = userEvent.setup();
   await user.type(await screen.findByLabelText("Title"), "Damaged item");
   await user.selectOptions(screen.getByLabelText("Status"), "new");
-  await user.click(screen.getAllByRole("button", { name: "Save record" })[0]);
+  expect(screen.getAllByRole("button", { name: "Save record" })).toHaveLength(
+    1,
+  );
+  await user.click(screen.getByRole("button", { name: "Save record" }));
   expect(request).toHaveBeenCalledWith(
     "/api/apps/returns/actions/save_entries",
     expect.objectContaining({
@@ -127,6 +130,49 @@ it("saves returns through the native order-bound gateway without issuing a refun
     }),
   );
   expect(request.mock.calls.every(([p]) => !p.includes("refund"))).toBe(true);
+  expect(
+    request.mock.calls.filter(([p]) => p.endsWith("save_entries")),
+  ).toHaveLength(1);
+});
+it("advances confirmed return states with one save per transition without reopening the page", async () => {
+  const m = appRecipe("returns", "returns"),
+    surface = m.surfaces![0];
+  const view = m.views!.find((v) => surface.uiPath === `native/${v.id}`)!;
+  let revision = 0;
+  const request = vi.fn(async (path: string) =>
+    path.endsWith("list_entries")
+      ? { elements: [] }
+      : { id: "case", revision: ++revision },
+  );
+  render(
+    <NativeAppView
+      app={m.id}
+      native={{ view, entities: m.entities }}
+      request={request}
+      allowedActions={surface.actions}
+      context={{ orderId: "owned-order" }}
+    />,
+    { wrapper: LocaleProvider },
+  );
+  const user = userEvent.setup();
+  await user.type(await screen.findByLabelText("Title"), "Size exchange");
+  await user.click(screen.getByRole("button", { name: "Save record" }));
+  for (const status of ["review", "received", "closed"]) {
+    await user.selectOptions(screen.getByLabelText("Status"), status);
+    await user.click(screen.getByRole("button", { name: "Save record" }));
+  }
+  expect(
+    request.mock.calls.filter(([p]) => p.endsWith("save_entries")),
+  ).toHaveLength(4);
+  expect(screen.getByLabelText("Status")).toHaveValue("closed");
+  expect(
+    screen.queryByRole("option", { name: "Under review" }),
+  ).not.toBeInTheDocument();
+  await user.selectOptions(
+    screen.getByRole("combobox", { name: "Record" }),
+    "",
+  );
+  expect(screen.getByLabelText("Status")).toHaveValue("new");
 });
 it("new visual controls retain the owned order filter and never fetch without host context", async () => {
   const m = appRecipe("returns", "returns"),

@@ -3,8 +3,28 @@ import { appPreviewWords } from "./app-preview-i18n";
 import { appOntologyWords } from "./app-ontology-i18n";
 import { appEventWords } from "./app-events-i18n";
 import { appLogicWords } from "./app-logic-i18n";
+import { appWorkflowWords } from "./app-workflow-i18n";
 import { useLocale } from "./i18n";
 export const appStudioWords = {
+  ...appWorkflowWords,
+  adminView: [
+    "Merchant view",
+    "Händleransicht",
+    "Vue marchand",
+    "Vista del comerciante",
+  ],
+  shopperView: [
+    "Shopper view",
+    "Kundenansicht",
+    "Vue client",
+    "Vista del cliente",
+  ],
+  inspectVersion: [
+    "Inspect version",
+    "Version ansehen",
+    "Examiner la version",
+    "Ver versión",
+  ],
   ...appOntologyWords,
   ...appPreviewWords,
   ...appLogicWords,

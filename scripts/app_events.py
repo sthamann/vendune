@@ -1,25 +1,32 @@
 #!/usr/bin/env python3
 """Actual leased delivery: slow-service isolation, bounded batches, minimization, filter/replay and stale lease fencing."""
-import copy,json,os,socket,subprocess,threading,time,urllib.request,urllib.error,uuid
+import concurrent.futures,copy,json,os,socket,subprocess,threading,time,urllib.request,urllib.error,uuid
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from testing.runtime import ROOT,serve,stop
 from testing.database import psql
 from testing.app_approval import pin,consent
-suffix=uuid.uuid4().hex[:10];env=dict(os.environ);slow='slow-'+suffix;fast='fast-'+suffix;seen=[];lock=threading.Lock();slow_started=threading.Event();release_slow=threading.Event()
+suffix=uuid.uuid4().hex[:10];env=dict(os.environ);slow='slow-'+suffix;fast='fast-'+suffix;seen=[];lock=threading.Lock();slow_started=threading.Event();release_slow=threading.Event();bulk='bulk-'+suffix;release_bulk=threading.Event();bulk_calls=[]
 def sql(statement):
  r=subprocess.run(psql(env['TEST_DB_CONTAINER'],'commerce',env['TEST_DATABASE'],'-qAt','-v','ON_ERROR_STOP=1'),input=statement,text=True,capture_output=True);assert r.returncode==0,r.stderr;return r.stdout.strip()
 class Service(BaseHTTPRequestHandler):
  def do_POST(self):
   body=json.loads(self.rfile.read(int(self.headers['Content-Length'])));tenant=self.headers['x-tenant'];assert self.headers['Authorization']=='Bearer fixture-event-token'
   if tenant==slow:slow_started.set();release_slow.wait(3)
+  if tenant==bulk:
+   with lock:bulk_calls.append(self.path)
+   release_bulk.wait(4)
   with lock:seen.append((tenant,body))
   self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(b'{"ok":true}')
  def log_message(self,*_):pass
 fixture=ThreadingHTTPServer(('127.0.0.1',0),Service);threading.Thread(target=fixture.serve_forever,daemon=True).start()
 m=json.loads((ROOT/'extensions/apps/assistant-examples/integration.json').read_text());m['id']='event_fixture';m['eventDelivery']={'batchSize':10};m['events']=['order.placed'];m['permissions']=['data.read','data.write','admin.slot','service.call','events:order.placed'];m['eventFilters']=[{'event':'order.placed','equals':{'currency':'EUR'}}]
 config=pin({m['id']:{'url':f'http://127.0.0.1:{fixture.server_port}','token':'fixture-event-token'}},m['id'],m)
+bulk_apps=[]
+for name in ['bulk_one','bulk_two','bulk_three']:
+ item=copy.deepcopy(m);item['id']=name;item['events']=[];item.pop('eventDelivery');item.pop('eventFilters');bulk_apps.append(item)
+ config[name]={'url':f'http://127.0.0.1:{fixture.server_port}','token':'fixture-event-token'};pin(config,name,item)
 with socket.socket() as s:s.bind(('127.0.0.1',0));base=f'http://127.0.0.1:{s.getsockname()[1]}'
-child={**env,'APP_SERVICES':json.dumps(config),'PROCESS_ROLE':'all','BOOTSTRAP_MODE':'serve','BASE_URL':base,'BIND_ADDR':base.removeprefix('http://')};log=(ROOT/'artifacts/app-events-server.log').open('w');server=None
+child={**env,'APP_SERVICES':json.dumps(config),'TENANT_CONCURRENCY':'32','PROCESS_ROLE':'all','BOOTSTRAP_MODE':'serve','BASE_URL':base,'BIND_ADDR':base.removeprefix('http://')};log=(ROOT/'artifacts/app-events-server.log').open('w');server=None;replica=None
 
 def call(path,body=None,h=None,status=200):
  if path=='/api/apps':body=consent(body)
@@ -62,7 +69,33 @@ try:
  sql(f"INSERT INTO app_deliveries(tenant,app,event_id,state,lease_token,lease_until,available_at) VALUES('{fast}','{m['id']}',{event},'running','{old}',now()-interval '1 minute',now()+interval '1 hour'); UPDATE app_deliveries SET lease_token='{new}' WHERE tenant='{fast}' AND event_id={event}; UPDATE app_deliveries SET state='delivered',lease_token=NULL WHERE tenant='{fast}' AND event_id={event} AND lease_token='{old}';")
  assert sql(f"SELECT lease_token FROM app_deliveries WHERE tenant='{fast}' AND event_id={event}")==new
  print('PASS stale completion cannot overwrite a replacement lease')
+ # Rotating app IDs cannot bypass the aggregate ceiling across two real Rust replicas.
+ bulk_h=register(bulk)
+ for item in bulk_apps:
+  call('/api/apps',{'manifest':item},bulk_h);call('/api/apps',{'manifest':item},fast_h)
+ with socket.socket() as s:s.bind(('127.0.0.1',0));second=f'http://127.0.0.1:{s.getsockname()[1]}'
+ replica=serve({**child,'BIND_ADDR':second.removeprefix('http://'),'BASE_URL':second,'PROCESS_ROLE':'http'},second,log)
+ def invoke(url,app,h,status=200):
+  req=urllib.request.Request(url+'/api/apps/'+app+'/actions/synchronize',data=b'{"payload":{}}',headers={'Content-Type':'application/json',**h})
+  try:
+   with urllib.request.urlopen(req,timeout=10) as out:code=out.status;value=json.load(out)
+  except urllib.error.HTTPError as error:code=error.code;value=json.load(error)
+  assert code==status,(code,status,value);return value
+ with concurrent.futures.ThreadPoolExecutor(max_workers=16) as pool:
+  pending=[pool.submit(invoke,base if i%2 else second,'bulk_one' if i<8 else 'bulk_two',bulk_h) for i in range(16)]
+  try:
+   wait(lambda:len(bulk_calls)==16,3)
+   invoke(second,'bulk_three',bulk_h,429);assert len(bulk_calls)==16
+   assert invoke(base,'bulk_three',fast_h)['ok']
+   print('PASS aggregate tenant app limit spans two replicas and changing app IDs; another tenant still executes')
+  finally:release_bulk.set()
+  for future in pending:assert future.result()['ok']
+ wait(lambda:sql(f"SELECT count(*) FROM resource_leases WHERE tenant='{bulk}' AND class='app-network' AND expires_at>now()")=='0')
+ assert invoke(second,'bulk_three',bulk_h)['ok']
+ print('PASS completed calls release all aggregate leases and restore admission')
+
 finally:
- release_slow.set()
+ release_slow.set();release_bulk.set()
+ if replica:stop(replica)
  if server:stop(server)
  log.close();fixture.shutdown()

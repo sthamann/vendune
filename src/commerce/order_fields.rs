@@ -8,6 +8,10 @@ pub(crate) fn order_fields(o: &mut Value) {
     o["amountNet"] = o["cart"]["price"]["netPrice"].clone();
     o["shippingTotal"] = o["cart"]["shippingCosts"]["totalPrice"].clone();
     o["price"] = o["cart"]["price"].clone();
+    // Exact-money API consumers use the immutable quote, including its actual currency scale.
+    o["currency"] = o["money"]["currency"]["code"].clone();
+    o["currencyScale"] = o["money"]["currency"]["scale"].clone();
+    o["totalMinor"] = o["money"]["minor"].clone();
     o["lineItems"] = o["cart"]["lineItems"].clone();
     o["shippingCosts"] = o["cart"]["shippingCosts"].clone();
     o["currencyId"] = o["cart"]["price"]["currency"]
@@ -52,5 +56,13 @@ mod tests {
         assert_eq!(o["transactions"][0]["state"], "captured");
         assert_eq!(o["transactions"][0]["realMoneyCharged"], true);
         assert_eq!(o["amountTotal"], 19.99);
+    }
+    #[test]
+    fn exact_api_amount_comes_from_the_order_snapshot_not_recomputed_float_price() {
+        let mut o = json!({"cart":{"price":{"totalPrice":99.99,"currency":"EUR"}},"money":{"minor":1200,"currency":{"code":"JPY","scale":0}}});
+        order_fields(&mut o);
+        assert_eq!(o["totalMinor"], 1200);
+        assert_eq!(o["currency"], "JPY");
+        assert_eq!(o["currencyScale"], 0);
     }
 }

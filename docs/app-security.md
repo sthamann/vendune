@@ -127,3 +127,32 @@ Lean proves selected extracted admission decisions. SQL/RLS correctness, encrypt
 integration, Wasmtime, compiler limits, browsers and remote services rely on concrete
 regressions and trusted infrastructure. No complete-core certification, universal
 extension compatibility or production-scale guarantee is claimed.
+
+## App lifecycle follow-up — 12 October 2026
+
+Network admission is shared by service actions, event deliveries, pinned UI
+fetches and remote payment adapters: 64 per process, 16 across a tenant, and eight
+per tenant/app. PostgreSQL resource leases enforce the tenant/app limits across
+replicas. Rotating app IDs cannot evade the tenant aggregate. Active counters
+are never discarded during idle-key cleanup. The real `app_events` regression
+holds 16 calls across two replicas and app IDs, rejects a seventeenth before the
+provider receives it, and confirms another tenant can still proceed.
+
+Opaque guest frames additionally bound pending bridge calls to eight, IDs to
+100 characters and serialized inputs to 64 KiB. Duplicate pending IDs are not
+forwarded. Package/context changes remount the frame; old nonce/source windows
+and late responses cannot act in its replacement. These are bridge/admission
+bounds, not a proof of CPU isolation for arbitrary browser JavaScript.
+
+Managed record writes acquire the existing shared tenant/app package fence and
+compare the installed current digest inside their transaction. Package upgrades
+use the matching exclusive fence. A queued old-contract write returns conflict
+without changing records/outbox. Generic workflow declarations validate initial
+states, edges and immutable fields in this same write path; app-specific states
+remain in the app Manifest, not Commerce domain directories.
+
+The ERP reference adapter is an independent non-root Rust process with app-only
+forced-RLS receipt tables. It reuses current scoped Core order callbacks and the
+shared event signature wire contract. Its own durable receipt joins manual and
+event entry points and preserves uncertain outcomes through restart. See the
+[app-owned implementation and deployment boundary](../extensions/apps/erp-handoff/README.md).

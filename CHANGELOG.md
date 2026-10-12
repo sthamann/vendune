@@ -1,5 +1,17 @@
 # Changelog
 
+## App lifecycle, reference services and Experience admission — 12 October 2026
+
+- Fix transient Studio login errors during loading while retaining conversation drafts.
+- Filter selected-app versions, reconnect exact restored builds and allocate unused patch versions.
+- Deduplicate validated native Save controls; support named order cases and confirmed status transitions.
+- Add generic app-owned workflow declarations with transactional immutable fields and current-package fencing.
+- Share process/tenant/app network admission across actions, events, UI bundles and payment adapters; bound opaque guest bridge concurrency and stale completions.
+- Complete the Returns lifecycle and an independent Rust ERP reference adapter with app-only forced-RLS receipts, signed intake, deduplication, cold restart and explicit uncertainty reconciliation.
+- Project order callbacks from immutable integer currency/scale totals and native line items.
+- Companion private Experience release normalizes reference URLs, validates all saved wizard steps before quota admission and returns structured localized errors with Retry-After. Public creation reached the original Storyfront Studio on 12 October; no new images or real charge were used.
+- Refresh workshops, package deployment guides and trust boundaries. This does not establish whole-system proof, full coverage, every ERP integration or live payment-provider settlement.
+
 ## Illustrated app workshops — 12 October 2026
 
 - Add five step-by-step tutorials: product advisor, private returns workspace,

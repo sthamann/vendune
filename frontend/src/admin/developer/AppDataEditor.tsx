@@ -2,6 +2,7 @@
 import AppModelDiagram from "./AppModelDiagram";
 import AppSchemaMigrations from "./AppSchemaMigrations";
 import AppFieldOptions from "./AppFieldOptions";
+import AppWorkflowEditor from "./AppWorkflowEditor";
 import LocalizedField from "../../shared/i18n/LocalizedField";
 import { useAppStudioText, appText } from "../../shared/i18n/app-studio-i18n";
 import type { Entity, Field, Manifest } from "../../shared/apps/native/types";
@@ -264,6 +265,10 @@ export default function AppDataEditor({
               );
             })}
           </div>
+          <AppWorkflowEditor
+            entity={entity}
+            onChange={(next) => patch(entity.name, next)}
+          />
           <button
             className="studio-secondary"
             disabled={entity.fields.length >= 16}

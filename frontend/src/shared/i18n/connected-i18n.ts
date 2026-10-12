@@ -1,6 +1,18 @@
 /** Four-language vocabulary for connected apps, consent and visual automation. */
 import { useLocale } from "./i18n";
 export const connectedWords: Record<string, readonly string[]> = {
+  loadingWorkspace: [
+    "Loading workspace…",
+    "Arbeitsbereich wird geladen…",
+    "Chargement de l’espace de travail…",
+    "Cargando el espacio de trabajo…",
+  ],
+  workspaceLoadFailed: [
+    "The workspace could not be loaded. Your account is still signed in; try again.",
+    "Der Arbeitsbereich konnte nicht geladen werden. Du bist weiterhin angemeldet; versuche es erneut.",
+    "L’espace de travail n’a pas pu être chargé. Vous êtes toujours connecté ; réessayez.",
+    "No se pudo cargar el espacio de trabajo. Sigues conectado; inténtalo de nuevo.",
+  ],
   sessionExpiredTitle: [
     "Sign in again",
     "Erneut anmelden",

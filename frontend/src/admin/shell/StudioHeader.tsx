@@ -24,6 +24,9 @@ export default function StudioHeader() {
     tabLabel,
     tab,
     connected,
+    connectionPending,
+    retryConnection,
+    auth,
     w,
     environment,
     setEnvironment,
@@ -73,11 +76,12 @@ export default function StudioHeader() {
           <Icon name="spark" size={18} />
           <span>{u("copilot")}</span>
         </button>
-        {connected && (
+        {auth.active && (
           <select
             className="environment-switch"
             aria-label={w("environments")}
             value={environment}
+            disabled={connectionPending}
             onChange={(e) => {
               setEnvironment(e.target.value);
               setId(undefined);
@@ -101,7 +105,11 @@ export default function StudioHeader() {
         </button>
         <span className="connection-state">
           <i className={connected ? "on" : ""} />
-          {connected ? t("connected") : x("studioSignedOut")}
+          {connected
+            ? t("connected")
+            : auth.active
+              ? x(connectionPending ? "loadingWorkspace" : "serverUnavailable")
+              : x("studioSignedOut")}
         </span>
         <select
           aria-label={t("language")}
@@ -122,12 +130,18 @@ export default function StudioHeader() {
           <Icon name={theme === "dark" ? "sun" : "moon"} />
         </button>
         <button
-          className={connected ? "icon-button" : "studio-primary"}
-          aria-label={connected ? t("refresh") : x("studioSignIn")}
-          disabled={busy}
-          onClick={() => (connected ? run(refresh) : selectTab("users"))}
+          className={auth.active ? "icon-button" : "studio-primary"}
+          aria-label={auth.active ? t("refresh") : x("studioSignIn")}
+          disabled={busy || connectionPending}
+          onClick={() =>
+            connected
+              ? run(refresh)
+              : auth.active
+                ? retryConnection()
+                : selectTab("users")
+          }
         >
-          {connected ? (
+          {auth.active ? (
             <Icon name="refresh" size={18} />
           ) : (
             <>

@@ -38,6 +38,15 @@
   display: grid;
   gap: 16px;
 }
+.native-form > .native-field-boundary {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.native-field-boundary:disabled {
+  opacity: 0.75;
+}
 .native-form label {
   display: grid;
   gap: 7px;

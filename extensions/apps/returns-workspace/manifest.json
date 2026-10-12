@@ -1,6 +1,6 @@
 {
   "id": "returns_workspace",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "coreApi": "1",
   "runtime": "declarative",
   "name": {
@@ -29,10 +29,10 @@
         {
           "name": "order_id",
           "label": {
-            "en": "Core object",
-            "de": "Commerce-Objekt",
-            "fr": "Objet commerce",
-            "es": "Objeto de comercio"
+            "en": "Order",
+            "de": "Bestellung",
+            "fr": "Commande",
+            "es": "Pedido"
           },
           "kind": "string",
           "required": true,
@@ -93,6 +93,15 @@
               }
             },
             {
+              "value": "received",
+              "label": {
+                "en": "Goods received",
+                "de": "Ware eingegangen",
+                "fr": "Articles reçus",
+                "es": "Artículos recibidos"
+              }
+            },
+            {
               "value": "closed",
               "label": {
                 "en": "Closed",
@@ -113,8 +122,43 @@
           },
           "kind": "string",
           "translatable": false
+        },
+        {
+          "name": "received_on",
+          "kind": "date",
+          "label": {
+            "en": "Received on",
+            "de": "Eingangsdatum",
+            "fr": "Date de réception",
+            "es": "Fecha de recepción"
+          }
         }
-      ]
+      ],
+      "workflow": {
+        "field": "status",
+        "initial": "new",
+        "immutableFields": [
+          "order_id"
+        ],
+        "transitions": [
+          {
+            "from": "new",
+            "to": "review"
+          },
+          {
+            "from": "review",
+            "to": "received"
+          },
+          {
+            "from": "review",
+            "to": "closed"
+          },
+          {
+            "from": "received",
+            "to": "closed"
+          }
+        ]
+      }
     }
   ],
   "slots": [],

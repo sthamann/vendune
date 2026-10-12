@@ -16,10 +16,10 @@ records, a table/form/save workspace, the `synchronize` service action and an
 add fields for the integration you actually need: for example a merchant-owned
 mapping label and an ERP-side identifier. Do not store credentials as app records.
 
-You can add a required `order_id` field with **Core object → order** for individual
-handoff cases, then deliberately bind the matching editor/table to `orderId`.
-Adding the reference alone does not turn a general mapping workspace into an
-order-filtered view. Review both model and UI context.
+Version 0.2.0 already includes a required indexed `order_id` with **Core object →
+order**. The synchronization button validates the same editor and forwards its
+owned order ID. Existing pre-0.2 mapping records need an explicit migration that
+fills genuine owned order references before schema approval.
 
 ## 2. Inspect subscriptions, actions and rights
 
@@ -33,8 +33,7 @@ internal/private-network address as a merchant-controlled destination.
 
 `synchronize` is private, Flow-enabled and requires `orders.write` in the starting
 pattern. Its declared input is `{ "payload": { ... } }`. List/save of mapping
-records has independent catalogue rights. If your fields contain order-private
-information, tighten their list/save/surface rights to `orders.read`/`orders.write`.
+records and the native surface already use `orders.read`/`orders.write`.
 Keep customer records out of public routes. MCP exposure and merchant-AI tool
 selection remain independent decisions.
 
@@ -44,10 +43,11 @@ Keep its Manifest, service, assets, translations and tests under
 `extensions/apps/<your-erp-app>/` or its separate private repository. Use the
 existing [app service/action contract](../app-platform.md) and
 [event receiver SDK](../../extensions/sdk/events.py), not a new core route.
-The runnable [independent service example](../../extensions/apps/service-example)
-shows gateway, owned data and durable event intake; adapt the ERP-specific logic
-inside your own app. Its Python runtime is an independent example, not a new
-first-party commerce dependency.
+The included [Rust adapter](../../extensions/apps/erp-handoff/README.md) is a
+runnable implementation in this package. Its SQL receipt store, provider calls,
+configuration and tests stay there. The shared signature verifier is
+[`extensions/sdk/rust-events.rs`](../../extensions/sdk/rust-events.rs); the
+independent Python example remains an optional extension example.
 
 The operator obtains the reviewed package digest through the existing core:
 
@@ -121,3 +121,17 @@ cover scoped delivery/callback behavior. These fixtures do not establish parity
 with a commercial ERP or a successfully deployed custom service.
 
 [All five workshops](README.md) · [Complete app contract](../app-platform.md)
+
+## Run the included adapter
+
+Follow the package README for its app-only database role, schema and operator
+configuration. Its POST export expects a JSON `receiptId`; its reconciliation GET
+expects the ERP's receipt for the same stable idempotency key. Concurrent manual
+and event requests share one durable claim. Timeout or malformed confirmation is
+shown as uncertain and requires explicit reconciliation, never blind retry.
+The registered `erp_handoff` test runs real Rust processes, PostgreSQL forced RLS
+and a local ERP fixture, including restart and denied foreign access.
+
+Optional signed incoming delivery uses `/signed-events` with a configured
+`webhookSecret`. Model/MCP exposure stays off unless independently reviewed.
+An app receipt is not a payment receipt or a second Commerce order ledger.

@@ -54,6 +54,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/ontology.rs](../src/apps/ontology.rs) | Namespaced graph views over current authorized app records; no duplicated source or public-claim authority. |
 | [src/apps/planning.rs](../src/apps/planning.rs) | Registered managed app actions join the same preview/approve transaction as core changes. |
 | [src/apps/presentation.rs](../src/apps/presentation.rs) | Optional passive app artwork and localized summaries; omitted metadata preserves published legacy digests. |
+| [src/apps/record_lifecycle.rs](../src/apps/record_lifecycle.rs) | Generic app-owned record lifecycle contracts. Status vocabulary and transitions belong to the app Manifest. |
 | [src/apps/registry.rs](../src/apps/registry.rs) | Atomic installation and additive schema upgrades; immutable version digests preserve history. |
 | [src/apps/relations.rs](../src/apps/relations.rs) | Multi-relations keep stable array wire values, composite tenant FKs and shared accounting; staging may clone cyclic graphs atomically. |
 | [src/apps/routes.rs](../src/apps/routes.rs) | Tenant-scoped package lifecycle, generated data endpoints and a shared action adapter. |
@@ -62,7 +63,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/schema_changes.rs](../src/apps/schema_changes.rs) | Explicit, transactional field evolution. No raw migration SQL; bounded recovery snapshots precede DDL and every converted value is validated. |
 | [src/apps/schema_upgrade.rs](../src/apps/schema_upgrade.rs) | Apply a checked migration under tenant-local DDL locks with bounded recovery history and optimistic record revisions. |
 | [src/apps/secrets.rs](../src/apps/secrets.rs) | Digest-bound per-shop app secret rotation reuses platform authenticated encryption; no plaintext read endpoint. |
-| [src/apps/service_limits.rs](../src/apps/service_limits.rs) | Non-queuing per-process bulkheads isolate slow apps without holding database connections. |
+| [src/apps/service_limits.rs](../src/apps/service_limits.rs) | Shared network-app admission: per-app and aggregate tenant bulkheads plus replica-wide fenced leases. |
 | [src/apps/service_policy.rs](../src/apps/service_policy.rs) | Operator-owned private origins permit isolated service networking without relaxing public egress. |
 | [src/apps/storage.rs](../src/apps/storage.rs) | Attach the shared PostgreSQL accounting trigger to tenant-specific app tables before any write. |
 | [src/apps/surface_grants.rs](../src/apps/surface_grants.rs) | Short-lived UI grants bind a package, surface, actor and concrete editor object on the server. |
@@ -72,6 +73,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/ui_logic.rs](../src/apps/ui_logic.rs) | Declarative UI code-behind validates a bounded AST; calls retain surface grants and server domain authorization. |
 | [src/apps/ui_logic_tests.rs](../src/apps/ui_logic_tests.rs) | UI programs must keep static types, same-model saves, surface allowlists and acyclic ownership before install or preview. |
 | [src/apps/ui_logic_types.rs](../src/apps/ui_logic_types.rs) | Static UI expression types prevent control coercion and invoking save with a different model; runtime still validates actual values. |
+| [src/apps/ui_object_key_tests.rs](../src/apps/ui_object_key_tests.rs) | Object-expression keys accept API casing without prototype or path injection. |
 | [src/apps/webhook_scope.rs](../src/apps/webhook_scope.rs) | Scope signed app ingress from its route before identity, tenant lifecycle and forced-RLS admission. |
 | [src/apps/webhooks.rs](../src/apps/webhooks.rs) | Operator-signed incoming events: tenant-bound HMAC, five-minute freshness and atomic replay receipts. |
 | [src/assets/app_files.rs](../src/assets/app_files.rs) | Scoped app access to the existing asset store. Binary callbacks are explicit and private; publishing still uses the native asset lifecycle. |
@@ -518,9 +520,11 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/developer/AppProposalReview.tsx](../frontend/src/admin/developer/AppProposalReview.tsx) | AI generation is an explicit reviewed proposal, with conflict protection and no automatic canvas replacement. |
 | [frontend/src/admin/developer/AppRecipes.tsx](../frontend/src/admin/developer/AppRecipes.tsx) | Keyboard-accessible recipe entry points use the existing draft replacement and release controls. |
 | [frontend/src/admin/developer/AppSchemaMigrations.tsx](../frontend/src/admin/developer/AppSchemaMigrations.tsx) | Migration plans are explicit versioned agent-readable data, validated by the shared server compiler before any DDL. |
+| [frontend/src/admin/developer/AppStudioIntro.tsx](../frontend/src/admin/developer/AppStudioIntro.tsx) | App Studio heading and new-app entry share the localized workbench language. |
 | [frontend/src/admin/developer/AppStudioStatus.tsx](../frontend/src/admin/developer/AppStudioStatus.tsx) | Shared status footer keeps validation, persistence and execution feedback beside the designer. |
 | [frontend/src/admin/developer/AppVersions.tsx](../frontend/src/admin/developer/AppVersions.tsx) | Saved version inspection, digest-approved stage install and conflict-aware package-only live release. |
 | [frontend/src/admin/developer/AppViewTabs.tsx](../frontend/src/admin/developer/AppViewTabs.tsx) | Native view navigation and creation are separate from workspace orchestration. |
+| [frontend/src/admin/developer/AppWorkflowEditor.tsx](../frontend/src/admin/developer/AppWorkflowEditor.tsx) | Visual status edges use the exact app manifest contract enforced by native record storage. |
 | [frontend/src/admin/developer/DeveloperView.tsx](../frontend/src/admin/developer/DeveloperView.tsx) | Visual App Studio orchestrates modular editors over the same executable schema used by coding agents. |
 | [frontend/src/admin/developer/DeveloperWorkspace.tsx](../frontend/src/admin/developer/DeveloperWorkspace.tsx) | Dedicated app and API workspaces retain App Studio state while switching the developer console. |
 | [frontend/src/admin/developer/SandboxContextPicker.tsx](../frontend/src/admin/developer/SandboxContextPicker.tsx) | Bounded server search selects an owned object for testing editor-bound apps in a private sandbox. |
@@ -532,6 +536,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/developer/app-proposal.ts](../frontend/src/admin/developer/app-proposal.ts) | Bounded semantic review summaries compare the exact current and proposed manifests. |
 | [frontend/src/admin/developer/app-recipes.ts](../frontend/src/admin/developer/app-recipes.ts) | Load app-owned patterns; Studio only clones and compiles the canonical plugin Manifest. |
 | [frontend/src/admin/developer/app-validation.ts](../frontend/src/admin/developer/app-validation.ts) | Draft validation surfaces bounded manifest errors; authoritative installation remains in Rust. |
+| [frontend/src/admin/developer/app-version.ts](../frontend/src/admin/developer/app-version.ts) | Suggest a free forward version when copying history; immutable and archived builds retain their identity. |
 | [frontend/src/admin/developer/app-visuals.ts](../frontend/src/admin/developer/app-visuals.ts) | Presentation-only symbols for native controls; behavior still belongs to the shared runtime. |
 | [frontend/src/admin/developer/asset-actions.ts](../frontend/src/admin/developer/asset-actions.ts) | Native asset editors use the existing asset owner; generated actions remain explicit capabilities in the package. |
 | [frontend/src/admin/developer/assistant-model.ts](../frontend/src/admin/developer/assistant-model.ts) | Assistants compile to the public manifest contract, with no hidden runtime or provider code. |
@@ -687,8 +692,10 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/apps/native/NativeRecordForm.tsx](../frontend/src/shared/apps/native/NativeRecordForm.tsx) | Native managed-record form retains revisions and inherited translations; it never executes schema code. |
 | [frontend/src/shared/apps/native/NativeRelationField.tsx](../frontend/src/shared/apps/native/NativeRelationField.tsx) | Related records load only through actions already granted to the current surface; no merchant-token side route. |
 | [frontend/src/shared/apps/native/NativeRuntime.tsx](../frontend/src/shared/apps/native/NativeRuntime.tsx) | Native controls share one local execution context; form records and gateway calls remain scoped by their existing owners. |
+| [frontend/src/shared/apps/native/form-submit.ts](../frontend/src/shared/apps/native/form-submit.ts) | Hide the fallback submit only for a visible top-level button that explicitly validates and saves this form. |
 | [frontend/src/shared/apps/native/geometry.ts](../frontend/src/shared/apps/native/geometry.ts) | The twelve-column layout is the same manifest geometry for the designer and published renderer. |
 | [frontend/src/shared/apps/native/logic.ts](../frontend/src/shared/apps/native/logic.ts) | Bounded AST interpreter; no eval, globals, arbitrary URLs or implicit gateway permissions. |
+| [frontend/src/shared/apps/native/record-workflow.ts](../frontend/src/shared/apps/native/record-workflow.ts) | Pure form projections of an app-owned workflow; the server remains authoritative. |
 | [frontend/src/shared/apps/native/types.ts](../frontend/src/shared/apps/native/types.ts) | The versioned Manifest is the shared intermediate representation for visual and agent edits. |
 | [frontend/src/shared/apps/useSurfaceGateway.ts](../frontend/src/shared/apps/useSurfaceGateway.ts) | Bind native and isolated UI actions to the same short-lived server grant; credentials stay in the host. |
 | [frontend/src/shared/content/RichDescription.tsx](../frontend/src/shared/content/RichDescription.tsx) | Safe rich blocks with native image/video rendering; no HTML interpretation or script execution. |
@@ -731,6 +738,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/app-operations-i18n.ts](../frontend/src/shared/i18n/app-operations-i18n.ts) | App operational vocabulary shared by installed apps and developer diagnostics; EN/DE/FR/ES. |
 | [frontend/src/shared/i18n/app-preview-i18n.ts](../frontend/src/shared/i18n/app-preview-i18n.ts) | Non-executing design preview vocabulary, separate from merchant content. |
 | [frontend/src/shared/i18n/app-studio-i18n.ts](../frontend/src/shared/i18n/app-studio-i18n.ts) | App Studio and native runtime vocabulary; every key ships EN/DE/FR/ES. |
+| [frontend/src/shared/i18n/app-workflow-i18n.ts](../frontend/src/shared/i18n/app-workflow-i18n.ts) | Workflow labels shared by the visual editor; status values and labels belong to each app. |
 | [frontend/src/shared/i18n/automation-fields.ts](../frontend/src/shared/i18n/automation-fields.ts) | Localized labels for original rule and native flow parameter fields. |
 | [frontend/src/shared/i18n/automation-i18n.ts](../frontend/src/shared/i18n/automation-i18n.ts) | Four-language automation editor vocabulary keeps source identifiers stable and user labels readable. |
 | [frontend/src/shared/i18n/automation-labels.ts](../frontend/src/shared/i18n/automation-labels.ts) | Source-named rule labels are localized independently from their stable integration identifiers. |
@@ -876,6 +884,12 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/email/studio/email-i18n.ts](../extensions/apps/email/studio/email-i18n.ts) | Complete mail workspace vocabulary in English, German, French and Spanish. |
 | [extensions/apps/email/studio/email-languages.ts](../extensions/apps/email/studio/email-languages.ts) | Supported transactional email template languages. |
 | [extensions/apps/engraving/configuration.wat](../extensions/apps/engraving/configuration.wat) | Engraving-owned rules: printable input is checked by the host; app defines length and fee. |
+| [extensions/apps/erp-handoff/service/config.rs](../extensions/apps/erp-handoff/service/config.rs) | Operator-owned tenant destinations and callback keys; request bodies cannot choose URLs or credentials. |
+| [extensions/apps/erp-handoff/service/delivery.rs](../extensions/apps/erp-handoff/service/delivery.rs) | Authoritative order callback and fixed-destination ERP export: one stable key, no automatic retry after an ambiguous result. |
+| [extensions/apps/erp-handoff/service/events.rs](../extensions/apps/erp-handoff/service/events.rs) | Full event batches are validated before the first ERP effect; tenant/app/idempotency identity is exact. |
+| [extensions/apps/erp-handoff/service/main.rs](../extensions/apps/erp-handoff/service/main.rs) | Independent ERP adapter process: bounded gateway requests, app-owned receipts and explicit external outcomes. |
+| [extensions/apps/erp-handoff/service/store.rs](../extensions/apps/erp-handoff/service/store.rs) | App-private PostgreSQL receipts use forced tenant RLS, short claims and explicit uncertain outcomes after a crash. |
+| [extensions/apps/erp-handoff/tests/integration.py](../extensions/apps/erp-handoff/tests/integration.py) | Real core -> scoped callback -> Rust ERP adapter -> local ERP -> forced-RLS receipt, replay/restart and ambiguous outcome. |
 | [extensions/apps/gift-message/configuration.wat](../extensions/apps/gift-message/configuration.wat) | Gift-message-owned rules: printable input is checked by the host; app defines length and fee. |
 | [extensions/apps/gmail/src/actions.rs](../extensions/apps/gmail/src/actions.rs) | App-owned connector capabilities and provider settings; shared host supplies tenant-bound storage. |
 | [extensions/apps/gmail/src/provider.rs](../extensions/apps/gmail/src/provider.rs) | Read-only Gmail incremental imports preserve high-water cursors, bounded windows and deletion evidence. |
@@ -906,6 +920,7 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/sdk/analytics.js](../extensions/sdk/analytics.js) | Consent-bound GA4 adapter for native and headless storefronts. Never send customer identities. |
 | [extensions/sdk/browser.js](../extensions/sdk/browser.js) | Guest SDK: no merchant tokens or raw host API access; the host rechecks every action. |
 | [extensions/sdk/events.py](../extensions/sdk/events.py) | Language-neutral wire contract example: validate full batches and public HMAC envelopes before effects. |
+| [extensions/sdk/rust-events.rs](../extensions/sdk/rust-events.rs) | Language-neutral public event-signature contract for independent Rust app services; no commerce implementation. |
 | [extensions/sdk/ui_bundle.py](../extensions/sdk/ui_bundle.py) | Build self-contained vanilla example UIs from the shared SDK; no remote imports at runtime. |
 | [extensions/sdk/wit/snapshot-price.component.wat](../extensions/sdk/wit/snapshot-price.component.wat) | Typed fixture: calls the real host cart snapshot and returns one percent of its subtotal. |
 | [extensions/services/connectors/src/actions.rs](../extensions/services/connectors/src/actions.rs) | Existing standard-app actions and event/export endpoints share validated tenant-bound dispatch. |
@@ -979,6 +994,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/developer_documents.py](../scripts/developer_documents.py) | Local model wire fixtures verify app generation, provenance and document privacy, without paid providers. |
 | [scripts/differential.py](../scripts/differential.py) | Independent PHP/Rust differential; fails on any money delta, not averaged error. |
 | [scripts/email_tests.py](../scripts/email_tests.py) | Archived differential SMTP/TLS fixtures plus actual Rust/PostgreSQL/MCP/flow consumers. No external mail. |
+| [scripts/erp_handoff.py](../scripts/erp_handoff.py) | Registered integration entry delegates reference-app behavior to its package-owned verification. |
 | [scripts/extensions.py](../scripts/extensions.py) | Activate actual Wasm policies and prove their effect on B2B checkout. |
 | [scripts/fashion_demo.py](../scripts/fashion_demo.py) | Actual default signup, fashion variants/media/localization, isolated checkout and restart; synthetic data only. |
 | [scripts/formal/axioms.py](../scripts/formal/axioms.py) | Audit owned proof sources and transitive Lean dependencies; no extra axioms are allowed. |

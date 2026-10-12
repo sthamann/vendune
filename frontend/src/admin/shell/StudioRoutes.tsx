@@ -64,6 +64,8 @@ export default function StudioRoutes() {
     setId,
     setData,
     connected,
+    connectionPending,
+    retryConnection,
     data,
     access,
     setSettings,
@@ -86,6 +88,24 @@ export default function StudioRoutes() {
     (id: string) => createStudioRequest(token, id, locale),
     [token, locale],
   );
+  // Keep the conversation draft mounted through session recovery; data workspaces wait for their new scope.
+  if (!connected && auth.active && (appSurface || tab !== "assistant"))
+    return (
+      <div
+        className="studio-empty"
+        role={connectionPending ? "status" : "alert"}
+      >
+        <Icon name={connectionPending ? "refresh" : "link"} size={32} />
+        <p>
+          {x(connectionPending ? "loadingWorkspace" : "workspaceLoadFailed")}
+        </p>
+        {!connectionPending && (
+          <button className="studio-primary" onClick={retryConnection}>
+            {t("refresh")}
+          </button>
+        )}
+      </div>
+    );
   return appSurface ? (
     <AppSurfaceView selected={appSurface} />
   ) : tab === "orders" ? (

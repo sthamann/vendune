@@ -19,8 +19,10 @@ export default function NativeDataBlock({
   onSaved,
   context = {},
   tenant,
+  externalSubmit = false,
 }: {
   tenant?: string;
+  externalSubmit?: boolean;
   app: string;
   block: Block;
   entity: Entity;
@@ -147,6 +149,7 @@ export default function NativeDataBlock({
           <NativeRecordForm
             key={`${app}:${entity.name}:${epoch}:${dataEpoch}`}
             blockId={block.id}
+            externalSubmit={externalSubmit}
             entity={entity}
             records={records}
             boundFields={filter}

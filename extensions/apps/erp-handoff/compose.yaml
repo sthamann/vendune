@@ -1,0 +1,19 @@
+# Place operator credentials in server-side environment; authorize only core callback + ERP egress in infrastructure.
+services:
+  erp-handoff:
+    build:
+      context: ../../..
+      dockerfile: extensions/apps/erp-handoff/Dockerfile
+    environment:
+      APP_TOKEN: ${APP_TOKEN:?Required gateway secret}
+      APP_DATABASE_URL: ${APP_DATABASE_URL:?Required app-only non-owner PostgreSQL role}
+      APP_CORE_URL: ${APP_CORE_URL:?Required operator core URL}
+      APP_TENANTS: ${APP_TENANTS:?Required per-tenant callback and ERP configuration}
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 64
+    mem_limit: 256m
+    cpus: 0.5
+    tmpfs: [/tmp:size=8m,noexec,nosuid]
+    ports: ["127.0.0.1:8797:8797"]

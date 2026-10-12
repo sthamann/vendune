@@ -61,7 +61,7 @@ inference; concurrent withdrawal or changes return localized retry guidance.
 
 > **Graph-native apps:** map app-owned nodes, relationships and selected native fields in App Studio or the same coding-agent manifest. Current tenant rights and record revisions remain authoritative across API, MCP and planner context. [Example and contract](extensions/apps/ontology-care/README.md).
 
-**Merged release and acceptance:** [complete change summary, integration paths and measured test gaps](docs/release-acceptance-2026-10-09.md). The 12 October workbench and app-ownership checks cover 193 Rust units, 421 frontend tests and the targeted integration suites; hosted rollout and real providers have separate acceptance gates.
+**Merged release and acceptance:** [complete change summary, integration paths and measured test gaps](docs/release-acceptance-2026-10-09.md). The 12 October workbench and app-ownership checks cover 202 Rust units, 432 frontend tests and the targeted integration suites; hosted rollout and real providers have separate acceptance gates.
 
 **9 October public update:** the private Experience service now runs original Storyfront Studio and Cinematic presentation. Fresh AI catalog/image creation, original review/build/publication and a live German product-answer scene were checked. Core still owns prices, stock and orders. [Live acceptance and remaining boundaries](docs/current-release.md#public-original-storyfront-update--9-october-2026).
 
@@ -71,6 +71,8 @@ German product name and cleared the original Bag after server confirmation,
 including after reload. Canceling keeps the Bag. The original Studio overview
 uses the actual connected catalogue and live address. [Screenshots and exact acceptance](docs/current-release.md#checkout-continuity).
 
+
+**12 October lifecycle follow-up:** confirmed single-save returns, current-package write fencing, shared tenant/app admission and an independent Rust ERP adapter with durable receipts and explicit reconciliation. The same Manifest remains shared by visual editing and coding agents. [Implementation and tested boundaries](docs/connected-workbench.md#lifecycle-and-reference-app-follow-up--12-october-2026).
 
 **12 October workbench update:** editable app patterns, targeted AI edits to existing apps, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. A real local model added translated, order-bound controls; browser checks verified saving and explicit reload. [How to use it, ownership and verification boundaries](docs/connected-workbench.md).
 
@@ -214,10 +216,10 @@ Start without a model provider; add reviewed AI edits when useful.
 | Build | What you learn |
 | --- | --- |
 | [Product care advisor](docs/app-tutorials/product-advisor.md) | Private product tab, public advice cards and optional authorized graph/AI access |
-| [Returns workspace](docs/app-tutorials/returns-workspace.md) | Order-bound private cases, choices and validated save code-behind |
+| [Returns workspace](docs/app-tutorials/returns-workspace.md) | Order-bound private cases, enforced lifecycle and confirmed single-save transitions |
 | [Customer preferences](docs/app-tutorials/customer-preferences.md) | Extra customer fields, translated choices and independent action rights |
 | [Daily review reminder](docs/app-tutorials/scheduled-review.md) | Native UTC clock → durable event → graphical Flow; optional configured notifications |
-| [ERP order handoff](docs/app-tutorials/erp-handoff.md) | Event/service contracts, mappings, package approval and deduplicated delivery |
+| [ERP order handoff](docs/app-tutorials/erp-handoff.md) | App-owned Rust adapter, signed events, forced-RLS receipts and explicit reconciliation |
 
 [**Open all five workshops →**](docs/app-tutorials/README.md)
 Twelve current screenshots show real local UI. F5, staging and live delivery are

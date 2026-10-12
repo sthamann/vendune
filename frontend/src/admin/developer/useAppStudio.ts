@@ -4,7 +4,8 @@ import type { RequestFn, Provider } from "../shell/studio-types";
 import type { Manifest } from "../../shared/apps/native/types";
 import { appText } from "../../shared/i18n/app-studio-i18n";
 import { useDraftStorage } from "./useDraftStorage";
-import { bump, compile, editHistory, template } from "./app-model";
+import { compile, editHistory, template } from "./app-model";
+import { nextAppVersion } from "./app-version";
 export type Build = {
   id: string;
   environment: string;
@@ -121,6 +122,22 @@ export function useAppStudio(
       setBaseline("");
     },
   );
+  // Autosave and immutable history arrive independently. Reattach only an exact
+  // snapshot; never mark a modified draft saved or overwrite its fields.
+  useEffect(() => {
+    if (saved) return;
+    const snapshot = JSON.stringify(manifest);
+    const match = builds.find(
+      (b) =>
+        b.environment === env &&
+        b.app === manifest.id &&
+        JSON.stringify(compile(b.manifest)) === snapshot,
+    );
+    if (match) {
+      setSaved(match);
+      setBaseline(snapshot);
+    }
+  }, [builds, manifest, env, saved]);
   const importVersion = async () => {
     const b = await request("/api/developer/import", {
       environment: env,
@@ -170,7 +187,15 @@ export function useAppStudio(
     // Editing a persisted snapshot starts a new version; never overwrite its package.
     dispatch(
       saved && m.version === saved.version
-        ? { ...m, version: bump(saved.version) }
+        ? {
+            ...m,
+            version: nextAppVersion(
+              saved.version,
+              [...builds, ...archivedBuilds]
+                .filter((b) => b.app === m.id)
+                .map((b) => b.version),
+            ),
+          }
         : m,
     );
     if (saved) setSaved(null);
@@ -223,7 +248,15 @@ export function useAppStudio(
     publish,
     adopt,
     editVersion: (b: Build) => {
-      edit({ ...b.manifest, version: bump(b.version) });
+      edit({
+        ...b.manifest,
+        version: nextAppVersion(
+          b.version,
+          [...builds, ...archivedBuilds]
+            .filter((v) => v.app === b.app)
+            .map((v) => v.version),
+        ),
+      });
       setSaved(null);
       setBaseline("");
       setEnv(b.environment);
