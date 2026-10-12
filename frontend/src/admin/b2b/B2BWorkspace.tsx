@@ -232,6 +232,13 @@ export default function B2BWorkspace({
                 entity="b2bCompany"
                 id={draft.id}
                 revision={draft.revision}
+                dirty={
+                  JSON.stringify(draft.data) !== JSON.stringify(detail?.data)
+                }
+                onRestored={async () => {
+                  await open(draft.id);
+                  await load();
+                }}
               />
             )}
             {draft.revision > 0 && (

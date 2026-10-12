@@ -1,7 +1,7 @@
 /** Minimal first-party observations reuse the server consent receipt; no fingerprint or persistent analytics identifier. */
 import { useEffect, useRef } from "react";
 import { shopApi, type Cart } from "../../shared/api/shop-api";
-import { usePurpose } from "../../shared/legal/consent-store";
+import { useConsent, usePurpose } from "../../shared/legal/consent-store";
 import { channelPreview } from "./ChannelPreview";
 export default function BehaviorAnalytics({
   shop,
@@ -21,6 +21,7 @@ export default function BehaviorAnalytics({
   route: string;
 }) {
   const allowed = usePurpose("analytics");
+  const consent = useConsent();
   const previous = useRef<
     | {
         scope: string;
@@ -34,6 +35,7 @@ export default function BehaviorAnalytics({
   const scope = `${shop}:${channel}:${token}`;
   const enabled =
     allowed &&
+    consent.behaviorAnalyticsEnabled !== false &&
     !!token &&
     cart?.status === "open" &&
     !channelPreview() &&

@@ -13,7 +13,7 @@ pub(crate) fn schema(name: &str) -> Option<Value> {
     {
         return None;
     }
-    let mut props = json!({"entity":{"type":"string","enum":["product","category","customer","order","settings","company","companyChannel","checkoutChannel","rule","flow","promotion","channel","source"]},"id":{"type":"string","minLength":1,"maxLength":254}});
+    let mut props = json!({"entity":{"type":"string","enum":["product","category","customer","order","settings","company","companyChannel","checkoutChannel","rule","flow","promotion","channel","source","b2bCompany","b2bUnit","b2bQuote","b2bList","b2bApproval"]},"id":{"type":"string","minLength":1,"maxLength":254}});
     let mut required = vec!["entity", "id"];
     if name == "merchant.history" {
         props["before"] = json!({"type":"integer"});
@@ -48,6 +48,15 @@ pub(crate) fn visible(h: &RequestContext, name: &str) -> bool {
         ]
     };
     scopes.iter().any(|p| auth::permit(h, p).is_ok())
+        || (auth::allowed(h, "customers.pii")
+            && auth::allowed(
+                h,
+                if name == "merchant.history.restore" {
+                    "b2b.manage"
+                } else {
+                    "b2b.read"
+                },
+            ))
 }
 pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -> Result<Value> {
     let Json(value) = if name == "merchant.customer.groups" {

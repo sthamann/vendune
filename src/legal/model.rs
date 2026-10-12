@@ -33,6 +33,8 @@ pub(crate) struct Config {
     pub strict_checkout: bool,
     #[serde(default = "days")]
     pub consent_days: u32,
+    #[serde(default)]
+    pub behavior_analytics: BehaviorAnalytics,
     #[serde(default = "purposes")]
     pub purposes: HashMap<String, bool>,
     #[serde(default)]
@@ -54,6 +56,23 @@ pub(crate) struct Service {
     pub retention: String,
     pub privacy_url: String,
 }
+/// Native analytics inherits through the same revisioned shop/channel privacy configuration.
+#[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub(crate) struct BehaviorAnalytics {
+    pub enabled: bool,
+    pub retention_days: u32,
+    pub events_per_hour: u32,
+}
+impl Default for BehaviorAnalytics {
+    fn default() -> Self {
+        Self {
+            enabled: true,
+            retention_days: 30,
+            events_per_hour: 500,
+        }
+    }
+}
 fn days() -> u32 {
     180
 }
@@ -68,6 +87,7 @@ impl Default for Config {
         Self {
             strict_checkout: false,
             consent_days: days(),
+            behavior_analytics: BehaviorAnalytics::default(),
             purposes: purposes(),
             services: vec![],
             documents: HashMap::new(),
@@ -83,6 +103,8 @@ pub(crate) fn version(c: &Config) -> String {
 }
 pub(crate) fn validate(c: &Config, s: &commerce::Settings) -> Result<()> {
     if !(1..=365).contains(&c.consent_days)
+        || !(1..=30).contains(&c.behavior_analytics.retention_days)
+        || !(1..=500).contains(&c.behavior_analytics.events_per_hour)
         || c.services.len() > 40
         || c.sectors.len() > SECTORS.len()
         || c.sectors.iter().any(|v| !SECTORS.contains(&v.as_str()))

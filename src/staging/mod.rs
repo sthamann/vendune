@@ -1,10 +1,12 @@
 //! Private cloned shops, scope admission and selective atomic release of reviewed changes.
 use crate::*;
+mod access;
 mod assets;
 mod categories;
 mod clone;
 mod company;
 mod documents;
+mod final_config;
 mod release;
 mod snapshot;
 pub(crate) use clone::create_preview;
@@ -84,11 +86,16 @@ async fn diff(
     let actual = snapshot(&mut tx, &t).await?;
     let mut changes = vec![];
     for (key, value) in current.as_object().unwrap() {
+        if key.starts_with("b2b-")
+            && (auth::permit(&h, "b2b.read").is_err() || auth::permit(&h, "customers.pii").is_err())
+        {
+            continue;
+        }
         if base["stage"].get(key) != Some(value) {
             changes.push(json!({"key":key,"before":base["stage"].get(key),"after":value,"digest":hash(&value.to_string()),"conflict":actual.get(key)!=base["live"].get(key)}));
         }
     }
     Ok(Json(
-        json!({"environment":id,"changes":changes,"excluded":["inventory","customers","orders","payments","credentials","observations"]}),
+        json!({"environment":id,"changes":changes,"excluded":["inventory","customers","orders","payments","credentials","observations","b2b-employees","b2b-spending","b2b-approvals","b2b-quotes","b2b-lists"]}),
     ))
 }

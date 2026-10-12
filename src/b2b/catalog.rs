@@ -39,19 +39,25 @@ pub(super) async fn save(a: &App, h: &RequestContext, v: &Value) -> Result<Value
     let t = merchant(a, h)?;
     auth::permit(h, "b2b.manage")?;
     auth::permit(h, "catalog.read")?;
+    let mut tx = a.db.begin().await?;
+    history::context(&mut tx, h, "merchant").await?;
+    let result = save_tx(&mut tx, &t, v).await?;
+    tx.commit().await?;
+    Ok(result)
+}
+/// Same catalog admission and revision fence for direct edits and atomic releases.
+pub(super) async fn save_tx(conn: &mut sqlx::PgConnection, t: &str, v: &Value) -> Result<Value> {
     let unit = v["unitId"].as_str().ok_or(bad("Unit required"))?;
     let ids: Vec<String> = serde_json::from_value(v["productIds"].clone())
         .map_err(|_| bad("Product ID list required"))?;
     if ids.len() > 1000 || ids.iter().collect::<std::collections::HashSet<_>>().len() != ids.len() {
         return Err(bad("Catalog edit accepts up to 1000 distinct product IDs"));
     }
-    let mut tx = a.db.begin().await?;
-    history::context(&mut tx, h, "merchant").await?;
     let revision: Option<i64> =
         sqlx::query_scalar("SELECT revision FROM b2b_units WHERE tenant=$1 AND id=$2 FOR UPDATE")
-            .bind(&t)
+            .bind(t)
             .bind(unit)
-            .fetch_optional(&mut *tx)
+            .fetch_optional(&mut *conn)
             .await?;
     let revision = revision.ok_or(Error(StatusCode::NOT_FOUND, "Unit not found".into()))?;
     if v["revision"].as_i64() != Some(revision) {
@@ -59,39 +65,38 @@ pub(super) async fn save(a: &App, h: &RequestContext, v: &Value) -> Result<Value
     }
     let count: i64 =
         sqlx::query_scalar("SELECT count(*) FROM products WHERE tenant=$1 AND id=ANY($2)")
-            .bind(&t)
+            .bind(t)
             .bind(&ids)
-            .fetch_one(&mut *tx)
+            .fetch_one(&mut *conn)
             .await?;
     if count != ids.len() as i64 {
         return Err(bad("Catalog references missing or foreign products"));
     }
     sqlx::query("DELETE FROM b2b_catalog WHERE tenant=$1 AND unit_id=$2")
-        .bind(&t)
+        .bind(t)
         .bind(unit)
-        .execute(&mut *tx)
+        .execute(&mut *conn)
         .await?;
     sqlx::query(
         "INSERT INTO b2b_catalog(tenant,unit_id,product_id) SELECT $1,$2,unnest($3::text[])",
     )
-    .bind(&t)
+    .bind(t)
     .bind(unit)
     .bind(ids)
-    .execute(&mut *tx)
+    .execute(&mut *conn)
     .await?;
     sqlx::query("UPDATE b2b_units SET revision=revision+1 WHERE tenant=$1 AND id=$2")
-        .bind(&t)
+        .bind(t)
         .bind(unit)
-        .execute(&mut *tx)
+        .execute(&mut *conn)
         .await?;
     organization::event(
-        &mut tx,
-        &t,
+        conn,
+        t,
         "b2b.catalog_changed",
         json!({"unitId":unit,"revision":revision+1}),
     )
     .await?;
-    tx.commit().await?;
     Ok(json!({"revision":revision+1}))
 }
 

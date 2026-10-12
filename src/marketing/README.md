@@ -5,6 +5,8 @@ Ownership, executable contracts and explicit migration boundaries are described 
 - [app_flows.rs](app_flows.rs): App flow dispatch uses the same permission/schema gateway as HTTP/MCP, with a stable job key.
 - [coupons.rs](coupons.rs): Revision-safe coupon selection for shared storefront/POS carts with cashier/channel admission.
 - [catalog.rs](catalog.rs): Native condition metadata, app action/event discovery and source-compatible condition import.
+- [channel_config.rs](channel_config.rs): Shared transactional schema, tenant/category/product and operational-type admission for direct writes and releases.
+- [flow_policy.rs](flow_policy.rs): Shared transactional native/app action rights, installed target/schema and current settings validation.
 - [channels.rs](channels.rs): Sales channels share a merchant tenant but bind independent catalog visibility, locale and cart identity.
 - [customer_facts.rs](customer_facts.rs): Customer rule authority is loaded by tenant and stable customer ID, with aggregate history and calendar age.
 - [dependencies.rs](dependencies.rs): Tenant-owned semantic references, durable uses and channel dependency counts for safe removal.

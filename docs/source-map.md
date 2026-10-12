@@ -548,3 +548,15 @@ B2B comparison](b2b-commerce.md). The independent `extensions/apps/edi/` package
 bounded EDIFACT/UBL/cXML parsing, mapped private requisition import and immutable
 native document export; no Core codec or second ledger. [EDI profiles, deployment
 and network/certification limits](edi.md).
+
+## Shared publication and observation owners
+
+`marketing/channel_config.rs` owns transactional channel admission for native
+writes and releases; `marketing/flow_policy.rs` checks current action rights.
+`staging/access.rs` checks each selected domain and `final_config.rs` validates the
+final aggregate/POS defaults. `b2b/staging.rs` clones only configuration/catalogs
+and delegates publication to the same organization/catalog transactional writers.
+`legal/model.rs` owns inherited visitor settings; behavior capture/report/journey
+and consent disclosure consume that same policy. Shared history exposes B2B
+configuration over HTTP/MCP without financial rewind. No second settings, audit
+or analytics ledger is introduced. [Integration map and limits](feature-integration.md).

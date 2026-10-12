@@ -29,6 +29,11 @@ export type Purpose = (typeof purposes)[number];
 export type LegalConfig = {
   strictCheckout: boolean;
   consentDays: number;
+  behaviorAnalytics?: {
+    enabled: boolean;
+    retentionDays: number;
+    eventsPerHour: number;
+  };
   purposes: Partial<Record<Purpose, boolean>>;
   services: {
     id: string;
@@ -56,10 +61,12 @@ export type Consent = {
   policyVersion: string;
   decided: boolean;
   expiresAt?: string;
+  behaviorAnalyticsEnabled?: boolean;
 };
 export const defaultLegal = (): LegalConfig => ({
   strictCheckout: false,
   consentDays: 180,
+  behaviorAnalytics: { enabled: true, retentionDays: 30, eventsPerHour: 500 },
   purposes: Object.fromEntries(purposes.map((p) => [p, true])),
   services: [],
   documents: {},

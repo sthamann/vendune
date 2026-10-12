@@ -64,4 +64,58 @@ call('/api/developer/import',{'environment':stage,'prompt':'x','summary':name,'m
 call('/api/environments/'+stage+'/release',{'approve':True,'selections':[]},reader,expected=403)
 call('/api/environments',{'name':'No'},reader,expected=403)
 passed('Cross-shop access and viewer create/import/release attempts are rejected')
+# Environment management is not a delegation of catalog or app administration rights.
+product=call('/api/merchant/products/mug',session=a,tenant=stage)
+product['translations']['en']['name']='Reviewed staged mug'
+call('/api/merchant/products/mug',product,a,stage,method='PUT')
+change=next(c for c in call('/api/environments/'+stage+'/diff',session=a)['changes'] if c['key']=='product:mug')
+selection={'approve':True,'selections':[{'key':change['key'],'digest':change['digest']}]}
+call('/api/workspace/members/'+reader['user']['id'],{'role':'viewer','active':True,'permissions':['team.manage','settings.read','settings.write']},a,method='PUT')
+call('/api/environments/'+stage+'/release',selection,reader,expected=403)
+call('/api/environments/'+stage+'/release',selection,a)
+assert call('/api/merchant/products/mug',session=a)['translations']['en']['name']=='Reviewed staged mug'
+passed('Releasing catalog content requires current catalog rights in addition to environment management')
+call('/api/apps/care_guide/entities/guides',{'id':'restricted_record','fields':{'title':'Reviewed app data'}},a,stage)
+change=next(c for c in call('/api/environments/'+stage+'/diff',session=a)['changes'] if c['key']=='appdata:care_guide:guides:restricted_record')
+selection={'approve':True,'selections':[{'key':change['key'],'digest':change['digest']}]}
+call('/api/environments/'+stage+'/release',selection,reader,expected=403)
+assert len(call('/api/apps/care_guide/entities/guides',session=a)['elements'])==1
+call('/api/environments/'+stage+'/release',selection,a)
+flow={'name':{'en-GB':'Staged order tag'},'active':True,'event':'order.placed','condition':{'type':'alwaysValid'},'action':'pipeline','instruction':{'en-GB':'Tag'},'locale':'en-GB','pipeline':{'entry':'tag','nodes':[{'kind':'action','id':'tag','action':'action.add.order.tag','config':{'tags':['reviewed']},'next':None}]}}
+call('/api/automation/flows/staged_tag',{'revision':0,'data':flow},a,stage,method='PUT')
+change=next(c for c in call('/api/environments/'+stage+'/diff',session=a)['changes'] if c['key']=='flow:staged_tag')
+selection={'approve':True,'selections':[{'key':change['key'],'digest':change['digest']}]}
+call('/api/environments/'+stage+'/release',selection,reader,expected=403)
+call('/api/environments/'+stage+'/release',selection,a)
+assert next(f for f in call('/api/automation',session=a)['flows']if f['id']=='staged_tag')['data']['actor']==a['user']['id']
+passed('App-data publication requires app administration; Flow publication checks native action rights and rebinds its current actor')
+# Selectively publishing a POS channel must initialize the same native cash/pickup defaults.
+pos={'name':{'en-GB':'Staged register'},'kind':'pos','active':True,'locales':['en-GB','de-DE'],'productIds':[],'pos':{'country':'DE','columns':4}}
+call('/api/automation/channels/staged_register',{'revision':0,'data':pos},a,stage,method='PUT')
+change=next(c for c in call('/api/environments/'+stage+'/diff',session=a)['changes'] if c['key']=='channel:staged_register')
+call('/api/environments/'+stage+'/release',{'approve':True,'selections':[{'key':change['key'],'digest':change['digest']}]},a)
+context=call('/api/pos/staged_register/context',{},a)
+assert any(p['id']=='pos-cash' for p in context['options']['payments']),context
+change=next(c for c in call('/api/environments/'+stage+'/diff',session=a)['changes'] if c['key']=='settings-channel:staged_register')
+assert not change['conflict']
+call('/api/environments/'+stage+'/release',{'approve':True,'selections':[{'key':change['key'],'digest':change['digest']}]},a)
+history=call('/api/history/channel/staged_register',session=a)
+assert history['elements'][0]['actor']==a['user']['id'] and history['elements'][0]['source']=='staging.release'
+passed('Selective POS publication initializes native cash and pickup without a parallel payment engine')
+# App Flow release checks the CURRENT live installed target, action schema and actor rights.
+appflow={'name':{'en-GB':'Staged app record'},'active':True,'event':'order.placed','condition':{'type':'alwaysValid'},'action':'app_action','instruction':{'en-GB':'Save guide'},'locale':'en-GB','appAction':{'app':'care_guide','action':'save_guides','arguments':{'id':'from_release','revision':0,'fields':{'title':'Flow guide'}}}}
+call('/api/automation/flows/staged_app_record',{'revision':0,'data':appflow},a,stage,method='PUT')
+change=next(c for c in call('/api/environments/'+stage+'/diff',session=a)['changes']if c['key']=='flow:staged_app_record')
+selection={'approve':True,'selections':[{'key':change['key'],'digest':change['digest']}]}
+call('/api/workspace/members/'+reader['user']['id'],{'role':'viewer','active':True,'permissions':['team.manage','settings.read','settings.write','apps.manage']},a,method='PUT')
+call('/api/environments/'+stage+'/release',selection,reader,expected=403)
+pack=next(p for p in call('/api/apps',session=a)['packages']if p['id']=='care_guide')
+call('/api/apps/care_guide',{'active':False,'revision':pack['revision']},a,method='PUT')
+call('/api/environments/'+stage+'/release',selection,a,expected=409)
+assert not any(f['id']=='staged_app_record'for f in call('/api/automation',session=a)['flows'])
+pack=next(p for p in call('/api/apps',session=a)['packages']if p['id']=='care_guide')
+call('/api/apps/care_guide',{'active':True,'revision':pack['revision']},a,method='PUT')
+call('/api/environments/'+stage+'/release',selection,a)
+assert next(f for f in call('/api/automation',session=a)['flows']if f['id']=='staged_app_record')['data']['actor']==a['user']['id']
+passed('App Flow publication validates current installed target, action-specific rights and transactional activation before any live effect')
 print(json.dumps({'passed':len(checks),'checks':checks,'paidInference':False},indent=2))

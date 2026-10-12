@@ -3,6 +3,12 @@ use super::*;
 pub(crate) type Tx<'a> = sqlx::Transaction<'a, sqlx::Postgres>;
 pub(crate) async fn snapshot(tx: &mut Tx<'_>, t: &str) -> Result<Value> {
     let mut result = serde_json::Map::new();
+    // Same settings-before-purchasing-policy lock order as native organization writes.
+    sqlx::query("SELECT revision FROM commerce_settings WHERE tenant=$1 FOR UPDATE")
+        .bind(t)
+        .fetch_optional(&mut **tx)
+        .await?;
+    crate::b2b::snapshot_configuration(tx, t, &mut result).await?;
     assets::snapshot_assets(tx, t, &mut result).await?;
     company::snapshot(tx, t, &mut result).await?;
     commerce::snapshot_scopes(tx, t, &mut result).await?;

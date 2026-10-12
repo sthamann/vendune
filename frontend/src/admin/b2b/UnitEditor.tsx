@@ -272,6 +272,38 @@ export default function UnitEditor({
                 entity="b2bUnit"
                 id={selected.id}
                 revision={selected.revision}
+                dirty={
+                  JSON.stringify(selected.data) !==
+                    JSON.stringify(
+                      company.units.find((u) => u.id === selected.id)?.data,
+                    ) ||
+                  JSON.stringify([...catalog].sort()) !==
+                    JSON.stringify(
+                      [
+                        ...((
+                          company.units.find((u) => u.id === selected.id) as
+                            (Unit & { catalogIds?: string[] }) | undefined
+                        )?.catalogIds ?? []),
+                      ].sort(),
+                    ) ||
+                  selected.parentId !==
+                    company.units.find((u) => u.id === selected.id)?.parentId
+                }
+                onRestored={async () => {
+                  const latest: CompanyDetail = await request(
+                    "/api/b2b/company",
+                    { id: company.id },
+                  );
+                  const restored = latest.units.find(
+                    (u) => u.id === selected.id,
+                  );
+                  setSelected(restored);
+                  setCatalog(
+                    (restored as (Unit & { catalogIds?: string[] }) | undefined)
+                      ?.catalogIds ?? [],
+                  );
+                  await refresh();
+                }}
               />
               <Members
                 request={request}

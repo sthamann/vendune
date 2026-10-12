@@ -133,3 +133,26 @@ See [EDI](edi.md), [source ownership](../src/b2b/README.md),
 [formal boundary](formal-verification.md) and [multi-currency](currencies.md).
 
 The private-catalog check also filters variant siblings before detail pagination. A real B2B purchase emits `b2b.purchase_completed`; the isolated acceptance configures a standard Flow Builder action and verifies the resulting native order tag. Approval/RFQ snapshots exclude cart bearer tokens. Existing tenant business-price/Wasm policies remain active.
+
+## Configuration history and private publication
+
+Company/unit editors use the shared entity history. `merchant.history`,
+`merchant.history.version` and `merchant.history.restore` include `b2bCompany`,
+`b2bUnit`, `b2bQuote`, `b2bList` and `b2bApproval`. Only company/unit configuration
+is restorable: current employee grants, catalog selection, approvals and spending
+are not rewound by history. Restore uses expected current revision and the same
+hierarchy, currency/period allocation and settings validation as a normal write.
+History reads require `b2b.read` plus `customers.pii`; restore adds `b2b.manage`.
+
+Private environments clone company/unit **configuration and catalog selections**,
+not employees, RFQs, lists, approvals or spending. Review `b2b-company:ID` and
+`b2b-unit:ID` changes in the existing Staging & releases view. Publication adds
+`b2b.manage`, read/PII rights and catalog read for units to the normal environment
+management rights; unauthorized B2B diffs are hidden. Native company/unit/catalog
+writers run in the release transaction, parents before children, after selected
+products/settings. Unit policy and catalog writes each advance the unit revision.
+Current live members and allocations remain; their period/currency guards can
+reject a change that passed in the empty sandbox. Stale digests or live policy
+changes reject the entire release. Existing generic deletion limitations remain.
+B2B-referenced shipping/payment methods and currencies cannot be removed from
+configuration without resolving dependencies. [Full audit](feature-integration.md).

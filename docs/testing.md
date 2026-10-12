@@ -1,5 +1,26 @@
 # Testing, coverage and maintenance contracts
 
+## Connected feature audit — 12 October 2026
+
+[Integration map and repaired boundaries](feature-integration.md). Real isolated
+PostgreSQL/HTTP regression runs cover POS, B2B history and policy staging, inherited
+analytics settings/capture, selective release, settings scopes, customer history,
+foreign-tenant references, legal consent, currency behavior, native/app automation,
+EDI and marketplace provider fixtures. Denied writes inspect unchanged live state;
+B2B staging checks current live spending and preserves employee grants. App Flow
+publication checks the current installed target, action-specific rights and activation.
+No real AI, customer email, payment or seller account is used by these fixtures.
+
+The current frontend run passes **470 tests in 84 files**. The complete Rust unit
+run passes **224 tests** across the library, Core and bundled service binaries;
+formatting, all-target lint and production builds pass. The existing **51 extracted
+policies** match compiled Rust/Lean in **155,347 cases**, with no mismatch; this
+adds no whole-server proof. The documentation build checks **200 pages**, all
+**193 Markdown sources** and **4,847 local links/assets**. Explicit API rights,
+modular source inventory and four-language gates remain required. Dated coverage numbers below belong to their
+original source/CI; this audit does not claim 100% coverage or whole-system proof.
+
+
 ## Behavioral intelligence verification — 12 October 2026
 
 The new registered `behavior_intelligence` suite runs real PostgreSQL/API/MCP
@@ -28,7 +49,7 @@ remaining audit work. The completed merged-Core CI at `598bbec` measures Rust
 54.78% branches / 51.14% functions / 61.94% statements** and Python tooling/reference
 scope **81.34% lines / 57.80% branches**. [Exact source/CI artifact summary](evidence/release-acceptance-2026-10-09.json).
 
-Dated measurements below retain their original source. The current suite has
+Dated measurements below retain their original source. That dated suite had
 187 Rust unit tests and 388 frontend tests; the private Experience application and
 original Storyfront container have separate evidence and no claimed percentage.
 
@@ -36,7 +57,7 @@ original Storyfront container have separate evidence and no claimed percentage.
 
 - Rust: 414 source modules (merged cognitive release, 9 October 2026), each with a responsibility header, at most 320 lines; `main.rs` at most 120. Existing domain folders remain independent of extension app implementations.
 - Frontend: separate `admin/`, `storefront/`, `platform/` and `shared/` ownership. Views/controllers and styles are limited to 400 lines; locale data has a documented 700-line allowance. Runtime cycles, unresolved local imports, crossing application boundaries, missing folder contracts and undocumented source files fail CI.
-- Bundled Email/GA4/Gmail/Slack services are Rust modules in `extensions/services/connectors/src/`; independent app examples and browser SDKs remain under `extensions/`. Python test tooling lives under `scripts/` and the previous connector is an archived comparison oracle in `reference/`. [The generated inventory](module-inventory.md) covers runtime/tooling sources and is checked for drift.
+- Bundled Email/GA4/Gmail/Slack implementations are Rust modules under their `extensions/apps/<app>/` package; shared service hosting is in `extensions/services/connectors/src/`; independent app examples and browser SDKs remain under `extensions/`. Python test tooling lives under `scripts/` and the previous connector is an archived comparison oracle in `reference/`. [The generated inventory](module-inventory.md) covers runtime/tooling sources and is checked for drift.
 - Studio workspaces load lazily. Root application routing is isolated in `frontend/src/application/`; error boundaries keep workspace failures inside the current view and provide reload recovery for rejected cached module imports. The removed `CommerceManager` had no call site and duplicated old operational UI. Order state management remains in `admin/orders/OrderWorkflow.tsx`; product review moderation lives in `admin/catalog/ReviewModeration.tsx`.
 
 `frontend/tests/architecture.mjs` also inserts deliberately broken synthetic imports,

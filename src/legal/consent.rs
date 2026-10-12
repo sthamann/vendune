@@ -69,7 +69,7 @@ pub(super) async fn write(
             "Consent change limit reached".into(),
         ));
     }
-    let receipt = json!({"choices":choices,"policyVersion":v.policy_version,"decided":true,"recordedAt":chrono::Utc::now().to_rfc3339(),"expiresAt":(chrono::Utc::now()+chrono::Duration::days(s.legal.consent_days.into())).to_rfc3339()});
+    let receipt = json!({"choices":choices,"policyVersion":v.policy_version,"decided":true,"behaviorAnalyticsEnabled":s.legal.behavior_analytics.enabled,"recordedAt":chrono::Utc::now().to_rfc3339(),"expiresAt":(chrono::Utc::now()+chrono::Duration::days(s.legal.consent_days.into())).to_rfc3339()});
     sqlx::query("INSERT INTO privacy_consents(tenant,cart_id,channel_id,policy_version,data,expires_at) VALUES($1,$2,$3,$4,$5,now()+make_interval(days=>$6)) ON CONFLICT(tenant,cart_id,channel_id) DO UPDATE SET policy_version=EXCLUDED.policy_version,data=EXCLUDED.data,expires_at=EXCLUDED.expires_at")
       .bind(&c.tenant).bind(&c.id).bind(&c.data.sales_channel).bind(&v.policy_version).bind(&receipt).bind(s.legal.consent_days as i32).execute(&mut *tx).await?;
     sqlx::query(

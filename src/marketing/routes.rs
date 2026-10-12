@@ -116,111 +116,35 @@ pub(crate) async fn save(
             }
         }
         "flows" => {
-            let f: flows::Flow =
-                serde_json::from_value(data.clone()).map_err(|_| bad("Invalid flow"))?;
-            f.validate()?;
-            super::flow_text::validate(&f, &settings)?;
-            validate_app_flow(&a, &t, &h, &f).await?;
-            if let Some(p) = &f.pipeline {
-                for node in &p.nodes {
-                    if let pipeline::Node::Action { action, config, .. } = node {
-                        auth::permit(&h, flow_actions::permission(action))?;
-                        if matches!(action.as_str(), "ai_proposal" | "knowledge.extract") {
-                            auth::permit(&h, "knowledge.read")?;
-                        }
-                        if action == "app_action" || action == "action.mail.send" {
-                            let mut step = f.clone();
-                            step.action = "app_action".into();
-                            step.app_action = Some(flows::AppFlowAction {
-                                app: config["app"].as_str().unwrap_or("email").into(),
-                                action: config["action"].as_str().unwrap_or("send_order").into(),
-                                arguments: if action == "action.mail.send" {
-                                    json!({"locale":&f.locale[..2],"dryRun":false})
-                                } else {
-                                    config["arguments"].clone()
-                                },
-                            });
-                            validate_app_flow(&a, &t, &h, &step).await?;
-                        }
-                    }
-                }
-            }
-
             data["actor"] = json!(header(&h, "x-rac-user").unwrap_or("bootstrap"));
         }
         "channels" => {
-            if id == "default" {
-                data["locales"] = json!(settings.locales);
-            }
-            let c: Channel =
-                serde_json::from_value(data.clone()).map_err(|_| bad("Invalid channel"))?;
-            if id == "default" && (c.kind != "storefront" || c.locales != settings.locales) {
-                return Err(bad(
-                    "Main channel must remain a storefront and inherit shop languages",
-                ));
-            }
-            if !["public", "private"].contains(&c.visibility.as_str())
-                || !["storefront", "headless", "pos", "marketplace"].contains(&c.kind.as_str())
-                || c.locales.is_empty()
-                || c.locales.iter().any(|v| !settings.locales.contains(v))
-                || c.product_ids.len() > 500
-            {
-                return Err(bad("Invalid channel membership"));
-            }
-            crate::pos::validate_channel(&c, &settings)?;
-            if let Some(root) = &c.navigation_category_id {
-                let exists: bool = sqlx::query_scalar(
-                    "SELECT EXISTS(SELECT 1 FROM categories WHERE tenant=$1 AND id=$2)",
-                )
-                .bind(&t)
-                .bind(root)
-                .fetch_one(&a.db)
-                .await?;
-                if !exists {
-                    return Err(bad("Unknown channel navigation category"));
-                }
-            }
-            for product in &c.product_ids {
-                let exists: bool = sqlx::query_scalar(
-                    "SELECT EXISTS(SELECT 1 FROM products WHERE tenant=$1 AND id=$2)",
-                )
-                .bind(&t)
-                .bind(product)
-                .fetch_one(&a.db)
-                .await?;
-                if !exists {
-                    return Err(bad("Unknown channel product"));
-                }
-            }
+            normalize_channel(&mut data, &id, &settings);
         }
         _ => unreachable!(),
     }
     let name = &data["name"];
     commerce::validate_names(name, &settings, 100)?;
     let mut tx = a.db.begin().await?;
+    // Match selective release: automation admission precedes settings and app locks.
+    lifecycle::lock(&mut tx, &t).await?;
     if kind == "channels" {
         sqlx::query("SELECT revision FROM commerce_settings WHERE tenant=$1 FOR UPDATE")
             .bind(&t)
             .fetch_one(&mut *tx)
             .await?;
-        let old: Option<String> = sqlx::query_scalar(
-            "SELECT data->>'kind' FROM sales_channels WHERE tenant=$1 AND id=$2",
-        )
-        .bind(&t)
-        .bind(&id)
-        .fetch_optional(&mut *tx)
-        .await?;
-        if old.is_some_and(|v| {
-            (v == "pos") != (data["kind"] == "pos")
-                || (v == "marketplace") != (data["kind"] == "marketplace")
-        }) {
-            return Err(conflict(
-                "Operational channel type cannot be changed; create a new channel",
-            ));
-        }
+        let settings = commerce::decode_config(
+            sqlx::query_scalar("SELECT data FROM commerce_settings WHERE tenant=$1")
+                .bind(&t)
+                .fetch_one(&mut *tx)
+                .await?,
+        )?;
+        validate_channel_config(&mut tx, &t, &id, &data, &settings).await?;
+    }
+    if kind == "flows" {
+        validate_flow_config(&mut tx, &t, &h, &data).await?;
     }
     history::context(&mut tx, &h, "merchant").await?;
-    lifecycle::lock(&mut tx, &t).await?;
     lifecycle::validate_references(&mut tx, &t, &kind, &id, &data).await?;
     let sql = format!("SELECT revision FROM {table} WHERE tenant=$1 AND id=$2 FOR UPDATE");
     sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,17))")

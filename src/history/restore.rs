@@ -10,6 +10,12 @@ pub(super) async fn apply(
 ) -> Result<Json<Value>> {
     let data = state["data"].clone();
     match entity {
+ "b2bCompany" | "b2bUnit" => {
+  // Replay configuration only. Current employees/catalog, quotes and budget allocations are never rewound.
+  let mut args=json!({"id":id,"revision":revision,"data":data});
+  if entity=="b2bUnit" { args["companyId"]=state["company_id"].clone(); args["parentId"]=state["parent_id"].clone(); }
+  Ok(Json(Box::pin(b2b::restore_configuration(&a,&h,if entity=="b2bCompany" {"company.save"} else {"unit.save"},&args)).await?))
+ },
  "product"=>product::restore(a,h,id,state,revision).await,
  "customer"=>operations::restore_customer(a,h,id,state,revision).await,
  "category"=>categories::save_category(State(a),h,Path(id),Json(json!({"revision":revision,"parentId":state["parent_id"],"position":state["position"],"data":data}))).await,

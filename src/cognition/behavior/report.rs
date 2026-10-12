@@ -3,9 +3,11 @@ use super::*;
 // SQL composition uses only bundled static clauses; every request value remains a bind parameter.
 pub(super) async fn read(a: &App, h: &RequestContext, t: &str, v: &Value) -> Result<Value> {
     apps::validate_input(&super::schema("knowledge.behavior").unwrap(), v)?;
-    let days = v["days"].as_i64().unwrap_or(7) as i32;
+    let requested_days = v["days"].as_i64().unwrap_or(7) as i32;
     let channel = v["salesChannelId"].as_str().unwrap_or("default");
     let (settings, _) = commerce::scoped_config(a, t, channel).await?;
+    let policy = &settings.legal.behavior_analytics;
+    let days = requested_days.min(policy.retention_days as i32);
     let exists: bool =
         sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM sales_channels WHERE tenant=$1 AND id=$2)")
             .bind(t)
@@ -18,7 +20,11 @@ pub(super) async fn read(a: &App, h: &RequestContext, t: &str, v: &Value) -> Res
             "Sales channel not found".into(),
         ));
     }
-    let version = legal::policy_version(&settings.legal);
+    let version = if policy.enabled && settings.legal.purposes.get("analytics") == Some(&true) {
+        legal::policy_version(&settings.legal)
+    } else {
+        String::new()
+    };
     let (locale, chain) = language_context(a, h).await?;
     let mut tx = a.db.begin().await?;
     sqlx::query("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
@@ -81,6 +87,6 @@ pub(super) async fn read(a: &App, h: &RequestContext, t: &str, v: &Value) -> Res
         }).collect::<Vec<_>>();
     tx.commit().await?;
     Ok(
-        json!({"salesChannelId":channel,"channels":channels,"days":days,"retentionDays":30,"totals":totals,"dimensions":dimensions,"daily":daily,"products":products,"graph":{"observations":edges,"semantic":relations},"journeys":journeys,"canInspectJourneys":auth::allowed(h,"customers.pii"),"basis":"consent-bound cart contexts; client observations, native orders; not unique humans or causal attribution","modelLearning":false,"geoConfigured":geography::configured()}),
+        json!({"salesChannelId":channel,"channels":channels,"days":days,"retentionDays":policy.retention_days,"enabled":policy.enabled,"eventsPerHour":policy.events_per_hour,"totals":totals,"dimensions":dimensions,"daily":daily,"products":products,"graph":{"observations":edges,"semantic":relations},"journeys":journeys,"canInspectJourneys":auth::allowed(h,"customers.pii"),"basis":"consent-bound cart contexts; client observations, native orders; not unique humans or causal attribution","modelLearning":false,"geoConfigured":geography::configured()}),
     )
 }

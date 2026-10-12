@@ -10,3 +10,5 @@ financial and delivery corrections must use normal workflow actions.
 
 No retroactive authors/history are inferred. Coverage and limitations are in
 `docs/entity-history.md`; HTTP regressions are in `scripts/crm_history.py`.
+
+B2B company/unit history restores configuration through its native validated writer; current employees/catalog and financial state are preserved. Quotes/lists/approvals remain inspection-only; shared MCP schemas expose the same entities and rights.

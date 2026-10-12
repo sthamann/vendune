@@ -1,6 +1,36 @@
 /** Complete EN/DE/FR/ES legal workspace and storefront vocabulary; documents use shop content languages. */
 import { useLocale } from "./i18n";
 export const legalWords = {
+  behaviorSettings: [
+    "Native shop analytics",
+    "Eigene Shop-Analyse",
+    "Analyse native de la boutique",
+    "Analítica nativa de la tienda",
+  ],
+  behaviorHint: [
+    "Inherits per sales channel. Requires current analytics consent; sandboxes never record visits. Policy edits require customers to review their choices again.",
+    "Pro Verkaufskanal vererbbar. Benötigt aktuelle Analyse-Einwilligung; Sandboxes erfassen keine Besuche. Bei Änderungen müssen Kunden ihre Auswahl erneut prüfen.",
+    "Héritable par canal. Consentement actuel requis ; aucun suivi en sandbox. Les changements nécessitent une nouvelle validation des choix.",
+    "Heredable por canal. Requiere consentimiento actual; las sandboxes no registran visitas. Los cambios requieren revisar las preferencias.",
+  ],
+  behaviorEnabled: [
+    "Enable native behavioral observations",
+    "Eigene Verhaltensbeobachtungen aktivieren",
+    "Activer les observations natives",
+    "Activar observaciones nativas",
+  ],
+  behaviorRetention: [
+    "Observation retention (1–30 days)",
+    "Speicherdauer der Beobachtungen (1–30 Tage)",
+    "Conservation des observations (1–30 jours)",
+    "Conservación de observaciones (1–30 días)",
+  ],
+  behaviorAdmission: [
+    "Events per cart context per hour (1–500)",
+    "Ereignisse je Warenkorb und Stunde (1–500)",
+    "Événements par panier et heure (1–500)",
+    "Eventos por carrito y hora (1–500)",
+  ],
   sharedBasis: [
     "Shared shop basis",
     "Gemeinsame Shop-Grundlage",

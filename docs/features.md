@@ -503,9 +503,9 @@ Create named, hashed, scoped integration keys valid for **1–90 days**. They ar
 
 ### Private stages and selected publication
 
-A sandbox clones catalog/translations/categories, settings/company, experience state, rules/flows/campaigns/channels, app packages and selected public app data/documents. It excludes live customer accounts/orders, payment attempts/provider keys, observed shopper behavior and private app records. Sandbox inventory is simulated; publishing product content preserves live stock. Anonymous checkout and external service effects are blocked.
+A sandbox clones catalog/translations/categories, settings/company, experience state, rules/flows/campaigns/channels, app packages, selected public app data/documents and B2B company/unit policies/catalog selections. It excludes live customer accounts/orders, payment attempts/provider keys, observed shopper behavior, private app records and B2B employees/financial decisions. Sandbox inventory is simulated; publishing product content preserves live stock. Anonymous checkout and external service effects are blocked.
 
-**Review changes** compares stage content with its recorded live baseline. Select only the needed units: products, categories, apps, app data, assets/documents, rules, campaigns, flows, channels, settings, company/channel overrides, experience and order workflow. A release is atomic and rejects concurrent live baseline conflicts; there is no automatic conflict merge or universal rollback button. [Clone and release boundary](workbench.md#what-a-sandbox-contains).
+**Review changes** compares stage content with its recorded live baseline. Select only the needed units: products, categories, apps, app data, assets/documents, rules, campaigns, flows, channels, settings, company/channel overrides, experience, order workflow and B2B company/unit policy/catalog selections. Each selected domain requires its own current rights. A release is atomic and rejects concurrent live baseline conflicts; there is no automatic conflict merge or universal rollback button. [Clone and release boundary](workbench.md#what-a-sandbox-contains).
 
 ![Publish only the checked app package; its care-record data stays private](assets/feature-tour/selective-release.gif)
 
@@ -591,3 +591,11 @@ B2B comparison](b2b-commerce.md). The independent `extensions/apps/edi/` package
 bounded EDIFACT/UBL/cXML parsing, mapped private requisition import and immutable
 native document export; no Core codec or second ledger. [EDI profiles, deployment
 and network/certification limits](edi.md).
+
+## Connected feature audit — 12 October 2026
+
+[The integration matrix](feature-integration.md) links POS, B2B/EDI, marketplaces
+and behavioral intelligence to their actual versions, settings, sandbox, rights,
+API/MCP and event owners. Native analytics now has inherited enabled/retention/
+intake controls; B2B editors expose history and selected configuration publication.
+Provider fixture success remains distinct from live account/transport acceptance.

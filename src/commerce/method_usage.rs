@@ -24,8 +24,20 @@ async fn counts(
         0
     };
     let rules:i64=sqlx::query_scalar("SELECT (SELECT count(*) FROM commerce_rules WHERE tenant=$1 AND jsonb_path_exists(condition,'$.** ? (@ == $id)',jsonb_build_object('id',$2::text))) + (SELECT count(*) FROM commerce_flows WHERE tenant=$1 AND jsonb_path_exists(data,'$.** ? (@ == $id)',jsonb_build_object('id',$2::text)))").bind(t).bind(id).fetch_one(&mut **tx).await?;
+    let units: i64 = sqlx::query_scalar(
+        "SELECT count(*) FROM b2b_units WHERE tenant=$1 AND COALESCE(data->$2,'[]'::jsonb) ? $3",
+    )
+    .bind(t)
+    .bind(if area == "shipping" {
+        "allowedShipping"
+    } else {
+        "allowedPayments"
+    })
+    .bind(id)
+    .fetch_one(&mut **tx)
+    .await?;
     Ok(
-        json!({"rules":rules,"orders":orders,"carts":carts,"overrides":overrides,"canDelete":orders+carts+overrides+rules==0}),
+        json!({"rules":rules,"orders":orders,"carts":carts,"overrides":overrides,"b2bUnits":units,"canDelete":orders+carts+overrides+rules+units==0}),
     )
 }
 pub(crate) async fn method_dependencies(
