@@ -10,6 +10,8 @@ pub(crate) struct Item {
 pub(crate) struct Cart {
     #[serde(default)]
     pub(crate) coupons: Vec<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub(crate) pos_actor: Option<String>,
     #[serde(default)]
     pub(crate) currency: String,
     #[serde(default = "default_channel")]

@@ -117,7 +117,7 @@ pub(crate) fn validate_config(s: &Settings) -> Result<()> {
         if v.countries.iter().any(|c| !s.countries.contains(c)) {
             return Err(bad("Invalid payment countries"));
         }
-        if !["manual", "simulated", "app"].contains(&v.mode.as_str())
+        if !["manual", "simulated", "app", "cash"].contains(&v.mode.as_str())
             || v.name.len() > 200
             || (v.mode == "app"
                 && !["paypal-sandbox", "paypal-live"].contains(&v.id.as_str())

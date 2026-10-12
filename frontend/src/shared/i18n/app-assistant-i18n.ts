@@ -1,6 +1,24 @@
 /** App assistants and extension permissions use the same EN/DE/FR/ES vocabulary. */
 import { useLocale } from "./i18n";
 export const assistantWords = {
+  posCatalog: [
+    "POS · product area",
+    "Kasse · Produktbereich",
+    "POS · zone produits",
+    "POS · productos",
+  ],
+  posCart: [
+    "POS · current sale",
+    "Kasse · aktueller Verkauf",
+    "POS · vente actuelle",
+    "POS · venta actual",
+  ],
+  posReceipt: [
+    "POS · receipt",
+    "Kasse · Beleg",
+    "POS · justificatif",
+    "POS · comprobante",
+  ],
   appId: [
     "Technical app ID",
     "Technische App-ID",

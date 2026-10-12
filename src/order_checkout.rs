@@ -32,6 +32,7 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
         .await?
         .ok_or(bad("Cart not found"))?;
     let mut c = stored(&r)?;
+    pos::guard_cart(h, &c)?;
     if c.data.locale != admitted.data.locale {
         return Err(conflict("Checkout language changed; review again"));
     }
@@ -43,6 +44,9 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
     let mut purchase = json!({"items":c.data.items,"checkout":c.data.checkout,"group":c.data.group,"buyer":c.data.buyer,"coupons":c.data.coupons,"salesChannel":c.data.sales_channel,"currency":c.data.currency});
     if !c.data.app_configurations.is_empty() {
         purchase["appConfigurations"] = json!(c.data.app_configurations);
+    }
+    if h.pos.is_some() {
+        purchase["posTender"] = json!(h.pos.as_ref().and_then(|p| p.tender_minor));
     }
     let fingerprint = hash(&format!("{}:{}", c.id, purchase));
     if let Some(r) = sqlx::query(
@@ -107,6 +111,9 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
     let config =
         payments::currency_methods_conn(&mut tx, &c.tenant, &c.data.sales_channel, &code, config)
             .await?;
+    if h.pos.is_some() {
+        pos::check_locked(&mut tx, h, &c).await?;
+    }
     let legal_snapshot = legal::snapshot(&mut tx, &c, &config, &ps).await?;
     let selected = commerce::selection(&c.data);
     for address in [&selected.address, &selected.billing_address]
@@ -170,40 +177,7 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
         currency.scale,
     )?;
     let minor = money.minor();
-    // Legacy API clients may omit the pair. Browser checkout always binds its reviewed quote.
-    match (
-        header(h, "x-commerce-cart-revision"),
-        header(h, "x-commerce-total-minor"),
-    ) {
-        (None, None) => {}
-        (Some(revision), Some(total)) => {
-            let revision = revision
-                .parse::<u64>()
-                .map_err(|_| bad("Invalid reviewed cart revision"))?;
-            let total = total
-                .parse::<i64>()
-                .map_err(|_| bad("Invalid reviewed total"))?;
-            if !u64::try_from(total)
-                .ok()
-                .zip(u64::try_from(minor).ok())
-                .is_some_and(|(expected, actual)| {
-                    verified_kernel::checkout_review_admissible(
-                        verified_kernel::revision_admissible(c.revision as u64, revision),
-                        expected,
-                        actual,
-                        q["selectionNeedsConfirmation"] != true,
-                    )
-                })
-            {
-                return Err(conflict("Checkout changed; review your order again"));
-            }
-        }
-        _ => {
-            return Err(bad(
-                "Reviewed cart revision and total must be supplied together",
-            ));
-        }
-    }
+    checkout_review::validate(h, &c, &q, minor)?;
     if config.is_business(&c.data.group) {
         let digest: String =
             sqlx::query_scalar("SELECT digest FROM extensions WHERE tenant=$1 FOR SHARE")
@@ -233,8 +207,10 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
     }
     // Financial providers/manual invoices require usable contact and billing data.
     // The explicit simulated demo method keeps legacy headless fixture carts compatible.
+    pos::validate_settlement(h, &c, &q, &config, minor)?;
     if !verified_kernel::checkout_contact_admissible(
-        q["paymentMethod"]["mode"] == "simulated",
+        q["paymentMethod"]["mode"] == "simulated"
+            || (q["paymentMethod"]["mode"] == "cash" && h.pos.is_some()),
         c.data.email.is_some(),
         selected.billing_address.is_some(),
     ) {
@@ -251,6 +227,7 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
         .as_object_mut()
         .unwrap()
         .extend(customer_snapshot.as_object().unwrap().clone());
+    pos::settle(&mut tx, h, &c, &mut order).await?;
     commerce::order_fields(&mut order);
     sqlx::query("INSERT INTO orders(id,tenant,cart_id,idempotency_key,fingerprint,data) VALUES($1,$2,$3,$4,$5,$6)").bind(&id).bind(&c.tenant).bind(&c.id).bind(key).bind(&fingerprint).bind(&order).execute(&mut *tx).await?;
     commerce::inventory::allocate(&mut tx, &c, &id).await?;

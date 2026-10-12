@@ -15,18 +15,24 @@ def lean_runner(functions):
         '    | .error reason => throw (IO.userError reason)']
     return '\n'.join(lines)+'\n'
 
-def rust_runner(functions):
+def rust_dispatch(functions):
     lines = ['//! Generated conformance driver; invokes the same production policy functions as the commerce server.',
         'use vendune::verified_kernel::*;', 'use serde_json::{Value, json};',
-        'use std::io::{self, BufRead};',
-        'fn eval(j: &Value) -> Result<Value, String> {',
+        'pub(super) fn eval(j: &Value) -> Result<Value, String> {',
         '    let args = &j["args"];', '    match j["function"].as_str() {']
     for f in functions:
         args = ', '.join(f'args["{n}"].as_{t}().ok_or("Invalid {n}")?' for n,t in f.args)
         lines.append(f'        Some("{f.name}") => Ok(json!({f.name}({args}))),')
-    lines += ['        _ => Err("Unknown policy".into()),', '    }', '}',
+    lines += ['        _ => Err("Unknown policy".into()),', '    }', '}']
+    return '\n'.join(lines)+'\n'
+
+def rust_runner(functions):
+    lines = ['//! Generated input/output driver; production policies are dispatched by the generated module.',
+        '#[path = "verified_kernel/dispatch.rs"] mod dispatch;',
+        'use serde_json::Value;',
         'fn main() -> Result<(), Box<dyn std::error::Error>> {',
+        '    use std::io::{self, BufRead};',
         '    for line in io::stdin().lock().lines() {',
         '        let input: Value = serde_json::from_str(&line?)?;',
-        '        println!("{}", eval(&input).map_err(io::Error::other)?);', '    }', '    Ok(())', '}']
+        '        println!("{}", dispatch::eval(&input).map_err(io::Error::other)?);', '    }', '    Ok(())', '}']
     return '\n'.join(lines)+'\n'

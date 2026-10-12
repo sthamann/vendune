@@ -290,3 +290,8 @@ pub fn experiment_result_admissible(
 ) -> bool {
     final_look && enough_units && positive_bound
 }
+
+/// Cash change is bounded and nonnegative only under cashier authorization and a reviewed total.
+pub fn pos_cash_admissible(authorized: bool, tender: u64, total: u64, reviewed: bool) -> bool {
+    authorized && reviewed && total <= tender && tender <= 1000000000000
+}

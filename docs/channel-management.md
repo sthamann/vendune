@@ -2,6 +2,10 @@
 
 Sales channels are independently configured storefronts within **one merchant tenant**. A separately registered SaaS shop is a different tenant. Products, members and apps remain tenant-owned; channel settings select the visible catalog, languages, currency, navigation, company and checkout overrides.
 
+## Point-of-sale channels
+
+POS adds a private authenticated register alongside storefront/headless channels. Location, product grid, receipt translations and channel overrides live on the existing sales-channel/settings owners. Public Store API/UCP checkout is denied; cashier cart ownership and `pos.use` admission are required. [Set up and extend a register](pos.md).
+
 ## Studio workflow
 
 Open **Sales channels → Manage channel**. Existing channels can be edited, including the main channel. Saving becomes available after an actual valid change; read-only roles receive an explicit notice. Change names through the shared content-language editor, preserving translations and main-language fallback.

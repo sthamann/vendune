@@ -1,0 +1,94 @@
+/* Completion, held sale and variant surfaces for the register. */
+.pos-receipt {
+  max-width: 640px;
+  margin: 28px auto;
+  text-align: center;
+  background: var(--pos-paper);
+  border: 1px solid var(--pos-line);
+  border-radius: 28px;
+  padding: 44px 32px;
+  animation: pos-arrive 0.3s ease-out;
+}
+.pos-receipt-mark {
+  display: grid;
+  place-items: center;
+  background: #e7f7ef;
+  color: #147354;
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+  margin: 0 auto 22px;
+}
+.pos-receipt h2 {
+  font-size: 32px;
+  letter-spacing: -0.035em;
+}
+.pos-receipt-total {
+  display: block;
+  font-size: 46px;
+  letter-spacing: -0.05em;
+  margin: 24px 0;
+}
+.pos-receipt-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.pos-receipt-actions .pos-pay {
+  width: 100%;
+  margin-top: 12px;
+}
+.pos-history {
+  border: 1px solid var(--pos-line);
+  border-radius: 18px;
+  background: var(--pos-paper);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.pos-history header,
+.pos-variants header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.pos-history h2,
+.pos-variants h2 {
+  font-size: 20px;
+}
+.pos-history > button {
+  width: 100%;
+  justify-content: space-between;
+  margin: 6px 0;
+}
+.pos-variants::backdrop {
+  background: #13273866;
+}
+.pos-variants {
+  background: var(--pos-paper);
+  color: var(--pos-ink);
+  border: 1px solid var(--pos-line);
+  border-radius: 24px;
+  padding: 24px;
+  width: min(560px, 100%);
+  max-height: 85dvh;
+  overflow: auto;
+  box-sizing: border-box;
+}
+.pos-variants > button {
+  width: 100%;
+  justify-content: space-between;
+  margin: 8px 0;
+  text-align: left;
+}
+@keyframes pos-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

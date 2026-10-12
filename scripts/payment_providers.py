@@ -71,6 +71,30 @@ try:
   call('/api/payments/'+fid+'/refund',{'approve':True,'amountMinor':1},{**ah,'Idempotency-Key':uuid.uuid4().hex});assert wait(fid,fh,'partially_refunded')['refundedMinor']==1
   outbound=next(x for x in calls if x.get('attemptId')==fid and x['operation']=='create');assert outbound['currencyScale']==scale and outbound['currency']==code
  print('PASS real generic adapter ledger preserves USD/JPY/KWD minor units and exact partial refunds')
+ # Native POS selects the same provider/account and rejoins durable capture events.
+ channel={'name':{'en-GB':'Provider register'},'kind':'pos','active':True,'locales':['en-GB','de-DE','fr-FR','es-ES'],'productIds':[],'pos':{'country':'DE','columns':4,'compact':False,'receiptMessage':{}}}
+ call('/api/automation/channels/provider_pos',{'revision':0,'data':channel},ah,'PUT')
+ call('/api/payment-providers/'+m['id']+'/onboarding',{**onboard,'channel':'provider_pos','requestKey':uuid.uuid4().hex},ah)
+ def pos(op,body={}):return call('/api/pos/provider_pos/'+op,body,ah)
+ pc=pos('create')['cart'];pc=pos('replace',{'cartToken':pc['token'],'revision':pc['revision'],'items':[{'id':'notebook','quantity':1}]})
+ pc=pos('select',{'cartToken':pc['token'],'revision':pc['revision'],'checkout':{**pc['checkout'],'paymentMethodId':'example-payments-wallet','customerEmail':'pos-fixture@example.test','billingAddress':{'name':'Synthetic POS buyer','street':'Fixture street 1','postalCode':'12345','city':'Test','country':'DE'}}})
+ po=pos('complete',{'cartToken':pc['token'],'revision':pc['revision'],'requestKey':uuid.uuid4().hex,'totalMinor':pc['price']['totalMinor']});pid=po['payment']['attemptId'];assert po['payment']['state']!='paid'
+ for _ in range(100):
+  pp=pos('payment',{'cartToken':pc['token']})
+  if pp['payment']['state']=='ready':break
+  time.sleep(.1)
+ assert pp['payment']['approvalUrl']=='https://provider.example.test/pay'
+ reference[pid]='approved';pos('reconcile',{'cartToken':pc['token'],'requestKey':uuid.uuid4().hex})
+ for _ in range(100):
+  pp=pos('payment',{'cartToken':pc['token']})
+  if pp['payment']['state']=='captured':break
+  time.sleep(.1)
+ assert pp['order']['payment']['state']=='captured' and pp['order']['pos']['completionEvent']
+ assert sql("SELECT count(*) FROM outbox WHERE tenant='workshop' AND kind='pos.sale_completed' AND data->>'orderId'='"+po['id']+"';")=='1'
+ pos('reconcile',{'cartToken':pc['token'],'requestKey':uuid.uuid4().hex});time.sleep(.2)
+ assert sql("SELECT count(*) FROM outbox WHERE tenant='workshop' AND kind='pos.sale_completed' AND data->>'orderId'='"+po['id']+"';")=='1'
+ print('PASS native POS provider onboarding, redirect readiness, durable reconcile/capture and exactly one completion event')
+
  o,h=purchase();id=o['payment']['attemptId'];wait(id,h,'ready');assert o['payment']['provider']==m['id']
  call('/store-api/payments/'+id+'/session',h={**h,'x-tenant':'atelier'},expected=404);session=call('/store-api/payments/'+id+'/session',h=h);assert session['expiresIn']==300 and secret not in json.dumps(session)
  call('/api/merchant/orders/'+o['id']+'/transition',{'kind':'payment','state':'paid','revision':o['revision']},ah,expected=409)

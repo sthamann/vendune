@@ -18,6 +18,9 @@ export const appKinds = [
 ] as const;
 export type AppKind = (typeof appKinds)[number];
 export const placements: Record<string, AssistantKey> = {
+  "admin.pos.catalog": "posCatalog",
+  "admin.pos.cart": "posCart",
+  "admin.pos.receipt": "posReceipt",
   "admin.navigation": "navigation",
   "admin.product.general": "productGeneral",
   "admin.product.tab": "productTab",

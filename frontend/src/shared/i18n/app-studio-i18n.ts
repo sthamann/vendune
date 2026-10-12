@@ -6,6 +6,24 @@ import { appLogicWords } from "./app-logic-i18n";
 import { appWorkflowWords } from "./app-workflow-i18n";
 import { useLocale } from "./i18n";
 export const appStudioWords = {
+  posCatalog: [
+    "POS · product area",
+    "Kasse · Produktbereich",
+    "POS · zone produits",
+    "POS · productos",
+  ],
+  posCart: [
+    "POS · current sale",
+    "Kasse · aktueller Verkauf",
+    "POS · vente actuelle",
+    "POS · venta actual",
+  ],
+  posReceipt: [
+    "POS · receipt",
+    "Kasse · Beleg",
+    "POS · justificatif",
+    "POS · comprobante",
+  ],
   ...appWorkflowWords,
   adminView: [
     "Merchant view",

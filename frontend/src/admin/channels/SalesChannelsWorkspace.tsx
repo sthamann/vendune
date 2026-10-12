@@ -5,6 +5,7 @@ import type { Category } from "../catalog/catalog-model";
 import { useLocale } from "../../shared/i18n/i18n";
 import { contentText } from "../../shared/i18n/content-language";
 import { useChannelText } from "./channel-i18n";
+import Icon from "../../shared/ui/Icon";
 import { freshChannel, type Channel } from "./channel-model";
 import ChannelEditor from "./ChannelEditor";
 import "../styles/sales-channels.css";
@@ -24,6 +25,7 @@ export default function SalesChannelsWorkspace({
     [settings, setSettings] = useState<{
       locales: string[];
       mainLocale: string;
+      countries: string[];
     }>(),
     [categories, setCategories] = useState<Category[]>([]),
     [manage, setManage] = useState(false),
@@ -79,6 +81,7 @@ export default function SalesChannelsWorkspace({
           languages={settings.locales}
           mainLocale={settings.mainLocale}
           categories={categories}
+          countries={settings.countries ?? []}
           workspace={workspace}
           canWrite={manage}
           onBack={() => setSelected(null)}
@@ -94,7 +97,16 @@ export default function SalesChannelsWorkspace({
             {channels.map((c) => (
               <article className="studio-card channel-card" key={c.id}>
                 <span className="channel-avatar">
-                  {c.data.kind === "headless" ? "API" : "V"}
+                  <Icon
+                    name={
+                      c.data.kind === "pos"
+                        ? "register"
+                        : c.data.kind === "headless"
+                          ? "code"
+                          : "globe"
+                    }
+                    size={28}
+                  />
                 </span>
                 <span className="soft-tag">
                   {t(

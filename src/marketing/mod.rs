@@ -6,6 +6,8 @@ pub(crate) mod channel_preview;
 mod channels;
 use app_flows::*;
 mod catalog;
+mod coupons;
+pub(crate) use coupons::coupons;
 mod gateway;
 mod jobs;
 pub(crate) use gateway::invoke;

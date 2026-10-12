@@ -1,6 +1,12 @@
 /** International settings vocabulary. Every key requires English, German, French and Spanish. */
 import { useLocale } from "./i18n";
 export const internationalWords = {
+  cash: [
+    "Cash · POS only",
+    "Barzahlung · nur Kasse",
+    "Espèces · POS uniquement",
+    "Efectivo · solo POS",
+  ],
   contentLanguage: [
     "Content language",
     "Inhaltssprache",

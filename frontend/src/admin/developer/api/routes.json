@@ -860,6 +860,16 @@
     "source": "src/routes.rs"
   },
   {
+    "path": "/api/pos/channels",
+    "method": "GET",
+    "source": "src/pos/mod.rs"
+  },
+  {
+    "path": "/api/pos/{channel}/{operation}",
+    "method": "POST",
+    "source": "src/pos/mod.rs"
+  },
+  {
     "path": "/api/runtime",
     "method": "GET",
     "source": "src/routes.rs"

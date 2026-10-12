@@ -3,6 +3,7 @@
 Ownership, executable contracts and explicit migration boundaries are described in [the automation guide](../../docs/automation.md). Each module owns one responsibility; HTTP and MCP delegate to the same tenant-bound operations.
 
 - [app_flows.rs](app_flows.rs): App flow dispatch uses the same permission/schema gateway as HTTP/MCP, with a stable job key.
+- [coupons.rs](coupons.rs): Revision-safe coupon selection for shared storefront/POS carts with cashier/channel admission.
 - [catalog.rs](catalog.rs): Native condition metadata, app action/event discovery and source-compatible condition import.
 - [channels.rs](channels.rs): Sales channels share a merchant tenant but bind independent catalog visibility, locale and cart identity.
 - [customer_facts.rs](customer_facts.rs): Customer rule authority is loaded by tenant and stable customer ID, with aggregate history and calendar age.

@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "claim": "45 extracted production policies; surrounding modules remain unproved",
+  "claim": "46 extracted production policies; surrounding modules remain unproved",
   "policies": {
     "discount_cap": {
       "bindings": [
@@ -37,10 +37,10 @@
       "bindings": [
         "src/commerce/fulfillment.rs",
         "src/translations/apply.rs",
-        "src/order_checkout.rs",
         "src/platform/ai.rs",
         "src/platform/lifecycle.rs",
-        "src/platform/quotas.rs"
+        "src/platform/quotas.rs",
+        "src/checkout_review.rs"
       ],
       "theorems": [
         "revision_exact",
@@ -231,7 +231,7 @@
     },
     "checkout_review_admissible": {
       "bindings": [
-        "src/order_checkout.rs"
+        "src/checkout_review.rs"
       ],
       "theorems": [
         "checkout_review_exact"
@@ -421,6 +421,16 @@
         "experiment_result_exact",
         "experiment_immature_denied",
         "experiment_undersized_denied"
+      ]
+    },
+    "pos_cash_admissible": {
+      "bindings": [
+        "src/pos/settlement.rs"
+      ],
+      "theorems": [
+        "pos_cash_exact",
+        "pos_cash_conserves",
+        "pos_cash_unauthorized_denied"
       ]
     }
   },
@@ -667,8 +677,8 @@
     },
     "src/apps/cart_contributions.rs": {
       "status": "unproved",
-      "sha256": "50b46b03fa1243ff545f28a43016ea20584212417133ddf41fccb22d9cf26968",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "8387afc64b28d2aab0c38937f421045ce19add8454dbdfc79ddf3a5ca5b7b6d0",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/apps/commerce_hooks.rs": {
       "status": "unproved",
@@ -727,8 +737,8 @@
     },
     "src/apps/event_projection.rs": {
       "status": "unproved",
-      "sha256": "9a127e571853a88bd0d70b07500343a3bf210e80d7569015260a12aef5038f66",
-      "review": "Reviewed cognitive source intake, geometry and lease fences, bounded read-agent dispatch, current evidence/compiler bindings, native guardrails/autonomy, delayed consent-bound payment experiments, minimized intelligence event projections and Flow/catalogue consumers. Real PostgreSQL/Qdrant isolation, source-change/restart, withdrawal/cache and provider fixtures plus Rust units validate contracts; SQL/statistics/provider truth remain outside Lean."
+      "sha256": "041691cbd848213a7a7e5d0e8e1f948c6b6dd346843126a65d5bddcc5ae863d1",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/apps/events.rs": {
       "status": "unproved",
@@ -902,8 +912,8 @@
     },
     "src/apps/surfaces.rs": {
       "status": "reviewed-binding",
-      "sha256": "01b5b4c6ace0c4d552014abf057e440b34b06da81f8e8f710c3808d55ba596e4",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "17eed02bf01a8507291436542c800d3cfdac8ec84c32ece432cd2127b2cf4c33",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/apps/ui_bundles.rs": {
       "status": "unproved",
@@ -1052,8 +1062,8 @@
     },
     "src/auth/permissions.rs": {
       "status": "reviewed-binding",
-      "sha256": "a5a913b8a0f8a597453ebb54759afa09285b99f869ebd787d019b3822d0ac1a8",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "55adb084a0709a22f13fdb4c2423cc660e25d749012b7c90b0e293b42e3de4e5",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/auth/provision.rs": {
       "status": "unproved",
@@ -1150,10 +1160,15 @@
       "sha256": "21196640f2c70d6a458000d1f33ba5705570eaeba142f2386951bc79d9b17cdc",
       "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
     },
+    "src/bin/verified_kernel/dispatch.rs": {
+      "status": "unproved",
+      "sha256": "d665eedaf7c7bb690074376e8983ce9ac79f4df94f9d2a5fecf9449aed1ecd15",
+      "review": "Native POS cash admission, shared currency/coupon forwarding and private cart consumer guards reviewed. Original coupon owner extracted and tenant-scoped; provider confirmation rejoins POS outbox once. Generated conformance dispatcher moved to a small dedicated module without policy duplication."
+    },
     "src/bin/verified_kernel.rs": {
       "status": "conformance-driver",
-      "sha256": "606173e574339bb72a188dc25483ffcb2346c5df59334a6545f7e619314508f1",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "5eb0bed95d09c45797f122edbd13a9119e022dca59326a3b08d2c73febc156a4",
+      "review": "Native POS cash admission, shared currency/coupon forwarding and private cart consumer guards reviewed. Original coupon owner extracted and tenant-scoped; provider confirmation rejoins POS outbox once. Generated conformance dispatcher moved to a small dedicated module without policy duplication."
     },
     "src/bootstrap.rs": {
       "status": "unproved",
@@ -1162,8 +1177,8 @@
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
-      "sha256": "6415c967eacb6742464f032f32240eb3f0a0064d6da0df95bd85bae070a89ae0",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "48f0c762399907c3d8c6d1dc071fc178d6e307cb833f46179bf83e3821182503",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/capabilities/core_catalog.rs": {
       "status": "unproved",
@@ -1172,23 +1187,23 @@
     },
     "src/capabilities.rs": {
       "status": "unproved",
-      "sha256": "e17b8f5e9a23e6209057b539fedc59d6926627ea7812b124f1c27724fac53648",
-      "review": "Reviewed saved category fact schema, tenant-bound current-source SQL, partial candidate indexes and shared MCP planning quota. Native catalog tests cover review/privacy/revision withdrawal, locale inheritance, confidence, channels, foreign tenants, literal wildcard semantics, CAS and selective staging; provider tests use the centrally encrypted shared replica configuration and quota rejection before model invocation."
+      "sha256": "3bb1edd138725a3f4f11df818c7cd08aa8db2df5dca238d3fc9105f94201ee1e",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/cart_model.rs": {
       "status": "unproved",
-      "sha256": "0093e04ba4c05aa2bd389afb209602f4211040f92cb9d9bce86c6cce56041d82",
-      "review": "Reviewed multi-currency admission, rational FX boundaries, immutable monetary source, additive ledger scale/RLS migrations, shared API/MCP/UCP paths and local provider/refund evidence. Only bounded policies are proved; FX, DB, network adapters and full commerce remain unproved."
+      "sha256": "377f7d06f73742ccb1d8db4aed3f19487aa1e3b5558ddfa2481b4b005cf64527",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/cart_mutation.rs": {
       "status": "unproved",
-      "sha256": "530b77e98dbfc0debb058e3cbc4ab1638f8eb585df1e6820cea5cc1cfcd2b891",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "b83d3ab3bf12d2aa90ac3d9e3497202754719862a2e5512b54dfb2903c89809a",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/cart_price.rs": {
       "status": "unproved",
-      "sha256": "024a6a4f25710782f94e05baddc3e91532d251e9e1350b5c354682ecc5d239f9",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "a593b89a634f8f40ab276a2dc51cc52268c59c3621bda594d00e36741cfd1464",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/cart_routes.rs": {
       "status": "unproved",
@@ -1197,8 +1212,8 @@
     },
     "src/cart_storage.rs": {
       "status": "unproved",
-      "sha256": "c19dd757e4e5b8f95522ded2516ef2216f82aa40dc5162012900dc059a9c2cb5",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "8667fd49d4510fb6c20d4ff07e19c0d157b1d589264342f2f7aba5ebb054303c",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/catalog_model.rs": {
       "status": "unproved",
@@ -1212,8 +1227,8 @@
     },
     "src/catalog_routes.rs": {
       "status": "unproved",
-      "sha256": "852baf7b0750c0d4131401b6eba1087fd535c151f400b791f9f35c5d76c0c867",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "1099c753542fe75d117a2f4ccdfad1959b25814872d770975ba9319305a982f2",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/categories/admin.rs": {
       "status": "unproved",
@@ -1252,8 +1267,8 @@
     },
     "src/checkout_handoff.rs": {
       "status": "unproved",
-      "sha256": "ed6e93a9b24930254c257366479d93fa129dee86f025035110ba9a48b003d7b5",
-      "review": "Reviewed tenant/channel registered-origin checkout framing, immutable localized checkout snapshots using existing inheritance, and shopper-only receipt transport. Verified origin negatives and German parent/variant label persistence with PostgreSQL; these adapters remain unproved, existing extracted kernel policies unchanged."
+      "sha256": "21509a9d6dd7c9950f542f67065d95302e7bd538c7886afe729bf64af64fa66e",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/checkout_page.rs": {
       "status": "unproved",
@@ -1264,6 +1279,11 @@
       "status": "unproved",
       "sha256": "70726a88889b6f04bab452c943bac66d0b80beb020317a780d48d73195c0969c",
       "review": "Follow-up reviewed: remove redundant references in localized snapshot helper; semantics unchanged from PostgreSQL-verified exact-origin checkout and immutable language snapshot change."
+    },
+    "src/checkout_review.rs": {
+      "status": "reviewed-binding",
+      "sha256": "eb81975bfb74b2b541749a273e8f8943a002106fac7c5402b5868e16a12f250c",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/cognition/advisor.rs": {
       "status": "unproved",
@@ -1392,8 +1412,8 @@
     },
     "src/commerce/context_routes.rs": {
       "status": "unproved",
-      "sha256": "01200721a5180a4c5622ffc928a6e9e9f06caa0b989a787cca1a635e62283e42",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "e1aa5d494245c92e21d23ed03a59575285eb3546a0bf6fca5ef36bc21bcbf407",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/commerce/customer_groups.rs": {
       "status": "reviewed-binding",
@@ -1407,8 +1427,8 @@
     },
     "src/commerce/detail.rs": {
       "status": "unproved",
-      "sha256": "1ac8557e78ff5e3afb125d279058a42a1e6f937e27052dc396f3334ed0aab196",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "e36e034bc3d7940837bc9adde0429d106bca33eb259a2bf452c7c1ce1b558fb7",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/commerce/fulfillment.rs": {
       "status": "reviewed-binding",
@@ -1447,8 +1467,8 @@
     },
     "src/commerce/mod.rs": {
       "status": "unproved",
-      "sha256": "8a768b42c21010ec315e51b14a15e6a8ace094a9e88dac633735ed458acde044",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "22321ed629cc3bcef3556ad687448b0c9f5628842548ab04fffde762ecaa942c",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/commerce/order_fields.rs": {
       "status": "unproved",
@@ -1527,8 +1547,8 @@
     },
     "src/commerce/settings_patch.rs": {
       "status": "unproved",
-      "sha256": "bd08f09540f9df3b9d896d90e9461948011286d351c69d17a23e45989f80c838",
-      "review": "Reviewed multi-currency admission, rational FX boundaries, immutable monetary source, additive ledger scale/RLS migrations, shared API/MCP/UCP paths and local provider/refund evidence. Only bounded policies are proved; FX, DB, network adapters and full commerce remain unproved."
+      "sha256": "c748fc062fc42e45b4cabf3b7b67e018c1713513f68cade7a2adc4860ba7609f",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/commerce/settings_release.rs": {
       "status": "unproved",
@@ -1547,8 +1567,8 @@
     },
     "src/commerce/settings_validation.rs": {
       "status": "unproved",
-      "sha256": "148c76e403fe6436d680f4b769be0b11558b2079d1e318baafc495d4420b5ff3",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "3543cc02b37d800b8799d5199fa15ebcd2e00570ce7ff86eb8b03efe60716a7d",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/commerce/tax.rs": {
       "status": "unproved",
@@ -1627,8 +1647,8 @@
     },
     "src/customer.rs": {
       "status": "unproved",
-      "sha256": "a7d00e2805f76b185b7f6d379c1c9d306ca4075072b1794c14fe0c62d1222e08",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "878c139a25a264dfd8a6618ae232fcf73909c1edf985c040a3f03260264e6e29",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/demo_catalog.rs": {
       "status": "unproved",
@@ -1652,8 +1672,8 @@
     },
     "src/developer/generation.rs": {
       "status": "unproved",
-      "sha256": "6ab4c082c1d4020aa3565214e2784644f66eb60343206e30d31001b0aeddf27e",
-      "review": "Reviewed bounded RFC6902 model edit adapter, protected metadata and storage/access retention, atomic clone application and host versions; real local Qwen textbox/button, native HTTP staging and no-op/destructive negative cases. SQL/provider adapters remain unproved."
+      "sha256": "0f0871d7b4bde7336d8f5e0bc5cb1a4b1c5aa779162350890ffbdbea1ed86f57",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/developer/generation_contract.rs": {
       "status": "unproved",
@@ -1677,8 +1697,8 @@
     },
     "src/developer/routes.rs": {
       "status": "unproved",
-      "sha256": "c51683275f1b256dc81a4938d4fab0d97803befe1a34dc3a8f8208867358ae5c",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "6d2b5b84de36cf1b1c25f6fdfadc891da2bd4c5598eb6d1c16afcbd86f315694",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/discount.rs": {
       "status": "reviewed-binding",
@@ -1892,13 +1912,13 @@
     },
     "src/localization.rs": {
       "status": "unproved",
-      "sha256": "758cec52f9510e0db1b6d03914ace8a7f942923220820c4b19391f0332694677",
-      "review": "Follow-up reviewed: remove redundant references in localized snapshot helper; semantics unchanged from PostgreSQL-verified exact-origin checkout and immutable language snapshot change."
+      "sha256": "1b5688ec715371b0343b8655e1c48d97fc375d703c4edafe0d49c93a7db0bd95",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/main.rs": {
       "status": "unproved",
-      "sha256": "d44a8281d09642449521b995d2100f8fd45e84bc13ead05e92dc4e295641926d",
-      "review": "Reviewed tenant/channel registered-origin checkout framing, immutable localized checkout snapshots using existing inheritance, and shopper-only receipt transport. Verified origin negatives and German parent/variant label persistence with PostgreSQL; these adapters remain unproved, existing extracted kernel policies unchanged."
+      "sha256": "8901075e66704ca71fd46772d74a43f75076fc76e061e5119d8beb858af10310",
+      "review": "Reviewed native POS trusted cashier cart admission, shared checkout locking and reviewed integer cash predicate; provider capture publishes one POS completion event through existing receipt transaction, generic app surfaces and events retain tenant scopes. Module registry import consolidation preserves entry behavior."
     },
     "src/marketing/app_flows.rs": {
       "status": "reviewed-binding",
@@ -1912,8 +1932,8 @@
     },
     "src/marketing/channel_access.rs": {
       "status": "reviewed-binding",
-      "sha256": "0486778bf46a4776676b75b6ba39e230b9497e3118c26234de8b7f623773d383",
-      "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
+      "sha256": "5df94a7a7edaf103502fa5732fa9f52fdcfdc72ce9f964c3aab6b703d8de6cfb",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/marketing/channel_preview.rs": {
       "status": "unproved",
@@ -1922,13 +1942,18 @@
     },
     "src/marketing/channels.rs": {
       "status": "unproved",
-      "sha256": "5a5532abd715e07d3224e96b19a97a9b17aa92a5658ff06eae1dd46cd231b423",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "25861e1a772d07c1b2aea7a25528951ed4c3c2e78b83e9250c7df744e2e29d73",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/marketing/condition_gateway.rs": {
       "status": "unproved",
       "sha256": "1ce279b617599594c57814388efe3a114fa2152522ceaa2c675d2d5ac58b2522",
       "review": "Reviewed international configuration, destination tax predicates and native bindings; targeted PostgreSQL international/catalog cases plus Rust tests pass. Translation fixtures verify restart, provider rejection, tenant permissions and revision conflicts. Config/product/apply share row locks. Additive schema 028 and versioned MIT geography reviewed; surrounding SQL/provider behavior remains unproved."
+    },
+    "src/marketing/coupons.rs": {
+      "status": "unproved",
+      "sha256": "5ce9ed115e42dd56ad53570445bafa733f85ba2b10d999b3a25bf46197399d15",
+      "review": "Native POS cash admission, shared currency/coupon forwarding and private cart consumer guards reviewed. Original coupon owner extracted and tenant-scoped; provider confirmation rejoins POS outbox once. Generated conformance dispatcher moved to a small dedicated module without policy duplication."
     },
     "src/marketing/customer_facts.rs": {
       "status": "unproved",
@@ -1967,8 +1992,8 @@
     },
     "src/marketing/flows.rs": {
       "status": "unproved",
-      "sha256": "da0664518b3ca8a55732afcd8c6a29f5ec787a0a66518ada460bfa68fcb6a9b7",
-      "review": "Reviewed shared UTC-day quota extraction, SSE classification and native knowledge.extract pipeline; all Rust tests and Clippy pass, native provider checks prove HTTP/MCP/Flow quota parity, exact quotes, source-language handling and current actor revocation."
+      "sha256": "7b8df9c74849b5f33cb9135ead7ca32f1c5701dceaa025420226fea1e9539ec8",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/marketing/gateway.rs": {
       "status": "unproved",
@@ -1997,8 +2022,8 @@
     },
     "src/marketing/mod.rs": {
       "status": "unproved",
-      "sha256": "9850e30dce6f1ca0f8def0c324d4aebccb6014884f1e5c374766392e5dbf62cc",
-      "review": "Reviewed sales-channel access policy and its actual middleware consumer, removed untrusted preview identity headers, revision/session/member-bound single-use preview tickets, tenant-owned domain bindings and guarded deletion, migrated catalogue/cart/navigation/legal consumers and staging defaults. Core HTTP and UI regressions cover foreign IDs, stale revisions, paused/private channels, order denial and logout revocation. Async adapters remain unproved."
+      "sha256": "eb8e70c6caead233bb66fd30bdc55a102a7f624c1335f907940879946aedb606",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/marketing/pipeline.rs": {
       "status": "reviewed-binding",
@@ -2022,8 +2047,8 @@
     },
     "src/marketing/routes.rs": {
       "status": "unproved",
-      "sha256": "4d6ce594dd8d4544c173ab7dc65a33d630303a003327fafb3fc6880fa7aa83c7",
-      "review": "Reviewed shared UTC-day quota extraction, SSE classification and native knowledge.extract pipeline; all Rust tests and Clippy pass, native provider checks prove HTTP/MCP/Flow quota parity, exact quotes, source-language handling and current actor revocation."
+      "sha256": "0d5f2df887b9ddb0e3f569df72657a6b1dce8a2dc590e50c0b452a62818bb723",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/marketing/rule_fields.rs": {
       "status": "unproved",
@@ -2057,8 +2082,8 @@
     },
     "src/mcp.rs": {
       "status": "unproved",
-      "sha256": "7cacc3b32b7a986d76176a0c9cfdfb3ecfd68fba6e43f0fedd7ea39ea1cbc630",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "155483fdd66f75384cdb8063c7b0648e653abbd11bd44668805a9f73604ac444",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -2132,8 +2157,8 @@
     },
     "src/operations/receipt_text.rs": {
       "status": "unproved",
-      "sha256": "21027155dadbaa8bc445318dc9fcbd68bb3fcc58df7e3d9259dcb8bb8bd080ea",
-      "review": "Reviewed multi-currency admission, rational FX boundaries, immutable monetary source, additive ledger scale/RLS migrations, shared API/MCP/UCP paths and local provider/refund evidence. Only bounded policies are proved; FX, DB, network adapters and full commerce remain unproved."
+      "sha256": "75ab963831bf56ca5b9802b759b9048fc3dc42c106a89db20a866341f68bed55",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/operations/receipts.rs": {
       "status": "unproved",
@@ -2152,8 +2177,8 @@
     },
     "src/order_checkout.rs": {
       "status": "reviewed-binding",
-      "sha256": "d4eac244e4dcfdf7c32b0c85e3f646412fce23fdbab6a873754fba8dbd841b38",
-      "review": "Reviewed tenant/channel registered-origin checkout framing, immutable localized checkout snapshots using existing inheritance, and shopper-only receipt transport. Verified origin negatives and German parent/variant label persistence with PostgreSQL; these adapters remain unproved, existing extracted kernel policies unchanged."
+      "sha256": "2643781e283648cce5e9a8dd98a7092c28038828f927a7e1225588762bba5ce5",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/order_routes.rs": {
       "status": "unproved",
@@ -2257,8 +2282,8 @@
     },
     "src/payments/storage.rs": {
       "status": "reviewed-binding",
-      "sha256": "f5229720ae31e7e7d8fb39d68e7bdc00ecfb7beed6065e45687cde12001dd0da",
-      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
+      "sha256": "2cb560b7abed55c3234140877f7b2c7ffac249d92c51d7e6c13aea1f61340f1c",
+      "review": "Native POS cash admission, shared currency/coupon forwarding and private cart consumer guards reviewed. Original coupon owner extracted and tenant-scoped; provider confirmation rejoins POS outbox once. Generated conformance dispatcher moved to a small dedicated module without policy duplication."
     },
     "src/payments/worker.rs": {
       "status": "unproved",
@@ -2380,6 +2405,31 @@
       "sha256": "8c5bdd3be5f5985cf1f875a26d7605695b3f44b815d4f1b7514899f88922c66f",
       "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
     },
+    "src/pos/config.rs": {
+      "status": "unproved",
+      "sha256": "1fd77f39ddd245f3aa5c71cf50e2272baa3f9270b09e895c5046538eb1a2bf29",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+    },
+    "src/pos/gateway.rs": {
+      "status": "unproved",
+      "sha256": "d3d5613e6ddeeeaf221e24215ab1b9b3e18195860aa18a8d817261c4af0b1477",
+      "review": "Reviewed native POS cashier-bound cart adapter, authenticated register discovery over API/MCP, settings-before-channel checkout locks and exact cash admission; provider confirmation reuses existing durable ledger and emits one completion event. Auto-deref and module registry changes are equivalent refactors; app projections and public-token denials verified with isolated PostgreSQL fixtures."
+    },
+    "src/pos/mod.rs": {
+      "status": "unproved",
+      "sha256": "17228a42ef67e97278c0be4fd1b34afa39782889e763bef45daf64f070e3d1af",
+      "review": "Reviewed native POS cashier-bound cart adapter, authenticated register discovery over API/MCP, settings-before-channel checkout locks and exact cash admission; provider confirmation reuses existing durable ledger and emits one completion event. Auto-deref and module registry changes are equivalent refactors; app projections and public-token denials verified with isolated PostgreSQL fixtures."
+    },
+    "src/pos/schema.rs": {
+      "status": "unproved",
+      "sha256": "7c231a19ed69127c0e3973162d171d7971618804362f856a41c178d8b4299a1e",
+      "review": "Reviewed native POS cashier-bound cart adapter, authenticated register discovery over API/MCP, settings-before-channel checkout locks and exact cash admission; provider confirmation reuses existing durable ledger and emits one completion event. Auto-deref and module registry changes are equivalent refactors; app projections and public-token denials verified with isolated PostgreSQL fixtures."
+    },
+    "src/pos/settlement.rs": {
+      "status": "reviewed-binding",
+      "sha256": "1f89c474b7f381f86fdaffff6a81e3b5a85afe784b4fb23571c162880f30d7dc",
+      "review": "Reviewed POS cashier isolation, same atomic checkout and provider-receipt completion hook; staging check now uses equivalent Rust auto-deref. Existing bounded money, permissions, app event projections and proof-driver extraction remain connected and mutation-tested."
+    },
     "src/pricing.rs": {
       "status": "unproved",
       "sha256": "421ebdf7a78c2b46da9c1ee567d2df7052077db7f7c7919cccb516b1e020baac",
@@ -2402,13 +2452,13 @@
     },
     "src/request_context.rs": {
       "status": "unproved",
-      "sha256": "b8ee150dfa13e106d40505a66d4f256d5b04e8a52aa17d142bed4bc490307644",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "a7ae14aa320b74fe9d21730a21c98aedfbff5ade6bb0efd2c2ce1c4a60fdfc23",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "34c46f70cd2323ae321f2e9a4db9558d0be6b07d7d469bde357e6dbb8877e4fa",
-      "review": "Reviewed dedicated shared checkout route in its handoff owner, scoped one-use destination and frontend retention; auth, money and extracted decisions unchanged. Real PostgreSQL checkout, mounted-domain and private-preview regressions pass."
+      "sha256": "b536d503585e5fc8dfdcb8ff6da74553b2f584eceb0dfc95956cde3e324f2e55",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",
@@ -2572,8 +2622,8 @@
     },
     "src/verified_kernel.rs": {
       "status": "extracted-policy",
-      "sha256": "e5abb51e071c249e0a65ac66ea8a43e4fd3f2c35c4904ec241b429bceb6e4359",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "3f3c593a8c6b037f84eb36653da0dd20417271956a324002318cb4335f8acdfe",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "src/work_signal.rs": {
       "status": "unproved",
@@ -2976,8 +3026,8 @@
       "review": "Reviewed migration 079 composite source keys, FORCE RLS and transaction-bound lexical triggers/backfill; both native query owners recheck current text/publication with indexed tenant word candidates. Actual NOSUPERUSER NOBYPASSRLS product/document plans, missing/foreign context and source edit/withdrawal/delete regressions pass; native strict-runtime suite passes. No extracted decision or theorem changed; SQL/query plans remain unproved."
     },
     "proof/Commerce/Claims.lean": {
-      "sha256": "2fe2cee29e4c579388fe6089ec94ee16caa21b477148ea7b96cdcfb664893c3c",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "d2c14b58a3750385f06c19da5143d188b97399341ab71fa148e33642a73bad36",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "proof/lakefile.toml": {
       "sha256": "1cda05bac02223024b93388cf858edad4719c46f8d37a826a73a6a6e15d79432",
@@ -3012,20 +3062,20 @@
       "review": "Reviewed policy integration and unchanged module inventory; added proof/CI integrity locks and tested terminal API regression"
     },
     "scripts/formal/mutations.py": {
-      "sha256": "0fd64cab632b7200f37efff4d87bc4431f7161e3aa910ccd334eace62e9a5968",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "b0d5bf49c1c8ace821fc19b7cce8566f5c30bf3fdd5b3b0b0570fb87bc52e13d",
+      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
     "scripts/formal/registry.py": {
       "sha256": "29d0faa4493e4248ddd93991c8b4a9515ac29f90fe849e872577c8705a18e7d2",
       "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
     },
     "scripts/formal/runners.py": {
-      "sha256": "21033982dff8a832f81d3042810bab961af155d024629aa59b41449c6313962b",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "fdce10dc7163abf30abb58a8c62ef85e04737ea1f5c756de89ed6f72af3d90dd",
+      "review": "Native POS cash admission, shared currency/coupon forwarding and private cart consumer guards reviewed. Original coupon owner extracted and tenant-scoped; provider confirmation rejoins POS outbox once. Generated conformance dispatcher moved to a small dedicated module without policy duplication."
     },
     "scripts/formal.py": {
-      "sha256": "6eb0fc99ffb22e79f67fb8c532cb3ac20945f931b71d8a8c1b8eac0429a590b0",
-      "review": "Reviewed policy integration and unchanged module inventory; added proof/CI integrity locks and tested terminal API regression"
+      "sha256": "0d152edcec333aa5facf70830240473e6533970c86ff020ab10b734cd05743fd",
+      "review": "Native POS cash admission, shared currency/coupon forwarding and private cart consumer guards reviewed. Original coupon owner extracted and tenant-scoped; provider confirmation rejoins POS outbox once. Generated conformance dispatcher moved to a small dedicated module without policy duplication."
     },
     "src/auth/identity.sql": {
       "sha256": "760f0269802a3070f4aab12dac091bb90772331774a76e1d16c009cf37dd0bb8",

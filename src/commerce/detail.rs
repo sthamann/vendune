@@ -68,6 +68,7 @@ pub(crate) async fn product_detail(
             status: "preview".into(),
             data: Cart {
                 coupons: vec![],
+                pos_actor: None,
                 currency: currency.code.clone(),
                 sales_channel: "default".into(),
                 app_configurations: HashMap::new(),

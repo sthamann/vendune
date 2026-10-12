@@ -6,6 +6,8 @@ use std::collections::HashSet;
 pub(crate) struct Channel {
     pub name: HashMap<String, String>,
     pub kind: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub pos: Option<crate::pos::Config>,
     pub active: bool,
     #[serde(default = "public_visibility")]
     pub visibility: String,
@@ -35,6 +37,12 @@ pub(crate) async fn channel(
                 "Sales channel unavailable".into(),
             ))?;
     let mut c: Channel = serde_json::from_value(data).map_err(|_| bad("Invalid channel"))?;
+    if c.kind == "pos" && h.pos.is_none() {
+        return Err(Error(
+            StatusCode::FORBIDDEN,
+            "POS requires authenticated cashier admission".into(),
+        ));
+    }
     // The main channel inherits shop languages; additional channels select a subset.
     if id == "default" {
         c.locales = commerce::config(a, &t).await?.0.locales.clone();

@@ -9,6 +9,9 @@ pub(crate) async fn capabilities() -> Json<Value> {
     )
 }
 pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -> Result<Value> {
+    if let Some(operation) = name.strip_prefix("pos.") {
+        return pos::invoke(a, h, operation, v).await;
+    }
     if name == "catalog.facts" {
         return cognition::signed::facts(
             a,

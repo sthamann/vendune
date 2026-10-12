@@ -73,6 +73,12 @@ pub(crate) async fn admit(
         "Sales channel unavailable".into(),
     ))?;
     let data = snapshot.data;
+    if data["kind"] == "pos" {
+        return Err(Error(
+            StatusCode::FORBIDDEN,
+            "POS channels require the authenticated POS API".into(),
+        ));
+    }
     let active = data["active"] == true;
     let private = data["visibility"] == "private";
     let supplied = header(h, "x-channel-preview")

@@ -118,7 +118,8 @@ This lists every checked-in source module in these roots, including files with n
 | [src/bin/money_boundary.rs](../src/bin/money_boundary.rs) | Batch transport for comparing the actual legacy-to-integer checkout boundary against original Shopware totals. |
 | [src/bin/price.rs](../src/bin/price.rs) | Batch price fixture transport for the original-PHP differential comparator. |
 | [src/bin/rules.rs](../src/bin/rules.rs) | Batch original-PHP numeric-rule comparison transport. |
-| [src/bin/verified_kernel.rs](../src/bin/verified_kernel.rs) | Generated conformance driver; invokes the same production policy functions as the commerce server. |
+| [src/bin/verified_kernel/dispatch.rs](../src/bin/verified_kernel/dispatch.rs) | Generated conformance driver; invokes the same production policy functions as the commerce server. |
+| [src/bin/verified_kernel.rs](../src/bin/verified_kernel.rs) | Generated input/output driver; production policies are dispatched by the generated module. |
 | [src/bootstrap.rs](../src/bootstrap.rs) | Startup, additive migrations, persisted extensions and outbox worker. |
 | [src/capabilities/catalog.rs](../src/capabilities/catalog.rs) | Shared catalogue composes native capabilities and cognitive contracts without duplicating authorization. |
 | [src/capabilities/core_catalog.rs](../src/capabilities/core_catalog.rs) | Public HTTP/MCP capability catalogue, separate from authorization and dispatch. |
@@ -141,6 +142,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/checkout_handoff.rs](../src/checkout_handoff.rs) | Single-use checkout transfer for independent storefronts; no app-specific catalog or checkout rules. |
 | [src/checkout_page.rs](../src/checkout_page.rs) | The existing checkout may be framed only by its registered tenant/channel storefront. |
 | [src/checkout_products.rs](../src/checkout_products.rs) | Localized immutable checkout SKU snapshots read under the purchase transaction's locks. |
+| [src/checkout_review.rs](../src/checkout_review.rs) | Bind the reviewed revision and exact total for every checkout transport. |
 | [src/cognition/advisor.rs](../src/cognition/advisor.rs) | Buyer-admitted initial catalog/evidence context and bounded native response revalidation; no extra truth store. |
 | [src/cognition/autonomy.rs](../src/cognition/autonomy.rs) | Price-only optional autonomy, atomic unique-SKU daily quotas and a non-compounding day baseline. |
 | [src/cognition/claim_batches.rs](../src/cognition/claim_batches.rs) | Bounded public claim intake/compilation shares current channel admission and source-bound evidence, without per-SKU HTTP round trips. |
@@ -274,6 +276,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/marketing/channel_preview.rs](../src/marketing/channel_preview.rs) | One-use preview handoff becomes a host-only cookie, bound to current session, membership and channel revision. |
 | [src/marketing/channels.rs](../src/marketing/channels.rs) | Sales channels share a merchant tenant but bind independent catalog visibility, locale and cart identity. |
 | [src/marketing/condition_gateway.rs](../src/marketing/condition_gateway.rs) | Shared rule admission and authoritative context for tax and other native consumers. |
+| [src/marketing/coupons.rs](../src/marketing/coupons.rs) | Revision-safe coupon selection for shared storefront/POS carts; pricing remains in promotions. |
 | [src/marketing/customer_facts.rs](../src/marketing/customer_facts.rs) | Customer rule authority is loaded by tenant and stable customer ID, with aggregate history and calendar age. |
 | [src/marketing/dependencies.rs](../src/marketing/dependencies.rs) | Inspect tenant-owned definition references and durable uses before configuration deletion. |
 | [src/marketing/facts.rs](../src/marketing/facts.rs) | Assemble private server-owned rule context once per quote/event; never publish customer facts in cart responses. |
@@ -364,6 +367,11 @@ This lists every checked-in source module in these roots, including files with n
 | [src/platform/quotas.rs](../src/platform/quotas.rs) | Operator-only per-shop daily interactive AI limits, optimistic revisions and durable audit. |
 | [src/platform/resources.rs](../src/platform/resources.rs) | Linux container resource readings; unavailable fields stay null on other hosts and the first CPU sample. |
 | [src/platform/shop_detail.rs](../src/platform/shop_detail.rs) | Operator shop dossier: registration, business identity, access roster, channels and measured HTTP activity. |
+| [src/pos/config.rs](../src/pos/config.rs) | POS presentation/location configuration lives on the existing channel, not in a second settings store. |
+| [src/pos/gateway.rs](../src/pos/gateway.rs) | HTTP/MCP POS operations construct a trusted cashier context, then call existing commerce owners. |
+| [src/pos/mod.rs](../src/pos/mod.rs) | Authenticated POS adapters reuse the native catalog/cart/checkout/receipt and durable event owners. |
+| [src/pos/schema.rs](../src/pos/schema.rs) | Strict protocol schemas for the same POS operations used by HTTP and MCP. |
+| [src/pos/settlement.rs](../src/pos/settlement.rs) | Exact cash admission and order annotation execute in the existing checkout transaction. |
 | [src/pricing.rs](../src/pricing.rs) | Behavioral port of Shopware 6.7.14.2 quantity calculators. |
 | [src/proposal_apply.rs](../src/proposal_apply.rs) | Transactional application of approved, revision-bound proposals. |
 | [src/proposal_model.rs](../src/proposal_model.rs) | Typed proposals and validation before persistence or execution. |
@@ -484,6 +492,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/channels/ChannelEditor.tsx](../frontend/src/admin/channels/ChannelEditor.tsx) | Guided channel creation/editing reuses the native revisioned API and shared content-language inheritance. |
 | [frontend/src/admin/channels/ChannelProducts.tsx](../frontend/src/admin/channels/ChannelProducts.tsx) | Search-based channel product assignment, preserving selected IDs across server-filtered result pages. |
 | [frontend/src/admin/channels/ChannelSettings.tsx](../frontend/src/admin/channels/ChannelSettings.tsx) | Channel settings embed existing revision-aware identity and checkout editors with the channel selected. |
+| [frontend/src/admin/channels/ChannelType.tsx](../frontend/src/admin/channels/ChannelType.tsx) | Channel kind and POS presentation editor use the existing channel/content-language contract. |
 | [frontend/src/admin/channels/SalesChannelsWorkspace.tsx](../frontend/src/admin/channels/SalesChannelsWorkspace.tsx) | Discover and create channels separately from rules; shared settings and independent SaaS shops remain explicit. |
 | [frontend/src/admin/channels/channel-i18n.ts](../frontend/src/admin/channels/channel-i18n.ts) | Sales-channel onboarding and inherited settings vocabulary in all interface languages. |
 | [frontend/src/admin/channels/channel-model.ts](../frontend/src/admin/channels/channel-model.ts) | Existing sales-channel contract and safe storefront URLs; independent tenants remain a separate concept. |
@@ -570,6 +579,18 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/orders/OrderWorkflow.tsx](../frontend/src/admin/orders/OrderWorkflow.tsx) | Server-owned transitions: one source for permitted actions, labels and business guards. |
 | [frontend/src/admin/orders/OrdersManager.tsx](../frontend/src/admin/orders/OrdersManager.tsx) | Order operations UI. All changes call the same domain endpoints exposed through MCP. |
 | [frontend/src/admin/orders/ReceiptPanel.tsx](../frontend/src/admin/orders/ReceiptPanel.tsx) | Seller configuration and version-bound receipt creation/download. |
+| [frontend/src/admin/pos/POSWorkspace.tsx](../frontend/src/admin/pos/POSWorkspace.tsx) | Native Studio register; all reads and writes use authenticated, tenant-scoped shared commerce operations. |
+| [frontend/src/admin/pos/RegisterAdjustments.tsx](../frontend/src/admin/pos/RegisterAdjustments.tsx) | Currency/coupons forward to the shared commerce owners; no local price calculation. |
+| [frontend/src/admin/pos/RegisterCart.tsx](../frontend/src/admin/pos/RegisterCart.tsx) | Large quantity controls and shared app surface; every edit carries the current native cart revision. |
+| [frontend/src/admin/pos/RegisterCatalog.tsx](../frontend/src/admin/pos/RegisterCatalog.tsx) | Bounded product pages and keyboard-wedge scanner input; feedback uses the authoritative cart. |
+| [frontend/src/admin/pos/RegisterCheckout.tsx](../frontend/src/admin/pos/RegisterCheckout.tsx) | Touch checkout retains explicit payment/consent choices; cash input uses integer currency units. |
+| [frontend/src/admin/pos/RegisterReceipt.tsx](../frontend/src/admin/pos/RegisterReceipt.tsx) | Receipt creation and PDF download reuse merchant documents and immutable order revision/idempotency. |
+| [frontend/src/admin/pos/pos-i18n.ts](../frontend/src/admin/pos/pos-i18n.ts) | POS vocabulary: one shared four-language catalogue, with the Studio locale. |
+| [frontend/src/admin/pos/pos-model.ts](../frontend/src/admin/pos/pos-model.ts) | Small POS view models and exact decimal input conversion; server quotes own all calculations. |
+| [frontend/src/admin/pos/pos-receipt.css](../frontend/src/admin/pos/pos-receipt.css) | Completion, held sale and variant surfaces for the register. |
+| [frontend/src/admin/pos/pos-responsive.css](../frontend/src/admin/pos/pos-responsive.css) | Responsive register breakpoints and reduced-motion behavior. |
+| [frontend/src/admin/pos/pos.css](../frontend/src/admin/pos/pos.css) | POS layout, product cards and touch checkout, using shared Vendune tokens. |
+| [frontend/src/admin/pos/useRegister.ts](../frontend/src/admin/pos/useRegister.ts) | Register commands share authenticated Studio transport and persist only the cart capability locally. |
 | [frontend/src/admin/preview/PreviewDialog.tsx](../frontend/src/admin/preview/PreviewDialog.tsx) | PreviewDialog keeps merchant interaction separate from workspace orchestration. |
 | [frontend/src/admin/preview/PreviewPanel.tsx](../frontend/src/admin/preview/PreviewPanel.tsx) | PreviewPanel renders verified shop state and typed user actions. |
 | [frontend/src/admin/settings/CommerceSettings.tsx](../frontend/src/admin/settings/CommerceSettings.tsx) | One revisioned international settings aggregate: drafts survive navigation between countries, taxes, methods and languages. |
@@ -1029,6 +1050,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/platform_setup.py](../scripts/platform_setup.py) | Isolated production-mode bootstrap test. Creates/drops only a uniquely named synthetic database. |
 | [scripts/playground.py](../scripts/playground.py) | Create an isolated local shop through personal-owner APIs; reruns preserve merchant edits and never call providers. |
 | [scripts/port.py](../scripts/port.py) | Named, reviewable port gates; never marks an untested unit as complete. |
+| [scripts/pos.py](../scripts/pos.py) | Real isolated PostgreSQL/HTTP POS sales reuse catalog, checkout, receipts, events and permissions; no PSP or mail calls. |
 | [scripts/prepare_host.py](../scripts/prepare_host.py) | Prepare private first-host configuration; no server purchase, SSH, deployment or secret logging. |
 | [scripts/prepare_vercel.py](../scripts/prepare_vercel.py) | Render same-origin Vercel API proxy configuration; no credentials, deployments or account changes. |
 | [scripts/product_lab.py](../scripts/product_lab.py) | Local full-app example lifecycle; private keys and independent code/data, no automatic installation. |

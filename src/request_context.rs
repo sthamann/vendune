@@ -23,6 +23,8 @@ pub(crate) struct RequestContext {
     transport: RawHeaders,
     pub principal: Principal,
     pub validated_tenant: bool,
+    /// Internal POS admission, never reconstructed from transport headers.
+    pub pos: Option<crate::pos::Admission>,
     pub tenant_status: Option<String>,
     pub access: Option<std::sync::Arc<crate::performance::access_snapshot::AccessSnapshot>>,
     preview: Option<String>,

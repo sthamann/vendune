@@ -47,6 +47,7 @@ pub(crate) async fn update_order(
     if ["cancelled", "expired"].contains(&state) {
         o["state"] = json!(state);
     }
+    crate::pos::payment_captured(tx, &p.tenant, &mut o, state).await?;
     crate::commerce::order_fields(&mut o);
     sqlx::query("UPDATE orders SET data=$1 WHERE tenant=$2 AND id=$3")
         .bind(&o)

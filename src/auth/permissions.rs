@@ -6,6 +6,7 @@ use crate::{
 };
 
 pub(crate) const SCOPES: &[&str] = &[
+    "pos.use",
     "catalog.read",
     "catalog.write",
     "orders.read",

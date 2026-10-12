@@ -39,7 +39,10 @@ export default function StudioSidebar() {
       label: u("intelligence"),
       tabs: ["assistant", "overview", "knowledge", "agents"],
     },
-    { label: u("commerce"), tabs: ["productData", "orders", "customers"] },
+    {
+      label: u("commerce"),
+      tabs: ["productData", "orders", "customers", "pos"],
+    },
     {
       label: u("experiences"),
       tabs: ["storyfronts", "channels", "automation", "apps"],
@@ -79,13 +82,15 @@ export default function StudioSidebar() {
             {group.tabs
               .map((id) => nav.find((n) => n.id === id)!)
               .filter((n) =>
-                n.id === "customers"
-                  ? access.includes("customers.read")
-                  : n.id === "orders"
-                    ? access.includes("orders.read")
-                    : n.id === "productData"
-                      ? access.includes("catalog.write")
-                      : true,
+                n.id === "pos"
+                  ? access.includes("pos.use")
+                  : n.id === "customers"
+                    ? access.includes("customers.read")
+                    : n.id === "orders"
+                      ? access.includes("orders.read")
+                      : n.id === "productData"
+                        ? access.includes("catalog.write")
+                        : true,
               )
               .map((n) => (
                 <button

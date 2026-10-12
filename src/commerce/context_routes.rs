@@ -38,7 +38,7 @@ pub(crate) async fn options(State(a): State<App>, h: RequestContext) -> Result<J
     let available = payments::registry::available(&a, &t, marketing::channel_id(&h), &code).await?;
     let locale = header(&h, "x-commerce-locale").unwrap_or(&s.main_locale);
     Ok(Json(
-        json!({"mainLocale":s.main_locale,"locales":s.locales,"countries":s.countries,"currencyContext":currencies::context(&s.currencies,currency),"shipping":shipping,"payments":s.payments.iter().filter(|v|v.active&&(!v.business_only||business)&&v.provider.as_ref().is_none_or(|p|v.provider_method.as_ref().is_some_and(|m|available.contains(&(p.clone(),m.clone()))))).map(|v|super::method_text::localized_payment(v,locale,&s)).collect::<Vec<_>>(),"revision":revision}),
+        json!({"mainLocale":s.main_locale,"locales":s.locales,"countries":s.countries,"currencyContext":currencies::context(&s.currencies,currency),"shipping":shipping,"payments":s.payments.iter().filter(|v|v.active&&(v.mode != "cash" || h.pos.is_some())&&(!v.business_only||business)&&v.provider.as_ref().is_none_or(|p|v.provider_method.as_ref().is_some_and(|m|available.contains(&(p.clone(),m.clone()))))).map(|v|super::method_text::localized_payment(v,locale,&s)).collect::<Vec<_>>(),"revision":revision}),
     ))
 }
 pub(crate) async fn select_checkout(
@@ -62,6 +62,7 @@ pub(crate) async fn select_checkout(
         .await?
         .ok_or(Error(StatusCode::NOT_FOUND, "Cart not found".into()))?;
     let mut c = stored(&r)?;
+    pos::guard_cart(&h, &c)?;
     if c.status != "open" {
         return Err(conflict("Cart is terminal"));
     }

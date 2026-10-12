@@ -1,5 +1,6 @@
 /** Icon: Presentational icons and catalogue artwork with explicit inputs.. */
 export type IconName =
+  | "register"
   | "chat"
   | "pulse"
   | "graph"
@@ -47,6 +48,7 @@ export type IconName =
   | "history"
   | "palette";
 const paths: Record<IconName, string> = {
+  register: "M5 3h14v9H5ZM8 6h8M12 12v3M3 15h18v6H3ZM6 18h4M16 18h2",
   text: "M4 5h16M12 5v15M8 20h8",
   table: "M3 4h18v16H3ZM3 10h18M3 15h18M10 4v16",
   form: "M5 3h14v18H5ZM8 7h8M8 11h8M8 15h3M8 18h5",

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import AutomationDelete from "../automation/AutomationDelete";
 import type { RequestFn } from "../shell/studio-types";
-import { channelUrl, type Channel } from "./channel-model";
+import { posUrl, channelUrl, type Channel } from "./channel-model";
 import { useChannelText } from "./channel-i18n";
 import { connectionUrl } from "../../../../extensions/apps/storyfront/studio/storyfront-model";
 export default function ChannelActions({
@@ -49,23 +49,32 @@ export default function ChannelActions({
   };
   return (
     <>
-      {draft.data.active && draft.data.visibility !== "private" && (
-        <a
-          className="studio-secondary"
-          href={channelUrl(workspace, draft.id)}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {t("preview")} ↗
+      {draft.data.kind === "pos" && draft.data.active && (
+        <a className="studio-secondary" href={posUrl(workspace, draft.id)}>
+          {t("pos")} ↗
         </a>
       )}
-      <button
-        className="studio-secondary"
-        disabled={disabled || busy}
-        onClick={() => void preview()}
-      >
-        {t("previewPrivate")} ↗
-      </button>
+      {draft.data.kind !== "pos" &&
+        draft.data.active &&
+        draft.data.visibility !== "private" && (
+          <a
+            className="studio-secondary"
+            href={channelUrl(workspace, draft.id)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t("preview")} ↗
+          </a>
+        )}
+      {draft.data.kind !== "pos" && (
+        <button
+          className="studio-secondary"
+          disabled={disabled || busy}
+          onClick={() => void preview()}
+        >
+          {t("previewPrivate")} ↗
+        </button>
+      )}
       <button
         className="studio-secondary"
         disabled={disabled || busy}

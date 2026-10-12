@@ -7,7 +7,7 @@ review record, never a claim that unproved adapters became proved.
 import argparse,json,pathlib,subprocess,sys
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parent/'formal'))
 from extract import Parser,generated
-from runners import lean_runner,rust_runner
+from runners import lean_runner,rust_runner,rust_dispatch
 from registry import check,record
 from conformance import compare
 from axioms import source_check,dependency_check
@@ -22,7 +22,8 @@ def artifacts(functions):
     lean=generated(functions);main=lean_runner(functions);rust=rust_runner(functions)
     # Rustfmt is part of the driver-generation boundary; compare canonical source.
     rust=subprocess.run(['rustfmt','--edition','2024'],input=rust,capture_output=True,text=True,check=True).stdout
-    return {'proof/Commerce/Generated.lean':lean,'proof/Main.lean':main,'src/bin/verified_kernel.rs':rust}
+    dispatch=subprocess.run(['rustfmt','--edition','2024'],input=rust_dispatch(functions),capture_output=True,text=True,check=True).stdout
+    return {'src/bin/verified_kernel/dispatch.rs':dispatch,'proof/Commerce/Generated.lean':lean,'proof/Main.lean':main,'src/bin/verified_kernel.rs':rust}
 
 def audit(manifest):
     root=ROOT/'proof'
@@ -48,7 +49,7 @@ def main():
     files['proof/Commerce/Audit.lean']='import Commerce.Claims\n'+''.join('#print axioms CommerceKernel.'+n+'\n'for n in names)
     for name,content in files.items():
         path=ROOT/name
-        if args.generate:path.write_text(content)
+        if args.generate:path.parent.mkdir(parents=True,exist_ok=True);path.write_text(content)
         elif not path.exists()or path.read_text()!=content:raise ValueError('Generated artifact drift: '+name)
     if args.record_review:record(ROOT,manifest,args.record_review)
     inventory=check(ROOT,manifest)

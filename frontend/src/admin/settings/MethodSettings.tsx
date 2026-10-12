@@ -182,9 +182,14 @@ export default function MethodSettings({
                   {i("mode")}
                   <select
                     value={(method as Payment).mode}
-                    disabled={(method as Payment).mode === "app"}
+                    disabled={["app", "cash"].includes(
+                      (method as Payment).mode,
+                    )}
                     onChange={(e) => update({ mode: e.target.value })}
                   >
+                    {(method as Payment).mode === "cash" && (
+                      <option value="cash">{i("cash")}</option>
+                    )}
                     <option value="manual">{i("manual")}</option>
                     <option value="simulated">{i("simulated")}</option>
                     {(method as Payment).mode === "app" && (

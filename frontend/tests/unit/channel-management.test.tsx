@@ -21,6 +21,7 @@ it("edits the default name and visibility and exposes pause without allowing def
   render(
     <LocaleProvider>
       <ChannelEditor
+        countries={["DE", "US"]}
         initial={main}
         request={request}
         languages={["en-GB"]}

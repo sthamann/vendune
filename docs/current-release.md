@@ -1,5 +1,7 @@
 # Current release — 12 October 2026
 
+**Native POS local acceptance — 12 October:** a new channel type reuses shared checkout, exact cash/change, inventory, orders, invoices/PDF, currencies, coupons and Flow/App/MCP contracts. Browser and isolated PostgreSQL tests cover synthetic sales; a local provider fixture covers confirmed capture. This section describes implemented/tested code and does not itself confirm hosted deployment or a real terminal charge. [Usage and limits](pos.md).
+
 **12 October lifecycle follow-up:** returns now own a guarded status lifecycle;
 App Studio retains confirmed form revisions and filters selected-app versions.
 Generic core code fences writes against current installed packages and shares
