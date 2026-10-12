@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-10-12 — App-owned packages and readable designer
+
+- Move editable returns/advisor/ERP patterns to ordinary plugin manifests.
+- Keep Email/Google Analytics/Gmail/Slack business modules in their app folders;
+  compile shared connector hosting only in its separate binary.
+- Keep Storyfront bridge UI/styles/translations and GA storefront tracking in their
+  app folders; include them in architecture, localization and coverage checks.
+- Group the legacy PayPal adapter with its package; preserve existing payment and
+  webhook behavior and explicitly retain its host-native compatibility boundary.
+- Show passive translated table/form/control previews, semantic toolbox icons and
+  distinct navigation icons, retaining selection, geometry and F4/F5 behavior.
+- Document all-app ownership and prevent known source leakage in the CI structure gate.
+
+
 ## Connected workbench — 12 October 2026
 
 - Standalone native inputs edit a unique form for the same model and record; ambiguous/unrelated bindings and protected references do not join. Typing remains local until the validated Save action runs.

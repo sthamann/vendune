@@ -302,7 +302,7 @@
     },
     "notification_retry_admissible": {
       "bindings": [
-        "src/connectors/worker.rs"
+        "extensions/services/connectors/src/worker.rs"
       ],
       "theorems": [
         "notification_retry_exact",
@@ -425,6 +425,151 @@
     }
   },
   "sources": {
+    "extensions/apps/email/src/config.rs": {
+      "status": "unproved",
+      "sha256": "9ae03776d5b23af8caed7588a626c15d4d2366d484d5b63bd6ded7810625181d",
+      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
+    },
+    "extensions/apps/email/src/email.rs": {
+      "status": "unproved",
+      "sha256": "6ea8e334254b0fbbed08e9460ef7bb8db9e8599bdbe21735f18a9bb63cb10f85",
+      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
+    },
+    "extensions/apps/email/src/smtp.rs": {
+      "status": "unproved",
+      "sha256": "2b4f2f3fcb554e355af133cab3b8678e22dc93d719c1b2fb78849f8cc4c15c7d",
+      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+    },
+    "extensions/apps/email/src/templates.rs": {
+      "status": "unproved",
+      "sha256": "e41ba1f63a4b53d2e47ff1a61a2652ce67f47947d65b6176b75cfd547939e2f2",
+      "review": "Reviewed multi-currency selected-context adapters, rational minor-unit prices, immutable order/payment scales, row-locked creation-bounded price jobs and exact order mail snapshots; API/tenant/restart/protocol fixtures passed."
+    },
+    "extensions/apps/gmail/src/actions.rs": {
+      "status": "unproved",
+      "sha256": "52528b2a4c14878475560a0fbf39bd07df93634f22a974d47925500dba9a5943",
+      "review": "Reviewed package ownership for email UI, per-app provider actions/OAuth/settings metadata, PayPal receipts and separate connector binary; existing tenant, payment and notification predicates preserved"
+    },
+    "extensions/apps/gmail/src/provider.rs": {
+      "status": "unproved",
+      "sha256": "f738292cc1e4fae6eda0c7e4c7df7040e3def293fcbd42cbd53b51308538220e",
+      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
+    },
+    "extensions/apps/google-analytics/src/actions.rs": {
+      "status": "unproved",
+      "sha256": "4d0d240b7c7883ab4ba5f8b5510cd333d9a58b4aab876a5d404f21bb4c44b783",
+      "review": "Reviewed package ownership for email UI, per-app provider actions/OAuth/settings metadata, PayPal receipts and separate connector binary; existing tenant, payment and notification predicates preserved"
+    },
+    "extensions/apps/google-analytics/src/provider.rs": {
+      "status": "unproved",
+      "sha256": "d4ee48aa8006b1ff98d1f1d7ff7b42ed27e1fcf38ecb4738c0c40dea642415ba",
+      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
+    },
+    "extensions/apps/paypal/src/adapter.rs": {
+      "status": "unproved",
+      "sha256": "e779979cf45e5d38957f76b6c0d8aeaf0c4c39943c625487691d35701349ddee",
+      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
+    },
+    "extensions/apps/paypal/src/compatibility.rs": {
+      "status": "unproved",
+      "sha256": "58726878560f0d6b8e979d920d755f36760874c567fd93b7f98255aaf7338c9a",
+      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+    },
+    "extensions/apps/paypal/src/receipts.rs": {
+      "status": "unproved",
+      "sha256": "c536bea6bc33c3396437e7e8fff093e839c6dbce7b63627c521bdf397d0d6c5c",
+      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
+    },
+    "extensions/apps/paypal/src/webhooks.rs": {
+      "status": "unproved",
+      "sha256": "ffa5bb4e821f1de6f27ca9e9fb511e6be430727458d3db22f8286c9e833c8c1a",
+      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
+    },
+    "extensions/apps/slack/src/actions.rs": {
+      "status": "unproved",
+      "sha256": "199b9d499319e4b1bd653f6fdc41f805790cfd3260bff16993929e70297103d3",
+      "review": "Reviewed package ownership for email UI, per-app provider actions/OAuth/settings metadata, PayPal receipts and separate connector binary; existing tenant, payment and notification predicates preserved"
+    },
+    "extensions/apps/slack/src/provider.rs": {
+      "status": "unproved",
+      "sha256": "aab3801384ce5a1003cb3a47b2c2d9c2ac3371e7f767b8e67e04dd8d610495aa",
+      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
+    },
+    "extensions/services/connectors/src/actions.rs": {
+      "status": "unproved",
+      "sha256": "87e147d332884adaa052b4ed60e3e77d392eabf6bfc92fcd1643908f37734fc2",
+      "review": "Reviewed package ownership for email UI, per-app provider actions/OAuth/settings metadata, PayPal receipts and separate connector binary; existing tenant, payment and notification predicates preserved"
+    },
+    "extensions/services/connectors/src/crypto.rs": {
+      "status": "unproved",
+      "sha256": "4f5a4545098f27397af3b69290819b1828f852261d9a0a3bef26011095b9a624",
+      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
+    },
+    "extensions/services/connectors/src/error.rs": {
+      "status": "unproved",
+      "sha256": "2975e5c728e508c966607676788e9d4e66fb06485f09c0769ccf70385daac821",
+      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
+    },
+    "extensions/services/connectors/src/events.rs": {
+      "status": "unproved",
+      "sha256": "671787367189d7ac637631f501293d368a2346607d642d224d01b77ffd8551bd",
+      "review": "Reviewed package ownership for email UI, per-app provider actions/OAuth/settings metadata, PayPal receipts and separate connector binary; existing tenant, payment and notification predicates preserved"
+    },
+    "extensions/services/connectors/src/exports.rs": {
+      "status": "unproved",
+      "sha256": "d900c1f18d411cdd04a82f253d70905469c464943d2d871509903e5a46c2f558",
+      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
+    },
+    "extensions/services/connectors/src/legacy.rs": {
+      "status": "unproved",
+      "sha256": "d968d2471b477fda3daa19ccb7422b61076257c405e3b9e1ee524312de2ccc6c",
+      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
+    },
+    "extensions/services/connectors/src/mod.rs": {
+      "status": "unproved",
+      "sha256": "eda9222174c168df9b1eb7a7c8ef4ad2acc1334596162ad3db4f97fa3fc53bd7",
+      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
+    },
+    "extensions/services/connectors/src/network.rs": {
+      "status": "unproved",
+      "sha256": "ab1711899efd6ac0b101b4373992372fe8ca8206de18175a53ad4942d692ebdd",
+      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
+    },
+    "extensions/services/connectors/src/oauth.rs": {
+      "status": "unproved",
+      "sha256": "bff7490b5c03e60abad534011445381f945027d53693577a76254c3bfe5ce074",
+      "review": "Reviewed package ownership for email UI, per-app provider actions/OAuth/settings metadata, PayPal receipts and separate connector binary; existing tenant, payment and notification predicates preserved"
+    },
+    "extensions/services/connectors/src/providers.rs": {
+      "status": "unproved",
+      "sha256": "8b345484eccda269b01f9dc9526bcd38cab8ceb975c988d914d00c44a15eff0a",
+      "review": "Reviewed package ownership for email UI, per-app provider actions/OAuth/settings metadata, PayPal receipts and separate connector binary; existing tenant, payment and notification predicates preserved"
+    },
+    "extensions/services/connectors/src/queue.rs": {
+      "status": "unproved",
+      "sha256": "f8bcf7292dfb16beecd489e759d5a95e7d3dd5710357f5cdc1b95285e28b6313",
+      "review": "Reviewed Rust standard services and their actual app/flow consumers: encrypted PostgreSQL config/queue, lease fences, UTC quotas, bounded fair admission, SMTP TLS and explicit-only retry. SQL/provider adapters remain unproved; Rust fixtures cover two processes and offline migration."
+    },
+    "extensions/services/connectors/src/server.rs": {
+      "status": "unproved",
+      "sha256": "5edcae08b7e7ba72a2e906f3ba3fbfb931311870a11ab5f6b3f49ebfade8522b",
+      "review": "Reviewed connector strict non-owner runtime startup audit, dedicated least-privilege PostgreSQL service role, forced RLS and UTC transaction context. Two actual non-bypass replicas, tenant ownership, provider/flow/MCP protocols and migration are regression-tested; SQL and providers remain unproved."
+    },
+    "extensions/services/connectors/src/store.rs": {
+      "status": "unproved",
+      "sha256": "945bce137963fbf7a342ff5f889fd21e20c3cc1255c139e481e243686143369c",
+      "review": "Reviewed connector strict non-owner runtime startup audit, dedicated least-privilege PostgreSQL service role, forced RLS and UTC transaction context. Two actual non-bypass replicas, tenant ownership, provider/flow/MCP protocols and migration are regression-tested; SQL and providers remain unproved."
+    },
+    "extensions/services/connectors/src/tests.rs": {
+      "status": "unproved",
+      "sha256": "88084ef3557d398d1b27a69f1bff1780c521b1bf1b8da6f6e9ec95cb6fa01701",
+      "review": "Reviewed multi-currency selected-context adapters, rational minor-unit prices, immutable order/payment scales, row-locked creation-bounded price jobs and exact order mail snapshots; API/tenant/restart/protocol fixtures passed."
+    },
+    "extensions/services/connectors/src/worker.rs": {
+      "status": "reviewed-binding",
+      "sha256": "93df63a7df8be020004d2de307729c75bb1c71dd24c7f17fbc88d77d66a929c5",
+      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
+    },
     "src/accounts/address_restore.rs": {
       "status": "unproved",
       "sha256": "712936ff628c4e4d36457cebddfbe7027621ed4cfadbd3bce9054af4cac8018f",
@@ -937,8 +1082,8 @@
     },
     "src/bin/connectors.rs": {
       "status": "unproved",
-      "sha256": "5fc665bd6dfe89d8eb37f2ffb95f965cc9e9f69a83d5a2e792fd5e9724fc3fd6",
-      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
+      "sha256": "1dd59535b6bd96a861d8c4652365ffb6dd4fd9b3c8856aef8a796faa11f4885e",
+      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
     },
     "src/bin/context.rs": {
       "status": "unproved",
@@ -1395,111 +1540,6 @@
       "sha256": "0da6b25f3318a49c2a8a6f03bb7a5582c2bf84e356c93245de61525f8c67004d",
       "review": "Reviewed single-retrieval candidate hydration and buyer graph; native admitted fields replace index/search commerce facts, post-inference exact original-ID locale/channel/catalog/evidence comparison. Extracted predicates unchanged; adapters and free model prose remain unproved."
     },
-    "src/connectors/actions.rs": {
-      "status": "unproved",
-      "sha256": "51d49e446a3a3c111755f3b08df15bc0aa8425eefeb3841d734817020e4effed",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
-    },
-    "src/connectors/config.rs": {
-      "status": "unproved",
-      "sha256": "9ae03776d5b23af8caed7588a626c15d4d2366d484d5b63bd6ded7810625181d",
-      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
-    },
-    "src/connectors/crypto.rs": {
-      "status": "unproved",
-      "sha256": "4f5a4545098f27397af3b69290819b1828f852261d9a0a3bef26011095b9a624",
-      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
-    },
-    "src/connectors/email.rs": {
-      "status": "unproved",
-      "sha256": "6ea8e334254b0fbbed08e9460ef7bb8db9e8599bdbe21735f18a9bb63cb10f85",
-      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
-    },
-    "src/connectors/error.rs": {
-      "status": "unproved",
-      "sha256": "2975e5c728e508c966607676788e9d4e66fb06485f09c0769ccf70385daac821",
-      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
-    },
-    "src/connectors/events.rs": {
-      "status": "unproved",
-      "sha256": "13b3075a041fd6dcb36f5444e4c85696e6054608c41989f9d89bc4726118c487",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
-    },
-    "src/connectors/exports.rs": {
-      "status": "unproved",
-      "sha256": "d900c1f18d411cdd04a82f253d70905469c464943d2d871509903e5a46c2f558",
-      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
-    },
-    "src/connectors/legacy.rs": {
-      "status": "unproved",
-      "sha256": "d968d2471b477fda3daa19ccb7422b61076257c405e3b9e1ee524312de2ccc6c",
-      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
-    },
-    "src/connectors/mod.rs": {
-      "status": "unproved",
-      "sha256": "53020b94f58fb09d10d577727b289c7cdab6a9bb3e309ee4c40669904d9b14b5",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
-    },
-    "src/connectors/network.rs": {
-      "status": "unproved",
-      "sha256": "ab1711899efd6ac0b101b4373992372fe8ca8206de18175a53ad4942d692ebdd",
-      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
-    },
-    "src/connectors/oauth.rs": {
-      "status": "unproved",
-      "sha256": "fd627edf2e26a128d82e1628dbfb047159fd3b2305505c005962ec1351276d9e",
-      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
-    },
-    "src/connectors/providers/analytics.rs": {
-      "status": "unproved",
-      "sha256": "d4ee48aa8006b1ff98d1f1d7ff7b42ed27e1fcf38ecb4738c0c40dea642415ba",
-      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
-    },
-    "src/connectors/providers/gmail.rs": {
-      "status": "unproved",
-      "sha256": "f738292cc1e4fae6eda0c7e4c7df7040e3def293fcbd42cbd53b51308538220e",
-      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
-    },
-    "src/connectors/providers.rs": {
-      "status": "unproved",
-      "sha256": "5b5d41547875372043bc1cc48d43a546e4f047527c21afb361a4a3c7fbd063e5",
-      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
-    },
-    "src/connectors/queue.rs": {
-      "status": "unproved",
-      "sha256": "f8bcf7292dfb16beecd489e759d5a95e7d3dd5710357f5cdc1b95285e28b6313",
-      "review": "Reviewed Rust standard services and their actual app/flow consumers: encrypted PostgreSQL config/queue, lease fences, UTC quotas, bounded fair admission, SMTP TLS and explicit-only retry. SQL/provider adapters remain unproved; Rust fixtures cover two processes and offline migration."
-    },
-    "src/connectors/server.rs": {
-      "status": "unproved",
-      "sha256": "5edcae08b7e7ba72a2e906f3ba3fbfb931311870a11ab5f6b3f49ebfade8522b",
-      "review": "Reviewed connector strict non-owner runtime startup audit, dedicated least-privilege PostgreSQL service role, forced RLS and UTC transaction context. Two actual non-bypass replicas, tenant ownership, provider/flow/MCP protocols and migration are regression-tested; SQL and providers remain unproved."
-    },
-    "src/connectors/smtp.rs": {
-      "status": "unproved",
-      "sha256": "2b4f2f3fcb554e355af133cab3b8678e22dc93d719c1b2fb78849f8cc4c15c7d",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
-    },
-    "src/connectors/store.rs": {
-      "status": "unproved",
-      "sha256": "945bce137963fbf7a342ff5f889fd21e20c3cc1255c139e481e243686143369c",
-      "review": "Reviewed connector strict non-owner runtime startup audit, dedicated least-privilege PostgreSQL service role, forced RLS and UTC transaction context. Two actual non-bypass replicas, tenant ownership, provider/flow/MCP protocols and migration are regression-tested; SQL and providers remain unproved."
-    },
-    "src/connectors/templates.rs": {
-      "status": "unproved",
-      "sha256": "e41ba1f63a4b53d2e47ff1a61a2652ce67f47947d65b6176b75cfd547939e2f2",
-      "review": "Reviewed multi-currency selected-context adapters, rational minor-unit prices, immutable order/payment scales, row-locked creation-bounded price jobs and exact order mail snapshots; API/tenant/restart/protocol fixtures passed."
-    },
-    "src/connectors/tests.rs": {
-      "status": "unproved",
-      "sha256": "88084ef3557d398d1b27a69f1bff1780c521b1bf1b8da6f6e9ec95cb6fa01701",
-      "review": "Reviewed multi-currency selected-context adapters, rational minor-unit prices, immutable order/payment scales, row-locked creation-bounded price jobs and exact order mail snapshots; API/tenant/restart/protocol fixtures passed."
-    },
-    "src/connectors/worker.rs": {
-      "status": "reviewed-binding",
-      "sha256": "93df63a7df8be020004d2de307729c75bb1c71dd24c7f17fbc88d77d66a929c5",
-      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
-    },
     "src/context.rs": {
       "status": "unproved",
       "sha256": "84eab6aca05be4f8760007d4457904765664b60ba8244575e4632633a36495c9",
@@ -1807,8 +1847,8 @@
     },
     "src/lib.rs": {
       "status": "unproved",
-      "sha256": "ba09f4878f56c00073f73fde9eb121946a6ca532d4570b83020d94a8cb59b894",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "82b326944b2f1c8657815a39e0c3aabd81fd18f814a75cd7c5565f5f5b1f904f",
+      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
     },
     "src/localization.rs": {
       "status": "unproved",
@@ -2117,23 +2157,18 @@
     },
     "src/payments/mod.rs": {
       "status": "unproved",
-      "sha256": "d8010093b2cd3896a283f6538060d9e21305e7ea8af3a3df7a3c5622e10c6bde",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "aeec121860a066abd6da733e222b46ae85be12305ad7a7428785292940afa399",
+      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
     },
     "src/payments/operations.rs": {
       "status": "reviewed-binding",
       "sha256": "e661a802832611b23b4587ddf22134901fd050591773b5b49b25220d746758c9",
       "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
     },
-    "src/payments/paypal.rs": {
-      "status": "unproved",
-      "sha256": "58726878560f0d6b8e979d920d755f36760874c567fd93b7f98255aaf7338c9a",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
-    },
     "src/payments/provider.rs": {
       "status": "unproved",
-      "sha256": "17dc7adeed7af81edbd705aca4ec2cc627dadb3f32c846c8f4900ce5f7dc2a8a",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "25f78a9591c0b33cfc8a5c3fc0250f34af85db318ab19729e73e59fe5f7e4d11",
+      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
     },
     "src/payments/provider_configuration.rs": {
       "status": "unproved",
@@ -2182,13 +2217,8 @@
     },
     "src/payments/storage.rs": {
       "status": "reviewed-binding",
-      "sha256": "666c356bbcc7a36733622c8f990b7814031871c384c625f703d78850a07783f3",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
-    },
-    "src/payments/webhooks.rs": {
-      "status": "unproved",
-      "sha256": "ffa5bb4e821f1de6f27ca9e9fb511e6be430727458d3db22f8286c9e833c8c1a",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "f5229720ae31e7e7d8fb39d68e7bdc00ecfb7beed6065e45687cde12001dd0da",
+      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
     },
     "src/payments/worker.rs": {
       "status": "unproved",
@@ -2566,8 +2596,8 @@
       "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
     },
     "frontend/package.json": {
-      "sha256": "0361bc3f512405b820374586ad87d659d853caeff9720530b762bb1fd522647b",
-      "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
+      "sha256": "6e4477bff112bb5cd91ff60696701396844df2ad7d639538bac05f90c6111e7b",
+      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
     },
     "frontend/scripts/precompress.mjs": {
       "sha256": "dbe91d7985386628933dfb734bd5555ba4e8b97502d1f644b26488434cfc195c",
@@ -2946,8 +2976,8 @@
       "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
     },
     "scripts/formal/registry.py": {
-      "sha256": "529ea2df50b2a69ac12d432b58561551e221322cf1abb702910ee5bb1364495a",
-      "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
+      "sha256": "29d0faa4493e4248ddd93991c8b4a9515ac29f90fe849e872577c8705a18e7d2",
+      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
     },
     "scripts/formal/runners.py": {
       "sha256": "21033982dff8a832f81d3042810bab961af155d024629aa59b41449c6313962b",

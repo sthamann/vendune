@@ -3,8 +3,8 @@ import { useAppText } from "../../shared/i18n/app-i18n";
 import { useCustomerText } from "../../shared/i18n/customer-i18n";
 import type { Package } from "./app-types";
 
-import StoryfrontConnections from "../storyfronts/StoryfrontConnections";
-import { useStoryfrontText } from "../storyfronts/storyfront-i18n";
+import StoryfrontConnections from "../../../../extensions/apps/storyfront/studio/StoryfrontConnections";
+import { useStoryfrontText } from "../../../../extensions/apps/storyfront/studio/storyfront-i18n";
 import AppInterfaces from "./AppInterfaces";
 import AppArtwork from "./AppArtwork";
 import { appName, appSummary } from "./library-model";
@@ -18,7 +18,7 @@ import AppSecrets from "./AppSecrets";
 import AppEntity from "./AppEntity";
 import ConnectorPanel from "./ConnectorPanel";
 import ProviderAccount from "./ProviderAccount";
-import EmailPanel from "./EmailPanel";
+import EmailPanel from "../../../../extensions/apps/email/studio/EmailPanel";
 export type AppDetailsProps = {
   p: Package;
   mainLocale: string;

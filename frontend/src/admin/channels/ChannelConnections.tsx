@@ -4,7 +4,7 @@ import type { RequestFn } from "../shell/studio-types";
 import {
   connectionUrl,
   type FrontendConnection,
-} from "../storyfronts/storyfront-model";
+} from "../../../../extensions/apps/storyfront/studio/storyfront-model";
 import type { Channel } from "./channel-model";
 import { useConnectionText } from "./connection-i18n";
 import { useLocale } from "../../shared/i18n/i18n";

@@ -3,10 +3,11 @@ import { useState } from "react";
 import AppLogicEditor from "./AppLogicEditor";
 import { accepts } from "./control-model";
 import { controlKinds, isDataBlock } from "../../shared/apps/native/types";
+import AppDesignPreview from "./AppDesignPreview";
+import { controlIcons } from "./app-visuals";
 import AppGridCanvas from "./AppGridCanvas";
 import Icon from "../../shared/ui/Icon";
 import { useAppStudioText } from "../../shared/i18n/app-studio-i18n";
-import { contentText } from "../../shared/i18n/content-language";
 import type {
   Block,
   Manifest,
@@ -36,7 +37,7 @@ export default function AppCanvas({
   previewRequest: RequestFn;
 }) {
   const [code, setCode] = useState("");
-  const { a, locale } = useAppStudioText();
+  const { a } = useAppStudioText();
   const update = (blocks: Block[]) =>
     onChange({
       ...manifest,
@@ -98,17 +99,7 @@ export default function AppCanvas({
                 onSelect(b.id);
               }}
             >
-              <Icon
-                name={
-                  kind === "text"
-                    ? "chat"
-                    : kind === "form"
-                      ? "plus"
-                      : kind === "cards"
-                        ? "layers"
-                        : "menu"
-                }
-              />
+              <Icon name={controlIcons[kind]} />
               <span>{a(kind)}</span>
               <Icon name="plus" size={14} />
             </button>
@@ -137,6 +128,7 @@ export default function AppCanvas({
         ) : view.layout === "form" ? (
           <AppGridCanvas
             view={view}
+            entities={manifest.entities}
             onCode={setCode}
             selected={selected}
             onSelect={onSelect}
@@ -175,36 +167,11 @@ export default function AppCanvas({
                   aria-pressed={selected === b.id}
                   onClick={() => onSelect(b.id)}
                 >
-                  <span className="app-node-kind">
-                    {a(b.kind)}
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                  </span>
-                  <h3>{contentText(b.title, locale, mainLocale) || b.id}</h3>
-                  {b.kind === "text" ? (
-                    <p>{contentText(b.text ?? {}, locale, mainLocale)}</p>
-                  ) : (
-                    <>
-                      <div className={`app-ghost app-ghost-${b.kind}`}>
-                        {b.kind === "form" ? (
-                          <>
-                            <i />
-                            <i />
-                            <i className="app-ghost-button" />
-                          </>
-                        ) : (
-                          <>
-                            <i />
-                            <i />
-                            <i />
-                          </>
-                        )}
-                      </div>
-                      <span className="app-binding">
-                        <Icon name="link" size={13} />
-                        {a("bound")} {b.entity}
-                      </span>
-                    </>
-                  )}
+                  <AppDesignPreview
+                    block={b}
+                    entities={manifest.entities}
+                    mainLocale={mainLocale}
+                  />
                 </button>
                 {selected === b.id && (
                   <div className="app-node-controls">

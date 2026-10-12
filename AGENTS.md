@@ -15,7 +15,7 @@ These documents describe one connected system, not alternative implementations.
 | Existing owner | Responsibility / entry points |
 | --- | --- |
 | Rust commerce binary | `src/main.rs` is process entry only; domain modules own commerce operations. Store/Admin APIs, MCP and implemented UCP routes reuse those operations, permissions and tenant checks. |
-| Rust connector binary | `src/bin/connectors.rs` and `src/connectors/` own bundled email delivery, Google Analytics, Gmail and Slack. This is a separate service reached through the permission-aware app gateway, not provider code embedded in checkout. |
+| Rust connector binary | `src/bin/connectors.rs` and `extensions/services/connectors/src/` own shared hosting; provider implementation belongs to the respective `extensions/apps/<app>/` package. This is a separate service reached through the permission-aware app gateway, not provider code embedded in checkout. |
 | Frontend | `frontend/src/` contains modular Studio/storefront clients of the existing APIs. Keep provider credentials and privileged gateway tokens server-side. |
 | Durable state and events | PostgreSQL owns commerce state, connector configuration and queues. Commerce outbox/Flow Builder events reach the connector through the existing app action/event contract. Qdrant supplies knowledge vector retrieval, not a second commerce ledger. |
 | External extensions | The language-neutral app gateway and documented extension contracts support independent services. Private Payments and Storyfront/Experience implementations stay in their separate repositories. |
@@ -148,7 +148,7 @@ and optional independent app images are separate scopes.
 
 The former `email_config.py`, `email_templates.py`, `email_service.py` and
 `email_delivery.py` are reference code, not current service owners. Configuration,
-templates, actions, queues and delivery now belong to `src/connectors/`; use the
+templates and delivery belong to `extensions/apps/email/src/`; shared actions and queues belong to `extensions/services/connectors/src/`; use the
 module table in [the Rust service guide](docs/rust-services.md) to find each owner.
 Do not introduce SQLite, a filesystem spool or process-local authoritative queues
 beside the PostgreSQL connector queue. Preserve forced tenant RLS, the dedicated
@@ -216,3 +216,38 @@ shared content-language inheritance system; ship UI vocabulary in EN/DE/FR/ES.
 Never create another app knowledge database/ledger, bypass native reference FKs,
 or treat these records as confirmed product claims. Source admission and merchant
 fact confirmation still belong to the existing product claim compiler.
+
+### App patterns belong to plugins
+
+First-party domain app patterns live in `extensions/apps/<app>/manifest.json`,
+including `returns-workspace`, `product-advisor` and `erp-handoff`.
+The App Studio recipe picker only clones these canonical packages and uses the
+existing Manifest compiler. Keep app-owned models, UI, AST and event declarations
+in their package; never reimplement returns business logic in `src/` or the picker.
+The Rust core owns shared admission, tenant storage, reference validation and the
+bounded runtime. Install/review patterns in an actor-private preview or staging
+before an explicit release. Returns records are private, order-bound app data;
+they do not authorize refunds, change order/payment states or bypass Payments.
+
+### All plugin/app files remain under their package owner
+
+Every plugin keeps its implementation, native Manifest/AST, UI, styles, translations,
+assets, templates and app-local tests in `extensions/apps/<app>/` (or its independent
+private repository). Installation/release registers immutable packages and app data;
+it never copies source into `src/`, `frontend/src/`, shared system folders or core
+migrations. The same rule applies to AI-generated apps. Database schema belongs to
+the existing app migration contract, not a second manually installed core schema.
+
+Host routing/registration, generic runtime/rendering, authorization, callbacks and
+shared SDKs may reference app-owned packages; they must not own app business logic.
+Shared connector hosting belongs to `extensions/services/connectors/src/`; Email,
+Google Analytics, Gmail and Slack implementations stay in their app roots. The
+connector entry binary is separate from the commerce library. Plugin frontend modules
+receive the same architecture, localization and coverage gates as the host frontend.
+`scripts/testing/plugin_ownership.py` rejects known leakage paths and unsafe pattern
+access. Folder containment does not itself prove runtime isolation: declarative
+apps use the bounded host/F5 runtime, network apps use the existing service gateway.
+The legacy PayPal compatibility adapter remains host-native for old configured
+payment attempts; it is app-owned and must never be called sandboxed. New external
+providers use the generic remote contract. Removing that compatibility path requires
+an explicit existing-attempt/provider migration, not a cosmetic file move.

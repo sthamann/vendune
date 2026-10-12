@@ -36,6 +36,7 @@ import "../styles/app-building.css";
 import "../styles/app-studio-inspector.css";
 import "../styles/app-studio-panels.css";
 import "../styles/app-studio-responsive.css";
+import "../styles/app-studio-preview.css";
 export default function DeveloperView({
   request,
   environments,

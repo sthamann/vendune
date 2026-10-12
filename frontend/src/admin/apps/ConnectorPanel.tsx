@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useConnectedText } from "../../shared/i18n/connected-i18n";
 import type { RequestFn } from "../shell/studio-types";
+import { connectorDescriptors } from "./connector-descriptors";
 export default function ConnectorPanel({
   app,
   request,
@@ -12,6 +13,7 @@ export default function ConnectorPanel({
   manage: boolean;
 }) {
   const { x } = useConnectedText();
+  const contract = connectorDescriptors[app];
   const [status, setStatus] = useState<any>();
   const [settings, setSettings] = useState<Record<string, any>>({});
   const [dirty, setDirty] = useState(false);
@@ -25,7 +27,7 @@ export default function ConnectorPanel({
     const v = await call("status");
     setStatus(v);
     if (!dirty) setSettings(v.settings);
-    if (app !== "slack") {
+    if (contract.sources) {
       const s = await request("/api/knowledge/external");
       setSources(s.elements.filter((r: any) => r.app === app));
     }
@@ -34,9 +36,9 @@ export default function ConnectorPanel({
     let active = true;
     Promise.all([
       call("status"),
-      app === "slack"
-        ? Promise.resolve({ elements: [] })
-        : request("/api/knowledge/external"),
+      contract.sources
+        ? request("/api/knowledge/external")
+        : Promise.resolve({ elements: [] }),
     ])
       .then(([v, evidence]) => {
         if (active) {
@@ -105,15 +107,7 @@ export default function ConnectorPanel({
       </header>
       {error && <p role="alert">{error}</p>}
       {status && !status.oauthClientConfigured && <p>{x("setup")}</p>}
-      <p>
-        {x(
-          app === "gmail"
-            ? "mailHint"
-            : app === "slack"
-              ? "slackHint"
-              : "gaHint",
-        )}
-      </p>
+      <p>{x(contract.hint)}</p>
       <div className="workbench-row">
         <button
           type="button"
@@ -147,40 +141,27 @@ export default function ConnectorPanel({
         )}
       </div>
       <div className="connector-settings">
-        {app === "google_analytics" ? (
-          <>
-            {field("measurementId", "measurement", "G-XXXXXXXXXX")}
-            {field("propertyId", "property", "123456789")}
-            {field("salesChannel", "channel")}
-          </>
-        ) : app === "gmail" ? (
-          field("labelId", "label", "INBOX")
-        ) : (
-          <>
-            {field("channelId", "slackChannel", "C0123456789")}
-            {field(
-              "template",
-              "template",
-              "Order {orderNumber} · {totalPrice} EUR",
-            )}
-            <label className="checkbox-label">
-              <input
-                type="checkbox"
-                disabled={!manage || busy}
-                checked={settings.notifyOrders ?? false}
-                onChange={(e) => {
-                  setDirty(true);
-                  setSettings((s) => ({
-                    ...s,
-                    notifyOrders: e.target.checked,
-                  }));
-                }}
-              />
-              {x("automatic")}
-            </label>
-          </>
+        {contract.fields.map((f) => (
+          <span key={f.key}>{field(f.key, f.label, f.placeholder)}</span>
+        ))}
+        {contract.toggle && (
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              disabled={!manage || busy}
+              checked={settings[contract.toggle.key] ?? false}
+              onChange={(e) => {
+                setDirty(true);
+                setSettings((s) => ({
+                  ...s,
+                  [contract.toggle!.key]: e.target.checked,
+                }));
+              }}
+            />
+            {x(contract.toggle.label)}
+          </label>
         )}
-        {app !== "google_analytics" && status?.connected && (
+        {contract.choices && status?.connected && (
           <>
             <button
               type="button"
@@ -188,7 +169,7 @@ export default function ConnectorPanel({
               disabled={!manage || busy}
               onClick={() =>
                 void run(async () => {
-                  const v = await call(app === "slack" ? "channels" : "labels");
+                  const v = await call(contract.choices!.action);
                   setChoices(v.channels ?? v.labels ?? []);
                 })
               }
@@ -197,15 +178,13 @@ export default function ConnectorPanel({
             </button>
             {choices.length > 0 && (
               <select
-                aria-label={x(app === "slack" ? "slackChannel" : "label")}
-                value={
-                  settings[app === "slack" ? "channelId" : "labelId"] ?? ""
-                }
+                aria-label={x(contract.choices.label)}
+                value={settings[contract.choices.key] ?? ""}
                 onChange={(e) => {
                   setDirty(true);
                   setSettings((s) => ({
                     ...s,
-                    [app === "slack" ? "channelId" : "labelId"]: e.target.value,
+                    [contract.choices!.key]: e.target.value,
                   }));
                 }}
               >
@@ -237,7 +216,7 @@ export default function ConnectorPanel({
         >
           {x("save")}
         </button>
-        {app !== "slack" && (
+        {contract.sync && (
           <button
             type="button"
             className="studio-secondary"
@@ -250,7 +229,7 @@ export default function ConnectorPanel({
           </button>
         )}
       </div>
-      {app !== "slack" && (
+      {contract.sources && (
         <section>
           <h3>{x("private")}</h3>
           <p>{x("privacy")}</p>

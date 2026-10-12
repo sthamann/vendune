@@ -29,8 +29,44 @@ export type IconName =
   | "code"
   | "layers"
   | "eye"
-  | "eyeOff";
+  | "eyeOff"
+  | "text"
+  | "table"
+  | "form"
+  | "input"
+  | "button"
+  | "select"
+  | "checkbox"
+  | "calendar"
+  | "image"
+  | "frame"
+  | "tabs"
+  | "gauge"
+  | "chart"
+  | "database"
+  | "history"
+  | "palette";
 const paths: Record<IconName, string> = {
+  text: "M4 5h16M12 5v15M8 20h8",
+  table: "M3 4h18v16H3ZM3 10h18M3 15h18M10 4v16",
+  form: "M5 3h14v18H5ZM8 7h8M8 11h8M8 15h3M8 18h5",
+  input: "M3 7h18v10H3ZM8 10v4M6 10h4M6 14h4",
+  button: "M3 6h18v12H3ZM9 10l6 2-6 2v-4Z",
+  select: "M3 5h18v14H3ZM7 10h5M16 10l2 3 2-3",
+  checkbox: "M4 4h16v16H4Zm4 8 3 3 5-6",
+  calendar:
+    "M4 5h16v16H4ZM8 2v6M16 2v6M4 10h16M8 14h1M12 14h1M16 14h1M8 18h1M12 18h1",
+  image: "M3 3h18v18H3ZM3 16l5-5 4 4 3-3 6 6M15 7h1",
+  frame: "M3 3h6M15 3h6v6M21 15v6h-6M9 21H3v-6M3 9V3M7 7h10v10H7Z",
+  tabs: "M3 8V4h7v4M10 8V5h6v3M16 8V6h5v15H3V8Z",
+  gauge: "M4 18a9 9 0 1 1 16 0M12 13l5-5M7 18h10M6 10h1M11 5v1M17 10h1",
+  chart: "M3 3v18h18M7 17v-5M12 17V7M17 17V4",
+  database:
+    "M3 6c0-4 18-4 18 0s-18 4-18 0Zm0 0v12c0 4 18 4 18 0V6M3 12c0 4 18 4 18 0",
+  history: "M3 11a9 9 0 1 1 2 7M3 4v7h7M12 7v5l4 2",
+  palette:
+    "M12 3a9 9 0 1 0 0 18h2a2 2 0 0 0 0-4h-1a2 2 0 0 1 0-4h5a3 3 0 0 0 3-3c0-4-4-7-9-7ZM7 8h1M12 6h1M17 8h1M6 13h1",
+
   eye: "M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Zm7 0a3 3 0 1 0 6 0 3 3 0 1 0-6 0",
   eyeOff:
     "M3 3l18 18M10 5h2c6 0 10 7 10 7s-1.5 2.6-4 4.6M6.2 6.3C3.6 8.6 2 12 2 12s4 7 10 7c1.5 0 2.9-.4 4.2-1M9.8 9.8a3 3 0 0 0 4.4 4.4",

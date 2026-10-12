@@ -202,27 +202,6 @@ This lists every checked-in source module in these roots, including files with n
 | [src/commerce/types.rs](../src/commerce/types.rs) | Checkout selection and configuration data contracts. |
 | [src/component_runtime.rs](../src/component_runtime.rs) | WIT-typed read-only commerce guest. Snapshots are prepared by domain owners; no WASI, HTTP, DB or merchant credentials reach components. |
 | [src/concierge.rs](../src/concierge.rs) | Read-only storefront shopping advisor. |
-| [src/connectors/actions.rs](../src/connectors/actions.rs) | Existing standard-app actions and event/export endpoints share validated tenant-bound dispatch. |
-| [src/connectors/config.rs](../src/connectors/config.rs) | Compile-time mail setting types plus bounded runtime validation and write-only credentials. |
-| [src/connectors/crypto.rs](../src/connectors/crypto.rs) | Authenticated encryption binds config, OAuth verifiers, messages and receipts to tenant and app. |
-| [src/connectors/email.rs](../src/connectors/email.rs) | Email app actions/events retain the published gateway, flow and MCP payload contract. |
-| [src/connectors/error.rs](../src/connectors/error.rs) | Sanitized failures distinguish explicit rejection from ambiguous external side effects. |
-| [src/connectors/events.rs](../src/connectors/events.rs) | One bounded event envelope feeds existing durable, idempotent connector queues; no parallel scheduler. |
-| [src/connectors/exports.rs](../src/connectors/exports.rs) | Tenant-scoped encrypted knowledge records and bounded monotonic exports preserve importer fences. |
-| [src/connectors/legacy.rs](../src/connectors/legacy.rs) | Explicit offline SQLite export import: all records are rebound/encrypted atomically; ambiguous jobs stay uncertain. |
-| [src/connectors/mod.rs](../src/connectors/mod.rs) | Language-neutral app HTTP contract backed by a Rust-only standard connector runtime. |
-| [src/connectors/network.rs](../src/connectors/network.rs) | Fixed provider endpoints, no redirects, bounded response streaming and loopback-only fixture overrides. |
-| [src/connectors/oauth.rs](../src/connectors/oauth.rs) | Single-use tenant/app-bound OAuth state, PKCE, encrypted tokens and serialized refresh/disconnect. |
-| [src/connectors/providers/analytics.rs](../src/connectors/providers/analytics.rs) | Exact bounded GA4 source rows, quota metadata and stale-report tombstones; no invented causal claims. |
-| [src/connectors/providers/gmail.rs](../src/connectors/providers/gmail.rs) | Read-only Gmail incremental imports preserve high-water cursors, bounded windows and deletion evidence. |
-| [src/connectors/providers.rs](../src/connectors/providers.rs) | Provider-specific read imports and notification mapping stay outside the commerce kernel. |
-| [src/connectors/queue.rs](../src/connectors/queue.rs) | Atomic idempotent enqueue, fair tenant admission and lease-fenced SKIP LOCKED claims for many workers. |
-| [src/connectors/server.rs](../src/connectors/server.rs) | Authenticated bounded app HTTP service with private OAuth callback and graceful worker lifetime. |
-| [src/connectors/smtp.rs](../src/connectors/smtp.rs) | Pinned SMTP/STARTTLS/TLS with verified hostname, bounded dialogue and no retry after ambiguous DATA. |
-| [src/connectors/store.rs](../src/connectors/store.rs) | PostgreSQL transactions carry local RLS context; config mutation serializes with in-flight delivery. |
-| [src/connectors/templates.rs](../src/connectors/templates.rs) | Bounded immutable envelopes and non-executable multilingual templates; HTML substitutions are escaped. |
-| [src/connectors/tests.rs](../src/connectors/tests.rs) | Actual Rust parsers, encryption and template consumers reject escalation/injection and preserve language behavior. |
-| [src/connectors/worker.rs](../src/connectors/worker.rs) | Distributed delivery workers fence settings and leases, retry only proven rejection, and drain on shutdown. |
 | [src/context.rs](../src/context.rs) | Bounded behavioral ports of Shopware 6.7.14.2 context and product-cart selection. |
 | [src/currencies/capabilities.rs](../src/currencies/capabilities.rs) | Currency MCP operations reuse the native HTTP handlers and existing settings/catalog permissions. |
 | [src/currencies/jobs.rs](../src/currencies/jobs.rs) | Bounded restart-safe fixed-price materialization with frozen FX, product locks and atomic checkpoints across replicas. |
@@ -348,7 +327,6 @@ This lists every checked-in source module in these roots, including files with n
 | [src/payments/generic_receipts.rs](../src/payments/generic_receipts.rs) | Provider-neutral receipt admission and atomic allocation; verified evidence owns ledger transitions. |
 | [src/payments/mod.rs](../src/payments/mod.rs) | Provider-independent payment ledger and durable workers; the PayPal adapter supports explicit Sandbox/Live environments. |
 | [src/payments/operations.rs](../src/payments/operations.rs) | Durable idempotent payment commands, customer context binding and serial refund admission. |
-| [src/payments/paypal.rs](../src/payments/paypal.rs) | Native PayPal Orders v2 sandbox wire adapter; credentials never enter prompts or browser responses. |
 | [src/payments/provider.rs](../src/payments/provider.rs) | Payment provider identity, tenant account configuration and immutable wire context. |
 | [src/payments/provider_configuration.rs](../src/payments/provider_configuration.rs) | Pure startup validation of the native provider origin; no live credentials or provider calls. |
 | [src/payments/provider_webhooks.rs](../src/payments/provider_webhooks.rs) | Version-pinned HMAC notifications enqueue reconciliation; external event payloads never write monetary state. |
@@ -360,7 +338,6 @@ This lists every checked-in source module in these roots, including files with n
 | [src/payments/sessions.rs](../src/payments/sessions.rs) | Customer-bound, short-lived provider UI sessions; iframe messages are never ledger receipts. |
 | [src/payments/state.rs](../src/payments/state.rs) | One monotonic provider-neutral ledger state machine; evidence validation and authorization stay in receipt adapters. |
 | [src/payments/storage.rs](../src/payments/storage.rs) | Transactional provider receipts and order state updates; external responses cannot invent amounts or tenants. |
-| [src/payments/webhooks.rs](../src/payments/webhooks.rs) | PayPal verifies webhook signatures before inbox insertion; provider reconciliation confirms monetary state. |
 | [src/payments/worker.rs](../src/payments/worker.rs) | Leased payment jobs; network runs after claim commit, fenced receipts prevent duplicate local effects. |
 | [src/performance/access_snapshot.rs](../src/performance/access_snapshot.rs) | One fresh, server-owned admission read shared by domain, identity, availability, channel and proxy middleware. |
 | [src/performance/admission.rs](../src/performance/admission.rs) | Bounded instance/tenant concurrency, durable UTC-day AI quotas, and low-cardinality latency telemetry. |
@@ -445,12 +422,10 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/apps/AppSecrets.tsx](../frontend/src/admin/apps/AppSecrets.tsx) | Metadata-only credentials screen; rotation sends plaintext once to the encrypted server store. |
 | [frontend/src/admin/apps/AppsManager.tsx](../frontend/src/admin/apps/AppsManager.tsx) | Installed package workspace: lifecycle, generated entities and shared agent actions. |
 | [frontend/src/admin/apps/ConnectorPanel.tsx](../frontend/src/admin/apps/ConnectorPanel.tsx) | Native app workspace: OAuth, provider settings, durable jobs and private sources. |
-| [frontend/src/admin/apps/EmailPanel.tsx](../frontend/src/admin/apps/EmailPanel.tsx) | Native email app settings, localized templates, safe previews and durable delivery receipts. |
-| [frontend/src/admin/apps/EmailProviderFields.tsx](../frontend/src/admin/apps/EmailProviderFields.tsx) | EmailProviderFields: focused connector-settings view with explicit typed inputs and callbacks. |
 | [frontend/src/admin/apps/PaymentManager.tsx](../frontend/src/admin/apps/PaymentManager.tsx) | Payment ledger, adapter readiness and explicit refund approval. |
 | [frontend/src/admin/apps/ProviderAccount.tsx](../frontend/src/admin/apps/ProviderAccount.tsx) | Shared installed-provider onboarding and channel connection controls for merchant Apps and App Studio. |
 | [frontend/src/admin/apps/app-types.ts](../frontend/src/admin/apps/app-types.ts) | Installed package metadata used by app administration views. |
-| [frontend/src/admin/apps/email-languages.ts](../frontend/src/admin/apps/email-languages.ts) | Supported transactional email template languages. |
+| [frontend/src/admin/apps/connector-descriptors.ts](../frontend/src/admin/apps/connector-descriptors.ts) | Shared connector presentation registry; settings and capabilities are owned by each app package. |
 | [frontend/src/admin/apps/library-model.ts](../frontend/src/admin/apps/library-model.ts) | Shared app discovery metadata, safe artwork sources and localized search independent of rendering. |
 | [frontend/src/admin/assistant/MessageText.tsx](../frontend/src/admin/assistant/MessageText.tsx) | MessageText keeps merchant interaction separate from workspace orchestration. |
 | [frontend/src/admin/assistant/ProposalCard.tsx](../frontend/src/admin/assistant/ProposalCard.tsx) | ProposalCard keeps merchant interaction separate from workspace orchestration. |
@@ -524,6 +499,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/developer/AppContextBinding.tsx](../frontend/src/admin/developer/AppContextBinding.tsx) | Native UI bindings connect the open host object to an indexed app field, never to a global JS context. |
 | [frontend/src/admin/developer/AppControlProperties.tsx](../frontend/src/admin/developer/AppControlProperties.tsx) | DataField and one-level container references are edited against the current typed model rather than free text. |
 | [frontend/src/admin/developer/AppDataEditor.tsx](../frontend/src/admin/developer/AppDataEditor.tsx) | Managed app models expose typed fields and opt-in public reads; removal cleans dependent bindings. |
+| [frontend/src/admin/developer/AppDesignPreview.tsx](../frontend/src/admin/developer/AppDesignPreview.tsx) | Schema-based, non-interactive design illustration. Never fetches data or executes app actions. |
 | [frontend/src/admin/developer/AppEditorNavigation.tsx](../frontend/src/admin/developer/AppEditorNavigation.tsx) | Consistent navigation between visual definitions, provider contracts and immutable versions. |
 | [frontend/src/admin/developer/AppEvents.tsx](../frontend/src/admin/developer/AppEvents.tsx) | Edits the validated subscription/filter/batch contract; delivery uses the existing leased outbox. |
 | [frontend/src/admin/developer/AppExpressionEditor.tsx](../frontend/src/admin/developer/AppExpressionEditor.tsx) | Expressions use typed source text and known form/control references, with a separate JSON editor for agent object ASTs. |
@@ -554,8 +530,9 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/developer/api/api-i18n.ts](../frontend/src/admin/developer/api/api-i18n.ts) | Four-language developer API console vocabulary; no credentials are persisted in UI storage. |
 | [frontend/src/admin/developer/app-model.ts](../frontend/src/admin/developer/app-model.ts) | Pure schema edits preserve unsupported extension properties; compilation binds native UI to real actions. |
 | [frontend/src/admin/developer/app-proposal.ts](../frontend/src/admin/developer/app-proposal.ts) | Bounded semantic review summaries compare the exact current and proposed manifests. |
-| [frontend/src/admin/developer/app-recipes.ts](../frontend/src/admin/developer/app-recipes.ts) | Working domain patterns compile into the existing visual/coding Manifest and gateway. |
+| [frontend/src/admin/developer/app-recipes.ts](../frontend/src/admin/developer/app-recipes.ts) | Load app-owned patterns; Studio only clones and compiles the canonical plugin Manifest. |
 | [frontend/src/admin/developer/app-validation.ts](../frontend/src/admin/developer/app-validation.ts) | Draft validation surfaces bounded manifest errors; authoritative installation remains in Rust. |
+| [frontend/src/admin/developer/app-visuals.ts](../frontend/src/admin/developer/app-visuals.ts) | Presentation-only symbols for native controls; behavior still belongs to the shared runtime. |
 | [frontend/src/admin/developer/asset-actions.ts](../frontend/src/admin/developer/asset-actions.ts) | Native asset editors use the existing asset owner; generated actions remain explicit capabilities in the package. |
 | [frontend/src/admin/developer/assistant-model.ts](../frontend/src/admin/developer/assistant-model.ts) | Assistants compile to the public manifest contract, with no hidden runtime or provider code. |
 | [frontend/src/admin/developer/basic-code.ts](../frontend/src/admin/developer/basic-code.ts) | Small BASIC-style surface syntax compiles into the same bounded AST as visual and agent edits; no JavaScript execution. |
@@ -626,10 +603,6 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/shell/useStudioAccess.ts](../frontend/src/admin/shell/useStudioAccess.ts) | Central Studio identity boundary: initial login, expiry suspension and same-account resume. |
 | [frontend/src/admin/shell/useStudioController.ts](../frontend/src/admin/shell/useStudioController.ts) | Studio session/controller: authentication context, tenant/staging state and chat commands. |
 | [frontend/src/admin/shell/useStudioSession.ts](../frontend/src/admin/shell/useStudioSession.ts) | Revalidate visible Studio sessions and route authenticated failures to the active controller. |
-| [frontend/src/admin/storyfronts/StoryfrontConnections.tsx](../frontend/src/admin/storyfronts/StoryfrontConnections.tsx) | Shared passive navigation from Apps and Storyfronts to the same authorized original editor. |
-| [frontend/src/admin/storyfronts/StoryfrontView.tsx](../frontend/src/admin/storyfronts/StoryfrontView.tsx) | Discover the actual tenant-bound hosted frontends; keep the optional legacy app connector separate. |
-| [frontend/src/admin/storyfronts/storyfront-i18n.ts](../frontend/src/admin/storyfronts/storyfront-i18n.ts) | Four-language navigation copy; mounted frontends are connections, not proof of publication. |
-| [frontend/src/admin/storyfronts/storyfront-model.ts](../frontend/src/admin/storyfronts/storyfront-model.ts) | Passive operator URLs contain no browser credential; the destination editor authorizes its own owner. |
 | [frontend/src/admin/styles/api-console.css](../frontend/src/admin/styles/api-console.css) | Responsive developer key management and bounded API explorer using Studio theme tokens. |
 | [frontend/src/admin/styles/app-artwork.css](../frontend/src/admin/styles/app-artwork.css) | Category cover and app icon artwork, with local deterministic fallbacks. |
 | [frontend/src/admin/styles/app-assistant.css](../frontend/src/admin/styles/app-assistant.css) | Guided extension workspace: restrained colour, clear choices and responsive setup. |
@@ -639,6 +612,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/app-library.css](../frontend/src/admin/styles/app-library.css) | App callback consent follows the same card and field rhythm as app configuration. |
 | [frontend/src/admin/styles/app-studio-inspector.css](../frontend/src/admin/styles/app-studio-inspector.css) | App Studio binding indicators, empty canvas and properties inspector. |
 | [frontend/src/admin/styles/app-studio-panels.css](../frontend/src/admin/styles/app-studio-panels.css) | App Studio model, connection, agent and version panels. |
+| [frontend/src/admin/styles/app-studio-preview.css](../frontend/src/admin/styles/app-studio-preview.css) | Passive schema previews and semantic navigation. No alternative app runtime. |
 | [frontend/src/admin/styles/app-studio-responsive.css](../frontend/src/admin/styles/app-studio-responsive.css) | Responsive App Studio layouts and reduced-motion settings. |
 | [frontend/src/admin/styles/app-studio.css](../frontend/src/admin/styles/app-studio.css) | App Studio: restrained light canvas, compact control density and responsive palette/inspector workspaces. |
 | [frontend/src/admin/styles/automation-lifecycle.css](../frontend/src/admin/styles/automation-lifecycle.css) | Configuration workspace: readable definitions, clear selection and contextual actions. |
@@ -659,7 +633,6 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/provider-account.css](../frontend/src/admin/styles/provider-account.css) | Shared provider onboarding layout works independently of the lazy-loaded visual App Studio. |
 | [frontend/src/admin/styles/sales-channels.css](../frontend/src/admin/styles/sales-channels.css) | Sales-channel cards, onboarding and scoped settings use the same responsive, accessible Studio design. |
 | [frontend/src/admin/styles/settings.css](../frontend/src/admin/styles/settings.css) | Independent settings navigation, grouped native forms and save feedback in Studio theme tokens. |
-| [frontend/src/admin/styles/storyfronts.css](../frontend/src/admin/styles/storyfronts.css) | Tenant-bound Experience cards share Studio tokens and keep long hostnames inside mobile columns. |
 | [frontend/src/admin/styles/studio/01-studio.css](../frontend/src/admin/styles/studio/01-studio.css) | studio: studio styles. Source order is preserved by the entry stylesheet. |
 | [frontend/src/admin/styles/studio/02-workspace-switch.css](../frontend/src/admin/styles/studio/02-workspace-switch.css) | studio: workspace-switch styles. Source order is preserved by the entry stylesheet. |
 | [frontend/src/admin/styles/studio/03-welcome-symbol.css](../frontend/src/admin/styles/studio/03-welcome-symbol.css) | studio: welcome-symbol styles. Source order is preserved by the entry stylesheet. |
@@ -756,6 +729,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/app-logic-i18n.ts](../frontend/src/shared/i18n/app-logic-i18n.ts) | Designer controls, code-behind and debugger vocabulary ships in every bundled interface language. |
 | [frontend/src/shared/i18n/app-ontology-i18n.ts](../frontend/src/shared/i18n/app-ontology-i18n.ts) | Native app graph mapping controls share the Studio vocabulary and four interface languages. |
 | [frontend/src/shared/i18n/app-operations-i18n.ts](../frontend/src/shared/i18n/app-operations-i18n.ts) | App operational vocabulary shared by installed apps and developer diagnostics; EN/DE/FR/ES. |
+| [frontend/src/shared/i18n/app-preview-i18n.ts](../frontend/src/shared/i18n/app-preview-i18n.ts) | Non-executing design preview vocabulary, separate from merchant content. |
 | [frontend/src/shared/i18n/app-studio-i18n.ts](../frontend/src/shared/i18n/app-studio-i18n.ts) | App Studio and native runtime vocabulary; every key ships EN/DE/FR/ES. |
 | [frontend/src/shared/i18n/automation-fields.ts](../frontend/src/shared/i18n/automation-fields.ts) | Localized labels for original rule and native flow parameter fields. |
 | [frontend/src/shared/i18n/automation-i18n.ts](../frontend/src/shared/i18n/automation-i18n.ts) | Four-language automation editor vocabulary keeps source identifiers stable and user labels readable. |
@@ -770,7 +744,6 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/crm-i18n.ts](../frontend/src/shared/i18n/crm-i18n.ts) | Complete CRM/history vocabulary shared by settings, customer account and entity editors. |
 | [frontend/src/shared/i18n/currency-i18n.ts](../frontend/src/shared/i18n/currency-i18n.ts) | Complete currency settings vocabulary, shared by storefront and channel editors. |
 | [frontend/src/shared/i18n/customer-i18n.ts](../frontend/src/shared/i18n/customer-i18n.ts) | Account and address labels share four complete locales across storefront and studio. |
-| [frontend/src/shared/i18n/email-i18n.ts](../frontend/src/shared/i18n/email-i18n.ts) | Complete mail workspace vocabulary in English, German, French and Spanish. |
 | [frontend/src/shared/i18n/errors-i18n.ts](../frontend/src/shared/i18n/errors-i18n.ts) | Localized request guidance across all transports; original diagnostics remain available to developer tools. |
 | [frontend/src/shared/i18n/experience-ui-i18n.ts](../frontend/src/shared/i18n/experience-ui-i18n.ts) | Shared four-language interaction vocabulary for contextual Studio help and storefront discovery. |
 | [frontend/src/shared/i18n/experiment-i18n.ts](../frontend/src/shared/i18n/experiment-i18n.ts) | Controlled-experiment vocabulary distinguishes observed cash from causal and margin claims. |
@@ -830,7 +803,6 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/storefront/account/account-types.ts](../frontend/src/storefront/account/account-types.ts) | Shopper-only account responses deliberately exclude cart/session credentials and internal order activity. |
 | [frontend/src/storefront/account/account.css](../frontend/src/storefront/account/account.css) | Customer workspace: quiet fashion palette, clear purchase cards and an accessible mobile sheet. |
 | [frontend/src/storefront/account/useCustomerAccount.ts](../frontend/src/storefront/account/useCustomerAccount.ts) | Tenant-scoped account loading and mutation lifecycle; expired sessions clear private data and reopen sign-in. |
-| [frontend/src/storefront/analytics/ShopAnalytics.tsx](../frontend/src/storefront/analytics/ShopAnalytics.tsx) | Customer consent and real GA4 ecommerce events; absent apps produce no external script. |
 | [frontend/src/storefront/catalog/ImagePlaceholder.tsx](../frontend/src/storefront/catalog/ImagePlaceholder.tsx) | Honest empty-media state for newly created products; never invent a product photograph. |
 | [frontend/src/storefront/catalog/MemoryRecommendations.tsx](../frontend/src/storefront/catalog/MemoryRecommendations.tsx) | Public consumer of merchant-approved learned associations, hydrated with current product state. |
 | [frontend/src/storefront/catalog/ProductAttachments.tsx](../frontend/src/storefront/catalog/ProductAttachments.tsx) | Public attachment list follows the active storefront tenant and channel; private downloads are never listed. |
@@ -895,22 +867,62 @@ This lists every checked-in source module in these roots, including files with n
 | Module | Responsibility |
 |---|---|
 | [extensions/apps/catalog-export/server.py](../extensions/apps/catalog-export/server.py) | Independent, language-neutral export example. Only scoped commerce callbacks; no core SQL or hosted Python dependency. |
+| [extensions/apps/email/src/config.rs](../extensions/apps/email/src/config.rs) | Compile-time mail setting types plus bounded runtime validation and write-only credentials. |
+| [extensions/apps/email/src/email.rs](../extensions/apps/email/src/email.rs) | Email app actions/events retain the published gateway, flow and MCP payload contract. |
+| [extensions/apps/email/src/smtp.rs](../extensions/apps/email/src/smtp.rs) | Pinned SMTP/STARTTLS/TLS with verified hostname, bounded dialogue and no retry after ambiguous DATA. |
+| [extensions/apps/email/src/templates.rs](../extensions/apps/email/src/templates.rs) | Bounded immutable envelopes and non-executable multilingual templates; HTML substitutions are escaped. |
+| [extensions/apps/email/studio/EmailPanel.tsx](../extensions/apps/email/studio/EmailPanel.tsx) | Native email app settings, localized templates, safe previews and durable delivery receipts. |
+| [extensions/apps/email/studio/EmailProviderFields.tsx](../extensions/apps/email/studio/EmailProviderFields.tsx) | EmailProviderFields: focused connector-settings view with explicit typed inputs and callbacks. |
+| [extensions/apps/email/studio/email-i18n.ts](../extensions/apps/email/studio/email-i18n.ts) | Complete mail workspace vocabulary in English, German, French and Spanish. |
+| [extensions/apps/email/studio/email-languages.ts](../extensions/apps/email/studio/email-languages.ts) | Supported transactional email template languages. |
 | [extensions/apps/engraving/configuration.wat](../extensions/apps/engraving/configuration.wat) | Engraving-owned rules: printable input is checked by the host; app defines length and fee. |
 | [extensions/apps/gift-message/configuration.wat](../extensions/apps/gift-message/configuration.wat) | Gift-message-owned rules: printable input is checked by the host; app defines length and fee. |
+| [extensions/apps/gmail/src/actions.rs](../extensions/apps/gmail/src/actions.rs) | App-owned connector capabilities and provider settings; shared host supplies tenant-bound storage. |
+| [extensions/apps/gmail/src/provider.rs](../extensions/apps/gmail/src/provider.rs) | Read-only Gmail incremental imports preserve high-water cursors, bounded windows and deletion evidence. |
+| [extensions/apps/google-analytics/src/actions.rs](../extensions/apps/google-analytics/src/actions.rs) | App-owned connector capabilities and provider settings; shared host supplies tenant-bound storage. |
+| [extensions/apps/google-analytics/src/provider.rs](../extensions/apps/google-analytics/src/provider.rs) | Exact bounded GA4 source rows, quota metadata and stale-report tombstones; no invented causal claims. |
+| [extensions/apps/google-analytics/storefront/ShopAnalytics.tsx](../extensions/apps/google-analytics/storefront/ShopAnalytics.tsx) | Customer consent and real GA4 ecommerce events; absent apps produce no external script. |
+| [extensions/apps/paypal/src/adapter.rs](../extensions/apps/paypal/src/adapter.rs) | Legacy PayPal admission/account wiring belongs to the PayPal package, not a second pricing owner. |
+| [extensions/apps/paypal/src/compatibility.rs](../extensions/apps/paypal/src/compatibility.rs) | Native PayPal Orders v2 sandbox wire adapter; credentials never enter prompts or browser responses. |
+| [extensions/apps/paypal/src/receipts.rs](../extensions/apps/paypal/src/receipts.rs) | PayPal receipt interpretation; shared payment storage owns order and inventory effects. |
+| [extensions/apps/paypal/src/webhooks.rs](../extensions/apps/paypal/src/webhooks.rs) | PayPal verifies webhook signatures before inbox insertion; provider reconciliation confirms monetary state. |
 | [extensions/apps/product-lab/app.js](../extensions/apps/product-lab/app.js) | A complete guest surface can use any UI framework; this example needs no build or host imports. |
 | [extensions/apps/product-lab/index.html](../extensions/apps/product-lab/index.html) | Independent app entry; see extensions/README.md for its public contract. |
 | [extensions/apps/product-lab/server.py](../extensions/apps/product-lab/server.py) | App-owned code, SQLite structures and versioned browser UI; no commerce credentials reach the guest. |
 | [extensions/apps/service-example/index.html](../extensions/apps/service-example/index.html) | Independent app entry; see extensions/README.md for its public contract. |
 | [extensions/apps/service-example/server.py](../extensions/apps/service-example/server.py) | Standalone app service with its own UI and durable event inbox. Run separately from the core. |
+| [extensions/apps/slack/src/actions.rs](../extensions/apps/slack/src/actions.rs) | App-owned connector capabilities and provider settings; shared host supplies tenant-bound storage. |
+| [extensions/apps/slack/src/provider.rs](../extensions/apps/slack/src/provider.rs) | Slack notification execution belongs to the Slack app, admitted by the connector host. |
+| [extensions/apps/storyfront/studio/StoryfrontConnections.tsx](../extensions/apps/storyfront/studio/StoryfrontConnections.tsx) | Shared passive navigation from Apps and Storyfronts to the same authorized original editor. |
+| [extensions/apps/storyfront/studio/StoryfrontView.tsx](../extensions/apps/storyfront/studio/StoryfrontView.tsx) | Discover the actual tenant-bound hosted frontends; keep the optional legacy app connector separate. |
+| [extensions/apps/storyfront/studio/storyfront-i18n.ts](../extensions/apps/storyfront/studio/storyfront-i18n.ts) | Four-language navigation copy; mounted frontends are connections, not proof of publication. |
+| [extensions/apps/storyfront/studio/storyfront-model.ts](../extensions/apps/storyfront/studio/storyfront-model.ts) | Passive operator URLs contain no browser credential; the destination editor authorizes its own owner. |
+| [extensions/apps/storyfront/studio/storyfronts.css](../extensions/apps/storyfront/studio/storyfronts.css) | Tenant-bound Experience cards share Studio tokens and keep long hostnames inside mobile columns. |
 | [extensions/apps/storyfront/ui.html](../extensions/apps/storyfront/ui.html) | Independent app entry; see extensions/README.md for its public contract. |
 | [extensions/budget-reserve.wat](../extensions/budget-reserve.wat) | Keep EUR 100 of the supplied budget unused. Inputs are integer cents. |
 | [extensions/company-limit.wat](../extensions/company-limit.wat) | Independent app entry; see extensions/README.md for its public contract. |
 | [extensions/minimum-order.wat](../extensions/minimum-order.wat) | Business orders must reach EUR 50 and stay inside the supplied budget. |
+| [extensions/sdk/analytics.d.ts](../extensions/sdk/analytics.d.ts) | Independent app entry; see extensions/README.md for its public contract. |
 | [extensions/sdk/analytics.js](../extensions/sdk/analytics.js) | Consent-bound GA4 adapter for native and headless storefronts. Never send customer identities. |
 | [extensions/sdk/browser.js](../extensions/sdk/browser.js) | Guest SDK: no merchant tokens or raw host API access; the host rechecks every action. |
 | [extensions/sdk/events.py](../extensions/sdk/events.py) | Language-neutral wire contract example: validate full batches and public HMAC envelopes before effects. |
 | [extensions/sdk/ui_bundle.py](../extensions/sdk/ui_bundle.py) | Build self-contained vanilla example UIs from the shared SDK; no remote imports at runtime. |
 | [extensions/sdk/wit/snapshot-price.component.wat](../extensions/sdk/wit/snapshot-price.component.wat) | Typed fixture: calls the real host cart snapshot and returns one percent of its subtotal. |
+| [extensions/services/connectors/src/actions.rs](../extensions/services/connectors/src/actions.rs) | Existing standard-app actions and event/export endpoints share validated tenant-bound dispatch. |
+| [extensions/services/connectors/src/crypto.rs](../extensions/services/connectors/src/crypto.rs) | Authenticated encryption binds config, OAuth verifiers, messages and receipts to tenant and app. |
+| [extensions/services/connectors/src/error.rs](../extensions/services/connectors/src/error.rs) | Sanitized failures distinguish explicit rejection from ambiguous external side effects. |
+| [extensions/services/connectors/src/events.rs](../extensions/services/connectors/src/events.rs) | One bounded event envelope feeds existing durable, idempotent connector queues; no parallel scheduler. |
+| [extensions/services/connectors/src/exports.rs](../extensions/services/connectors/src/exports.rs) | Tenant-scoped encrypted knowledge records and bounded monotonic exports preserve importer fences. |
+| [extensions/services/connectors/src/legacy.rs](../extensions/services/connectors/src/legacy.rs) | Explicit offline SQLite export import: all records are rebound/encrypted atomically; ambiguous jobs stay uncertain. |
+| [extensions/services/connectors/src/mod.rs](../extensions/services/connectors/src/mod.rs) | Language-neutral app HTTP contract backed by a Rust-only standard connector runtime. |
+| [extensions/services/connectors/src/network.rs](../extensions/services/connectors/src/network.rs) | Fixed provider endpoints, no redirects, bounded response streaming and loopback-only fixture overrides. |
+| [extensions/services/connectors/src/oauth.rs](../extensions/services/connectors/src/oauth.rs) | Single-use tenant/app-bound OAuth state, PKCE, encrypted tokens and serialized refresh/disconnect. |
+| [extensions/services/connectors/src/providers.rs](../extensions/services/connectors/src/providers.rs) | Provider-specific read imports and notification mapping stay outside the commerce kernel. |
+| [extensions/services/connectors/src/queue.rs](../extensions/services/connectors/src/queue.rs) | Atomic idempotent enqueue, fair tenant admission and lease-fenced SKIP LOCKED claims for many workers. |
+| [extensions/services/connectors/src/server.rs](../extensions/services/connectors/src/server.rs) | Authenticated bounded app HTTP service with private OAuth callback and graceful worker lifetime. |
+| [extensions/services/connectors/src/store.rs](../extensions/services/connectors/src/store.rs) | PostgreSQL transactions carry local RLS context; config mutation serializes with in-flight delivery. |
+| [extensions/services/connectors/src/tests.rs](../extensions/services/connectors/src/tests.rs) | Actual Rust parsers, encryption and template consumers reject escalation/injection and preserve language behavior. |
+| [extensions/services/connectors/src/worker.rs](../extensions/services/connectors/src/worker.rs) | Distributed delivery workers fence settings and leases, retry only proven rejection, and drain on shutdown. |
 | [extensions/single-order-cap.wat](../extensions/single-order-cap.wat) | Limit any individual business purchase to EUR 250, within its budget. |
 
 ## Verification tools and fixtures
@@ -1035,6 +1047,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/image_context.py](../scripts/testing/image_context.py) | Check real Rust include! inputs against the production image's explicit build COPY set. |
 | [scripts/testing/intent_navigation.py](../scripts/testing/intent_navigation.py) | Exercise saved fact categories through native catalog/MCP, source review and selective staging; no models. |
 | [scripts/testing/inventory_batch.py](../scripts/testing/inventory_batch.py) | Concurrent two-product allocation/release on the actual HTTP path, reused by strict runtime verification. |
+| [scripts/testing/plugin_ownership.py](../scripts/testing/plugin_ownership.py) | Keep app implementation in its package; preserve shared runtimes and exact safety boundaries. |
 | [scripts/testing/pooler.py](../scripts/testing/pooler.py) | Owned real PgBouncer fixture: one backend, transaction pooling, never a forced privileged user. |
 | [scripts/testing/provider_fleet.py](../scripts/testing/provider_fleet.py) | Configure one encrypted synthetic provider for all test workers, then restore the isolated control-plane row. |
 | [scripts/testing/runtime.py](../scripts/testing/runtime.py) | Owned synthetic server lifetime, child checks and loopback readiness for verification. |

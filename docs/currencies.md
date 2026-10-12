@@ -148,7 +148,7 @@ does not certify the private Shopware Payments adapter for every currency.
   catalog, destination taxes, shipping, checkout and protocol consumers.
 - `src/payments/`, `src/operations/receipt_text.rs`, `src/studio/revenue.rs`:
   provider ledger, documents and separated invoice-currency reporting.
-- `src/connectors/templates.rs`: order emails use the frozen exact money snapshot;
+- `extensions/apps/email/src/templates.rs`: order emails use the frozen exact money snapshot;
   zero- and three-decimal totals are preserved in all supplied languages.
 - Migrations `050-currency-price-jobs.sql` and `051-multi-currency-ledger.sql`:
   forced tenant row security for jobs and additive ledger precision support.

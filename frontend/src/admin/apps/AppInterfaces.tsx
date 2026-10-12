@@ -1,5 +1,5 @@
 /** Open registered native/isolated admin surfaces through the existing permission-filtered registry. */
-import StoryfrontConnections from "../storyfronts/StoryfrontConnections";
+import StoryfrontConnections from "../../../../extensions/apps/storyfront/studio/StoryfrontConnections";
 import { useState } from "react";
 import {
   useAppSurfaces,

@@ -21,7 +21,7 @@ import { useShopText } from "../../shared/i18n/shop-i18n";
 import { useWorkbenchText } from "../../shared/i18n/workbench-i18n";
 import "../../shared/styles/apps.css";
 import "../../shared/styles/workbench.css";
-import { commerceEvent } from "../analytics/ShopAnalytics";
+import { commerceEvent } from "../../../../extensions/apps/google-analytics/storefront/ShopAnalytics";
 import "../styles/shop.css";
 import "../styles/checkout.css";
 import "../styles/order-completion.css";

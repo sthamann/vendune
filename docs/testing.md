@@ -21,7 +21,7 @@ original Storyfront container have separate evidence and no claimed percentage.
 
 - Rust: 414 source modules (merged cognitive release, 9 October 2026), each with a responsibility header, at most 320 lines; `main.rs` at most 120. Existing domain folders remain independent of extension app implementations.
 - Frontend: separate `admin/`, `storefront/`, `platform/` and `shared/` ownership. Views/controllers and styles are limited to 400 lines; locale data has a documented 700-line allowance. Runtime cycles, unresolved local imports, crossing application boundaries, missing folder contracts and undocumented source files fail CI.
-- Bundled Email/GA4/Gmail/Slack services are Rust modules in `src/connectors/`; independent app examples and browser SDKs remain under `extensions/`. Python test tooling lives under `scripts/` and the previous connector is an archived comparison oracle in `reference/`. [The generated inventory](module-inventory.md) covers runtime/tooling sources and is checked for drift.
+- Bundled Email/GA4/Gmail/Slack services are Rust modules in `extensions/services/connectors/src/`; independent app examples and browser SDKs remain under `extensions/`. Python test tooling lives under `scripts/` and the previous connector is an archived comparison oracle in `reference/`. [The generated inventory](module-inventory.md) covers runtime/tooling sources and is checked for drift.
 - Studio workspaces load lazily. Root application routing is isolated in `frontend/src/application/`; error boundaries keep workspace failures inside the current view and provide reload recovery for rejected cached module imports. The removed `CommerceManager` had no call site and duplicated old operational UI. Order state management remains in `admin/orders/OrderWorkflow.tsx`; product review moderation lives in `admin/catalog/ReviewModeration.tsx`.
 
 `frontend/tests/architecture.mjs` also inserts deliberately broken synthetic imports,
@@ -362,3 +362,7 @@ are regression evidence, not a claim of 100% app/host coverage. Full semantic
 document tests additionally require the real Qdrant service; a missing retrieval
 service must be reported as an unverified environment dependency, never replaced
 by a mocked successful semantic result. See [the security matrix](app-security.md).
+
+## App ownership checks
+
+Architecture, localization, translation export and frontend coverage include trusted app UI under `extensions/apps/`. The Rust source inventory and verification review ledger include app and service Rust modules. `scripts/testing/plugin_ownership.py` checks canonical package layout and has rejecting controls for leaked core files and escaping symlinks. Provider and checkout integration suites continue to test existing HTTP/MCP/Flow behavior after relocations. This is source ownership and regression coverage, not a proof that every trusted compatibility adapter executes in a sandbox. See [exact boundaries](plugin-ownership.md).

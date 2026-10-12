@@ -28,8 +28,14 @@ const walk = (dir) =>
     .flatMap((e) =>
       e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name)],
     );
+const productionFiles = [
+  ...walk(source),
+  ...(process.argv.includes("--source")
+    ? []
+    : walk(path.resolve(root, "../extensions/apps"))),
+];
 const found = [];
-for (const file of walk(source).filter((f) => f.endsWith(".tsx"))) {
+for (const file of productionFiles.filter((f) => f.endsWith(".tsx"))) {
   const ast = ts.createSourceFile(
     file,
     fs.readFileSync(file, "utf8"),
@@ -117,7 +123,7 @@ for (const file of walk(source).filter((f) => f.endsWith(".tsx"))) {
   };
   visit(ast);
 }
-for (const file of walk(source).filter(
+for (const file of productionFiles.filter(
   (f) => /i18n\.ts$|i18n\/(?:locales|automation-)/.test(f) && f.endsWith(".ts"),
 )) {
   const ast = ts.createSourceFile(

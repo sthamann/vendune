@@ -15,7 +15,7 @@ def missing_inputs(dockerfile):
         elif copying and line.startswith('COPY '):
             inputs.extend(ROOT / value for value in line.split()[1:-1])
     missing = []
-    for source in (ROOT / 'src').rglob('*.rs'):
+    for source in [*(ROOT / 'src').rglob('*.rs'), *(ROOT / 'extensions').rglob('*.rs')]:
         for value in re.findall(r'include_(?:str|bytes)!\s*\(\s*"([^"\n]+)"', source.read_text()):
             target = (source.parent / value).resolve()
             if not target.is_file() or not any(target == p.resolve() or (p.is_dir() and target.is_relative_to(p.resolve())) for p in inputs):
@@ -32,7 +32,9 @@ def main():
     broken = dockerfile.replace('COPY reference/app-manifests/ reference/app-manifests/\n', '')
     lost = missing_inputs(broken)
     assert lost and all(p.startswith('reference/app-manifests/') for p in lost), lost
-    print(f'PASS production Rust image inputs; missing historical app manifests rejected ({len(lost)} files)')
+    missing_apps = missing_inputs(dockerfile.replace('COPY extensions/ extensions/\n', ''))
+    assert missing_apps and any(p.startswith('extensions/apps/') for p in missing_apps), missing_apps
+    print(f'PASS production Rust image inputs; historical manifests and app package resources required ({len(lost)} legacy files)')
 
 
 if __name__ == '__main__':

@@ -1,13 +1,5 @@
-# storefront/analytics
+# Storefront analytics composition
 
-Consent-aware external analytics SDK integration without customer identities.
+The host imports the consent-aware [Google Analytics app interface](../../../../extensions/apps/google-analytics/storefront/ShopAnalytics.tsx). Its implementation and provider code live together in the app package. Shared SDK contracts remain under `extensions/sdk/analytics`.
 
-Each file starts with its responsibility. See [the source inventory](../../../../docs/module-inventory.md) for the full map.
-
-## Modules
-
-- [`ShopAnalytics.tsx`](ShopAnalytics.tsx): Customer consent and real GA4 ecommerce events; absent apps produce no external script.
-
-## Verification
-
-Run `npm run build`, `npm test`, `npm run test:coverage` and `npm run architecture` from `frontend/`. Coverage includes untested source files. See [testing and limitations](../../../../docs/testing.md); file presence does not mean full test coverage.
+Cross-system consent, storefront and checkout tests remain in `frontend/tests/unit/`; see [testing](../../../../docs/testing.md).

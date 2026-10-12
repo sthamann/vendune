@@ -1,5 +1,5 @@
 /** Consistent navigation between visual definitions, provider contracts and immutable versions. */
-import Icon from "../../shared/ui/Icon";
+import Icon, { type IconName } from "../../shared/ui/Icon";
 import {
   useAppStudioText,
   type AppStudioKey,
@@ -22,6 +22,14 @@ export default function AppEditorNavigation({
     "agent",
     "versions",
   ] as const;
+  const icons: Record<(typeof tabs)[number], IconName> = {
+    design: "palette",
+    data: "database",
+    connect: "graph",
+    payments: "card",
+    agent: "code",
+    versions: "history",
+  };
   return (
     <nav className="app-studio-tabs" aria-label={a("studio")}>
       {tabs.map((key) => (
@@ -31,20 +39,7 @@ export default function AppEditorNavigation({
           className={section === key ? "active" : ""}
           onClick={() => onSelect(key)}
         >
-          <Icon
-            name={
-              key === "design"
-                ? "layers"
-                : key === "data"
-                  ? "box"
-                  : key === "connect"
-                    ? "graph"
-                    : key === "agent"
-                      ? "spark"
-                      : "truck"
-            }
-            size={17}
-          />
+          <Icon name={icons[key]} size={17} />
           {a(key)}
           {key === "versions" && <span>{versions}</span>}
         </button>

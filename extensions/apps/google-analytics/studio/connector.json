@@ -1,0 +1,22 @@
+{
+  "hint": "gaHint",
+  "sources": true,
+  "sync": true,
+  "fields": [
+    {
+      "key": "measurementId",
+      "label": "measurement",
+      "placeholder": "G-XXXXXXXXXX"
+    },
+    {
+      "key": "propertyId",
+      "label": "property",
+      "placeholder": "123456789"
+    },
+    {
+      "key": "salesChannel",
+      "label": "channel",
+      "placeholder": ""
+    }
+  ]
+}

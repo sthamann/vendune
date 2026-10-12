@@ -400,3 +400,5 @@ coverage, not a claim that every original upstream editor is translated.
 
 See [the checkout continuity contract](docs/storyfront.md#native-checkout-continuity-9-october-2026)
 for ownership, security boundaries, tests and payment-provider limits.
+
+App implementations and resources stay in their own package folders; see the [ownership and isolation map](docs/plugin-ownership.md). App Studio uses translated schema previews and distinct control/navigation icons.

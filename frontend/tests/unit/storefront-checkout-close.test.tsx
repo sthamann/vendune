@@ -29,9 +29,12 @@ vi.mock("../../src/shared/apps/AppSurfaces", () => ({
   AppSurfaceProvider: ({ children }: PropsWithChildren) => children,
   AppSurfaceSlot: () => null,
 }));
-vi.mock("../../src/storefront/analytics/ShopAnalytics", () => ({
-  default: () => null,
-}));
+vi.mock(
+  "../../../extensions/apps/google-analytics/storefront/ShopAnalytics",
+  () => ({
+    default: () => null,
+  }),
+);
 vi.mock("../../src/storefront/shell/StorefrontHeader", () => ({
   default: () => null,
 }));

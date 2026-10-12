@@ -34,14 +34,14 @@ flowchart LR
 | Module | Responsibility |
 |---|---|
 | `src/bin/connectors.rs` | Process entry only |
-| `src/connectors/server.rs` | HTTP authentication, OAuth completion, size limits, graceful shutdown |
-| `actions.rs`, `email.rs` | Existing app actions, events and exports; unchanged API/MCP/flow contracts |
-| `config.rs`, `templates.rs` | Rust setting types, runtime validation, bounded multilingual templates |
+| `extensions/services/connectors/src/server.rs` | HTTP authentication, OAuth completion, size limits, graceful shutdown |
+| Host `actions.rs`, app `extensions/apps/email/src/email.rs` | Existing app actions, events and exports; unchanged API/MCP/flow contracts |
+| `extensions/apps/email/src/{config,templates}.rs` | Rust setting types, runtime validation, bounded multilingual templates |
 | `crypto.rs`, `store.rs` | Authenticated encryption and transaction-local RLS/configuration context |
 | `queue.rs`, `worker.rs` | PostgreSQL idempotency, tenant admission, fair claims, leases and outcome handling |
-| `smtp.rs`, `network.rs` | Pinned SMTP addresses, verified TLS, fixed HTTP endpoints, bounded responses |
-| `oauth.rs` | Single-use PKCE state, encrypted token refresh and revocation |
-| `providers/`, `exports.rs` | Gmail incremental cursors, exact GA4 rows, Slack notification and bounded exports |
+| App `extensions/apps/email/src/smtp.rs`, host `network.rs` | Pinned SMTP addresses, verified TLS, fixed HTTP endpoints, bounded responses |
+| Host `oauth.rs`, app `src/actions.rs` | Shared single-use state/token fencing; app-owned OAuth scope, protocol and field admission |
+| `extensions/apps/{gmail,google-analytics,slack}/src/`, host `exports.rs` | Gmail incremental cursors, exact GA4 rows, Slack notification and bounded exports |
 | `legacy.rs` | Explicit atomic offline migration; no automatic import during normal serving |
 | Migration 049 | Six private tenant-scoped tables and forced RLS |
 

@@ -10,7 +10,14 @@ const walk = (dir) =>
     .flatMap((e) =>
       e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name)],
     );
-const files = walk(source).filter((f) => /\.(tsx?|css)$/.test(f));
+const appRoot = path.resolve(root, "../extensions/apps");
+const pluginFiles = process.argv[2]
+  ? []
+  : walk(appRoot).filter((f) => /\.(tsx?|css)$/.test(f));
+const files = [
+  ...walk(source).filter((f) => /\.(tsx?|css)$/.test(f)),
+  ...pluginFiles,
+];
 const relative = (f) => path.relative(source, f).replaceAll("\\", "/");
 const errors = [];
 const edges = new Map();
@@ -52,10 +59,29 @@ for (const file of files) {
       errors.push(`${relative(file)} cannot resolve ${spec}`);
       return;
     }
+    if (
+      target.endsWith("/manifest.json") &&
+      target.startsWith(appRoot + path.sep)
+    )
+      return;
     if (target === path.resolve(root, "../extensions/sdk/analytics.js")) return; // Explicit public SDK boundary, contract-tested separately.
-    if (!target.startsWith(source + path.sep)) {
+    if (
+      !target.startsWith(source + path.sep) &&
+      !target.startsWith(appRoot + path.sep)
+    ) {
       errors.push(
         `${relative(file)} imports outside the source ownership tree: ${spec}`,
+      );
+      return;
+    }
+    if (
+      file.startsWith(appRoot + path.sep) &&
+      target.startsWith(appRoot + path.sep) &&
+      path.relative(appRoot, file).split(path.sep)[0] !==
+        path.relative(appRoot, target).split(path.sep)[0]
+    ) {
+      errors.push(
+        `${relative(file)} imports another app's implementation: ${spec}`,
       );
       return;
     }
