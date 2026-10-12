@@ -10,6 +10,7 @@ import RegisterCatalog from "./RegisterCatalog";
 import RegisterCart from "./RegisterCart";
 import RegisterReceipt from "./RegisterReceipt";
 import RegisterAssistant from "./RegisterAssistant";
+import { useRegisterViewport } from "./useRegisterViewport";
 import type { POSProps as Props } from "./POSWorkspace";
 export default function Register({
   channel,
@@ -20,6 +21,7 @@ export default function Register({
   const t = usePosText();
   const { locale } = useLocale();
   const r = useRegister(props.request, channel, props.workspace);
+  const pane = useRegisterViewport();
   const [held, setHeld] = useState<
     { token: string; items: { quantity: number }[] }[] | null
   >(null);
@@ -164,7 +166,7 @@ export default function Register({
               {r.cart.lineItems.reduce((n, i) => n + i.quantity, 0)}
             </button>
           </nav>
-          <div className="pos-register" data-panel={panel}>
+          <div ref={pane} className="pos-register" data-panel={panel}>
             <RegisterCatalog register={r} channel={channel} />
             <RegisterCart
               register={r}

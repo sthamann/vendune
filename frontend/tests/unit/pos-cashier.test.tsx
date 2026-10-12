@@ -27,6 +27,9 @@ vi.mock("../../src/shared/apps/AppSurfaces", () => ({
 vi.mock("../../src/admin/pos/RegisterAdjustments", () => ({
   default: () => null,
 }));
+vi.mock("../../src/admin/pos/RegisterCheckoutOptions", () => ({
+  default: () => <button>options</button>,
+}));
 vi.mock("../../src/admin/pos/RegisterCheckout", () => ({
   default: () => <button>checkout</button>,
 }));
@@ -79,6 +82,7 @@ describe("cashier workspace", () => {
         1,
       );
     }
+    expect(screen.getAllByRole("button", { name: "options" })).toHaveLength(1);
     expect(errors).not.toHaveBeenCalled();
   });
   it("shows the authoritative customer price rather than the raw retail field", () => {

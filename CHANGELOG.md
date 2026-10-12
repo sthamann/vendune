@@ -6,6 +6,7 @@
 - Add revision/actor/current-PII-bound customer selection with shared billing/group repricing; stale/deactivated identities are rejected at settlement.
 - Add reasoned percentage/fixed cashier adjustments through the native tax allocator in both quote and commit, transactional audit and pre-order Flow events.
 - Add read-only advice through the existing merchant chat and safely escaped 58/80 mm print layouts from issued immutable invoices. No physical printer, terminal, loyalty wallet or fiscal certification is claimed.
+- Reject malformed scalar/array discount bodies with 400 before trusted-actor injection; preserve the authoritative cart and server process.
 - Fix duplicate customer/discount controls after parking and resuming a cart; add a multi-cart regression and keep tender/completion visible while tools scroll.
 - Fix stack exhaustion found in real MCP POS calls by bounding domain futures; preserve existing checkout replay fingerprints when the new optional fields are absent.
 - Add isolated PostgreSQL/current-role/foreign-tenant, discount/commit/document/Flow tests, cashier UI regressions and one scoped extracted Lean guard.

@@ -614,6 +614,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/pos/RegisterCart.tsx](../frontend/src/admin/pos/RegisterCart.tsx) | Large quantity controls and shared app surface; every edit carries the current native cart revision. |
 | [frontend/src/admin/pos/RegisterCatalog.tsx](../frontend/src/admin/pos/RegisterCatalog.tsx) | Bounded product pages and keyboard-wedge scanner input; feedback uses the authoritative cart. |
 | [frontend/src/admin/pos/RegisterCheckout.tsx](../frontend/src/admin/pos/RegisterCheckout.tsx) | Touch checkout retains explicit payment/consent choices; cash input uses integer currency units. |
+| [frontend/src/admin/pos/RegisterCheckoutOptions.tsx](../frontend/src/admin/pos/RegisterCheckoutOptions.tsx) | Payment/contact options sit in the scrolling tool pane; final tender and completion stay visible. |
 | [frontend/src/admin/pos/RegisterCustomer.tsx](../frontend/src/admin/pos/RegisterCustomer.tsx) | Customer-number card scanner and bounded CRM search; attaching a customer stays tenant/actor/revision checked. |
 | [frontend/src/admin/pos/RegisterDiscount.tsx](../frontend/src/admin/pos/RegisterDiscount.tsx) | Discretionary discounts send exact integer requests, never alter browser totals; shared pricing supplies tax and audit. |
 | [frontend/src/admin/pos/RegisterReceipt.tsx](../frontend/src/admin/pos/RegisterReceipt.tsx) | Receipt creation and PDF download reuse merchant documents and immutable order revision/idempotency. |
@@ -626,6 +627,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/pos/pos.css](../frontend/src/admin/pos/pos.css) | POS layout, product cards and touch checkout, using shared Vendune tokens. |
 | [frontend/src/admin/pos/useCashierFocus.ts](../frontend/src/admin/pos/useCashierFocus.ts) | URL-preserved register focus uses the existing authenticated Studio; re-login overlays remain outside its shell. |
 | [frontend/src/admin/pos/useRegister.ts](../frontend/src/admin/pos/useRegister.ts) | Register commands share authenticated Studio transport and persist only the cart capability locally. |
+| [frontend/src/admin/pos/useRegisterViewport.ts](../frontend/src/admin/pos/useRegisterViewport.ts) | Size the register pane from its actual header position, including translated toolbars and tablet wraps. |
 | [frontend/src/admin/preview/PreviewDialog.tsx](../frontend/src/admin/preview/PreviewDialog.tsx) | PreviewDialog keeps merchant interaction separate from workspace orchestration. |
 | [frontend/src/admin/preview/PreviewPanel.tsx](../frontend/src/admin/preview/PreviewPanel.tsx) | PreviewPanel renders verified shop state and typed user actions. |
 | [frontend/src/admin/settings/CommerceSettings.tsx](../frontend/src/admin/settings/CommerceSettings.tsx) | One revisioned international settings aggregate: drafts survive navigation between countries, taxes, methods and languages. |

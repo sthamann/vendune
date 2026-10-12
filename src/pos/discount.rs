@@ -56,6 +56,9 @@ pub(super) async fn save(a: &App, h: &RequestContext, v: &Value, revision: i64) 
     c.data.pos_discount = if v.is_null() {
         None
     } else {
+        if !v.is_object() {
+            return Err(bad("Cashier discount must be an object or null"));
+        }
         let mut value = v.clone();
         value["actor"] = json!(h.pos.as_ref().ok_or(bad("Cashier required"))?.actor);
         let d: Discount =

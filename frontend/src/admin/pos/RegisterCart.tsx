@@ -7,6 +7,7 @@ import RegisterCustomer from "./RegisterCustomer";
 import RegisterDiscount from "./RegisterDiscount";
 import RegisterAdjustments from "./RegisterAdjustments";
 import RegisterCheckout from "./RegisterCheckout";
+import RegisterCheckoutOptions from "./RegisterCheckoutOptions";
 import { AppSurfaceSlot } from "../../shared/apps/AppSurfaces";
 export default function RegisterCart({
   register: r,
@@ -92,6 +93,7 @@ export default function RegisterCart({
           <RegisterDiscount key={`discount:${r.cart!.id}`} register={r} />
         )}
         <RegisterAdjustments register={r} mainLocale={mainLocale} />
+        <RegisterCheckoutOptions key={`options:${r.cart!.id}`} register={r} />
       </div>
       <RegisterCheckout key={`checkout:${r.cart!.id}`} register={r} />
     </aside>

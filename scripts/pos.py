@@ -87,7 +87,7 @@ call('/api/automation/flows/discount_audit',{'revision':0,'data':flow},h,'PUT')
 # Exact percent/fixed reductions use the same native allocator; rejection leaves the authoritative revision intact.
 base=int(c['price']['totalMinor']);discount={'kind':'percent','value':1000,'currency':'EUR','reason':'Damaged packaging'}
 command('discount',{'cartToken':c['token'],'revision':c['revision']},status=400)
-for invalid in [{**discount,'reason':''},{**discount,'value':10001},{**discount,'currency':'JPY'},{**discount,'kind':'fixed','value':base+1}]:
+for invalid in [True,[],1,'invalid',{**discount,'reason':''},{**discount,'value':10001},{**discount,'currency':'JPY'},{**discount,'kind':'fixed','value':base+1}]:
     command('discount',{'cartToken':c['token'],'revision':c['revision'],'discount':invalid},status=400)
 assert command('cart',{'cartToken':c['token']})['revision']==c['revision']
 c=command('discount',{'cartToken':c['token'],'revision':c['revision'],'discount':discount})

@@ -25,7 +25,7 @@ POS channels do not expose a public storefront or public Store API/UCP checkout.
 
 ![Focused register with visible tender and shared prices](assets/pos/cashier-focus-en.png)
 
-[View native variant selection](assets/pos/variants.png) · [Focused mobile payment view](assets/pos/cashier-mobile-de.png)
+[View native variant selection](assets/pos/variants.png) · [Focused mobile payment view](assets/pos/cashier-mobile-en.png)
 
 On smaller screens, **Products / Current sale** switches views while keeping the
 cart and its authoritative total. Product cards and payment controls remain touch-sized.
@@ -225,7 +225,7 @@ confirmed capture and one completion event through a local provider fixture. No 
 provider call or real card charge is made. Frontend regression tests cover exact
 tender precision, cart restore and recovery after a lost completion response.
 
-The local customer/card → 10% adjustment → cash sale → invoice → print-preview acceptance recorded `RAC-9ae55d99` / `INV-00000002` at 60.67 EUR after native business-group repricing. A subsequent English walk-in sale on the final UI recorded `RAC-2688cd17` / `INV-00000003` at 74.90 EUR. Park/resume/reload and the 390px Products/Current sale switch retain the same cart; the mobile document width equals its viewport. All 455 frontend tests in 82 files pass. The extracted POS adjustment predicate has exact authorization/reason/currency/bound properties with compiled Lean conformance; SQL locking, shared tax allocation, UI and printer adapters remain outside that proof.
+The local customer/card → 10% adjustment → cash sale → invoice → print-preview acceptance recorded `RAC-9ae55d99` / `INV-00000002` at 60.67 EUR after native business-group repricing. A subsequent English walk-in sale on the final UI recorded `RAC-2688cd17` / `INV-00000003` at 74.90 EUR. Park/resume/reload and the 390px Products/Current sale switch retain the same cart; the mobile document width equals its viewport. At 1024 × 768, the payment button remains inside the visible register; translated/wrapped toolbar heights are measured instead of assumed. All 455 frontend tests in 82 files pass. The extracted POS adjustment predicate has exact authorization/reason/currency/bound properties with compiled Lean conformance; SQL locking, shared tax allocation, UI and printer adapters remain outside that proof.
 
 The production cash-admission predicate has Lean properties for exact admission,
 change conservation and unauthorized denial, with compiled conformance and negative

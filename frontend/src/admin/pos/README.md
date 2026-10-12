@@ -29,3 +29,5 @@ merchant chat without apply controls. `ReceiptPrinter` safely renders the issued
 invoice text into a user-gesture popup and opens the OS print dialog. Dedicated
 `cashier-i18n` keys share EN/DE/FR/ES and the Studio locale. No plugin-owned feature or
 new order/payment/document/AI owner is introduced.
+
+`RegisterCheckoutOptions` keeps payment/contact settings in the tools pane; `RegisterCheckout` keeps final tender and completion separate. `useRegisterViewport` measures actual available register height after translation, wrapping and viewport changes.

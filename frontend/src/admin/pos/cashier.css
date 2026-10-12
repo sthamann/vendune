@@ -348,7 +348,7 @@
   .pos-workspace[data-focus="true"] .pos-cart {
     display: flex;
     flex-direction: column;
-    height: calc(100dvh - 178px);
+    height: calc(100dvh - var(--pos-register-offset, 178px));
     box-sizing: border-box;
     overflow: hidden;
   }

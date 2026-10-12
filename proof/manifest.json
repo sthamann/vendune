@@ -2565,8 +2565,8 @@
     },
     "src/pos/discount.rs": {
       "status": "reviewed-binding",
-      "sha256": "3276d34c92f1a95c9243a85e2fec993c410ebc5eb7b0dbe6405599499569c1e3",
-      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+      "sha256": "48598e59a88cdb37bc207ad1c66b3077feddd939d781196217999c9ac5ccc8ca",
+      "review": "Reviewed cashier discount JSON object validation before trusted-actor injection; malformed primitive/array requests return 400 without cart changes or process failure. POS, payment-provider and account HTTP/SQL regressions pass. No extracted policy semantics changed."
     },
     "src/pos/gateway.rs": {
       "status": "unproved",
