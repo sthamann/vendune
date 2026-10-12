@@ -1,5 +1,11 @@
 # Changelog
 
+## New feature video tours — 13 October 2026
+
+- Add three silent 1080p tours with English captions: POS/shared orders/B2B, visual apps/working preview/Flow canvas/selected release, and marketplace content/consented visitor statistics/semantic journeys.
+- Add an on-demand chapter gallery to the public website, linked README posters and complete transcripts/capture boundaries. Preserve the six existing workflow clips and original Experience/SaaS tours.
+- Extend the existing player for independent tab groups, one active video and chapter seeking; verify complete rendered documentation, media hashes and caption timing. [Tours and provenance](docs/video-tours.md).
+
 ## MCP dispatcher stack repair — 13 October 2026
 
 - Reproduce a real worker-stack overflow in Linux coverage CI on `pos.cart`. Select and return only the chosen boxed domain future before polling it; inactive domain futures no longer inflate the shared asynchronous dispatcher frame.

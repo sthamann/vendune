@@ -282,3 +282,12 @@
     transition: none;
   }
 }
+
+/* New feature tours reuse the native gallery owner. */
+[data-tours].is-enhanced .demo-selector {grid-template-columns:repeat(3,minmax(0,1fr));}
+[data-tours] .showcase-panel video {aspect-ratio:16/9;}
+.tour-chapters {display:flex;flex-wrap:wrap;gap:8px;padding:18px 24px;border-top:1px solid var(--line);}
+.tour-chapters button {font:inherit;font-size:13px;min-height:44px;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--soft);color:var(--ink);cursor:pointer;}
+.tour-chapters button span {color:var(--muted);font-size:11px;margin-right:6px;}
+.tour-chapters button:focus-visible,.demo-selector button:focus-visible {outline:3px solid var(--accent);outline-offset:3px;}
+@media(max-width:600px){[data-tours].is-enhanced .demo-selector{grid-template-columns:minmax(0,1fr);}[data-tours] .demo-selector button{min-height:54px;padding:12px 16px;}[data-tours] .demo-selector button span{display:inline;margin-right:12px;}.tour-chapters{padding:12px;}}
