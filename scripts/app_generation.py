@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Native AI proposal contract with local model HTTP, real Rust/SQL and no paid model calls."""
-import copy,json,os,socket,threading,urllib.request,urllib.error,uuid
+import copy,json,os,socket,subprocess,threading,urllib.request,urllib.error,uuid
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from testing.runtime import ROOT,serve,stop
 state={'invalid':False};seen=[]
@@ -32,6 +32,13 @@ try:
  u=uuid.uuid4().hex[:10];a=call('/api/auth/register',{'workspaceId':'generation-'+u,'workspaceName':'Proposal fixture','name':'Fixture','email':u+'@example.test','password':'Synthetic-generation-2026!'})
  headers={'x-tenant':a['workspace'],'Authorization':'Bearer '+a['token']}
  stage=call('/api/environments',{'name':'AI proposal fixture'})['id']
+ patterns=json.loads(subprocess.check_output(['node','frontend/scripts/recipe-fixtures.mjs'],cwd=ROOT,text=True))
+ for pattern in patterns:
+  pattern['id']+='_'+u
+  build=call('/api/developer/import',{'environment':stage,'prompt':'Actual visual pattern','manifest':pattern,'summary':pattern['name']})
+  assert build['manifest']['id']==pattern['id'] and build['state']=='draft'
+  if pattern['runtime']=='declarative':assert call('/api/developer/preview',{'manifest':pattern})['private']
+ print('PASS actual frontend patterns validate as immutable server drafts; declarative patterns enter the real private F5 preview')
  m=json.loads((ROOT/'extensions/apps/assistant-examples/admin.json').read_text());m['id']='generated_'+u
  state['manifest']=m
  payload={'environment':stage,'prompt':'Improve this product editor with native controls while preserving data and permissions','manifest':m,'inference':{'provider':'ollama','model':'synthetic-model'}}

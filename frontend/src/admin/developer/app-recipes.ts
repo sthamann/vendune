@@ -52,7 +52,6 @@ export function appRecipe(kind: RecipeId, id: string): Manifest {
     );
   }
   m.presentation = {
-    icon: kind === "advisor" ? "spark" : kind === "returns" ? "box" : "link",
     description: buildingText(`${kind}Hint`),
   };
   // Reuse the existing Visual Basic-style master/detail/save wizard, including its bounded AST.
