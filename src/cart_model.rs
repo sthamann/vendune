@@ -13,6 +13,8 @@ pub(crate) struct Cart {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub(crate) pos_actor: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub(crate) pos_discount: Option<pos::Discount>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub(crate) b2b: Option<b2b::Context>,
     #[serde(default)]
     pub(crate) currency: String,

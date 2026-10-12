@@ -451,6 +451,15 @@
         "b2b_approval_exact",
         "b2b_self_approval_denied"
       ]
+    },
+    "pos_discount_admissible": {
+      "bindings": [
+        "src/pos/discount.rs"
+      ],
+      "theorems": [
+        "pos_discount_exact",
+        "pos_discount_exceeds_denied"
+      ]
     }
   },
   "sources": {
@@ -1296,8 +1305,8 @@
     },
     "src/bin/verified_kernel/dispatch.rs": {
       "status": "unproved",
-      "sha256": "8394b1b90eb776f0cc1622d10cec8c7e5e54ee42e95765edad06d31dab20bade",
-      "review": "Reviewed generated conformance dispatcher refactor: typed JSON argument closures preserve u64/bool validation and all original policy calls/errors, keeping generated module below 320 lines as the inventory grows. Policies and production semantics are unchanged; conformance and mutation gates re-run."
+      "sha256": "48e12ed9b5ace126dfc239a9b9dedf2ef85f9cc6937e4d16b1c0796d99049487",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
     "src/bin/verified_kernel.rs": {
       "status": "conformance-driver",
@@ -1326,8 +1335,8 @@
     },
     "src/cart_model.rs": {
       "status": "unproved",
-      "sha256": "f161341553a783cc986dc8d6c8829afa90c304f2df126bdbfd847610e5cc8153",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "7c13d8ec0aef64d8949a05d2dd7a440a9f33a69a19bb7ae6774a4bcbc0dacbe5",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
     "src/cart_mutation.rs": {
       "status": "unproved",
@@ -1336,8 +1345,8 @@
     },
     "src/cart_price.rs": {
       "status": "unproved",
-      "sha256": "002503c3063a5ec8109161d670803248dcfc0f4c584d0caacdbf027b80fb2fa5",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "0f266bb8c6dc113bb1649959066f2547777172e549ed85074a1a7a317aa5199f",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
     "src/cart_routes.rs": {
       "status": "unproved",
@@ -1346,8 +1355,8 @@
     },
     "src/cart_storage.rs": {
       "status": "unproved",
-      "sha256": "59d3a809fea5cda722f2eb021538c4b20ce22d9b9ad873f452ca1ebb0c197784",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "a0169444a53443284c7f29a2c377828462ea376471a90e4122af92777fa37fcb",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
     "src/catalog_model.rs": {
       "status": "unproved",
@@ -1361,8 +1370,8 @@
     },
     "src/catalog_routes.rs": {
       "status": "unproved",
-      "sha256": "7cf123e42cf1eb991c2766d1ff478cf03dde06e3ec9790b404e823abbc43c1b0",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "84a30d1d60c505a56a242f777e740bab9bc466b6895c56097f6cbcaf73c83a98",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
     "src/categories/admin.rs": {
       "status": "unproved",
@@ -1561,8 +1570,8 @@
     },
     "src/commerce/detail.rs": {
       "status": "unproved",
-      "sha256": "c9d21951f980453564d0a9ff1878d029cab3b8bd471209beac9a13587dd80e86",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "082facaaed836fe4508ed7d105d7f13c94466d74d15c3db28555a644b75e7a8f",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
     "src/commerce/fulfillment.rs": {
       "status": "reviewed-binding",
@@ -2046,8 +2055,8 @@
     },
     "src/localization.rs": {
       "status": "unproved",
-      "sha256": "cc439979e321f76d29ffc3b78477192d08282e7894e53c315e456e80d0864274",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "72e7e9ab402b29ccf95c7135b5df20d4a508155f04b5ccfc824c2b7e06a808b0",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
     "src/main.rs": {
       "status": "unproved",
@@ -2126,8 +2135,8 @@
     },
     "src/marketing/flows.rs": {
       "status": "unproved",
-      "sha256": "8cd92c97ab9c515a2f9946caa6fc8feb5a085a21257bf8fbd1ebdba71df42899",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "3f768dac8a36dcf452da12cbedcf114326f91d206f720b0eae155eff777a941d",
+      "review": "Reviewed POS identity revalidation and immediate PII revocation, transactional discount/customer events and shared Flow consumption; exact extracted adjustment admission guard; SQL adapters stay unproved with real regression coverage"
     },
     "src/marketing/gateway.rs": {
       "status": "unproved",
@@ -2281,8 +2290,8 @@
     },
     "src/operations/mod.rs": {
       "status": "unproved",
-      "sha256": "29640d9e4b616db2bd1a3820844168de6702267820dc69fa68fb4e0a699a4758",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "429e2cc55ca475fb3f7987892e8bd9baaf242264778ce3362b72ce25426ab510",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
     "src/operations/orders.rs": {
       "status": "unproved",
@@ -2296,8 +2305,8 @@
     },
     "src/operations/receipt_text.rs": {
       "status": "unproved",
-      "sha256": "75ab963831bf56ca5b9802b759b9048fc3dc42c106a89db20a866341f68bed55",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "91cc945a84e037fc0db3347efc8c8dbbae950f3659cbe7dec5380abc02d12dbd",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
     "src/operations/receipts.rs": {
       "status": "unproved",
@@ -2316,8 +2325,8 @@
     },
     "src/order_checkout.rs": {
       "status": "reviewed-binding",
-      "sha256": "cb450b0b66918bd1522064964b6ed8c251157d109dfa9f73eded675923e11437",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "96ff9a856319f234e5dbd2023e197b8835c1fe7b8a3f520cccabd2fd200f251c",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
     "src/order_routes.rs": {
       "status": "unproved",
@@ -2549,25 +2558,45 @@
       "sha256": "1fd77f39ddd245f3aa5c71cf50e2272baa3f9270b09e895c5046538eb1a2bf29",
       "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
     },
+    "src/pos/customer.rs": {
+      "status": "unproved",
+      "sha256": "1fcfc2db996a581339303d2aca5441ede2387922b12fb37f98bf28fc9f6ad041",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+    },
+    "src/pos/discount.rs": {
+      "status": "reviewed-binding",
+      "sha256": "3276d34c92f1a95c9243a85e2fec993c410ebc5eb7b0dbe6405599499569c1e3",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+    },
     "src/pos/gateway.rs": {
       "status": "unproved",
-      "sha256": "d3d5613e6ddeeeaf221e24215ab1b9b3e18195860aa18a8d817261c4af0b1477",
-      "review": "Reviewed native POS cashier-bound cart adapter, authenticated register discovery over API/MCP, settings-before-channel checkout locks and exact cash admission; provider confirmation reuses existing durable ledger and emits one completion event. Auto-deref and module registry changes are equivalent refactors; app projections and public-token denials verified with isolated PostgreSQL fixtures."
+      "sha256": "3d685f423ea875f7aeb5d10a3fb09e3510e1b631d1c55cc13ba7a9dfc0ee5f52",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+    },
+    "src/pos/input.rs": {
+      "status": "unproved",
+      "sha256": "ad68a7e2f6ad7f99c82741944291e7041d739bdea6235235701580868fd2be7f",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
     "src/pos/mod.rs": {
       "status": "unproved",
-      "sha256": "17228a42ef67e97278c0be4fd1b34afa39782889e763bef45daf64f070e3d1af",
-      "review": "Reviewed native POS cashier-bound cart adapter, authenticated register discovery over API/MCP, settings-before-channel checkout locks and exact cash admission; provider confirmation reuses existing durable ledger and emits one completion event. Auto-deref and module registry changes are equivalent refactors; app projections and public-token denials verified with isolated PostgreSQL fixtures."
+      "sha256": "48fa9fdfcf8bb3bd08348882f444f272e25a590abc305e510e2509a6b4152ce0",
+      "review": "Reviewed POS identity revalidation and immediate PII revocation, transactional discount/customer events and shared Flow consumption; exact extracted adjustment admission guard; SQL adapters stay unproved with real regression coverage"
     },
     "src/pos/schema.rs": {
       "status": "unproved",
-      "sha256": "7c231a19ed69127c0e3973162d171d7971618804362f856a41c178d8b4299a1e",
-      "review": "Reviewed native POS cashier-bound cart adapter, authenticated register discovery over API/MCP, settings-before-channel checkout locks and exact cash admission; provider confirmation reuses existing durable ledger and emits one completion event. Auto-deref and module registry changes are equivalent refactors; app projections and public-token denials verified with isolated PostgreSQL fixtures."
+      "sha256": "c79b6270aefde9e2d03d3c704fd2edf42d6bcf7e7de7e9acc2dd4c7d5db12ed6",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
     "src/pos/settlement.rs": {
       "status": "reviewed-binding",
-      "sha256": "1f89c474b7f381f86fdaffff6a81e3b5a85afe784b4fb23571c162880f30d7dc",
-      "review": "Reviewed POS cashier isolation, same atomic checkout and provider-receipt completion hook; staging check now uses equivalent Rust auto-deref. Existing bounded money, permissions, app event projections and proof-driver extraction remain connected and mutation-tested."
+      "sha256": "40eb19b42e9527e2ce5d1d7a0e58273800bd0cca021f1ca52cf4f826a5e44439",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+    },
+    "src/pos/workspace_gateway.rs": {
+      "status": "unproved",
+      "sha256": "9a0e34b9cf68e3cdd56d4e253660e87d99f4f5457c23fc450ad06e83d9c626dd",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
     "src/prelude.rs": {
       "status": "unproved",
@@ -2766,8 +2795,8 @@
     },
     "src/verified_kernel.rs": {
       "status": "extracted-policy",
-      "sha256": "f4ddc80ce24ad6451a189773bb890e355dfedbbd5975e11ece72ccb88bccd216",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "a51d8cc5cf7748eac632766b07db9f132d49470093a135a03cb47887a666e6da",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
     "src/work_signal.rs": {
       "status": "unproved",
@@ -3174,8 +3203,8 @@
       "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "proof/Commerce/Claims.lean": {
-      "sha256": "3c163ebfa803cb45b5d2a790188d0df8184bac8439877a26be4476cf65300198",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "cb60f23b78a45749b4b2f17ad825b582210ab95e92a574f0890a3b35ee7f1d0b",
+      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
     "proof/lakefile.toml": {
       "sha256": "1cda05bac02223024b93388cf858edad4719c46f8d37a826a73a6a6e15d79432",

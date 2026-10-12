@@ -62,6 +62,7 @@ pub(crate) async fn new_cart(
         data: Cart {
             coupons: vec![],
             pos_actor: None,
+            pos_discount: None,
             b2b: None,
             currency: String::new(),
             sales_channel: "default".into(),

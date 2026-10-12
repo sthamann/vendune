@@ -13,6 +13,7 @@ pub(crate) use master_data::{lock as lock_company, validate_release as validate_
 mod orders;
 mod receipt_pdf;
 mod receipt_text;
+pub(crate) use receipt_text::lines as receipt_lines;
 mod receipts;
 pub(crate) use receipts::{receipt_response, receipt_snapshot};
 mod routes;

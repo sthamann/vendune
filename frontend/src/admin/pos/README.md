@@ -20,3 +20,12 @@ App business logic/assets remain in the app package, never in these host files.
 
 No offline settlement, terminal driver, fiscal hardware/certification or shift
 cash-book is implied. This register requires the server for every committed sale.
+
+`Register.tsx` composes the sale. `useCashierFocus` owns URL focus/fullscreen controls;
+`cashier.css` integrates with the existing Studio shell. `RegisterCustomer` resolves
+account/card identities through native CRM. `RegisterDiscount` transmits integer
+basis points/minor units and a required reason. `RegisterAssistant` calls the existing
+merchant chat without apply controls. `ReceiptPrinter` safely renders the issued native
+invoice text into a user-gesture popup and opens the OS print dialog. Dedicated
+`cashier-i18n` keys share EN/DE/FR/ES and the Studio locale. No plugin-owned feature or
+new order/payment/document/AI owner is introduced.

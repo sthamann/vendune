@@ -3,7 +3,7 @@ use super::*;
 fn text(v: &Value) -> String {
     v.as_str().unwrap_or("").into()
 }
-pub(super) fn lines(v: &Value) -> Vec<String> {
+pub(crate) fn lines(v: &Value) -> Vec<String> {
     let lang = v["locale"].as_str().unwrap_or("en");
     let index = match lang {
         "de" => 1,

@@ -1,6 +1,8 @@
 /** POS vocabulary: one shared four-language catalogue, with the Studio locale. */
 import { useLocale } from "../../shared/i18n/i18n";
+import { cashierWords } from "./cashier-i18n";
 export const posWords = {
+  ...cashierWords,
   catalog: ["Products", "Produkte", "Produits", "Productos"],
   paymentRefresh: [
     "Check payment",

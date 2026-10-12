@@ -13,6 +13,8 @@ pub(crate) fn schema(name: &str) -> Option<Value> {
     let mut props = json!({"channelId":{"type":"string","maxLength":100}});
     let mut required = vec!["channelId"];
     if [
+        "customer",
+        "discount",
         "cart",
         "replace",
         "select",
@@ -29,6 +31,25 @@ pub(crate) fn schema(name: &str) -> Option<Value> {
         required.push("cartToken");
     }
     match op {
+        "customers" => {
+            props["query"] = json!({"type":"string","maxLength":200});
+            props["barcode"] = json!({"type":"string","maxLength":100});
+        }
+        "customer" => {
+            props["revision"] = json!({"type":"integer"});
+            props["customerId"] = json!({"type":["string","null"],"maxLength":100});
+            required.extend(["revision", "customerId"]);
+        }
+        "discount" => {
+            props["revision"] = json!({"type":"integer"});
+            props["discount"] = json!({"anyOf":[{"type":"null"},{"type":"object","properties":{"kind":{"enum":["percent","fixed"]},"value":{"type":"integer","minimum":0},"currency":{"type":"string","maxLength":3},"reason":{"type":"string","minLength":1,"maxLength":240}},"required":["kind","value","currency","reason"],"additionalProperties":false}]});
+            required.extend(["revision", "discount"]);
+        }
+        "receipt" => {
+            props["orderId"] = json!({"type":"string"});
+            props["receiptId"] = json!({"type":"string"});
+            required.extend(["orderId", "receiptId"]);
+        }
         "detail" => {
             props["cartToken"] = json!({"type":"string","maxLength":100});
             props["productId"] = json!({"type":"string"});

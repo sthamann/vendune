@@ -70,6 +70,7 @@ pub(crate) async fn product_detail(
             data: Cart {
                 coupons: vec![],
                 pos_actor: None,
+                pos_discount: None,
                 b2b: None,
                 currency: currency.code.clone(),
                 sales_channel: "default".into(),

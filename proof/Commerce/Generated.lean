@@ -147,4 +147,7 @@ def b2b_budget_admissible (limit : Nat) (spent : Nat) (requested : Nat) : Bool :
 def b2b_approval_admissible (different : Bool) (authorized : Bool) (pending : Bool) (current : Bool) : Bool :=
   (((different && authorized) && pending) && current)
 
+def pos_discount_admissible (actor : Bool) (currency : Bool) (reason : Bool) (minor : Nat) (goods : Nat) : Bool :=
+  (((actor && currency) && reason) && (decide (minor ≤ goods)))
+
 end CommerceKernel

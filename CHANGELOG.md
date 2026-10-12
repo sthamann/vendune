@@ -1,5 +1,15 @@
 # Changelog
 
+## Focused cashier workspace — 12 October 2026
+
+- Add dedicated register/fullscreen controls, bounded product/customer search, customer-number card scanning, visible addition feedback and native customer-price rendering.
+- Add revision/actor/current-PII-bound customer selection with shared billing/group repricing; stale/deactivated identities are rejected at settlement.
+- Add reasoned percentage/fixed cashier adjustments through the native tax allocator in both quote and commit, transactional audit and pre-order Flow events.
+- Add read-only advice through the existing merchant chat and safely escaped 58/80 mm print layouts from issued immutable invoices. No physical printer, terminal, loyalty wallet or fiscal certification is claimed.
+- Fix duplicate customer/discount controls after parking and resuming a cart; add a multi-cart regression and keep tender/completion visible while tools scroll.
+- Fix stack exhaustion found in real MCP POS calls by bounding domain futures; preserve existing checkout replay fingerprints when the new optional fields are absent.
+- Add isolated PostgreSQL/current-role/foreign-tenant, discount/commit/document/Flow tests, cashier UI regressions and one scoped extracted Lean guard.
+
 ## B2B creation and purchase acceptance — 12 October 2026
 
 - Fix company and purchasing-unit reference generation: digit-led UUIDs no longer produce an ID rejected by the native organization API. One shared factory preserves the lowercase-first-letter, 32-character contract.

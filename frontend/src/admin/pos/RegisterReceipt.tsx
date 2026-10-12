@@ -4,6 +4,7 @@ import type { RequestFn } from "../../shared/api/types";
 import { useLocale } from "../../shared/i18n/i18n";
 import { usePosText } from "./pos-i18n";
 import type { useRegister } from "./useRegister";
+import ReceiptPrinter from "./ReceiptPrinter";
 import Icon from "../../shared/ui/Icon";
 import { AppSurfaceSlot } from "../../shared/apps/AppSurfaces";
 import { contentText } from "../../shared/i18n/content-language";
@@ -14,6 +15,7 @@ export default function RegisterReceipt({
   onOrder,
   message,
   mainLocale,
+  rights,
 }: {
   register: ReturnType<typeof useRegister>;
   request: RequestFn;
@@ -21,6 +23,7 @@ export default function RegisterReceipt({
   onOrder: (id: string) => void;
   message: Record<string, string>;
   mainLocale: string;
+  rights: string[];
 }) {
   const t = usePosText();
   const { locale } = useLocale();
@@ -146,7 +149,16 @@ export default function RegisterReceipt({
         )}
       </p>
       <div className="pos-receipt-actions">
-        <button disabled={busy} onClick={() => void make()}>
+        <button
+          disabled={
+            busy ||
+            !rights.includes("documents.create") ||
+            !rights.includes("documents.read") ||
+            !rights.includes("orders.read") ||
+            !rights.includes("customers.pii")
+          }
+          onClick={() => void make()}
+        >
           <Icon name="form" />
           {t("receipt")}
         </button>
@@ -155,7 +167,12 @@ export default function RegisterReceipt({
             {receipt.number} · {t("print")}
           </button>
         )}
-        <button onClick={() => onOrder(o.id)}>{t("order")}</button>
+        <button
+          disabled={!rights.includes("orders.read")}
+          onClick={() => onOrder(o.id)}
+        >
+          {t("order")}
+        </button>
         <button
           className="pos-pay"
           disabled={r.busy}
@@ -165,6 +182,7 @@ export default function RegisterReceipt({
           <Icon name="arrow" />
         </button>
       </div>
+      {receipt && <ReceiptPrinter register={r} receipt={receipt} />}
       {error && <p role="alert">{error}</p>}
       <AppSurfaceSlot
         location="admin.pos.receipt"

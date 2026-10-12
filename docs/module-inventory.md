@@ -383,10 +383,14 @@ This lists every checked-in source module in these roots, including files with n
 | [src/platform/resources.rs](../src/platform/resources.rs) | Linux container resource readings; unavailable fields stay null on other hosts and the first CPU sample. |
 | [src/platform/shop_detail.rs](../src/platform/shop_detail.rs) | Operator shop dossier: registration, business identity, access roster, channels and measured HTTP activity. |
 | [src/pos/config.rs](../src/pos/config.rs) | POS presentation/location configuration lives on the existing channel, not in a second settings store. |
+| [src/pos/customer.rs](../src/pos/customer.rs) | Cashier-only customer lookup/card resolution and revision-checked account attachment; never issues customer credentials. |
+| [src/pos/discount.rs](../src/pos/discount.rs) | Audited cashier discounts use exact minor units and the existing native tax allocator in both quote and commit. |
 | [src/pos/gateway.rs](../src/pos/gateway.rs) | HTTP/MCP POS operations construct a trusted cashier context, then call existing commerce owners. |
+| [src/pos/input.rs](../src/pos/input.rs) | Strict input envelope shared by HTTP and MCP cashier commands. |
 | [src/pos/mod.rs](../src/pos/mod.rs) | Authenticated POS adapters reuse the native catalog/cart/checkout/receipt and durable event owners. |
 | [src/pos/schema.rs](../src/pos/schema.rs) | Strict protocol schemas for the same POS operations used by HTTP and MCP. |
 | [src/pos/settlement.rs](../src/pos/settlement.rs) | Exact cash admission and order annotation execute in the existing checkout transaction. |
+| [src/pos/workspace_gateway.rs](../src/pos/workspace_gateway.rs) | Cashier workspace commands delegate to CRM, native discounts and immutable receipt projection. |
 | [src/prelude.rs](../src/prelude.rs) | Shared dependency names for native domain modules; no process setup or business rules. |
 | [src/pricing.rs](../src/pricing.rs) | Behavioral port of Shopware 6.7.14.2 quantity calculators. |
 | [src/proposal_apply.rs](../src/proposal_apply.rs) | Transactional application of approved, revision-bound proposals. |
@@ -603,16 +607,24 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/orders/OrdersManager.tsx](../frontend/src/admin/orders/OrdersManager.tsx) | Order operations UI. All changes call the same domain endpoints exposed through MCP. |
 | [frontend/src/admin/orders/ReceiptPanel.tsx](../frontend/src/admin/orders/ReceiptPanel.tsx) | Seller configuration and version-bound receipt creation/download. |
 | [frontend/src/admin/pos/POSWorkspace.tsx](../frontend/src/admin/pos/POSWorkspace.tsx) | Native Studio register; all reads and writes use authenticated, tenant-scoped shared commerce operations. |
+| [frontend/src/admin/pos/ReceiptPrinter.tsx](../frontend/src/admin/pos/ReceiptPrinter.tsx) | OS-installed receipt printers receive the issued immutable invoice projection; no USB access, credentials or duplicate ledger. |
+| [frontend/src/admin/pos/Register.tsx](../frontend/src/admin/pos/Register.tsx) | Register composition: persisted sale, catalog, customer and assistant tools share native transport. |
 | [frontend/src/admin/pos/RegisterAdjustments.tsx](../frontend/src/admin/pos/RegisterAdjustments.tsx) | Currency/coupons forward to the shared commerce owners; no local price calculation. |
+| [frontend/src/admin/pos/RegisterAssistant.tsx](../frontend/src/admin/pos/RegisterAssistant.tsx) | In-register advice reuses the existing grounded merchant assistant; no task apply or money mutation is exposed. |
 | [frontend/src/admin/pos/RegisterCart.tsx](../frontend/src/admin/pos/RegisterCart.tsx) | Large quantity controls and shared app surface; every edit carries the current native cart revision. |
 | [frontend/src/admin/pos/RegisterCatalog.tsx](../frontend/src/admin/pos/RegisterCatalog.tsx) | Bounded product pages and keyboard-wedge scanner input; feedback uses the authoritative cart. |
 | [frontend/src/admin/pos/RegisterCheckout.tsx](../frontend/src/admin/pos/RegisterCheckout.tsx) | Touch checkout retains explicit payment/consent choices; cash input uses integer currency units. |
+| [frontend/src/admin/pos/RegisterCustomer.tsx](../frontend/src/admin/pos/RegisterCustomer.tsx) | Customer-number card scanner and bounded CRM search; attaching a customer stays tenant/actor/revision checked. |
+| [frontend/src/admin/pos/RegisterDiscount.tsx](../frontend/src/admin/pos/RegisterDiscount.tsx) | Discretionary discounts send exact integer requests, never alter browser totals; shared pricing supplies tax and audit. |
 | [frontend/src/admin/pos/RegisterReceipt.tsx](../frontend/src/admin/pos/RegisterReceipt.tsx) | Receipt creation and PDF download reuse merchant documents and immutable order revision/idempotency. |
+| [frontend/src/admin/pos/cashier-i18n.ts](../frontend/src/admin/pos/cashier-i18n.ts) | Dedicated cashier vocabulary; EN/DE/FR/ES share the Studio locale, no duplicated language inputs. |
+| [frontend/src/admin/pos/cashier.css](../frontend/src/admin/pos/cashier.css) | Full register focus and shared touch tools: airy neutral surfaces, blue action emphasis and bounded panes. |
 | [frontend/src/admin/pos/pos-i18n.ts](../frontend/src/admin/pos/pos-i18n.ts) | POS vocabulary: one shared four-language catalogue, with the Studio locale. |
 | [frontend/src/admin/pos/pos-model.ts](../frontend/src/admin/pos/pos-model.ts) | Small POS view models and exact decimal input conversion; server quotes own all calculations. |
 | [frontend/src/admin/pos/pos-receipt.css](../frontend/src/admin/pos/pos-receipt.css) | Completion, held sale and variant surfaces for the register. |
 | [frontend/src/admin/pos/pos-responsive.css](../frontend/src/admin/pos/pos-responsive.css) | Responsive register breakpoints and reduced-motion behavior. |
 | [frontend/src/admin/pos/pos.css](../frontend/src/admin/pos/pos.css) | POS layout, product cards and touch checkout, using shared Vendune tokens. |
+| [frontend/src/admin/pos/useCashierFocus.ts](../frontend/src/admin/pos/useCashierFocus.ts) | URL-preserved register focus uses the existing authenticated Studio; re-login overlays remain outside its shell. |
 | [frontend/src/admin/pos/useRegister.ts](../frontend/src/admin/pos/useRegister.ts) | Register commands share authenticated Studio transport and persist only the cart capability locally. |
 | [frontend/src/admin/preview/PreviewDialog.tsx](../frontend/src/admin/preview/PreviewDialog.tsx) | PreviewDialog keeps merchant interaction separate from workspace orchestration. |
 | [frontend/src/admin/preview/PreviewPanel.tsx](../frontend/src/admin/preview/PreviewPanel.tsx) | PreviewPanel renders verified shop state and typed user actions. |

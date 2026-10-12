@@ -24,6 +24,8 @@ pub(super) const EVENTS: &[&str] = &[
     "b2b.quote_selected",
     "pos.sale_completed",
     "pos.sale_created",
+    "pos.discount_changed",
+    "pos.customer_selected",
     "payment.captured",
     "order.state_changed",
     "payment.state_changed",
@@ -47,7 +49,8 @@ fn knowledge_event(kind: &str) -> bool {
             || kind == "merchant.change.applied"
             || kind.starts_with("consumer.")
             || kind.starts_with("privacy.")
-            || kind.starts_with("b2b."))
+            || kind.starts_with("b2b.")
+            || kind.starts_with("pos."))
 }
 
 #[derive(Clone, Deserialize, Serialize)]

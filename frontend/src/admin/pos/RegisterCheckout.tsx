@@ -35,7 +35,7 @@ export default function RegisterCheckout({
   const select = (value: Partial<PosCart["checkout"]>) =>
     r.select({ ...c.checkout, ...value });
   return (
-    <section className="pos-payment">
+    <section className="pos-payment pos-settlement">
       <label>
         {t("payment")}
         <select

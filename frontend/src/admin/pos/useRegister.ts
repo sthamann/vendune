@@ -130,6 +130,7 @@ export function useRegister(
       else
         rows.push({ id: p.id, quantity: p.min_purchase ?? p.minPurchase ?? 1 });
       await replace(rows);
+      return p.name;
     });
   const quantity = (id: string, delta: number) =>
     run(() =>
@@ -167,7 +168,7 @@ export function useRegister(
       current.current = v;
     });
   const adjust = (
-    operation: "currency" | "coupons",
+    operation: "currency" | "coupons" | "customer" | "discount",
     value: Record<string, unknown>,
   ) =>
     run(async () => {
@@ -179,7 +180,11 @@ export function useRegister(
       });
       setCart(v);
       current.current = v;
-      if (operation === "currency") await catalog();
+      if (["currency", "customer"].includes(operation)) {
+        const context = await command("context", { cartToken: v.token });
+        setOptions(context.options);
+        await catalog();
+      }
     });
   const complete = (
     tenderMinor: string | undefined,
@@ -231,6 +236,7 @@ export function useRegister(
       setOrder(undefined);
     });
   return {
+    advice: async (message: string) => request("/api/agent/chat", { message }),
     cart,
     products,
     after,

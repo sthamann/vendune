@@ -19,7 +19,7 @@ The maintained full inventory, including all newly added Rust files, frontend fe
 
 ## Native POS
 
-`src/pos/{config,gateway,schema,settlement}.rs` are native channel adapters. Catalog/cart/currencies/promotions, `order_checkout.rs`, `checkout_review.rs`, inventory, payments, documents and outbox remain the commerce owners. `marketing/coupons.rs` retains the existing coupon handler with private-cart admission. `frontend/src/admin/pos` owns the touch/scanner workspace; app code stays in its own package. Real `pos.py`/`payment_providers.py` and UI regressions cover state effects. [Architecture, proof scope and limits](pos.md).
+`src/pos/{config,gateway,input,workspace_gateway,customer,discount,schema,settlement}.rs` are native channel adapters. Catalog/cart/currencies/promotions, `order_checkout.rs`, `checkout_review.rs`, inventory, payments, documents and outbox remain the commerce owners. `marketing/coupons.rs` retains the existing coupon handler with private-cart admission. `customer.rs` delegates to shared accounts with current PII admission; `discount.rs` delegates to native allocation/tax and transactional outbox. `operations/receipt_text.rs` exposes the same immutable invoice projection to the system printer. `frontend/src/admin/pos` owns the focus/scanner, customer, discount, printer and read-only advice workspace; app code stays in its own package. Real `pos.py`/`payment_providers.py` and UI regressions cover state effects. [Architecture, proof scope and limits](pos.md).
 
 ## Production foundations
 

@@ -410,4 +410,13 @@ theorem b2b_approval_exact (different authorized pending current : Bool) :
   cases different <;> cases authorized <;> cases pending <;> cases current <;> simp [b2b_approval_admissible]
 theorem b2b_self_approval_denied (authorized pending current : Bool) :
     b2b_approval_admissible false authorized pending current = false := by simp [b2b_approval_admissible]
+/-- Exact guard only; percentage arithmetic, SQL and hardware adapters remain tested boundaries. -/
+theorem pos_discount_exact (actor currency reason : Bool) (minor goods : Nat) :
+    pos_discount_admissible actor currency reason minor goods = true ↔
+    actor = true ∧ currency = true ∧ reason = true ∧ minor ≤ goods := by
+  cases actor <;> cases currency <;> cases reason <;> simp [pos_discount_admissible, and_assoc]
+theorem pos_discount_exceeds_denied (actor currency reason : Bool) (minor goods : Nat)
+    (h : goods < minor) : pos_discount_admissible actor currency reason minor goods = false := by
+  simp [pos_discount_admissible, Nat.not_le_of_gt h]
+
 end CommerceKernel

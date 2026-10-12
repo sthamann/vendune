@@ -55,6 +55,51 @@ call('/api/automation',h=sh,status=403)
 m=call('/mcp',{'jsonrpc':'2.0','id':1,'method':'tools/list'},h)['result']['tools'];assert any(t['name']=='pos.complete' for t in m)
 m=call('/mcp',{'jsonrpc':'2.0','id':1,'method':'tools/call','params':{'name':'pos.cart','arguments':{'channelId':'register','cartToken':c['token']}}},h)['result'];assert not m.get('isError')
 m=call('/mcp',{'jsonrpc':'2.0','id':2,'method':'tools/call','params':{'name':'pos.channels','arguments':{}}},sh)['result'];assert not m.get('isError') and 'register' in json.dumps(m)
+# Cashier CRM/card lookup uses existing accounts and active tenant-scoped customer numbers.
+address={'firstName':'Ada','lastName':'Cashier','street':'Register Road 1','postalCode':'10115','city':'Berlin','country':'DE'}
+account=call('/store-api/account/register',{'name':'Ada Cashier','email':'posbuyer'+suffix+'@example.test','password':'Synthetic-POS-fixture-2026!','billingAddress':address},{'x-tenant':a['workspace']})
+profile=call('/store-api/account/profile',h={'x-tenant':a['workspace'],'x-customer-token':account['customerToken']})
+found=command('customers',{'query':'Ada Cashier'})['elements'];assert found[0]['id']==profile['id']
+assert command('customers',{'barcode':profile['customerNumber']})['elements'][0]['id']==profile['id']
+assert command('customers',{'barcode':'unknown-card'})['elements']==[]
+command('customers',{'query':'Ada'},sh,status=403)
+foreign=call('/store-api/account/register',{'name':'Foreign Card Holder','email':'foreignbuyer'+suffix+'@example.test','password':'Synthetic-POS-fixture-2026!'},{'x-tenant':b['workspace']})
+foreign_profile=call('/store-api/account/profile',h={'x-tenant':b['workspace'],'x-customer-token':foreign['customerToken']})
+assert command('customers',{'barcode':foreign_profile['customerNumber']})['elements']==[]
+command('customer',{'cartToken':c['token'],'revision':c['revision'],'customerId':foreign_profile['id']},status=404)
+
+command('customer',{'cartToken':c['token'],'revision':c['revision']},status=400)
+command('customer',{'cartToken':c['token'],'revision':c['revision'],'customerId':'foreign-customer'},status=404)
+c=command('customer',{'cartToken':c['token'],'revision':c['revision'],'customerId':profile['id']})
+assert c['customerId']==profile['id'] and c['checkout']['billingAddress']['street']==address['street']
+command('customer',{'cartToken':c['token'],'revision':c['revision']-1,'customerId':None},status=409)
+
+# Existing role revocation takes effect even on an already selected cashier cart.
+rights=['pos.use','catalog.read','orders.write','orders.read','payments.manage','customers.read','customers.pii']
+call('/api/workspace/members/'+s['user']['id'],{'role':'viewer','active':True,'permissions':rights},h,'PUT')
+sc=command('create',headers=sh)['cart']
+sc=command('customer',{'cartToken':sc['token'],'revision':sc['revision'],'customerId':profile['id']},sh)
+call('/api/workspace/members/'+s['user']['id'],{'role':'viewer','active':True,'permissions':[r for r in rights if r!='customers.pii']},h,'PUT')
+command('cart',{'cartToken':sc['token']},sh,status=403)
+# A pre-order discount event is consumed by the same durable Flow worker.
+flow={'name':{'en-GB':'Cashier adjustment audit'},'event':'pos.discount_changed','active':True,'condition':{'type':'alwaysValid'},'action':'note','instruction':{'en-GB':'Discount reviewed'},'locale':'en-GB'}
+call('/api/automation/flows/discount_audit',{'revision':0,'data':flow},h,'PUT')
+# Exact percent/fixed reductions use the same native allocator; rejection leaves the authoritative revision intact.
+base=int(c['price']['totalMinor']);discount={'kind':'percent','value':1000,'currency':'EUR','reason':'Damaged packaging'}
+command('discount',{'cartToken':c['token'],'revision':c['revision']},status=400)
+for invalid in [{**discount,'reason':''},{**discount,'value':10001},{**discount,'currency':'JPY'},{**discount,'kind':'fixed','value':base+1}]:
+    command('discount',{'cartToken':c['token'],'revision':c['revision'],'discount':invalid},status=400)
+assert command('cart',{'cartToken':c['token']})['revision']==c['revision']
+c=command('discount',{'cartToken':c['token'],'revision':c['revision'],'discount':discount})
+reduction=(base*1000+5000)//10000
+assert int(c['price']['totalMinor'])==base-reduction and c['posDiscount']['minor']==str(reduction)
+assert c['posDiscount']['actor']==a['user']['id']
+command('discount',{'cartToken':c['token'],'revision':c['revision']-1,'discount':None},status=409)
+c=command('discount',{'cartToken':c['token'],'revision':c['revision'],'discount':{**discount,'kind':'fixed','value':123}})
+assert int(c['price']['totalMinor'])==base-123
+c=command('discount',{'cartToken':c['token'],'revision':c['revision'],'discount':None})
+assert int(c['price']['totalMinor'])==base
+c=command('discount',{'cartToken':c['token'],'revision':c['revision'],'discount':discount})
 # Underpayment and stale review must not create an order or deduct inventory.
 body={'cartToken':c['token'],'revision':c['revision'],'requestKey':'pos-'+c['id'],'totalMinor':c['price']['totalMinor'],'tenderMinor':str(int(c['price']['totalMinor'])-1)}
 command('complete',body,status=400)
@@ -87,6 +132,20 @@ assert completed and completed['result']['orderId']==o['id'] and completed['resu
 call('/api/settings/master-data',{'revision':0,'data':{'name':'POS Test Seller','address':'Fixture street','taxId':'TEST'}},h,'PUT')
 receipt=call('/api/merchant/orders/'+o['id']+'/receipts',{'revision':o['revision'],'kind':'invoice','locale':'de','requestKey':'pos-receipt-'+o['id']},h)
 pdf=call(receipt['pdfPath'],h=h,raw=True);assert pdf.startswith(b'%PDF') and b'Danke' in pdf
+assert o['orderCustomer']['customerId']==profile['id'] and o['billingAddress']['street']==address['street']
+assert int(o['money']['minor'])==base-reduction and o['cart']['posDiscount']['reason']==discount['reason']
+projection=command('receipt',{'orderId':o['id'],'receiptId':receipt['id']})
+assert projection['number']==receipt['number'] and any('Danke' in line for line in projection['lines'])
+command('receipt',{'orderId':o['id'],'receiptId':receipt['id']},sh,status=403)
+command('receipt',{'orderId':o['id'],'receiptId':receipt['id']},bh,status=404)
+assert 'pos.discount_changed' in call('/api/automation/catalog',h=h)['events']
+assert 'pos.customer_selected' in call('/api/automation/catalog',h=h)['events']
+for _ in range(100):
+    jobs=call('/api/automation/executions',h=h)['jobs']
+    if any(j['flow']=='discount_audit' and j['state']=='completed' and j['result']['note']=='Discount reviewed' for j in jobs):break
+    time.sleep(.1)
+else:raise AssertionError('POS adjustment event did not reach the shared Flow consumer')
+
 call(receipt['pdfPath'],h=bh,status=404,raw=True)
 call('/api/automation/channels/register',{'revision':ch['revision']},h,'DELETE',409)
 # POS event is selectable in the same Flow Builder and executes a standard note on this order.
