@@ -14,7 +14,7 @@ mod orders;
 mod receipt_pdf;
 mod receipt_text;
 mod receipts;
-pub(crate) use receipts::receipt_response;
+pub(crate) use receipts::{receipt_response, receipt_snapshot};
 mod routes;
 mod workflow;
 pub(crate) use routes::router;

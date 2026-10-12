@@ -184,3 +184,14 @@ and seeds repeatable provider-free configurations; it does not bypass production
 handlers or add a second business-logic implementation.
 
 The standard synthetic catalog lives in `src/demo_catalog.rs` and `fixtures/fashion-catalog.json`. New shops receive the Nord Atelier fashion template when demo catalog seeding is requested; `scripts/fashion_demo.py` tests the actual signup, variants, translations, images, isolated checkout and process restart. See [Fashion demo](fashion-demo.md).
+
+## Modular B2B and EDI — 12 October 2026
+
+Native company units, current employee rights, private catalogs, currency-bound
+budgets, separate approval, RFQ negotiation, quick order and repeat lists reuse
+the existing checkout, inventory, order, document and Flow owners. The Studio and
+customer account use the same API/MCP contracts. [Setup, source owners and precise
+B2B comparison](b2b-commerce.md). The independent `extensions/apps/edi/` package owns
+bounded EDIFACT/UBL/cXML parsing, mapped private requisition import and immutable
+native document export; no Core codec or second ledger. [EDI profiles, deployment
+and network/certification limits](edi.md).

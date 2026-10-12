@@ -1,6 +1,13 @@
 /** Shared translated app recipes and reviewed AI changes; no alternate app schema. */
 import { useLocale } from "./i18n";
 export const buildingWords = {
+  edi: ["EDI procurement", "EDI-Beschaffung", "Achats EDI", "Compras EDI"],
+  ediHint: [
+    "Map partners, validate documents and import purchase lists through an independent Rust app.",
+    "Partner zuordnen, Dokumente prüfen und Bestelllisten über eine eigenständige Rust-App importieren.",
+    "Associez des partenaires, validez les documents et importez les listes via une application Rust indépendante.",
+    "Configura socios, valida documentos e importa listas mediante una aplicación Rust independiente.",
+  ],
   reviewTranslations: [
     "Review translation drafts",
     "Übersetzungsentwürfe prüfen",

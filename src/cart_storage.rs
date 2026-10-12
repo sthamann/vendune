@@ -10,6 +10,7 @@ pub(crate) async fn load_cart(a: &App, h: &RequestContext) -> Result<StoredCart>
         .ok_or(Error(StatusCode::NOT_FOUND, "Cart not found".into()))?;
     let c = stored(&r)?;
     pos::guard_cart(h, &c)?;
+    b2b::guard(a, h, &c).await?;
     if c.data.sales_channel != marketing::channel_id(h) {
         return Err(Error(
             StatusCode::FORBIDDEN,
@@ -61,6 +62,7 @@ pub(crate) async fn new_cart(
         data: Cart {
             coupons: vec![],
             pos_actor: None,
+            b2b: None,
             currency: String::new(),
             sales_channel: "default".into(),
             app_configurations: HashMap::new(),

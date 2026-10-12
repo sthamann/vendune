@@ -10,7 +10,12 @@ description = "Experimental AI-native commerce and Shopware migration laboratory
 name = "erp-handoff"
 path = "extensions/apps/erp-handoff/service/main.rs"
 
+[[bin]]
+name = "edi-gateway"
+path = "extensions/apps/edi/service/main.rs"
+
 [dependencies]
+roxmltree = "0.21"
 aes-gcm = "0.10.3"
 chrono = { version = "0.4", features = ["serde"] }
 chrono-tz = "0.10"

@@ -71,6 +71,7 @@ pub(crate) async fn admit_products(a: &App, h: &RequestContext, ids: &[String]) 
     if ids.is_empty() || ids.len() > 24 {
         return Err(bad("Product admission batch must contain 1..24 IDs"));
     }
+    b2b::admit_catalog(a, h, ids).await?;
     let rows=sqlx::query("SELECT p.id,p.parent_id FROM products p WHERE p.tenant=$1 AND p.id=ANY($3) AND p.active AND (p.parent_id IS NULL OR EXISTS(SELECT 1 FROM products parent WHERE parent.tenant=p.tenant AND parent.id=p.parent_id AND parent.active)) AND NOT EXISTS(SELECT 1 FROM product_channel_visibility v WHERE v.tenant=p.tenant AND v.channel_id=$2 AND NOT v.visible AND (v.product_id=p.id OR v.product_id=p.parent_id))").bind(tenant(h)?).bind(channel_id(h)).bind(ids).fetch_all(&a.db).await?;
     let selected = channel(a, h, channel_id(h), &language_context(a, h).await?.0)
         .await?
@@ -102,6 +103,13 @@ pub(crate) async fn filter_channel(
     let ids = ps.iter().map(|p| p.id.clone()).collect::<Vec<_>>();
     let admitted: Vec<String> = sqlx::query_scalar("SELECT p.id FROM products p WHERE p.tenant=$1 AND p.id=ANY($2) AND p.active AND (p.parent_id IS NULL OR EXISTS(SELECT 1 FROM products parent WHERE parent.tenant=p.tenant AND parent.id=p.parent_id AND parent.active)) AND NOT EXISTS(SELECT 1 FROM product_channel_visibility v WHERE v.tenant=p.tenant AND v.channel_id=$3 AND NOT v.visible AND (v.product_id=p.id OR v.product_id=p.parent_id))")
         .bind(tenant(h)?).bind(ids).bind(channel_id(h)).fetch_all(&a.db).await?;
+    let unit = b2b::catalog_scope(a, h).await?;
+    let admitted = if let Some(unit) = unit {
+        sqlx::query_scalar("SELECT p.id FROM products p WHERE p.tenant=$1 AND p.id=ANY($2) AND EXISTS(SELECT 1 FROM b2b_catalog b WHERE b.tenant=p.tenant AND b.unit_id=$3 AND (b.product_id=p.id OR b.product_id=p.parent_id OR (p.parent_id IS NULL AND EXISTS(SELECT 1 FROM products child WHERE child.tenant=p.tenant AND child.parent_id=p.id AND child.id=b.product_id))))")
+            .bind(tenant(h)?).bind(admitted).bind(unit).fetch_all(&a.db).await?
+    } else {
+        admitted
+    };
     let admitted = admitted.into_iter().collect::<HashSet<_>>();
     Ok(ps
         .into_iter()

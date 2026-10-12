@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "claim": "46 extracted production policies; surrounding modules remain unproved",
+  "claim": "48 extracted production policies; surrounding modules remain unproved",
   "policies": {
     "discount_cap": {
       "bindings": [
@@ -432,9 +432,73 @@
         "pos_cash_conserves",
         "pos_cash_unauthorized_denied"
       ]
+    },
+    "b2b_budget_admissible": {
+      "bindings": [
+        "src/b2b/purchase.rs"
+      ],
+      "theorems": [
+        "b2b_budget_exact",
+        "b2b_budget_conserves"
+      ]
+    },
+    "b2b_approval_admissible": {
+      "bindings": [
+        "src/b2b/purchase.rs",
+        "src/b2b/approval.rs"
+      ],
+      "theorems": [
+        "b2b_approval_exact",
+        "b2b_self_approval_denied"
+      ]
     }
   },
   "sources": {
+    "extensions/apps/edi/service/callbacks.rs": {
+      "status": "unproved",
+      "sha256": "26be1b50e11777bfeb227bb77b3a6c2aa03ee2d5f37b539c3db72f5eb5fe178f",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "extensions/apps/edi/service/config.rs": {
+      "status": "unproved",
+      "sha256": "1a5999371227d8929afbe54e87df8db3537be245d4a5c418c8785bdd08c04a8e",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "extensions/apps/edi/service/document.rs": {
+      "status": "unproved",
+      "sha256": "b550a47e169b65113ec1730776efdd4dbcf7e9c45680034ccb9dce529facc400",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "extensions/apps/edi/service/edifact.rs": {
+      "status": "unproved",
+      "sha256": "f838b45bdb47577d08d70b88146dd737637c06f9d5520bb6142ae9babef1d2e8",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "extensions/apps/edi/service/export.rs": {
+      "status": "unproved",
+      "sha256": "eae9a739d59e7677c605386754ac06ebc00c4145e1df33eff7e674c25c05f991",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "extensions/apps/edi/service/export_tests.rs": {
+      "status": "unproved",
+      "sha256": "0b66df62d66ebb093f37f1e375d9a999342f32bc691423d4f54aaca89b168e63",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "extensions/apps/edi/service/import.rs": {
+      "status": "unproved",
+      "sha256": "d12004a547e28c4dc30b05e4e2c2d778d5a16e57492d3fba1cefd3cfe3a9206f",
+      "review": "Incremental review after passed formal run: collapsed equivalent owner/mapping guards in B2B lists and EDI import to satisfy strict Clippy; all-target Clippy, Rust units and bins now pass. Private variant filter and snapshot token stripping reviewed; B2B/EDI/POS real regressions being rerun with rebuilt binary."
+    },
+    "extensions/apps/edi/service/main.rs": {
+      "status": "unproved",
+      "sha256": "92b92ebe4e6e9f9407caa9024cd1b71ade1b95b68ee14144ac5898fce0588dc9",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "extensions/apps/edi/service/xml.rs": {
+      "status": "unproved",
+      "sha256": "c23b15f8ce902359e072da34c97388c73e16d340cca3f417fd230be67c28fc73",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
     "extensions/apps/email/src/config.rs": {
       "status": "unproved",
       "sha256": "9ae03776d5b23af8caed7588a626c15d4d2366d484d5b63bd6ded7810625181d",
@@ -642,8 +706,8 @@
     },
     "src/accounts/mod.rs": {
       "status": "unproved",
-      "sha256": "eb20fc2202fdff7526867d635c25ac3310948626377acc32a53d7dd9a8335023",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "40ac29a91a7bac8c63ec6a8db543c5060d877f55bc11dddb1b1af66f45b29148",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/accounts/order_snapshot.rs": {
       "status": "unproved",
@@ -652,8 +716,8 @@
     },
     "src/accounts/orders.rs": {
       "status": "unproved",
-      "sha256": "3684decf29df4dfcad415e21c5f66aa67167eeb143f180ded53d0e3ae70643d8",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "e22b1aa100720a7f3b3845cf6c275d924cff447404cd413b64a07ae7c351c310",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/accounts/profile.rs": {
       "status": "unproved",
@@ -677,8 +741,8 @@
     },
     "src/apps/cart_contributions.rs": {
       "status": "unproved",
-      "sha256": "8387afc64b28d2aab0c38937f421045ce19add8454dbdfc79ddf3a5ca5b7b6d0",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "5cf1b49acd523a578853e45ce2ac1abef069dad612adee5d4e84d2fd15035c12",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/apps/commerce_hooks.rs": {
       "status": "unproved",
@@ -697,13 +761,13 @@
     },
     "src/apps/core_callbacks.rs": {
       "status": "unproved",
-      "sha256": "551376c8cd2f457d39ca4433c5bbe92043425f63e036a53fc852fab7427f7b75",
-      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+      "sha256": "1f3ae0364163e44a0b26c63042270c046b4ce763f0bc40b10583546ece7eef1e",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/apps/credentials.rs": {
       "status": "reviewed-binding",
-      "sha256": "67c13f4970a3ee324961be0d71f99c7ab67d4b0aaf7468f034774ab64fd8161b",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "adde8ae8cf304f41af47087bccbfa1ed3cfd3555b105c0968824f5004efecbac",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/apps/data.rs": {
       "status": "unproved",
@@ -717,8 +781,8 @@
     },
     "src/apps/editor_contract.rs": {
       "status": "reviewed-binding",
-      "sha256": "a5ba8caa8ae164c760b0ba1cfaac6ea920518be636ce93ee39631b97ff4077d0",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "9eb7c11f9a406476903bb398299d8c6e427b9d902f97d573a04cd55f62f72275",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/apps/editor_tests.rs": {
       "status": "unproved",
@@ -737,8 +801,8 @@
     },
     "src/apps/event_projection.rs": {
       "status": "unproved",
-      "sha256": "041691cbd848213a7a7e5d0e8e1f948c6b6dd346843126a65d5bddcc5ae863d1",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "98bb7854f9cf3f127f7dbb83227a31f8ad24725c8040a31621081c58fc20ad62",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/apps/events.rs": {
       "status": "unproved",
@@ -797,8 +861,8 @@
     },
     "src/apps/manifest_validation.rs": {
       "status": "unproved",
-      "sha256": "6c0e95b794f03397b498efe55b66e76f8e1750f062a17726accdfec5b0b8c916",
-      "review": "Review native app ontology metadata: derive selected graph fields/typed references only from current authorized native list rows; preserve RLS/action grants, package serialization, revision guards and existing extracted predicates. Projection and SQL/transport remain unproved."
+      "sha256": "8e9ab49c8aaeb399e9cbf8bb9c7244720382954264cece88c67e53b48f40b8b6",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/apps/mod.rs": {
       "status": "unproved",
@@ -847,8 +911,8 @@
     },
     "src/apps/registry.rs": {
       "status": "unproved",
-      "sha256": "f18a1d223331508cfb7b06aeb12b33bbb595d0a108d1cb579c731b2744076762",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "8b1e567551dbc7472eae9571ad8604776c79137c0d0f76e0b148899b75898037",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/apps/relations.rs": {
       "status": "unproved",
@@ -902,8 +966,8 @@
     },
     "src/apps/surface_grants.rs": {
       "status": "reviewed-binding",
-      "sha256": "e5f1e89e74f6f890ca8d77061919b5148921ca4044d2a689f1a89914fe2ac128",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "a449b64977e1736fc8f94cc489035247784afe57f6818260522d887385244ee6",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/apps/surface_tests.rs": {
       "status": "unproved",
@@ -912,8 +976,8 @@
     },
     "src/apps/surfaces.rs": {
       "status": "reviewed-binding",
-      "sha256": "17eed02bf01a8507291436542c800d3cfdac8ec84c32ece432cd2127b2cf4c33",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "3b03e6d15424227c83b82620607b4b370b016eb355ac94e32f52a15cfa8e7b02",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/apps/ui_bundles.rs": {
       "status": "unproved",
@@ -1062,8 +1126,8 @@
     },
     "src/auth/permissions.rs": {
       "status": "reviewed-binding",
-      "sha256": "55adb084a0709a22f13fdb4c2423cc660e25d749012b7c90b0e293b42e3de4e5",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "d5dda36320f92a56a2cc2a335ccf53846be3109d43a91dc4541543dd71f3af82",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/auth/provision.rs": {
       "status": "unproved",
@@ -1125,6 +1189,76 @@
       "sha256": "97531aa986bded1655213c57e29d4e655b818f4b6df4110949255308f53e3bd8",
       "review": "Reviewed equivalent date/datetime rejection and product price range expressions required by Rust 1.96 Clippy; accepted date/string shapes and finite 0 through 1000000 prices stay unchanged. Rust formatting, lint and unit tests passed. Complete Docker image builds and the existing AGE PostgreSQL image smoke test passes personal operator/shop provisioning and auth gates. No business guarantee or Lean property changed."
     },
+    "src/b2b/access.rs": {
+      "status": "unproved",
+      "sha256": "72c8606e7f732ada94ba5244de7d2e4c4e6914f663eb87e3c77b6451ce972799",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "src/b2b/approval.rs": {
+      "status": "reviewed-binding",
+      "sha256": "08f4585d276de48153c5425465786c0cf2a51eed000a90271b0a3ab64c28f41f",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "src/b2b/catalog.rs": {
+      "status": "unproved",
+      "sha256": "bc41225b7ac8ceba24778bf994b750647ba8577e8f67c6bd4d79fc774092aa29",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "src/b2b/gateway.rs": {
+      "status": "unproved",
+      "sha256": "1359a987d684f30480543175fae33ab391a007af85fe81016f8d009942f0e1d2",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "src/b2b/lists.rs": {
+      "status": "unproved",
+      "sha256": "4d9682ce1d3c3974fbab64fe0091806fb9708b3385f2e2e83f336cb731c2e81e",
+      "review": "Incremental review after passed formal run: collapsed equivalent owner/mapping guards in B2B lists and EDI import to satisfy strict Clippy; all-target Clippy, Rust units and bins now pass. Private variant filter and snapshot token stripping reviewed; B2B/EDI/POS real regressions being rerun with rebuilt binary."
+    },
+    "src/b2b/mod.rs": {
+      "status": "unproved",
+      "sha256": "97a25c007bdcc297d887fd4e747a3144ff052351ef9843d35c1199c0480e47d1",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "src/b2b/model.rs": {
+      "status": "unproved",
+      "sha256": "a6ae2a51f3e22405784165617648cc7bf037d6d30760761b894681be85bd4884",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "src/b2b/orders.rs": {
+      "status": "unproved",
+      "sha256": "70219eea68a14bec153e2974f713a2f930bb270e75d653852e53fcfabd52581f",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "src/b2b/organization.rs": {
+      "status": "unproved",
+      "sha256": "514a5e86267421b668827b89eb54d02319ac41153920e1bffab5502fea8db3ef",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "src/b2b/purchase.rs": {
+      "status": "reviewed-binding",
+      "sha256": "736bbb01507333bdb1c018286238130b36a7c3d42ec98c5bb6958c14ad50d070",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "src/b2b/quick_order.rs": {
+      "status": "unproved",
+      "sha256": "8e777895d9b7bb8f896bd87cb82a6b144fba0d533a9e5ea0dac1921dda55789a",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "src/b2b/quote_contract.rs": {
+      "status": "unproved",
+      "sha256": "23b36df91b07e375f8b801b24535d2b4b6f46ecf7f4550637f4c64253b725c97",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "src/b2b/quotes.rs": {
+      "status": "unproved",
+      "sha256": "1a75cfe6572c2b4f2f2be8a553dbd84269b20ec27b23fa1df20b22aacd0e2db7",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "src/b2b/requisition.rs": {
+      "status": "unproved",
+      "sha256": "1067fcd7ae3fd2773faf66802da47e26a8446f05c7948ecee5939c9aa37a9db7",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
     "src/bin/automation_rules.rs": {
       "status": "unproved",
       "sha256": "8d5994b0922f61cd5c209a7598f377fa664709704c4ea911bc3b7e33958d3d8e",
@@ -1162,8 +1296,8 @@
     },
     "src/bin/verified_kernel/dispatch.rs": {
       "status": "unproved",
-      "sha256": "d665eedaf7c7bb690074376e8983ce9ac79f4df94f9d2a5fecf9449aed1ecd15",
-      "review": "Native POS cash admission, shared currency/coupon forwarding and private cart consumer guards reviewed. Original coupon owner extracted and tenant-scoped; provider confirmation rejoins POS outbox once. Generated conformance dispatcher moved to a small dedicated module without policy duplication."
+      "sha256": "8394b1b90eb776f0cc1622d10cec8c7e5e54ee42e95765edad06d31dab20bade",
+      "review": "Reviewed generated conformance dispatcher refactor: typed JSON argument closures preserve u64/bool validation and all original policy calls/errors, keeping generated module below 320 lines as the inventory grows. Policies and production semantics are unchanged; conformance and mutation gates re-run."
     },
     "src/bin/verified_kernel.rs": {
       "status": "conformance-driver",
@@ -1177,8 +1311,8 @@
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
-      "sha256": "48f0c762399907c3d8c6d1dc071fc178d6e307cb833f46179bf83e3821182503",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "9c127290b890329d1e5b1b99f87ed958885e3c4ae2dc35b7475d202f3fc75cef",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/capabilities/core_catalog.rs": {
       "status": "unproved",
@@ -1187,23 +1321,23 @@
     },
     "src/capabilities.rs": {
       "status": "unproved",
-      "sha256": "3bb1edd138725a3f4f11df818c7cd08aa8db2df5dca238d3fc9105f94201ee1e",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "8fa9d6dd9cad372184c22db1ae2464ff3a2806d4ffc87af3c78c6e32b0aeec61",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/cart_model.rs": {
       "status": "unproved",
-      "sha256": "377f7d06f73742ccb1d8db4aed3f19487aa1e3b5558ddfa2481b4b005cf64527",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "f161341553a783cc986dc8d6c8829afa90c304f2df126bdbfd847610e5cc8153",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/cart_mutation.rs": {
       "status": "unproved",
-      "sha256": "b83d3ab3bf12d2aa90ac3d9e3497202754719862a2e5512b54dfb2903c89809a",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "41428b639a1e57b72dcac248cc1e326f32a71254c5056379b67642c1f5d5be53",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/cart_price.rs": {
       "status": "unproved",
-      "sha256": "a593b89a634f8f40ab276a2dc51cc52268c59c3621bda594d00e36741cfd1464",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "002503c3063a5ec8109161d670803248dcfc0f4c584d0caacdbf027b80fb2fa5",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/cart_routes.rs": {
       "status": "unproved",
@@ -1212,8 +1346,8 @@
     },
     "src/cart_storage.rs": {
       "status": "unproved",
-      "sha256": "8667fd49d4510fb6c20d4ff07e19c0d157b1d589264342f2f7aba5ebb054303c",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "59d3a809fea5cda722f2eb021538c4b20ce22d9b9ad873f452ca1ebb0c197784",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/catalog_model.rs": {
       "status": "unproved",
@@ -1222,13 +1356,13 @@
     },
     "src/catalog_page.rs": {
       "status": "unproved",
-      "sha256": "c96ca650d9d37cf4b7b768a66cdc2de54459d70b570ff7a3ebd5bbf99ade02ce",
-      "review": "Reviewed saved category fact schema, tenant-bound current-source SQL, partial candidate indexes and shared MCP planning quota. Native catalog tests cover review/privacy/revision withdrawal, locale inheritance, confidence, channels, foreign tenants, literal wildcard semantics, CAS and selective staging; provider tests use the centrally encrypted shared replica configuration and quota rejection before model invocation."
+      "sha256": "26a03a3fe4225fe825c6aa339fa6e09952839d5fab262c3594ab6ae3c9b42d5c",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/catalog_routes.rs": {
       "status": "unproved",
-      "sha256": "1099c753542fe75d117a2f4ccdfad1959b25814872d770975ba9319305a982f2",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "7cf123e42cf1eb991c2766d1ff478cf03dde06e3ec9790b404e823abbc43c1b0",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/categories/admin.rs": {
       "status": "unproved",
@@ -1267,8 +1401,8 @@
     },
     "src/checkout_handoff.rs": {
       "status": "unproved",
-      "sha256": "21509a9d6dd7c9950f542f67065d95302e7bd538c7886afe729bf64af64fa66e",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "a567acb75c77daa86924a71772cebcc31ac4d4733605b865c6d1ecd3d635ac28",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/checkout_page.rs": {
       "status": "unproved",
@@ -1397,8 +1531,8 @@
     },
     "src/commerce/catalog.rs": {
       "status": "unproved",
-      "sha256": "155fede2ea9ccbe155d4ef952f3958ae22d5808c79fc3fb2eff99c0177b20ad5",
-      "review": "Reviewed tenant-bound catalog/category CRUD, composite FKs and indexed pre-pagination filters; rich document allowlist; shared HTTP/MCP permissions; active/channel admission under checkout locks; committed product events; category/product staging dependency order and live inventory preservation. Existing Lean policy bodies unchanged. New adapters remain unproved; native catalog/MCP/flow/upload/release and commerce/account/operations/protocol/scalability regressions exercise consumers."
+      "sha256": "c3db6e8287d38869376f08c80e0ccdf5e5616be0520b36adbb8703b5a27d3428",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/commerce/configuration.rs": {
       "status": "unproved",
@@ -1412,8 +1546,8 @@
     },
     "src/commerce/context_routes.rs": {
       "status": "unproved",
-      "sha256": "e1aa5d494245c92e21d23ed03a59575285eb3546a0bf6fca5ef36bc21bcbf407",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "b304f72a27f96af48fc2232299da6c67d9a74a5456b0bf2d0d86fee6b08b15f1",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/commerce/customer_groups.rs": {
       "status": "reviewed-binding",
@@ -1427,13 +1561,13 @@
     },
     "src/commerce/detail.rs": {
       "status": "unproved",
-      "sha256": "e36e034bc3d7940837bc9adde0429d106bca33eb259a2bf452c7c1ce1b558fb7",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "c9d21951f980453564d0a9ff1878d029cab3b8bd471209beac9a13587dd80e86",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/commerce/fulfillment.rs": {
       "status": "reviewed-binding",
-      "sha256": "1b51f13addbd6c73dc16cdb248c61bf409a3b2adc89c67e2fca6899e20bb79bf",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "23a1518667e7eed8ac94100ef903ce0044b99e5bac4af81e701278fd44d06f64",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/commerce/geography.rs": {
       "status": "unproved",
@@ -1647,8 +1781,8 @@
     },
     "src/customer.rs": {
       "status": "unproved",
-      "sha256": "878c139a25a264dfd8a6618ae232fcf73909c1edf985c040a3f03260264e6e29",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "114988d139ef265f4443c3dfa0a94d7978099fb0429b7d1537f903ca6b344d67",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/demo_catalog.rs": {
       "status": "unproved",
@@ -1672,8 +1806,8 @@
     },
     "src/developer/generation.rs": {
       "status": "unproved",
-      "sha256": "0f0871d7b4bde7336d8f5e0bc5cb1a4b1c5aa779162350890ffbdbea1ed86f57",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "92266a3526c3b2150b540bab33cfbdd7a84b15c910677f5539d05ef3f8736bc5",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/developer/generation_contract.rs": {
       "status": "unproved",
@@ -1697,8 +1831,8 @@
     },
     "src/developer/routes.rs": {
       "status": "unproved",
-      "sha256": "6d2b5b84de36cf1b1c25f6fdfadc891da2bd4c5598eb6d1c16afcbd86f315694",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "244c7c50a62050cbdc01f3cf43bfebff1f73697f1fcc881720c69cad5472945e",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/discount.rs": {
       "status": "reviewed-binding",
@@ -1782,8 +1916,8 @@
     },
     "src/history/mod.rs": {
       "status": "unproved",
-      "sha256": "72ca0881ab32532999b91ed07c573394afaf88683214722e12d733188223e932",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "4b34175da403f1ec2f4ff7b507ce49c25cc6f2a6e988d2156173eb2163263027",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/history/product.rs": {
       "status": "unproved",
@@ -1797,8 +1931,8 @@
     },
     "src/history/routes.rs": {
       "status": "unproved",
-      "sha256": "07c93e1e4f6e2546561296e86e8818eb6929d94152ed861bf4549c7166f23373",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "d451d549eccd834341148d6c52e78bfeeb12c02440b7267bd57e86a89374b55c",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/http_json.rs": {
       "status": "unproved",
@@ -1912,13 +2046,13 @@
     },
     "src/localization.rs": {
       "status": "unproved",
-      "sha256": "1b5688ec715371b0343b8655e1c48d97fc375d703c4edafe0d49c93a7db0bd95",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "cc439979e321f76d29ffc3b78477192d08282e7894e53c315e456e80d0864274",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/main.rs": {
       "status": "unproved",
-      "sha256": "8901075e66704ca71fd46772d74a43f75076fc76e061e5119d8beb858af10310",
-      "review": "Reviewed native POS trusted cashier cart admission, shared checkout locking and reviewed integer cash predicate; provider capture publishes one POS completion event through existing receipt transaction, generic app surfaces and events retain tenant scopes. Module registry import consolidation preserves entry behavior."
+      "sha256": "6a03426ecdeb5166e69b5ab0b4d0c9396fe71eeab1bb27f30cfa51f7dec591a1",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/marketing/app_flows.rs": {
       "status": "reviewed-binding",
@@ -1927,8 +2061,8 @@
     },
     "src/marketing/catalog.rs": {
       "status": "unproved",
-      "sha256": "9dbbabc76331d999db27446aac31f945863569451d2a770c483c415474900da5",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "295544f26841a660e2bc46d9c468ab04b28d2861237d15cb4db809f123930bd0",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/marketing/channel_access.rs": {
       "status": "reviewed-binding",
@@ -1942,8 +2076,8 @@
     },
     "src/marketing/channels.rs": {
       "status": "unproved",
-      "sha256": "25861e1a772d07c1b2aea7a25528951ed4c3c2e78b83e9250c7df744e2e29d73",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "f86ad35fa4db7028a70d4099fd741ddaaa5968068c3a9dd06d33ef2d655d0548",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/marketing/condition_gateway.rs": {
       "status": "unproved",
@@ -1952,8 +2086,8 @@
     },
     "src/marketing/coupons.rs": {
       "status": "unproved",
-      "sha256": "5ce9ed115e42dd56ad53570445bafa733f85ba2b10d999b3a25bf46197399d15",
-      "review": "Native POS cash admission, shared currency/coupon forwarding and private cart consumer guards reviewed. Original coupon owner extracted and tenant-scoped; provider confirmation rejoins POS outbox once. Generated conformance dispatcher moved to a small dedicated module without policy duplication."
+      "sha256": "82708ac59eebde4ff4da887dc0cd93421a81bab79008c5c6ac6d0cfc0986b60f",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/marketing/customer_facts.rs": {
       "status": "unproved",
@@ -1992,8 +2126,8 @@
     },
     "src/marketing/flows.rs": {
       "status": "unproved",
-      "sha256": "7b8df9c74849b5f33cb9135ead7ca32f1c5701dceaa025420226fea1e9539ec8",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "8cd92c97ab9c515a2f9946caa6fc8feb5a085a21257bf8fbd1ebdba71df42899",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/marketing/gateway.rs": {
       "status": "unproved",
@@ -2080,15 +2214,20 @@
       "sha256": "e4fe4e6af90583a2febf6bcd640cedf3ee503300d8df5f1566f6a8124a10f0ef",
       "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
     },
+    "src/mcp/visibility.rs": {
+      "status": "unproved",
+      "sha256": "c6a4fa8620f57947159d5576feb62b7b43e0911075997667e8bf7637a801ab9e",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
     "src/mcp.rs": {
       "status": "unproved",
-      "sha256": "155483fdd66f75384cdb8063c7b0648e653abbd11bd44668805a9f73604ac444",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "0f43a6147d4016e33d454f26005d4565571604df9a96950a6943736496fddebf",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
-      "sha256": "ecf5ac62e74c10039d717dc37f685d3764d4dfbe1c61cf3a1e829edb24697916",
-      "review": "Reviewed migration 079 composite source keys, FORCE RLS and transaction-bound lexical triggers/backfill; both native query owners recheck current text/publication with indexed tenant word candidates. Actual NOSUPERUSER NOBYPASSRLS product/document plans, missing/foreign context and source edit/withdrawal/delete regressions pass; native strict-runtime suite passes. No extracted decision or theorem changed; SQL/query plans remain unproved."
+      "sha256": "838ad8acef4818b320add3c57ad1ff92a4e3fd86abc4f64861e4c22ee03b66ea",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/migrations.rs": {
       "status": "unproved",
@@ -2142,8 +2281,8 @@
     },
     "src/operations/mod.rs": {
       "status": "unproved",
-      "sha256": "26a2b291d4d1bb95054fa2277ec39e1dce85481c5526bcea2327fc60e795f09c",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "29640d9e4b616db2bd1a3820844168de6702267820dc69fa68fb4e0a699a4758",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/operations/orders.rs": {
       "status": "unproved",
@@ -2162,8 +2301,8 @@
     },
     "src/operations/receipts.rs": {
       "status": "unproved",
-      "sha256": "ede899cc787ed561fd6ad6bedca3c506f9a4e2c796c227c4e7c01cb0745aeefc",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "03b9410e5a46651c2e9bff295f32b959373e00d7a97af84a761f51eb64eff51d",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/operations/routes.rs": {
       "status": "unproved",
@@ -2177,8 +2316,8 @@
     },
     "src/order_checkout.rs": {
       "status": "reviewed-binding",
-      "sha256": "2643781e283648cce5e9a8dd98a7092c28038828f927a7e1225588762bba5ce5",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "cb450b0b66918bd1522064964b6ed8c251157d109dfa9f73eded675923e11437",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/order_routes.rs": {
       "status": "unproved",
@@ -2430,6 +2569,11 @@
       "sha256": "1f89c474b7f381f86fdaffff6a81e3b5a85afe784b4fb23571c162880f30d7dc",
       "review": "Reviewed POS cashier isolation, same atomic checkout and provider-receipt completion hook; staging check now uses equivalent Rust auto-deref. Existing bounded money, permissions, app event projections and proof-driver extraction remain connected and mutation-tested."
     },
+    "src/prelude.rs": {
+      "status": "unproved",
+      "sha256": "9e1620a9f521a629b62cc91a8c4fc3370d18bb511b30e7dbd6029ba4483e097e",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
     "src/pricing.rs": {
       "status": "unproved",
       "sha256": "421ebdf7a78c2b46da9c1ee567d2df7052077db7f7c7919cccb516b1e020baac",
@@ -2457,8 +2601,8 @@
     },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "b536d503585e5fc8dfdcb8ff6da74553b2f584eceb0dfc95956cde3e324f2e55",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "8a9bc3a78f3b70359b7db04646a11c8b2059d2ef6d71af1a775a1509eb95cfc1",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",
@@ -2622,8 +2766,8 @@
     },
     "src/verified_kernel.rs": {
       "status": "extracted-policy",
-      "sha256": "3f3c593a8c6b037f84eb36653da0dd20417271956a324002318cb4335f8acdfe",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "f4ddc80ce24ad6451a189773bb890e355dfedbbd5975e11ece72ccb88bccd216",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/work_signal.rs": {
       "status": "unproved",
@@ -2642,20 +2786,20 @@
       "review": "Production image copies historical app manifests required by Rust include_str. Public build reproduced eight missing inputs; dependency closure and negative copy-removal control pass. No Rust, schema or policy changed."
     },
     "Cargo.lock": {
-      "sha256": "ec340c9275dcd0ecf4dabe22abb1bd3b01ca3810f5a15b4d033509c903c7eb92",
-      "review": "Reviewed bounded RFC6902 model edit adapter, protected metadata and storage/access retention, atomic clone application and host versions; real local Qwen textbox/button, native HTTP staging and no-op/destructive negative cases. SQL/provider adapters remain unproved."
+      "sha256": "d120eef91ac11cce858a2ce8e0164c8a8b3c5b2fdb2f1a4f07642b2860e8b4ce",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "Cargo.toml": {
-      "sha256": "756d039f45fbdc75dba11543766c6cd9807f3e3e071c83e43e3e8aa45e864326",
-      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+      "sha256": "843d7d6234bd37d62ffd5ed1259e73b851cc8d24f322a5a98f9c5bd3ae40450e",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "deploy/Dockerfile": {
       "sha256": "dc7c2c8b35843285ac1f25e3404c8c930d2dc8b0c1525ab5a3886ba028671f23",
       "review": "Production image copies historical app manifests required by Rust include_str. Public build reproduced eight missing inputs; dependency closure and negative copy-removal control pass. No Rust, schema or policy changed."
     },
     "fixtures/app-studio-schema.json": {
-      "sha256": "db7d42c88f523d6ba3278f75b52bb4dad87c6af91596a5b8be91bdb9b1ac4efe",
-      "review": "Reviewed generated app schema and retained storage/access/service contracts, explicit merchant translation enqueue transaction and replay guards, app-only inference output budget and personalization scope/explanation adapters. Verified relevant SQL/provider/frontend fixtures; adapter changes remain outside the extracted policy proof scope."
+      "sha256": "e644a609345a94bcf23ad9e1dd94948526e0fac2345f80f2fb7211c4e043be9e",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "fixtures/demo-catalog.json": {
       "sha256": "e5d5eea04a7693b3f92fa58be66ad36b7ad01d5920029c29f303693aa0032ba2",
@@ -3025,9 +3169,13 @@
       "sha256": "996ae9ea9362f1bf854498e87244e0aa87833a4ec6eafdc4b15ad27d6a68a2e3",
       "review": "Reviewed migration 079 composite source keys, FORCE RLS and transaction-bound lexical triggers/backfill; both native query owners recheck current text/publication with indexed tenant word candidates. Actual NOSUPERUSER NOBYPASSRLS product/document plans, missing/foreign context and source edit/withdrawal/delete regressions pass; native strict-runtime suite passes. No extracted decision or theorem changed; SQL/query plans remain unproved."
     },
+    "migrations/080-b2b-procurement.sql": {
+      "sha256": "fdcf09a21adb536389112a0bfac201654e88d0ea0280653adfc17cb270e6ea85",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
     "proof/Commerce/Claims.lean": {
-      "sha256": "d2c14b58a3750385f06c19da5143d188b97399341ab71fa148e33642a73bad36",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "3c163ebfa803cb45b5d2a790188d0df8184bac8439877a26be4476cf65300198",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "proof/lakefile.toml": {
       "sha256": "1cda05bac02223024b93388cf858edad4719c46f8d37a826a73a6a6e15d79432",
@@ -3062,16 +3210,16 @@
       "review": "Reviewed policy integration and unchanged module inventory; added proof/CI integrity locks and tested terminal API regression"
     },
     "scripts/formal/mutations.py": {
-      "sha256": "b0d5bf49c1c8ace821fc19b7cce8566f5c30bf3fdd5b3b0b0570fb87bc52e13d",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "afc303b567bb0668b2ed92205037878726cf553213b239aa091cb50ee6180c49",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "scripts/formal/registry.py": {
       "sha256": "29d0faa4493e4248ddd93991c8b4a9515ac29f90fe849e872577c8705a18e7d2",
       "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
     },
     "scripts/formal/runners.py": {
-      "sha256": "fdce10dc7163abf30abb58a8c62ef85e04737ea1f5c756de89ed6f72af3d90dd",
-      "review": "Native POS cash admission, shared currency/coupon forwarding and private cart consumer guards reviewed. Original coupon owner extracted and tenant-scoped; provider confirmation rejoins POS outbox once. Generated conformance dispatcher moved to a small dedicated module without policy duplication."
+      "sha256": "66d5041b9201ceb7421bf868e49a2b7bd241a5959f21c1ac7b8394e628825b1d",
+      "review": "Reviewed generated conformance dispatcher refactor: typed JSON argument closures preserve u64/bool validation and all original policy calls/errors, keeping generated module below 320 lines as the inventory grows. Policies and production semantics are unchanged; conformance and mutation gates re-run."
     },
     "scripts/formal.py": {
       "sha256": "0d152edcec333aa5facf70830240473e6533970c86ff020ab10b734cd05743fd",
@@ -3082,16 +3230,16 @@
       "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
     },
     "src/catalog_channel.sql": {
-      "sha256": "4dd3e1ed54adc7519eca5ca21702f626ece8b50aaf702bc2c1992872d338522d",
-      "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
+      "sha256": "2eca0d892fc281f0948daac41f59a67d1fab8443e341eb5e9bf64fded533c1e6",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/catalog_search.sql": {
-      "sha256": "f71b4e01acd73b68e272f29c40df1d61f530ef36c0fcc5feb6ed744855563d04",
-      "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
+      "sha256": "8a09466a45168dff5c1eacdd16d61857c018bbf45dc0d568fa2853909ac5a720",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/categories/listing.sql": {
-      "sha256": "0a309f31788a6b30c3089adc6335e55bf0df89ed60a2e37642c5dddcff0cbda2",
-      "review": "Reviewed saved category fact schema, tenant-bound current-source SQL, partial candidate indexes and shared MCP planning quota. Native catalog tests cover review/privacy/revision withdrawal, locale inheritance, confidence, channels, foreign tenants, literal wildcard semantics, CAS and selective staging; provider tests use the centrally encrypted shared replica configuration and quota rejection before model invocation."
+      "sha256": "ca6884b88d8c44f5742380682b02031192fb59fed70f0d432e00ac142148ad81",
+      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "src/cognition/claim_batch.sql": {
       "sha256": "4198f7532aae65c9defbd6ad60f26b4128060305a69e40d755ff1449f7144cf2",

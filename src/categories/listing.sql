@@ -23,7 +23,7 @@ WITH RECURSIVE tree AS (
   AND d.revision=(r.data->>'sourceRevision')::bigint AND (d.product_id IS NULL OR d.product_id=r.source_id)
 )
 SELECT p.* FROM products p
-WHERE p.tenant=$1 AND p.parent_id IS NULL AND p.active AND NOT EXISTS(SELECT 1 FROM product_channel_visibility v WHERE v.tenant=p.tenant AND v.product_id=p.id AND v.channel_id=$8 AND NOT v.visible) AND p.id>$3
+WHERE p.tenant=$1 AND p.parent_id IS NULL AND p.active AND ($11::text IS NULL OR EXISTS(SELECT 1 FROM b2b_catalog b WHERE b.tenant=p.tenant AND b.unit_id=$11 AND (b.product_id=p.id OR EXISTS(SELECT 1 FROM products child WHERE child.tenant=p.tenant AND child.parent_id=p.id AND child.id=b.product_id)))) AND NOT EXISTS(SELECT 1 FROM product_channel_visibility v WHERE v.tenant=p.tenant AND v.product_id=p.id AND v.channel_id=$8 AND NOT v.visible) AND p.id>$3
  AND ($4::text[] IS NULL OR p.id=ANY($4))
  AND p.id IN (SELECT product_id FROM membership)
  AND ($5::text IS NULL OR lower(

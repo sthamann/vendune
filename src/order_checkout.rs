@@ -33,6 +33,8 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
         .ok_or(bad("Cart not found"))?;
     let mut c = stored(&r)?;
     pos::guard_cart(h, &c)?;
+    b2b::lock_unit(&mut tx, &c).await?;
+    b2b::guard_conn(&mut tx, h, &c).await?;
     if c.data.locale != admitted.data.locale {
         return Err(conflict("Checkout language changed; review again"));
     }
@@ -41,7 +43,7 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
     {
         history::customer_context(&mut tx, email).await?;
     }
-    let mut purchase = json!({"items":c.data.items,"checkout":c.data.checkout,"group":c.data.group,"buyer":c.data.buyer,"coupons":c.data.coupons,"salesChannel":c.data.sales_channel,"currency":c.data.currency});
+    let mut purchase = json!({"items":c.data.items,"checkout":c.data.checkout,"group":c.data.group,"buyer":c.data.buyer,"coupons":c.data.coupons,"salesChannel":c.data.sales_channel,"currency":c.data.currency,"b2b":c.data.b2b});
     if !c.data.app_configurations.is_empty() {
         purchase["appConfigurations"] = json!(c.data.app_configurations);
     }
@@ -98,7 +100,9 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
             "Product hidden in this sales channel".into(),
         ));
     }
-    let ps = checkout_products::snapshot(&mut tx, &c, rows, &language_chain, &locale_chain).await?;
+    let mut ps =
+        checkout_products::snapshot(&mut tx, &c, rows, &language_chain, &locale_chain).await?;
+    b2b::contract_prices(&mut tx, &c, &mut ps).await?;
     // Configuration cannot change between this price calculation and order commit.
     let (config, settings_revision) =
         commerce::scoped_locked(&mut tx, &c.tenant, &c.data.sales_channel).await?;
@@ -194,6 +198,15 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
             return Err(conflict("Company purchase rejected by tenant extension"));
         }
     }
+    q["price"]["totalMinor"] = json!(minor.to_string());
+    let procurement = b2b::check_locked(
+        &mut tx,
+        h,
+        &c,
+        &q,
+        u64::try_from(minor).map_err(|_| bad("Invalid company total"))?,
+    )
+    .await?;
     let external = q["paymentMethod"]["mode"] == "app";
     if external && staging::parent_conn(&mut tx, &c.tenant).await?.is_some() {
         return Err(bad("External payments are disabled in private sandboxes"));
@@ -223,6 +236,9 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
     order["money"] = json!(money);
     order["currencyContext"] = q["currencyContext"].clone();
     order["legal"] = legal_snapshot;
+    if let Some(p) = &procurement {
+        order["b2b"] = json!({"companyId":p.company_id,"unitId":p.context.unit_id,"purchaseOrder":p.context.purchase_order,"approvalId":p.approval,"quoteId":p.context.quote_id});
+    }
     order
         .as_object_mut()
         .unwrap()
@@ -230,6 +246,8 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
     pos::settle(&mut tx, h, &c, &mut order).await?;
     commerce::order_fields(&mut order);
     sqlx::query("INSERT INTO orders(id,tenant,cart_id,idempotency_key,fingerprint,data) VALUES($1,$2,$3,$4,$5,$6)").bind(&id).bind(&c.tenant).bind(&c.id).bind(key).bind(&fingerprint).bind(&order).execute(&mut *tx).await?;
+    b2b::record(&mut tx, &c, &id, procurement.as_ref()).await?;
+    b2b::consume_quote(&mut tx, &c, &id).await?;
     commerce::inventory::allocate(&mut tx, &c, &id).await?;
     marketing::record_uses(&mut tx, &c.tenant, &id, &q).await?;
     assets::snapshot(&mut tx, &c, &id).await?;

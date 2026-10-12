@@ -3,7 +3,7 @@
 -- common term that matches millions of products/translations.
 SELECT DISTINCT ON (id) * FROM (
   (SELECT p.* FROM products p
-   WHERE p.tenant=$1 AND p.parent_id IS NULL AND p.active AND NOT EXISTS(SELECT 1 FROM product_channel_visibility v WHERE v.tenant=p.tenant AND v.product_id=p.id AND v.channel_id=$8 AND NOT v.visible) AND p.id>$2
+   WHERE p.tenant=$1 AND p.parent_id IS NULL AND p.active AND ($9::text IS NULL OR EXISTS(SELECT 1 FROM b2b_catalog b WHERE b.tenant=p.tenant AND b.unit_id=$9 AND (b.product_id=p.id OR EXISTS(SELECT 1 FROM products child WHERE child.tenant=p.tenant AND child.parent_id=p.id AND child.id=b.product_id)))) AND NOT EXISTS(SELECT 1 FROM product_channel_visibility v WHERE v.tenant=p.tenant AND v.product_id=p.id AND v.channel_id=$8 AND NOT v.visible) AND p.id>$2
      AND ($3::text IS NULL OR p.category=$3)
      AND lower(p.name||' '||p.description) LIKE $7
      AND lower(
@@ -26,7 +26,7 @@ SELECT DISTINCT ON (id) * FROM (
      ORDER BY tr.product_id
    ) hits CROSS JOIN LATERAL (
      SELECT p.* FROM products p
-   WHERE p.tenant=$1 AND p.parent_id IS NULL AND p.active AND NOT EXISTS(SELECT 1 FROM product_channel_visibility v WHERE v.tenant=p.tenant AND v.product_id=p.id AND v.channel_id=$8 AND NOT v.visible) AND p.id>$2
+   WHERE p.tenant=$1 AND p.parent_id IS NULL AND p.active AND ($9::text IS NULL OR EXISTS(SELECT 1 FROM b2b_catalog b WHERE b.tenant=p.tenant AND b.unit_id=$9 AND (b.product_id=p.id OR EXISTS(SELECT 1 FROM products child WHERE child.tenant=p.tenant AND child.parent_id=p.id AND child.id=b.product_id)))) AND NOT EXISTS(SELECT 1 FROM product_channel_visibility v WHERE v.tenant=p.tenant AND v.product_id=p.id AND v.channel_id=$8 AND NOT v.visible) AND p.id>$2
      AND ($3::text IS NULL OR p.category=$3)
      AND p.id=hits.product_id
      AND lower(

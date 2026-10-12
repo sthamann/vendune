@@ -23,14 +23,34 @@ for (const kind of recipeIds)
     const m = appRecipe(kind, `test_${kind}`);
     expect(problems(m)).toBe(false);
     expect(compile(m)).toEqual(m);
-    expect(
-      m.views?.some(
-        (v) =>
-          v.layout === "form" &&
-          v.blocks.some((b) => b.handlers?.click?.some((s) => s.op === "call")),
-      ),
-    ).toBe(true);
-    expect(m.actions?.every((a) => a.mcp === false)).toBe(true);
+    if (kind === "edi") {
+      expect(m.runtime).toBe("service");
+      expect(m.entities.every((e) => !e.publicRead)).toBe(true);
+      expect(
+        m.actions?.find((a) => a.name === "export_document"),
+      ).toMatchObject({
+        handler: "service",
+        readOnly: true,
+        mcp: true,
+        public: false,
+      });
+      expect(
+        m.entities
+          .flatMap((e) => e.fields)
+          .some((f) => f.coreReference === "b2bUnit"),
+      ).toBe(true);
+    } else {
+      expect(
+        m.views?.some(
+          (v) =>
+            v.layout === "form" &&
+            v.blocks.some((b) =>
+              b.handlers?.click?.some((s) => s.op === "call"),
+            ),
+        ),
+      ).toBe(true);
+      expect(m.actions?.every((a) => a.mcp === false)).toBe(true);
+    }
     expect(m.actions?.filter((a) => a.public).every((a) => a.readOnly)).toBe(
       true,
     );

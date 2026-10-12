@@ -295,3 +295,17 @@ pub fn experiment_result_admissible(
 pub fn pos_cash_admissible(authorized: bool, tender: u64, total: u64, reviewed: bool) -> bool {
     authorized && reviewed && total <= tender && tender <= 1000000000000
 }
+
+/// Spending cannot exceed a currency-bound unit budget, including existing allocations.
+pub fn b2b_budget_admissible(limit: u64, spent: u64, requested: u64) -> bool {
+    spent <= limit && requested <= limit.saturating_sub(spent)
+}
+/// An approval requires a different employee, current authority, pending state and exact revision.
+pub fn b2b_approval_admissible(
+    different: bool,
+    authorized: bool,
+    pending: bool,
+    current: bool,
+) -> bool {
+    different && authorized && pending && current
+}

@@ -6,6 +6,18 @@ import { appLogicWords } from "./app-logic-i18n";
 import { appWorkflowWords } from "./app-workflow-i18n";
 import { useLocale } from "./i18n";
 export const appStudioWords = {
+  b2bCompany: [
+    "Company workspace",
+    "Firmenbereich",
+    "Espace entreprise",
+    "Espacio de empresa",
+  ],
+  b2bUnit: [
+    "Purchasing unit",
+    "Einkaufseinheit",
+    "Unité d’achat",
+    "Unidad de compras",
+  ],
   posCatalog: [
     "POS · product area",
     "Kasse · Produktbereich",

@@ -1,5 +1,14 @@
 # Changelog
 
+## Modular B2B and independent EDI — 12 October 2026
+
+- Add tenant-bound companies, unit hierarchy, current employee grants, private catalogs, exact-currency period budgets and original-quote purchase approvals.
+- Add SKU quick order, owned/shared lists, RFQ negotiation, original-cart offers, unit order history and shared invoice/PDF access. Reuse native currency/tax, checkout, stock, payment, audit and outbox owners.
+- Integrate Studio/account UI, content-language inheritance, private app references/surfaces, API/MCP and ten Flow events; extend the shared coding-agent schema and App Studio recipe picker.
+- Keep EDIFACT/UBL/cXML codecs, partner mappings, native requisition import and immutable document export in an independent Rust app package. No second pricing, order or queue owner.
+- Fix capability-dispatch stack exhaustion exposed by the POS/MCP regression; box new domain futures without increasing worker stack limits.
+- Add native HTTP/PostgreSQL/tenant and app/gateway restart regressions, UI cases and two scoped Lean policies. Advanced B2B chains, partner-profile certification and network transports remain open, explicitly documented.
+
 ## Native POS channel — 12 October 2026
 
 - Add authenticated, cashier-bound POS channels and touch/scanner register UI, native variants, parked carts, currencies and coupons.

@@ -5,6 +5,10 @@ from registry import check
 from axioms import source_check,dependency_check
 
 MUTANTS=[
+ ("b2b_budget_admissible","spent <= limit","true"),
+ ("b2b_budget_admissible","requested <= limit.saturating_sub(spent)","true"),
+ ("b2b_approval_admissible","different &&","true &&"),
+ ("b2b_approval_admissible","&& authorized","&& true"),
  ("pos_cash_admissible","authorized &&","true &&"),
  ("pos_cash_admissible","total <= tender","true"),
  ("pos_cash_admissible","&& reviewed","&& true"),

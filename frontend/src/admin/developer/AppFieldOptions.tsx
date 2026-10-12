@@ -32,11 +32,21 @@ export default function AppFieldOptions({
           }
         >
           <option value="">{t("none")}</option>
-          {["product", "customer", "order"].map((k) => (
-            <option value={k} key={k}>
-              {k}
-            </option>
-          ))}
+          {["product", "customer", "order", "b2bCompany", "b2bUnit"].map(
+            (k) => (
+              <option value={k} key={k}>
+                {k === "b2bCompany" || k === "b2bUnit"
+                  ? t(k)
+                  : t(
+                      k === "product"
+                        ? "productDetail"
+                        : k === "customer"
+                          ? "customerFields"
+                          : "orderFields",
+                    )}
+              </option>
+            ),
+          )}
         </select>
       </label>
       {!f.coreReference && (

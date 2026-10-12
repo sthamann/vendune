@@ -1,5 +1,11 @@
 # Current release — 12 October 2026
 
+**B2B acceptance — 12 October:** native company procurement and an independent Rust EDI app share the existing checkout, inventory, currencies, documents, outbox, Flow and MCP owners. Companies, unit hierarchy/cost centers, current employee grants, private catalogs, period budgets, exact-cart approvals, quote negotiation, SKU quick orders and repeat lists are implemented. Real HTTP/PostgreSQL tests cover parallel budgets, stale/self/foreign denial, revocation, negotiated-price checkout, receipt access and a real native Flow action. EDI acceptance covers EDIFACT/UBL/cXML import → private buyer list → native checkout → immutable document export and gateway restart/replay. These are bounded document profiles, not universal EDI partner compatibility or certified transport. [B2B contracts and illustrated setup](b2b-commerce.md) · [EDI profiles and limits](edi.md).
+
+Local Chrome acceptance edited a unit cost center and observed its actor/revision history, selected a buyer unit/PO, added two native SKUs and requested approval. Reopening preserves the actual unit and PO. At 390 × 844 the account and document widths are both 390px, with no horizontal content overflow. EN/DE/FR/ES catalogs and a fifth content language are checked. Hosted rollout is not confirmed by these local captures.
+
+The current local full unit run passes 442 frontend tests in 78 files. The formal subset has 48 extracted policies and 104 properties, with 147,934 compiled comparisons and no mismatch; 133 deliberately broken policy variants are rejected. Database/network/UI behavior remains outside those proofs.
+
 **Native POS local acceptance — 12 October:** a new channel type reuses shared checkout, exact cash/change, inventory, orders, invoices/PDF, currencies, coupons and Flow/App/MCP contracts. Browser and isolated PostgreSQL tests cover synthetic sales; a local provider fixture covers confirmed capture. This section describes implemented/tested code and does not itself confirm hosted deployment or a real terminal charge. [Usage and limits](pos.md).
 
 **12 October lifecycle follow-up:** returns now own a guarded status lifecycle;

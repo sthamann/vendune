@@ -169,3 +169,14 @@ bot tokens, unrestricted mailbox backfill or measured provider throughput are cl
 - `deploy/sql/provision-runtime.sh`, `scripts/security/core_hardening.py`, `scripts/testing/pooler.py`, `scripts/transaction_pooler.py`: least-privilege provisioning and actual two-replica/one-backend PgBouncer regression paths.
 
 [All eighteen findings, shared architecture and exact limits](core-hardening.md).
+
+## Modular B2B and EDI — 12 October 2026
+
+Native company units, current employee rights, private catalogs, currency-bound
+budgets, separate approval, RFQ negotiation, quick order and repeat lists reuse
+the existing checkout, inventory, order, document and Flow owners. The Studio and
+customer account use the same API/MCP contracts. [Setup, source owners and precise
+B2B comparison](b2b-commerce.md). The independent `extensions/apps/edi/` package owns
+bounded EDIFACT/UBL/cXML parsing, mapped private requisition import and immutable
+native document export; no Core codec or second ledger. [EDI profiles, deployment
+and network/certification limits](edi.md).

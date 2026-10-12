@@ -141,4 +141,10 @@ def experiment_result_admissible (final_look : Bool) (enough_units : Bool) (posi
 def pos_cash_admissible (authorized : Bool) (tender : Nat) (total : Nat) (reviewed : Bool) : Bool :=
   (((authorized && reviewed) && (decide (total ≤ tender))) && (decide (tender ≤ 1000000000000)))
 
+def b2b_budget_admissible (limit : Nat) (spent : Nat) (requested : Nat) : Bool :=
+  ((decide (spent ≤ limit)) && (decide (requested ≤ (limit - spent))))
+
+def b2b_approval_admissible (different : Bool) (authorized : Bool) (pending : Bool) (current : Bool) : Bool :=
+  (((different && authorized) && pending) && current)
+
 end CommerceKernel

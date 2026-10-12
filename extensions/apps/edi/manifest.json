@@ -1,0 +1,882 @@
+{
+  "id": "edi",
+  "version": "0.1.0",
+  "coreApi": "1",
+  "runtime": "service",
+  "category": "operations",
+  "name": {
+    "en": "EDI workspace",
+    "de": "EDI-Arbeitsbereich",
+    "fr": "Espace EDI",
+    "es": "Espacio EDI"
+  },
+  "permissions": [
+    "data.read",
+    "data.write",
+    "admin.slot",
+    "service.call",
+    "b2b.read",
+    "b2b.manage",
+    "orders.read",
+    "documents.read",
+    "customers.pii"
+  ],
+  "entities": [
+    {
+      "name": "partners",
+      "label": {
+        "en": "Partners",
+        "de": "Partner",
+        "fr": "Partenaires",
+        "es": "Socios"
+      },
+      "publicRead": false,
+      "fields": [
+        {
+          "name": "partner_id",
+          "label": {
+            "en": "Partner key",
+            "de": "Partnerkennung",
+            "fr": "Identifiant partenaire",
+            "es": "Clave de socio"
+          },
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "unique": true
+        },
+        {
+          "name": "name",
+          "label": {
+            "en": "Requisition name",
+            "de": "Bestelllistenname",
+            "fr": "Nom de liste",
+            "es": "Nombre de lista"
+          },
+          "kind": "string",
+          "translatable": true,
+          "required": true
+        },
+        {
+          "name": "format",
+          "label": {
+            "en": "Format",
+            "de": "Format",
+            "fr": "Format",
+            "es": "Formato"
+          },
+          "kind": "string",
+          "required": true,
+          "choices": [
+            {
+              "value": "edifact",
+              "label": {
+                "en": "EDIFACT",
+                "de": "EDIFACT",
+                "fr": "EDIFACT",
+                "es": "EDIFACT"
+              }
+            },
+            {
+              "value": "ubl",
+              "label": {
+                "en": "UBL",
+                "de": "UBL",
+                "fr": "UBL",
+                "es": "UBL"
+              }
+            },
+            {
+              "value": "cxml",
+              "label": {
+                "en": "cXML",
+                "de": "cXML",
+                "fr": "cXML",
+                "es": "cXML"
+              }
+            }
+          ]
+        },
+        {
+          "name": "sender_id",
+          "label": {
+            "en": "Sender identity",
+            "de": "Absenderkennung",
+            "fr": "Identit\u00e9 \u00e9metteur",
+            "es": "Identidad del remitente"
+          },
+          "kind": "string",
+          "required": true
+        },
+        {
+          "name": "receiver_id",
+          "label": {
+            "en": "Receiver identity",
+            "de": "Empf\u00e4ngerkennung",
+            "fr": "Identit\u00e9 destinataire",
+            "es": "Identidad del receptor"
+          },
+          "kind": "string",
+          "required": true
+        },
+        {
+          "name": "unit_id",
+          "label": {
+            "en": "Purchasing unit",
+            "de": "Einkaufseinheit",
+            "fr": "Unit\u00e9 d\u2019achat",
+            "es": "Unidad de compras"
+          },
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "coreReference": "b2bUnit"
+        },
+        {
+          "name": "buyer_id",
+          "label": {
+            "en": "Buyer customer ID",
+            "de": "Kunden-ID des Eink\u00e4ufers",
+            "fr": "Client acheteur",
+            "es": "Cliente comprador"
+          },
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "coreReference": "customer"
+        },
+        {
+          "name": "active",
+          "label": {
+            "en": "Enabled",
+            "de": "Aktiv",
+            "fr": "Actif",
+            "es": "Activo"
+          },
+          "kind": "boolean",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "messages",
+      "label": {
+        "en": "Documents",
+        "de": "Dokumente",
+        "fr": "Documents",
+        "es": "Documentos"
+      },
+      "publicRead": false,
+      "fields": [
+        {
+          "name": "external_key",
+          "label": {
+            "en": "Document key",
+            "de": "Dokumentkennung",
+            "fr": "Cl\u00e9 document",
+            "es": "Clave de documento"
+          },
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "unique": true
+        },
+        {
+          "name": "source_hash",
+          "label": {
+            "en": "Source hash",
+            "de": "Quell-Hash",
+            "fr": "Empreinte source",
+            "es": "Huella de fuente"
+          },
+          "kind": "string",
+          "required": true
+        },
+        {
+          "name": "partner_id",
+          "label": {
+            "en": "Partner key",
+            "de": "Partnerkennung",
+            "fr": "Identifiant partenaire",
+            "es": "Clave de socio"
+          },
+          "kind": "string",
+          "required": true,
+          "indexed": true
+        },
+        {
+          "name": "unit_id",
+          "label": {
+            "en": "Purchasing unit",
+            "de": "Einkaufseinheit",
+            "fr": "Unit\u00e9 d\u2019achat",
+            "es": "Unidad de compras"
+          },
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "coreReference": "b2bUnit"
+        },
+        {
+          "name": "buyer_id",
+          "label": {
+            "en": "Buyer customer ID",
+            "de": "Kunden-ID des Eink\u00e4ufers",
+            "fr": "Client acheteur",
+            "es": "Cliente comprador"
+          },
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "coreReference": "customer"
+        },
+        {
+          "name": "number",
+          "label": {
+            "en": "Order reference",
+            "de": "Bestellreferenz",
+            "fr": "R\u00e9f\u00e9rence commande",
+            "es": "Referencia de pedido"
+          },
+          "kind": "string",
+          "required": true
+        },
+        {
+          "name": "format",
+          "label": {
+            "en": "Format",
+            "de": "Format",
+            "fr": "Format",
+            "es": "Formato"
+          },
+          "kind": "string",
+          "required": true
+        },
+        {
+          "name": "document",
+          "label": {
+            "en": "Normalized requisition",
+            "de": "Normalisierte Bestellliste",
+            "fr": "Liste normalis\u00e9e",
+            "es": "Lista normalizada"
+          },
+          "kind": "json",
+          "required": true
+        },
+        {
+          "name": "requisition_id",
+          "label": {
+            "en": "Native order list",
+            "de": "Native Bestellliste",
+            "fr": "Liste native",
+            "es": "Lista nativa"
+          },
+          "kind": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "inputs",
+      "label": {
+        "en": "Import drafts",
+        "de": "Importentw\u00fcrfe",
+        "fr": "Brouillons d\u2019import",
+        "es": "Borradores de importaci\u00f3n"
+      },
+      "publicRead": false,
+      "fields": [
+        {
+          "name": "partner_id",
+          "label": {
+            "en": "Partner key",
+            "de": "Partnerkennung",
+            "fr": "Identifiant partenaire",
+            "es": "Clave de socio"
+          },
+          "kind": "string",
+          "required": true
+        },
+        {
+          "name": "format",
+          "label": {
+            "en": "Format",
+            "de": "Format",
+            "fr": "Format",
+            "es": "Formato"
+          },
+          "kind": "string",
+          "required": true,
+          "choices": [
+            {
+              "value": "edifact",
+              "label": {
+                "en": "EDIFACT",
+                "de": "EDIFACT",
+                "fr": "EDIFACT",
+                "es": "EDIFACT"
+              }
+            },
+            {
+              "value": "ubl",
+              "label": {
+                "en": "UBL",
+                "de": "UBL",
+                "fr": "UBL",
+                "es": "UBL"
+              }
+            },
+            {
+              "value": "cxml",
+              "label": {
+                "en": "cXML",
+                "de": "cXML",
+                "fr": "cXML",
+                "es": "cXML"
+              }
+            }
+          ]
+        },
+        {
+          "name": "document",
+          "label": {
+            "en": "EDI document text",
+            "de": "EDI-Dokumenttext",
+            "fr": "Texte du document EDI",
+            "es": "Texto del documento EDI"
+          },
+          "kind": "string",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "slots": [],
+  "views": [
+    {
+      "id": "workspace",
+      "layout": "stack",
+      "blocks": [
+        {
+          "id": "intro",
+          "kind": "text",
+          "title": {
+            "en": "EDI workspace",
+            "de": "EDI-Arbeitsbereich",
+            "fr": "Espace EDI",
+            "es": "Espacio EDI"
+          },
+          "text": {
+            "en": "Map partners to existing purchasing units and buyers. Import creates a private order list; the buyer still checks native prices and obtains required approval.",
+            "de": "Ordne Partner vorhandenen Einkaufseinheiten und K\u00e4ufern zu. Der Import erstellt eine private Bestellliste; Preise und Freigaben werden beim Einkauf gepr\u00fcft.",
+            "fr": "Associez les partenaires aux unit\u00e9s et acheteurs. L\u2019import cr\u00e9e une liste priv\u00e9e ; prix natifs et approbations restent obligatoires.",
+            "es": "Asocia socios con unidades y compradores. La importaci\u00f3n crea una lista privada; se mantienen precios y aprobaciones nativos."
+          }
+        },
+        {
+          "id": "partners",
+          "kind": "table",
+          "title": {
+            "en": "Partners",
+            "de": "Partner",
+            "fr": "Partenaires",
+            "es": "Socios"
+          },
+          "entity": "partners",
+          "readAction": "list_partners"
+        },
+        {
+          "id": "partners_editor",
+          "kind": "form",
+          "title": {
+            "en": "Partners",
+            "de": "Partner",
+            "fr": "Partenaires",
+            "es": "Socios"
+          },
+          "entity": "partners",
+          "readAction": "list_partners",
+          "writeAction": "save_partners"
+        },
+        {
+          "id": "messages",
+          "kind": "table",
+          "title": {
+            "en": "Imported documents",
+            "de": "Importierte Dokumente",
+            "fr": "Documents import\u00e9s",
+            "es": "Documentos importados"
+          },
+          "entity": "messages",
+          "readAction": "list_messages"
+        },
+        {
+          "id": "inputs",
+          "kind": "table",
+          "title": {
+            "en": "Import document",
+            "de": "Dokument importieren",
+            "fr": "Importer un document",
+            "es": "Importar documento"
+          },
+          "entity": "inputs",
+          "readAction": "list_inputs"
+        },
+        {
+          "id": "inputs_editor",
+          "kind": "form",
+          "title": {
+            "en": "Import document",
+            "de": "Dokument importieren",
+            "fr": "Importer un document",
+            "es": "Importar documento"
+          },
+          "entity": "inputs",
+          "readAction": "list_inputs",
+          "writeAction": "save_inputs"
+        },
+        {
+          "id": "validate_document",
+          "kind": "button",
+          "title": {
+            "en": "Check document",
+            "de": "Dokument pr\u00fcfen",
+            "fr": "V\u00e9rifier document",
+            "es": "Comprobar documento"
+          },
+          "handlers": {
+            "click": [
+              {
+                "op": "validate",
+                "target": "inputs_editor"
+              },
+              {
+                "op": "call",
+                "action": "validate_document",
+                "input": {
+                  "kind": "object",
+                  "fields": {
+                    "partnerId": {
+                      "kind": "value",
+                      "block": "inputs_editor",
+                      "field": "partner_id"
+                    },
+                    "format": {
+                      "kind": "value",
+                      "block": "inputs_editor",
+                      "field": "format"
+                    },
+                    "document": {
+                      "kind": "value",
+                      "block": "inputs_editor",
+                      "field": "document"
+                    }
+                  }
+                }
+              },
+              {
+                "op": "refresh",
+                "target": "messages"
+              }
+            ]
+          }
+        },
+        {
+          "id": "import_document",
+          "kind": "button",
+          "title": {
+            "en": "Import requisition",
+            "de": "Bestellliste importieren",
+            "fr": "Importer la liste",
+            "es": "Importar lista"
+          },
+          "handlers": {
+            "click": [
+              {
+                "op": "validate",
+                "target": "inputs_editor"
+              },
+              {
+                "op": "call",
+                "action": "import_document",
+                "input": {
+                  "kind": "object",
+                  "fields": {
+                    "partnerId": {
+                      "kind": "value",
+                      "block": "inputs_editor",
+                      "field": "partner_id"
+                    },
+                    "format": {
+                      "kind": "value",
+                      "block": "inputs_editor",
+                      "field": "format"
+                    },
+                    "document": {
+                      "kind": "value",
+                      "block": "inputs_editor",
+                      "field": "document"
+                    }
+                  }
+                }
+              },
+              {
+                "op": "refresh",
+                "target": "messages"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "surfaces": [
+    {
+      "id": "workspace",
+      "location": "admin.navigation",
+      "label": {
+        "en": "EDI workspace",
+        "de": "EDI-Arbeitsbereich",
+        "fr": "Espace EDI",
+        "es": "Espacio EDI"
+      },
+      "uiPath": "native/workspace",
+      "permission": "b2b.read",
+      "actions": [
+        "list_partners",
+        "save_partners",
+        "list_messages",
+        "save_messages",
+        "list_inputs",
+        "save_inputs",
+        "validate_document",
+        "import_document"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "name": "list_partners",
+      "description": "Read private partners",
+      "handler": "list",
+      "entity": "partners",
+      "public": false,
+      "readOnly": true,
+      "permission": "b2b.read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer"
+          },
+          "filter": {
+            "type": "object"
+          },
+          "after": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "save_partners",
+      "description": "Revise private partners",
+      "handler": "save",
+      "entity": "partners",
+      "public": false,
+      "permission": "b2b.manage",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "fields": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "revision",
+          "fields"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "list_messages",
+      "description": "Read private messages",
+      "handler": "list",
+      "entity": "messages",
+      "public": false,
+      "readOnly": true,
+      "permission": "b2b.read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer"
+          },
+          "filter": {
+            "type": "object"
+          },
+          "after": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "save_messages",
+      "description": "Revise private messages",
+      "handler": "save",
+      "entity": "messages",
+      "public": false,
+      "permission": "b2b.manage",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "fields": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "revision",
+          "fields"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "list_inputs",
+      "description": "Read private inputs",
+      "handler": "list",
+      "entity": "inputs",
+      "public": false,
+      "readOnly": true,
+      "permission": "b2b.read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer"
+          },
+          "filter": {
+            "type": "object"
+          },
+          "after": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "save_inputs",
+      "description": "Revise private inputs",
+      "handler": "save",
+      "entity": "inputs",
+      "public": false,
+      "permission": "b2b.manage",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "fields": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "revision",
+          "fields"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "validate_document",
+      "description": "Validate partner document",
+      "handler": "service",
+      "public": false,
+      "readOnly": true,
+      "permission": "b2b.read",
+      "mcp": true,
+      "flowAllowed": false,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "partnerId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "edifact",
+              "ubl",
+              "cxml"
+            ]
+          },
+          "document": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32000
+          }
+        },
+        "required": [
+          "partnerId",
+          "format",
+          "document"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "import_document",
+      "description": "Import partner order as a native requisition",
+      "handler": "service",
+      "public": false,
+      "readOnly": false,
+      "permission": "b2b.manage",
+      "mcp": true,
+      "flowAllowed": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "partnerId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "edifact",
+              "ubl",
+              "cxml"
+            ]
+          },
+          "document": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32000
+          }
+        },
+        "required": [
+          "partnerId",
+          "format",
+          "document"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "export_document",
+      "description": "Serialize a mapped native order or issued document",
+      "handler": "service",
+      "public": false,
+      "readOnly": true,
+      "permission": "b2b.manage",
+      "mcp": true,
+      "flowAllowed": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "partnerId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "edifact",
+              "ubl"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "order_response",
+              "delivery_note",
+              "invoice"
+            ]
+          },
+          "orderId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "receiptId": {
+            "type": "string",
+            "maxLength": 100
+          }
+        },
+        "required": [
+          "partnerId",
+          "format",
+          "kind",
+          "orderId"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "apiRoutes": [
+    {
+      "path": "validate_document",
+      "method": "POST",
+      "scope": "admin",
+      "action": "validate_document"
+    },
+    {
+      "path": "import_document",
+      "method": "POST",
+      "scope": "admin",
+      "action": "import_document"
+    },
+    {
+      "path": "export_document",
+      "method": "POST",
+      "scope": "admin",
+      "action": "export_document"
+    }
+  ],
+  "intelligence": {
+    "description": {
+      "en": "EDI workspace",
+      "de": "EDI-Arbeitsbereich",
+      "fr": "Espace EDI",
+      "es": "Espacio EDI"
+    },
+    "tools": [
+      "validate_document",
+      "import_document",
+      "export_document"
+    ],
+    "entities": []
+  },
+  "presentation": {
+    "description": {
+      "en": "EDIFACT, UBL and cXML requisitions through a separately deployed adapter. Partner network certification is separate.",
+      "de": "EDIFACT-, UBL- und cXML-Bestelllisten \u00fcber einen getrennten Adapter. Partner- und Netzfreigaben sind separat.",
+      "fr": "Listes EDIFACT, UBL et cXML via un adaptateur distinct. Certification r\u00e9seau s\u00e9par\u00e9e.",
+      "es": "Listas EDIFACT, UBL y cXML mediante un adaptador separado. Certificaci\u00f3n de red aparte."
+    }
+  }
+}

@@ -66,6 +66,7 @@ pub(crate) async fn transition_order(
                 {
                     return Err(conflict("Shipped orders require a return workflow"));
                 }
+                crate::b2b::release_budget(&mut tx, &t, &id).await?;
                 inventory::release(&mut tx, &t, &id).await?;
                 o["payment"]["state"] = json!("cancelled");
             }
