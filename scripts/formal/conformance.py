@@ -2,7 +2,7 @@
 including every Boolean input and finite numeric edge/random cases. Tests are
 bridge evidence; universal claims come from the kernel-checked theorems.
 """
-import itertools,json,random,subprocess
+import itertools,json,random,subprocess,tempfile
 from extract import MAX_U64
 
 def compare(root, functions):
@@ -18,7 +18,11 @@ def compare(root, functions):
     source=''.join(json.dumps(c,separators=(',',':'))+'\n' for c in cases)
     outputs=[]
     for command in [[str(root/'target/debug/verified_kernel')],[str(root/'proof/.lake/build/bin/conformance')]]:
-        run=subprocess.run(command,input=source,capture_output=True,text=True,check=True)
+        # Large bidirectional pipes can stall the native Lean reader on macOS.
+        # A seekable input keeps the exact case population and output comparison.
+        with tempfile.TemporaryFile(mode='w+t') as requests:
+            requests.write(source);requests.seek(0)
+            run=subprocess.run(command,stdin=requests,capture_output=True,text=True,check=True,timeout=120)
         outputs.append([json.loads(line)for line in run.stdout.splitlines()])
     if len(outputs[0])!=len(cases) or len(outputs[1])!=len(cases):raise ValueError('Conformance driver dropped cases')
     for case,rust,lean in zip(cases,*outputs):

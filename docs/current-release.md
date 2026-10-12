@@ -1,5 +1,7 @@
 # Current release — 9 October 2026
 
+**12 October workbench update:** editable app patterns, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. [How to use it, ownership and verification boundaries](connected-workbench.md).
+
 [Feature tour](features.md) · [Architecture](production-architecture.md) · [Complete documentation](documentation-site.md)
 
 The earlier connected intelligence and app release was merged in Core

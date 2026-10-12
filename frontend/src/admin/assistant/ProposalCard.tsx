@@ -1,6 +1,7 @@
 /** ProposalCard keeps merchant interaction separate from workspace orchestration. */
 import { useAppText } from "../../shared/i18n/app-i18n";
 import { useLocale } from "../../shared/i18n/i18n";
+import { useBuildingText } from "../../shared/i18n/app-building-i18n";
 import Icon from "../../shared/ui/Icon";
 import type { Message } from "../shell/studio-types";
 export default function ProposalCard({
@@ -16,13 +17,20 @@ export default function ProposalCard({
 }) {
   const { t, money } = useLocale();
   const { a } = useAppText();
+  const b = useBuildingText();
   const preview = message.data.preview;
   if (!preview) return null;
   const changes = preview.proposal.changes;
+  const translations = new URL(location.href);
+  translations.searchParams.set("studio", "commerce");
+  translations.searchParams.set("settings", "languages");
+  translations.searchParams.set("translationJob", message.data.taskId ?? "");
+  translations.hash = "merchant";
   if (
     !changes.length &&
     !preview.proposal.experience &&
-    !preview.proposal.app_action
+    !preview.proposal.app_action &&
+    !preview.proposal.translation
   )
     return null;
   return (
@@ -71,6 +79,19 @@ export default function ProposalCard({
           </div>
         );
       })}
+      {preview.proposal.translation && (
+        <div className="review-product">
+          <b>
+            {b("translationDrafts")} · {preview.proposal.translation}
+          </b>
+          <p>{b("translationBoundary")}</p>
+          {message.applied && (
+            <a className="studio-secondary" href={translations.href}>
+              {b("reviewTranslations")}
+            </a>
+          )}
+        </div>
+      )}
       {preview.proposal.app_action && (
         <div className="review-product">
           <b>{preview.proposal.app_action.app}</b>

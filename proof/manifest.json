@@ -1572,13 +1572,18 @@
     },
     "src/developer/generation.rs": {
       "status": "unproved",
-      "sha256": "900fb09bb33fe1c43704309d5789606c72daacb55e7e58d66dca9308b7ae9081",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "0d615c678395199dfe47e59d4cf373f9c496351507855cd6615bf2f91240dd42",
+      "review": "Reviewed generated app schema and retained storage/access/service contracts, explicit merchant translation enqueue transaction and replay guards, app-only inference output budget and personalization scope/explanation adapters. Verified relevant SQL/provider/frontend fixtures; adapter changes remain outside the extracted policy proof scope."
+    },
+    "src/developer/generation_contract.rs": {
+      "status": "unproved",
+      "sha256": "e454f9ead2cd71b7b1fe4162b90d4c2c76d3ea1095d639a22e8a43af55f8035f",
+      "review": "Reviewed app schema and retained access/service/nested handler contracts, explicit translation queue replay, inference output budget and personalization adapters. The conformance driver uses seekable input for the same population to avoid native pipe stalls; extracted policy and proof scope is unchanged."
     },
     "src/developer/mod.rs": {
       "status": "unproved",
-      "sha256": "7c36232f3ba837af06de327f5955dda16a4965e995770a2d7de9e68434633152",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "8e9c3fa0ea206827761ee24c14e49a5c9fbfae8c0bd56953a13ff1d7d72e852a",
+      "review": "Reviewed generated app schema and retained storage/access/service contracts, explicit merchant translation enqueue transaction and replay guards, app-only inference output budget and personalization scope/explanation adapters. Verified relevant SQL/provider/frontend fixtures; adapter changes remain outside the extracted policy proof scope."
     },
     "src/developer/preview.rs": {
       "status": "unproved",
@@ -1652,8 +1657,8 @@
     },
     "src/experience.rs": {
       "status": "unproved",
-      "sha256": "20513bbbaff405e5d1d34174402893c2f644f52ef9f5502def0741b420909a1d",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "0b95a7c5bac138cee64d2656ecff9a38bbf67b74fad1d8795c07eb303903d00e",
+      "review": "Reviewed generated app schema and retained storage/access/service contracts, explicit merchant translation enqueue transaction and replay guards, app-only inference output budget and personalization scope/explanation adapters. Verified relevant SQL/provider/frontend fixtures; adapter changes remain outside the extracted policy proof scope."
     },
     "src/extensions.rs": {
       "status": "unproved",
@@ -1722,8 +1727,8 @@
     },
     "src/inference.rs": {
       "status": "unproved",
-      "sha256": "237828f7b72007d08534e502d5b66fa2c218830102573f91257258327b461697",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "3dbaf742cf1306e3f85da9d03caab8a6f3b6d6b8b74e35f711bf9fae93601ee7",
+      "review": "Reviewed generated app schema and retained storage/access/service contracts, explicit merchant translation enqueue transaction and replay guards, app-only inference output budget and personalization scope/explanation adapters. Verified relevant SQL/provider/frontend fixtures; adapter changes remain outside the extracted policy proof scope."
     },
     "src/knowledge/embeddings.rs": {
       "status": "unproved",
@@ -2242,8 +2247,8 @@
     },
     "src/planner.rs": {
       "status": "unproved",
-      "sha256": "c257b07cbb4ea939c40e5ff3f570108b0dc6d47b893c6700902231a5b14bdeff",
-      "review": "Reviewed evidence.rs supplied-confidence rejection and planner.rs separation of permission-filtered 32 KiB review projection from the 4 KiB modelAppContext; existing source/revision/app authority retained. Native app_surfaces verifies actual provider bytes, bounded review data, out-of-page revision binding and permission denial; knowledge_workspace verifies invalid scores persist no claims; 184 Rust tests and Clippy pass. No wider proof or semantic entailment claimed."
+      "sha256": "ca73277597e90e213360689123c8ec52499054d4a72132e26fb420e09dde982e",
+      "review": "Reviewed generated app schema and retained storage/access/service contracts, explicit merchant translation enqueue transaction and replay guards, app-only inference output budget and personalization scope/explanation adapters. Verified relevant SQL/provider/frontend fixtures; adapter changes remain outside the extracted policy proof scope."
     },
     "src/platform/ai.rs": {
       "status": "reviewed-binding",
@@ -2307,13 +2312,13 @@
     },
     "src/proposal_apply.rs": {
       "status": "unproved",
-      "sha256": "cbb1de9e50835474931a1e76b0127fa037b49dc3443c97a0eef5ca226db9a2da",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "5b14a37306c1c98273bad60da02d382bbecfb3e5f18a1045e3dad9a135d09bcd",
+      "review": "Reviewed generated app schema and retained storage/access/service contracts, explicit merchant translation enqueue transaction and replay guards, app-only inference output budget and personalization scope/explanation adapters. Verified relevant SQL/provider/frontend fixtures; adapter changes remain outside the extracted policy proof scope."
     },
     "src/proposal_model.rs": {
       "status": "unproved",
-      "sha256": "d83db0ec730ad14a2cc9ff324ec4c18d6ffae152e26c6eded0360820e0e936de",
-      "review": "Initial extraction of 13 production policies; surrounding Rust explicitly unproved; existing HTTP regression suites retained"
+      "sha256": "113d39d565277b4ca70aa4429734b3b96986ee4a46efac8a2f3eddc79432ffb9",
+      "review": "Reviewed generated app schema and retained storage/access/service contracts, explicit merchant translation enqueue transaction and replay guards, app-only inference output budget and personalization scope/explanation adapters. Verified relevant SQL/provider/frontend fixtures; adapter changes remain outside the extracted policy proof scope."
     },
     "src/proposal_routes.rs": {
       "status": "unproved",
@@ -2472,13 +2477,13 @@
     },
     "src/translations/mod.rs": {
       "status": "unproved",
-      "sha256": "dd08c10bb367c753f60b7db2588ccff0753667f0e62514c0514322f25b8ecbdf",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "581e15143b58b9ecf8aa6622c1fcc84d0fe0eb6f461b535702314e75cc5814e7",
+      "review": "Reviewed generated app schema and retained storage/access/service contracts, explicit merchant translation enqueue transaction and replay guards, app-only inference output budget and personalization scope/explanation adapters. Verified relevant SQL/provider/frontend fixtures; adapter changes remain outside the extracted policy proof scope."
     },
     "src/translations/routes.rs": {
       "status": "unproved",
-      "sha256": "c4ba620287b710e5790d2af4e5399b19437cc7c677b3075372b3dc5df162a4af",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "273eb947bc81f3ed82fe610361d051f563ebc193d098aaae22d9ab87b046f245",
+      "review": "Reviewed generated app schema and retained storage/access/service contracts, explicit merchant translation enqueue transaction and replay guards, app-only inference output budget and personalization scope/explanation adapters. Verified relevant SQL/provider/frontend fixtures; adapter changes remain outside the extracted policy proof scope."
     },
     "src/translations/worker.rs": {
       "status": "unproved",
@@ -2524,8 +2529,8 @@
       "review": "Production image copies historical app manifests required by Rust include_str. Public build reproduced eight missing inputs; dependency closure and negative copy-removal control pass. No Rust, schema or policy changed."
     },
     "fixtures/app-studio-schema.json": {
-      "sha256": "0852887c0bc2a3dfb9099e95bdd523bb4fd3bb31919098de516858b79e5f5f9e",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "db7d42c88f523d6ba3278f75b52bb4dad87c6af91596a5b8be91bdb9b1ac4efe",
+      "review": "Reviewed generated app schema and retained storage/access/service contracts, explicit merchant translation enqueue transaction and replay guards, app-only inference output budget and personalization scope/explanation adapters. Verified relevant SQL/provider/frontend fixtures; adapter changes remain outside the extracted policy proof scope."
     },
     "fixtures/demo-catalog.json": {
       "sha256": "e5d5eea04a7693b3f92fa58be66ad36b7ad01d5920029c29f303693aa0032ba2",
@@ -2924,8 +2929,8 @@
       "review": "Reviewed policy integration and unchanged module inventory; added proof/CI integrity locks and tested terminal API regression"
     },
     "scripts/formal/conformance.py": {
-      "sha256": "a25fad54895e671fb4339563225baf2fafceffc841efd18bd99259f5f118e923",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "92cef78b38f9a20f3145316fdc27284681a74debd50942367eba9f270ba81826",
+      "review": "Reviewed app schema and retained access/service/nested handler contracts, explicit translation queue replay, inference output budget and personalization adapters. The conformance driver uses seekable input for the same population to avoid native pipe stalls; extracted policy and proof scope is unchanged."
     },
     "scripts/formal/extract.py": {
       "sha256": "0c699db4e15c044ca265d4f656466702994be891faddc1325ab9fb5a6073caab",

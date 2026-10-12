@@ -1,5 +1,7 @@
 # Visual App Studio
 
+**12 October workbench update:** editable app patterns, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. [How to use it, ownership and verification boundaries](connected-workbench.md).
+
 App Studio and coding agents edit one Manifest. The same renderer, action gateway,
 permissions and model schema power private previews and published apps. Open Studio
 → **Developers**; choose a guided app type or click an existing app's **Edit** card.

@@ -341,7 +341,17 @@
                         "text",
                         "table",
                         "cards",
-                        "form"
+                        "form",
+                        "button",
+                        "textbox",
+                        "combobox",
+                        "checkbox",
+                        "datepicker",
+                        "image",
+                        "frame",
+                        "tabs",
+                        "kpi",
+                        "chart"
                       ]
                     },
                     "title": {
@@ -493,6 +503,42 @@
                         "fr",
                         "es"
                       ],
+                      "additionalProperties": false
+                    },
+                    "dataField": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "inlineEdit": {
+                      "type": "boolean"
+                    },
+                    "childBlocks": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "maxItems": 32
+                    },
+                    "handlers": {
+                      "type": "object",
+                      "properties": {
+                        "click": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          },
+                          "maxItems": 32
+                        },
+                        "change": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          },
+                          "maxItems": 32
+                        }
+                      },
                       "additionalProperties": false
                     }
                   },

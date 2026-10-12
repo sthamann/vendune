@@ -109,6 +109,7 @@ export type Preview = {
   catalogBefore: Product[];
   proposal: {
     summary: string;
+    translation?: string | null;
     app_action?: { app: string; action: string; arguments_json: string } | null;
     changes: {
       product_id: string;

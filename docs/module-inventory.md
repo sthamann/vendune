@@ -238,6 +238,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/developer/builds.rs](../src/developer/builds.rs) | Immutable development versions are validated before storage; installation targets only private environments. |
 | [src/developer/drafts.rs](../src/developer/drafts.rs) | Actor-private, optimistic mutable autosaves; these never install or alter a published package. |
 | [src/developer/generation.rs](../src/developer/generation.rs) | Structured provider output becomes a reviewable immutable manifest; it cannot write files or call shell tools. |
+| [src/developer/generation_contract.rs](../src/developer/generation_contract.rs) | Generated revisions preserve existing storage and access boundaries; destructive changes require manual schema review. |
 | [src/developer/mod.rs](../src/developer/mod.rs) | Prompt-generated declarative apps and native coding-agent handoff, never unsandboxed model code. |
 | [src/developer/preview.rs](../src/developer/preview.rs) | F5 runs the shared native app runtime in an actor-private expiring staging clone; no build/version/release is created. |
 | [src/developer/routes.rs](../src/developer/routes.rs) | Developer HTTP transport and coding-agent task export; explicit staging precedes live release. |
@@ -537,6 +538,8 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/developer/AppModules.tsx](../frontend/src/admin/developer/AppModules.tsx) | Pure server modules edit the same WIT component contract consumed by quotes and checkout; no browser eval or live service code. |
 | [frontend/src/admin/developer/AppOntology.tsx](../frontend/src/admin/developer/AppOntology.tsx) | Optional graph mappings edit the canonical manifest; native authorized record lists own the projection. |
 | [frontend/src/admin/developer/AppPayments.tsx](../frontend/src/admin/developer/AppPayments.tsx) | Visual payment contracts use the same manifest as coding agents; onboarding uses the protected API. |
+| [frontend/src/admin/developer/AppProposalReview.tsx](../frontend/src/admin/developer/AppProposalReview.tsx) | AI generation is an explicit reviewed proposal, with conflict protection and no automatic canvas replacement. |
+| [frontend/src/admin/developer/AppRecipes.tsx](../frontend/src/admin/developer/AppRecipes.tsx) | Keyboard-accessible recipe entry points use the existing draft replacement and release controls. |
 | [frontend/src/admin/developer/AppSchemaMigrations.tsx](../frontend/src/admin/developer/AppSchemaMigrations.tsx) | Migration plans are explicit versioned agent-readable data, validated by the shared server compiler before any DDL. |
 | [frontend/src/admin/developer/AppStudioStatus.tsx](../frontend/src/admin/developer/AppStudioStatus.tsx) | Shared status footer keeps validation, persistence and execution feedback beside the designer. |
 | [frontend/src/admin/developer/AppVersions.tsx](../frontend/src/admin/developer/AppVersions.tsx) | Saved version inspection, digest-approved stage install and conflict-aware package-only live release. |
@@ -549,6 +552,8 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/developer/api/IntegrationKeys.tsx](../frontend/src/admin/developer/api/IntegrationKeys.tsx) | Personal, expiring, least-privilege integration keys; plaintext stays in component memory and is never reloaded. |
 | [frontend/src/admin/developer/api/api-i18n.ts](../frontend/src/admin/developer/api/api-i18n.ts) | Four-language developer API console vocabulary; no credentials are persisted in UI storage. |
 | [frontend/src/admin/developer/app-model.ts](../frontend/src/admin/developer/app-model.ts) | Pure schema edits preserve unsupported extension properties; compilation binds native UI to real actions. |
+| [frontend/src/admin/developer/app-proposal.ts](../frontend/src/admin/developer/app-proposal.ts) | Bounded semantic review summaries compare the exact current and proposed manifests. |
+| [frontend/src/admin/developer/app-recipes.ts](../frontend/src/admin/developer/app-recipes.ts) | Working domain patterns compile into the existing visual/coding Manifest and gateway. |
 | [frontend/src/admin/developer/app-validation.ts](../frontend/src/admin/developer/app-validation.ts) | Draft validation surfaces bounded manifest errors; authoritative installation remains in Rust. |
 | [frontend/src/admin/developer/asset-actions.ts](../frontend/src/admin/developer/asset-actions.ts) | Native asset editors use the existing asset owner; generated actions remain explicit capabilities in the package. |
 | [frontend/src/admin/developer/assistant-model.ts](../frontend/src/admin/developer/assistant-model.ts) | Assistants compile to the public manifest contract, with no hidden runtime or provider code. |
@@ -627,6 +632,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/api-console.css](../frontend/src/admin/styles/api-console.css) | Responsive developer key management and bounded API explorer using Studio theme tokens. |
 | [frontend/src/admin/styles/app-artwork.css](../frontend/src/admin/styles/app-artwork.css) | Category cover and app icon artwork, with local deterministic fallbacks. |
 | [frontend/src/admin/styles/app-assistant.css](../frontend/src/admin/styles/app-assistant.css) | Guided extension workspace: restrained colour, clear choices and responsive setup. |
+| [frontend/src/admin/styles/app-building.css](../frontend/src/admin/styles/app-building.css) | Modern recipe cards and structural AI review reuse Studio colors and responsive interaction rules. |
 | [frontend/src/admin/styles/app-catalog.css](../frontend/src/admin/styles/app-catalog.css) | App library/detail presentation: bounded cards, passive artwork, accessible filters and theme-aware forms. |
 | [frontend/src/admin/styles/app-detail.css](../frontend/src/admin/styles/app-detail.css) | Scoped app detail hierarchy, permission disclosure, data and integration forms. |
 | [frontend/src/admin/styles/app-library.css](../frontend/src/admin/styles/app-library.css) | App callback consent follows the same card and field rhythm as app configuration. |
@@ -742,6 +748,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/account-i18n.ts](../frontend/src/shared/i18n/account-i18n.ts) | Customer account vocabulary: one complete EN/DE/FR/ES contract for authentication and purchase care. |
 | [frontend/src/shared/i18n/app-access-i18n.ts](../frontend/src/shared/i18n/app-access-i18n.ts) | Explicit app callback consent and short-lived key management vocabulary. |
 | [frontend/src/shared/i18n/app-assistant-i18n.ts](../frontend/src/shared/i18n/app-assistant-i18n.ts) | App assistants and extension permissions use the same EN/DE/FR/ES vocabulary. |
+| [frontend/src/shared/i18n/app-building-i18n.ts](../frontend/src/shared/i18n/app-building-i18n.ts) | Shared translated app recipes and reviewed AI changes; no alternate app schema. |
 | [frontend/src/shared/i18n/app-events-i18n.ts](../frontend/src/shared/i18n/app-events-i18n.ts) | Subscription/filter/delivery vocabulary shared by Studio and coding agents. |
 | [frontend/src/shared/i18n/app-i18n.ts](../frontend/src/shared/i18n/app-i18n.ts) | App and evidence UI vocabulary, shared by store, merchant and payment components. |
 | [frontend/src/shared/i18n/app-library-i18n.ts](../frontend/src/shared/i18n/app-library-i18n.ts) | App library vocabulary and built-in summaries; no inferred connection or payment readiness. |
@@ -918,6 +925,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/app_distribution.py](../scripts/app_distribution.py) | Real signed publisher packages exercise canonical CLI signing, consent, dependency update/deactivation and tenant containment. |
 | [scripts/app_events.py](../scripts/app_events.py) | Actual leased delivery: slow-service isolation, bounded batches, minimization, filter/replay and stale lease fencing. |
 | [scripts/app_export.py](../scripts/app_export.py) | Actual independent export app receives leased events, reads scoped products, uploads a private artifact and completes durable jobs. |
+| [scripts/app_generation.py](../scripts/app_generation.py) | Native AI proposal contract with local model HTTP, real Rust/SQL and no paid model calls. |
 | [scripts/app_inference.py](../scripts/app_inference.py) | Opt-in real local model proposes a registered app operation; approval exercises the same managed writer. |
 | [scripts/app_jobs.py](../scripts/app_jobs.py) | Real long-action identity/idempotency/lease/CAS/tenant/quota checks, without external or paid effects. |
 | [scripts/app_ontology.py](../scripts/app_ontology.py) | Real native graph mapping contract through two-tenant API, MCP, permissions, references and revisions. |

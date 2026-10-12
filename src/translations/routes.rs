@@ -7,19 +7,46 @@ pub(crate) async fn create(
 ) -> Result<Json<Value>> {
     auth::permit(&h, "catalog")?;
     let t = merchant(&a, &h)?;
-    let (s, _) = commerce::config(&a, &t).await?;
-    let target = v["targetLocale"]
-        .as_str()
-        .ok_or(bad("Target language required"))?;
-    if !s.locales.iter().any(|l| l == target) || target == s.main_locale {
-        return Err(bad("Select an enabled translation target"));
-    }
+    let (settings, _) = commerce::config(&a, &t).await?;
     let choice: Choice = serde_json::from_value(
         v.get("inference")
             .cloned()
             .unwrap_or(json!({"provider":"ollama","model":null})),
     )
     .map_err(|_| bad("Invalid translation provider"))?;
+    let mut tx = a.db.begin().await?;
+    let id = Uuid::new_v4().to_string();
+    enqueue(
+        &a,
+        &mut tx,
+        &t,
+        &id,
+        &settings,
+        (
+            v["targetLocale"]
+                .as_str()
+                .ok_or(bad("Target language required"))?,
+            &choice,
+            v["overwrite"].as_bool().unwrap_or(false),
+        ),
+    )
+    .await?;
+    tx.commit().await?;
+    Ok(Json(json!({"id":id,"status":"queued"})))
+}
+/// Both explicit settings commands and approved merchant tasks enqueue the same durable draft owner.
+pub(crate) async fn enqueue(
+    a: &App,
+    tx: &mut sqlx::Transaction<'_, sqlx::Postgres>,
+    t: &str,
+    id: &str,
+    s: &commerce::Settings,
+    request: (&str, &Choice, bool),
+) -> Result<()> {
+    let (target, choice, overwrite) = request;
+    if !s.locales.iter().any(|l| l == target) || target == s.main_locale {
+        return Err(bad("Select an enabled translation target"));
+    }
     if !a.inference.providers()["providers"]
         .as_array()
         .unwrap()
@@ -31,13 +58,13 @@ pub(crate) async fn create(
     let row = sqlx::query(
         "SELECT count(*) AS total,coalesce(max(id),'') AS highwater FROM products WHERE tenant=$1",
     )
-    .bind(&t)
-    .fetch_one(&a.db)
+    .bind(t)
+    .fetch_one(&mut **tx)
     .await?;
-    let id = Uuid::new_v4().to_string();
-    sqlx::query("INSERT INTO translation_jobs(tenant,id,source_locale,target_locale,choice,overwrite,total,highwater) VALUES($1,$2,$3,$4,$5,$6,$7,$8)").bind(&t).bind(&id).bind(&s.main_locale).bind(target).bind(json!(choice)).bind(v["overwrite"].as_bool().unwrap_or(false)).bind(row.get::<i64,_>("total")).bind(row.get::<String,_>("highwater")).execute(&a.db).await?;
-    Ok(Json(json!({"id":id,"status":"queued"})))
+    sqlx::query("INSERT INTO translation_jobs(tenant,id,source_locale,target_locale,choice,overwrite,total,highwater) VALUES($1,$2,$3,$4,$5,$6,$7,$8)").bind(t).bind(id).bind(&s.main_locale).bind(target).bind(json!(choice)).bind(overwrite).bind(row.get::<i64,_>("total")).bind(row.get::<String,_>("highwater")).execute(&mut **tx).await?;
+    Ok(())
 }
+
 pub(crate) async fn list(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {
     auth::permit(&h, "catalog.read")?;
     let t = merchant(&a, &h)?;
