@@ -137,7 +137,11 @@ export default function ChannelEditor({
             </button>
             <button
               className={connections ? "studio-primary" : "studio-secondary"}
-              disabled={dirty || busy}
+              disabled={
+                dirty ||
+                busy ||
+                ["pos", "marketplace"].includes(draft.data.kind)
+              }
               onClick={() => {
                 setScope(false);
                 setConnections(true);

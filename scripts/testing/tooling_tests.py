@@ -50,7 +50,10 @@ class CoverageGates(unittest.TestCase):
             python_source.parent.mkdir()
             python_source.write_text('fixture = 1')
             scores = {key: {'pct': 100} for key in ('lines', 'branches', 'functions', 'statements')}
-            frontend = {'total': scores, str(source): scores}
+            app_source = root / 'extensions/apps/example/studio/View.tsx'
+            app_source.parent.mkdir(parents=True)
+            app_source.write_text('export const View = () => null;')
+            frontend = {'total': scores, str(source): scores, str(app_source): scores}
             rust = {'data': [{'totals': {key: {'percent': 100} for key in ('lines', 'functions', 'regions')}, 'files': []}]}
             python = {'totals': {'covered_lines': 1, 'num_statements': 1, 'covered_branches': 1, 'num_branches': 1},
                       'files': {'scripts/fixture.py': {'summary': {'covered_lines': 1}}}}
@@ -62,6 +65,13 @@ class CoverageGates(unittest.TestCase):
             metrics, modules, missing = read_reports(root)
             self.assertEqual(metrics['frontend']['lines'], 100)
             self.assertIn('frontend/src/shared/api/fixture.ts', modules)
+            self.assertIn('extensions/apps/example/studio/View.tsx', modules)
+            omitted_app = dict(frontend)
+            del omitted_app[str(app_source)]
+            (root / 'frontend/coverage/coverage-summary.json').write_text(json.dumps(omitted_app))
+            with self.assertRaisesRegex(ValueError, 'extensions/apps/example/studio/View.tsx'):
+                read_reports(root)
+            (root / 'frontend/coverage/coverage-summary.json').write_text(json.dumps(frontend))
             self.assertEqual(missing['frontend'], [])
             (source.parent / 'untested.ts').write_text('export const untested = 2;')
             with self.assertRaisesRegex(ValueError, 'untested.ts'):

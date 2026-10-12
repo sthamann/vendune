@@ -178,6 +178,7 @@ export function compile(input: Manifest): Manifest {
           readOnly: true,
           mcp: read?.mcp,
           permission: e.publicRead ? undefined : read?.permission,
+          requiredPermissions: read?.requiredPermissions,
           inputSchema: {
             type: "object",
             properties: {
@@ -196,6 +197,7 @@ export function compile(input: Manifest): Manifest {
           public: false,
           flowAllowed: old?.flowAllowed ?? true,
           permission: old?.permission,
+          requiredPermissions: old?.requiredPermissions,
           mcp: old?.mcp,
           inputSchema: {
             type: "object",

@@ -26,10 +26,20 @@ The 6 October screenshots and GIFs show the real local application with syntheti
 | Intelligence | Reviewed proposals, private/published knowledge, retrieval, recommendations, translations and image drafts | [Intelligence](#assistant-and-shop-intelligence) |
 | Processes | Saved rules, coupons, campaigns, graphical branches, durable delays and app actions | [Rules and flows](#rules-campaigns-and-flow-builder) |
 | Experiences | Sales channels, inherited settings, Storyfront checkout transfer and hosted private frontends | [Channels](#sales-channels-and-connected-experiences) |
-| Extensions | Eight bundled apps, visual App Studio, typed data, SDK surfaces, services, webhooks, schedules and Wasm | [Apps](#apps-and-app-studio) |
+| Extensions | Bundled apps, visual App Studio, typed data, SDK surfaces, services, webhooks, schedules and Wasm | [Apps](#apps-and-app-studio) |
 | Control | Team rights, scoped API keys, private stages, selected releases, shop administration and diagnostics | [Workspace](#workspace-access-and-releases) · [Platform](#vendune-platform) |
 | European operation | Consent gates, channel legal documents, sector facts, guarded checkout and durable consumer requests | [European operation](european-operation.md) |
 | Foundation | Shared HTTP/MCP/UCP operations, transactional storage, independent workers and bounded verification | [Core](#shared-apis-storage-and-verification) |
+
+## Marketplace channels
+
+Marketplace Studio supports Amazon, eBay and Kaufland through an independent Rust app.
+It adds seller connections, per-channel translated offer/media/field/price overrides,
+automatic standard mapping previews, native leased synchronization jobs and a private
+review inbox. Verified paid source snapshots become native customer/orders/stock and
+shared invoices; seller credentials stay server-side. Live seller onboarding, category
+schema automation, stock propagation and fulfillment/refund write-back remain explicit
+limits. [Walkthrough, provider contracts, ownership and tests](marketplaces.md).
 
 ## Storefront and shopping
 

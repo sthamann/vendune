@@ -70,7 +70,6 @@ pub fn receipt_admissible(
 pub fn rule_authenticated(customer_present: bool, required: bool) -> bool {
     customer_present == required
 }
-
 /// Explicit supported comparison operators select equality, inequality or emptiness.
 pub fn rule_boolean_comparison(
     equal: bool,
@@ -81,22 +80,18 @@ pub fn rule_boolean_comparison(
 ) -> bool {
     eq && equal || neq && !equal || is_empty && empty
 }
-
 /// Only an explicitly eligible private mutation action may be bound to a durable flow.
 pub fn app_flow_admissible(allowed: bool, read_only: bool, is_public: bool) -> bool {
     allowed && !read_only && !is_public
 }
-
 /// Global administration requires a personal session and a current independent operator grant.
 pub fn platform_admissible(personal: bool, granted: bool, active: bool) -> bool {
     personal && granted && active
 }
-
 /// GET app routes require declared read-only behavior and exclude managed mutations.
 pub fn app_read_admissible(read_only: bool, mutating: bool) -> bool {
     read_only && !mutating
 }
-
 /// Exclusive OR admits precisely one matching child.
 pub fn rule_xor_count(hits: u64) -> bool {
     hits == 1
@@ -105,7 +100,6 @@ pub fn rule_xor_count(hits: u64) -> bool {
 pub fn flow_delay_admissible(seconds: u64) -> bool {
     seconds <= 2592000
 }
-
 /// Destination tax rules require every configured jurisdiction and validity condition.
 pub fn destination_tax_admissible(
     condition: bool,
@@ -116,12 +110,10 @@ pub fn destination_tax_admissible(
 ) -> bool {
     condition && country && state && postal && date
 }
-
 /// Net presentation requires a currently configured group with an explicit business basis.
 pub fn customer_group_net(configured: bool, business: bool) -> bool {
     configured && business
 }
-
 /// An explicitly disabled agent action cannot be exposed or invoked, even to an authorized actor.
 pub fn app_tool_admissible(enabled: bool, authorized: bool) -> bool {
     enabled && authorized
@@ -130,7 +122,6 @@ pub fn app_tool_admissible(enabled: bool, authorized: bool) -> bool {
 pub fn app_core_reference_admissible(product: bool, private_data: bool) -> bool {
     product || private_data
 }
-
 pub fn checkout_review_admissible(
     revision_matches: bool,
     expected_total: u64,
@@ -148,7 +139,6 @@ pub fn shop_request_admissible(
 ) -> bool {
     settlement || active || paused && read_only
 }
-
 /// Uncaptured stock can be restored; an authorization requires provider-confirmed void evidence.
 pub fn reservation_release_admissible(
     uncaptured: bool,
@@ -157,17 +147,14 @@ pub fn reservation_release_admissible(
 ) -> bool {
     uncaptured || authorized && void_confirmed
 }
-
 /// A quoted currency must be enabled, configured and have an admissible rate.
 pub fn currency_context_admissible(enabled: bool, configured: bool, fresh: bool) -> bool {
     enabled && configured && fresh
 }
-
 // Supported explicit currency precision; larger scales must not overflow the decimal factor.
 pub fn currency_scale_admissible(scale: u64) -> bool {
     scale <= 6
 }
-
 // Explicit ledger state codes are mapped by payments/state.rs; no backward monetary transitions.
 pub fn payment_transition_admissible(current: u64, next: u64) -> bool {
     current <= 9
@@ -181,7 +168,6 @@ pub fn payment_transition_admissible(current: u64, next: u64) -> bool {
 pub fn resource_quota_admissible(limit: u64) -> bool {
     limit > 0 && limit <= 1000000
 }
-
 /// Optional processing requires an enabled purpose and a fresh affirmative receipt for this policy.
 pub fn consent_admissible(enabled: bool, current: bool, fresh: bool, chosen: bool) -> bool {
     enabled && current && fresh && chosen
@@ -196,12 +182,10 @@ pub fn legal_checkout_admissible(
 ) -> bool {
     !strict || current && accepted && (!digital || immediate)
 }
-
 /// A notification may be retried only after an explicit rate-limit rejection and before attempt eight.
 pub fn notification_retry_admissible(rate_limited: bool, attempts: u64) -> bool {
     rate_limited && attempts < 8
 }
-
 /// Private HTTP requires an exact operator-approved origin; unsafe URL parts are always denied.
 pub fn app_service_transport_admissible(
     clean_url: bool,
@@ -212,7 +196,6 @@ pub fn app_service_transport_admissible(
 ) -> bool {
     clean_url && (https || http && (loopback || private_origin))
 }
-
 /// Preview grants admit only simulations; public requests require an active channel and private requests a current merchant.
 pub fn channel_access_admissible(
     active: bool,
@@ -223,12 +206,10 @@ pub fn channel_access_admissible(
 ) -> bool {
     active && (!is_private || merchant) || preview && !mutating
 }
-
 /// Only native public assets may skip identity; every hosted alias retains tenant/channel admission.
 pub fn native_asset_bypass(native_asset: bool, hosted: bool) -> bool {
     native_asset && !hosted
 }
-
 /// A package may use operator credentials only if its exact content is pinned or bundled.
 pub fn app_package_authorized(pinned: bool, bundled: bool) -> bool {
     pinned || bundled
@@ -237,17 +218,14 @@ pub fn app_package_authorized(pinned: bool, bundled: bool) -> bool {
 pub fn wasm_resources_admissible(tables: u64, memories: u64, elements: u64, pages: u64) -> bool {
     tables <= 1 && memories <= 1 && elements <= 10000 && pages <= 16
 }
-
 /// UI grants cannot outlive their immutable package or expand their server-selected action set.
 pub fn app_surface_admissible(current_package: bool, allowed_action: bool) -> bool {
     current_package && allowed_action
 }
-
 /// Original app consent and the creator's current core role must both permit a callback.
 pub fn app_callback_admissible(capability: bool, current_role: bool) -> bool {
     capability && current_role
 }
-
 /// Price admission proves only the explicit corridor and supplied domain guards; no model truth claim.
 pub fn ai_price_admissible(
     price: u64,
@@ -280,7 +258,6 @@ pub fn claim_render_admissible(
 ) -> bool {
     confirmed && public_source && current_source && valid_time && exact_text
 }
-
 /// An experiment may claim uplift only at the admissible final look, with enough units and a positive lower bound.
 pub fn experiment_result_admissible(
     final_look: bool,
@@ -289,12 +266,10 @@ pub fn experiment_result_admissible(
 ) -> bool {
     final_look && enough_units && positive_bound
 }
-
 /// Cash change is bounded and nonnegative only under cashier authorization and a reviewed total.
 pub fn pos_cash_admissible(authorized: bool, tender: u64, total: u64, reviewed: bool) -> bool {
     authorized && reviewed && total <= tender && tender <= 1000000000000
 }
-
 /// Spending cannot exceed a currency-bound unit budget, including existing allocations.
 pub fn b2b_budget_admissible(limit: u64, spent: u64, requested: u64) -> bool {
     spent <= limit && requested <= limit.saturating_sub(spent)
@@ -308,7 +283,6 @@ pub fn b2b_approval_admissible(
 ) -> bool {
     different && authorized && pending && current
 }
-
 pub fn pos_discount_admissible(
     actor: bool,
     currency: bool,
@@ -317,4 +291,13 @@ pub fn pos_discount_admissible(
     goods: u64,
 ) -> bool {
     actor && currency && reason && minor <= goods
+}
+
+/// Source amounts are bounded; a zero rate cannot carry nonzero tax. No tax-law inference.
+pub fn external_amount_admissible(gross: u64, tax: u64, rate: u64) -> bool {
+    gross <= 1000000000000 && tax <= gross && rate <= 100000 && (rate != 0 || tax == 0)
+}
+/// Paid imports require a positive, exactly reconciled source total.
+pub fn external_paid_total_admissible(paid: bool, calculated: u64, declared: u64) -> bool {
+    paid && calculated > 0 && calculated == declared
 }

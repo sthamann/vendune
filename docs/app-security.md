@@ -156,3 +156,15 @@ forced-RLS receipt tables. It reuses current scoped Core order callbacks and the
 shared event signature wire contract. Its own durable receipt joins manual and
 event entry points and preserves uncertain outcomes through restart. See the
 [app-owned implementation and deployment boundary](../extensions/apps/erp-handoff/README.md).
+
+## Additional action rights
+
+`Action.requiredPermissions` contains up to eight known team scopes which must
+**all** be granted in addition to `permission`. Public actions cannot declare
+private additional rights. HTTP/native UI calls, MCP discovery/invocation, AI
+plans and job enqueue/claim/progress/retry use the same current actor check.
+App Studio visual recompilation and AI edits preserve these requirements.
+Service callback credentials retain their own independent scope and consent
+checks; a powerful service key never grants the calling user additional rights.
+For example, marketplace order import requires `orders.write`, `payments.manage`
+and `customers.pii`; `orders.write` alone cannot import a paid customer snapshot.

@@ -37,6 +37,12 @@ pub(crate) async fn channel(
                 "Sales channel unavailable".into(),
             ))?;
     let mut c: Channel = serde_json::from_value(data).map_err(|_| bad("Invalid channel"))?;
+    if c.kind == "marketplace" {
+        return Err(Error(
+            StatusCode::FORBIDDEN,
+            "Marketplace channels require connector access".into(),
+        ));
+    }
     if c.kind == "pos" && h.pos.is_none() {
         return Err(Error(
             StatusCode::FORBIDDEN,

@@ -5,7 +5,7 @@ export type Channel = {
   revision: number;
   data: {
     name: Record<string, string>;
-    kind: "storefront" | "headless" | "pos";
+    kind: "storefront" | "headless" | "pos" | "marketplace";
     pos?: {
       country: string;
       columns: number;

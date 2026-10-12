@@ -419,4 +419,19 @@ theorem pos_discount_exceeds_denied (actor currency reason : Bool) (minor goods 
     (h : goods < minor) : pos_discount_admissible actor currency reason minor goods = false := by
   simp [pos_discount_admissible, Nat.not_le_of_gt h]
 
+/-- Exact admission of bounded source money. It does not validate a jurisdiction's tax law. -/
+theorem external_amount_exact (gross tax rate : Nat) :
+    external_amount_admissible gross tax rate = true ↔
+    gross ≤ 1000000000000 ∧ tax ≤ gross ∧ rate ≤ 100000 ∧ (rate ≠ 0 ∨ tax = 0) := by
+  simp [external_amount_admissible, and_assoc]
+theorem external_amount_tax_bounded (gross tax rate : Nat)
+    (h : external_amount_admissible gross tax rate = true) : tax ≤ gross := by
+  exact ((external_amount_exact gross tax rate).mp h).2.1
+theorem external_paid_total_exact (paid : Bool) (calculated declared : Nat) :
+    external_paid_total_admissible paid calculated declared = true ↔
+    paid = true ∧ 0 < calculated ∧ calculated = declared := by
+  cases paid <;> simp [external_paid_total_admissible, and_assoc]
+theorem external_unpaid_denied (calculated declared : Nat) :
+    external_paid_total_admissible false calculated declared = false := by
+  simp [external_paid_total_admissible]
 end CommerceKernel

@@ -1,14 +1,14 @@
 # Lean-checked commerce contracts
 
-The current source runs Lean 4.29.1 proofs for **45 policies used in production
-Rust paths**, with **97 named properties**. This is **not a certificate that the
-entire commerce core is correct or bug-free**. The cognitive-commerce review
-contains 414 Rust modules: one extracted policy module, 43 reviewed binding modules,
-one comparison driver and 369 unproved modules. Binding review is not a proof of
-those modules. The [manifest](../proof/manifest.json) and per-revision CI artifact
-are the authoritative inventory. Local compiled conformance compares **142,298
-cases without mismatches**; the current required negative mutation suite must also
-pass before landing.
+The current source declares **51 extracted policies used in production Rust paths**
+and **110 named properties**. This is **not a certificate that the entire commerce
+core is correct or bug-free**. The review inventory contains 486 Rust modules: one
+extracted policy module, 50 reviewed binding modules, one comparison driver and
+434 unproved modules. Binding review is not a proof of those modules. The
+[manifest](../proof/manifest.json) and per-revision CI artifact are authoritative.
+The local marketplace revision compares **155,347 compiled Rust/Lean cases without
+mismatches**. Local verification is distinct from the historical published report
+below; the complete required CI and mutation suite must pass before landing.
 
 The [published verification report](formal-verification.json) is copied from the
 completed [merged-Core CI run 37868239729](https://github.com/sthamann/vendune/actions/runs/37868239729),
@@ -51,7 +51,7 @@ they do not prove the translator correct for every program.
 | Production policy | Lean guarantee | Actual consumer |
 |---|---|---|
 | `discount_cap` | Discount is bounded by both requested amount and goods total; remainder plus discount conserves the total | `src/discount.rs` |
-| `stock_admissible` | Admitted quantities are positive, within stock and conserve stock under subtraction | `src/order_checkout.rs` |
+| `stock_admissible` | Admitted quantities are positive, within stock and conserve stock under subtraction | `src/order_checkout.rs`, `src/commerce/external_orders.rs` |
 | `refund_admissible` | Prior/reserved plus requested refund cannot exceed captured amount; zero refunds fail | `src/payments/operations.rs` |
 | `revision_admissible` | Admission requires an exact positive revision | `src/commerce/fulfillment.rs` |
 | `replay_admissible` | A replay belongs to the same cart; an open cart requires the same fingerprint | `src/order_checkout.rs` |
@@ -77,6 +77,14 @@ they do not prove the translator correct for every program.
 | `app_core_reference_admissible` | Product references may be public; customer/order references require private data | `src/apps/editor_contract.rs` |
 
 | `shop_request_admissible` | Active shops admit requests; paused shops require an admitted read; archived shops deny ordinary operations while settlement callbacks remain available | `src/platform/lifecycle.rs` |
+
+| `external_amount_admissible` | Gross and tax are bounded, tax cannot exceed gross, rates are bounded and zero rate cannot carry nonzero tax | `src/commerce/external_order_input.rs` |
+| `external_paid_total_admissible` | A source order is paid with a positive, exactly reconciled total | `src/commerce/external_order_input.rs` |
+
+These last two properties constrain source snapshots. They do not verify tax law
+or authenticate a marketplace's payment assertion. The import adapter rejects
+negative signed amounts before calling the guards; checked addition and provider
+review remain tested boundaries. See [marketplace integration](marketplaces.md).
 
 Every policy also has an exact acceptance theorem. This proves that valid
 inputs are accepted as well as unsafe inputs rejected; replacing a policy with
@@ -116,10 +124,10 @@ The existing **Verify prototype / verify** job now also:
 4. Audits all required theorems' transitive axioms. Only Lean's standard
    `propext`, `Quot.sound` and `Classical.choice` foundations are allowed. `sorry`,
    `admit`, custom axioms, `native_decide` and missing theorem audits fail.
-5. Executes compiled Rust and Lean functions on **6,227** identical inputs:
+5. Executes compiled Rust and Lean functions on the per-revision population of identical inputs:
    exhaustive Boolean assignments plus numeric boundaries/random cases, including
    `u64::MAX`. Their output types and values must match.
-6. Requires Lean to reject **98** deliberately broken policy variants. Also
+6. Requires Lean to reject the registered deliberately broken policy variants. Also
    rejects 14 unsupported grammar examples, three stale/unclassified/disconnected
    inventory cases and nine proof-shortcut/axiom/missing-audit examples.
 7. Runs existing Rust, PHP-reference and real PostgreSQL HTTP regressions.

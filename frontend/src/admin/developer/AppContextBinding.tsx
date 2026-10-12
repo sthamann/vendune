@@ -23,14 +23,17 @@ export default function AppContextBinding({
           onChange({
             ...block,
             contextBinding: f?.coreReference
-              ? { field: f.name, key: contextKeys[f.coreReference] }
+              ? {
+                  field: f.name,
+                  key: contextKeys[f.coreReference as keyof typeof contextKeys],
+                }
               : null,
           });
         }}
       >
         <option value="">{t("none")}</option>
         {entity?.fields
-          .filter((f) => f.coreReference)
+          .filter((f) => f.coreReference && f.coreReference !== "salesChannel")
           .map((f) => (
             <option key={f.name} value={f.name}>
               {f.name} · {f.coreReference}

@@ -5,6 +5,13 @@ from registry import check
 from axioms import source_check,dependency_check
 
 MUTANTS=[
+ ("external_amount_admissible", "gross <= 1000000000000", "true"),
+ ("external_amount_admissible", "tax <= gross", "true"),
+ ("external_amount_admissible", "rate <= 100000", "true"),
+ ("external_amount_admissible", "rate != 0 || tax == 0", "true"),
+ ("external_paid_total_admissible", "paid &&", "true &&"),
+ ("external_paid_total_admissible", "calculated > 0", "true"),
+ ("external_paid_total_admissible", "calculated == declared", "true"),
  ("b2b_budget_admissible","spent <= limit","true"),
  ("b2b_budget_admissible","requested <= limit.saturating_sub(spent)","true"),
  ("b2b_approval_admissible","different &&","true &&"),

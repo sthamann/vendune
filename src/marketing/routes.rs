@@ -160,7 +160,7 @@ pub(crate) async fn save(
                 ));
             }
             if !["public", "private"].contains(&c.visibility.as_str())
-                || !["storefront", "headless", "pos"].contains(&c.kind.as_str())
+                || !["storefront", "headless", "pos", "marketplace"].contains(&c.kind.as_str())
                 || c.locales.is_empty()
                 || c.locales.iter().any(|v| !settings.locales.contains(v))
                 || c.product_ids.len() > 500
@@ -210,9 +210,12 @@ pub(crate) async fn save(
         .bind(&id)
         .fetch_optional(&mut *tx)
         .await?;
-        if old.is_some_and(|v| (v == "pos") != (data["kind"] == "pos")) {
+        if old.is_some_and(|v| {
+            (v == "pos") != (data["kind"] == "pos")
+                || (v == "marketplace") != (data["kind"] == "marketplace")
+        }) {
             return Err(conflict(
-                "POS channel type cannot be changed; create a new channel",
+                "Operational channel type cannot be changed; create a new channel",
             ));
         }
     }

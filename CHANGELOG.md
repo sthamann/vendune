@@ -1,5 +1,14 @@
 # Changelog
 
+## Marketplace channels and independent Rust app — 12 October 2026
+
+- Add a private integration channel type, native tenant-scoped product/channel projections and authorized paid-order intake. Reuse exact minor currency amounts, native guest customer snapshots, stock allocation, order history, outbox and invoice/PDF owners.
+- Add app-owned Amazon Listings Items/current Orders 2026 API, eBay inventory/offer reconciliation and Kaufland signed product/unit/order-detail adapters. Preserve stable SKU identities and paginated retrieval.
+- Add multilingual connection, offer, mapping-preview and structured source-order review UI. Per-offer translated contents, media, prices, category policies and explicit data-only attributes inherit from one native catalogue.
+- Reuse current-consent app callbacks and native leased jobs; add bounded external responses, heartbeat, CAS transmission uncertainty fences, actor rights and no blind listing retries.
+- Add a non-root Rust-only service image, operator setup, native App Studio sales-channel references, API/MCP/Flow action contracts and registered local-provider/PostgreSQL/UI regressions.
+- This is not live seller certification, automatic full-catalogue stock propagation or complete marketplace accounting/fulfillment/refund synchronization; prerequisites and remaining scope are explicit in the marketplace guide.
+
 ## Focused cashier workspace — 12 October 2026
 
 - Add dedicated register/fullscreen controls, bounded product/customer search, customer-number card scanning, visible addition feedback and native customer-price rendering.

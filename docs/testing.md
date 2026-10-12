@@ -122,7 +122,7 @@ Frontend coverage includes **every** `frontend/src/**/*.ts` and
 `frontend/src/**/*.tsx`, plus TypeScript/React modules owned by
 `extensions/apps/**`, including modules never imported by a test.
 HTML, JSON, LCOV and summaries go to
-`frontend/coverage/`. Styles and independent guest app bundles are outside that
+`frontend/coverage/`. App source globs resolve to absolute package paths and V8 external-file collection is enabled; the report rejects omitted app modules as well as omitted host modules. Styles and independent guest app bundles are outside that
 statement metric and explicitly listed as separate scopes.
 
 For Rust install `cargo-llvm-cov` 0.9.1 and `llvm-tools-preview`. Use the same

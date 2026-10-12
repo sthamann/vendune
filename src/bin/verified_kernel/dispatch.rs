@@ -237,6 +237,16 @@ pub(super) fn eval(j: &Value) -> Result<Value, String> {
             n("minor")?,
             n("goods")?
         ))),
+        Some("external_amount_admissible") => Ok(json!(external_amount_admissible(
+            n("gross")?,
+            n("tax")?,
+            n("rate")?
+        ))),
+        Some("external_paid_total_admissible") => Ok(json!(external_paid_total_admissible(
+            b("paid")?,
+            n("calculated")?,
+            n("declared")?
+        ))),
         _ => Err("Unknown policy".into()),
     }
 }

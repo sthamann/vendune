@@ -32,9 +32,12 @@ def read_reports(root):
     for filename, data in frontend.items():
         if filename == 'total':
             continue
-        relative = filename[filename.index('frontend/src/'):]
+        owner = next((prefix for prefix in ('frontend/src/', 'extensions/apps/') if prefix in filename), None)
+        if owner is None:
+            raise ValueError('Coverage source has no frontend/app owner: ' + filename)
+        relative = filename[filename.index(owner):]
         modules[relative] = {k: data[k]['pct'] for k in ('lines', 'branches', 'functions', 'statements')}
-    expected_frontend = {p.relative_to(root).as_posix() for p in (root / 'frontend/src').rglob('*') if p.suffix in {'.ts', '.tsx'}}
+    expected_frontend = {p.relative_to(root).as_posix() for directory in ('frontend/src', 'extensions/apps') for p in (root / directory).rglob('*') if p.suffix in {'.ts', '.tsx'}}
     expected_python = {p.relative_to(root).as_posix() for directory in ('extensions/services', 'extensions/apps', 'scripts') for p in (root / directory).rglob('*.py') if '__pycache__' not in p.parts}
     omitted = (expected_frontend - modules.keys()) | (expected_python - python['files'].keys())
     if omitted:
