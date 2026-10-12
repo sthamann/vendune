@@ -18,6 +18,7 @@ import AppSecrets from "./AppSecrets";
 import AppEntity from "./AppEntity";
 import ConnectorPanel from "./ConnectorPanel";
 import ProviderAccount from "./ProviderAccount";
+import MarketplacePanel from "../../../../extensions/apps/marketplaces/studio/MarketplacePanel";
 import EmailPanel from "../../../../extensions/apps/email/studio/EmailPanel";
 export type AppDetailsProps = {
   p: Package;
@@ -167,6 +168,13 @@ export default function AppDetails({
           ["google_analytics", "gmail", "slack"].includes(p.id) && (
             <ConnectorPanel app={p.id} request={request} manage={manage} />
           )}
+        {detailTab === "appDetails" && p.active && p.id === "marketplaces" && (
+          <MarketplacePanel
+            request={request}
+            manage={manage}
+            mainLocale={mainLocale}
+          />
+        )}
         {detailTab === "appDetails" && p.active && p.id === "email" && (
           <EmailPanel request={request} manage={manage} />
         )}

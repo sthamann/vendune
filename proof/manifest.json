@@ -573,6 +573,76 @@
       "sha256": "d4ee48aa8006b1ff98d1f1d7ff7b42ed27e1fcf38ecb4738c0c40dea642415ba",
       "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
     },
+    "extensions/apps/marketplaces/service/amazon.rs": {
+      "status": "unproved",
+      "sha256": "531af1c1842eba34f6c8991b7beab57f53b055d7bb20ae7cf902be39d9dd6403",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+    },
+    "extensions/apps/marketplaces/service/config.rs": {
+      "status": "unproved",
+      "sha256": "1ba0c4346b00220ee1e307627fe7b0c9355ec968aa4ad3bf246964bb8d0b2c87",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+    },
+    "extensions/apps/marketplaces/service/core.rs": {
+      "status": "unproved",
+      "sha256": "527324cf8b5a247b9b64d99d0d3472f41cde3614393b79dad81e40479268ae89",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+    },
+    "extensions/apps/marketplaces/service/ebay.rs": {
+      "status": "unproved",
+      "sha256": "a78b2e0627eb90c6cee7f03432fcd1a4b8afcbfb8cc8b04d45249289d61ce12f",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+    },
+    "extensions/apps/marketplaces/service/intake.rs": {
+      "status": "unproved",
+      "sha256": "0991e62bb21f04e83ffc7a4d4b4a252de9d06e4585b04b868252d94b1ddf1530",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+    },
+    "extensions/apps/marketplaces/service/jobs.rs": {
+      "status": "unproved",
+      "sha256": "b9274bba6b436a95df5ddbc1f942cb05d8fd93f432bec82a48caf36cf123c7e5",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+    },
+    "extensions/apps/marketplaces/service/kaufland.rs": {
+      "status": "unproved",
+      "sha256": "3cc40b6f4c75dacf291cb9e7e07c3c07af63fed9416a27ee0c9ce3d81fee682d",
+      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
+    },
+    "extensions/apps/marketplaces/service/main.rs": {
+      "status": "unproved",
+      "sha256": "372feabcfcbed6854f9ebbbf85f45cdc8d66f19ac7aa528fb32717dd68ebec01",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+    },
+    "extensions/apps/marketplaces/service/mapping.rs": {
+      "status": "unproved",
+      "sha256": "91f9189c480a9bff47de3cbd12af914763e7f6575437544d2368844ff0922e4e",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+    },
+    "extensions/apps/marketplaces/service/providers.rs": {
+      "status": "unproved",
+      "sha256": "9ce49b462452903aa696584c268add2e09aaf770e5085fbdc9d6f561297d1522",
+      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
+    },
+    "extensions/apps/marketplaces/service/review.rs": {
+      "status": "unproved",
+      "sha256": "ee504cb368dcb0797aab2e61978c6cfb5c836fac7870bb74aaa064677b93750e",
+      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
+    },
+    "extensions/apps/marketplaces/service/runtime.rs": {
+      "status": "unproved",
+      "sha256": "32e15ae07befd2ed9ff4a6a6b13eee0c955da88c17211af265fcb64f58e4024f",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+    },
+    "extensions/apps/marketplaces/service/sync.rs": {
+      "status": "unproved",
+      "sha256": "dbc6db578422fbcb12eabec6dc5cba60dcd0481fa2db012f77a60a1b79feec08",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+    },
+    "extensions/apps/marketplaces/service/transport.rs": {
+      "status": "unproved",
+      "sha256": "f814d36189a39b25f77b4bc40dedcad65fdaa308f0281faea6ba238fa538cd09",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+    },
     "extensions/apps/paypal/src/adapter.rs": {
       "status": "unproved",
       "sha256": "e779979cf45e5d38957f76b6c0d8aeaf0c4c39943c625487691d35701349ddee",
@@ -740,8 +810,8 @@
     },
     "src/apps/approval.rs": {
       "status": "reviewed-binding",
-      "sha256": "d182aac30f1cbfd491c4a24b429f4ddf89956257f94ee002a3d9206ab1c1bd5c",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "5604b8f89a39b4df7fd0eaa2c5c0a8d489771375f737613bbcecb1f827e6ecbe",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
     },
     "src/apps/asset_surfaces.rs": {
       "status": "unproved",
@@ -770,18 +840,23 @@
     },
     "src/apps/core_callbacks.rs": {
       "status": "unproved",
-      "sha256": "1f3ae0364163e44a0b26c63042270c046b4ce763f0bc40b10583546ece7eef1e",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "ac6f09e01b13f9b1dc1b30a200815cda23bde9ca3d9322e21a593e8d9880144c",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+    },
+    "src/apps/core_exchange.rs": {
+      "status": "unproved",
+      "sha256": "b312ae2547151bfa9cf1d008ff60ebad603008da6ee20ad02e226d1c524acc30",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
     },
     "src/apps/credentials.rs": {
       "status": "reviewed-binding",
-      "sha256": "adde8ae8cf304f41af47087bccbfa1ed3cfd3555b105c0968824f5004efecbac",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "8b765211c3deb7dc054887c1f49864a01475c12b17e3120ee8d7a6564c902334",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
     },
     "src/apps/data.rs": {
       "status": "unproved",
-      "sha256": "81de78d5a8cc975be7d2208c7228424bdebd9bb8ffe77afc85fc93e0d27fd187",
-      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+      "sha256": "d36731e3e94e4dd30e113299dc75bcdffe0153079e3b7686a248e52e7c1209df",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
     },
     "src/apps/distribution.rs": {
       "status": "unproved",
@@ -790,8 +865,8 @@
     },
     "src/apps/editor_contract.rs": {
       "status": "reviewed-binding",
-      "sha256": "9eb7c11f9a406476903bb398299d8c6e427b9d902f97d573a04cd55f62f72275",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "c30ed3b8780c7262b12d7c1bae818b7144addccb871fce4a287276e630e2585f",
+      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
     },
     "src/apps/editor_tests.rs": {
       "status": "unproved",
@@ -840,8 +915,8 @@
     },
     "src/apps/gateway.rs": {
       "status": "reviewed-binding",
-      "sha256": "831279ad0431fe1bfc39683c8b1f0632e80d015191a74d08b789c823a2f38077",
-      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+      "sha256": "5e4672770d492ddcfd15e20d85ecc64fd4cfc14aaf3892576e27374120241451",
+      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
     },
     "src/apps/hosted.rs": {
       "status": "unproved",
@@ -855,28 +930,28 @@
     },
     "src/apps/job_callbacks.rs": {
       "status": "unproved",
-      "sha256": "4351983aeffbf1c8f231342666d2f5ac806536eee51043e4f96ea209f45833c2",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "6b22f44d95dfe07b59d6a630ae8c7896df35159797773bd109b2550982fcd469",
+      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
     },
     "src/apps/jobs.rs": {
       "status": "unproved",
-      "sha256": "5123feda9980ccb1d544e8e5c3e8e785093c94feeb3b96cdf24e81d58058c21a",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "2a6831e2572dc27c9de937d8dfdc7a8f3e1472b74f6546066034e16d77f56b02",
+      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
     },
     "src/apps/manifest.rs": {
       "status": "unproved",
-      "sha256": "904020b36493cb17daeec3d20ce8a0a26a9fb807ecaba4577eff9e9acb58a1b7",
-      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+      "sha256": "b15c6ca00a72239282e252acd3593d82aace37d8a41cc28c6a56cd2e3727b3db",
+      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
     },
     "src/apps/manifest_validation.rs": {
       "status": "unproved",
-      "sha256": "8e9ab49c8aaeb399e9cbf8bb9c7244720382954264cece88c67e53b48f40b8b6",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "9e1e4f9e0dbfc7a9111babd3a887b4e22a2ef8cb92c62f80d6efd4e7e99adeeb",
+      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "a7881b69273d52a76e5046b1c9614c616d1e826d66f8ed956613cf807ec12b43",
-      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+      "sha256": "0b5fd2121f5f76f02d4fed437fdaafca59c820d8166ef8874ff53de90eb4f98f",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
@@ -905,8 +980,8 @@
     },
     "src/apps/planning.rs": {
       "status": "unproved",
-      "sha256": "ce26a87f98431711acb25606def9d25b933226e8599e98f498230fb8ff18938e",
-      "review": "Review native app ontology metadata: derive selected graph fields/typed references only from current authorized native list rows; preserve RLS/action grants, package serialization, revision guards and existing extracted predicates. Projection and SQL/transport remain unproved."
+      "sha256": "bdc498fd8cb9e2a4ff0f30a249b675929aedfc86be5b6db856816b1490c9b7c4",
+      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
     },
     "src/apps/presentation.rs": {
       "status": "unproved",
@@ -920,8 +995,8 @@
     },
     "src/apps/registry.rs": {
       "status": "unproved",
-      "sha256": "8b1e567551dbc7472eae9571ad8604776c79137c0d0f76e0b148899b75898037",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "34129b4470e79876bea1232df8078c74908d576bde77c9488895cec058f18b6a",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
     },
     "src/apps/relations.rs": {
       "status": "unproved",
@@ -930,8 +1005,8 @@
     },
     "src/apps/routes.rs": {
       "status": "unproved",
-      "sha256": "678620b526f1245bbf5ad4cbd7b44620f99ecb8a305d273bdc60ebe1aafded8f",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "d617c61dee79394c82a511488d619d19dbe2a07002faf70e9a5c30bd34c44f3a",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
     },
     "src/apps/runtime.rs": {
       "status": "unproved",
@@ -1573,6 +1648,16 @@
       "sha256": "082facaaed836fe4508ed7d105d7f13c94466d74d15c3db28555a644b75e7a8f",
       "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
+    "src/commerce/external_order_input.rs": {
+      "status": "unproved",
+      "sha256": "a10f7ec6b68689505896074495e56172739aa61b41f73c7f55b52d8b4c472bb2",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+    },
+    "src/commerce/external_orders.rs": {
+      "status": "unproved",
+      "sha256": "e6349ca1e6fde822438ad8b7588e0cd05e6698253c0297ec6362f673726526dd",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts and current app consent, existing stock/customer/document/outbox ownership, app capabilities/FK/indexed ID lookup; app-owned bounded seller protocols and leased jobs; PostgreSQL replay, restart, isolation, native order.placed Flow effect and invoice PDF regressions. Async marketplace and external provider behavior remain unproved."
+    },
     "src/commerce/fulfillment.rs": {
       "status": "reviewed-binding",
       "sha256": "23a1518667e7eed8ac94100ef903ce0044b99e5bac4af81e701278fd44d06f64",
@@ -1610,8 +1695,8 @@
     },
     "src/commerce/mod.rs": {
       "status": "unproved",
-      "sha256": "22321ed629cc3bcef3556ad687448b0c9f5628842548ab04fffde762ecaa942c",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "b5e16d141cd0c43dcdba0232adafd28d2a1905c4f1c4c8d385d58293e6f651b4",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
     },
     "src/commerce/order_fields.rs": {
       "status": "unproved",
@@ -1815,8 +1900,8 @@
     },
     "src/developer/generation.rs": {
       "status": "unproved",
-      "sha256": "92266a3526c3b2150b540bab33cfbdd7a84b15c910677f5539d05ef3f8736bc5",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "d224cb74b965fb088179288a778dff2212cf37b2b3928acee183deb51eed4986",
+      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
     },
     "src/developer/generation_contract.rs": {
       "status": "unproved",
@@ -1840,8 +1925,8 @@
     },
     "src/developer/routes.rs": {
       "status": "unproved",
-      "sha256": "244c7c50a62050cbdc01f3cf43bfebff1f73697f1fcc881720c69cad5472945e",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "d0f592f6c1572830a1576d238d3ef8e821a4b04412b2a79924e2f4f9c4ff0854",
+      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
     },
     "src/discount.rs": {
       "status": "reviewed-binding",
@@ -2075,8 +2160,8 @@
     },
     "src/marketing/channel_access.rs": {
       "status": "reviewed-binding",
-      "sha256": "5df94a7a7edaf103502fa5732fa9f52fdcfdc72ce9f964c3aab6b703d8de6cfb",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "551588cb7aa5b131f024f59651961367f9b039901a19023bcdfcb36369dc9d42",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
     },
     "src/marketing/channel_preview.rs": {
       "status": "unproved",
@@ -2085,8 +2170,8 @@
     },
     "src/marketing/channels.rs": {
       "status": "unproved",
-      "sha256": "f86ad35fa4db7028a70d4099fd741ddaaa5968068c3a9dd06d33ef2d655d0548",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "b7f02eb525990486a7ecd1e8b09a4b32e052bc61acc07237261062674adfb1e5",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
     },
     "src/marketing/condition_gateway.rs": {
       "status": "unproved",
@@ -2190,8 +2275,8 @@
     },
     "src/marketing/routes.rs": {
       "status": "unproved",
-      "sha256": "0d5f2df887b9ddb0e3f569df72657a6b1dce8a2dc590e50c0b452a62818bb723",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "f26ea01d402e0c003cf7ffdea4b074092d3f7384b29d3c2079f7cd16974f1be6",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
     },
     "src/marketing/rule_fields.rs": {
       "status": "unproved",
@@ -2819,8 +2904,8 @@
       "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "Cargo.toml": {
-      "sha256": "843d7d6234bd37d62ffd5ed1259e73b851cc8d24f322a5a98f9c5bd3ae40450e",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "3a710c28bbba321c86ed72dc6e11120179a37c6d90024b13e4f444205839ed14",
+      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
     },
     "deploy/Dockerfile": {
       "sha256": "dc7c2c8b35843285ac1f25e3404c8c930d2dc8b0c1525ab5a3886ba028671f23",

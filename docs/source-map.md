@@ -17,6 +17,17 @@ inputs and state effects. A module's presence does not count as a test.
 
 The maintained full inventory, including all newly added Rust files, frontend feature folders, independent services and SDKs, is [module-inventory.md](module-inventory.md). Coverage percentages and explicit remaining gaps are in [testing.md](testing.md). The tables below describe selected behavioral suites and must not be read as 100% coverage.
 
+## Marketplace app and generic intake
+
+`extensions/apps/marketplaces/` owns provider protocols, mapping, inbox/review, worker,
+Studio vocabulary/UI, container packaging and local provider tests. Core only adds the
+provider-neutral `apps/core_exchange.rs`, `commerce/external_order_input.rs` and
+`commerce/external_orders.rs` host contracts. Existing product/channel configuration,
+app consent/jobs/records, currency, stock, customer projection, documents and event
+owners remain authoritative. [Detailed flow and actual limits](marketplaces.md).
+The registered `marketplaces` suite exercises native paid order/replay/restart,
+isolation, document and stock state effects; frontend tests exercise controls.
+
 ## Native POS
 
 `src/pos/{config,gateway,input,workspace_gateway,customer,discount,schema,settlement}.rs` are native channel adapters. Catalog/cart/currencies/promotions, `order_checkout.rs`, `checkout_review.rs`, inventory, payments, documents and outbox remain the commerce owners. `marketing/coupons.rs` retains the existing coupon handler with private-cart admission. `customer.rs` delegates to shared accounts with current PII admission; `discount.rs` delegates to native allocation/tax and transactional outbox. `operations/receipt_text.rs` exposes the same immutable invoice projection to the system printer. `frontend/src/admin/pos` owns the focus/scanner, customer, discount, printer and read-only advice workspace; app code stays in its own package. Real `pos.py`/`payment_providers.py` and UI regressions cover state effects. [Architecture, proof scope and limits](pos.md).

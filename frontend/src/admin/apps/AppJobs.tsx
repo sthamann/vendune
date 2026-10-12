@@ -5,6 +5,7 @@ import AppJobArtifact from "./AppJobArtifact";
 import ConfirmDialog from "../../shared/ui/ConfirmDialog";
 import { contentText } from "../../shared/i18n/content-language";
 import { useContentLanguage } from "../../shared/i18n/ContentLanguage";
+import { useLocale } from "../../shared/i18n/i18n";
 import { useAppOperationsText } from "../../shared/i18n/app-operations-i18n";
 type Job = {
   id: string;
@@ -30,7 +31,8 @@ export default function AppJobs({
   request: RequestFn;
 }) {
   const t = useAppOperationsText(),
-    { language, mainLocale } = useContentLanguage();
+    { mainLocale } = useContentLanguage(),
+    { locale } = useLocale();
   const [jobs, setJobs] = useState<Job[]>([]),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false),
@@ -81,7 +83,7 @@ export default function AppJobs({
         <article key={j.id} className="app-job">
           <strong>{j.action}</strong> · {t(j.status)}
           <progress max={100} value={j.progress} />
-          <p>{contentText(j.message, language, mainLocale)}</p>
+          <p>{contentText(j.message, locale, mainLocale)}</p>
           <div className="app-actions">
             {(["queued", "running"].includes(j.status)
               ? ["cancel"]

@@ -74,7 +74,13 @@ fn preserve_access(old: &Value, next: &mut Value) {
                 .and_then(|rows| rows.iter().find(|a| a["name"] == action["name"]))
             {
                 action["mcp"] = prior.get("mcp").cloned().unwrap_or(Value::Bool(true));
-                for key in ["mcp", "permission", "public", "flowAllowed"] {
+                for key in [
+                    "mcp",
+                    "permission",
+                    "requiredPermissions",
+                    "public",
+                    "flowAllowed",
+                ] {
                     if let Some(value) = prior.get(key) {
                         action[key] = value.clone();
                     }
@@ -127,7 +133,7 @@ mod tests {
     use super::*;
     #[test]
     fn generation_retains_access_of_existing_actions() {
-        let old = json!({"id":"same","actions":[{"name":"save","mcp":false,"permission":"orders.write","public":false,"flowAllowed":false}]});
+        let old = json!({"id":"same","actions":[{"name":"save","mcp":false,"permission":"orders.write","requiredPermissions":["payments.manage","customers.pii"],"public":false,"flowAllowed":false}]});
         let mut next = json!({"id":"same","actions":[{"name":"save","mcp":true,"permission":"catalog.write","public":true,"flowAllowed":true}]});
         preserve_access(&old, &mut next);
         assert_eq!(next, old);

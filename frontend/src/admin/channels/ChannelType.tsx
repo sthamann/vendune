@@ -42,42 +42,49 @@ export default function ChannelType({
   return (
     <>
       <div className="channel-kind-grid" role="group" aria-label={t("type")}>
-        {(["storefront", "headless", "pos"] as const).map((kind) => (
-          <button
-            type="button"
-            key={kind}
-            className="channel-kind"
-            disabled={
-              (draft.id === "default" && kind !== "storefront") ||
-              (!!draft.revision &&
-                (draft.data.kind === "pos" || kind === "pos"))
-            }
-            aria-pressed={draft.data.kind === kind}
-            onClick={() =>
-              patch({ kind, pos: kind === "pos" ? config : undefined })
-            }
-          >
-            <Icon
-              name={
-                kind === "pos"
-                  ? "register"
-                  : kind === "headless"
-                    ? "code"
-                    : "globe"
+        {(["storefront", "headless", "pos", "marketplace"] as const).map(
+          (kind) => (
+            <button
+              type="button"
+              key={kind}
+              className="channel-kind"
+              disabled={
+                (draft.id === "default" && kind !== "storefront") ||
+                (!!draft.revision &&
+                  (["pos", "marketplace"].includes(draft.data.kind) ||
+                    ["pos", "marketplace"].includes(kind)))
               }
-            />
-            <strong>{t(kind)}</strong>
-            <p>
-              {t(
-                kind === "pos"
-                  ? "posHint"
-                  : kind === "storefront"
-                    ? "storefrontHint"
-                    : "headlessHint",
-              )}
-            </p>
-          </button>
-        ))}
+              aria-pressed={draft.data.kind === kind}
+              onClick={() =>
+                patch({ kind, pos: kind === "pos" ? config : undefined })
+              }
+            >
+              <Icon
+                name={
+                  kind === "marketplace"
+                    ? "layers"
+                    : kind === "pos"
+                      ? "register"
+                      : kind === "headless"
+                        ? "code"
+                        : "globe"
+                }
+              />
+              <strong>{t(kind)}</strong>
+              <p>
+                {t(
+                  kind === "marketplace"
+                    ? "marketplaceHint"
+                    : kind === "pos"
+                      ? "posHint"
+                      : kind === "storefront"
+                        ? "storefrontHint"
+                        : "headlessHint",
+                )}
+              </p>
+            </button>
+          ),
+        )}
       </div>
       {draft.data.kind === "pos" && (
         <section className="commerce-fields">

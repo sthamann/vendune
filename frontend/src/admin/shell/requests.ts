@@ -9,7 +9,7 @@ export function createStudioRequest(
   tenant: string,
   locale: string,
 ): RequestFn {
-  return async (path, body, method) => {
+  return async (path, body, method, options) => {
     const multipart = body instanceof FormData;
     const response = await requestJson(path, {
       method: method ?? (body === undefined ? "GET" : "POST"),
@@ -18,6 +18,9 @@ export function createStudioRequest(
         Authorization: `Bearer ${token}`,
         "x-tenant": tenant,
         "x-commerce-locale": locale,
+        ...(options?.idempotencyKey
+          ? { "Idempotency-Key": options.idempotencyKey }
+          : {}),
       },
       body:
         body === undefined
@@ -46,11 +49,12 @@ export function useStudioRequests(
   return useMemo(() => {
     const scoped =
       (tenant: string): RequestFn =>
-      (path, body, method) =>
+      (path, body, method, options) =>
         createStudioRequest(credential.current, tenant, locale)(
           path,
           body,
           method,
+          options,
         );
     const liveRequest = scoped(workspace);
     return {

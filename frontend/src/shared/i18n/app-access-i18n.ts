@@ -155,13 +155,97 @@ const words = {
     "Modifier les produits avec contrôle de version",
     "Editar productos con control de versión",
   ],
+  "data.read": [
+    "Read this app’s records",
+    "App-Datensätze lesen",
+    "Lire les données de cette app",
+    "Leer datos de esta app",
+  ],
+  "data.write": [
+    "Edit this app’s records",
+    "App-Datensätze bearbeiten",
+    "Modifier les données de cette app",
+    "Editar datos de esta app",
+  ],
+  "channels.read": [
+    "Read sales-channel configuration",
+    "Verkaufskanal-Konfiguration lesen",
+    "Lire la configuration des canaux",
+    "Leer configuración de canales",
+  ],
+  "orders.import": [
+    "Import reviewed marketplace orders",
+    "Geprüfte Marktplatz-Bestellungen importieren",
+    "Importer les commandes marketplace vérifiées",
+    "Importar pedidos marketplace revisados",
+  ],
+  "payments.record": [
+    "Record externally collected payments",
+    "Extern eingezogene Zahlungen erfassen",
+    "Enregistrer les paiements externes",
+    "Registrar pagos externos",
+  ],
+  "b2b.read": [
+    "Read B2B companies and units",
+    "B2B-Firmen und Einheiten lesen",
+    "Lire entreprises et unités B2B",
+    "Leer empresas y unidades B2B",
+  ],
+  "b2b.manage": [
+    "Manage B2B companies and units",
+    "B2B-Firmen und Einheiten verwalten",
+    "Gérer entreprises et unités B2B",
+    "Gestionar empresas y unidades B2B",
+  ],
+  "documents.read": [
+    "Read order documents",
+    "Bestellbelege lesen",
+    "Lire les documents de commande",
+    "Leer documentos de pedidos",
+  ],
+  "jobs.read": [
+    "Read this app’s background jobs",
+    "Hintergrundaufträge dieser App lesen",
+    "Lire les tâches de cette app",
+    "Leer tareas de esta app",
+  ],
+  "jobs.write": [
+    "Process this app’s background jobs",
+    "Hintergrundaufträge dieser App verarbeiten",
+    "Traiter les tâches de cette app",
+    "Procesar tareas de esta app",
+  ],
+  "assets.read": [
+    "Read approved media assets",
+    "Freigegebene Medien lesen",
+    "Lire les médias autorisés",
+    "Leer medios autorizados",
+  ],
+  "assets.write": [
+    "Upload approved media assets",
+    "Freigegebene Medien hochladen",
+    "Téléverser des médias autorisés",
+    "Subir medios autorizados",
+  ],
 } as const;
 export type CallbackPermission =
   | "orders.read"
   | "customers.read"
   | "customers.pii"
   | "products.read"
-  | "products.write";
+  | "products.write"
+  | "data.read"
+  | "data.write"
+  | "channels.read"
+  | "orders.import"
+  | "payments.record"
+  | "b2b.read"
+  | "b2b.manage"
+  | "documents.read"
+  | "jobs.read"
+  | "jobs.write"
+  | "assets.read"
+  | "assets.write";
 export function useAppAccessText() {
   const { locale } = useLocale();
   const index = locale.startsWith("de")
@@ -171,5 +255,5 @@ export function useAppAccessText() {
       : locale.startsWith("es")
         ? 3
         : 0;
-  return (key: keyof typeof words) => words[key][index];
+  return (key: keyof typeof words) => words[key]?.[index] ?? key;
 }

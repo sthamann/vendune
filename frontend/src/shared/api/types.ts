@@ -3,4 +3,5 @@ export type RequestFn = (
   path: string,
   body?: unknown,
   method?: string,
+  options?: { idempotencyKey?: string },
 ) => Promise<any>;

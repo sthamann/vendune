@@ -1,6 +1,19 @@
 /** Sales-channel onboarding and inherited settings vocabulary in all interface languages. */
 import { useLocale } from "../../shared/i18n/i18n";
 const words = {
+  marketplace: ["Marketplace", "Marktplatz", "Marketplace", "Marketplace"],
+  marketplaceHint: [
+    "Amazon, eBay and other marketplaces. Shared stock and native order import through the Marketplace app.",
+    "Amazon, eBay und weitere Marktplätze. Gemeinsamer Bestand und Bestellimport über die Marketplace-App.",
+    "Amazon, eBay et autres marketplaces. Stock partagé et commandes natives via l’app.",
+    "Amazon, eBay y otros marketplaces. Inventario compartido y pedidos nativos mediante la app.",
+  ],
+  marketplaceManage: [
+    "Open Marketplace Studio",
+    "Marketplace Studio öffnen",
+    "Ouvrir Marketplace Studio",
+    "Abrir Marketplace Studio",
+  ],
   pos: ["Point of sale", "Kasse", "Point de vente", "Punto de venta"],
   posHint: [
     "Authenticated touch register. Shared orders, stock, taxes and receipts.",

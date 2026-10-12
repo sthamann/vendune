@@ -26,6 +26,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/compatibility.rs](../src/apps/compatibility.rs) | Explicit read adapter for persisted v0.5 engraving carts; completed order snapshots remain unchanged. |
 | [src/apps/consent.rs](../src/apps/consent.rs) | Package approval binds all requested permissions to a reviewed digest; current actor rights apply before every installation path. |
 | [src/apps/core_callbacks.rs](../src/apps/core_callbacks.rs) | Narrow app callbacks delegate to the existing commerce owners and project PII only with separate consent. |
+| [src/apps/core_exchange.rs](../src/apps/core_exchange.rs) | Generic channel/product projections and imported sales delegate to native owners with explicit app capabilities. |
 | [src/apps/credentials.rs](../src/apps/credentials.rs) | App keys reuse the core integration-key store, current creator rights, expiry and immutable package digest. |
 | [src/apps/data.rs](../src/apps/data.rs) | Managed app tables: typed writes, optimistic revisions, bounded reads and local RLS context. |
 | [src/apps/distribution.rs](../src/apps/distribution.rs) | Signed publisher namespaces and tenant-local dependency/version gates. Operator service access still requires its separate exact digest pin. |
@@ -186,6 +187,8 @@ This lists every checked-in source module in these roots, including files with n
 | [src/commerce/customer_groups.rs](../src/commerce/customer_groups.rs) | Tenant-owned translated customer groups preserve exact rule IDs and select an explicit existing price/tax presentation basis. |
 | [src/commerce/delivery.rs](../src/commerce/delivery.rs) | Shipping costs, proportional taxes and calendar delivery windows. |
 | [src/commerce/detail.rs](../src/commerce/detail.rs) | Product family, context prices, gallery, properties and review aggregates. |
+| [src/commerce/external_order_input.rs](../src/commerce/external_order_input.rs) | Provider-neutral paid-order snapshots: exact minor units and explicit source tax; no repricing or guessed VAT. |
+| [src/commerce/external_orders.rs](../src/commerce/external_orders.rs) | Generic authorized external order intake reuses native stock, customer snapshots, documents, history and outbox. |
 | [src/commerce/fulfillment.rs](../src/commerce/fulfillment.rs) | Revision-checked payment and delivery state transitions. |
 | [src/commerce/geography.rs](../src/commerce/geography.rs) | Bundled MIT country catalogue, tenant-owned overrides and typed region admission. |
 | [src/commerce/group_usage.rs](../src/commerce/group_usage.rs) | Removing a customer group rejects live customer, price and native/source-rule dependencies under the settings lock. |
@@ -976,6 +979,31 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/google-analytics/src/actions.rs](../extensions/apps/google-analytics/src/actions.rs) | App-owned connector capabilities and provider settings; shared host supplies tenant-bound storage. |
 | [extensions/apps/google-analytics/src/provider.rs](../extensions/apps/google-analytics/src/provider.rs) | Exact bounded GA4 source rows, quota metadata and stale-report tombstones; no invented causal claims. |
 | [extensions/apps/google-analytics/storefront/ShopAnalytics.tsx](../extensions/apps/google-analytics/storefront/ShopAnalytics.tsx) | Customer consent and real GA4 ecommerce events; absent apps produce no external script. |
+| [extensions/apps/marketplaces/service/amazon.rs](../extensions/apps/marketplaces/service/amazon.rs) | Official amazon listing adapter, isolated inside the marketplace app. |
+| [extensions/apps/marketplaces/service/config.rs](../extensions/apps/marketplaces/service/config.rs) | Operator-only destinations and per-tenant credentials; marketplace records can select aliases, never supply secrets or URLs. |
+| [extensions/apps/marketplaces/service/core.rs](../extensions/apps/marketplaces/service/core.rs) | Scoped canonical callbacks retain installed digest, consent, actor rights and native app storage ownership. |
+| [extensions/apps/marketplaces/service/ebay.rs](../extensions/apps/marketplaces/service/ebay.rs) | Official ebay listing adapter, isolated inside the marketplace app. |
+| [extensions/apps/marketplaces/service/intake.rs](../extensions/apps/marketplaces/service/intake.rs) | Provider order inbox preserves source identity; explicit review delegates purchase effects exactly once to the native importer. |
+| [extensions/apps/marketplaces/service/jobs.rs](../extensions/apps/marketplaces/service/jobs.rs) | Core-leased jobs: authenticate and validate whole event batches, claim before acknowledgement, and keep unknown writes fenced. |
+| [extensions/apps/marketplaces/service/kaufland.rs](../extensions/apps/marketplaces/service/kaufland.rs) | Official kaufland listing adapter, isolated inside the marketplace app. |
+| [extensions/apps/marketplaces/service/main.rs](../extensions/apps/marketplaces/service/main.rs) | Independent Marketplace Studio service; provider protocols stay in this app, native commerce stays in Core. |
+| [extensions/apps/marketplaces/service/mapping.rs](../extensions/apps/marketplaces/service/mapping.rs) | Explainable automatic field suggestions and per-channel overrides; mapping is reviewed data, never executable code. |
+| [extensions/apps/marketplaces/service/providers.rs](../extensions/apps/marketplaces/service/providers.rs) | Distinct official listing payloads, provider prerequisites and order pages; more providers extend this app-level seam. |
+| [extensions/apps/marketplaces/service/review.rs](../extensions/apps/marketplaces/service/review.rs) | Source-derived SKU, quantity and address suggestions; absent financial facts stay null for explicit review. |
+| [extensions/apps/marketplaces/service/runtime.rs](../extensions/apps/marketplaces/service/runtime.rs) | Authenticated app actions and indexed native record access. |
+| [extensions/apps/marketplaces/service/sync.rs](../extensions/apps/marketplaces/service/sync.rs) | Sync jobs persist ambiguous-write fences and source inbox identity through native revisioned app records, never a second queue. |
+| [extensions/apps/marketplaces/service/transport.rs](../extensions/apps/marketplaces/service/transport.rs) | Fixed official origins, bounded provider responses, scoped OAuth and HMAC; no request-supplied egress or blind retries. |
+| [extensions/apps/marketplaces/studio/ConnectionEditor.tsx](../extensions/apps/marketplaces/studio/ConnectionEditor.tsx) | Guided seller connection editor reuses native channel and record revisions. Secrets remain server-only. |
+| [extensions/apps/marketplaces/studio/MarketplaceOffers.tsx](../extensions/apps/marketplaces/studio/MarketplaceOffers.tsx) | Connection and offer cards with explicit prepare/submit controls and channel-specific preview. |
+| [extensions/apps/marketplaces/studio/MarketplacePanel.tsx](../extensions/apps/marketplaces/studio/MarketplacePanel.tsx) | App-owned marketplace workspace uses generated entity actions, native job queue and commerce callbacks. |
+| [extensions/apps/marketplaces/studio/OfferEditor.tsx](../extensions/apps/marketplaces/studio/OfferEditor.tsx) | Channel-specific offer overrides and explicit data-only attribute mappings. No copied catalog or provider secrets. |
+| [extensions/apps/marketplaces/studio/OrderAddress.tsx](../extensions/apps/marketplaces/studio/OrderAddress.tsx) | Marketplace review addresses remain source snapshots; no separate customer directory. |
+| [extensions/apps/marketplaces/studio/OrderReview.tsx](../extensions/apps/marketplaces/studio/OrderReview.tsx) | Source-derived review uses visible addresses, SKU matches and exact amounts; no invented products or taxes. |
+| [extensions/apps/marketplaces/studio/marketplace-i18n.ts](../extensions/apps/marketplaces/studio/marketplace-i18n.ts) | Marketplace app vocabulary; UI language is independent of inherited content language. |
+| [extensions/apps/marketplaces/studio/marketplace-model.ts](../extensions/apps/marketplaces/studio/marketplace-model.ts) | Native app records and provider policy metadata. IDs never change tenant scope. |
+| [extensions/apps/marketplaces/studio/marketplace-order-i18n.ts](../extensions/apps/marketplaces/studio/marketplace-order-i18n.ts) | Source-order review vocabulary in all supported interface languages. |
+| [extensions/apps/marketplaces/studio/marketplaces.css](../extensions/apps/marketplaces/studio/marketplaces.css) | App-owned responsive workspace uses Vendune surface tokens; no global selectors or provider scripts. |
+| [extensions/apps/marketplaces/tests/integration.py](../extensions/apps/marketplaces/tests/integration.py) | Installed Marketplace app -> independent Rust service -> fixture seller APIs -> native PostgreSQL order effects. No external credentials or requests. |
 | [extensions/apps/paypal/src/adapter.rs](../extensions/apps/paypal/src/adapter.rs) | Legacy PayPal admission/account wiring belongs to the PayPal package, not a second pricing owner. |
 | [extensions/apps/paypal/src/compatibility.rs](../extensions/apps/paypal/src/compatibility.rs) | Native PayPal Orders v2 sandbox wire adapter; credentials never enter prompts or browser responses. |
 | [extensions/apps/paypal/src/receipts.rs](../extensions/apps/paypal/src/receipts.rs) | PayPal receipt interpretation; shared payment storage owns order and inventory effects. |
@@ -1099,6 +1127,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/load.py](../scripts/load.py) | Local HTTP latency sample. Does not claim production or Shopware speedup. |
 | [scripts/managed_search.py](../scripts/managed_search.py) | Real PostgreSQL/Qdrant synchronization; synthetic embeddings test transport, not AI quality. |
 | [scripts/marketing_accounts.py](../scripts/marketing_accounts.py) | Real isolated shops: customer authority, limited coupons, event flows, channels and selected releases. No paid models. |
+| [scripts/marketplaces.py](../scripts/marketplaces.py) | Registered verification entry; marketplace fixture and assertions remain app-owned. |
 | [scripts/mcp_stdio.py](../scripts/mcp_stdio.py) | Line-delimited MCP stdio bridge for Claude Desktop and other local clients. |
 | [scripts/merchant_operations.py](../scripts/merchant_operations.py) | Real HTTP/PostgreSQL CRM, receipt, scoped-access and paid-download regressions. No PSP traffic. |
 | [scripts/migrate_connector_state.py](../scripts/migrate_connector_state.py) | Explicit offline legacy-state migration; decrypted data crosses stdin only, never logs or temporary files. |

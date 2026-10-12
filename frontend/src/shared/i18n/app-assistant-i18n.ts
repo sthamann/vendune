@@ -1,6 +1,12 @@
 /** App assistants and extension permissions use the same EN/DE/FR/ES vocabulary. */
 import { useLocale } from "./i18n";
 export const assistantWords = {
+  salesChannel: [
+    "Sales channel",
+    "Verkaufskanal",
+    "Canal de vente",
+    "Canal de ventas",
+  ],
   b2bCompany: [
     "Company workspace",
     "Firmenbereich",

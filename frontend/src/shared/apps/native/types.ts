@@ -23,7 +23,13 @@ export type Field = {
   validation?: Record<string, unknown>;
   references?: string | null;
   coreReference?:
-    "product" | "customer" | "order" | "b2bCompany" | "b2bUnit" | null;
+    | "product"
+    | "customer"
+    | "order"
+    | "b2bCompany"
+    | "b2bUnit"
+    | "salesChannel"
+    | null;
   choices?: { value: string; label: Text }[];
 };
 export type Entity = {
@@ -98,6 +104,7 @@ export type Action = {
   mcp?: boolean | null;
   readOnly?: boolean;
   permission?: string;
+  requiredPermissions?: string[];
 };
 export type Manifest = {
   id: string;

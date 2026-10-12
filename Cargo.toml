@@ -53,3 +53,7 @@ json-patch = "4.2.0"
 [profile.release]
 lto = "thin"
 codegen-units = 1
+
+[[bin]]
+name = "marketplace-gateway"
+path = "extensions/apps/marketplaces/service/main.rs"

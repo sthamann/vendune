@@ -92,3 +92,7 @@ pub(crate) use settings_release::*;
 
 pub(crate) use settings_patch::resolve as restore_checkout_data;
 pub(crate) mod inventory;
+
+mod external_order_input;
+mod external_orders;
+pub(crate) use external_orders::import_external;

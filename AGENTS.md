@@ -283,3 +283,15 @@ approved digest/key and creator rights; immutable receipt export requires explic
 orders/documents/PII consent. Keep bounded-profile, no-network-certification limits
 visible until corresponding official validation/transport acceptance exists.
 See `docs/b2b-commerce.md`, `docs/edi.md` and `src/b2b/README.md`.
+
+## Marketplace ownership
+
+Seller protocols, mappings, credentials, inbox logic and Studio UI belong only in
+`extensions/apps/marketplaces/`. Generic paid external-order/channel host contracts
+belong to their existing Core domain owners. Use native app jobs/consent, tenant
+references, exact currencies, stock, orders, guest projection, receipts and outbox;
+never implement another marketplace commerce ledger, money calculator or queue.
+An accepted submission is not a published offer; ambiguous writes must remain
+fenced. Missing source tax/payment facts require explicit review, never estimates.
+Run the registered `marketplaces` provider suite and marketplace UI regressions;
+see `docs/marketplaces.md` for current provider boundaries.

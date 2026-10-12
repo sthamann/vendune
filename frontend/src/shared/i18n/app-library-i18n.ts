@@ -1,6 +1,12 @@
 /** App library vocabulary and built-in summaries; no inferred connection or payment readiness. */
 import { useLocale } from "./i18n";
 export const libraryWords = {
+  marketplaces: [
+    "Amazon, eBay and Kaufland: dedicated channels, custom offers, field mapping and native order import.",
+    "Amazon, eBay und Kaufland: eigene Kanäle, angepasste Angebote, Feldzuordnung und Bestellimport.",
+    "Amazon, eBay et Kaufland : canaux, offres adaptées, mappage et commandes natives.",
+    "Amazon, eBay y Kaufland: canales, ofertas propias, mapeo y pedidos nativos.",
+  ],
   heading: [
     "Make your shop do more",
     "Mehr Möglichkeiten für deinen Shop",

@@ -42,6 +42,8 @@ animation. [Checkout setup and limits](docs/checkout.md).
 > payments. Current capabilities and remaining production work are described
 > [below](#current-boundaries) and in the [complete feature guide](docs/features.md).
 
+**Marketplace channels:** Amazon, eBay and Kaufland adapters run in an independent Rust app. Review channel-specific texts, images, fields and exact prices; sync offers through native jobs and bring paid orders into the shared customer/stock/invoice flow. Seller credentials are configured server-side. [Setup, contracts and current boundaries](docs/marketplaces.md).
+
 **Modular B2B:** company units, employee permissions, private catalogs, exact-currency budgets, quote negotiation, separate purchase approvals, SKU quick order and repeat lists share the native checkout and documents. An independent Rust EDI app validates EDIFACT/UBL/cXML orders and exports bounded native document profiles. [B2B setup and limits](docs/b2b-commerce.md) · [EDI app](docs/edi.md).
 
 **Core hardening:** explicit route permissions, trusted request identity, non-owner

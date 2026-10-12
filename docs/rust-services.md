@@ -180,3 +180,11 @@ B2B comparison](b2b-commerce.md). The independent `extensions/apps/edi/` package
 bounded EDIFACT/UBL/cXML parsing, mapped private requisition import and immutable
 native document export; no Core codec or second ledger. [EDI profiles, deployment
 and network/certification limits](edi.md).
+
+## Marketplace service
+
+`marketplace-gateway` is a separate Rust binary packaged in
+`extensions/apps/marketplaces/Dockerfile`. Provider logic and UI remain app-owned.
+It uses existing commerce callbacks, revisioned app records, native PostgreSQL job
+leases and outbox; it has no direct database credential or second order queue.
+[Setup, seller authorization and review boundaries](marketplaces.md).

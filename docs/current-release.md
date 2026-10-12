@@ -99,6 +99,13 @@ modules**. The formal subset has **45 extracted policies and 97 properties**,
 with **142,298 compiled comparisons and no mismatch**. SQL, network and UI behavior
 remain outside those proofs. [Formal evidence](formal-verification.md).
 
+## Marketplace channels
+
+Amazon, eBay and Kaufland adapters, offer overrides, native sync jobs and reviewed
+paid order intake are implemented in an independent Rust app. Local provider/DB/UI
+regressions are available; live seller credentials and a hosted adapter are not
+configured by this release. [Guide and exact boundaries](marketplaces.md).
+
 ## Public original Storyfront update — 9 October 2026
 
 ### Checkout continuity

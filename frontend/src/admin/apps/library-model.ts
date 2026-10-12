@@ -14,6 +14,12 @@ export const categories = [
 ] as const;
 export const builtIns = [
   {
+    id: "marketplaces",
+    name: "Marketplace Studio",
+    category: "commerce",
+    icon: "globe",
+  },
+  {
     id: "engraving",
     name: "Product personalization",
     category: "commerce",

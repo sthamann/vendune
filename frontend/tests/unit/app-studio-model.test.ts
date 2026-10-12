@@ -126,3 +126,17 @@ it("renames a draft model across UI, API, AI tools and relationships", () => {
   expect(next.intelligence!.tools).toEqual(["list_care"]);
   expect(next.entities[1].fields[0].references).toBe("care");
 });
+
+it("preserves additional private action rights through visual compilation", () => {
+  const m = template();
+  m.actions = m.actions!.map((a) => ({
+    ...a,
+    requiredPermissions: ["customers.pii"],
+  }));
+  const compiled = compile(m);
+  expect(
+    compiled
+      .actions!.filter((a) => ["list", "save"].includes(a.handler))
+      .every((a) => a.requiredPermissions?.includes("customers.pii")),
+  ).toBe(true);
+});

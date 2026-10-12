@@ -7,7 +7,12 @@ import { mailStatus, mailSettings } from "./fixtures";
 function setup(manage = true) {
   let status = mailStatus();
   const request = vi.fn(
-    async (path: string, body?: unknown, _method?: string) => {
+    async (
+      path: string,
+      body?: unknown,
+      _method?: string,
+      _options?: { idempotencyKey?: string },
+    ) => {
       const input = body as Record<string, any>;
       if (path.endsWith("/status")) return status;
       if (path.endsWith("/configure")) {

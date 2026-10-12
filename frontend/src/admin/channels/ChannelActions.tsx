@@ -49,12 +49,20 @@ export default function ChannelActions({
   };
   return (
     <>
+      {draft.data.kind === "marketplace" && (
+        <a
+          className="studio-secondary"
+          href={`/?shop=${encodeURIComponent(workspace)}&studio=apps&app=marketplaces#merchant`}
+        >
+          {t("marketplaceManage")} ↗
+        </a>
+      )}
       {draft.data.kind === "pos" && draft.data.active && (
         <a className="studio-secondary" href={posUrl(workspace, draft.id)}>
           {t("pos")} ↗
         </a>
       )}
-      {draft.data.kind !== "pos" &&
+      {!["pos", "marketplace"].includes(draft.data.kind) &&
         draft.data.active &&
         draft.data.visibility !== "private" && (
           <a
@@ -66,7 +74,7 @@ export default function ChannelActions({
             {t("preview")} ↗
           </a>
         )}
-      {draft.data.kind !== "pos" && (
+      {!["pos", "marketplace"].includes(draft.data.kind) && (
         <button
           className="studio-secondary"
           disabled={disabled || busy}

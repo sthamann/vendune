@@ -99,11 +99,13 @@ export default function SalesChannelsWorkspace({
                 <span className="channel-avatar">
                   <Icon
                     name={
-                      c.data.kind === "pos"
-                        ? "register"
-                        : c.data.kind === "headless"
-                          ? "code"
-                          : "globe"
+                      c.data.kind === "marketplace"
+                        ? "layers"
+                        : c.data.kind === "pos"
+                          ? "register"
+                          : c.data.kind === "headless"
+                            ? "code"
+                            : "globe"
                     }
                     size={28}
                   />

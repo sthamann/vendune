@@ -71,7 +71,8 @@
     "app_distribution",
     "app_generation",
     "erp_handoff",
-    "edi"
+    "edi",
+    "marketplaces"
   ],
   "browser_contracts": [
     "analytics",

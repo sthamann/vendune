@@ -73,6 +73,12 @@ pub(crate) async fn admit(
         "Sales channel unavailable".into(),
     ))?;
     let data = snapshot.data;
+    if data["kind"] == "marketplace" {
+        return Err(Error(
+            StatusCode::FORBIDDEN,
+            "Marketplace channels require authenticated connector access".into(),
+        ));
+    }
     if data["kind"] == "pos" {
         return Err(Error(
             StatusCode::FORBIDDEN,
