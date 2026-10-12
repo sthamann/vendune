@@ -1655,8 +1655,8 @@
     },
     "src/commerce/external_orders.rs": {
       "status": "unproved",
-      "sha256": "e6349ca1e6fde822438ad8b7588e0cd05e6698253c0297ec6362f673726526dd",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts and current app consent, existing stock/customer/document/outbox ownership, app capabilities/FK/indexed ID lookup; app-owned bounded seller protocols and leased jobs; PostgreSQL replay, restart, isolation, native order.placed Flow effect and invoice PDF regressions. Async marketplace and external provider behavior remain unproved."
+      "sha256": "dccb86ecf9113fd5202d48f10d8bf29ea461591fb0caab86feeaa80623c607f8",
+      "review": "Reviewed marketplace integration and translated externally recorded payment label; exact paid snapshot validation, native stock/customer/order/outbox/receipt reuse, actor additional rights across HTTP/MCP/plans/jobs and App Studio retention tested. Existing pure guards unchanged; async SQL/providers/taxation remain unproved."
     },
     "src/commerce/fulfillment.rs": {
       "status": "reviewed-binding",

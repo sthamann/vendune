@@ -152,7 +152,7 @@ pub(crate) async fn import_external(
     let tax =
         input.lines.iter().map(|l| l.amount.tax_minor).sum::<i64>() + input.shipping.tax_minor;
     let totals = json!({"currency":currency.code,"currencyScale":currency.scale,"totalMinor":input.total_minor.to_string(),"totalPrice":input.total_minor as f64/factor,"netPrice":(input.total_minor-tax) as f64/factor,"taxStatus":"gross","tax":tax as f64/factor,"taxMinor":tax.to_string()});
-    let method = json!({"id":"external-marketplace","mode":"external_recorded","name":{"en":"Marketplace payment"}});
+    let method = json!({"id":"external-marketplace","mode":"external_recorded","name":{"en":"Marketplace payment","de":"Marktplatz-Zahlung","fr":"Paiement marketplace","es":"Pago marketplace"}});
     let delivery = json!({"id":uid(),"state":"open","shippingMethodId":"external-marketplace","trackingCodes":[],"shippingCosts":input.shipping.price(currency.scale,1)});
     let quote = json!({"lineItems":lines,"price":totals,"shippingCosts":input.shipping.price(currency.scale,1),"paymentMethod":method,"deliveries":[delivery],"currencyContext":{"code":currency.code,"scale":currency.scale,"factor":currency.rate,"strategy":"external_snapshot"}});
     let data:Cart=serde_json::from_value(json!({"items":ids.iter().zip(&input.lines).map(|(id,l)|json!({"id":id,"quantity":l.quantity})).collect::<Vec<_>>(),"group":"retail","email":input.email,"company":null,"session":key,"buyer":null,"order":null,"currency":currency.code,"sales_channel":input.sales_channel_id,"locale":input.locale,"channel":"marketplace"})).map_err(|_|bad("Invalid external cart"))?;
