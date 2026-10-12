@@ -160,13 +160,14 @@ pub(crate) async fn save(
                 ));
             }
             if !["public", "private"].contains(&c.visibility.as_str())
-                || !["storefront", "headless"].contains(&c.kind.as_str())
+                || !["storefront", "headless", "pos"].contains(&c.kind.as_str())
                 || c.locales.is_empty()
                 || c.locales.iter().any(|v| !settings.locales.contains(v))
                 || c.product_ids.len() > 500
             {
                 return Err(bad("Invalid channel membership"));
             }
+            crate::pos::validate_channel(&c, &settings)?;
             if let Some(root) = &c.navigation_category_id {
                 let exists: bool = sqlx::query_scalar(
                     "SELECT EXISTS(SELECT 1 FROM categories WHERE tenant=$1 AND id=$2)",
@@ -197,6 +198,24 @@ pub(crate) async fn save(
     let name = &data["name"];
     commerce::validate_names(name, &settings, 100)?;
     let mut tx = a.db.begin().await?;
+    if kind == "channels" {
+        sqlx::query("SELECT revision FROM commerce_settings WHERE tenant=$1 FOR UPDATE")
+            .bind(&t)
+            .fetch_one(&mut *tx)
+            .await?;
+        let old: Option<String> = sqlx::query_scalar(
+            "SELECT data->>'kind' FROM sales_channels WHERE tenant=$1 AND id=$2",
+        )
+        .bind(&t)
+        .bind(&id)
+        .fetch_optional(&mut *tx)
+        .await?;
+        if old.is_some_and(|v| (v == "pos") != (data["kind"] == "pos")) {
+            return Err(conflict(
+                "POS channel type cannot be changed; create a new channel",
+            ));
+        }
+    }
     history::context(&mut tx, &h, "merchant").await?;
     lifecycle::lock(&mut tx, &t).await?;
     lifecycle::validate_references(&mut tx, &t, &kind, &id, &data).await?;
@@ -222,9 +241,12 @@ pub(crate) async fn save(
         sqlx::query(sqlx::AssertSqlSafe(sql.as_str()))
             .bind(&t)
             .bind(&id)
-            .bind(data)
+            .bind(&data)
             .execute(&mut *tx)
             .await?;
+    }
+    if kind == "channels" {
+        crate::pos::configure(&mut tx, &t, &id, &data, rev.is_none()).await?;
     }
     tx.commit().await?;
     Ok(Json(json!({"saved":true,"revision":expected+1})))
@@ -255,44 +277,4 @@ pub(super) async fn preview(
     Ok(Json(
         json!({"matched":c.checked_matches(&cart,&q)?,"sideEffects":false}),
     ))
-}
-async fn coupons(
-    State(a): State<App>,
-    h: RequestContext,
-    Json(v): Json<Value>,
-) -> Result<Json<Value>> {
-    let codes = v["codes"]
-        .as_array()
-        .filter(|v| v.len() <= 5)
-        .ok_or(bad("Maximum five coupon codes"))?;
-    let codes = codes
-        .iter()
-        .map(|c| {
-            c.as_str()
-                .filter(|s| !s.is_empty() && s.len() <= 64 && s.is_ascii())
-                .map(str::to_string)
-                .ok_or(bad("Invalid coupon code"))
-        })
-        .collect::<Result<Vec<_>>>()?;
-    let t = tenant(&h)?;
-    let mut tx = a.db.begin().await?;
-    history::context(&mut tx, &h, "merchant").await?;
-    let r = sqlx::query("SELECT * FROM carts WHERE tenant=$1 AND token=$2 FOR UPDATE")
-        .bind(&t)
-        .bind(token(&h)?)
-        .fetch_one(&mut *tx)
-        .await?;
-    let mut c = stored(&r)?;
-    if c.status != "open" || Some(c.revision) != v["revision"].as_i64() {
-        return Err(conflict("Cart changed or terminal"));
-    }
-    c.data.coupons = codes;
-    sqlx::query("UPDATE carts SET data=$1,revision=revision+1 WHERE id=$2")
-        .bind(json!(c.data))
-        .bind(&c.id)
-        .execute(&mut *tx)
-        .await?;
-    c.revision += 1;
-    tx.commit().await?;
-    Ok(Json(cart_json(&a, &c).await?))
 }

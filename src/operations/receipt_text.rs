@@ -183,6 +183,22 @@ pub(super) fn lines(v: &Value) -> Vec<String> {
             }
         }
     }
+    if let Some(values) = v["order"]["pos"]["receiptMessage"].as_object() {
+        let main = v["order"]["pos"]["mainLocale"].as_str().unwrap_or("en-GB");
+        let message = values
+            .get(v["locale"].as_str().unwrap_or("en"))
+            .or_else(|| {
+                values
+                    .iter()
+                    .find(|(key, _)| key.split('-').next() == v["locale"].as_str())
+                    .map(|(_, value)| value)
+            })
+            .or_else(|| values.get(main))
+            .and_then(Value::as_str);
+        if let Some(message) = message {
+            lines.push(message.into());
+        }
+    }
     lines
 }
 

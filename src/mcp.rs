@@ -2,7 +2,6 @@
 use crate::*;
 mod transport;
 use transport::invoke_transport;
-
 pub(crate) fn tool_schema(name: &str) -> Value {
     if let Some(schema) = cognition::contracts::schema(name) {
         return schema;
@@ -17,6 +16,9 @@ pub(crate) fn tool_schema(name: &str) -> Value {
         return schema;
     }
     if let Some(schema) = documents::knowledge_schema(name) {
+        return schema;
+    }
+    if let Some(schema) = pos::schema(name) {
         return schema;
     }
     let props = match name {
@@ -224,6 +226,9 @@ pub(crate) async fn mcp(State(a): State<App>, h: RequestContext, Json(v): Json<V
             let mut tools = CAPABILITIES
                 .iter()
                 .filter(|(n, _)| {
+                    if n.starts_with("pos.") {
+                        return merchant(&a, &h).is_ok() && auth::allowed(&h, "pos.use");
+                    }
                     if let Some(permission) = currencies::permission(n) {
                         return merchant(&a, &h).is_ok() && auth::permit(&h, permission).is_ok();
                     }

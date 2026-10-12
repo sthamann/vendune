@@ -55,7 +55,7 @@ fn walk(base: &Value, next: &Value, path: &mut Vec<String>, changes: &mut Vec<Ch
         });
     }
 }
-pub(super) fn difference(base: &Settings, next: &Settings) -> Value {
+pub(crate) fn difference(base: &Settings, next: &Settings) -> Value {
     let mut changes = vec![];
     walk(
         &keyed(json!(base)),

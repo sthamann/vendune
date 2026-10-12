@@ -148,3 +148,13 @@ current records through API, MCP and authorized planner context. This projection
 retains native record revisions and tenant rights; it does not turn app text into
 confirmed public product claims. Deleting or renaming a draft model updates mappings;
 removing a field drops its mapping without silently exposing another field.
+
+## Native POS surfaces
+
+POS channels expose `admin.pos.catalog`, `admin.pos.cart` and `admin.pos.receipt`
+through the same visual designer and coding-agent Manifest. These are private
+merchant surfaces requiring `pos.use`; catalog/cart receive `salesChannelId`,
+and receipts receive `orderId`. Existing app record scopes, explicit install
+consent and native order references remain authoritative. Service apps may
+subscribe to projected `pos.sale_created` / `pos.sale_completed` events.
+[Register setup, full commerce call path and limits](pos.md).

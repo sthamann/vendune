@@ -195,6 +195,18 @@ pub(crate) async fn cart_json(a: &App, c: &StoredCart) -> Result<Value> {
     result["selectionNeedsConfirmation"] = json!(changed);
     result["legal"] = json!({"requiresDigital":!config.is_business(&c.data.group) && ps.iter().any(|p|p.extra["digital"]==true),"strictCheckout":config.legal.strict_checkout});
     commerce::dates(a, &mut result).await?;
+    let currency = config.currencies.selected(&c.data.currency)?;
+    result["price"]["totalMinor"] = json!(
+        currencies::amount(
+            result["price"]["totalPrice"]
+                .as_f64()
+                .ok_or(bad("Invalid total"))?,
+            &currency.code,
+            currency.scale
+        )?
+        .minor()
+        .to_string()
+    );
     result["locale"] = json!(locale);
     result["languageIdChain"] = json!(chain);
     Ok(result)

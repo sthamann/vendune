@@ -80,6 +80,7 @@ it("guards unsaved channel navigation and requires confirmation before deactivat
   render(
     <LocaleProvider>
       <ChannelEditor
+        countries={["DE", "US"]}
         initial={channel}
         request={request}
         languages={["en-GB", "es-ES"]}
@@ -137,6 +138,7 @@ it("opens existing inherited channel settings at the selected scope", async () =
   render(
     <LocaleProvider>
       <ChannelEditor
+        countries={["DE", "US"]}
         initial={channel}
         request={request}
         languages={["en-GB"]}

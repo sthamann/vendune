@@ -1,6 +1,24 @@
 /** Operational commerce labels in all supported languages. */
 import { useLocale } from "./i18n";
 export const operationWords = {
+  "pos.use": [
+    "Use POS register",
+    "Kasse verwenden",
+    "Utiliser la caisse",
+    "Usar caja POS",
+  ],
+  "pos.sale_created": [
+    "POS sale created",
+    "Kassenverkauf angelegt",
+    "Vente POS créée",
+    "Venta POS creada",
+  ],
+  "pos.sale_completed": [
+    "POS sale completed",
+    "Kassenverkauf abgeschlossen",
+    "Vente POS terminée",
+    "Venta POS completada",
+  ],
   "order.state_changed": [
     "Order status changed",
     "Bestellstatus geändert",

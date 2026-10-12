@@ -30,6 +30,7 @@ pub(crate) async fn set_cart(
         .await?
         .ok_or(bad("Cart not found"))?;
     let mut c = stored(&r)?;
+    pos::guard_cart(h, &c)?;
     if c.status != "open" {
         return Err(conflict("Cart is terminal"));
     }

@@ -1,6 +1,13 @@
 /** Sales-channel onboarding and inherited settings vocabulary in all interface languages. */
 import { useLocale } from "../../shared/i18n/i18n";
 const words = {
+  pos: ["Point of sale", "Kasse", "Point de vente", "Punto de venta"],
+  posHint: [
+    "Authenticated touch register. Shared orders, stock, taxes and receipts.",
+    "Geschützte Touch-Kasse. Gemeinsame Bestellungen, Bestände, Steuern und Belege.",
+    "Caisse tactile protégée. Commandes, stocks, taxes et documents partagés.",
+    "Caja táctil protegida. Pedidos, inventario, impuestos y comprobantes compartidos.",
+  ],
   connections: [
     "Domains & experiences",
     "Domains & Experiences",

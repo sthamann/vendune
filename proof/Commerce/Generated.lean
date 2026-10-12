@@ -138,4 +138,7 @@ def claim_render_admissible (confirmed : Bool) (public_source : Bool) (current_s
 def experiment_result_admissible (final_look : Bool) (enough_units : Bool) (positive_bound : Bool) : Bool :=
   ((final_look && enough_units) && positive_bound)
 
+def pos_cash_admissible (authorized : Bool) (tender : Nat) (total : Nat) (reviewed : Bool) : Bool :=
+  (((authorized && reviewed) && (decide (total ≤ tender))) && (decide (tender ≤ 1000000000000)))
+
 end CommerceKernel

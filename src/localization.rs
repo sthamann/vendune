@@ -178,6 +178,7 @@ pub(super) async fn preview_quote(
         status: "preview".into(),
         data: Cart {
             coupons: vec![],
+            pos_actor: None,
             currency: String::new(),
             sales_channel: "default".into(),
             app_configurations: HashMap::new(),

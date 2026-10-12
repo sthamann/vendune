@@ -65,6 +65,9 @@ import Commerce.Claims
 #print axioms CommerceKernel.payment_transition_exact
 #print axioms CommerceKernel.platform_exact
 #print axioms CommerceKernel.platform_personal_required
+#print axioms CommerceKernel.pos_cash_conserves
+#print axioms CommerceKernel.pos_cash_exact
+#print axioms CommerceKernel.pos_cash_unauthorized_denied
 #print axioms CommerceKernel.receipt_exact
 #print axioms CommerceKernel.receipt_exact_behavior
 #print axioms CommerceKernel.refund_bounded

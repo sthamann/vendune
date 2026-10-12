@@ -5,6 +5,10 @@ from registry import check
 from axioms import source_check,dependency_check
 
 MUTANTS=[
+ ("pos_cash_admissible","authorized &&","true &&"),
+ ("pos_cash_admissible","total <= tender","true"),
+ ("pos_cash_admissible","&& reviewed","&& true"),
+ ("pos_cash_admissible","tender <= 1000000000000","true"),
  ("experiment_result_admissible","final_look &&","true &&"),
  ("experiment_result_admissible","&& enough_units","&& true"),
  ("experiment_result_admissible","&& positive_bound","&& true"),

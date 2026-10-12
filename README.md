@@ -76,6 +76,8 @@ uses the actual connected catalogue and live address. [Screenshots and exact acc
 
 **12 October workbench update:** editable app patterns, targeted AI edits to existing apps, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. A real local model added translated, order-bound controls; browser checks verified saving and explicit reload. [How to use it, ownership and verification boundaries](docs/connected-workbench.md).
 
+**Native POS:** create a Point-of-sale channel, scan products, select variants, park sales, use channel currencies/coupons and complete reviewed cash purchases. Orders, stock, payment workers, invoices, flows and app slots use the same commerce owners. [Register setup, API and boundaries](docs/pos.md).
+
 ## Get started
 
 **Rust stable 1.96+ · Node.js 22+ · Docker Compose · Python 3**

@@ -5,7 +5,13 @@ export type Channel = {
   revision: number;
   data: {
     name: Record<string, string>;
-    kind: "storefront" | "headless";
+    kind: "storefront" | "headless" | "pos";
+    pos?: {
+      country: string;
+      columns: number;
+      compact: boolean;
+      receiptMessage: Record<string, string>;
+    };
     active: boolean;
     visibility?: "public" | "private";
     locales: string[];
@@ -25,6 +31,9 @@ export const freshChannel = (mainLocale: string): Channel => ({
     navigationCategoryId: null,
   },
 });
+export function posUrl(shop: string, channel: string) {
+  return `/?shop=${encodeURIComponent(shop)}&studio=pos&posChannel=${encodeURIComponent(channel)}#merchant`;
+}
 export function channelUrl(shop: string, channel: string) {
   const publicOrigin = location.hostname.endsWith(".vendune.ai")
     ? "https://app.vendune.ai"

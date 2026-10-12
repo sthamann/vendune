@@ -1,4 +1,5 @@
 /** Typed built-in Studio navigation and locale-specific labels. */
+import { usePosText } from "../pos/pos-i18n";
 import { useLocale } from "../../shared/i18n/i18n";
 import { useOperationsText } from "../../shared/i18n/operations-i18n";
 import { useWorkbenchText } from "../../shared/i18n/workbench-i18n";
@@ -18,51 +19,57 @@ export type Tab =
   | "productData"
   | "orders"
   | "customers"
-  | "channels";
+  | "channels"
+  | "pos";
 
 export function useStudioNavigation() {
   const { t } = useLocale();
+  const p = usePosText();
   const { w } = useWorkbenchText();
   const { o } = useOperationsText();
   const tabLabel = (id: Tab) =>
-    id === "channels"
-      ? w("channels")
-      : id === "commerce"
-        ? t("settings")
-        : id === "orders" || id === "customers"
-          ? o(id)
-          : [
-                "storyfronts",
-                "developers",
-                "environments",
-                "automation",
-                "productData",
-              ].includes(id)
-            ? w(
-                id as
-                  | "storyfronts"
-                  | "developers"
-                  | "environments"
-                  | "automation"
-                  | "productData",
-              )
-            : t(
-                id as Exclude<
-                  Tab,
-                  | "storyfronts"
-                  | "developers"
-                  | "environments"
-                  | "automation"
-                  | "productData"
-                  | "orders"
-                  | "channels"
-                  | "customers"
-                >,
-              );
+    id === "pos"
+      ? p("title")
+      : id === "channels"
+        ? w("channels")
+        : id === "commerce"
+          ? t("settings")
+          : id === "orders" || id === "customers"
+            ? o(id)
+            : [
+                  "storyfronts",
+                  "developers",
+                  "environments",
+                  "automation",
+                  "productData",
+                ].includes(id)
+              ? w(
+                  id as
+                    | "storyfronts"
+                    | "developers"
+                    | "environments"
+                    | "automation"
+                    | "productData",
+                )
+              : t(
+                  id as Exclude<
+                    Tab,
+                    | "storyfronts"
+                    | "developers"
+                    | "environments"
+                    | "automation"
+                    | "productData"
+                    | "orders"
+                    | "channels"
+                    | "pos"
+                    | "customers"
+                  >,
+                );
 
   const nav: { id: Tab; icon: IconName }[] = [
     { id: "assistant", icon: "chat" },
     { id: "overview", icon: "pulse" },
+    { id: "pos", icon: "register" },
     { id: "orders", icon: "box" },
     { id: "customers", icon: "people" },
     { id: "knowledge", icon: "graph" },

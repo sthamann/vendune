@@ -1,5 +1,7 @@
 # Vendune feature guide
 
+**Native point of sale:** touch/scanner register as a channel type, shared checkout and documents, cash/change, provider reconciliation, flows and private app slots. [Full setup and scope](pos.md).
+
 **12 October workbench update:** editable app patterns, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. [How to use it, ownership and verification boundaries](connected-workbench.md).
 
 **Build your first apps:** [five illustrated workshops](app-tutorials/README.md)

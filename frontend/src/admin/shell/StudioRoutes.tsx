@@ -7,6 +7,8 @@ import StudioConversation from "./StudioConversation";
 import { AppSurfaceView } from "../../shared/apps/AppSurfaces";
 import "../../shared/styles/workbench.css";
 import Icon from "../../shared/ui/Icon";
+import { downloadFile } from "../../shared/api/download";
+const POSWorkspace = lazy(() => import("../pos/POSWorkspace"));
 const AppsManager = lazy(() => import("../apps/AppsManager"));
 const SalesChannelsWorkspace = lazy(
   () => import("../channels/SalesChannelsWorkspace"),
@@ -133,6 +135,20 @@ export default function StudioRoutes() {
       request={request}
       role={role}
       onChannels={() => selectTab("channels")}
+    />
+  ) : tab === "pos" ? (
+    <POSWorkspace
+      key={environment || workspace}
+      request={request}
+      workspace={environment || workspace}
+      onChannels={() => selectTab("channels")}
+      onOrder={(id) => openEntity("orders", id)}
+      download={(path) =>
+        downloadFile(path, {
+          Authorization: `Bearer ${token}`,
+          "x-tenant": environment || workspace,
+        })
+      }
     />
   ) : tab === "channels" ? (
     <SalesChannelsWorkspace

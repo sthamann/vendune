@@ -17,6 +17,10 @@ inputs and state effects. A module's presence does not count as a test.
 
 The maintained full inventory, including all newly added Rust files, frontend feature folders, independent services and SDKs, is [module-inventory.md](module-inventory.md). Coverage percentages and explicit remaining gaps are in [testing.md](testing.md). The tables below describe selected behavioral suites and must not be read as 100% coverage.
 
+## Native POS
+
+`src/pos/{config,gateway,schema,settlement}.rs` are native channel adapters. Catalog/cart/currencies/promotions, `order_checkout.rs`, `checkout_review.rs`, inventory, payments, documents and outbox remain the commerce owners. `marketing/coupons.rs` retains the existing coupon handler with private-cart admission. `frontend/src/admin/pos` owns the touch/scanner workspace; app code stays in its own package. Real `pos.py`/`payment_providers.py` and UI regressions cover state effects. [Architecture, proof scope and limits](pos.md).
+
 ## Production foundations
 
 The [illustrated architecture guide](production-architecture.md) connects ingress,

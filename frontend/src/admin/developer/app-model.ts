@@ -11,6 +11,9 @@ import type {
 } from "../../shared/apps/native/types";
 export { problems } from "./app-validation";
 export const locations: Record<string, AppStudioKey> = {
+  "admin.pos.catalog": "posCatalog",
+  "admin.pos.cart": "posCart",
+  "admin.pos.receipt": "posReceipt",
   "admin.navigation": "admin",
   "storefront.page": "storefront",
   "product.detail": "product",

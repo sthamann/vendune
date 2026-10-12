@@ -16,6 +16,7 @@ import { useLocale } from "../../shared/i18n/i18n";
 import ConfirmDialog from "../../shared/ui/ConfirmDialog";
 import EntityHistory from "../../shared/history/EntityHistory";
 
+import ChannelType from "./ChannelType";
 import ChannelSettings from "./ChannelSettings";
 export default function ChannelEditor({
   initial,
@@ -23,6 +24,7 @@ export default function ChannelEditor({
   languages,
   mainLocale,
   categories,
+  countries,
   workspace,
   canWrite,
   onBack,
@@ -34,6 +36,7 @@ export default function ChannelEditor({
   languages: string[];
   mainLocale: string;
   categories: Category[];
+  countries: string[];
   workspace: string;
   canWrite: boolean;
   onBack: () => void;
@@ -214,33 +217,12 @@ export default function ChannelEditor({
                     required
                     maxLength={100}
                   />
-                  <div
-                    className="channel-kind-grid"
-                    role="group"
-                    aria-label={t("type")}
-                  >
-                    {(["storefront", "headless"] as const).map((kind) => (
-                      <button
-                        type="button"
-                        key={kind}
-                        className="channel-kind"
-                        disabled={
-                          draft.id === "default" && kind !== "storefront"
-                        }
-                        aria-pressed={draft.data.kind === kind}
-                        onClick={() => patch({ kind })}
-                      >
-                        <strong>{t(kind)}</strong>
-                        <p>
-                          {t(
-                            kind === "storefront"
-                              ? "storefrontHint"
-                              : "headlessHint",
-                          )}
-                        </p>
-                      </button>
-                    ))}
-                  </div>
+                  <ChannelType
+                    request={request}
+                    draft={draft}
+                    patch={patch}
+                    countries={countries}
+                  />
                 </>
               )}
               {(draft.revision > 0 || step === 1) && (

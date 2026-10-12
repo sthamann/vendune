@@ -385,4 +385,16 @@ theorem experiment_undersized_denied (final_look positive_bound : Bool) :
     experiment_result_admissible final_look false positive_bound = false := by
   simp [experiment_result_admissible]
 
+/-- Cash is admitted only for an authorized, reviewed sale with sufficient, bounded tender. -/
+theorem pos_cash_exact (authorized reviewed : Bool) (tender total : Nat) :
+    pos_cash_admissible authorized tender total reviewed = true ↔
+    authorized = true ∧ reviewed = true ∧ total ≤ tender ∧ tender ≤ 1000000000000 := by
+  cases authorized <;> cases reviewed <;> simp [pos_cash_admissible, and_assoc]
+/-- An admitted cash sale cannot underflow its change or lose value. -/
+theorem pos_cash_conserves (authorized reviewed : Bool) (tender total : Nat)
+    (h : pos_cash_admissible authorized tender total reviewed = true) : tender - total + total = tender := by
+  exact Nat.sub_add_cancel ((pos_cash_exact authorized reviewed tender total).mp h).2.2.1
+/-- Unauthenticated cash settlement is impossible in the extracted decision. -/
+theorem pos_cash_unauthorized_denied (reviewed : Bool) (tender total : Nat) :
+    pos_cash_admissible false tender total reviewed = false := by simp [pos_cash_admissible]
 end CommerceKernel

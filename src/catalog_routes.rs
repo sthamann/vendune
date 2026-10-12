@@ -76,6 +76,7 @@ pub(crate) async fn catalog_page(
                 status: "preview".into(),
                 data: Cart {
                     coupons: vec![],
+                    pos_actor: None,
                     currency: String::new(),
                     sales_channel: marketing::channel_id(&h).into(),
                     app_configurations: HashMap::new(),

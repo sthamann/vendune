@@ -31,6 +31,7 @@ pub(crate) async fn login(
         .fetch_one(&mut *tx)
         .await?;
     let mut c = stored(&row)?;
+    pos::guard_cart(&h, &c)?;
     if c.status != "open" {
         return Err(conflict("Cart is terminal"));
     }

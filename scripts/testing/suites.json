@@ -47,7 +47,8 @@
     "app_schema",
     "app_jobs",
     "app_components",
-    "app_assets"
+    "app_assets",
+    "pos"
   ],
   "providers": [
     "email_tests",

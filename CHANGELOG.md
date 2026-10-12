@@ -1,5 +1,13 @@
 # Changelog
 
+## Native POS channel — 12 October 2026
+
+- Add authenticated, cashier-bound POS channels and touch/scanner register UI, native variants, parked carts, currencies and coupons.
+- Reuse atomic checkout, stock, orders, customer snapshots, shared payment-provider onboarding/jobs and immutable invoice/PDF owners. Cash tender/change use reviewed integer currency units; pending provider attempts remain pending until confirmed.
+- Emit transactional POS events through existing Flow/app workers; expose private catalog/cart/receipt app surfaces to the same visual/coding-agent contract and POS tools to MCP.
+- Recheck pause/location, role and cart ownership; deny public and generic-MCP bypasses. Add real PostgreSQL/provider regression cases and a scoped Lean cash policy.
+- Document setup, architecture, ownership, permissions and limits. Offline sales, terminals, shift accounting and fiscal certification remain outside this release.
+
 ## App lifecycle, reference services and Experience admission — 12 October 2026
 
 - Fix transient Studio login errors during loading while retaining conversation drafts.

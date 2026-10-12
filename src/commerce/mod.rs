@@ -81,6 +81,7 @@ mod international_capabilities;
 pub(crate) use international_capabilities::*;
 
 mod settings_patch;
+pub(crate) use settings_patch::difference as settings_difference;
 mod settings_scope;
 pub(crate) use settings_scope::*;
 mod method_usage;
