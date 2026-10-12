@@ -6,6 +6,11 @@ App Studio and coding agents edit one Manifest. The same renderer, action gatewa
 permissions and model schema power private previews and published apps. Open Studio
 → **Developers**; choose a guided app type or click an existing app's **Edit** card.
 
+**Start building:** [five illustrated workshops](app-tutorials/README.md) take you
+from a working pattern or assistant to product advice, private returns, customer
+fields, scheduled flows and an ERP service contract. They include current English
+screenshots, practical tests, agent prompts and the shared version/release loop.
+
 ## The development loop
 
 1. Choose a frontend/admin/combined/payment/shipping/integration/event/cron app

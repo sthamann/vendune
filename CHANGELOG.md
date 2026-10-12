@@ -1,5 +1,18 @@
 # Changelog
 
+## Illustrated app workshops — 12 October 2026
+
+- Add five step-by-step tutorials: product advisor, private returns workspace,
+  customer preferences, scheduled review flow and ERP handoff.
+- Include twelve unretouched English browser captures, exact input values,
+  coding-agent prompts, permission reviews, expected/denied cases and the shared
+  private preview → immutable version → staging → selective release workflow.
+- Keep examples linked to existing app-owned packages/assistants; no second
+  runtime, service queue or core app implementation is introduced.
+- Refresh README, feature/editor/reference guides, release inventories, homepage
+  entry and machine-readable documentation links. Preserve dated evidence and
+  explicitly distinguish native previews from live external integrations.
+
 ## 2026-10-12 — App-owned packages and readable designer
 
 - Move editable returns/advisor/ERP patterns to ordinary plugin manifests.

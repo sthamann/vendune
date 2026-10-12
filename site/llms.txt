@@ -24,6 +24,7 @@
 - [All guides and developer notes](https://sthamann.github.io/vendune/docs/)
 - [Shop knowledge](https://sthamann.github.io/vendune/docs/knowledge-workspace.html)
 - [App Studio](https://sthamann.github.io/vendune/docs/app-studio.html)
+- [Five illustrated app workshops](https://sthamann.github.io/vendune/docs/app-tutorials/README.html): Product advice, private returns, customer fields, UTC review flows and ERP handoff; current English screenshots, agent prompts, rights and staging/release steps.
 
 ## Original documentation
 - [Repository](https://github.com/sthamann/vendune)

@@ -1,6 +1,13 @@
-# Current release — 9 October 2026
+# Current release — 12 October 2026
 
 **12 October workbench update:** editable app patterns, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. [How to use it, ownership and verification boundaries](connected-workbench.md).
+
+**Illustrated app workshops:** five practical guides now cover product advice,
+private returns, customer fields, UTC review reminders and ERP handoff. Twelve
+current English browser captures show actual assistants, models, controls,
+connections and versions. Each guide includes a coding-agent task, required
+permissions, preview/release steps and explicit integration boundaries.
+[Start the five workshops](app-tutorials/README.md).
 
 [Feature tour](features.md) · [Architecture](production-architecture.md) · [Complete documentation](documentation-site.md)
 
@@ -11,7 +18,7 @@ its dated release was `f970543124d669971330945f74b87e9c799a76e4`. The public nat
 [Complete changes, repeatable acceptance and remaining work](release-acceptance-2026-10-09.md).
 
 The static API catalogue contains **280 HTTP method/path pairs**; installed app
-routes are discovered separately. The source inventory contains **416 Rust
+routes are discovered separately. The source inventory contains **424 Rust
 modules**. The formal subset has **45 extracted policies and 97 properties**,
 with **142,298 compiled comparisons and no mismatch**. SQL, network and UI behavior
 remain outside those proofs. [Formal evidence](formal-verification.md).

@@ -1,5 +1,10 @@
 # Tenant extension examples
 
+**Start in the visual editor:** [five illustrated App Studio workshops](../docs/app-tutorials/README.md)
+cover product advice, returns, customer fields, scheduled flows and ERP handoff.
+They use existing app-owned patterns/assistant contracts, with agent prompts,
+current screenshots and explicit private-preview/service boundaries.
+
 The working ABI is `approve(total_minor: i64, limit_minor: i64) -> i32`.
 Amounts are integer EUR cents; zero rejects and any nonzero result allows.
 The hook runs in the **actual B2B order transaction**, after authoritative

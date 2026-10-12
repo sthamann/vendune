@@ -2,6 +2,11 @@
 
 App Studio starts with nine assistants: frontend, admin, combined, payment, shipping, third-party integration (ERP), event subscriber, signed incoming webhook and scheduled task. Each assistant creates an ordinary versioned Manifest, editable visually or by a coding agent. It never hides provider-specific code behind a template.
 
+Follow [five illustrated app-building workshops](app-tutorials/README.md) for
+concrete input values, data bindings, access decisions, expected results and
+current screenshots. The three working patterns are app-owned packages, not
+inline domain implementations inside the assistant or Rust core.
+
 ## Build and try an app
 
 1. Open **Developers → New app**, choose a use case and its placement.
@@ -55,7 +60,7 @@ Reviewed on 2026-10-05 against Shopware's curated [Most Popular Integrations](ht
 | Trusted Shops | Review/trust widgets and order follow-up | Public cards or sandboxed custom UI, scoped order events and service calls. Arbitrary native JSX injection is not permitted. |
 | Usercentrics / Cookiebot | Consent UI and control of trackers | Existing consent-aware storefront integration plus custom app UI. Assistant fields alone do not intercept every third-party tracker. |
 
-The shared representation supports the recurring requirements above without a new extension protocol for each provider. The native editor has four block kinds. Custom scripts, sophisticated widgets, long-running external jobs and provider algorithms use the isolated app-service/UI SDK path. Self-service deployment of arbitrary server code is not implemented by these assistants. Service endpoints/credentials remain operator configured.
+The shared representation supports the recurring requirements above without a new extension protocol for each provider. The native editor has table/cards/form/text blocks plus input, selection, checkbox, date, button, image, frame/tabs and metric/chart controls. Custom scripts, sophisticated widgets, long-running external jobs and provider algorithms use the isolated app-service/UI SDK path. Self-service deployment of arbitrary server code is not implemented by these assistants. Service endpoints/credentials remain operator configured.
 
 ## Source and verification
 

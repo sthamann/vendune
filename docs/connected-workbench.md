@@ -9,6 +9,10 @@ acceptance step; the checks below use isolated shops and local provider fixtures
 Open **Developers → New app** and choose Product advisor, Returns workspace or
 ERP handoff. Each opens an ordinary editable Manifest with translated labels.
 
+[Five illustrated workshops](app-tutorials/README.md) walk through these patterns,
+additional customer fields and scheduled Flow automation with current English
+captures, agent tasks and explicit preview/staging/live differences.
+
 ![Working app patterns in the German App Studio](assets/feature-tour/app-workbench-patterns.jpg)
 
 This capture uses a synthetic local shop. Choose a pattern, edit its controls and

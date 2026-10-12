@@ -2,6 +2,10 @@
 
 **12 October workbench update:** editable app patterns, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. [How to use it, ownership and verification boundaries](connected-workbench.md).
 
+**Build your first apps:** [five illustrated workshops](app-tutorials/README.md)
+cover product care advice, returns, customer preferences, scheduled review flows
+and ERP handoff using the same visual/coding-agent Manifest and version lifecycle.
+
 [Documentation home](documentation-site.md) · [Get started](quickstart.md) · [Exact Shopware scope](shopware-parity.md) · [Source map](source-map.md)
 
 **Updated on 9 October 2026 against merged Core `598bbec`.** This guide follows the storefront, all 15 Studio workspaces and the separate platform console. The connected intelligence, app ontology, source/consent fences and runtime hardening are described in the [complete change and acceptance record](release-acceptance-2026-10-09.md). The dated media captures retain their original provenance. [Current release and deployment boundaries](current-release.md).
@@ -476,7 +480,7 @@ Invitations expire after 24 hours and are used once. Codes are shared manually; 
 
 Protected Studio links require sign-in before private content loads. An expired active session presents a blocking reauthentication dialog, preserving drafts and editor context. Only the same account/current membership can resume; failed writes are not replayed. Authorization/provider/network errors are distinguished from authentication expiry.
 
-Create named, hashed, scoped integration keys valid for **1–90 days**. They are shown once and are rechecked against the creator's current membership. The API explorer lists **279 static method/path pairs** at the reviewed commit, with source and access metadata; installed app routes are discovered at runtime. Its live tester supports authorized GET and MCP `tools/list`, with a selected scoped key, without replacing Studio identity or exposing operator binary routes. [Sessions and explorer](studio-api-and-channels.md).
+Create named, hashed, scoped integration keys valid for **1–90 days**. They are shown once and are rechecked against the creator's current membership. The API explorer lists **280 static method/path pairs** in the 12 October 2026 review, with source and access metadata; installed app routes are discovered at runtime. Its live tester supports authorized GET and MCP `tools/list`, with a selected scoped key, without replacing Studio identity or exposing operator binary routes. [Sessions and explorer](studio-api-and-channels.md).
 
 ![API/MCP permission selection and native endpoint explorer workspace](assets/feature-tour/api-integrations.jpg)
 
