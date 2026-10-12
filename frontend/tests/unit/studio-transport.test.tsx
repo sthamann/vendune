@@ -35,6 +35,38 @@ describe("Studio transport", () => {
     });
     expect(fetcher.mock.calls[1][1].body).toBe('{"revision":6}');
   });
+  it("preserves a stable job idempotency key across retries and omits empty options", async () => {
+    const fetcher = vi
+      .fn()
+      .mockResolvedValue({
+        ok: true,
+        json: async () => ({ jobId: "job-fixture" }),
+      });
+    vi.stubGlobal("fetch", fetcher);
+    const api = createStudioRequest("token-fixture", "tenant-a", "de-DE");
+    for (let attempt = 0; attempt < 2; attempt++)
+      await api(
+        "/api/apps/marketplaces/actions/sync",
+        { connectionId: "seller-fixture", kind: "orders" },
+        "POST",
+        { idempotencyKey: "stable-job-fixture" },
+      );
+    await api(
+      "/api/apps/marketplaces/actions/sync",
+      { connectionId: "seller-fixture", kind: "orders" },
+      "POST",
+      {},
+    );
+    for (const call of fetcher.mock.calls.slice(0, 2))
+      expect(call[1].headers).toMatchObject({
+        "Idempotency-Key": "stable-job-fixture",
+        "x-tenant": "tenant-a",
+        Authorization: "Bearer token-fixture",
+      });
+    expect(fetcher.mock.calls[2][1].headers).not.toHaveProperty(
+      "Idempotency-Key",
+    );
+  });
   it("lets the browser set multipart boundaries", async () => {
     const fetcher = vi
       .fn()
@@ -77,8 +109,16 @@ describe("Studio transport", () => {
     );
     expect(result.current.request).toBe(result.current.liveRequest);
     rerender({ stage: "stage" });
-    await result.current.request("/api/items");
+    await result.current.request("/api/items", { revision: 1 }, "POST", {
+      idempotencyKey: "stage-fixture",
+    });
     await result.current.liveRequest("/api/items");
+    expect(fetcher.mock.calls[0][1].headers["Idempotency-Key"]).toBe(
+      "stage-fixture",
+    );
+    expect(fetcher.mock.calls[1][1].headers).not.toHaveProperty(
+      "Idempotency-Key",
+    );
     expect(fetcher.mock.calls.map((c) => c[1].headers["x-tenant"])).toEqual([
       "stage",
       "live",

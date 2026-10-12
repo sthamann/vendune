@@ -1,6 +1,7 @@
 /** All executable frontend modules are measured, including files untouched by tests. */
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
+import { fileURLToPath } from "node:url";
 export default defineConfig({
   plugins: [react()],
   resolve: { dedupe: ["react", "react-dom"] },
@@ -13,7 +14,13 @@ export default defineConfig({
     include: ["tests/unit/**/*.test.{ts,tsx}"],
     coverage: {
       provider: "v8",
-      include: ["src/**/*.{ts,tsx}", "../extensions/apps/**/*.{ts,tsx}"],
+      allowExternal: true,
+      include: [
+        "src/**/*.{ts,tsx}",
+        fileURLToPath(
+          new URL("../extensions/apps/", import.meta.url),
+        ).replaceAll("\\", "/") + "**/*.{ts,tsx}",
+      ],
       reporter: ["text-summary", "json", "json-summary", "html", "lcov"],
       reportsDirectory: "coverage",
       reportOnFailure: true,
