@@ -502,3 +502,18 @@ registry. See [the performance and migration boundary](cognitive-commerce.md#lex
 | Private original Storyfront bag and runtime client | Verify completed Core cart; remove only purchased quantities once; keep cancellation intact | Original cart-store and rust-commerce tests, live acceptance recorded separately |
 
 App generation edits are adapted by `src/developer/generation_edits.rs` as bounded JSON Patch into the existing Manifest; `generation_contract.rs` and `builds.rs` remain the storage/access and validation owners.
+
+## App lifecycle and ERP reference ownership — 12 October 2026
+
+`apps/record_lifecycle.rs` validates generic Manifest initial states, permitted
+edges and immutable fields. `apps/data.rs` enforces them and the current installed
+package digest inside the record/outbox transaction. `apps/service_limits.rs`
+owns shared egress bulkheads and replica-wide tenant/app leases.
+
+The reference business vocabulary lives in `extensions/apps/returns-workspace/`.
+`extensions/apps/erp-handoff/service/` owns independent Rust ERP delivery,
+configuration and app-private forced-RLS receipts; `extensions/sdk/rust-events.rs`
+is only a shared wire verifier. The registered `erp_handoff` suite delegates to
+that app's tests. `app_assistants` covers actual transitions and an upgrade/write
+race; `app_events` exercises aggregate admission across two real replicas.
+See the [runtime and privilege boundary](../extensions/apps/erp-handoff/README.md).

@@ -17,9 +17,9 @@ flowchart LR
 
 | Owner | Files / execution boundary |
 |---|---|
-| `extensions/apps/returns-workspace/` | Private order-bound cases, fields, native views and bounded save/refresh AST; F5/staging before release; no refund/payment transition |
+| `extensions/apps/returns-workspace/` | Private order-bound cases, app-declared lifecycle/immutable order identity, native views and bounded save/refresh AST; no refund/payment transition |
 | `extensions/apps/product-advisor/` | Product-bound advice, private editor and explicit public read surface |
-| `extensions/apps/erp-handoff/` | Integration workspace/event declaration; actual ERP needs an approved independent service |
+| `extensions/apps/erp-handoff/` | Integration workspace, app-owned Rust adapter/receipt schema/tests; actual ERP endpoint and independent service deployment need operator configuration |
 | `extensions/apps/email/` | Typed settings, templates, SMTP/HTTP providers and their own Studio UI/translations |
 | `extensions/apps/{google-analytics,gmail,slack}/src/` | Provider actions, settings/OAuth declarations, imports/notifications and Studio field descriptors in the independent connector process |
 | `extensions/apps/google-analytics/storefront/` | Consent-bound GA4 tracking bridge |

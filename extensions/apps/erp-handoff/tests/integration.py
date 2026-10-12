@@ -8,7 +8,7 @@ from testing.app_approval import pin,consent
 from testing.database import psql
 from testing.runtime import serve,stop
 env=dict(os.environ);suffix=uuid.uuid4().hex[:10];tenant='erp-'+suffix;foreign='erp-other-'+suffix
-role='erp_fixture_'+suffix; gateway='synthetic-erp-gateway-'+suffix;exports={};attempts=[];mode='accepted'
+role='erp_fixture_'+suffix; role_password='synthetic-erp-db-'+suffix; gateway='synthetic-erp-gateway-'+suffix;exports={};attempts=[];mode='accepted'
 def port():
  with socket.socket() as s:s.bind(('127.0.0.1',0));return s.getsockname()[1]
 core_url=f'http://127.0.0.1:{port()}';erp_url=f'http://127.0.0.1:{port()}'
@@ -20,7 +20,7 @@ def call(base,path,body=None,h=None,status=200):
  except urllib.error.HTTPError as e:code=e.code;v=json.load(e)
  assert code==status,(path,code,status,v);return v
 def sql(statement,user='commerce'):
- return subprocess.run(psql(env.get('TEST_DB_CONTAINER','unused'),user,env['TEST_DATABASE'],'-qAt','-v','ON_ERROR_STOP=1'),input=statement,text=True,capture_output=True,check=True).stdout.strip()
+ return subprocess.run(psql(env.get('TEST_DB_CONTAINER','unused'),user,env['TEST_DATABASE'],'-qAt','-v','ON_ERROR_STOP=1'),input=statement,text=True,capture_output=True,check=True,env={**env,**({'PGPASSWORD':role_password} if user==role else {})}).stdout.strip()
 class ERP(BaseHTTPRequestHandler):
  def do_POST(self):
   assert self.headers['Authorization']=='Bearer synthetic-erp-provider-'+suffix
@@ -40,7 +40,7 @@ core_env={**env,'BIND_ADDR':core_url.removeprefix('http://'),'BASE_URL':core_url
 core=adapter=None;log=(ROOT/'artifacts/erp-handoff.log').open('w')
 try:
  sql((ROOT/'extensions/apps/erp-handoff/service/schema.sql').read_text())
- sql(f'CREATE ROLE {role} LOGIN NOSUPERUSER NOBYPASSRLS; GRANT USAGE ON SCHEMA public TO {role}; GRANT SELECT,INSERT,UPDATE ON erp_handoff_receipts TO {role};')
+ sql(f"CREATE ROLE {role} LOGIN NOSUPERUSER NOBYPASSRLS PASSWORD '{role_password}'; GRANT USAGE ON SCHEMA public TO {role}; GRANT SELECT,INSERT,UPDATE ON erp_handoff_receipts TO {role};")
  core=serve(core_env,core_url,log);configs={};owners={}
  for t in [tenant,foreign]:
   u=call(core_url,'/api/auth/register',{'workspaceId':t,'name':'Synthetic ERP owner','email':t+'@example.test','password':'Synthetic-ERP-fixture-2026!'})
@@ -49,7 +49,7 @@ try:
   digest=call(core_url,'/api/apps/erp_handoff/credentials',h=h)['digest']
   k=call(core_url,'/api/apps/erp_handoff/credentials',{'digest':digest,'approve':True,'permissions':['orders.read'],'expiresInDays':1},h)
   configs[t]={'callbackToken':k['key'],'erpUrl':f'http://127.0.0.1:{fixture.server_port}/orders','erpToken':'synthetic-erp-provider-'+suffix,'webhookSecret':'synthetic-erp-signing-secret-'+suffix}
- url=urllib.parse.urlsplit(env['DATABASE_URL']);app_dsn=urllib.parse.urlunsplit(url._replace(netloc=f'{role}@{url.hostname}:{url.port}'))
+ url=urllib.parse.urlsplit(env['DATABASE_URL']);app_dsn=urllib.parse.urlunsplit(url._replace(netloc=f'{role}:{role_password}@{url.hostname}:{url.port}'))
  app_env={**env,'APP_DATABASE_URL':app_dsn,'APP_TOKEN':gateway,'APP_ID':'erp_handoff','APP_BIND_ADDR':erp_url.removeprefix('http://'),'APP_CORE_URL':core_url,'APP_TENANTS':json.dumps(configs),'ALLOW_LOOPBACK_FIXTURES':'true'}
  def start_adapter():
   p=subprocess.Popen([str(ROOT/'target/debug/erp-handoff')],env=app_env,stdout=log,stderr=log)
@@ -79,7 +79,7 @@ try:
  call(erp_url,'/actions/receipts',{}, {'x-tenant':tenant},401)
  assert call(core_url,'/api/apps/erp_handoff/actions/receipts',{},owners[foreign])['elements']==[]
  assert sql(f"BEGIN; SELECT set_config('app.tenant','{foreign}',true); SELECT count(*) FROM erp_handoff_receipts WHERE tenant='{tenant}'; COMMIT;",role).splitlines()[-1]=='0'
- denied=subprocess.run(psql(env.get('TEST_DB_CONTAINER','unused'),role,env['TEST_DATABASE'],'-c','SELECT * FROM orders LIMIT 1'),text=True,capture_output=True)
+ denied=subprocess.run(psql(env.get('TEST_DB_CONTAINER','unused'),role,env['TEST_DATABASE'],'-c','SELECT * FROM orders LIMIT 1'),text=True,capture_output=True,env={**env,'PGPASSWORD':role_password})
  assert denied.returncode!=0
  print('PASS real order callback, minimized ERP export, concurrent action/event deduplication, tenant RLS and app-only DB role')
  stop(adapter);adapter=start_adapter();assert sync(tenant,id)['state']=='accepted';assert len(attempts)==1

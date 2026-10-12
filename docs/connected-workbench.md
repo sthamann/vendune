@@ -206,3 +206,27 @@ Actual HTTP/PostgreSQL tests reject queued writes using a superseded package,
 foreign order references and invalid transitions without record/outbox changes.
 The reference adapter tests use real Rust processes and a local ERP fixture;
 these do not establish a live merchant's ERP credentials or provider settlement.
+
+### Repeatable public lifecycle acceptance
+
+A fresh sample shop created through `start.vendune.ai` was used for package
+creation, staging installation, selected package/data releases, public product
+advice, edit/upgrade, restoration through a new immutable revision, recoverable
+archive/restore and simulated checkout. The dated [release evidence](current-release.md)
+includes exact app/order identifiers and screenshots. Restoring a version does
+not rewind order/payment state or erase version history.
+
+```mermaid
+sequenceDiagram
+  participant Editor as Visual editor / coding agent
+  participant Stage as Private staging
+  participant Core as Current-package transaction
+  participant Live as Live shop
+  Editor->>Stage: Save and install reviewed version
+  Stage->>Core: Validate owned record + revision + workflow
+  Core-->>Stage: Confirm record and revision
+  Editor->>Live: Publish selected package / records
+  Editor->>Stage: Reopen prior build as next free version
+  Stage->>Live: Publish reviewed restoration
+  Note over Core,Live: Orders, payments and customer state are never rewound
+```

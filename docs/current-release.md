@@ -12,6 +12,21 @@ browser check reproduced the old HTTP-reference 400, then accepted the normalize
 HTTPS reference and reached the original Storyfront brand editor. This check used
 the standard demo catalog, made no new images and did not publish or charge an order.
 
+Public App Studio acceptance in a fresh `start.vendune.ai` sample shop created
+`advisor_mv4xhvzp`, installed it privately, released its package and separately
+selected one product record for Live. Its public Bag product page displayed the
+saved advice. Version 0.1.1 changed the app name; restoring the old package as
+0.1.2 preserved its published data. Recoverable archive/restore retained all three
+builds. A subsequent simulated checkout saved **RAC-96c745a2**, **169.00 EUR**,
+and returned Bag **0**. This acceptance preceded the new Core runtime deployment;
+it validates the existing lifecycle and checkout, not every new guard in production.
+
+![Public creation reaches the original Storyfront draft](assets/showcase/experience-admission-20261012.png)
+
+![Original Storyfront brand editor reached from the corrected onboarding](assets/showcase/experience-original-studio-20261012.png)
+
+![Public simulated checkout following app upgrade and restoration](assets/showcase/app-lifecycle-checkout-20261012.png)
+
 **12 October workbench update:** editable app patterns, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. [How to use it, ownership and verification boundaries](connected-workbench.md).
 
 **Illustrated app workshops:** five practical guides now cover product advice,
