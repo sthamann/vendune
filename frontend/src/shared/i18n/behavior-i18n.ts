@@ -2,6 +2,12 @@
 import { useLocale } from "./i18n";
 /** Shared four-language behavior vocabulary; counts describe observed contexts, never unique humans. */
 export const behaviorWords = {
+  otherBrowser: [
+    "Other browser",
+    "Anderer Browser",
+    "Autre navigateur",
+    "Otro navegador",
+  ],
   need_everyday: ["Everyday wear", "Alltag", "Usage quotidien", "Uso diario"],
   need_layering: ["Layering", "Lagenlook", "Superposition", "Capas"],
   "need_cold-weather": [

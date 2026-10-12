@@ -68,11 +68,13 @@ export default function BehaviorView({
     }
   };
   const label = (s: string) =>
-    s === "unknown" ||
-    s === "direct" ||
-    ["mobile", "tablet", "desktop"].includes(s)
-      ? k(s as BehaviorWord)
-      : s;
+    s === "Other"
+      ? k("otherBrowser")
+      : s === "unknown" ||
+          s === "direct" ||
+          ["mobile", "tablet", "desktop"].includes(s)
+        ? k(s as BehaviorWord)
+        : s;
   const country = (s: string) =>
     s === "unknown"
       ? k("unknown")

@@ -86,7 +86,9 @@ export default function BehaviorGraph({
                 ? k(key as BehaviorWord)
                 : node.startsWith("intent:") && key in knowledgeWords
                   ? knowledge(key as KnowledgeWord)
-                  : raw);
+                  : node === "browser:Other"
+                    ? k("otherBrowser")
+                    : raw);
             return (
               <g
                 key={node}
