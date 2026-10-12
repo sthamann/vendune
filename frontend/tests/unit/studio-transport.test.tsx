@@ -36,12 +36,10 @@ describe("Studio transport", () => {
     expect(fetcher.mock.calls[1][1].body).toBe('{"revision":6}');
   });
   it("preserves a stable job idempotency key across retries and omits empty options", async () => {
-    const fetcher = vi
-      .fn()
-      .mockResolvedValue({
-        ok: true,
-        json: async () => ({ jobId: "job-fixture" }),
-      });
+    const fetcher = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ jobId: "job-fixture" }),
+    });
     vi.stubGlobal("fetch", fetcher);
     const api = createStudioRequest("token-fixture", "tenant-a", "de-DE");
     for (let attempt = 0; attempt < 2; attempt++)
