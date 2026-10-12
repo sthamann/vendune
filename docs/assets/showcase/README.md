@@ -1,5 +1,7 @@
 # Vendune homepage showcase — capture provenance
 
+`b2b-public-unit-20261012.png` is an unretouched public Chrome capture on `app.vendune.ai`, after saving and reloading synthetic company `nord_business_demo` and unit `nord_procurement`. Budget is EUR 1,000.00, approval threshold EUR 250.00; required purchase-order reference and cost center persisted. The `lean-oranges-8265` source tree is identical to the B2B PR #93 merge. Explicit valid references were used after discovering a digit-led UUID generation bug. No employee credentials, external EDI transport, email, AI call or actual charge are involved.
+
 [Open the showcase](https://sthamann.github.io/vendune/index.html#demo) · [Complete feature guide](../../features.md) · [Earlier capture provenance](../feature-tour/README.md)
 
 The 6 October collection contains six selectable workflows and six expandable

@@ -1,5 +1,11 @@
 # Changelog
 
+## B2B creation acceptance — 12 October 2026
+
+- Fix company and purchasing-unit reference generation: digit-led UUIDs no longer produce an ID rejected by the native organization API. One shared factory preserves the lowercase-first-letter, 32-character contract.
+- Exercise both complete editor creation request paths with a digit-led UUID and the native identifier rule. All 443 frontend tests pass.
+- Publish an actual hosted company/unit capture after saving, reloading and reopening currency, budget, approval threshold, cost center and required purchase-order policy. This does not claim external EDI transport or a real payment.
+
 ## Modular B2B and independent EDI — 12 October 2026
 
 - Add tenant-bound companies, unit hierarchy, current employee grants, private catalogs, exact-currency period budgets and original-quote purchase approvals.

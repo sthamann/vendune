@@ -12,6 +12,7 @@ import EntityHistory from "../../shared/history/EntityHistory";
 import Members from "./Members";
 import UnitCatalog from "./UnitCatalog";
 import UnitMethods from "./UnitMethods";
+import { organizationReference } from "./reference";
 export default function UnitEditor({
   request,
   company,
@@ -34,7 +35,7 @@ export default function UnitEditor({
   const fresh = () => {
     setCatalog([]);
     setSelected({
-      id: crypto.randomUUID().replaceAll("-", ""),
+      id: organizationReference(),
       revision: 0,
       data: {
         name: {},

@@ -58,6 +58,12 @@ These unretouched captures show a synthetic local merchant and buyer. A unit cos
 
 Reopening the account preserves its current unit and purchase-order reference. The unit/PO restoration, independent employee grants, list ownership and one-field language inheritance have UI regressions; approval completion, native order, PDF and Flow effects have HTTP/PostgreSQL acceptance.
 
+### Hosted configuration acceptance
+
+The hosted B2B source tree from PR #93 passed both full CI runs, its migration job completed, and the Core reached Running, 1/1. A synthetic company and unit were saved through Studio, reloaded and reopened with their original EUR budget, approval threshold, cost center and required PO. During this test a digit-led UUID exposed an invalid generated reference; the shared generator now guarantees the native identifier contract, with a regression covering both editors. The capture uses explicit valid references. It confirms hosted configuration persistence, not certified EDI transport or a real provider charge.
+
+![Public company and unit configuration after reload](assets/showcase/b2b-public-unit-20261012.png)
+
 ## HTTP, MCP and app integration
 
 Merchant commands use `POST /api/b2b/{operation}`. Buyer commands use
