@@ -59,8 +59,9 @@ export default function AppControlProperties({
               onChange({
                 ...block,
                 ...binding(block.kind, e.target.value),
-                dataField: model?.fields.find((f) => accepts(block.kind, f))
-                  ?.name,
+                dataField: model?.fields.find(
+                  (f) => !f.coreReference && accepts(block.kind, f),
+                )?.name,
                 contextBinding: inheritedContext(view, e.target.value),
               });
             }}
