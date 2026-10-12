@@ -44,6 +44,8 @@ order=call('/store-api/checkout/order',{}, {**ch,'Idempotency-Key':'callback-'+u
 full=call('/api/merchant/orders/'+order['id'],h=h);customer_id=full['orderCustomer']['customerId']
 redacted=call(prefix+'/core/order',{'id':order['id']},kh);redacted_customer=call(prefix+'/core/customer',{'id':customer_id},kh)
 assert redacted['id']==order['id'] and redacted_customer['id']==customer_id
+assert redacted['totalMinor']==full['money']['minor'] and redacted['currency']==full['money']['currency']['code'] and redacted['currencyScale']==full['money']['currency']['scale']
+assert len(redacted['items'])==len(full['cart']['lineItems']) and redacted['items'][0]['quantity']==1
 assert email not in json.dumps([redacted,redacted_customer]) and 'PII SENTINEL' not in json.dumps([redacted,redacted_customer])
 assert 'cart' not in redacted and 'addresses' not in redacted_customer
 pii=key(['orders.read','customers.read','customers.pii']);ph={'Authorization':'Bearer '+pii['key'],'x-tenant':a['workspace']}

@@ -53,7 +53,7 @@ pub(crate) async fn call(
     let c = config(provider, version, environment)?;
     let _cluster =
         crate::performance::cluster_lease::Lease::acquire(a, t, "payment-provider", 8).await?;
-    let _permit = a.app_limits.enter(t, provider)?;
+    let _admission = crate::apps::service_limits::admit(a, t, provider).await?;
     if body.to_string().len() > 65536 {
         return Err(bad("Payment request exceeds limit"));
     }

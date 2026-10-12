@@ -1,5 +1,32 @@
 # Current release — 12 October 2026
 
+**12 October lifecycle follow-up:** returns now own a guarded status lifecycle;
+App Studio retains confirmed form revisions and filters selected-app versions.
+Generic core code fences writes against current installed packages and shares
+app-network admission across replicas. The ERP example includes an app-owned
+Rust adapter and forced-RLS receipts, signed events, cold-restart deduplication
+and explicit reconciliation. [Contracts and verification boundaries](connected-workbench.md#lifecycle-and-reference-app-follow-up--12-october-2026).
+
+The companion private Experience admission fix is publicly active. A 12 October
+browser check reproduced the old HTTP-reference 400, then accepted the normalized
+HTTPS reference and reached the original Storyfront brand editor. This check used
+the standard demo catalog, made no new images and did not publish or charge an order.
+
+Public App Studio acceptance in a fresh `start.vendune.ai` sample shop created
+`advisor_mv4xhvzp`, installed it privately, released its package and separately
+selected one product record for Live. Its public Bag product page displayed the
+saved advice. Version 0.1.1 changed the app name; restoring the old package as
+0.1.2 preserved its published data. Recoverable archive/restore retained all three
+builds. A subsequent simulated checkout saved **RAC-96c745a2**, **169.00 EUR**,
+and returned Bag **0**. This acceptance preceded the new Core runtime deployment;
+it validates the existing lifecycle and checkout, not every new guard in production.
+
+![Public creation reaches the original Storyfront draft](assets/showcase/experience-admission-20261012.png)
+
+![Original Storyfront brand editor reached from the corrected onboarding](assets/showcase/experience-original-studio-20261012.png)
+
+![Public simulated checkout following app upgrade and restoration](assets/showcase/app-lifecycle-checkout-20261012.png)
+
 **12 October workbench update:** editable app patterns, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. [How to use it, ownership and verification boundaries](connected-workbench.md).
 
 **Illustrated app workshops:** five practical guides now cover product advice,
@@ -18,7 +45,7 @@ its dated release was `f970543124d669971330945f74b87e9c799a76e4`. The public nat
 [Complete changes, repeatable acceptance and remaining work](release-acceptance-2026-10-09.md).
 
 The static API catalogue contains **280 HTTP method/path pairs**; installed app
-routes are discovered separately. The source inventory contains **424 Rust
+routes are discovered separately. The source inventory contains **432 Rust
 modules**. The formal subset has **45 extracted policies and 97 properties**,
 with **142,298 compiled comparisons and no mismatch**. SQL, network and UI behavior
 remain outside those proofs. [Formal evidence](formal-verification.md).

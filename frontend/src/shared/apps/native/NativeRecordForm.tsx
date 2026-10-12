@@ -5,6 +5,9 @@ import { useNativeRuntime } from "./NativeRuntime";
 import NativeField from "./NativeField";
 import { EditorBuffer } from "../../content/editor/EditorBuffer";
 import type { AppRecord, Entity } from "./types";
+import { recordFields, workflowField } from "./record-workflow";
+import { useContentLanguage } from "../../i18n/ContentLanguage";
+import { contentText } from "../../i18n/content-language";
 export default function NativeRecordForm({
   blockId,
   entity,
@@ -12,8 +15,10 @@ export default function NativeRecordForm({
   save,
   saved,
   boundFields,
+  externalSubmit = false,
 }: {
   blockId?: string;
+  externalSubmit?: boolean;
   boundFields?: Record<string, string>;
   entity: Entity;
   records: AppRecord[];
@@ -24,7 +29,8 @@ export default function NativeRecordForm({
   }) => Promise<void>;
   saved: () => void;
 }) {
-  const { a } = useAppStudioText();
+  const { a, locale } = useAppStudioText();
+  const { mainLocale } = useContentLanguage();
   const runtime = useNativeRuntime(),
     form = useRef<HTMLFormElement>(null);
   const [pendingSource, setPendingSource] = useState(false);
@@ -32,14 +38,15 @@ export default function NativeRecordForm({
   const [selected, setSelected] = useState(initial?.id ?? "");
   const [id, setId] = useState(initial?.id ?? "");
   const [revision, setRevision] = useState(initial?.revision ?? 0);
-  const [fields, setFields] = useState<Record<string, unknown>>({
-    ...Object.fromEntries(
-      entity.fields
-        .filter((f) => initial?.[f.name] != null)
-        .map((f) => [f.name, initial![f.name]]),
-    ),
-    ...boundFields,
-  });
+  const [confirmed, setConfirmed] = useState<AppRecord>();
+  const submitted = useRef<Record<string, unknown>>({});
+  const choices = confirmed
+    ? [...records.filter((r) => r.id !== confirmed.id), confirmed]
+    : records;
+  const persisted = choices.find((r) => r.id === id);
+  const [fields, setFields] = useState<Record<string, unknown>>(
+    recordFields(entity, initial, boundFields),
+  );
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState(false);
@@ -57,6 +64,7 @@ export default function NativeRecordForm({
           !busy &&
           !pendingSource &&
           !Object.hasOwn(boundFields ?? {}, name) &&
+          !(persisted && entity.workflow?.immutableFields?.includes(name)) &&
           entity.fields.some((f) => f.name === name && !f.coreReference),
         set: setField,
       },
@@ -65,6 +73,7 @@ export default function NativeRecordForm({
         for (const f of entity.fields.filter((f) => f.kind === "json"))
           if (typeof merged[f.name] === "string")
             merged[f.name] = JSON.parse(merged[f.name] as string);
+        submitted.current = structuredClone(merged);
         return { id: id || crypto.randomUUID(), revision, fields: merged };
       },
       validate: () =>
@@ -73,6 +82,14 @@ export default function NativeRecordForm({
         const r = result as { id?: string; revision?: number };
         if (r.id) setId(r.id);
         if (r.revision) setRevision(r.revision);
+        if (r.id && r.revision) {
+          setConfirmed({
+            ...submitted.current,
+            id: r.id,
+            revision: r.revision,
+          });
+          setSelected(r.id);
+        }
         setNotice(true);
       },
     });
@@ -86,6 +103,7 @@ export default function NativeRecordForm({
     pendingSource,
     busy,
     entity,
+    persisted,
   ]);
   return (
     <EditorBuffer.Provider
@@ -105,7 +123,8 @@ export default function NativeRecordForm({
             setSelected("");
             setId("");
             setRevision(0);
-            setFields({});
+            setFields(recordFields(entity, undefined, boundFields));
+            setConfirmed(undefined);
             setNotice(true);
             saved();
           } catch (e) {
@@ -115,67 +134,82 @@ export default function NativeRecordForm({
           }
         }}
       >
-        {!boundFields && (
+        {(!boundFields || choices.length > 0) && (
           <>
             <label>
               {a("record")}
               <select
                 value={selected}
                 onChange={(e) => {
-                  const value = records.find((r) => r.id === e.target.value);
+                  const value = choices.find((r) => r.id === e.target.value);
                   setSelected(e.target.value);
                   setId(value?.id ?? "");
                   setRevision(value?.revision ?? 0);
                   setError("");
                   setNotice(false);
-                  setFields(
-                    value
-                      ? Object.fromEntries(
-                          entity.fields
-                            .filter((f) => value[f.name] != null)
-                            .map((f) => [f.name, value[f.name]]),
-                        )
-                      : {},
-                  );
+                  setFields(recordFields(entity, value, boundFields));
                 }}
               >
                 <option value="">{a("newRecord")}</option>
-                {records.map((r) => (
+                {choices.map((r) => (
                   <option key={r.id} value={r.id}>
-                    {r.id}
+                    {(() => {
+                      const f = entity.fields.find(
+                        (f) => f.translatable && f.kind === "string",
+                      );
+                      return f
+                        ? contentText(
+                            r[f.name] as Record<string, string>,
+                            locale,
+                            mainLocale,
+                          ) || r.id
+                        : r.id;
+                    })()}
                   </option>
                 ))}
               </select>
             </label>
-            <label>
-              {a("id")}
-              <input
-                maxLength={100}
-                value={id}
-                disabled={!!selected}
-                onChange={(e) => setId(e.target.value)}
-              />
-            </label>
+            {!boundFields && (
+              <label>
+                {a("id")}
+                <input
+                  maxLength={100}
+                  value={id}
+                  disabled={!!selected}
+                  onChange={(e) => setId(e.target.value)}
+                />
+              </label>
+            )}
           </>
         )}
         {entity.fields
           .filter((f) => !boundFields || !(f.name in boundFields))
           .map((f) => (
-            <NativeField
+            <fieldset
               key={f.name}
-              field={f}
-              value={fields[f.name]}
-              onChange={(v) => setField(f.name, v)}
-            />
+              className="native-field-boundary"
+              disabled={
+                !!persisted &&
+                entity.workflow?.immutableFields?.includes(f.name)
+              }
+            >
+              <NativeField
+                field={workflowField(entity, f, persisted)}
+                value={fields[f.name]}
+                onChange={(v) => setField(f.name, v)}
+              />
+            </fieldset>
           ))}
         {error && <p role="alert">{error}</p>}
         {notice && <p role="status">{a("savedRecord")}</p>}
-        <button
-          className="studio-primary"
-          disabled={busy || runtime?.busy || pendingSource}
-        >
-          {a(busy ? "loading" : "save")}
-        </button>
+        {!externalSubmit && (
+          <button
+            className="studio-primary"
+            disabled={busy || runtime?.busy || pendingSource}
+          >
+            {a(busy ? "loading" : "save")}
+          </button>
+        )}
       </form>
     </EditorBuffer.Provider>
   );

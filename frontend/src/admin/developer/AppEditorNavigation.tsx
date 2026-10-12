@@ -8,10 +8,12 @@ export default function AppEditorNavigation({
   section,
   onSelect,
   versions,
+  payments = false,
 }: {
   section: AppStudioKey;
   onSelect: (s: AppStudioKey) => void;
   versions: number;
+  payments?: boolean;
 }) {
   const { a } = useAppStudioText();
   const tabs = [
@@ -32,18 +34,20 @@ export default function AppEditorNavigation({
   };
   return (
     <nav className="app-studio-tabs" aria-label={a("studio")}>
-      {tabs.map((key) => (
-        <button
-          key={key}
-          aria-current={section === key ? "page" : undefined}
-          className={section === key ? "active" : ""}
-          onClick={() => onSelect(key)}
-        >
-          <Icon name={icons[key]} size={17} />
-          {a(key)}
-          {key === "versions" && <span>{versions}</span>}
-        </button>
-      ))}
+      {tabs
+        .filter((key) => key !== "payments" || payments)
+        .map((key) => (
+          <button
+            key={key}
+            aria-current={section === key ? "page" : undefined}
+            className={section === key ? "active" : ""}
+            onClick={() => onSelect(key)}
+          >
+            <Icon name={icons[key]} size={17} />
+            {a(key)}
+            {key === "versions" && <span>{versions}</span>}
+          </button>
+        ))}
       <span className="app-tabs-caption">{a("pending")}</span>
     </nav>
   );

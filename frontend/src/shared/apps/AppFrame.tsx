@@ -41,7 +41,11 @@ export default function AppFrame({
       active = false;
     };
   }, [request, app, url, locale, attempt]);
-  const nonce = useMemo(() => crypto.randomUUID(), [app, url, locale]);
+  const contextKey = JSON.stringify(surfaceContext);
+  const nonce = useMemo(
+    () => crypto.randomUUID(),
+    [app, url, locale, request, bundle, contextKey],
+  );
   const [height, setHeight] = useState(400);
   const context = () =>
     ref.current?.contentWindow?.postMessage(
@@ -58,6 +62,8 @@ export default function AppFrame({
       "*",
     );
   useEffect(() => {
+    let active = true;
+    const pending = new Set<string>();
     const listener = async (event: MessageEvent) => {
       if (
         event.source !== ref.current?.contentWindow ||
@@ -75,29 +81,46 @@ export default function AppFrame({
       const { id, action, input } = event.data;
       if (
         typeof id !== "string" ||
+        !id.length ||
+        id.length > 100 ||
         typeof action !== "string" ||
         !/^[a-z][a-z0-9_]{0,31}$/.test(action) ||
         !allowedActions.includes(action)
       )
         return;
+      if (pending.has(id)) return;
+      const source = ref.current?.contentWindow;
+      const reply = (value: Record<string, unknown>) => {
+        if (active && source === ref.current?.contentWindow)
+          source?.postMessage(
+            { type: "commerce.result", nonce, id, ...value },
+            "*",
+          );
+      };
+      if (pending.size >= 8) {
+        reply({ error: "APP_BRIDGE_LIMIT" });
+        return;
+      }
+      pending.add(id);
       try {
+        if (JSON.stringify(input ?? {}).length > 65536)
+          throw Error("APP_BRIDGE_INPUT_LIMIT");
         const result = await request(
           `/api/apps/${app}/actions/${action}`,
           input ?? {},
         );
-        ref.current?.contentWindow?.postMessage(
-          { type: "commerce.result", nonce, id, result },
-          "*",
-        );
+        reply({ result });
       } catch (e) {
-        ref.current?.contentWindow?.postMessage(
-          { type: "commerce.result", nonce, id, error: (e as Error).message },
-          "*",
-        );
+        reply({ error: (e as Error).message.slice(0, 2000) });
+      } finally {
+        pending.delete(id);
       }
     };
     window.addEventListener("message", listener);
-    return () => window.removeEventListener("message", listener);
+    return () => {
+      active = false;
+      window.removeEventListener("message", listener);
+    };
   }, [app, nonce, request, allowedActions]);
   useEffect(context, [
     nonce,
@@ -118,7 +141,7 @@ export default function AppFrame({
     "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'";
   return (
     <iframe
-      key={`${app}:${locale}`}
+      key={nonce}
       ref={ref}
       srcDoc={`<!doctype html><meta http-equiv="Content-Security-Policy" content="${policy}">${bundle}`}
       sandbox="allow-scripts"

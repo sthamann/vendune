@@ -10,14 +10,15 @@ This app handles cases; financial refunds remain in the payment state machine.
 ## 1. Choose the order-bound pattern
 
 Open **Developers → New app → Returns workspace**. In **Data models**, inspect the
-five existing fields before adding anything:
+six existing fields before adding anything:
 
 | Field | Purpose | Contract |
 | --- | --- | --- |
 | `order_id` | Owning order | Required, indexed, `coreReference: order` |
 | `title` | Case subject | Required, translated |
 | `body` | Reason | Translated |
-| `status` | Review state | Required choice: `new`, `review`, `closed` |
+| `status` | Review state | Required choice: `new`, `review`, `received`, `closed` |
+| `received_on` | Date received | Optional date |
 | `notes` | Internal working notes | Private plain text |
 
 ![Order reference belongs to the app model, with public access disabled](../assets/app-tutorials/returns-model.jpg)
@@ -26,6 +27,11 @@ five existing fields before adding anything:
 implementation files or arbitrary columns to the core order module.*
 
 ## 2. Edit the workflow visually
+
+In **Data models → Record workflow**, inspect the initial state, allowed transitions
+and immutable order reference. The package already owns `new → review → received → closed`
+and the alternative `review → closed`. These are enforced by the host transaction;
+a payload cannot skip them.
 
 In **Design**, keep the table and form bound to `order_id → orderId`. The Save
 button has three instructions: validate the form, call `save_entries`, refresh
@@ -55,7 +61,9 @@ order, save the app version and approve its installation there. Open
 
 Enter **Size exchange**, reason **The ordered size does not fit**, status **New**
 and an internal note. Save, reopen the order and confirm persistence. Change the
-status to **Under review**, save and reopen again. This is the case status; the
+status to **Under review**, save, then select Received and Closed with one save per transition. No page
+reopening is needed; the form retains the confirmed revision. The record selector
+also lets you create another case for that order. This is the case status; the
 original order/payment status and amounts must remain unchanged.
 
 Try the app with a read-only teammate. The editor must not authorize saving.
@@ -66,7 +74,7 @@ package separately from synthetic case data.
 ## Ask the coding agent
 
 ```text
-Extend this Returns workspace with an optional received_on date field and a
+Extend this Returns workspace with a
 translated inspection summary. Keep order_id immutable as the owned order
 reference. Add a bound date picker in the existing form and retain the validated
 save/refresh handler. Keep all records private, orders.read/orders.write rights

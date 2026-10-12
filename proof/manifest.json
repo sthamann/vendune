@@ -445,6 +445,31 @@
       "sha256": "e41ba1f63a4b53d2e47ff1a61a2652ce67f47947d65b6176b75cfd547939e2f2",
       "review": "Reviewed multi-currency selected-context adapters, rational minor-unit prices, immutable order/payment scales, row-locked creation-bounded price jobs and exact order mail snapshots; API/tenant/restart/protocol fixtures passed."
     },
+    "extensions/apps/erp-handoff/service/config.rs": {
+      "status": "unproved",
+      "sha256": "9d94073e78e7ee2db264801f3030d43a69b8c15b298c89711c957ee3efc317d1",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+    },
+    "extensions/apps/erp-handoff/service/delivery.rs": {
+      "status": "unproved",
+      "sha256": "09cefa868917f72238c17a911ba1bba53ecb147858aaf6a89ae430cc90ff85a7",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+    },
+    "extensions/apps/erp-handoff/service/events.rs": {
+      "status": "unproved",
+      "sha256": "44e061f4052584ea34edbe531350efe387a6d61875c1fa4009ee848c94b7db2d",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+    },
+    "extensions/apps/erp-handoff/service/main.rs": {
+      "status": "unproved",
+      "sha256": "e9c5c22a46131bbcd9d43494b776ef681d87b85dcaf828d9dde474dbe58e017e",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+    },
+    "extensions/apps/erp-handoff/service/store.rs": {
+      "status": "unproved",
+      "sha256": "18ccf222e84e97050df344e54fd7da474165d3e119e60c4e2cd4fe2f6e1713b4",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+    },
     "extensions/apps/gmail/src/actions.rs": {
       "status": "unproved",
       "sha256": "52528b2a4c14878475560a0fbf39bd07df93634f22a974d47925500dba9a5943",
@@ -494,6 +519,11 @@
       "status": "unproved",
       "sha256": "aab3801384ce5a1003cb3a47b2c2d9c2ac3371e7f767b8e67e04dd8d610495aa",
       "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
+    },
+    "extensions/sdk/rust-events.rs": {
+      "status": "unproved",
+      "sha256": "9d3e944a0a7dd0a3533925b3a5aa64071ef2af32d2bf7c496922f2e03cc10735",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "extensions/services/connectors/src/actions.rs": {
       "status": "unproved",
@@ -657,8 +687,8 @@
     },
     "src/apps/core_callbacks.rs": {
       "status": "unproved",
-      "sha256": "6ae255031a2658be7220f9c3efa3d24a32fb12d2cd2249b7fc2bcf43f987cfdf",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "551376c8cd2f457d39ca4433c5bbe92043425f63e036a53fc852fab7427f7b75",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "src/apps/credentials.rs": {
       "status": "reviewed-binding",
@@ -667,8 +697,8 @@
     },
     "src/apps/data.rs": {
       "status": "unproved",
-      "sha256": "138b7459e6ede6f46178b090dac7ab38d984212f924ec669dcfc619b0f46f434",
-      "review": "Review native app ontology metadata: derive selected graph fields/typed references only from current authorized native list rows; preserve RLS/action grants, package serialization, revision guards and existing extracted predicates. Projection and SQL/transport remain unproved."
+      "sha256": "81de78d5a8cc975be7d2208c7228424bdebd9bb8ffe77afc85fc93e0d27fd187",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "src/apps/distribution.rs": {
       "status": "unproved",
@@ -692,8 +722,8 @@
     },
     "src/apps/event_contract.rs": {
       "status": "unproved",
-      "sha256": "ee192746395c317a1baaf562fc5eae45e0538765dac2cf0ad9433eae7166f682",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "1692ccbf4c851a25d3e77e2db00483cdd26e1ed2f02a52cd2e8339e0c8e4bd98",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "src/apps/event_projection.rs": {
       "status": "unproved",
@@ -717,8 +747,8 @@
     },
     "src/apps/field_values.rs": {
       "status": "unproved",
-      "sha256": "bd3c185476c4437f4dd7c6089e41cdf97dfd2c99c52a43672b99201cbbe0da53",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "270d09ee46a7229a81d4ec5a3a6627f40571b9c05754d95496409f7a171816c0",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "src/apps/form_layout.rs": {
       "status": "unproved",
@@ -727,8 +757,8 @@
     },
     "src/apps/gateway.rs": {
       "status": "reviewed-binding",
-      "sha256": "d515b7a0246f71bb6ae1c01aa744c2b51a8b01ad55f96e82da449b11e3a2e68b",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "831279ad0431fe1bfc39683c8b1f0632e80d015191a74d08b789c823a2f38077",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "src/apps/hosted.rs": {
       "status": "unproved",
@@ -752,8 +782,8 @@
     },
     "src/apps/manifest.rs": {
       "status": "unproved",
-      "sha256": "c3123a4d1daa9e6ffd47bdde2033182efe455454d4683c8fe3d40c484b7d6f2d",
-      "review": "Review native app ontology metadata: derive selected graph fields/typed references only from current authorized native list rows; preserve RLS/action grants, package serialization, revision guards and existing extracted predicates. Projection and SQL/transport remain unproved."
+      "sha256": "904020b36493cb17daeec3d20ce8a0a26a9fb807ecaba4577eff9e9acb58a1b7",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "src/apps/manifest_validation.rs": {
       "status": "unproved",
@@ -762,8 +792,8 @@
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "15b7e75c94eff0f569123d46047c84309c2ba6bbb88558c325193cbb46a2fdc1",
-      "review": "Review native app ontology metadata: derive selected graph fields/typed references only from current authorized native list rows; preserve RLS/action grants, package serialization, revision guards and existing extracted predicates. Projection and SQL/transport remain unproved."
+      "sha256": "a7881b69273d52a76e5046b1c9614c616d1e826d66f8ed956613cf807ec12b43",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
@@ -799,6 +829,11 @@
       "status": "unproved",
       "sha256": "07d112b154da4d3904316d27bb42c790118cc5d0fb9ed7eb5ab2749fe20ac5a2",
       "review": "Reviewed optional passive app presentation bounds and legacy digest preservation, main-locale list metadata, configured-locale generation schema, and strict provider compatibility: summaries are required objects within optional presentation while icon/cover accept nullable provider output. 84 Rust tests and real app/developer PostgreSQL suites exercise parsing, unsafe assets, immutable versions and tenant isolation."
+    },
+    "src/apps/record_lifecycle.rs": {
+      "status": "unproved",
+      "sha256": "46896a3c27e88a804f2f15cf11208a9c2c4efa06eee2d5d2c2b935eeb3e855c8",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "src/apps/registry.rs": {
       "status": "unproved",
@@ -842,8 +877,8 @@
     },
     "src/apps/service_limits.rs": {
       "status": "unproved",
-      "sha256": "e63296077d1627396eb01f0a56bd2d7ad5e2090ab4abc5bf5873e87a25fd86f3",
-      "review": "Reviewed namespaced GET/POST and opaque app UI contracts, typed bounded JSON/indexed keyset reads, exact record revision binding, selected bounded AI context, staging imports and nonqueuing service admission; real PostgreSQL app/surface/service/staging/developer/user regressions and source/nonce SDK checks passed. GET policy excludes managed writes; external read-only behavior and SQL remain unproved."
+      "sha256": "83d3c4268bebc3846218de7b476c01a70edbab285d3afc328a1e073f4d1dabf5",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "src/apps/service_policy.rs": {
       "status": "reviewed-binding",
@@ -872,13 +907,13 @@
     },
     "src/apps/ui_bundles.rs": {
       "status": "unproved",
-      "sha256": "4b704ccff25b5bdfe8c4dbd328d3054983d454f6059a8ba95a4728e66136dab3",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "3f01a35ca416e94da6b7c40ccb2d95804e0c732b99d8e4a085bf44a574d36f94",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "src/apps/ui_logic.rs": {
       "status": "unproved",
-      "sha256": "c9a89a1ee4ff9246957e1f5eee4358767fc48922dd92e549b5ab988207ab235b",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "400fd560d721dab57bd4a849a33af4f3bce0184dc4c991320a734e8d3fbd2d0f",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "src/apps/ui_logic_tests.rs": {
       "status": "unproved",
@@ -887,8 +922,13 @@
     },
     "src/apps/ui_logic_types.rs": {
       "status": "unproved",
-      "sha256": "707e28e229e2a7bd57c1efbea51623de9ec435fd6de9c62f562b4828497c0faa",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "d26691bc22b5b080577c807911633f740cb18945e0e52855216a28bbfa9fdd29",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+    },
+    "src/apps/ui_object_key_tests.rs": {
+      "status": "unproved",
+      "sha256": "e51ad31938b67fc546f08896ef8de49ef48f7cc4cfb07420cb301e9840c74eeb",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "src/apps/webhook_scope.rs": {
       "status": "unproved",
@@ -1412,8 +1452,8 @@
     },
     "src/commerce/order_fields.rs": {
       "status": "unproved",
-      "sha256": "df1b2068b3cc0b25eb5b6504e18c2ec12312a67d833f28aaf44bbcb21a2c3cf8",
-      "review": "Reviewed multi-currency admission, rational FX boundaries, immutable monetary source, additive ledger scale/RLS migrations, shared API/MCP/UCP paths and local provider/refund evidence. Only bounded policies are proved; FX, DB, network adapters and full commerce remain unproved."
+      "sha256": "134e5a19ad220e5bd3c3bd2d2c86b3850ac098186a7ce26b994be253d14d63f9",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "src/commerce/order_machine.rs": {
       "status": "unproved",
@@ -1617,8 +1657,8 @@
     },
     "src/developer/generation_contract.rs": {
       "status": "unproved",
-      "sha256": "e454f9ead2cd71b7b1fe4162b90d4c2c76d3ea1095d639a22e8a43af55f8035f",
-      "review": "Reviewed app schema and retained access/service/nested handler contracts, explicit translation queue replay, inference output budget and personalization adapters. The conformance driver uses seekable input for the same population to avoid native pipe stalls; extracted policy and proof scope is unchanged."
+      "sha256": "0cd59e4f242a33fc49e4c3be0f412515b1f2952911ccbe24ed87f8a9ada48087",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "src/developer/generation_edits.rs": {
       "status": "unproved",
@@ -2192,8 +2232,8 @@
     },
     "src/payments/remote.rs": {
       "status": "unproved",
-      "sha256": "690355407f1dd5167a4b56fb0ffc084bfa394221754eb1e99a0561d49665b44e",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "fb481e59a40f402265ff58a3bf699cf6d9132d75e003b6452d9f7f75b3b1ca9a",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "src/payments/return_urls.rs": {
       "status": "unproved",
@@ -2556,8 +2596,8 @@
       "review": "Reviewed bounded RFC6902 model edit adapter, protected metadata and storage/access retention, atomic clone application and host versions; real local Qwen textbox/button, native HTTP staging and no-op/destructive negative cases. SQL/provider adapters remain unproved."
     },
     "Cargo.toml": {
-      "sha256": "08fb2d0a03e856f67cd8a50c42b0d7516a22b83b3f761a6d4023648aa43022b2",
-      "review": "Reviewed bounded RFC6902 model edit adapter, protected metadata and storage/access retention, atomic clone application and host versions; real local Qwen textbox/button, native HTTP staging and no-op/destructive negative cases. SQL/provider adapters remain unproved."
+      "sha256": "756d039f45fbdc75dba11543766c6cd9807f3e3e071c83e43e3e8aa45e864326",
+      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
     "deploy/Dockerfile": {
       "sha256": "dc7c2c8b35843285ac1f25e3404c8c930d2dc8b0c1525ab5a3886ba028671f23",

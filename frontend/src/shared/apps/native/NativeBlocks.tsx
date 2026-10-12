@@ -6,6 +6,7 @@ import { contentText } from "../../i18n/content-language";
 import { geometryStyle } from "./geometry";
 import { useNativeRuntime } from "./NativeRuntime";
 import NativeDataBlock from "./NativeDataBlock";
+import { hasSubmitControl } from "./form-submit";
 export default function NativeBlocks({
   app,
   native,
@@ -90,6 +91,9 @@ export default function NativeBlocks({
             <NativeDataBlock
               app={app}
               block={b}
+              externalSubmit={
+                b.kind === "form" && hasSubmitControl(b, native.view.blocks)
+              }
               entity={entity}
               request={request}
               mainLocale={mainLocale}

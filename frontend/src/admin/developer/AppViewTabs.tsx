@@ -25,8 +25,29 @@ export default function AppViewTabs({
           type="button"
           key={v.id}
           className={selected === v.id ? "active" : ""}
+          aria-current={selected === v.id ? "page" : undefined}
           onClick={() => onSelect(v.id)}
         >
+          <Icon
+            name={
+              m.surfaces
+                ?.find((s) => s.uiPath === `native/${v.id}`)
+                ?.location.startsWith("admin.")
+                ? "lock"
+                : "box"
+            }
+            size={15}
+          />
+          <span>
+            {a(
+              m.surfaces
+                ?.find((s) => s.uiPath === `native/${v.id}`)
+                ?.location.startsWith("admin.")
+                ? "adminView"
+                : "shopperView",
+            )}{" "}
+            ·{" "}
+          </span>
           {contentText(
             m.surfaces?.find((s) => s.uiPath === `native/${v.id}`)?.label ?? {},
             locale,

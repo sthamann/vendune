@@ -16,6 +16,10 @@ pub(super) fn retain(old: &Value, next: &mut Value) -> Result<()> {
                 "AI cannot remove existing data models; use explicit schema migration",
             ))?;
         candidate["publicRead"] = entity.get("publicRead").cloned().unwrap_or(json!(false));
+        // Generated presentation edits must not silently remove an existing business lifecycle.
+        if let Some(workflow) = entity.get("workflow") {
+            candidate["workflow"] = workflow.clone();
+        }
         for field in entity["fields"].as_array().into_iter().flatten() {
             let target = candidate["fields"]
                 .as_array_mut()
@@ -130,6 +134,19 @@ mod tests {
         generated["surfaces"][0]["permission"] = json!(null);
         generated["views"][0]["blocks"][0]["handlers"] = json!(null);
         generated["events"] = json!([]);
+        retain(&original, &mut generated).unwrap();
+        assert_eq!(original, generated);
+    }
+    #[test]
+    fn retains_workflow_edges_and_immutable_identity_from_ai_edits() {
+        let mut original = old();
+        original["entities"][0]["workflow"] = json!({
+            "field":"status", "initial":"new",
+            "transitions":[{"from":"new","to":"review"}],
+            "immutableFields":["order_id"]
+        });
+        let mut generated = original.clone();
+        generated["entities"][0]["workflow"] = json!(null);
         retain(&original, &mut generated).unwrap();
         assert_eq!(original, generated);
     }

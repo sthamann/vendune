@@ -29,6 +29,7 @@ import AppLibrary from "./AppLibrary";
 import SandboxPreview from "./SandboxPreview";
 import { useAppPreview } from "./useAppPreview";
 import AppStudioStatus from "./AppStudioStatus";
+import AppStudioIntro from "./AppStudioIntro";
 import { useDesignerKeys } from "./useDesignerKeys";
 import "../styles/app-studio.css";
 import "../styles/app-assistant.css";
@@ -106,26 +107,10 @@ export default function DeveloperView({
   );
   return (
     <div className="studio-page app-studio">
-      <div className="app-studio-intro">
-        <div>
-          <span className="kicker">
-            <Icon name="code" size={14} />
-            {a("studio")}
-          </span>
-          <h1>{a("studio")}</h1>
-          <p>{a("hint")}</p>
-        </div>
-        <button
-          className="studio-secondary"
-          disabled={!manage || studio.busy}
-          onClick={() => {
-            setAssistant(true);
-          }}
-        >
-          <Icon name="plus" size={16} />
-          {a("reset")}
-        </button>
-      </div>
+      <AppStudioIntro
+        disabled={!manage || studio.busy}
+        onNew={() => setAssistant(true)}
+      />
       {assistant && (
         <ContentLanguage
           locales={studio.locales}
@@ -263,6 +248,7 @@ export default function DeveloperView({
             section={section}
             onSelect={setSection}
             versions={studio.builds.length}
+            payments={m.category === "payment" || !!m.paymentProvider}
           />
           <ContentLanguage
             locales={

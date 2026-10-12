@@ -77,6 +77,7 @@ it("adds and reorders real schema blocks, then saves, stages and releases only t
   const { request } = setup(),
     user = userEvent.setup();
   await screen.findByRole("button", { name: "Save new version" });
+  expect(screen.queryByRole("button", { name: "Payment provider" })).toBeNull();
   await user.click(screen.getByRole("button", { name: /^Cards$/ }));
   await user.click(screen.getByRole("button", { name: "Move up" }));
   await user.click(screen.getByRole("button", { name: "Save new version" }));

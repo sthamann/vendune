@@ -152,6 +152,47 @@ with log_path.open('w') as log:
         broken['entities'][0]['publicRead'] = True
         call('/api/apps', {'manifest': broken}, headers, 400)
         print('PASS customer choice field persists against actual owned customer identity; public personal references rejected')
+        # The canonical returns app owns the status vocabulary; native storage atomically enforces its declared graph.
+        returns = json.loads((ROOT/'extensions/apps/returns-workspace/manifest.json').read_text())
+        call('/api/apps', {'manifest': returns}, headers)
+        cart = call('/store-api/checkout/cart', {'session': 'return-'+suffix}, {'x-tenant':tenant})
+        checkout = {'x-tenant':tenant, 'sw-context-token':cart['token']}
+        call('/store-api/checkout/cart/line-item', {'items':[{'referencedId':'mug','quantity':1}]}, checkout)
+        order = call('/store-api/checkout/order', {}, {**checkout,'Idempotency-Key':'returns-'+suffix})
+        returns_path = '/api/apps/returns_workspace/actions/'
+        rf = {'order_id':order['id'],'title':{'en':'Damaged parcel'},'status':'new'}
+        call(returns_path+'save_entries', {'id':'case','fields':{**rf,'status':'closed'}}, headers,400)
+        call(returns_path+'save_entries', {'id':'case','fields':rf}, headers)
+        call(returns_path+'save_entries', {'id':'case','revision':1,'fields':{**rf,'status':'review'}}, headers)
+        call(returns_path+'save_entries', {'id':'case','revision':2,'fields':{**rf,'status':'received'}}, headers)
+        call(returns_path+'save_entries', {'id':'case','revision':3,'fields':{**rf,'status':'closed'}}, headers)
+        before = sql(f"SELECT count(*) FROM outbox WHERE tenant='{tenant}' AND kind='app.record.changed'")
+        call(returns_path+'save_entries', {'id':'case','revision':4,'fields':rf}, headers,409)
+        call(returns_path+'save_entries', {'id':'case','revision':4,'fields':{**rf,'status':'closed','order_id':'different'}}, headers,(400,409))
+        call(returns_path+'save_entries', {'id':'case','revision':4,'fields':{**rf,'status':'closed'}}, {'x-tenant':tenant,'Authorization':'Bearer '+other['token']},403)
+        assert sql(f"SELECT count(*) FROM outbox WHERE tenant='{tenant}' AND kind='app.record.changed'")==before
+        record=call(returns_path+'list_entries',{'filter':{'order_id':order['id']}},headers)['elements'][0]
+        assert record['revision']==4 and record['status']=='closed'
+        print('PASS real returns transitions, immutable order binding, revision and foreign actor denial leave record/outbox unchanged')
+        # Hold only the existing install lock, queue a normal upgrade first, then a write using the old package.
+        holder = subprocess.Popen(psql(env.get('TEST_DB_CONTAINER','unused'),'commerce',env['TEST_DATABASE'],'-qAt','-v','ON_ERROR_STOP=1'), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        try:
+            holder.stdin.write(f"BEGIN; SELECT pg_advisory_xact_lock(hashtextextended('{tenant}:returns_workspace',7)); SELECT 'LOCK_READY';\n"); holder.stdin.flush()
+            while holder.stdout.readline().strip() != 'LOCK_READY':
+                if holder.poll() is not None: raise AssertionError('Fixture advisory lock failed')
+            upgraded = copy.deepcopy(returns); upgraded['version'] = '0.2.1'
+            with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+                upgrade = pool.submit(call,'/api/apps',{'manifest':upgraded},headers)
+                wait(lambda: int(sql("SELECT count(*) FROM pg_stat_activity WHERE wait_event='advisory' AND query LIKE '%pg_advisory_xact_lock(%'")) > 0)
+                writing = pool.submit(call,returns_path+'save_entries',{'id':'fenced','fields':rf},headers,409)
+                wait(lambda: int(sql("SELECT count(*) FROM pg_stat_activity WHERE wait_event='advisory' AND query LIKE '%pg_advisory_xact_lock_shared(%'")) > 0)
+                holder.stdin.write('COMMIT;\n'); holder.stdin.flush()
+                assert upgrade.result()['installed']; writing.result()
+            assert not any(r['id']=='fenced' for r in call(returns_path+'list_entries',{},headers)['elements'])
+            assert sql(f"SELECT count(*) FROM outbox WHERE tenant='{tenant}' AND kind='app.record.changed'")==before
+            print('PASS real package upgrade fences a queued old-contract write without record/outbox mutation')
+        finally:
+            holder.stdin.close(); holder.wait(timeout=5)
         # A local connector responds through the real service gateway, then receives a durable app event.
         integration = manifest('integration')
         call('/api/apps', {'manifest': integration}, headers)

@@ -93,12 +93,16 @@ function fixture(mode = "matching") {
 it("saves a standalone control edit through the uniquely matching record form and its revision", async () => {
   const request = fixture();
   await waitFor(() =>
-    expect(
-      screen.getAllByRole("textbox", { name: "Title" }).at(-1),
-    ).toHaveValue("Stored title"),
+    (() => {
+      const inputs = screen.getAllByRole("textbox", { name: "Title" });
+      expect(inputs).toHaveLength(2);
+      inputs.forEach((input) => expect(input).toHaveValue("Stored title"));
+    })(),
   );
   const input = screen.getAllByRole("textbox", { name: "Title" }).at(-1)!;
   await userEvent.clear(input);
+  expect(input).toHaveValue("");
+  expect(screen.getAllByRole("textbox", { name: "Title" })[0]).toHaveValue("");
   await userEvent.type(input, "Changed in standalone control");
   expect(screen.getAllByRole("textbox", { name: "Title" })[0]).toHaveValue(
     "Changed in standalone control",

@@ -165,7 +165,7 @@ it("hydrates product-scoped fields, hides the technical reference and saves the 
     { limit: 50, filter: { product_id: "mug" } },
   );
   expect(screen.queryByLabelText("Core object")).not.toBeInTheDocument();
-  expect(screen.queryByLabelText("Record")).not.toBeInTheDocument();
+  expect(screen.getByLabelText("Record")).toHaveValue("care");
   await user.selectOptions(screen.getByLabelText("Selection"), "priority");
   await user.click(screen.getByRole("button", { name: "Save record" }));
   expect(request).toHaveBeenCalledWith(

@@ -30,6 +30,12 @@ export type Entity = {
   label: Text;
   fields: Field[];
   publicRead: boolean;
+  workflow?: {
+    field: string;
+    initial: string;
+    transitions: { from: string; to: string }[];
+    immutableFields?: string[];
+  };
 };
 export type Block = {
   id: string;

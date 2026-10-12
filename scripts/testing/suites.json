@@ -67,7 +67,8 @@
     "app_events",
     "app_export",
     "app_distribution",
-    "app_generation"
+    "app_generation",
+    "erp_handoff"
   ],
   "browser_contracts": [
     "analytics",

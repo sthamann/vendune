@@ -316,3 +316,12 @@ Editable native patterns: [returns-workspace](apps/returns-workspace/README.md),
 [erp-handoff](apps/erp-handoff/README.md). The App Studio picker imports their normal
 Manifests; it does not contain a second domain implementation. Returns cases are
 private/order-bound and do not perform refunds.
+
+## Rust service reference and event SDK
+
+The [ERP handoff app](apps/erp-handoff/README.md) includes an independently runnable
+Rust adapter in its own package, an app-private forced-RLS receipt schema and real
+process/provider tests. [Rust signature verification](sdk/rust-events.rs) shares
+Commerce's existing tenant/app/timestamp/body wire contract. It is generic SDK
+infrastructure; ERP export and reconciliation remain app-owned. Independent
+Python examples continue to demonstrate the same language-neutral contract.

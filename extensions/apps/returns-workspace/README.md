@@ -1,6 +1,6 @@
 # Returns workspace
 
-Private order-bound returns cases: reason, status and internal notes. The plugin does not issue refunds or mutate order/payment states.
+Private order-bound returns cases: reason, received date, status and internal notes. The plugin does not issue refunds or mutate order/payment states.
 
 `manifest.json` owns the app's models, translated labels, native views, actions,
 permissions and bounded UI instructions. The App Studio pattern picker imports
@@ -26,3 +26,20 @@ Tests: `frontend/tests/unit/app-building.test.tsx` validates package cloning,
 private/context-bound records and the actual native save action. The registered
 `app_assistants` HTTP/PostgreSQL suite installs the same generated package and
 checks core-reference ownership and private data access.
+
+## Version 0.2.0: one confirmed transition per save
+
+The package owns `new → review → received → closed`, with a review-to-closed
+alternative. Its `workflow` contract makes `order_id` immutable after creation.
+The generic host enforces initial state and allowed edges inside the same
+revision/outbox transaction as the record write. The native form displays only
+permitted next states and retains the confirmed revision after each save; multiple
+cases for the same order are selectable by their translated subject.
+
+A closed case cannot be reopened by changing its payload. This app does not
+implement refunds, labels or a carrier integration. The real `app_assistants`
+suite checks all edges, foreign references, denied mutation, and unchanged outbox
+state on rejection. AI presentation edits preserve the existing workflow.
+
+Release the app contract separately from case data. A new record imported into
+Live must obey the declared initial state; staging is not a lifecycle bypass.
