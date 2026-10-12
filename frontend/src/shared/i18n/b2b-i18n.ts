@@ -1,6 +1,12 @@
 /** B2B interface catalogue; content names use the shop language editor and per-field inheritance. */
 import { useLocale } from "./i18n";
 export const b2bWords = {
+  reviewApprovalHint: [
+    "Review delivery and payment first, then request approval. Refresh here after your colleague approves; changing the cart requires a new approval.",
+    "Prüfe zuerst Lieferung und Zahlung, dann frage die Freigabe an. Aktualisiere hier nach der Freigabe durch deinen Kollegen; Änderungen am Warenkorb erfordern eine neue Freigabe.",
+    "Vérifiez d’abord la livraison et le paiement, puis demandez l’approbation. Actualisez ici après l’accord de votre collègue ; modifier le panier exige une nouvelle approbation.",
+    "Revisa primero la entrega y el pago, luego solicita aprobación. Actualiza aquí tras la aprobación de tu compañero; cambiar el carrito exige una nueva aprobación.",
+  ],
   searchProducts: [
     "Search catalog products",
     "Katalogprodukte suchen",

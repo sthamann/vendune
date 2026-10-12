@@ -13,6 +13,8 @@ import PaymentSession from "./PaymentSession";
 import CheckoutPurchase from "./CheckoutPurchase";
 import ChannelPreview from "../shell/ChannelPreview";
 import CheckoutProgress from "./CheckoutProgress";
+import CheckoutApproval from "./CheckoutApproval";
+import { useB2BText } from "../../shared/i18n/b2b-i18n";
 export default function CheckoutPanel({
   cart,
   order,
@@ -41,6 +43,7 @@ export default function CheckoutPanel({
   const { s, money } = useShopText();
   const { x } = useCheckoutText();
   const { l } = useLegalText();
+  const t = useB2BText();
   const ref = useRef<HTMLDialogElement>(null);
   const [selection, setSelection] = useState<Selection>(
     cart?.checkout ?? {
@@ -70,6 +73,10 @@ export default function CheckoutPanel({
     JSON.stringify(selection) !== JSON.stringify(cart?.checkout);
   const reviewed = !!cart && !dirty && reviewedRevision === cart.revision;
   const locked = busy || saving;
+  const purchaseBlocked =
+    !!cart?.b2b &&
+    (!cart.b2b.budgetAvailable ||
+      (cart.b2b.approvalRequired && cart.b2b.approval?.state !== "approved"));
   const close = () => {
     if (!locked) onClose();
   };
@@ -82,6 +89,8 @@ export default function CheckoutPanel({
         const next = await onSelection(selection);
         setSelection(next.checkout);
         setReviewedRevision(next.revision);
+      } else if (purchaseBlocked) {
+        return;
       } else if (legalReady) {
         await acceptLegal.current();
         await onBuy();
@@ -170,6 +179,31 @@ export default function CheckoutPanel({
                   if (accept) acceptLegal.current = accept;
                 }}
               />
+              <CheckoutApproval
+                cart={cart}
+                reviewed={reviewed}
+                busy={locked || preview}
+                onBusy={setSaving}
+                onCart={(next) => {
+                  if (
+                    next.revision !== cart.revision ||
+                    JSON.stringify([
+                      next.checkout,
+                      next.price,
+                      next.lineItems,
+                      next.currencyContext,
+                    ]) !==
+                      JSON.stringify([
+                        cart.checkout,
+                        cart.price,
+                        cart.lineItems,
+                        cart.currencyContext,
+                      ])
+                  )
+                    setReviewedRevision(undefined);
+                  onCart(next);
+                }}
+              />
               {(error || requestError) && (
                 <p className="shop-error" role="alert">
                   {error || requestError}
@@ -202,6 +236,11 @@ export default function CheckoutPanel({
           </div>
           <CheckoutPurchase
             busy={locked || preview}
+            blockedLabel={
+              reviewed && purchaseBlocked
+                ? t(cart.b2b?.budgetAvailable ? "pending" : "budgetExceeded")
+                : undefined
+            }
             reviewed={reviewed}
             total={cart.price.totalPrice}
           />

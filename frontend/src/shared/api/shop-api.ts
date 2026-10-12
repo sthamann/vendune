@@ -3,6 +3,7 @@ import { requestJson } from "./request-json";
 import { shopScope } from "./shop-scope";
 import { responseError } from "../i18n/errors-i18n";
 import { getLocale } from "../i18n/i18n";
+import { customerSessionHeaders } from "./customer-session";
 export type CurrencyDefinition = {
   code: string;
   scale: number;
@@ -252,13 +253,7 @@ export async function shopApi<T = unknown>(
         : {}),
       "sw-sales-channel-id":
         new URLSearchParams(location.search).get("channel") ?? "default",
-      ...(localStorage.getItem(`rac-customer:${shopScope()}`)
-        ? {
-            "x-customer-token": localStorage.getItem(
-              `rac-customer:${shopScope()}`,
-            )!,
-          }
-        : {}),
+      ...customerSessionHeaders(shopScope()),
       "x-tenant": shopScope(),
       ...(token ? { "sw-context-token": token } : {}),
       ...(merchant ||

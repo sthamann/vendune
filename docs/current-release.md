@@ -8,7 +8,11 @@ The B2B implementation is merged in [PR #93](https://github.com/sthamann/vendune
 
 ![Hosted company policies persisted after reloading Studio](assets/showcase/b2b-public-unit-20261012.png)
 
-The current local full unit run passes 443 frontend tests in 79 files. The formal subset has 48 extracted policies and 104 properties, with 147,934 compiled comparisons and no mismatch; 133 deliberately broken policy variants are rejected. Database/network/UI behavior remains outside those proofs.
+A subsequent local Chrome purchase completed **RAC-f0646e6d**, **134.83 EUR**, after an independent employee approved the final reviewed checkout. Bag **0** and the order survived reload. PostgreSQL recorded one `13483`-minor-unit budget allocation and a consumed approval. The follow-up fixes current-customer forwarding on the final checkout command and moves approval request/refresh into the reviewed checkout; it preserves the exact quote and native server checks. This browser acceptance uses a simulated payment and does not by itself confirm the follow-up image's public rollout.
+
+![B2B checkout after independent approval](assets/showcase/b2b-checkout-approved-20261012.png)
+
+The current local full unit run passes 447 frontend tests in 81 files. The formal subset has 48 extracted policies and 104 properties, with 147,934 compiled comparisons and no mismatch; 133 deliberately broken policy variants are rejected. Database/network/UI behavior remains outside those proofs.
 
 **Native POS local acceptance — 12 October:** a new channel type reuses shared checkout, exact cash/change, inventory, orders, invoices/PDF, currencies, coupons and Flow/App/MCP contracts. Browser and isolated PostgreSQL tests cover synthetic sales; a local provider fixture covers confirmed capture. This section describes implemented/tested code and does not itself confirm hosted deployment or a real terminal charge. [Usage and limits](pos.md).
 

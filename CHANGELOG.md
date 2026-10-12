@@ -1,9 +1,11 @@
 # Changelog
 
-## B2B creation acceptance — 12 October 2026
+## B2B creation and purchase acceptance — 12 October 2026
 
 - Fix company and purchasing-unit reference generation: digit-led UUIDs no longer produce an ID rejected by the native organization API. One shared factory preserves the lowercase-first-letter, 32-character contract.
-- Exercise both complete editor creation request paths with a digit-led UUID and the native identifier rule. All 443 frontend tests pass.
+- Exercise both complete editor creation request paths with a digit-led UUID and the native identifier rule. All 447 frontend tests in 81 files pass.
+- Forward the current tenant-scoped customer session on the final checkout command through the same shared identity helper as the Store API. This closes an actual browser-observed B2B purchase rejection without weakening server approval or identity checks. Guest/logout and foreign-tenant sessions have regressions.
+- Request approval after native checkout review, refresh it without rewriting the cart and block purchase while approval is pending or the unit budget is exceeded. Changed totals/revisions invalidate review; direct form submission cannot bypass it. A complete local buyer/approver browser run saved RAC-f0646e6d (134.83 EUR), consumed the approval, allocated budget once and retained Bag 0 after reload.
 - Publish an actual hosted company/unit capture after saving, reloading and reopening currency, budget, approval threshold, cost center and required purchase-order policy. This does not claim external EDI transport or a real payment.
 
 ## Modular B2B and independent EDI — 12 October 2026

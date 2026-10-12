@@ -7,11 +7,13 @@ export default function CheckoutPurchase({
   reviewed,
   total,
   empty = false,
+  blockedLabel,
 }: {
   busy: boolean;
   reviewed: boolean;
   total: number;
   empty?: boolean;
+  blockedLabel?: string;
 }) {
   const { l } = useLegalText();
   const { s, money } = useShopText(),
@@ -21,13 +23,15 @@ export default function CheckoutPurchase({
       form="checkout-details"
       type="submit"
       className="shop-primary checkout-purchase"
-      disabled={busy || empty}
+      disabled={busy || empty || !!blockedLabel}
     >
       {busy
         ? s("processing")
-        : reviewed
-          ? `${l("pay")} · ${money(total)}`
-          : x("review")}
+        : blockedLabel
+          ? blockedLabel
+          : reviewed
+            ? `${l("pay")} · ${money(total)}`
+            : x("review")}
     </button>
   );
 }
