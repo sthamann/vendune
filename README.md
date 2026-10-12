@@ -13,7 +13,7 @@
 [![Status: working prototype](https://img.shields.io/badge/status-working_prototype-2459ef)](#current-boundaries)
 [![License: Sustainable Use](https://img.shields.io/badge/license-Sustainable_Use-18b9d9)](LICENSE)
 
-[**Start locally**](#get-started) · [**See it in action**](#see-vendune-in-action) · [**Interactive demos**](https://sthamann.github.io/vendune/index.html#demo) · [**Full feature tour**](https://sthamann.github.io/vendune/docs/features.html) · [**Latest release**](docs/current-release.md) · [**Build an app**](docs/app-studio.md) · [**How it works**](docs/production-architecture.md) · [**Documentation**](https://sthamann.github.io/vendune/docs/)
+[**Start locally**](#get-started) · [**See it in action**](#see-vendune-in-action) · [**Interactive demos**](https://sthamann.github.io/vendune/index.html#demo) · [**Full feature tour**](https://sthamann.github.io/vendune/docs/features.html) · [**Latest release**](docs/current-release.md) · [**Build five apps**](docs/app-tutorials/README.md) · [**How it works**](docs/production-architecture.md) · [**Documentation**](https://sthamann.github.io/vendune/docs/)
 
 </div>
 
@@ -193,9 +193,9 @@ customer or order fields; choose public reads, HTTP/MCP tools, AI access and Flo
 actions deliberately. F5 runs actual records in an actor-private sandbox with hot reload. Autosave drafts,
 inspect calls and breakpoint traces, save an immutable version and publish selected changes.
 
-[![App Studio form designer with native controls and a property inspector](docs/assets/feature-tour/app-form-designer.png)](docs/app-studio.md)
+[![Current App Studio: translated product advice form, table and validated save button](docs/assets/app-tutorials/product-advisor.jpg)](docs/app-tutorials/product-advisor.md)
 
-*Actual browser capture, 8 October. The design canvas labels sample data;
+*Actual English browser capture, 12 October. The design canvas labels sample data;
 the [working private preview](docs/assets/feature-tour/app-private-preview.png)
 shows a product-bound record saved and reloaded through PostgreSQL.*
 
@@ -204,6 +204,25 @@ events, webhooks and schedules. Separately deployed services can bring their own
 frontend, database and capabilities through the scoped SDK.
 [App Studio](docs/app-studio.md) · [Guided contracts](docs/app-assistants.md) ·
 [Full app SDK](docs/app-platform.md) · [App security](docs/app-security.md) · [Runnable Product Lab](extensions/apps/product-lab).
+
+### Build something useful, step by step
+
+Five illustrated workshops start in the actual App Studio and explain the data,
+visual controls, translation, rights, AI prompt, private testing and release steps.
+Start without a model provider; add reviewed AI edits when useful.
+
+| Build | What you learn |
+| --- | --- |
+| [Product care advisor](docs/app-tutorials/product-advisor.md) | Private product tab, public advice cards and optional authorized graph/AI access |
+| [Returns workspace](docs/app-tutorials/returns-workspace.md) | Order-bound private cases, choices and validated save code-behind |
+| [Customer preferences](docs/app-tutorials/customer-preferences.md) | Extra customer fields, translated choices and independent action rights |
+| [Daily review reminder](docs/app-tutorials/scheduled-review.md) | Native UTC clock → durable event → graphical Flow; optional configured notifications |
+| [ERP order handoff](docs/app-tutorials/erp-handoff.md) | Event/service contracts, mappings, package approval and deduplicated delivery |
+
+[**Open all five workshops →**](docs/app-tutorials/README.md)
+Twelve current screenshots show real local UI. F5, staging and live delivery are
+distinguished explicitly; the ERP example requires its independently deployed service.
+All app-owned source/resources stay inside their package folders.
 
 ### Make the process visible. Publish what you choose.
 
@@ -286,8 +305,8 @@ installation does not silently connect a provider.
 
 Studio has **15 workspaces** in **English, German, Spanish and French**, plus
 dynamic content locales with main-language inheritance. Developers get scoped
-keys and an explorer generated from the current Rust routes (**279 static HTTP
-method/path pairs** in this implementation, reviewed 9 October 2026); installed app routes
+keys and an explorer generated from the current Rust routes (**280 static HTTP
+method/path pairs** in this implementation, reviewed 12 October 2026); installed app routes
 are discovered per shop. CI rejects catalogue drift.
 [Studio/API tour](docs/studio-api-and-channels.md).
 

@@ -43,6 +43,13 @@ public repository.
 
 ## Publication and current facts
 
+The 12 October update adds [five illustrated App Studio workshops](app-tutorials/README.md)
+and twelve fresh English browser captures. It reconciles the README/app references
+with package ownership, native controls, the 280-route catalogue and 424 Rust
+modules. Historical captures, measurements and public rollout observations retain
+their dates; the tutorials distinguish sample design, private preview, staging
+installation and actual clock/provider delivery.
+
 The existing GitHub Pages workflow builds on every pull request and `main` push,
 and publishes only `main` or an explicit manual run. There is no path filter:
 new Markdown and code-derived module notes cannot silently miss a publication.
