@@ -3,6 +3,7 @@
 ## Connected workbench — 12 October 2026
 
 - Add editable Product advisor, Returns workspace and ERP handoff patterns to the existing visual App Studio.
+- Preserve host-object filters when adding or rebinding visual data controls; missing context prevents unfiltered requests. The actual order-bound case save is browser-verified.
 - Review model proposals and coding-agent imports before replacing the canvas; stale drafts/environment changes prevent acceptance.
 - Expand native generation controls and the local app output ceiling; retain existing storage/access/service/event contracts.
 - Route approved whole-catalogue translation proposals into the existing durable draft queue, with a direct review link and idempotent replay.

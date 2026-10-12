@@ -6,7 +6,12 @@ import { appRecipe, recipeIds } from "../../src/admin/developer/app-recipes";
 import AppRecipes from "../../src/admin/developer/AppRecipes";
 import AppProposalReview from "../../src/admin/developer/AppProposalReview";
 import { proposalChanges } from "../../src/admin/developer/app-proposal";
-import { compile, problems } from "../../src/admin/developer/app-model";
+import {
+  compile,
+  newBlock,
+  problems,
+} from "../../src/admin/developer/app-model";
+import { inheritedContext } from "../../src/admin/developer/control-model";
 import { LocaleProvider } from "../../src/shared/i18n/i18n";
 import type { AppStudio } from "../../src/admin/developer/useAppStudio";
 import NativeAppView from "../../src/shared/apps/native/NativeAppView";
@@ -121,6 +126,49 @@ it("saves returns through the native order-bound gateway without issuing a refun
     }),
   );
   expect(request.mock.calls.every(([p]) => !p.includes("refund"))).toBe(true);
+});
+it("new visual controls retain the owned order filter and never fetch without host context", async () => {
+  const m = appRecipe("returns", "returns"),
+    view = m.views![0];
+  const control = {
+    ...newBlock("textbox", view, "entries"),
+    dataField: "notes",
+  };
+  expect(control.contextBinding).toEqual({ field: "order_id", key: "orderId" });
+  const request = vi.fn(async () => ({ elements: [] }));
+  const props = {
+    app: m.id,
+    native: { view: { ...view, blocks: [control] }, entities: m.entities },
+    request,
+    allowedActions: ["list_entries"],
+  };
+  const { rerender } = render(<NativeAppView {...props} context={{}} />, {
+    wrapper: LocaleProvider,
+  });
+  expect(request).not.toHaveBeenCalled();
+  rerender(<NativeAppView {...props} context={{ orderId: "owned-order" }} />);
+  await screen.findByText(/0 ·/);
+  expect(request).toHaveBeenCalledWith(
+    "/api/apps/returns/actions/list_entries",
+    { limit: 50, filter: { order_id: "owned-order" } },
+  );
+});
+it("does not inherit another model's or an ambiguous object's binding", () => {
+  const view = appRecipe("returns", "returns").views![0];
+  expect(inheritedContext(view, "other_model")).toBeNull();
+  const ambiguous = {
+    ...view,
+    blocks: [
+      ...view.blocks,
+      {
+        ...view.blocks[0],
+        id: "different",
+        contextBinding: { field: "other_order_id", key: "orderId" as const },
+      },
+    ],
+  };
+  expect(inheritedContext(ambiguous, "entries")).toBeNull();
+  expect(newBlock("text", view, "entries").contextBinding).toBeUndefined();
 });
 it("links an approved translation to the same shop and its existing job review", () => {
   const original = location.href;

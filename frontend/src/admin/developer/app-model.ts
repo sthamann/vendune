@@ -1,6 +1,6 @@
 /** Pure schema edits preserve unsupported extension properties; compilation binds native UI to real actions. */
 import { addAssetActions } from "./asset-actions";
-import { calls, renameCalls } from "./control-model";
+import { calls, inheritedContext, renameCalls } from "./control-model";
 import { isDataBlock } from "../../shared/apps/native/types";
 import { appText, type AppStudioKey } from "../../shared/i18n/app-studio-i18n";
 import type {
@@ -44,6 +44,9 @@ export function newBlock(
     title: appText(kind),
     text: kind === "text" ? appText("example") : {},
     ...binding(kind, entity),
+    ...(isDataBlock(kind)
+      ? { contextBinding: inheritedContext(view, entity) }
+      : {}),
   };
 }
 export function template(): Manifest {

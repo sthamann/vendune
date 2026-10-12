@@ -18,6 +18,11 @@ ERP handoff. Each opens an ordinary editable Manifest with translated labels.
 The existing Visual Basic-style designer, F4 property inspector, typed code-behind,
 model workspace wizard, F5 preview, undo/redo, private drafts and versioned release
 remain the same system. Buttons and fields bind to the real app gateway.
+New data controls inherit the current product/customer/order binding when the
+existing controls on that model agree. Changing the selected model uses that
+model's binding. Ambiguous or unrelated bindings are not guessed; the property
+inspector still lets you choose explicitly. Missing host context never triggers an
+unfiltered request.
 
 ```mermaid
 flowchart LR
@@ -43,6 +48,10 @@ not only table/cards/form/text. A local model receives an 8,192-token output cei
 for app definitions instead of the 2,000-token ceiling for smaller tasks. This is a
 maximum, not a guarantee of complete or correct output. Model quality itself was
 not benchmarked against a paid/live model in these hermetic checks.
+An additional local Qwen inference check retained the existing storage contract
+but did not reliably add the requested controls. Valid JSON is not task completion;
+the preview and explicit proposal review remain necessary. The editable patterns
+are the deterministic starting path.
 
 Existing app identity, persisted entities/field types, core references, validation,
 public exposure and surface/action rights survive generated edits. External service
