@@ -4,7 +4,7 @@
 
 - Fix transient Studio login errors during loading while retaining conversation drafts.
 - Filter selected-app versions, reconnect exact restored builds and allocate unused patch versions.
-- Deduplicate validated native Save controls; support named order cases and confirmed status transitions.
+- Deduplicate validated native Save controls; support named order cases and confirmed status transitions. Hydrate standalone inputs before interaction and refresh the shared app registry with the workspace.
 - Add generic app-owned workflow declarations with transactional immutable fields and current-package fencing.
 - Share process/tenant/app network admission across actions, events, UI bundles and payment adapters; bound opaque guest bridge concurrency and stale completions.
 - Complete the Returns lifecycle and an independent Rust ERP reference adapter with app-only forced-RLS receipts, signed intake, deduplication, cold restart and explicit uncertainty reconciliation.

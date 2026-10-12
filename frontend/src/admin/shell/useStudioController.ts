@@ -140,6 +140,7 @@ export function useStudioController({
     setData(await request("/api/merchant/overview"));
     setConversations((await request("/api/agent/conversations")).conversations);
     setUpdated(new Date().toISOString());
+    window.dispatchEvent(new Event("commerce.apps.changed"));
   }, [request]);
   const run = async (fn: () => Promise<void>) => {
     setBusy(true);

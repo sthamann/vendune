@@ -230,3 +230,9 @@ sequenceDiagram
   Stage->>Live: Publish reviewed restoration
   Note over Core,Live: Orders, payments and customer state are never rewound
 ```
+
+Native standalone controls hydrate their server value before becoming interactive,
+so delayed initialization cannot restore a text the user just cleared. The
+workspace Refresh control also refreshes the shared app registry after a
+successful authorized load, including apps installed through API/agents. Forms
+show their model label without an obsolete loaded-record count after saving.

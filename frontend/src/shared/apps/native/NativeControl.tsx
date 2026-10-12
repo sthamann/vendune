@@ -1,5 +1,5 @@
 /** Typed VB-style controls read app records; edits stay local until an explicitly bound gateway action runs. */
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import type { AppRecord, Block, Entity } from "./types";
 import { useNativeRuntime } from "./NativeRuntime";
 import NativeField from "./NativeField";
@@ -28,7 +28,8 @@ export default function NativeControl({
   const f = entity.fields.find((f) => f.name === block.dataField);
   const first = records[active] ?? records[0],
     stored = first?.[block.dataField ?? ""];
-  useEffect(() => {
+  // Hydrate before this input becomes interactive; a late effect must not undo a user's clear/type action.
+  useLayoutEffect(() => {
     if (
       f &&
       ["textbox", "combobox", "checkbox", "datepicker"].includes(block.kind)

@@ -131,7 +131,7 @@ export default function NativeDataBlock({
         <span>
           {busy
             ? a("loading")
-            : `${records.length} · ${contentText(entity.label, locale, mainLocale)}`}
+            : `${block.kind === "form" ? "" : `${records.length} · `}${contentText(entity.label, locale, mainLocale)}`}
         </span>
         <button
           type="button"

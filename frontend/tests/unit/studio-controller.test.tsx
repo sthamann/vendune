@@ -297,3 +297,29 @@ it.each([
     await waitFor(() => expect(result.current.serverReady).toBe(true));
   },
 );
+
+it("refreshes the shared app registry only after a successful workspace refresh", async () => {
+  sessionStorage.setItem("rac-user-token", "unit-token");
+  const { fetcher } = network(),
+    changed = vi.fn();
+  window.addEventListener("commerce.apps.changed", changed);
+  try {
+    const { result } = renderHook(
+      () => useStudioController({ onChanged: vi.fn(), onExit: vi.fn() }),
+      { wrapper: LocaleProvider },
+    );
+    await waitFor(() => expect(result.current.connected).toBe(true));
+    await act(() => result.current.refresh());
+    expect(changed).toHaveBeenCalledTimes(1);
+    changed.mockClear();
+    fetcher.mockRejectedValueOnce(Error("Workspace unavailable"));
+    await act(async () => {
+      await expect(result.current.refresh()).rejects.toThrow(
+        "Workspace unavailable",
+      );
+    });
+    expect(changed).not.toHaveBeenCalled();
+  } finally {
+    window.removeEventListener("commerce.apps.changed", changed);
+  }
+});
