@@ -3,6 +3,7 @@
 ## Connected workbench — 12 October 2026
 
 - Standalone native inputs edit a unique form for the same model and record; ambiguous/unrelated bindings and protected references do not join. Typing remains local until the validated Save action runs.
+- Native runtime raster rows grow to fit editor content instead of hiding short controls behind internal card scrolling; tables retain bounded scrolling.
 - Native input controls reload persisted values on explicit refresh and clear stale record values; typing still makes no write.
 - AI edits target the existing Manifest through bounded JSON Patch; host-assigned versions, atomic application, no-op rejection and unchanged schema/access guards replace whole-app regeneration. A real local Qwen task produced translated, order-bound controls; broader model quality remains unbenchmarked.
 

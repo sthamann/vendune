@@ -33,6 +33,9 @@ Standalone inputs update the local form buffer only when exactly one registered
 form has the same entity and record ID. Ambiguous forms, unrelated records/models
 and protected core-reference fields do not join. Typing makes no server write;
 the existing validated Save action sends the form's record and revision.
+At runtime, raster rows grow to fit actual labels and editor contents; small
+model-supplied heights no longer hide inputs behind a card's internal scrollbar.
+Tables retain their own bounded scrolling and mobile layouts stack normally.
 
 ```mermaid
 flowchart LR
