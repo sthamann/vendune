@@ -12,6 +12,11 @@ def compare(root, functions):
         options=[[False,True] if t=='bool' else edges for _,t in f.args]
         for values in itertools.product(*options):
             cases.append({'function':f.name,'args':dict(zip((n for n,_ in f.args),values))})
+        if f.name=='external_amount_admissible':
+            # Exact application caps and neighbours, including the zero-rate tax condition.
+            for gross,tax,rate in [(10**12-1,0,99999),(10**12,10**12,100000),
+                (10**12+1,0,1),(1,0,100001),(1,1,0),(1,2,1),(0,0,0)]:
+                cases.append({'function':f.name,'args':{'gross':gross,'tax':tax,'rate':rate}})
         if any(t=='u64' for _,t in f.args):
             for _ in range(250):
                 cases.append({'function':f.name,'args':{n:rng.getrandbits(64) if t=='u64' else bool(rng.getrandbits(1)) for n,t in f.args}})

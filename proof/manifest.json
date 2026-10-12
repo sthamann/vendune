@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "claim": "48 extracted production policies; surrounding modules remain unproved",
+  "claim": "Extracted production policies; surrounding modules remain unproved",
   "policies": {
     "discount_cap": {
       "bindings": [
@@ -15,7 +15,8 @@
     },
     "stock_admissible": {
       "bindings": [
-        "src/order_checkout.rs"
+        "src/order_checkout.rs",
+        "src/commerce/external_orders.rs"
       ],
       "theorems": [
         "stock_positive_bounded",
@@ -459,6 +460,24 @@
       "theorems": [
         "pos_discount_exact",
         "pos_discount_exceeds_denied"
+      ]
+    },
+    "external_amount_admissible": {
+      "bindings": [
+        "src/commerce/external_order_input.rs"
+      ],
+      "theorems": [
+        "external_amount_exact",
+        "external_amount_tax_bounded"
+      ]
+    },
+    "external_paid_total_admissible": {
+      "bindings": [
+        "src/commerce/external_order_input.rs"
+      ],
+      "theorems": [
+        "external_paid_total_exact",
+        "external_unpaid_denied"
       ]
     }
   },
@@ -1380,8 +1399,8 @@
     },
     "src/bin/verified_kernel/dispatch.rs": {
       "status": "unproved",
-      "sha256": "48e12ed9b5ace126dfc239a9b9dedf2ef85f9cc6937e4d16b1c0796d99049487",
-      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+      "sha256": "8d1d8c6216592955ba760977484f5b4d9ab7011c74cf73f24d613ad97188c194",
+      "review": "Reviewed exact paid external-order amount and positive-total guards, their live import consumers, signed-input rejection, Lean properties and negative mutations; provider tax law, SQL and external effects remain unproved"
     },
     "src/bin/verified_kernel.rs": {
       "status": "conformance-driver",
@@ -1649,12 +1668,12 @@
       "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
     },
     "src/commerce/external_order_input.rs": {
-      "status": "unproved",
-      "sha256": "a10f7ec6b68689505896074495e56172739aa61b41f73c7f55b52d8b4c472bb2",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "status": "reviewed-binding",
+      "sha256": "ecdca4c6effefc326da37afe01eda49f2c58fb0f2dc51abe103867f89e22f2ac",
+      "review": "Reviewed exact paid external-order amount and positive-total guards, their live import consumers, signed-input rejection, Lean properties and negative mutations; provider tax law, SQL and external effects remain unproved"
     },
     "src/commerce/external_orders.rs": {
-      "status": "unproved",
+      "status": "reviewed-binding",
       "sha256": "dccb86ecf9113fd5202d48f10d8bf29ea461591fb0caab86feeaa80623c607f8",
       "review": "Reviewed marketplace integration and translated externally recorded payment label; exact paid snapshot validation, native stock/customer/order/outbox/receipt reuse, actor additional rights across HTTP/MCP/plans/jobs and App Studio retention tested. Existing pure guards unchanged; async SQL/providers/taxation remain unproved."
     },
@@ -2880,8 +2899,8 @@
     },
     "src/verified_kernel.rs": {
       "status": "extracted-policy",
-      "sha256": "a51d8cc5cf7748eac632766b07db9f132d49470093a135a03cb47887a666e6da",
-      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+      "sha256": "471ffeb4b4651ef0d4f0e54d31bc616e665b6fce1c17889c5ec6b1f2289abfee",
+      "review": "Reviewed exact paid external-order amount and positive-total guards, their live import consumers, signed-input rejection, Lean properties and negative mutations; provider tax law, SQL and external effects remain unproved"
     },
     "src/work_signal.rs": {
       "status": "unproved",
@@ -3288,8 +3307,8 @@
       "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
     "proof/Commerce/Claims.lean": {
-      "sha256": "cb60f23b78a45749b4b2f17ad825b582210ab95e92a574f0890a3b35ee7f1d0b",
-      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+      "sha256": "9ffc4b92e9fb2c3d7b91f6c3ab8e0f1a3d4a5821d5b9c656e74b1b8c3607f0bc",
+      "review": "Reviewed exact paid external-order amount and positive-total guards, their live import consumers, signed-input rejection, Lean properties and negative mutations; provider tax law, SQL and external effects remain unproved"
     },
     "proof/lakefile.toml": {
       "sha256": "1cda05bac02223024b93388cf858edad4719c46f8d37a826a73a6a6e15d79432",
@@ -3316,16 +3335,16 @@
       "review": "Reviewed policy integration and unchanged module inventory; added proof/CI integrity locks and tested terminal API regression"
     },
     "scripts/formal/conformance.py": {
-      "sha256": "92cef78b38f9a20f3145316fdc27284681a74debd50942367eba9f270ba81826",
-      "review": "Reviewed app schema and retained access/service/nested handler contracts, explicit translation queue replay, inference output budget and personalization adapters. The conformance driver uses seekable input for the same population to avoid native pipe stalls; extracted policy and proof scope is unchanged."
+      "sha256": "6041658e9c332c4fd298d578b3abee7f99d9ef1bbbba7ed42e1ea3ad07ac3e79",
+      "review": "Reviewed marketplace money guard consumers and exact properties, cap-neighbour comparison cases, native stock binding and local regressions; external protocols and tax law remain tested unproved boundaries"
     },
     "scripts/formal/extract.py": {
       "sha256": "0c699db4e15c044ca265d4f656466702994be891faddc1325ab9fb5a6073caab",
       "review": "Reviewed policy integration and unchanged module inventory; added proof/CI integrity locks and tested terminal API regression"
     },
     "scripts/formal/mutations.py": {
-      "sha256": "afc303b567bb0668b2ed92205037878726cf553213b239aa091cb50ee6180c49",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "c91baeb151691692855ff8f08eee1470f8468bbd0d72d67ef6d45905782f5cf5",
+      "review": "Reviewed exact paid external-order amount and positive-total guards, their live import consumers, signed-input rejection, Lean properties and negative mutations; provider tax law, SQL and external effects remain unproved"
     },
     "scripts/formal/registry.py": {
       "sha256": "29d0faa4493e4248ddd93991c8b4a9515ac29f90fe849e872577c8705a18e7d2",

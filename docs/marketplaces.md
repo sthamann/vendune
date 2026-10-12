@@ -152,3 +152,13 @@ job idempotency, reader restrictions, PII errors and zero-scale currencies with 
 non-English main/fifth content language. No live seller account or hosted provider
 success is asserted by those checks. Native extracted Lean guards remain scoped;
 this async/provider integration is explicitly unproved.
+
+## Verification boundary
+
+The native import calls extracted production guards for bounded gross/tax amounts
+and positive, paid, exactly reconciled totals. Lean proves these precise admission
+properties; compiled Rust/Lean comparisons include the amount caps and their
+neighbours. Negative mutations remove each check and must be rejected. These
+proofs do not establish tax-law correctness, provider payment authenticity,
+PostgreSQL execution or whole-system correctness; real provider fixtures and
+tenant/concurrency integration tests cover those adapter boundaries.

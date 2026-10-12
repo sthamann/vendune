@@ -150,4 +150,10 @@ def b2b_approval_admissible (different : Bool) (authorized : Bool) (pending : Bo
 def pos_discount_admissible (actor : Bool) (currency : Bool) (reason : Bool) (minor : Nat) (goods : Nat) : Bool :=
   (((actor && currency) && reason) && (decide (minor ≤ goods)))
 
+def external_amount_admissible (gross : Nat) (tax : Nat) (rate : Nat) : Bool :=
+  ((((decide (gross ≤ 1000000000000)) && (decide (tax ≤ gross))) && (decide (rate ≤ 100000))) && ((decide (rate ≠ 0)) || (decide (tax = 0))))
+
+def external_paid_total_admissible (paid : Bool) (calculated : Nat) (declared : Nat) : Bool :=
+  ((paid && (decide (calculated > 0))) && (decide (calculated = declared)))
+
 end CommerceKernel

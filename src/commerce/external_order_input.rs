@@ -31,10 +31,17 @@ pub(super) struct Amount {
 }
 impl Amount {
     fn valid(&self) -> bool {
-        (0..=1_000_000_000_000).contains(&self.gross_minor)
-            && (0..=self.gross_minor).contains(&self.tax_minor)
-            && self.tax_rate_basis_points <= 100_000
-            && (self.tax_rate_basis_points != 0 || self.tax_minor == 0)
+        let (Ok(gross), Ok(tax)) = (
+            u64::try_from(self.gross_minor),
+            u64::try_from(self.tax_minor),
+        ) else {
+            return false;
+        };
+        verified_kernel::external_amount_admissible(
+            gross,
+            tax,
+            u64::from(self.tax_rate_basis_points),
+        )
     }
     pub fn price(&self, scale: u8, quantity: u32) -> Value {
         let factor = 10_i64.pow(scale.into()) as f64;
@@ -51,7 +58,6 @@ impl Input {
             || self.external_id.is_empty()
             || self.external_id.len() > 100
             || self.external_id.chars().any(char::is_control)
-            || !self.paid
             || self.lines.is_empty()
             || self.lines.len() > 24
             || self.email.len() > 254
@@ -80,7 +86,10 @@ impl Input {
                 .checked_add(l.amount.gross_minor)
                 .ok_or(bad("External order amount overflow"))?;
         }
-        if total != self.total_minor || total <= 0 {
+        let declared =
+            u64::try_from(self.total_minor).map_err(|_| bad("Negative external order total"))?;
+        let calculated = u64::try_from(total).map_err(|_| bad("Negative external order sum"))?;
+        if !verified_kernel::external_paid_total_admissible(self.paid, calculated, declared) {
             return Err(bad("External order totals do not reconcile"));
         }
         Ok(())
@@ -89,6 +98,35 @@ impl Input {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn source_amount_boundaries_are_not_guessed() {
+        let valid = |gross_minor, tax_minor, tax_rate_basis_points| {
+            Amount {
+                gross_minor,
+                tax_minor,
+                tax_rate_basis_points,
+            }
+            .valid()
+        };
+        assert!(valid(0, 0, 0));
+        assert!(valid(1_000_000_000_000, 1_000_000_000_000, 100_000));
+        for (gross, tax, rate) in [
+            (-1, 0, 0),
+            (1, -1, 1),
+            (1, 2, 1),
+            (1, 1, 0),
+            (1, 0, 100_001),
+            (1_000_000_000_001, 0, 1),
+            (i64::MAX, 0, 1),
+        ] {
+            assert!(!valid(gross, tax, rate));
+        }
+        assert!(!verified_kernel::external_paid_total_admissible(true, 0, 0));
+        assert!(!verified_kernel::external_paid_total_admissible(true, 1, 2));
+        assert!(!verified_kernel::external_paid_total_admissible(
+            false, 1, 1
+        ));
+    }
     #[test]
     fn rejects_repricing_guesses_overflow_and_duplicate_stock() {
         let addr = json!({"name":"Test Buyer","street":"Lane 1","postalCode":"10115","city":"Berlin","country":"DE"});

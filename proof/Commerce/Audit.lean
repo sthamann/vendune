@@ -54,6 +54,10 @@ import Commerce.Claims
 #print axioms CommerceKernel.experiment_immature_denied
 #print axioms CommerceKernel.experiment_result_exact
 #print axioms CommerceKernel.experiment_undersized_denied
+#print axioms CommerceKernel.external_amount_exact
+#print axioms CommerceKernel.external_amount_tax_bounded
+#print axioms CommerceKernel.external_paid_total_exact
+#print axioms CommerceKernel.external_unpaid_denied
 #print axioms CommerceKernel.financial_contact_required
 #print axioms CommerceKernel.flow_delay_exact
 #print axioms CommerceKernel.legal_checkout_exact

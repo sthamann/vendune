@@ -55,6 +55,8 @@ def evalRequest (j : Json) : Except String Json := do
   | "b2b_budget_admissible" => pure (toJson (b2b_budget_admissible ((← (args.getObjVal? "limit") >>= Json.getNat?)) ((← (args.getObjVal? "spent") >>= Json.getNat?)) ((← (args.getObjVal? "requested") >>= Json.getNat?))))
   | "b2b_approval_admissible" => pure (toJson (b2b_approval_admissible ((← (args.getObjVal? "different") >>= Json.getBool?)) ((← (args.getObjVal? "authorized") >>= Json.getBool?)) ((← (args.getObjVal? "pending") >>= Json.getBool?)) ((← (args.getObjVal? "current") >>= Json.getBool?))))
   | "pos_discount_admissible" => pure (toJson (pos_discount_admissible ((← (args.getObjVal? "actor") >>= Json.getBool?)) ((← (args.getObjVal? "currency") >>= Json.getBool?)) ((← (args.getObjVal? "reason") >>= Json.getBool?)) ((← (args.getObjVal? "minor") >>= Json.getNat?)) ((← (args.getObjVal? "goods") >>= Json.getNat?))))
+  | "external_amount_admissible" => pure (toJson (external_amount_admissible ((← (args.getObjVal? "gross") >>= Json.getNat?)) ((← (args.getObjVal? "tax") >>= Json.getNat?)) ((← (args.getObjVal? "rate") >>= Json.getNat?))))
+  | "external_paid_total_admissible" => pure (toJson (external_paid_total_admissible ((← (args.getObjVal? "paid") >>= Json.getBool?)) ((← (args.getObjVal? "calculated") >>= Json.getNat?)) ((← (args.getObjVal? "declared") >>= Json.getNat?))))
   | _ => throw "Unknown policy"
 
 def main : IO Unit := do
