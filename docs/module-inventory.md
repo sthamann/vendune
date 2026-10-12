@@ -482,6 +482,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/b2b/UnitCatalog.tsx](../frontend/src/admin/b2b/UnitCatalog.tsx) | Search the canonical merchant catalog; unit permissions persist through the native revision-bound catalog API. |
 | [frontend/src/admin/b2b/UnitEditor.tsx](../frontend/src/admin/b2b/UnitEditor.tsx) | Purchasing unit policies, hierarchy, catalogs and customer grants share current revision checks. |
 | [frontend/src/admin/b2b/UnitMethods.tsx](../frontend/src/admin/b2b/UnitMethods.tsx) | Unit allowlists reference the existing translated shipping/payment owner; empty means inherited availability. |
+| [frontend/src/admin/b2b/reference.ts](../frontend/src/admin/b2b/reference.ts) | Native organization IDs require a lowercase letter first and at most 32 characters. |
 | [frontend/src/admin/catalog/AiImageStudio.tsx](../frontend/src/admin/catalog/AiImageStudio.tsx) | Optional image-provider jobs create private previews; applying a reviewed image is explicit and revision checked. |
 | [frontend/src/admin/catalog/CategoriesWorkspace.tsx](../frontend/src/admin/catalog/CategoriesWorkspace.tsx) | Localized category tree editor; parent moves and revisions are validated in the API. |
 | [frontend/src/admin/catalog/CategoryFactQuery.tsx](../frontend/src/admin/catalog/CategoryFactQuery.tsx) | One saved predicate on current public evidence; reuses category CAS and the editor's selected content language. |
@@ -717,6 +718,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/platform/styles/platform/03-control.css](../frontend/src/platform/styles/platform/03-control.css) | Service hub and operational editors share the same accessible light workspace. |
 | [frontend/src/platform/styles/platform.css](../frontend/src/platform/styles/platform.css) | Ordered platform stylesheet entry; domain rules live in the adjacent folder. |
 | [frontend/src/shared/api/agent-stream.ts](../frontend/src/shared/api/agent-stream.ts) | Decode bounded UTF-8 SSE chat frames; only a completed native result reaches the existing Studio state owner. |
+| [frontend/src/shared/api/customer-session.ts](../frontend/src/shared/api/customer-session.ts) | Read only the current customer's tenant-scoped session at request time; never use merchant identity. |
 | [frontend/src/shared/api/download.ts](../frontend/src/shared/api/download.ts) | Authenticated binary download, never placing session credentials in a URL. |
 | [frontend/src/shared/api/merchant-session.ts](../frontend/src/shared/api/merchant-session.ts) | Private merchant-session rejection signals shared by all JSON transports. |
 | [frontend/src/shared/api/request-json.ts](../frontend/src/shared/api/request-json.ts) | Coalesce simultaneous identical core reads with complete identity; no persisted response cache. |
@@ -872,6 +874,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/storefront/catalog/ProductQuestion.tsx](../frontend/src/storefront/catalog/ProductQuestion.tsx) | Read-only product questions cite only tenant-owned, explicitly published source documents. |
 | [frontend/src/storefront/catalog/ProductReviews.tsx](../frontend/src/storefront/catalog/ProductReviews.tsx) | ProductReviews: focused pdp-reviews view with explicit typed inputs and callbacks. |
 | [frontend/src/storefront/catalog/product-url.ts](../frontend/src/storefront/catalog/product-url.ts) | Stable, collision-free product addresses: SKU identity plus the inherited localized SEO slug. |
+| [frontend/src/storefront/checkout/CheckoutApproval.tsx](../frontend/src/storefront/checkout/CheckoutApproval.tsx) | Request approval only after native checkout review, then refresh that exact cart without changing its revision. |
 | [frontend/src/storefront/checkout/CheckoutDetails.tsx](../frontend/src/storefront/checkout/CheckoutDetails.tsx) | Address book, guest contact and delivery/payment selection share the authoritative cart context API. |
 | [frontend/src/storefront/checkout/CheckoutIdentity.tsx](../frontend/src/storefront/checkout/CheckoutIdentity.tsx) | Inline guest/login/registration step rotates the cart on authentication and refreshes owning defaults. |
 | [frontend/src/storefront/checkout/CheckoutMethods.tsx](../frontend/src/storefront/checkout/CheckoutMethods.tsx) | Method cards keep delivery and payment discoverable without concealing country restrictions. |
