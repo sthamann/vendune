@@ -170,3 +170,10 @@ calls; F5 still uses the original bounded actor-private runtime.
 ![App-owned Returns workspace with semantic controls and translated schema labels](assets/app-workbench-designer.png)
 
 Captured from the real local private sandbox on 12 October 2026. This is the passive design view with labelled sample controls; switch to the existing working preview to exercise actual app records.
+
+The package-ownership follow-up passes 193 Rust tests and 421 frontend tests across
+71 files. The complete frontend snapshot measures 64.05% lines, 62.82% statements,
+55.98% branches and 51.97% functions; this is not 100% coverage. Actual local
+PostgreSQL/provider fixtures verify app development, private previews, connector
+delivery and payment compatibility. A browser edit to an installed order-bound
+app remains present after reloading and reselecting its private sandbox.

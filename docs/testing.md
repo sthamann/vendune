@@ -118,8 +118,10 @@ supplied by a test. Cases include:
 
 ## Coverage collection
 
-Frontend coverage includes **every** `src/**/*.ts` and `src/**/*.tsx`, including
-modules never imported by a test. HTML, JSON, LCOV and summaries go to
+Frontend coverage includes **every** `frontend/src/**/*.ts` and
+`frontend/src/**/*.tsx`, plus TypeScript/React modules owned by
+`extensions/apps/**`, including modules never imported by a test.
+HTML, JSON, LCOV and summaries go to
 `frontend/coverage/`. Styles and independent guest app bundles are outside that
 statement metric and explicitly listed as separate scopes.
 
