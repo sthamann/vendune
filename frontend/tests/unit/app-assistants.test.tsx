@@ -4,7 +4,10 @@ import userEvent from "@testing-library/user-event";
 import { expect, it, vi } from "vitest";
 import SandboxContextPicker from "../../src/admin/developer/SandboxContextPicker";
 import AppAssistant from "../../src/admin/developer/AppAssistant";
-import AppActionAccess from "../../src/admin/developer/AppActionAccess";
+import { readFileSync } from "node:fs";
+import AppActionAccess, {
+  appScopes,
+} from "../../src/admin/developer/AppActionAccess";
 import NativeAppView from "../../src/shared/apps/native/NativeAppView";
 import { ContentLanguage } from "../../src/shared/i18n/ContentLanguage";
 import { LocaleProvider } from "../../src/shared/i18n/i18n";
@@ -270,4 +273,28 @@ it("renders localized choice labels in public product cards without exposing the
   await waitFor(() => expect(screen.getByText("Priority")).toBeVisible());
   expect(screen.queryByText("mug")).not.toBeInTheDocument();
   expect(screen.queryByText("priority")).not.toBeInTheDocument();
+});
+
+it("keeps app action and editor rights aligned with the native registry including B2B and POS", async () => {
+  const native = readFileSync("../src/auth/permissions.rs", "utf8");
+  const registry = native.match(/const SCOPES:[\s\S]*?= &\[([\s\S]*?)\];/)![1];
+  const scopes = [...registry.matchAll(/"([a-z0-9.]+)"/g)].map((x) => x[1]);
+  expect([...appScopes].sort()).toEqual(scopes.sort());
+  let result = draft();
+  render(
+    <AppActionAccess
+      manifest={result}
+      onChange={(m) => {
+        result = compile(m);
+      }}
+    />,
+    { wrapper: LocaleProvider },
+  );
+  await userEvent.selectOptions(
+    screen.getAllByLabelText("Required team permission")[1],
+    "b2b.manage",
+  );
+  expect(result.actions!.find((a) => a.handler === "save")!.permission).toBe(
+    "b2b.manage",
+  );
 });

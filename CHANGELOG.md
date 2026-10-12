@@ -17,6 +17,8 @@
 - Fix capability-dispatch stack exhaustion exposed by the POS/MCP regression; box new domain futures without increasing worker stack limits.
 - Add native HTTP/PostgreSQL/tenant and app/gateway restart regressions, UI cases and two scoped Lean policies. Advanced B2B chains, partner-profile certification and network transports remain open, explicitly documented.
 
+- Complete App Studio action/surface permission choices for B2B, POS and customer PII; test against the central native registry and preserve restrictive action allowlists.
+
 ## Native POS channel — 12 October 2026
 
 - Add authenticated, cashier-bound POS channels and touch/scanner register UI, native variants, parked carts, currencies and coupons.

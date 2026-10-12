@@ -209,3 +209,28 @@ it("finished export reads private bytes only on click and revokes its temporary 
   click.mockRestore();
   vi.unstubAllGlobals();
 });
+
+it("saves a B2B-specific native editor placement and team permission without widening its actions", () => {
+  const m = template(),
+    change = vi.fn();
+  m.surfaces = [
+    {
+      id: "company",
+      location: "admin.b2b.company",
+      label: { en: "Company" },
+      uiPath: "native/guides",
+      actions: ["save_guides"],
+    },
+  ];
+  render(<AppMenuEditor manifest={m} onChange={change} />, {
+    wrapper: LocaleProvider,
+  });
+  fireEvent.change(screen.getByLabelText("Required team permission"), {
+    target: { value: "b2b.read" },
+  });
+  expect(change.mock.calls.at(-1)![0].surfaces[0]).toMatchObject({
+    location: "admin.b2b.company",
+    permission: "b2b.read",
+    actions: ["save_guides"],
+  });
+});
