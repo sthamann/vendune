@@ -29,7 +29,14 @@ export function catalogue(source) {
     });
     rows.set(id, row);
   };
-  for (const file of walk(source).filter(
+  const pluginRoot = path.resolve(import.meta.dirname, "../../extensions/apps");
+  const files = [
+    ...walk(source),
+    ...(source === path.resolve(import.meta.dirname, "../src")
+      ? walk(pluginRoot)
+      : []),
+  ];
+  for (const file of files.filter(
     (f) =>
       /i18n\.ts$|i18n\/(?:locales|automation-)/.test(f) && f.endsWith(".ts"),
   )) {

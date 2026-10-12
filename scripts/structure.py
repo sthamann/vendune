@@ -3,13 +3,14 @@
 import subprocess
 from pathlib import Path
 root=Path(__file__).resolve().parents[1]
-files=list((root/'src').rglob('*.rs'))
+files=[*(root/'src').rglob('*.rs'),*(root/'extensions').rglob('*.rs')]
 for path in files:
     lines=path.read_text().splitlines()
     assert len(lines)<=320,(str(path.relative_to(root)),len(lines),'split domain before growing this module')
     assert lines and (lines[0].startswith('//!') or lines[0].startswith('///')),str(path.relative_to(root))+' needs a responsibility comment'
 assert len((root/'src/main.rs').read_text().splitlines())<=120
 for path in (root/'extensions').glob('*.wat'):assert path.name in (root/'extensions/README.md').read_text(),path.name+' needs documentation'
+subprocess.run(["python3", "scripts/testing/plugin_ownership.py"], cwd=root, check=True)
 subprocess.run(["python3", "scripts/security_route_gate.py"], cwd=root, check=True)
 print(f'PASS {len(files)} Rust modules: responsibility documented; <=320 lines; main <=120; every WAT example documented')
 

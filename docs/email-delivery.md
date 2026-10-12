@@ -200,13 +200,13 @@ automatic invitation dispatch or attachment/PDF sending are claimed in this vers
 ## Source map and verification
 
 - `extensions/apps/email/manifest.json`: published API/MCP/event/flow contract.
-- `src/connectors/config.rs`: compiler-typed settings/credentials plus runtime validation.
-- `src/connectors/templates.rs`: bounded envelopes and EN/DE/FR/ES order/consumer rendering.
-- `src/connectors/email.rs`: published app actions/events and Resend/SendGrid delivery.
-- `src/connectors/smtp.rs`: pinned SMTP/STARTTLS/TLS, verified certificates and MIME.
-- `src/connectors/{store,crypto,queue,worker}.rs`: encrypted PostgreSQL persistence, quotas and fenced workers.
+- `extensions/apps/email/src/config.rs`: compiler-typed settings/credentials plus runtime validation.
+- `extensions/apps/email/src/templates.rs`: bounded envelopes and EN/DE/FR/ES order/consumer rendering.
+- `extensions/apps/email/src/email.rs`: published app actions/events and Resend/SendGrid delivery.
+- `extensions/apps/email/src/smtp.rs`: pinned SMTP/STARTTLS/TLS, verified certificates and MIME.
+- `extensions/services/connectors/src/{store,crypto,queue,worker}.rs`: encrypted PostgreSQL persistence, quotas and fenced workers.
 - `src/bin/connectors.rs`: independent standard-service process.
-- `frontend/src/admin/apps/EmailPanel.tsx`, `email-i18n.ts`: native multilingual app workspace.
+- `extensions/apps/email/studio/EmailPanel.tsx`, `email-i18n.ts`: native multilingual app workspace.
 - `src/marketing/flows.rs`: durable order-customer snapshot for the existing app flow adapter.
 
 `python3 scripts/email_tests.py` keeps the archived Python implementation as a differential

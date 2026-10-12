@@ -203,3 +203,5 @@ These records carry `native-app-records-not-confirmed-product-claims`. Mapping a
 model does not confirm a product claim, extract unstructured facts, add a second
 graph store, or provide global graph traversal. See the [care knowledge example](../extensions/apps/ontology-care/README.md)
 and real two-tenant API/MCP suite `scripts/app_ontology.py`.
+
+[All-app folder ownership and runtime boundaries](plugin-ownership.md).

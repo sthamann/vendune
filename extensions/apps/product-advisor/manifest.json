@@ -1,0 +1,295 @@
+{
+  "id": "product_advisor",
+  "version": "0.1.0",
+  "coreApi": "1",
+  "runtime": "declarative",
+  "name": {
+    "en": "Product advisor",
+    "de": "Produktberater",
+    "fr": "Conseiller produit",
+    "es": "Asesor de productos"
+  },
+  "category": "operations",
+  "permissions": [
+    "data.read",
+    "data.write",
+    "admin.slot",
+    "storefront.slot"
+  ],
+  "entities": [
+    {
+      "name": "entries",
+      "label": {
+        "en": "Product advisor",
+        "de": "Produktberater",
+        "fr": "Conseiller produit",
+        "es": "Asesor de productos"
+      },
+      "publicRead": true,
+      "fields": [
+        {
+          "name": "product_id",
+          "label": {
+            "en": "Core object",
+            "de": "Commerce-Objekt",
+            "fr": "Objet commerce",
+            "es": "Objeto de comercio"
+          },
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "coreReference": "product"
+        },
+        {
+          "name": "title",
+          "label": {
+            "en": "Title",
+            "de": "Titel",
+            "fr": "Titre",
+            "es": "Título"
+          },
+          "kind": "string",
+          "translatable": true,
+          "required": true
+        },
+        {
+          "name": "body",
+          "label": {
+            "en": "Reason / advice",
+            "de": "Grund / Empfehlung",
+            "fr": "Motif / conseil",
+            "es": "Motivo / consejo"
+          },
+          "kind": "string",
+          "translatable": true
+        }
+      ]
+    }
+  ],
+  "slots": [],
+  "views": [
+    {
+      "id": "workspace",
+      "layout": "form",
+      "blocks": [
+        {
+          "id": "records",
+          "kind": "table",
+          "title": {
+            "en": "Product advisor",
+            "de": "Produktberater",
+            "fr": "Conseiller produit",
+            "es": "Asesor de productos"
+          },
+          "entity": "entries",
+          "readAction": "list_entries",
+          "geometry": {
+            "x": 0,
+            "y": 0,
+            "w": 6,
+            "h": 10
+          },
+          "contextBinding": {
+            "field": "product_id",
+            "key": "productId"
+          }
+        },
+        {
+          "id": "editor",
+          "kind": "form",
+          "title": {
+            "en": "Record",
+            "de": "Datensatz",
+            "fr": "Enregistrement",
+            "es": "Registro"
+          },
+          "entity": "entries",
+          "readAction": "list_entries",
+          "writeAction": "save_entries",
+          "geometry": {
+            "x": 6,
+            "y": 0,
+            "w": 6,
+            "h": 10
+          },
+          "contextBinding": {
+            "field": "product_id",
+            "key": "productId"
+          }
+        },
+        {
+          "id": "save",
+          "kind": "button",
+          "title": {
+            "en": "Save record",
+            "de": "Datensatz speichern",
+            "fr": "Enregistrer",
+            "es": "Guardar registro"
+          },
+          "geometry": {
+            "x": 6,
+            "y": 10,
+            "w": 6,
+            "h": 2
+          },
+          "handlers": {
+            "click": [
+              {
+                "op": "validate",
+                "target": "editor"
+              },
+              {
+                "op": "call",
+                "action": "save_entries",
+                "input": {
+                  "kind": "record",
+                  "block": "editor"
+                }
+              },
+              {
+                "op": "refresh",
+                "target": "records"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "shopper",
+      "layout": "stack",
+      "blocks": [
+        {
+          "id": "content",
+          "kind": "cards",
+          "title": {
+            "en": "Content",
+            "de": "Inhalt",
+            "fr": "Contenu",
+            "es": "Contenido"
+          },
+          "entity": "entries",
+          "readAction": "list_entries",
+          "writeAction": null,
+          "contextBinding": {
+            "field": "product_id",
+            "key": "productId"
+          }
+        }
+      ]
+    }
+  ],
+  "surfaces": [
+    {
+      "id": "workspace",
+      "location": "admin.product.tab",
+      "label": {
+        "en": "Product advisor",
+        "de": "Produktberater",
+        "fr": "Conseiller produit",
+        "es": "Asesor de productos"
+      },
+      "uiPath": "native/workspace",
+      "actions": [
+        "list_entries",
+        "save_entries"
+      ],
+      "permission": "catalog.read"
+    },
+    {
+      "id": "shopper",
+      "location": "product.detail",
+      "label": {
+        "en": "Product advisor",
+        "de": "Produktberater",
+        "fr": "Conseiller produit",
+        "es": "Asesor de productos"
+      },
+      "uiPath": "native/shopper",
+      "actions": [
+        "list_entries"
+      ]
+    }
+  ],
+  "apiRoutes": [
+    {
+      "path": "list_entries",
+      "method": "GET",
+      "scope": "storefront",
+      "action": "list_entries"
+    }
+  ],
+  "intelligence": {
+    "description": {
+      "en": "Product advisor",
+      "de": "Produktberater",
+      "fr": "Conseiller produit",
+      "es": "Asesor de productos"
+    },
+    "tools": [],
+    "entities": []
+  },
+  "actions": [
+    {
+      "name": "list_entries",
+      "description": "List entries",
+      "handler": "list",
+      "entity": "entries",
+      "public": true,
+      "readOnly": true,
+      "mcp": false,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer"
+          },
+          "after": {
+            "type": "string"
+          },
+          "filter": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "save_entries",
+      "description": "Save entries",
+      "handler": "save",
+      "entity": "entries",
+      "public": false,
+      "flowAllowed": true,
+      "permission": "catalog.write",
+      "mcp": false,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "fields": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "fields"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "presentation": {
+    "description": {
+      "en": "Product-bound advice: private editor, public product card, API and optional AI access.",
+      "de": "Produktbezogene Beratung: privater Editor, öffentliche Produktkarte, API und optionaler KI-Zugriff.",
+      "fr": "Conseils liés au produit : éditeur privé, fiche publique, API et accès IA facultatif.",
+      "es": "Consejos por producto: editor privado, tarjeta pública, API y acceso IA opcional."
+    }
+  }
+}

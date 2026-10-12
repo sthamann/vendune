@@ -1,0 +1,310 @@
+{
+  "id": "returns_workspace",
+  "version": "0.1.0",
+  "coreApi": "1",
+  "runtime": "declarative",
+  "name": {
+    "en": "Returns workspace",
+    "de": "Retouren-Arbeitsbereich",
+    "fr": "Gestion des retours",
+    "es": "Gestión de devoluciones"
+  },
+  "category": "operations",
+  "permissions": [
+    "data.read",
+    "data.write",
+    "admin.slot"
+  ],
+  "entities": [
+    {
+      "name": "entries",
+      "label": {
+        "en": "Returns workspace",
+        "de": "Retouren-Arbeitsbereich",
+        "fr": "Gestion des retours",
+        "es": "Gestión de devoluciones"
+      },
+      "publicRead": false,
+      "fields": [
+        {
+          "name": "order_id",
+          "label": {
+            "en": "Core object",
+            "de": "Commerce-Objekt",
+            "fr": "Objet commerce",
+            "es": "Objeto de comercio"
+          },
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "coreReference": "order"
+        },
+        {
+          "name": "title",
+          "label": {
+            "en": "Title",
+            "de": "Titel",
+            "fr": "Titre",
+            "es": "Título"
+          },
+          "kind": "string",
+          "translatable": true,
+          "required": true
+        },
+        {
+          "name": "body",
+          "label": {
+            "en": "Reason / advice",
+            "de": "Grund / Empfehlung",
+            "fr": "Motif / conseil",
+            "es": "Motivo / consejo"
+          },
+          "kind": "string",
+          "translatable": true
+        },
+        {
+          "name": "status",
+          "label": {
+            "en": "Status",
+            "de": "Status",
+            "fr": "Statut",
+            "es": "Estado"
+          },
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "choices": [
+            {
+              "value": "new",
+              "label": {
+                "en": "New",
+                "de": "Neu",
+                "fr": "Nouveau",
+                "es": "Nuevo"
+              }
+            },
+            {
+              "value": "review",
+              "label": {
+                "en": "Under review",
+                "de": "In Prüfung",
+                "fr": "En cours",
+                "es": "En revisión"
+              }
+            },
+            {
+              "value": "closed",
+              "label": {
+                "en": "Closed",
+                "de": "Abgeschlossen",
+                "fr": "Terminé",
+                "es": "Cerrado"
+              }
+            }
+          ]
+        },
+        {
+          "name": "notes",
+          "label": {
+            "en": "Internal notes",
+            "de": "Interne Notizen",
+            "fr": "Notes internes",
+            "es": "Notas internas"
+          },
+          "kind": "string",
+          "translatable": false
+        }
+      ]
+    }
+  ],
+  "slots": [],
+  "views": [
+    {
+      "id": "workspace",
+      "layout": "form",
+      "blocks": [
+        {
+          "id": "records",
+          "kind": "table",
+          "title": {
+            "en": "Returns workspace",
+            "de": "Retouren-Arbeitsbereich",
+            "fr": "Gestion des retours",
+            "es": "Gestión de devoluciones"
+          },
+          "entity": "entries",
+          "readAction": "list_entries",
+          "geometry": {
+            "x": 0,
+            "y": 0,
+            "w": 6,
+            "h": 10
+          },
+          "contextBinding": {
+            "field": "order_id",
+            "key": "orderId"
+          }
+        },
+        {
+          "id": "editor",
+          "kind": "form",
+          "title": {
+            "en": "Record",
+            "de": "Datensatz",
+            "fr": "Enregistrement",
+            "es": "Registro"
+          },
+          "entity": "entries",
+          "readAction": "list_entries",
+          "writeAction": "save_entries",
+          "geometry": {
+            "x": 6,
+            "y": 0,
+            "w": 6,
+            "h": 10
+          },
+          "contextBinding": {
+            "field": "order_id",
+            "key": "orderId"
+          }
+        },
+        {
+          "id": "save",
+          "kind": "button",
+          "title": {
+            "en": "Save record",
+            "de": "Datensatz speichern",
+            "fr": "Enregistrer",
+            "es": "Guardar registro"
+          },
+          "geometry": {
+            "x": 6,
+            "y": 10,
+            "w": 6,
+            "h": 2
+          },
+          "handlers": {
+            "click": [
+              {
+                "op": "validate",
+                "target": "editor"
+              },
+              {
+                "op": "call",
+                "action": "save_entries",
+                "input": {
+                  "kind": "record",
+                  "block": "editor"
+                }
+              },
+              {
+                "op": "refresh",
+                "target": "records"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "surfaces": [
+    {
+      "id": "workspace",
+      "location": "admin.order",
+      "label": {
+        "en": "Returns workspace",
+        "de": "Retouren-Arbeitsbereich",
+        "fr": "Gestion des retours",
+        "es": "Gestión de devoluciones"
+      },
+      "uiPath": "native/workspace",
+      "actions": [
+        "list_entries",
+        "save_entries"
+      ],
+      "permission": "orders.read"
+    }
+  ],
+  "apiRoutes": [
+    {
+      "path": "list_entries",
+      "method": "GET",
+      "scope": "admin",
+      "action": "list_entries"
+    }
+  ],
+  "intelligence": {
+    "description": {
+      "en": "Returns workspace",
+      "de": "Retouren-Arbeitsbereich",
+      "fr": "Gestion des retours",
+      "es": "Gestión de devoluciones"
+    },
+    "tools": [],
+    "entities": []
+  },
+  "actions": [
+    {
+      "name": "list_entries",
+      "description": "List entries",
+      "handler": "list",
+      "entity": "entries",
+      "public": false,
+      "readOnly": true,
+      "mcp": false,
+      "permission": "orders.read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer"
+          },
+          "after": {
+            "type": "string"
+          },
+          "filter": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "save_entries",
+      "description": "Save entries",
+      "handler": "save",
+      "entity": "entries",
+      "public": false,
+      "flowAllowed": true,
+      "permission": "orders.write",
+      "mcp": false,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "fields": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "fields"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "presentation": {
+    "description": {
+      "en": "Order-bound cases with reason, status and internal notes. Refunds stay in Payments.",
+      "de": "Bestellbezogene Fälle mit Grund, Status und internen Notizen. Erstattungen bleiben im Zahlungsdienst.",
+      "fr": "Dossiers liés aux commandes : motif, statut et notes. Les remboursements restent dans le service de paiement.",
+      "es": "Casos por pedido con motivo, estado y notas. Los reembolsos siguen en Pagos."
+    }
+  }
+}

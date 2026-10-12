@@ -1,0 +1,263 @@
+{
+  "id": "erp_handoff",
+  "version": "0.1.0",
+  "coreApi": "1",
+  "runtime": "service",
+  "name": {
+    "en": "ERP handoff",
+    "de": "ERP-Anbindung",
+    "fr": "Connexion ERP",
+    "es": "Conexión ERP"
+  },
+  "category": "operations",
+  "permissions": [
+    "data.read",
+    "data.write",
+    "admin.slot",
+    "service.call",
+    "events.read"
+  ],
+  "entities": [
+    {
+      "name": "entries",
+      "label": {
+        "en": "ERP handoff",
+        "de": "ERP-Anbindung",
+        "fr": "Connexion ERP",
+        "es": "Conexión ERP"
+      },
+      "publicRead": false,
+      "fields": [
+        {
+          "name": "title",
+          "label": {
+            "en": "Title",
+            "de": "Titel",
+            "fr": "Titre",
+            "es": "Título"
+          },
+          "kind": "string",
+          "translatable": true,
+          "required": true
+        },
+        {
+          "name": "body",
+          "label": {
+            "en": "Reason / advice",
+            "de": "Grund / Empfehlung",
+            "fr": "Motif / conseil",
+            "es": "Motivo / consejo"
+          },
+          "kind": "string",
+          "translatable": true
+        }
+      ]
+    }
+  ],
+  "slots": [],
+  "views": [
+    {
+      "id": "workspace",
+      "layout": "form",
+      "blocks": [
+        {
+          "id": "records",
+          "kind": "table",
+          "title": {
+            "en": "ERP handoff",
+            "de": "ERP-Anbindung",
+            "fr": "Connexion ERP",
+            "es": "Conexión ERP"
+          },
+          "entity": "entries",
+          "readAction": "list_entries",
+          "geometry": {
+            "x": 0,
+            "y": 0,
+            "w": 6,
+            "h": 10
+          }
+        },
+        {
+          "id": "editor",
+          "kind": "form",
+          "title": {
+            "en": "Record",
+            "de": "Datensatz",
+            "fr": "Enregistrement",
+            "es": "Registro"
+          },
+          "entity": "entries",
+          "readAction": "list_entries",
+          "writeAction": "save_entries",
+          "geometry": {
+            "x": 6,
+            "y": 0,
+            "w": 6,
+            "h": 10
+          }
+        },
+        {
+          "id": "save",
+          "kind": "button",
+          "title": {
+            "en": "Save record",
+            "de": "Datensatz speichern",
+            "fr": "Enregistrer",
+            "es": "Guardar registro"
+          },
+          "geometry": {
+            "x": 6,
+            "y": 10,
+            "w": 6,
+            "h": 2
+          },
+          "handlers": {
+            "click": [
+              {
+                "op": "validate",
+                "target": "editor"
+              },
+              {
+                "op": "call",
+                "action": "save_entries",
+                "input": {
+                  "kind": "record",
+                  "block": "editor"
+                }
+              },
+              {
+                "op": "refresh",
+                "target": "records"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "surfaces": [
+    {
+      "id": "workspace",
+      "location": "admin.navigation",
+      "label": {
+        "en": "ERP handoff",
+        "de": "ERP-Anbindung",
+        "fr": "Connexion ERP",
+        "es": "Conexión ERP"
+      },
+      "uiPath": "native/workspace",
+      "actions": [
+        "list_entries",
+        "save_entries"
+      ],
+      "permission": "catalog.read"
+    }
+  ],
+  "apiRoutes": [
+    {
+      "path": "list_entries",
+      "method": "GET",
+      "scope": "admin",
+      "action": "list_entries"
+    }
+  ],
+  "intelligence": {
+    "description": {
+      "en": "ERP handoff",
+      "de": "ERP-Anbindung",
+      "fr": "Connexion ERP",
+      "es": "Conexión ERP"
+    },
+    "tools": [],
+    "entities": []
+  },
+  "events": [
+    "order.placed"
+  ],
+  "actions": [
+    {
+      "name": "synchronize",
+      "description": "synchronize",
+      "handler": "service",
+      "public": false,
+      "permission": "orders.write",
+      "mcp": false,
+      "flowAllowed": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "payload": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "payload"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "list_entries",
+      "description": "List entries",
+      "handler": "list",
+      "entity": "entries",
+      "public": false,
+      "readOnly": true,
+      "mcp": false,
+      "permission": "catalog.read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer"
+          },
+          "after": {
+            "type": "string"
+          },
+          "filter": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "save_entries",
+      "description": "Save entries",
+      "handler": "save",
+      "entity": "entries",
+      "public": false,
+      "flowAllowed": true,
+      "permission": "catalog.write",
+      "mcp": false,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "fields": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "fields"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "presentation": {
+    "description": {
+      "en": "Event-driven connector contract. The external ERP service must be deployed separately.",
+      "de": "Ereignisbasierter Anschlussvertrag. Der externe ERP-Dienst muss separat bereitgestellt werden.",
+      "fr": "Contrat événementiel. Le service ERP externe doit être déployé séparément.",
+      "es": "Contrato basado en eventos. El servicio ERP externo requiere despliegue separado."
+    }
+  }
+}

@@ -4,7 +4,7 @@ import AutomationDelete from "../automation/AutomationDelete";
 import type { RequestFn } from "../shell/studio-types";
 import { channelUrl, type Channel } from "./channel-model";
 import { useChannelText } from "./channel-i18n";
-import { connectionUrl } from "../storyfronts/storyfront-model";
+import { connectionUrl } from "../../../../extensions/apps/storyfront/studio/storyfront-model";
 export default function ChannelActions({
   draft,
   request,

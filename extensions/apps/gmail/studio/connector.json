@@ -1,0 +1,17 @@
+{
+  "hint": "mailHint",
+  "sources": true,
+  "sync": true,
+  "fields": [
+    {
+      "key": "labelId",
+      "label": "label",
+      "placeholder": "INBOX"
+    }
+  ],
+  "choices": {
+    "action": "labels",
+    "key": "labelId",
+    "label": "label"
+  }
+}

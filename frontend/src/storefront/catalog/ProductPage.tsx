@@ -3,7 +3,10 @@ import { productURL, collectionURL } from "./product-url";
 import { BRAND } from "../../shared/ui/Brand";
 import RichDescription from "../../shared/content/RichDescription";
 import ImagePlaceholder from "./ImagePlaceholder";
-import { analyticsItems, commerceEvent } from "../analytics/ShopAnalytics";
+import {
+  analyticsItems,
+  commerceEvent,
+} from "../../../../extensions/apps/google-analytics/storefront/ShopAnalytics";
 import ProductAttachments from "./ProductAttachments";
 import ProductPurchase from "./ProductPurchase";
 import ProductReviews from "./ProductReviews";

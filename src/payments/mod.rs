@@ -10,6 +10,7 @@ pub(crate) mod registry;
 pub(crate) use registry::*;
 mod generic_receipts;
 mod operations;
+#[path = "../../extensions/apps/paypal/src/compatibility.rs"]
 mod paypal;
 mod provider;
 pub(crate) mod provider_configuration;
@@ -19,6 +20,7 @@ mod return_urls;
 mod routes;
 pub(crate) mod sessions;
 mod storage;
+#[path = "../../extensions/apps/paypal/src/webhooks.rs"]
 mod webhooks;
 mod worker;
 pub(crate) use operations::*;

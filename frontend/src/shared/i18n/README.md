@@ -23,7 +23,7 @@ Each file starts with its responsibility. See [the source inventory](../../../..
 - [`graph-navigation-i18n.ts`](graph-navigation-i18n.ts): EN/DE/FR/ES labels for saved current-public-fact category predicates; query phrases use enabled content languages.
 - [`crm-i18n.ts`](crm-i18n.ts): Complete CRM/history vocabulary shared by settings, customer account and entity editors.
 - [`customer-i18n.ts`](customer-i18n.ts): Account and address labels share four complete locales across storefront and studio.
-- [`email-i18n.ts`](email-i18n.ts): Complete mail workspace vocabulary in English, German, French and Spanish.
+- [`email app vocabulary`](../../../../extensions/apps/email/studio/email-i18n.ts): Complete mail workspace vocabulary in English, German, French and Spanish.
 - [`errors-i18n.ts`](errors-i18n.ts): Localized request guidance across all transports; original diagnostics remain available to developer tools.
 - [`i18n.tsx`](i18n.tsx): i18n: Four-language locale context, UI dictionaries and translated API errors.
 - [`international-i18n.ts`](international-i18n.ts): International settings vocabulary. Every key requires English, German, French and Spanish.

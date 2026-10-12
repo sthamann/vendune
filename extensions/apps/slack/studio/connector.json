@@ -1,0 +1,26 @@
+{
+  "hint": "slackHint",
+  "sources": false,
+  "sync": false,
+  "fields": [
+    {
+      "key": "channelId",
+      "label": "slackChannel",
+      "placeholder": "C0123456789"
+    },
+    {
+      "key": "template",
+      "label": "template",
+      "placeholder": "Order {orderNumber} \u00b7 {totalPrice} EUR"
+    }
+  ],
+  "toggle": {
+    "key": "notifyOrders",
+    "label": "automatic"
+  },
+  "choices": {
+    "action": "channels",
+    "key": "channelId",
+    "label": "slackChannel"
+  }
+}

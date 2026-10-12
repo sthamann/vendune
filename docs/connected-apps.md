@@ -3,7 +3,7 @@
 These are separate provider apps. The Rust core owns the permission/schema gateway,
 private evidence storage, event outbox and durable flows. Provider OAuth, API calls,
 token refresh, mailbox cursors and delivery jobs live in
-`src/connectors/`. No Google/Slack SDK or credential belongs in the
+`extensions/services/connectors/src/`. No Google/Slack SDK or credential belongs in the
 Rust commerce domain or browser.
 
 ## Merchant experience

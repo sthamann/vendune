@@ -3,6 +3,7 @@ import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
+  resolve: { dedupe: ["react", "react-dom"] },
   test: {
     environment: "jsdom",
     environmentOptions: {
@@ -12,7 +13,7 @@ export default defineConfig({
     include: ["tests/unit/**/*.test.{ts,tsx}"],
     coverage: {
       provider: "v8",
-      include: ["src/**/*.{ts,tsx}"],
+      include: ["src/**/*.{ts,tsx}", "../extensions/apps/**/*.{ts,tsx}"],
       reporter: ["text-summary", "json", "json-summary", "html", "lcov"],
       reportsDirectory: "coverage",
       reportOnFailure: true,

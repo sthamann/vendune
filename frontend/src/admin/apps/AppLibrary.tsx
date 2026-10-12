@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import type { Package } from "./app-types";
 import { useAppText } from "../../shared/i18n/app-i18n";
 import { useCustomerText } from "../../shared/i18n/customer-i18n";
-import { useEmailText } from "../../shared/i18n/email-i18n";
+import { useEmailText } from "../../../../extensions/apps/email/studio/email-i18n";
 import { useLibraryText } from "../../shared/i18n/app-library-i18n";
 import Icon from "../../shared/ui/Icon";
 import AppArtwork from "./AppArtwork";

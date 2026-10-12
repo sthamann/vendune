@@ -157,3 +157,23 @@ localization and exact module inventory; 216 private Experience tests plus 17
 integration cases, packaged-runtime boot and PostgreSQL process restart; eight
 private payment units plus the actual two-service PostgreSQL/PSP-fixture path.
 The documentation build verifies every Markdown source and its rendered page.
+
+## App-owned packages and designer previews
+
+The three editable patterns now live in `extensions/apps/`, loaded directly by
+`app-recipes.ts`. The designer shows translated model/field labels and passive
+form/table/control previews rather than raw `entries` IDs. Each control and
+workspace tab has a distinct semantic icon. The design preview performs no data
+calls; F5 still uses the original bounded actor-private runtime.
+[All-app ownership](plugin-ownership.md).
+
+![App-owned Returns workspace with semantic controls and translated schema labels](assets/app-workbench-designer.png)
+
+Captured from the real local private sandbox on 12 October 2026. This is the passive design view with labelled sample controls; switch to the existing working preview to exercise actual app records.
+
+The package-ownership follow-up passes 193 Rust tests and 421 frontend tests across
+71 files. The complete frontend snapshot measures 64.05% lines, 62.82% statements,
+55.98% branches and 51.97% functions; this is not 100% coverage. Actual local
+PostgreSQL/provider fixtures verify app development, private previews, connector
+delivery and payment compatibility. A browser edit to an installed order-bound
+app remains present after reloading and reselecting its private sandbox.

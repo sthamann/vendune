@@ -1,10 +1,12 @@
 /** App Studio and native runtime vocabulary; every key ships EN/DE/FR/ES. */
+import { appPreviewWords } from "./app-preview-i18n";
 import { appOntologyWords } from "./app-ontology-i18n";
 import { appEventWords } from "./app-events-i18n";
 import { appLogicWords } from "./app-logic-i18n";
 import { useLocale } from "./i18n";
 export const appStudioWords = {
   ...appOntologyWords,
+  ...appPreviewWords,
   ...appLogicWords,
   ...appEventWords,
   relations: [

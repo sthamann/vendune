@@ -261,7 +261,7 @@ Read the [complete extension contract and resource/performance boundaries](../do
 
 `apps/email` connects standard SMTP (STARTTLS or implicit TLS), Resend and SendGrid
 through the same private API/MCP/flow capability. Its transport, encrypted settings
-and durable PostgreSQL jobs live in the focused Rust modules under `src/connectors/`.
+are app-owned in `extensions/apps/email/src/`; durable PostgreSQL jobs and shared hosting live in `extensions/services/connectors/src/`.
 The service image contains no Python interpreter; external apps remain language-independent.
 Use `order-confirmation-flow.json` after installing/configuring the app; never enable
 the automatic all-order path and an equivalent flow unintentionally. See the
@@ -296,3 +296,18 @@ shared [receiver SDK](sdk/events.py), with tenant/app-bound batches and durable
 consumer deduplication. Do not replace that path with unvalidated webhook JSON.
 
 - [Care knowledge](apps/ontology-care/README.md): graph-native app model/edge mapping over current native records, shared App Studio/agent manifest and authorized API/MCP/planner views.
+
+## Package ownership (all apps)
+
+Keep each app's implementation, UI, styles, translations, assets, templates and
+app-local tests beneath `extensions/apps/<app>/`, or in its independent private
+repository. Install/release registers the canonical package through the gateway;
+it must not copy files into the commerce or host UI source tree. Core-owned
+contracts, generic renderer/SDK, callback adapters and cross-system integration
+tests remain shared infrastructure. [Ownership and runtime map](../docs/plugin-ownership.md).
+
+Editable native patterns: [returns-workspace](apps/returns-workspace/README.md),
+[product-advisor](apps/product-advisor/README.md) and
+[erp-handoff](apps/erp-handoff/README.md). The App Studio picker imports their normal
+Manifests; it does not contain a second domain implementation. Returns cases are
+private/order-bound and do not perform refunds.

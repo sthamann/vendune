@@ -1,7 +1,7 @@
 /** Real email UI interactions; fixtures accept actions locally and cannot send a message. */
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { it, expect, vi } from "vitest";
-import EmailPanel from "../../src/admin/apps/EmailPanel";
+import EmailPanel from "../../../extensions/apps/email/studio/EmailPanel";
 import { LocaleProvider } from "../../src/shared/i18n/i18n";
 import { mailStatus, mailSettings } from "./fixtures";
 function setup(manage = true) {

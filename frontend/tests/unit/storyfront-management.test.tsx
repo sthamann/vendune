@@ -4,9 +4,9 @@ import userEvent from "@testing-library/user-event";
 import { expect, it, vi } from "vitest";
 import { LocaleProvider } from "../../src/shared/i18n/i18n";
 import AppDetails from "../../src/admin/apps/AppDetails";
-import StoryfrontView from "../../src/admin/storyfronts/StoryfrontView";
-import { connectionUrl } from "../../src/admin/storyfronts/storyfront-model";
-import { storyfrontWords } from "../../src/admin/storyfronts/storyfront-i18n";
+import StoryfrontView from "../../../extensions/apps/storyfront/studio/StoryfrontView";
+import { connectionUrl } from "../../../extensions/apps/storyfront/studio/storyfront-model";
+import { storyfrontWords } from "../../../extensions/apps/storyfront/studio/storyfront-i18n";
 import { AppSurfaceProvider } from "../../src/shared/apps/AppSurfaces";
 const mounted = {
   appId: "storyfront",

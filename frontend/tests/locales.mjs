@@ -64,7 +64,7 @@ for (const [key, values] of Object.entries(connected)) {
     key,
   );
 }
-const email = module("../src/shared/i18n/email-i18n.ts").emailWords;
+const email = module("../../extensions/apps/email/studio/email-i18n.ts").emailWords;
 for (const [key, values] of Object.entries(email)) {
   assert.equal(values.length, 4, key);
   assert(

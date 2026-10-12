@@ -1,16 +1,17 @@
 /** Drag/drop, snapping, resize and multi-selection share the published app geometry contract. */
 import { controlKinds } from "../../shared/apps/native/types";
 import { useRef, useState } from "react";
-import type { Block, NativeView } from "../../shared/apps/native/types";
+import type { Block, NativeView, Entity } from "../../shared/apps/native/types";
 import {
   geometry,
   geometryStyle,
   snap,
 } from "../../shared/apps/native/geometry";
-import { contentText } from "../../shared/i18n/content-language";
+import AppDesignPreview from "./AppDesignPreview";
 import { useAppStudioText } from "../../shared/i18n/app-studio-i18n";
 export default function AppGridCanvas({
   view,
+  entities = [],
   selected,
   onSelect,
   onChange,
@@ -20,13 +21,14 @@ export default function AppGridCanvas({
 }: {
   onCode: (id: string) => void;
   view: NativeView;
+  entities?: Entity[];
   selected: string;
   onSelect: (id: string) => void;
   onChange: (blocks: Block[]) => void;
   mainLocale: string;
   onAdd: (kind: Block["kind"], position: { x: number; y: number }) => void;
 }) {
-  const { a, locale } = useAppStudioText();
+  const { a } = useAppStudioText();
   const ref = useRef<HTMLDivElement>(null);
   const [tabMode, setTabMode] = useState(false),
     [tabNext, setTabNext] = useState(1);
@@ -181,12 +183,16 @@ export default function AppGridCanvas({
             }}
             onClick={(e) => select(b.id, e.ctrlKey || e.metaKey)}
           >
-            <small>
-              {tabMode && <strong>{b.tabOrder ?? "—"} · </strong>}
-              {a(b.kind)} · {b.id}
-            </small>
-            <h3>{contentText(b.title, locale, mainLocale)}</h3>
-            <p>{contentText(b.text ?? {}, locale, mainLocale) || b.entity}</p>
+            {tabMode && (
+              <strong className="app-preview-tab-order">
+                {b.tabOrder ?? "—"}
+              </strong>
+            )}
+            <AppDesignPreview
+              block={b}
+              entities={entities}
+              mainLocale={mainLocale}
+            />
             <button
               className="app-grid-resize"
               aria-label={a("height")}

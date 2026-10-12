@@ -61,7 +61,7 @@ inference; concurrent withdrawal or changes return localized retry guidance.
 
 > **Graph-native apps:** map app-owned nodes, relationships and selected native fields in App Studio or the same coding-agent manifest. Current tenant rights and record revisions remain authoritative across API, MCP and planner context. [Example and contract](extensions/apps/ontology-care/README.md).
 
-**Merged release and acceptance:** [complete change summary, integration paths and measured test gaps](docs/release-acceptance-2026-10-09.md). The 12 October workbench checks cover 193 Rust units, 418 frontend tests and the targeted integration suites; hosted rollout and real providers have separate acceptance gates.
+**Merged release and acceptance:** [complete change summary, integration paths and measured test gaps](docs/release-acceptance-2026-10-09.md). The 12 October workbench and app-ownership checks cover 193 Rust units, 421 frontend tests and the targeted integration suites; hosted rollout and real providers have separate acceptance gates.
 
 **9 October public update:** the private Experience service now runs original Storyfront Studio and Cinematic presentation. Fresh AI catalog/image creation, original review/build/publication and a live German product-answer scene were checked. Core still owns prices, stock and orders. [Live acceptance and remaining boundaries](docs/current-release.md#public-original-storyfront-update--9-october-2026).
 
@@ -400,3 +400,5 @@ coverage, not a claim that every original upstream editor is translated.
 
 See [the checkout continuity contract](docs/storyfront.md#native-checkout-continuity-9-october-2026)
 for ownership, security boundaries, tests and payment-provider limits.
+
+App implementations and resources stay in their own package folders; see the [ownership and isolation map](docs/plugin-ownership.md). App Studio uses translated schema previews and distinct control/navigation icons.

@@ -20,7 +20,9 @@ const EnvironmentManager = lazy(
 );
 const OrdersManager = lazy(() => import("../orders/OrdersManager"));
 const SettingsWorkspace = lazy(() => import("../settings/SettingsWorkspace"));
-const StoryfrontView = lazy(() => import("../storyfronts/StoryfrontView"));
+const StoryfrontView = lazy(
+  () => import("../../../../extensions/apps/storyfront/studio/StoryfrontView"),
+);
 import "../styles/operations.css";
 import "../styles/studio.css";
 const AccessManager = lazy(() => import("../team/AccessManager"));
