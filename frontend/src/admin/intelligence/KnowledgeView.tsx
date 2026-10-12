@@ -8,6 +8,7 @@ import { useLocale } from "../../shared/i18n/i18n";
 import Icon from "../../shared/ui/Icon";
 import type { Overview, RequestFn } from "../shell/studio-types";
 import type { Workspace } from "./knowledge-types";
+import BehaviorView from "./behavior/BehaviorView";
 import KnowledgeOverview from "./KnowledgeOverview";
 import KnowledgeSources from "./KnowledgeSources";
 import KnowledgeExplorer from "./KnowledgeExplorer";
@@ -26,12 +27,14 @@ export function KnowledgeView({
   request,
   onIntent,
   onProduct,
+  onEntity,
 }: {
   focus: string;
   data: Overview;
   request: RequestFn;
   onIntent: (s: string) => void;
   onProduct: (id: string) => void;
+  onEntity?: (kind: "customers" | "orders", id: string) => void;
 }) {
   const k = useKnowledgeText(),
     { number } = useLocale();
@@ -98,6 +101,7 @@ export function KnowledgeView({
             "explorer",
             "sources",
             "observations",
+            "behavior",
             "preview",
             "guardrails",
             "experiments",
@@ -116,7 +120,7 @@ export function KnowledgeView({
                     ? "graph"
                     : item === "sources"
                       ? "box"
-                      : item === "observations"
+                      : item === "observations" || item === "behavior"
                         ? "pulse"
                         : "chat"
               }
@@ -173,6 +177,13 @@ export function KnowledgeView({
               products={data.products}
               request={request}
               onIntent={onIntent}
+            />
+          )}
+          {tab === "behavior" && (
+            <BehaviorView
+              request={request}
+              onProduct={onProduct}
+              onEntity={onEntity}
             />
           )}
           {tab === "experiments" && <ExperimentStudio request={request} />}

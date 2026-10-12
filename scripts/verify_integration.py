@@ -64,6 +64,9 @@ env.update({
     # from one shop. Configure that admitted load explicitly; production defaults
     # remain conservative and separate saturation tests verify 429 behavior.
     "TENANT_CONCURRENCY": "32",
+    # Synthetic ingress credentials test geography spoof rejection; never a live proxy key.
+    "BEHAVIOR_GEO_SHARED_SECRET": "quality-only-geography-fixture-2026-" + "g"*32,
+    "TEST_BEHAVIOR_GEO_SECRET": "quality-only-geography-fixture-2026-" + "g"*32,
     # Multi-process app fixtures run HTTP + memory + app workers alongside this
     # server. Give each a small explicit pool, within the real shared 80-slot cap.
     "DB_POOL_MAX": "4", "DB_POOL_MIN": "0",

@@ -313,4 +313,8 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         "080-b2b-procurement",
         include_str!("../../migrations/080-b2b-procurement.sql"),
     ),
+    (
+        "081-behavior-intelligence",
+        include_str!("../../migrations/081-behavior-intelligence.sql"),
+    ),
 ];

@@ -264,6 +264,7 @@ export default function StudioRoutes() {
       />
     ) : tab === "knowledge" ? (
       <KnowledgeView
+        onEntity={openEntity}
         focus={focus}
         data={data}
         request={request}

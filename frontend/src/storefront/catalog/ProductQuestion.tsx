@@ -41,7 +41,14 @@ export default function ProductQuestion({ productId }: { productId: string }) {
               `/store-api/product/${encodeURIComponent(productId)}/questions`,
               { question },
             );
-            if (current === generation.current) setAnswer(result);
+            if (current === generation.current) {
+              setAnswer(result);
+              window.dispatchEvent(
+                new CustomEvent("vendune:product-question", {
+                  detail: { productId },
+                }),
+              );
+            }
           } catch (e) {
             if (current === generation.current) setError((e as Error).message);
           } finally {

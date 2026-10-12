@@ -93,11 +93,14 @@ pub(super) async fn write(
             .bind(hash(&c.id))
             .execute(&mut *tx)
             .await?;
-        sqlx::query("DELETE FROM session_signal_events WHERE tenant=$1 AND session=$2")
+        sqlx::query("DELETE FROM session_signal_events WHERE tenant=$1 AND session=$2 AND purpose='personalization'")
             .bind(&c.tenant)
             .bind(hash(&c.id))
             .execute(&mut *tx)
             .await?;
+    }
+    if choices.get("analytics") != Some(&true) {
+        sqlx::query("DELETE FROM session_signal_events WHERE tenant=$1 AND session=$2 AND purpose='analytics'").bind(&c.tenant).bind(hash(&c.id)).execute(&mut *tx).await?;
     }
     sqlx::query("INSERT INTO outbox(tenant,kind,data) VALUES($1,'privacy.consent_changed',$2)")
         .bind(&c.tenant)

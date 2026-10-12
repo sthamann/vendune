@@ -19,6 +19,7 @@ import LegalDocument from "../legal/LegalDocument";
 import ConsumerRequestForm from "../legal/ConsumerRequestForm";
 import { openConsent } from "../../shared/legal/consent-store";
 import { useLegalText } from "../../shared/i18n/legal-i18n";
+import BehaviorAnalytics from "./BehaviorAnalytics";
 import ShopAnalytics from "../../../../extensions/apps/google-analytics/storefront/ShopAnalytics";
 import ProductPage from "../catalog/ProductPage";
 import { returnToCollection } from "../catalog/product-url";
@@ -76,6 +77,15 @@ export default function Storefront(props: { onMerchant: () => void }) {
           >
             <div className="shop">
               <ChannelPreview />
+              <BehaviorAnalytics
+                shop={shopTenant}
+                channel={salesChannel}
+                cart={cart}
+                id={id}
+                bag={bag}
+                query={c.query}
+                route={appPath}
+              />
               {!channelPreview() && (
                 <ShopAnalytics
                   shop={shopTenant}

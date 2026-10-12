@@ -49,7 +49,8 @@
     "app_components",
     "app_assets",
     "pos",
-    "b2b"
+    "b2b",
+    "behavior_intelligence"
   ],
   "providers": [
     "email_tests",

@@ -1,5 +1,10 @@
 # Source responsibilities and verification map
 
+**Visitor behavior intelligence:** consent-bound guest/customer observations, native
+orders and the current semantic product graph now meet in one channel report.
+Studio charts and private timelines use the same HTTP/MCP permissions.
+[Data flow, native owners, setup and verification](behavior-intelligence.md).
+
 **12 October workbench update:** editable app patterns, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. [How to use it, ownership and verification boundaries](connected-workbench.md).
 
 `main.rs` contains process setup and the module registry. It delegates migrations

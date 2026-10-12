@@ -1,5 +1,12 @@
 # Changelog
 
+## Visitor behavior intelligence — 12 October 2026
+
+- Native consent-bound guest/customer observations reuse the PostgreSQL event ledger, authenticated identity and native orders; no parallel analytics service or tracker identity.
+- Channel/window reports, coarse browser/device/language/referrer and separate visitor/destination countries connect to current semantic product relationships. Studio provides charts, linked graph and permission-gated timelines in EN/DE/FR/ES.
+- HTTP and MCP share report/PII permissions; repeated events, cross-shop IDs, forged customer/purchase events, consent withdrawal, bounded intake and expiration are tested. Trusted geography remains an optional operator-configured ingress.
+- Native storefront capture is included; headless/Storyfront adapters must explicitly adopt the consent-bound contract. No automatic model training or causal conversion claim. [Guide](docs/behavior-intelligence.md).
+
 ## Marketplace channels and independent Rust app — 12 October 2026
 
 - Add a private integration channel type, native tenant-scoped product/channel projections and authorized paid-order intake. Reuse exact minor currency amounts, native guest customer snapshots, stock allocation, order history, outbox and invoice/PDF owners.

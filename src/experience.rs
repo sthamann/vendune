@@ -222,7 +222,7 @@ pub(crate) async fn forget_personalization(
         .bind(hash(&c.id))
         .execute(&mut *tx)
         .await?;
-    sqlx::query("DELETE FROM session_signal_events WHERE tenant=$1 AND session=$2")
+    sqlx::query("DELETE FROM session_signal_events WHERE tenant=$1 AND session=$2 AND purpose='personalization'")
         .bind(&c.tenant)
         .bind(hash(&c.id))
         .execute(&mut *tx)
