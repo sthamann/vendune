@@ -337,3 +337,13 @@ current consent, not just hidden UI controls. Staging/preview API intake is deni
 observations are never release units. External frontends require explicit adapters.
 Run affected PostgreSQL/HTTP suites and real UI regressions; keep provider/hardware
 acceptance and partial formal-proof boundaries explicit in docs and public pages.
+
+### Shared dispatcher stack boundary
+
+`capabilities::invoke` selects and returns a boxed domain future synchronously,
+before polling the selected child. Preserve this boundary across HTTP/MCP/planner
+calls; do not embed all domain futures in one asynchronous dispatcher. The Linux
+coverage build previously overflowed its worker stack on `pos.cart` despite small
+future-state sizes and passing local default-stack tests. Test actual HTTP/MCP
+operations in debug/coverage builds; raising production worker stacks or a future-
+size-only assertion is not a repair. Domain rights and native owners stay unchanged.

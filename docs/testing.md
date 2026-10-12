@@ -21,6 +21,20 @@ modular source inventory and four-language gates remain required. Dated coverage
 original source/CI; this audit does not claim 100% coverage or whole-system proof.
 
 
+## MCP stack regression — 13 October 2026
+
+The complete Linux coverage build found a worker stack overflow at MCP `pos.cart`
+after native POS setup succeeded. The server log confirmed stack overflow rather
+than a payment/order failure. Small future-state size checks failed to expose the
+much larger unoptimized poll frame, so they are not an acceptance test.
+
+The shared dispatcher now chooses a boxed domain future synchronously before its
+child is polled. Existing real `pos` and `b2b` HTTP/PostgreSQL/MCP suites pass locally
+with `RUST_MIN_STACK=1572864` (1.5 MiB), including sales, receipts, history and policy
+publication. This is a constrained local regression run, not a portable stack-size
+guarantee. Production stack limits remain unchanged; full Linux coverage CI must
+pass before release.
+
 ## Behavioral intelligence verification — 12 October 2026
 
 The new registered `behavior_intelligence` suite runs real PostgreSQL/API/MCP

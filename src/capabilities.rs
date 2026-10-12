@@ -8,58 +8,75 @@ pub(crate) async fn capabilities() -> Json<Value> {
         json!({"capabilities":CAPABILITIES.iter().map(|(n,d)|json!({"name":n,"description":d})).collect::<Vec<_>>()}),
     )
 }
-pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -> Result<Value> {
+
+/// Select a boxed domain future before polling it, keeping inactive domains off the worker stack.
+pub(crate) fn invoke<'a>(
+    a: &'a App,
+    h: &'a RequestContext,
+    name: &'a str,
+    v: &'a Value,
+) -> CapabilityFuture<'a> {
     if name.starts_with("b2b.") {
-        // Keep domain futures on the heap so adding a module cannot exhaust the MCP worker stack.
-        return Box::pin(b2b::invoke(a, h, name, v)).await;
+        // Keep only the selected domain's suspended state on the heap.
+        return Box::pin(b2b::invoke(a, h, name, v));
     }
     if let Some(operation) = name.strip_prefix("pos.") {
-        return Box::pin(pos::invoke(a, h, operation, v)).await;
+        return Box::pin(pos::invoke(a, h, operation, v));
     }
     if name == "catalog.facts" {
-        return cognition::signed::facts(
-            a,
-            h,
-            v["productId"].as_str().ok_or(bad("Product required"))?,
-        )
-        .await;
+        return Box::pin(async move {
+            cognition::signed::facts(
+                a,
+                h,
+                v["productId"].as_str().ok_or(bad("Product required"))?,
+            )
+            .await
+        });
     }
     if cognition::contracts::schema(name).is_some() {
-        return cognition::contracts::invoke_contract(a, h, name, v).await;
+        return Box::pin(cognition::contracts::invoke_contract(a, h, name, v));
     }
     if currencies::schema(name).is_some() {
-        return currencies::invoke(a, h, name, v).await;
+        return Box::pin(currencies::invoke(a, h, name, v));
     }
     if legal::schema(name).is_some() {
-        return legal::invoke(a, h, name, v).await;
+        return Box::pin(legal::invoke(a, h, name, v));
     }
     if history::schema(name).is_some() {
-        return history::invoke(a, h, name, v).await;
+        return Box::pin(history::invoke(a, h, name, v));
     }
     if name.starts_with("merchant.media.") {
-        return assets::media_invoke(a, h, name, v).await;
+        return Box::pin(assets::media_invoke(a, h, name, v));
     }
     if commerce::international_permission(name).is_some() {
-        return commerce::international_invoke(a, h, name, v).await;
+        return Box::pin(commerce::international_invoke(a, h, name, v));
     }
     if name.starts_with("automation.") {
-        return marketing::invoke(a, h, name, v).await;
+        return Box::pin(marketing::invoke(a, h, name, v));
     }
     if operations::permission(name).is_some() {
-        return operations::invoke(a, h, name, v).await;
+        return Box::pin(operations::invoke(a, h, name, v));
     }
     if name.starts_with("developer.") {
-        return developer::invoke(a, h, name, v).await;
+        return Box::pin(developer::invoke(a, h, name, v));
     }
     if let Some(app) = name.strip_prefix("app.") {
-        let (id, action) = app
-            .split_once('.')
-            .ok_or(bad("Invalid app capability name"))?;
-        return apps::invoke_app(a, h, id, action, v).await;
+        return Box::pin(async move {
+            let (id, action) = app
+                .split_once('.')
+                .ok_or(bad("Invalid app capability name"))?;
+            apps::invoke_app(a, h, id, action, v).await
+        });
     }
     if documents::knowledge_schema(name).is_some() {
-        return documents::knowledge_invoke(a, h, name, v).await;
+        return Box::pin(documents::knowledge_invoke(a, h, name, v));
     }
+    Box::pin(invoke_native(a, h, name, v))
+}
+type CapabilityFuture<'a> =
+    std::pin::Pin<Box<dyn std::future::Future<Output = Result<Value>> + Send + 'a>>;
+
+async fn invoke_native(a: &App, h: &RequestContext, name: &str, v: &Value) -> Result<Value> {
     if name.starts_with("knowledge.") {
         merchant(a, h)?;
         auth::permit(h, "knowledge.read")?;

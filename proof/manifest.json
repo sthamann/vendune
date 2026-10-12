@@ -1429,8 +1429,8 @@
     },
     "src/capabilities.rs": {
       "status": "unproved",
-      "sha256": "8fa9d6dd9cad372184c22db1ae2464ff3a2806d4ffc87af3c78c6e32b0aeec61",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "cb43e6b57e23a18c356db56f60ab6041db59daea326a23c2ca0df95ba6803ac4",
+      "review": "Reviewed synchronous boxed capability selection preserving every existing domain handler and permission boundary; Linux coverage pos.cart stack overflow reproduced and actual POS/B2B HTTP PostgreSQL MCP regressions pass locally with 1.5 MiB worker stacks; no stack limit increase or new proof claim."
     },
     "src/cart_model.rs": {
       "status": "unproved",

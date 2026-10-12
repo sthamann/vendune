@@ -55,6 +55,11 @@ app package. [Full architecture](architecture.md) · [Source inventory](module-i
    currency-definition removal checks unit currencies. Selective global-settings
    publication uses the existing monetary-storage/dependency guard too.
 
+7. **MCP worker stack:** Linux coverage CI exposed a stack overflow on the POS
+   cart tool. Shared capability routing now selects a boxed domain future before
+   polling it, removing inactive domains from the common asynchronous poll frame.
+   Existing rights, native domain handlers and transport contracts stay authoritative.
+
 ## Try the connected workflows
 
 - **POS:** create a private environment, add a POS channel, select only its channel
