@@ -8,6 +8,7 @@ import { AppSurfaceView } from "../../shared/apps/AppSurfaces";
 import "../../shared/styles/workbench.css";
 import Icon from "../../shared/ui/Icon";
 import { downloadFile } from "../../shared/api/download";
+const B2BWorkspace = lazy(() => import("../b2b/B2BWorkspace"));
 const POSWorkspace = lazy(() => import("../pos/POSWorkspace"));
 const AppsManager = lazy(() => import("../apps/AppsManager"));
 const SalesChannelsWorkspace = lazy(
@@ -135,6 +136,12 @@ export default function StudioRoutes() {
       request={request}
       role={role}
       onChannels={() => selectTab("channels")}
+    />
+  ) : tab === "b2b" ? (
+    <B2BWorkspace
+      key={environment || workspace}
+      request={request}
+      rights={access}
     />
   ) : tab === "pos" ? (
     <POSWorkspace

@@ -14,6 +14,8 @@ pub(crate) struct CatalogCriteria {
     pub(crate) product_ids: Option<Vec<String>>,
     #[serde(skip)]
     pub(crate) channel_id: String,
+    #[serde(skip)]
+    pub(crate) b2b_unit: Option<String>,
 }
 
 impl CatalogCriteria {
@@ -79,6 +81,7 @@ pub(crate) async fn product_page(
             .bind(&criteria.channel_id)
             .bind(locale)
             .bind(&settings.main_locale)
+            .bind(&criteria.b2b_unit)
             .fetch_all(&a.db)
             .await?
     } else if let Some(ids) = &criteria.product_ids {
@@ -102,6 +105,7 @@ pub(crate) async fn product_page(
             .bind(pattern)
             .bind((limit + 1) as i64)
             .bind(&criteria.channel_id)
+            .bind(&criteria.b2b_unit)
             .fetch_all(&a.db)
             .await?
     } else if let Some(search) = search {
@@ -136,14 +140,15 @@ pub(crate) async fn product_page(
             .bind((limit + 1) as i64)
             .bind(literal_pattern(candidate))
             .bind(&criteria.channel_id)
+            .bind(&criteria.b2b_unit)
             .fetch_all(&a.db)
             .await?
     } else if let Some(category) = category {
-        sqlx::query("SELECT * FROM products WHERE tenant=$1 AND parent_id IS NULL AND active AND id>$2 AND category=$3 AND NOT EXISTS(SELECT 1 FROM product_channel_visibility v WHERE v.tenant=products.tenant AND v.product_id=products.id AND v.channel_id=$5 AND NOT v.visible) ORDER BY id LIMIT $4")
-            .bind(t).bind(after).bind(category).bind((limit+1) as i64).bind(&criteria.channel_id).fetch_all(&a.db).await?
+        sqlx::query("SELECT * FROM products WHERE tenant=$1 AND parent_id IS NULL AND active AND id>$2 AND category=$3 AND NOT EXISTS(SELECT 1 FROM product_channel_visibility v WHERE v.tenant=products.tenant AND v.product_id=products.id AND v.channel_id=$5 AND NOT v.visible)  AND ($6::text IS NULL OR EXISTS(SELECT 1 FROM b2b_catalog b WHERE b.tenant=products.tenant AND b.unit_id=$6 AND (b.product_id=products.id OR EXISTS(SELECT 1 FROM products child WHERE child.tenant=products.tenant AND child.parent_id=products.id AND child.id=b.product_id)))) ORDER BY id LIMIT $4")
+            .bind(t).bind(after).bind(category).bind((limit+1) as i64).bind(&criteria.channel_id).bind(&criteria.b2b_unit).fetch_all(&a.db).await?
     } else {
-        sqlx::query("SELECT * FROM products WHERE tenant=$1 AND parent_id IS NULL AND active AND id>$2 AND NOT EXISTS(SELECT 1 FROM product_channel_visibility v WHERE v.tenant=products.tenant AND v.product_id=products.id AND v.channel_id=$4 AND NOT v.visible) ORDER BY id LIMIT $3")
-            .bind(t).bind(after).bind((limit+1) as i64).bind(&criteria.channel_id).fetch_all(&a.db).await?
+        sqlx::query("SELECT * FROM products WHERE tenant=$1 AND parent_id IS NULL AND active AND id>$2 AND NOT EXISTS(SELECT 1 FROM product_channel_visibility v WHERE v.tenant=products.tenant AND v.product_id=products.id AND v.channel_id=$4 AND NOT v.visible)  AND ($5::text IS NULL OR EXISTS(SELECT 1 FROM b2b_catalog b WHERE b.tenant=products.tenant AND b.unit_id=$5 AND (b.product_id=products.id OR EXISTS(SELECT 1 FROM products child WHERE child.tenant=products.tenant AND child.parent_id=products.id AND child.id=b.product_id)))) ORDER BY id LIMIT $3")
+            .bind(t).bind(after).bind((limit+1) as i64).bind(&criteria.channel_id).bind(&criteria.b2b_unit).fetch_all(&a.db).await?
     };
     let has_more = rows.len() > limit;
     let products =

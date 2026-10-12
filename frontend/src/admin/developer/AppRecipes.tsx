@@ -7,6 +7,7 @@ const icons: Record<string, IconName> = {
   advisor: "spark",
   returns: "box",
   erp: "link",
+  edi: "layers",
 };
 export default function AppRecipes({
   onCreate,

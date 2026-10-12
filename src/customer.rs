@@ -32,6 +32,11 @@ pub(crate) async fn login(
         .await?;
     let mut c = stored(&row)?;
     pos::guard_cart(&h, &c)?;
+    if c.data.b2b.is_some() {
+        return Err(bad(
+            "Sign out before changing the employee of a company cart",
+        ));
+    }
     if c.status != "open" {
         return Err(conflict("Cart is terminal"));
     }

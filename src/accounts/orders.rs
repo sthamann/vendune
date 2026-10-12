@@ -16,7 +16,7 @@ async fn owned(
         .map(|r| project(&r.get("data"), &r.get::<String, _>("time")))
         .collect())
 }
-fn project(raw: &Value, created: &str) -> Value {
+pub(crate) fn project(raw: &Value, created: &str) -> Value {
     let mut v = json!({});
     for key in [
         "id",

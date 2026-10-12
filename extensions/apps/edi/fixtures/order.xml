@@ -1,0 +1,6 @@
+<Order xmlns="urn:oasis:names:specification:ubl:schema:xsd:Order-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+ <cbc:ID>PO-100</cbc:ID><cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+ <cac:BuyerCustomerParty><cac:Party><cac:PartyIdentification><cbc:ID>BUYER</cbc:ID></cac:PartyIdentification></cac:Party></cac:BuyerCustomerParty>
+ <cac:SellerSupplierParty><cac:Party><cac:PartyIdentification><cbc:ID>VENDUNE</cbc:ID></cac:PartyIdentification></cac:Party></cac:SellerSupplierParty>
+ <cac:OrderLine><cac:LineItem><cbc:ID>1</cbc:ID><cbc:Quantity unitCode="EA">2</cbc:Quantity><cac:Item><cac:SellersItemIdentification><cbc:ID>SKU+LAMP</cbc:ID></cac:SellersItemIdentification></cac:Item></cac:LineItem></cac:OrderLine>
+</Order>

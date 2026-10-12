@@ -22,7 +22,8 @@ export type Field = {
   unique?: boolean;
   validation?: Record<string, unknown>;
   references?: string | null;
-  coreReference?: "product" | "customer" | "order" | null;
+  coreReference?:
+    "product" | "customer" | "order" | "b2bCompany" | "b2bUnit" | null;
   choices?: { value: string; label: Text }[];
 };
 export type Entity = {
@@ -70,7 +71,7 @@ export type Block = {
   handlers?: { click?: Statement[]; change?: Statement[] };
   contextBinding?: {
     field: string;
-    key: "productId" | "customerId" | "orderId";
+    key: "productId" | "customerId" | "orderId" | "companyId" | "unitId";
   } | null;
 };
 export type NativeView = {

@@ -182,7 +182,9 @@
                         "product",
                         "customer",
                         "order",
-                        null
+                        null,
+                        "b2bCompany",
+                        "b2bUnit"
                       ]
                     },
                     "choices": {
@@ -436,7 +438,9 @@
                               "enum": [
                                 "productId",
                                 "customerId",
-                                "orderId"
+                                "orderId",
+                                "companyId",
+                                "unitId"
                               ]
                             }
                           },
@@ -586,7 +590,10 @@
                   "admin.product.general",
                   "admin.product.tab",
                   "admin.customer",
-                  "admin.order.general"
+                  "admin.order.general",
+                  "admin.b2b.company",
+                  "admin.b2b.unit",
+                  "account.b2b"
                 ]
               },
               "label": {
@@ -635,7 +642,9 @@
                   "orders.read",
                   "orders.write",
                   "apps.manage",
-                  null
+                  null,
+                  "b2b.read",
+                  "b2b.manage"
                 ]
               }
             },

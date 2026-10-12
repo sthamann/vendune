@@ -7,6 +7,8 @@ use crate::{
 
 pub(crate) const SCOPES: &[&str] = &[
     "pos.use",
+    "b2b.read",
+    "b2b.manage",
     "catalog.read",
     "catalog.write",
     "orders.read",

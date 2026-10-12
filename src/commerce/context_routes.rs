@@ -63,6 +63,7 @@ pub(crate) async fn select_checkout(
         .ok_or(Error(StatusCode::NOT_FOUND, "Cart not found".into()))?;
     let mut c = stored(&r)?;
     pos::guard_cart(&h, &c)?;
+    b2b::guard_conn(&mut tx, &h, &c).await?;
     if c.status != "open" {
         return Err(conflict("Cart is terminal"));
     }

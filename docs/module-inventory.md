@@ -111,6 +111,20 @@ This lists every checked-in source module in these roots, including files with n
 | [src/automation_rules/tests.rs](../src/automation_rules/tests.rs) | Regression cases cover missing authority under NOT, original quantifiers, dates, metadata types and registry bounds. |
 | [src/automation_rules/time.rs](../src/automation_rules/time.rs) | Calendar comparisons use an explicit server clock, IANA zones and the original exclusive date-range end. |
 | [src/automation_rules/validation.rs](../src/automation_rules/validation.rs) | Bounded source payload validation against exported field/operator metadata and nested condition scopes. |
+| [src/b2b/access.rs](../src/b2b/access.rs) | Re-resolves active customer sessions, company policy and unit membership at every procurement boundary. |
+| [src/b2b/approval.rs](../src/b2b/approval.rs) | Revision-bound purchasing approval inbox; approvers must be active peers and cannot approve themselves. |
+| [src/b2b/catalog.rs](../src/b2b/catalog.rs) | Private unit catalog scope is derived from the current employee/cart, never caller criteria; indexed before pagination. |
+| [src/b2b/gateway.rs](../src/b2b/gateway.rs) | One native command contract for Store API, merchant API and MCP; actor identity never comes from arguments. |
+| [src/b2b/lists.rs](../src/b2b/lists.rs) | Reusable private/shared procurement lists; applying them reuses native cart admission and pricing. |
+| [src/b2b/mod.rs](../src/b2b/mod.rs) | Native modular company procurement; protocol-specific EDI adapters remain in their app packages. |
+| [src/b2b/model.rs](../src/b2b/model.rs) | Bounded typed native company, purchasing-unit and employee policies. Money is currency-bound minor units. |
+| [src/b2b/orders.rs](../src/b2b/orders.rs) | Explicit unit-wide order permission reuses the customer-safe order projection; no email-based ownership. |
+| [src/b2b/organization.rs](../src/b2b/organization.rs) | Merchant-managed firms, unit hierarchies, employee grants and tenant-bound catalogs with optimistic revisions. |
+| [src/b2b/purchase.rs](../src/b2b/purchase.rs) | Serializes unit spending and binds an approved purchase to the authoritative native checkout quote. |
+| [src/b2b/quick_order.rs](../src/b2b/quick_order.rs) | Bounded SKU bulk entry resolves native products then uses the ordinary cart's permissions, quantities and prices. |
+| [src/b2b/quote_contract.rs](../src/b2b/quote_contract.rs) | Accepted offer prices feed the existing currency/tax calculator; checkout consumes the offer atomically. |
+| [src/b2b/quotes.rs](../src/b2b/quotes.rs) | RFQ lifecycle binds merchant offers to a specific company buyer, cart, currency, expiry and revision. |
+| [src/b2b/requisition.rs](../src/b2b/requisition.rs) | Explicit integration permission imports requisitions into native lists; it never impersonates checkout buyers. |
 | [src/bin/automation_rules.rs](../src/bin/automation_rules.rs) | JSON batch transport for comparisons with original Shopware rule classes; not a production authority endpoint. |
 | [src/bin/connectors.rs](../src/bin/connectors.rs) | Independent Rust standard-app service; no provider code executes in commerce request workers. |
 | [src/bin/context.rs](../src/bin/context.rs) | Bounded ports of original language-chain, rule priority and quantity selection. |
@@ -302,6 +316,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/marketing/rule_tests.rs](../src/marketing/rule_tests.rs) | Regression cases for native rule facts and original container boundaries. |
 | [src/marketing/rules.rs](../src/marketing/rules.rs) | Bounded Shopware-style boolean/numeric rule AST. Unknown operators/conditions fail closed. |
 | [src/mcp/transport.rs](../src/mcp/transport.rs) | MCP visibility and shared read-scope memoization, independent of internal planning tools. |
+| [src/mcp/visibility.rs](../src/mcp/visibility.rs) | MCP discovery applies current merchant permissions through the same capability owners as invocation. |
 | [src/mcp.rs](../src/mcp.rs) | Typed MCP schemas and JSON-RPC transport. |
 | [src/migrations/schema.rs](../src/migrations/schema.rs) | Append-only ordered migration source catalogue; deployed checksums are never rewritten. |
 | [src/migrations.rs](../src/migrations.rs) | Versioned setup is separate from serving; no catalog-wide startup repair. |
@@ -372,6 +387,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/pos/mod.rs](../src/pos/mod.rs) | Authenticated POS adapters reuse the native catalog/cart/checkout/receipt and durable event owners. |
 | [src/pos/schema.rs](../src/pos/schema.rs) | Strict protocol schemas for the same POS operations used by HTTP and MCP. |
 | [src/pos/settlement.rs](../src/pos/settlement.rs) | Exact cash admission and order annotation execute in the existing checkout transaction. |
+| [src/prelude.rs](../src/prelude.rs) | Shared dependency names for native domain modules; no process setup or business rules. |
 | [src/pricing.rs](../src/pricing.rs) | Behavioral port of Shopware 6.7.14.2 quantity calculators. |
 | [src/proposal_apply.rs](../src/proposal_apply.rs) | Transactional application of approved, revision-bound proposals. |
 | [src/proposal_model.rs](../src/proposal_model.rs) | Typed proposals and validation before persistence or execution. |
@@ -460,6 +476,12 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/automation/lifecycle-i18n.ts](../frontend/src/admin/automation/lifecycle-i18n.ts) | Shared lifecycle, starting-process and dependency vocabulary for every automation editor. |
 | [frontend/src/admin/automation/pipeline-types.ts](../frontend/src/admin/automation/pipeline-types.ts) | Stable graph data mirrors the Rust pipeline contract, with explicit true/false edges and persistent node identifiers. |
 | [frontend/src/admin/automation/source-rules.ts](../frontend/src/admin/automation/source-rules.ts) | Convert source condition nodes for the graphical editor without losing original payload fields. |
+| [frontend/src/admin/b2b/B2BWorkspace.tsx](../frontend/src/admin/b2b/B2BWorkspace.tsx) | Tenant-scoped company workspace; canonical API operations are also exposed through MCP. |
+| [frontend/src/admin/b2b/Members.tsx](../frontend/src/admin/b2b/Members.tsx) | Grants reference actual customer identities, never email guesses; pauses retain historical purchases. |
+| [frontend/src/admin/b2b/Quotes.tsx](../frontend/src/admin/b2b/Quotes.tsx) | Native RFQ inbox and merchant offers use the same versioned contract as buyer API/MCP operations. |
+| [frontend/src/admin/b2b/UnitCatalog.tsx](../frontend/src/admin/b2b/UnitCatalog.tsx) | Search the canonical merchant catalog; unit permissions persist through the native revision-bound catalog API. |
+| [frontend/src/admin/b2b/UnitEditor.tsx](../frontend/src/admin/b2b/UnitEditor.tsx) | Purchasing unit policies, hierarchy, catalogs and customer grants share current revision checks. |
+| [frontend/src/admin/b2b/UnitMethods.tsx](../frontend/src/admin/b2b/UnitMethods.tsx) | Unit allowlists reference the existing translated shipping/payment owner; empty means inherited availability. |
 | [frontend/src/admin/catalog/AiImageStudio.tsx](../frontend/src/admin/catalog/AiImageStudio.tsx) | Optional image-provider jobs create private previews; applying a reviewed image is explicit and revision checked. |
 | [frontend/src/admin/catalog/CategoriesWorkspace.tsx](../frontend/src/admin/catalog/CategoriesWorkspace.tsx) | Localized category tree editor; parent moves and revisions are validated in the API. |
 | [frontend/src/admin/catalog/CategoryFactQuery.tsx](../frontend/src/admin/catalog/CategoryFactQuery.tsx) | One saved predicate on current public evidence; reuses category CAS and the editor's selected content language. |
@@ -719,6 +741,9 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/apps/native/record-workflow.ts](../frontend/src/shared/apps/native/record-workflow.ts) | Pure form projections of an app-owned workflow; the server remains authoritative. |
 | [frontend/src/shared/apps/native/types.ts](../frontend/src/shared/apps/native/types.ts) | The versioned Manifest is the shared intermediate representation for visual and agent edits. |
 | [frontend/src/shared/apps/useSurfaceGateway.ts](../frontend/src/shared/apps/useSurfaceGateway.ts) | Bind native and isolated UI actions to the same short-lived server grant; credentials stay in the host. |
+| [frontend/src/shared/b2b/b2b.css](../frontend/src/shared/b2b/b2b.css) | Shared responsive B2B workspaces: quiet surfaces, separated labels, connected entity cards. |
+| [frontend/src/shared/b2b/quote-types.ts](../frontend/src/shared/b2b/quote-types.ts) | Canonical procurement quote wire contract shared by buyer and merchant clients. |
+| [frontend/src/shared/b2b/types.ts](../frontend/src/shared/b2b/types.ts) | Native B2B wire types shared by the company editor and customer purchasing portal. |
 | [frontend/src/shared/content/RichDescription.tsx](../frontend/src/shared/content/RichDescription.tsx) | Safe rich blocks with native image/video rendering; no HTML interpretation or script execution. |
 | [frontend/src/shared/content/editor/EditorBuffer.ts](../frontend/src/shared/content/editor/EditorBuffer.ts) | Unsaved Markdown source participates in the aggregate's save/navigation guard without becoming product content. |
 | [frontend/src/shared/content/editor/MarkdownSource.tsx](../frontend/src/shared/content/editor/MarkdownSource.tsx) | Live Markdown buffer updates the same structured product document; no raw HTML is rendered or persisted. |
@@ -763,6 +788,9 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/automation-fields.ts](../frontend/src/shared/i18n/automation-fields.ts) | Localized labels for original rule and native flow parameter fields. |
 | [frontend/src/shared/i18n/automation-i18n.ts](../frontend/src/shared/i18n/automation-i18n.ts) | Four-language automation editor vocabulary keeps source identifiers stable and user labels readable. |
 | [frontend/src/shared/i18n/automation-labels.ts](../frontend/src/shared/i18n/automation-labels.ts) | Source-named rule labels are localized independently from their stable integration identifiers. |
+| [frontend/src/shared/i18n/b2b-events-i18n.ts](../frontend/src/shared/i18n/b2b-events-i18n.ts) | Native B2B event labels shared by the existing Flow Builder. |
+| [frontend/src/shared/i18n/b2b-i18n.ts](../frontend/src/shared/i18n/b2b-i18n.ts) | B2B interface catalogue; content names use the shop language editor and per-field inheritance. |
+| [frontend/src/shared/i18n/b2b-quotes-i18n.ts](../frontend/src/shared/i18n/b2b-quotes-i18n.ts) | Negotiation vocabulary, separate from merchant content translations. |
 | [frontend/src/shared/i18n/catalog-i18n.ts](../frontend/src/shared/i18n/catalog-i18n.ts) | Complete four-language catalog workspace vocabulary, separate from commerce data translations. |
 | [frontend/src/shared/i18n/checkout-i18n.ts](../frontend/src/shared/i18n/checkout-i18n.ts) | Checkout vocabulary: the same purchase and payment states in every supported UI language. |
 | [frontend/src/shared/i18n/cognitive-events-i18n.ts](../frontend/src/shared/i18n/cognitive-events-i18n.ts) | Typed labels shared by the knowledge timeline and the native Flow Builder event catalogue. |
@@ -823,6 +851,10 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/storefront/account/AccountOrderList.tsx](../frontend/src/storefront/account/AccountOrderList.tsx) | Clickable purchase cards show the live server status and lead to a protected order detail. |
 | [frontend/src/storefront/account/AccountOverview.tsx](../frontend/src/storefront/account/AccountOverview.tsx) | Account home connects recent purchases and default addresses to their dedicated management views. |
 | [frontend/src/storefront/account/AccountProfile.tsx](../frontend/src/storefront/account/AccountProfile.tsx) | Focused profile and password forms report persistence and keep account identity outside editable contact data. |
+| [frontend/src/storefront/account/CompanyLists.tsx](../frontend/src/storefront/account/CompanyLists.tsx) | Owned/shared order lists use one content-language editor, native cart CAS and shared deletion confirmation. |
+| [frontend/src/storefront/account/CompanyOrders.tsx](../frontend/src/storefront/account/CompanyOrders.tsx) | Explicit unit-history permission shares the existing customer order detail component. |
+| [frontend/src/storefront/account/CompanyPurchasing.tsx](../frontend/src/storefront/account/CompanyPurchasing.tsx) | Customer-company context, approvals and order lists use the same native cart and current employee grants. |
+| [frontend/src/storefront/account/CompanyQuotes.tsx](../frontend/src/storefront/account/CompanyQuotes.tsx) | Buyer negotiations bind an offer to its original cart; the shared checkout remains authoritative. |
 | [frontend/src/storefront/account/CustomerAccount.tsx](../frontend/src/storefront/account/CustomerAccount.tsx) | Responsive customer workspace separates authentication, address care and protected purchase details. |
 | [frontend/src/storefront/account/CustomerSignIn.tsx](../frontend/src/storefront/account/CustomerSignIn.tsx) | Distinct sign-in and registration forms with correct autofill and an authenticated, rotated cart context. |
 | [frontend/src/storefront/account/ShoppingPreferences.tsx](../frontend/src/storefront/account/ShoppingPreferences.tsx) | Optional cart-private memory uses native consent, revisioned graph storage and explicit AI-sharing preference. |
@@ -896,6 +928,16 @@ This lists every checked-in source module in these roots, including files with n
 | Module | Responsibility |
 |---|---|
 | [extensions/apps/catalog-export/server.py](../extensions/apps/catalog-export/server.py) | Independent, language-neutral export example. Only scoped commerce callbacks; no core SQL or hosted Python dependency. |
+| [extensions/apps/edi/service/callbacks.rs](../extensions/apps/edi/service/callbacks.rs) | Scoped canonical callbacks retain installed digest, consent, actor rights and native app storage ownership. |
+| [extensions/apps/edi/service/config.rs](../extensions/apps/edi/service/config.rs) | Only operator configuration supplies core callback destinations; documents cannot choose URLs or credentials. |
+| [extensions/apps/edi/service/document.rs](../extensions/apps/edi/service/document.rs) | Protocol-neutral requisitions preserve partner identity and SKUs; commerce prices remain native. |
+| [extensions/apps/edi/service/edifact.rs](../extensions/apps/edi/service/edifact.rs) | Bounded EDIFACT ORDERS profile with release-aware tokenization and checked message/interchange envelopes. |
+| [extensions/apps/edi/service/export.rs](../extensions/apps/edi/service/export.rs) | Partner-bound outbound messages serialize existing orders/issued receipts; no fiscal numbers, prices or shipping events are invented. |
+| [extensions/apps/edi/service/export_tests.rs](../extensions/apps/edi/service/export_tests.rs) | Outbound negative controls retain native amounts, escapes and explicit unsupported invoice profiles. |
+| [extensions/apps/edi/service/import.rs](../extensions/apps/edi/service/import.rs) | Mapped partner documents create private native requisitions, never orders or a second pricing ledger. |
+| [extensions/apps/edi/service/main.rs](../extensions/apps/edi/service/main.rs) | Independent EDI gateway: app-owned codecs and mappings use the existing permission-aware commerce callback contract. |
+| [extensions/apps/edi/service/xml.rs](../extensions/apps/edi/service/xml.rs) | Namespace-aware UBL Order and cXML OrderRequest ingestion without DTDs, external entities or network fetching. |
+| [extensions/apps/edi/tests/integration.py](../extensions/apps/edi/tests/integration.py) | Real installed-package -> Rust EDI gateway -> consent-bound callbacks -> buyer-owned requisition -> native checkout; no external network. |
 | [extensions/apps/email/src/config.rs](../extensions/apps/email/src/config.rs) | Compile-time mail setting types plus bounded runtime validation and write-only credentials. |
 | [extensions/apps/email/src/email.rs](../extensions/apps/email/src/email.rs) | Email app actions/events retain the published gateway, flow and MCP payload contract. |
 | [extensions/apps/email/src/smtp.rs](../extensions/apps/email/src/smtp.rs) | Pinned SMTP/STARTTLS/TLS with verified hostname, bounded dialogue and no retry after ambiguous DATA. |
@@ -989,6 +1031,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/automation_differential.py](../scripts/automation_differential.py) | Compare actual original Shopware rule classes with native scopes using independent synthetic entities. |
 | [scripts/automation_lifecycle.py](../scripts/automation_lifecycle.py) | Tenant-bound default configuration, revision-safe deletion and actual event-flow effects. |
 | [scripts/automation_registry.py](../scripts/automation_registry.py) | Rebuild the native rule catalog from pinned PHP reflection and explicitly reviewed scope bindings. |
+| [scripts/b2b.py](../scripts/b2b.py) | Native company procurement with real isolated PostgreSQL: approval, budgets, catalogs and shared checkout. |
 | [scripts/benchmark.py](../scripts/benchmark.py) | Reproducible local HTTP + PostgreSQL benchmark, with response validation. |
 | [scripts/branding.py](../scripts/branding.py) | Keep the public Vendune identity, shared vector assets and executable package/deployment paths consistent. |
 | [scripts/build_app_ui.py](../scripts/build_app_ui.py) | Export deterministic example HTML and its operator uiDigests entry; never fetch remote resources. |
@@ -1014,6 +1057,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/demo/fixtures.py](../scripts/demo/fixtures.py) | Four-language, provider-free commerce playground definitions; no credentials or real customer data. |
 | [scripts/developer_documents.py](../scripts/developer_documents.py) | Local model wire fixtures verify app generation, provenance and document privacy, without paid providers. |
 | [scripts/differential.py](../scripts/differential.py) | Independent PHP/Rust differential; fails on any money delta, not averaged error. |
+| [scripts/edi.py](../scripts/edi.py) | Registered EDI entry delegates app behavior and fixtures to the plugin owner. |
 | [scripts/email_tests.py](../scripts/email_tests.py) | Archived differential SMTP/TLS fixtures plus actual Rust/PostgreSQL/MCP/flow consumers. No external mail. |
 | [scripts/erp_handoff.py](../scripts/erp_handoff.py) | Registered integration entry delegates reference-app behavior to its package-owned verification. |
 | [scripts/extensions.py](../scripts/extensions.py) | Activate actual Wasm policies and prove their effect on B2B checkout. |

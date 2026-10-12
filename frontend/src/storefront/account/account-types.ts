@@ -6,6 +6,7 @@ import type {
   Contact,
 } from "../../shared/customer/customer-types";
 export type AccountProfile = {
+  id: string;
   email: string;
   customerNumber: string;
   revision: number;
@@ -39,7 +40,13 @@ export type CustomerOrder = Omit<Order, "cart"> & {
   stateLabels?: Record<string, Record<string, string>>;
 };
 export type AccountPage =
-  "overview" | "profile" | "addresses" | "orders" | "downloads" | "security";
+  | "business"
+  | "overview"
+  | "profile"
+  | "addresses"
+  | "orders"
+  | "downloads"
+  | "security";
 
 export type CustomerOrderPage = {
   elements: CustomerOrder[];

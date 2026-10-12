@@ -270,3 +270,16 @@ system directories. Do not implement automatic retries for ambiguous ERP effects
 or give the service a core-owner/RLS-bypass database role. Native preview/staging
 continues to block external effects. Existing mapping schemas require explicit
 owned-order migration before making the new order reference required.
+
+## B2B and EDI ownership
+
+`src/b2b/` owns native company/unit grants, private catalog admission, purchasing
+policies, approved quote/list contracts and serialized checkout spending. Reuse
+shared money/tax, checkout, inventory, document, audit and outbox owners. Do not
+implement an EDI pricing ledger or purchase automatically as a mapped customer.
+EDIFACT/UBL/cXML codecs, partner profiles, transport and app UI stay entirely under
+`extensions/apps/edi/` or another app package. App callbacks require the current
+approved digest/key and creator rights; immutable receipt export requires explicit
+orders/documents/PII consent. Keep bounded-profile, no-network-certification limits
+visible until corresponding official validation/transport acceptance exists.
+See `docs/b2b-commerce.md`, `docs/edi.md` and `src/b2b/README.md`.

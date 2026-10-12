@@ -41,7 +41,7 @@ export default function StudioSidebar() {
     },
     {
       label: u("commerce"),
-      tabs: ["productData", "orders", "customers", "pos"],
+      tabs: ["productData", "orders", "customers", "b2b", "pos"],
     },
     {
       label: u("experiences"),
@@ -82,15 +82,17 @@ export default function StudioSidebar() {
             {group.tabs
               .map((id) => nav.find((n) => n.id === id)!)
               .filter((n) =>
-                n.id === "pos"
-                  ? access.includes("pos.use")
-                  : n.id === "customers"
-                    ? access.includes("customers.read")
-                    : n.id === "orders"
-                      ? access.includes("orders.read")
-                      : n.id === "productData"
-                        ? access.includes("catalog.write")
-                        : true,
+                n.id === "b2b"
+                  ? access.includes("b2b.read")
+                  : n.id === "pos"
+                    ? access.includes("pos.use")
+                    : n.id === "customers"
+                      ? access.includes("customers.read")
+                      : n.id === "orders"
+                        ? access.includes("orders.read")
+                        : n.id === "productData"
+                          ? access.includes("catalog.write")
+                          : true,
               )
               .map((n) => (
                 <button

@@ -22,6 +22,7 @@ async fn issue(
         .ok_or(bad("Cart unavailable"))?;
     let c = stored(&r)?;
     pos::guard_cart(&h, &c)?;
+    b2b::guard_conn(&mut tx, &h, &c).await?;
     if c.status != "open" || c.data.items.is_empty() || v["revision"].as_i64() != Some(c.revision) {
         return Err(conflict("Cart changed, empty or terminal"));
     }
@@ -54,6 +55,7 @@ async fn consume(
         .ok_or(Error(StatusCode::GONE,"Checkout ticket expired or already used".into()))?;
     let c = stored(&r)?;
     pos::guard_cart(&h, &c)?;
+    b2b::guard_conn(&mut tx, &h, &c).await?;
     if c.data.sales_channel != marketing::channel_id(&h) {
         return Err(Error(
             StatusCode::FORBIDDEN,
@@ -87,6 +89,7 @@ async fn consume(
     .await?;
     let c = stored(&r)?;
     pos::guard_cart(&h, &c)?;
+    b2b::guard_conn(&mut tx, &h, &c).await?;
     tx.commit().await?;
     Ok(Json(cart_json(&a, &c).await?))
 }

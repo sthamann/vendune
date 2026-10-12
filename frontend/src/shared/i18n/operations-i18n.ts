@@ -1,6 +1,20 @@
 /** Operational commerce labels in all supported languages. */
+import { b2bEventWords } from "./b2b-events-i18n";
 import { useLocale } from "./i18n";
 export const operationWords = {
+  ...b2bEventWords,
+  "b2b.read": [
+    "Read company procurement",
+    "Firmeneinkauf lesen",
+    "Lire achats d’entreprise",
+    "Leer compras empresariales",
+  ],
+  "b2b.manage": [
+    "Manage companies and purchasing policies",
+    "Firmen und Einkaufsregeln verwalten",
+    "Gérer entreprises et règles d’achat",
+    "Gestionar empresas y reglas de compra",
+  ],
   "pos.use": [
     "Use POS register",
     "Kasse verwenden",

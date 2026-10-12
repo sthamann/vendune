@@ -1,4 +1,5 @@
 /** Typed built-in Studio navigation and locale-specific labels. */
+import { useB2BText } from "../../shared/i18n/b2b-i18n";
 import { usePosText } from "../pos/pos-i18n";
 import { useLocale } from "../../shared/i18n/i18n";
 import { useOperationsText } from "../../shared/i18n/operations-i18n";
@@ -20,55 +21,61 @@ export type Tab =
   | "orders"
   | "customers"
   | "channels"
-  | "pos";
+  | "pos"
+  | "b2b";
 
 export function useStudioNavigation() {
   const { t } = useLocale();
   const p = usePosText();
+  const b = useB2BText();
   const { w } = useWorkbenchText();
   const { o } = useOperationsText();
   const tabLabel = (id: Tab) =>
-    id === "pos"
-      ? p("title")
-      : id === "channels"
-        ? w("channels")
-        : id === "commerce"
-          ? t("settings")
-          : id === "orders" || id === "customers"
-            ? o(id)
-            : [
-                  "storyfronts",
-                  "developers",
-                  "environments",
-                  "automation",
-                  "productData",
-                ].includes(id)
-              ? w(
-                  id as
-                    | "storyfronts"
-                    | "developers"
-                    | "environments"
-                    | "automation"
-                    | "productData",
-                )
-              : t(
-                  id as Exclude<
-                    Tab,
-                    | "storyfronts"
-                    | "developers"
-                    | "environments"
-                    | "automation"
-                    | "productData"
-                    | "orders"
-                    | "channels"
-                    | "pos"
-                    | "customers"
-                  >,
-                );
+    id === "b2b"
+      ? b("title")
+      : id === "pos"
+        ? p("title")
+        : id === "channels"
+          ? w("channels")
+          : id === "commerce"
+            ? t("settings")
+            : id === "orders" || id === "customers"
+              ? o(id)
+              : [
+                    "storyfronts",
+                    "developers",
+                    "environments",
+                    "automation",
+                    "productData",
+                  ].includes(id)
+                ? w(
+                    id as
+                      | "storyfronts"
+                      | "developers"
+                      | "environments"
+                      | "automation"
+                      | "productData",
+                  )
+                : t(
+                    id as Exclude<
+                      Tab,
+                      | "storyfronts"
+                      | "developers"
+                      | "environments"
+                      | "automation"
+                      | "productData"
+                      | "orders"
+                      | "channels"
+                      | "pos"
+                      | "b2b"
+                      | "customers"
+                    >,
+                  );
 
   const nav: { id: Tab; icon: IconName }[] = [
     { id: "assistant", icon: "chat" },
     { id: "overview", icon: "pulse" },
+    { id: "b2b", icon: "people" },
     { id: "pos", icon: "register" },
     { id: "orders", icon: "box" },
     { id: "customers", icon: "people" },

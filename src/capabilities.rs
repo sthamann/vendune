@@ -9,8 +9,12 @@ pub(crate) async fn capabilities() -> Json<Value> {
     )
 }
 pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -> Result<Value> {
+    if name.starts_with("b2b.") {
+        // Keep domain futures on the heap so adding a module cannot exhaust the MCP worker stack.
+        return Box::pin(b2b::invoke(a, h, name, v)).await;
+    }
     if let Some(operation) = name.strip_prefix("pos.") {
-        return pos::invoke(a, h, operation, v).await;
+        return Box::pin(pos::invoke(a, h, operation, v)).await;
     }
     if name == "catalog.facts" {
         return cognition::signed::facts(

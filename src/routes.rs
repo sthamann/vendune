@@ -1,6 +1,5 @@
 //! HTTP transport registry; domain behavior lives in dedicated modules.
 use crate::*;
-
 pub(crate) fn router(a: App) -> Router {
     Router::new()
         .route("/products/{id}", get(storefront_pages::product_page))
@@ -52,6 +51,7 @@ pub(crate) fn router(a: App) -> Router {
         .merge(commerce::product_admin_router())
         .merge(marketing::router())
         .merge(pos::router())
+        .merge(b2b::router())
         .merge(payments::payment_router())
         .merge(cognition::cognition_router())
         .secure_route(

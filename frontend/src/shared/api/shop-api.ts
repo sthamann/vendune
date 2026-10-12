@@ -111,6 +111,7 @@ export type Config = {
   payments: Payment[];
 };
 export type Price = {
+  calculatedTaxes?: { tax: number; taxRate: number; price: number }[];
   unitPrice: number;
   totalPrice: number;
   listPrice?: { price: number; percentage: number };
@@ -138,6 +139,15 @@ export type Order = {
   }[];
 };
 export type Cart = {
+  b2b?: {
+    quoteId?: string;
+    unitId: string;
+    purchaseOrder: string;
+    costCenter: string;
+    budgetAvailable: boolean;
+    approvalRequired: boolean;
+    approval?: { id: string; state: string };
+  };
   currencyContext?: CurrencyContext;
   availableCurrencies?: string[];
   legal?: { requiresDigital: boolean; strictCheckout: boolean };

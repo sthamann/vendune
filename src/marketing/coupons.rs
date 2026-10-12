@@ -28,6 +28,7 @@ pub(crate) async fn coupons(
         .await?;
     let mut c = stored(&r)?;
     pos::guard_cart(&h, &c)?;
+    b2b::guard_conn(&mut tx, &h, &c).await?;
     if c.status != "open" || Some(c.revision) != v["revision"].as_i64() {
         return Err(conflict("Cart changed or terminal"));
     }

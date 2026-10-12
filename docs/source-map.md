@@ -521,3 +521,14 @@ is only a shared wire verifier. The registered `erp_handoff` suite delegates to
 that app's tests. `app_assistants` covers actual transitions and an upgrade/write
 race; `app_events` exercises aggregate admission across two real replicas.
 See the [runtime and privilege boundary](../extensions/apps/erp-handoff/README.md).
+
+## Modular B2B and EDI — 12 October 2026
+
+Native company units, current employee rights, private catalogs, currency-bound
+budgets, separate approval, RFQ negotiation, quick order and repeat lists reuse
+the existing checkout, inventory, order, document and Flow owners. The Studio and
+customer account use the same API/MCP contracts. [Setup, source owners and precise
+B2B comparison](b2b-commerce.md). The independent `extensions/apps/edi/` package owns
+bounded EDIFACT/UBL/cXML parsing, mapped private requisition import and immutable
+native document export; no Core codec or second ledger. [EDI profiles, deployment
+and network/certification limits](edi.md).

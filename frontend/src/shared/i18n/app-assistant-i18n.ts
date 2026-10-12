@@ -1,6 +1,18 @@
 /** App assistants and extension permissions use the same EN/DE/FR/ES vocabulary. */
 import { useLocale } from "./i18n";
 export const assistantWords = {
+  b2bCompany: [
+    "Company workspace",
+    "Firmenbereich",
+    "Espace entreprise",
+    "Espacio de empresa",
+  ],
+  b2bUnit: [
+    "Purchasing unit",
+    "Einkaufseinheit",
+    "Unité d’achat",
+    "Unidad de compras",
+  ],
   posCatalog: [
     "POS · product area",
     "Kasse · Produktbereich",

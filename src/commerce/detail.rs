@@ -11,6 +11,7 @@ pub(crate) async fn product_detail(
     marketing::admit_product(&a, &h, &id).await?;
     let (_, chain) = language_context(&a, &h).await?;
     criteria.channel_id = marketing::channel_id(&h).into();
+    criteria.b2b_unit = b2b::catalog_scope(&a, &h).await?;
     criteria.product_ids = marketing::catalog_scope(&a, &h).await?;
     let (ps, family, next_cursor) = family_products(&a, &t, &chain, &id, &criteria).await?;
     let p = ps
@@ -69,6 +70,7 @@ pub(crate) async fn product_detail(
             data: Cart {
                 coupons: vec![],
                 pos_actor: None,
+                b2b: None,
                 currency: currency.code.clone(),
                 sales_channel: "default".into(),
                 app_configurations: HashMap::new(),

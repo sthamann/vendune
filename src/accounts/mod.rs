@@ -137,7 +137,9 @@ async fn logout(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> 
         .execute(&a.db)
         .await?;
     if let Some(token) = header(&h, "sw-context-token") {
-        sqlx::query("UPDATE carts SET data=jsonb_set(jsonb_set(jsonb_set(jsonb_set(data,'{email}','null'),'{customer_id}','null'),'{group}','\"consumer\"'),'{company}','null'),token=$1,revision=revision+1 WHERE tenant=$2 AND token=$3 AND status='open'").bind(uid()).bind(&t).bind(token).execute(&a.db).await?;
+        sqlx::query("UPDATE carts SET data=jsonb_set(jsonb_set(jsonb_set(jsonb_set(jsonb_set(data,'{email}','null'),'{customer_id}','null'),'{group}','\"consumer\"'),'{company}','null'),'{b2b}','null'),token=$1,revision=revision+1 WHERE tenant=$2 AND token=$3 AND status='open'").bind(uid()).bind(&t).bind(token).execute(&a.db).await?;
     }
     Ok(Json(json!({"loggedOut":true})))
 }
+
+pub(crate) use orders::project as project_order;

@@ -18,6 +18,8 @@ export const appKinds = [
 ] as const;
 export type AppKind = (typeof appKinds)[number];
 export const placements: Record<string, AssistantKey> = {
+  "admin.b2b.company": "b2bCompany",
+  "admin.b2b.unit": "b2bUnit",
   "admin.pos.catalog": "posCatalog",
   "admin.pos.cart": "posCart",
   "admin.pos.receipt": "posReceipt",
@@ -33,10 +35,14 @@ export const contextKeys = {
   product: "productId",
   customer: "customerId",
   order: "orderId",
+  b2bCompany: "companyId",
+  b2bUnit: "unitId",
 } as const;
 export function coreKind(
   location: string,
-): "product" | "customer" | "order" | undefined {
+): "product" | "customer" | "order" | "b2bCompany" | "b2bUnit" | undefined {
+  if (location === "admin.b2b.company") return "b2bCompany";
+  if (location === "admin.b2b.unit") return "b2bUnit";
   return location.includes("product")
     ? "product"
     : location === "admin.customer"
@@ -62,10 +68,15 @@ export function assistedManifest(s: AssistantSetup): Manifest {
   const core = coreKind(s.location),
     field = core ? `${core}_id` : undefined;
   const isPublic =
-    s.kind === "frontend" ||
-    (s.publicRead && core !== "customer" && core !== "order");
-  const scope =
-    core === "customer" ? "customers" : core === "order" ? "orders" : "catalog";
+    (s.kind === "frontend" && (!core || core === "product")) ||
+    (s.publicRead && (!core || core === "product"));
+  const scope = core?.startsWith("b2b")
+    ? "b2b"
+    : core === "customer"
+      ? "customers"
+      : core === "order"
+        ? "orders"
+        : "catalog";
   const block = (kind: Block["kind"], id: string): Block => ({
     id,
     kind,
@@ -305,7 +316,7 @@ export function assistedManifest(s: AssistantSetup): Manifest {
           mcp: s.mcp,
           permission: a.public
             ? undefined
-            : `${scope}.${a.handler === "list" ? "read" : "write"}`,
+            : `${scope}.${a.handler === "list" ? "read" : scope === "b2b" ? "manage" : "write"}`,
         }
       : a,
   );

@@ -87,7 +87,7 @@ pub(crate) fn quote(
         }
         total += calc.total_price;
         taxes += calc.tax;
-        lines.push(json!({"id":p.id,"referencedId":p.id,"parentId":p.parent_id,"media":p.media,"label":format!("{}{}",p.name,p.options.as_object().filter(|o|!o.is_empty()).map(|o|format!(" · {}",o.values().filter_map(|v|v.as_str()).collect::<Vec<_>>().join(" / "))).unwrap_or_default()),"quantity":i.quantity,"stock":p.stock,"price":{"unitPrice":calc.unit_price,"totalPrice":calc.total_price,"calculatedTaxes":calc.calculated_taxes.iter().map(|t|json!({"tax":t.tax,"taxRate":t.tax_rate,"price":t.price})).collect::<Vec<_>>(),"listPrice":calc.list_price,"regulationPrice":calc.regulation_price.map(|price|json!({"price":price})),"referencePrice":calc.reference_price},"discountPercent":math_round((1.-discount)*100.,0),"ruleId":tier.map(|t|&t.rule_id),"minPurchase":p.min_purchase,"purchaseSteps":p.purchase_steps,"maxPurchase":p.max_purchase}));
+        lines.push(json!({"id":p.id,"referencedId":p.id,"productNumber":p.product_number,"parentId":p.parent_id,"media":p.media,"label":format!("{}{}",p.name,p.options.as_object().filter(|o|!o.is_empty()).map(|o|format!(" · {}",o.values().filter_map(|v|v.as_str()).collect::<Vec<_>>().join(" / "))).unwrap_or_default()),"quantity":i.quantity,"stock":p.stock,"price":{"unitPrice":calc.unit_price,"totalPrice":calc.total_price,"calculatedTaxes":calc.calculated_taxes.iter().map(|t|json!({"tax":t.tax,"taxRate":t.tax_rate,"price":t.price})).collect::<Vec<_>>(),"listPrice":calc.list_price,"regulationPrice":calc.regulation_price.map(|price|json!({"price":price})),"referencePrice":calc.reference_price},"discountPercent":math_round((1.-discount)*100.,0),"ruleId":tier.map(|t|&t.rule_id),"minPurchase":p.min_purchase,"purchaseSteps":p.purchase_steps,"maxPurchase":p.max_purchase}));
     }
     for line in &mut lines {
         let mut configs = c
@@ -149,7 +149,8 @@ pub(crate) async fn cart_json(a: &App, c: &StoredCart) -> Result<Value> {
         result["order"] = order.clone();
         return Ok(result);
     }
-    let ps = commerce::cart_products(a, &c.tenant, &chain, &c.data.items).await?;
+    let mut ps = commerce::cart_products(a, &c.tenant, &chain, &c.data.items).await?;
+    b2b::contract_prices(&mut *a.db.begin().await?, c, &mut ps).await?;
     let (config, revision) = commerce::scoped_config(a, &c.tenant, &c.data.sales_channel).await?;
     let code = config.currencies.selected(&c.data.currency)?.code.clone();
     let config = payments::currency_methods(
@@ -207,6 +208,7 @@ pub(crate) async fn cart_json(a: &App, c: &StoredCart) -> Result<Value> {
         .minor()
         .to_string()
     );
+    b2b::preview(a, c, &mut result).await?;
     result["locale"] = json!(locale);
     result["languageIdChain"] = json!(chain);
     Ok(result)

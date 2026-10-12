@@ -164,3 +164,32 @@ pub(crate) fn receipt_response(v: &Value) -> Response {
     )
         .into_response()
 }
+
+/// Scoped immutable document export for separately consented adapters; never creates a new fiscal document.
+pub(crate) async fn receipt_snapshot(
+    a: &App,
+    h: &RequestContext,
+    order: &str,
+    id: &str,
+) -> Result<Value> {
+    let t = merchant(a, h)?;
+    auth::permit(h, "documents.read")?;
+    auth::permit(h, "orders.read")?;
+    auth::permit(h, "customers.pii")?;
+    let mut v: Value = sqlx::query_scalar(
+        "SELECT snapshot FROM order_receipts WHERE tenant=$1 AND order_id=$2 AND id=$3",
+    )
+    .bind(t)
+    .bind(order)
+    .bind(id)
+    .fetch_optional(&a.db)
+    .await?
+    .ok_or(Error(
+        StatusCode::NOT_FOUND,
+        "Issued receipt not found for this order".into(),
+    ))?;
+    if let Some(cart) = v["order"]["cart"].as_object_mut() {
+        cart.remove("token");
+    }
+    Ok(v)
+}

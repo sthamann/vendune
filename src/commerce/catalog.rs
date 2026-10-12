@@ -89,7 +89,7 @@ pub(crate) async fn family_products(
         .as_ref()
         .filter(|ids| !ids.contains(&family));
     let rows = sqlx::query(
-        "SELECT * FROM products WHERE tenant=$1 AND parent_id=$2 AND active AND NOT EXISTS(SELECT 1 FROM product_channel_visibility v WHERE v.tenant=products.tenant AND v.product_id=products.id AND v.channel_id=$6 AND NOT v.visible) AND id>$3 AND ($5::text[] IS NULL OR id=ANY($5)) ORDER BY id LIMIT $4",
+        "SELECT * FROM products WHERE tenant=$1 AND parent_id=$2 AND active AND NOT EXISTS(SELECT 1 FROM product_channel_visibility v WHERE v.tenant=products.tenant AND v.product_id=products.id AND v.channel_id=$6 AND NOT v.visible) AND id>$3 AND ($5::text[] IS NULL OR id=ANY($5)) AND ($7::text IS NULL OR EXISTS(SELECT 1 FROM b2b_catalog b WHERE b.tenant=products.tenant AND b.unit_id=$7 AND (b.product_id=products.id OR b.product_id=products.parent_id))) ORDER BY id LIMIT $4",
     )
     .bind(t)
     .bind(&family)
@@ -97,6 +97,7 @@ pub(crate) async fn family_products(
     .bind((limit + 1) as i64)
     .bind(allowed)
     .bind(&criteria.channel_id)
+    .bind(&criteria.b2b_unit)
     .fetch_all(&a.db)
     .await?;
     let next_cursor = (rows.len() > limit).then(|| rows[limit - 1].get::<String, _>("id"));

@@ -309,4 +309,8 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         "079-knowledge-lexical-indexes",
         include_str!("../../migrations/079-knowledge-lexical-indexes.sql"),
     ),
+    (
+        "080-b2b-procurement",
+        include_str!("../../migrations/080-b2b-procurement.sql"),
+    ),
 ];

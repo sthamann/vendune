@@ -275,6 +275,11 @@
     "source": "src/marketing/routes.rs"
   },
   {
+    "path": "/api/b2b/{operation}",
+    "method": "POST",
+    "source": "src/b2b/mod.rs"
+  },
+  {
     "path": "/api/capabilities",
     "method": "GET",
     "source": "src/routes.rs"
@@ -1138,6 +1143,16 @@
     "path": "/store-api/assets/{id}",
     "method": "GET",
     "source": "src/assets/mod.rs"
+  },
+  {
+    "path": "/store-api/b2b/units/{unit}/orders/{id}/receipts/{receipt}/pdf",
+    "method": "GET",
+    "source": "src/b2b/mod.rs"
+  },
+  {
+    "path": "/store-api/b2b/{operation}",
+    "method": "POST",
+    "source": "src/b2b/mod.rs"
   },
   {
     "path": "/store-api/checkout/cart",

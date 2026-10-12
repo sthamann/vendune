@@ -33,6 +33,7 @@ pub(crate) async fn catalog_page(
         categories::admit(&a, &h, id).await?;
     }
     criteria.channel_id = marketing::channel_id(&h).into();
+    criteria.b2b_unit = b2b::catalog_scope(&a, &h).await?;
     let scope = marketing::catalog_scope(&a, &h).await?;
     criteria.product_ids = match (criteria.product_ids.take(), scope) {
         (Some(ids), Some(scope)) => Some(ids.into_iter().filter(|id| scope.contains(id)).collect()),
@@ -77,6 +78,7 @@ pub(crate) async fn catalog_page(
                 data: Cart {
                     coupons: vec![],
                     pos_actor: None,
+                    b2b: None,
                     currency: String::new(),
                     sales_channel: marketing::channel_id(&h).into(),
                     app_configurations: HashMap::new(),

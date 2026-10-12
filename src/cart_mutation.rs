@@ -31,6 +31,7 @@ pub(crate) async fn set_cart(
         .ok_or(bad("Cart not found"))?;
     let mut c = stored(&r)?;
     pos::guard_cart(h, &c)?;
+    b2b::guard(a, h, &c).await?;
     if c.status != "open" {
         return Err(conflict("Cart is terminal"));
     }
@@ -68,6 +69,7 @@ pub(crate) async fn set_cart(
     if locked.get::<i64, _>("revision") != c.revision {
         return Err(conflict("Cart revision changed; reload before editing"));
     }
+    b2b::guard_conn(&mut tx, h, &c).await?;
     c.revision += 1;
     sqlx::query("UPDATE carts SET data=$1,revision=$2 WHERE id=$3")
         .bind(json!(c.data))

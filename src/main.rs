@@ -1,30 +1,11 @@
 //! Process lifetime only. See docs/source-map.md for domain responsibilities.
-use argon2::{Argon2, PasswordHasher, password_hash::SaltString};
-use axum::{
-    Json, Router,
-    extract::{Path, State},
-    http::StatusCode,
-    response::{IntoResponse, Response},
-    routing::{get, post},
-};
-use serde::{Deserialize, Serialize};
-use serde_json::{Value, json};
-use sha2::{Digest, Sha256};
-use sqlx::{Row, postgres::PgPoolOptions};
-use std::{collections::HashMap, env, sync::Arc};
-use uuid::Uuid;
-use vendune::scoped_pool::ScopedPool as PgPool;
-use vendune::{
-    inference::{Choice, Inference},
-    knowledge,
-    pricing::{PriceInput, calculate, math_round},
-    sandbox::Sandbox,
-    verified_kernel,
-};
+mod prelude;
+use prelude::*;
 mod accounts;
 mod agent;
 mod apps;
 mod assets;
+mod b2b;
 mod categories;
 mod chat_lease;
 mod checkout_review;

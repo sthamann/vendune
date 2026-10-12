@@ -19,6 +19,7 @@ export default function AccountOrderDetail({
   run,
   onError,
   reload,
+  loadOrder,
 }: {
   id: string;
   onBack: () => void;
@@ -29,6 +30,7 @@ export default function AccountOrderDetail({
   run: (fn: () => Promise<void>) => Promise<void>;
   onError: (e: unknown) => void;
   reload?: () => Promise<void>;
+  loadOrder?: () => Promise<CustomerOrder>;
 }) {
   const { a, locale } = useAccountText(),
     { c } = useCustomerText(),
@@ -46,7 +48,7 @@ export default function AccountOrderDetail({
     let active = true;
     setOrder(undefined);
     setLoading(true);
-    void shopApi<CustomerOrder>(path)
+    void (loadOrder ? loadOrder() : shopApi<CustomerOrder>(path))
       .then((next) => {
         if (active) setOrder(next);
       })
@@ -84,7 +86,7 @@ export default function AccountOrderDetail({
           onClick={() =>
             void run(async () => {
               const [next] = await Promise.all([
-                shopApi<CustomerOrder>(path),
+                loadOrder ? loadOrder() : shopApi<CustomerOrder>(path),
                 reload?.(),
               ]);
               setOrder(next);
@@ -221,7 +223,8 @@ export default function AccountOrderDetail({
                       disabled={busy}
                       onClick={() =>
                         void download(
-                          `${path}/receipts/${encodeURIComponent(receipt.id)}/pdf`,
+                          receipt.pdfPath ||
+                            `${path}/receipts/${encodeURIComponent(receipt.id)}/pdf`,
                         )
                       }
                     >

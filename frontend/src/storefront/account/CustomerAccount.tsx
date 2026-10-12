@@ -11,6 +11,8 @@ import "./account-polish.css";
 import Icon, { type IconName } from "../../shared/ui/Icon";
 import type { AccountPage } from "./account-types";
 import { useCustomerAccount } from "./useCustomerAccount";
+import CompanyPurchasing from "./CompanyPurchasing";
+import { useB2BText } from "../../shared/i18n/b2b-i18n";
 import CustomerSignIn from "./CustomerSignIn";
 import AccountOverview from "./AccountOverview";
 import ShoppingPreferences from "./ShoppingPreferences";
@@ -25,6 +27,7 @@ const pages: AccountPage[] = [
   "downloads",
   "profile",
   "security",
+  "business",
 ];
 const pageIcons: Record<AccountPage, IconName> = {
   overview: "layers",
@@ -33,6 +36,7 @@ const pageIcons: Record<AccountPage, IconName> = {
   downloads: "arrow",
   profile: "people",
   security: "lock",
+  business: "people",
 };
 export default function CustomerAccount({
   cart,
@@ -47,6 +51,7 @@ export default function CustomerAccount({
     content = useRef<HTMLDivElement>(null);
   const { a } = useAccountText(),
     { c } = useCustomerText();
+  const b = useB2BText();
   const account = useCustomerAccount(cart, onCart);
   const [page, setPage] = useState<AccountPage>("overview"),
     [orderId, setOrderId] = useState<string>();
@@ -122,7 +127,7 @@ export default function CustomerAccount({
                   onClick={() => navigate(next)}
                 >
                   <Icon name={pageIcons[next]} size={18} />
-                  <span>{a(next)}</span>
+                  <span>{next === "business" ? b("portal") : a(next)}</span>
                   <span aria-hidden="true">{page === next ? "•" : "↗"}</span>
                 </button>
               ))}
@@ -160,7 +165,7 @@ export default function CustomerAccount({
             <>
               {page !== "overview" && !orderId && (
                 <div className="account-section-toolbar">
-                  <h2>{a(page)}</h2>
+                  <h2>{page === "business" ? b("portal") : a(page)}</h2>
                   <button
                     className="shop-secondary"
                     disabled={account.busy || account.loading}
@@ -187,6 +192,15 @@ export default function CustomerAccount({
               ) : (
                 account.profile && (
                   <>
+                    {page === "business" && (
+                      <CompanyPurchasing
+                        cart={cart}
+                        onCart={onCart}
+                        customerId={account.profile.id}
+                        busy={account.busy}
+                        run={account.run}
+                      />
+                    )}
                     {page === "overview" && (
                       <AccountOverview
                         profile={account.profile}

@@ -118,3 +118,8 @@ is represented by these images. They do not establish production capacity.
 `native-overview-de-20261009.jpg` captures private release `414e117`, original
 `b11b6e4`: the German overview, actual live address and three chosen products.
 Original preview/renderer chrome still contains English wording.
+
+
+## Native B2B captures — 12 October 2026
+
+`b2b-company-20261012.png` shows the English native company/unit workspace. `b2b-buyer-20261012.png` and `b2b-buyer-mobile-20261012.png` show the German buyer account after actual unit selection, PO entry, two-SKU quick order and approval request. Mobile was measured at 390 × 844: document/account/content width 390px without horizontal overflow. All are unretouched loopback captures from an isolated synthetic tenant; displayed emails use `example.test`. A real unit edit persisted with native actor/revision history. No real payment, partner EDI transport, email or AI call was made. These captures do not establish hosted rollout or partner certification.

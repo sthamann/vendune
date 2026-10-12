@@ -397,4 +397,17 @@ theorem pos_cash_conserves (authorized reviewed : Bool) (tender total : Nat)
 /-- Unauthenticated cash settlement is impossible in the extracted decision. -/
 theorem pos_cash_unauthorized_denied (reviewed : Bool) (tender total : Nat) :
     pos_cash_admissible false tender total reviewed = false := by simp [pos_cash_admissible]
+theorem b2b_budget_exact (limit spent requested : Nat) :
+    b2b_budget_admissible limit spent requested = true ↔ spent ≤ limit ∧ requested ≤ limit - spent := by
+  simp [b2b_budget_admissible]
+theorem b2b_budget_conserves (limit spent requested : Nat)
+    (h : b2b_budget_admissible limit spent requested = true) : spent + requested ≤ limit := by
+  have safe := (b2b_budget_exact limit spent requested).mp h
+  omega
+theorem b2b_approval_exact (different authorized pending current : Bool) :
+    b2b_approval_admissible different authorized pending current = true ↔
+    different = true ∧ authorized = true ∧ pending = true ∧ current = true := by
+  cases different <;> cases authorized <;> cases pending <;> cases current <;> simp [b2b_approval_admissible]
+theorem b2b_self_approval_denied (authorized pending current : Bool) :
+    b2b_approval_admissible false authorized pending current = false := by simp [b2b_approval_admissible]
 end CommerceKernel

@@ -1,0 +1,345 @@
+/** B2B interface catalogue; content names use the shop language editor and per-field inheritance. */
+import { useLocale } from "./i18n";
+export const b2bWords = {
+  searchProducts: [
+    "Search catalog products",
+    "Katalogprodukte suchen",
+    "Rechercher les produits",
+    "Buscar productos",
+  ],
+  selectedProducts: [
+    "Private catalog selection",
+    "Auswahl im privaten Katalog",
+    "Sélection du catalogue privé",
+    "Selección del catálogo privado",
+  ],
+  shipping: [
+    "Allowed shipping methods",
+    "Erlaubte Versandarten",
+    "Modes de livraison autorisés",
+    "Métodos de envío permitidos",
+  ],
+  payments: [
+    "Allowed payment methods",
+    "Erlaubte Zahlungsarten",
+    "Modes de paiement autorisés",
+    "Métodos de pago permitidos",
+  ],
+  allMethods: [
+    "Empty selection inherits all available methods.",
+    "Keine Auswahl erbt alle verfügbaren Methoden.",
+    "Aucune sélection : hérite des méthodes disponibles.",
+    "Sin selección: hereda todos los métodos disponibles.",
+  ],
+  deleteListHint: [
+    "Only this saved list is deleted. Existing orders and the current cart remain available.",
+    "Nur diese gespeicherte Liste wird gelöscht. Bestellungen und der aktuelle Warenkorb bleiben erhalten.",
+    "Seule cette liste est supprimée. Les commandes et le panier restent disponibles.",
+    "Solo se elimina esta lista. Los pedidos y el carrito siguen disponibles.",
+  ],
+  shortTitle: [
+    "Business commerce",
+    "Geschäftskunden",
+    "Commerce professionnel",
+    "Comercio empresarial",
+  ],
+  title: [
+    "Business workspace",
+    "Firmen & Einkauf",
+    "Espace entreprises",
+    "Empresas y compras",
+  ],
+  hint: [
+    "Companies, people and controlled purchasing. Connected to your existing commerce.",
+    "Firmen, Menschen und kontrollierter Einkauf. Verbunden mit deinem Commerce.",
+    "Entreprises, équipes et achats contrôlés. Reliés à votre commerce.",
+    "Empresas, equipos y compras controladas. Conectados a tu comercio.",
+  ],
+  company: ["Company", "Firma", "Entreprise", "Empresa"],
+  unit: [
+    "Purchasing unit",
+    "Einkaufsabteilung",
+    "Unité d’achat",
+    "Unidad de compra",
+  ],
+  newCompany: [
+    "New company",
+    "Neue Firma",
+    "Nouvelle entreprise",
+    "Nueva empresa",
+  ],
+  newUnit: [
+    "New purchasing unit",
+    "Neue Einkaufsabteilung",
+    "Nouvelle unité",
+    "Nueva unidad",
+  ],
+  identifier: ["Reference", "Referenz", "Référence", "Referencia"],
+  name: ["Name", "Name", "Nom", "Nombre"],
+  active: ["Active", "Aktiv", "Active", "Activa"],
+  save: [
+    "Save changes",
+    "Änderungen speichern",
+    "Enregistrer",
+    "Guardar cambios",
+  ],
+  saved: [
+    "Changes saved",
+    "Änderungen gespeichert",
+    "Modifications enregistrées",
+    "Cambios guardados",
+  ],
+  vat: [
+    "VAT identifier",
+    "Umsatzsteuerkennung",
+    "Numéro de TVA",
+    "Identificador IVA",
+  ],
+  currency: [
+    "Budget currency",
+    "Budgetwährung",
+    "Devise du budget",
+    "Moneda del presupuesto",
+  ],
+  budget: [
+    "Period budget (minor units)",
+    "Periodenbudget (kleinste Währungseinheit)",
+    "Budget par période (unités mineures)",
+    "Presupuesto por periodo (unidades menores)",
+  ],
+  threshold: [
+    "Approval above (minor units)",
+    "Freigabe ab (kleinste Währungseinheit)",
+    "Approbation au-delà (unités mineures)",
+    "Aprobación por encima (unidades menores)",
+  ],
+  moneyHint: [
+    "Leave empty for no limit. EUR uses cents; zero approval threshold requires approval for every positive purchase.",
+    "Leer lassen für kein Limit. EUR verwendet Cent; Freigabegrenze null verlangt für jeden positiven Einkauf eine Freigabe.",
+    "Vide : aucune limite. EUR utilise des centimes ; seuil zéro : approbation pour tout achat positif.",
+    "Vacío: sin límite. EUR usa céntimos; umbral cero: aprobación para cada compra positiva.",
+  ],
+  period: [
+    "Budget period",
+    "Budgetperiode",
+    "Période budgétaire",
+    "Periodo del presupuesto",
+  ],
+  week: ["Week", "Woche", "Semaine", "Semana"],
+  month: ["Month", "Monat", "Mois", "Mes"],
+  quarter: ["Quarter", "Quartal", "Trimestre", "Trimestre"],
+  year: ["Year", "Jahr", "Année", "Año"],
+  costCenter: [
+    "Cost center",
+    "Kostenstelle",
+    "Centre de coûts",
+    "Centro de costes",
+  ],
+  requirePO: [
+    "Require purchase-order reference",
+    "Bestellreferenz verlangen",
+    "Exiger une référence d’achat",
+    "Exigir referencia de compra",
+  ],
+  restricted: [
+    "Use a private product catalog",
+    "Privaten Produktkatalog verwenden",
+    "Utiliser un catalogue privé",
+    "Usar un catálogo privado",
+  ],
+  catalog: [
+    "Private catalog",
+    "Privater Katalog",
+    "Catalogue privé",
+    "Catálogo privado",
+  ],
+  catalogSave: [
+    "Save catalog",
+    "Katalog speichern",
+    "Enregistrer catalogue",
+    "Guardar catálogo",
+  ],
+  members: [
+    "Employees & access",
+    "Mitarbeiter & Zugang",
+    "Collaborateurs et accès",
+    "Empleados y acceso",
+  ],
+  chooseCustomer: [
+    "Select an existing customer",
+    "Bestehenden Kunden auswählen",
+    "Choisir un client existant",
+    "Elegir cliente existente",
+  ],
+  grant: [
+    "Grant unit access",
+    "Abteilungszugang einrichten",
+    "Accorder l’accès",
+    "Conceder acceso",
+  ],
+  buy: ["Purchase", "Einkaufen", "Acheter", "Comprar"],
+  approve: [
+    "Approve purchases",
+    "Einkäufe freigeben",
+    "Approuver les achats",
+    "Aprobar compras",
+  ],
+  lists: [
+    "Order lists",
+    "Bestelllisten",
+    "Listes de commande",
+    "Listas de pedido",
+  ],
+  quotes: ["Quotes", "Angebote", "Devis", "Presupuestos"],
+  companyOrders: [
+    "Unit order history",
+    "Bestellhistorie der Abteilung",
+    "Historique de l’unité",
+    "Historial de la unidad",
+  ],
+  manageMembers: [
+    "Manage employees",
+    "Mitarbeiter verwalten",
+    "Gérer les collaborateurs",
+    "Gestionar empleados",
+  ],
+  pause: [
+    "Pause access",
+    "Zugang pausieren",
+    "Suspendre accès",
+    "Pausar acceso",
+  ],
+  resume: [
+    "Restore access",
+    "Zugang aktivieren",
+    "Rétablir accès",
+    "Restaurar acceso",
+  ],
+  noCompany: [
+    "Create your first company, then configure its purchasing units and employees.",
+    "Lege zuerst eine Firma an und konfiguriere anschließend ihre Abteilungen und Mitarbeiter.",
+    "Créez une entreprise, puis ses unités et collaborateurs.",
+    "Crea una empresa, luego sus unidades y empleados.",
+  ],
+  noUnit: [
+    "No purchasing units yet",
+    "Noch keine Einkaufsabteilungen",
+    "Aucune unité pour le moment",
+    "Aún no hay unidades",
+  ],
+  chooseUnit: [
+    "Select a purchasing unit to edit its policies and employees.",
+    "Wähle eine Einkaufsabteilung, um Richtlinien und Mitarbeiter zu bearbeiten.",
+    "Sélectionnez une unité pour modifier ses règles et collaborateurs.",
+    "Selecciona una unidad para editar sus reglas y empleados.",
+  ],
+  portal: [
+    "Company purchasing",
+    "Firmeneinkauf",
+    "Achats d’entreprise",
+    "Compras de empresa",
+  ],
+  select: [
+    "Use this purchasing unit",
+    "Diese Einkaufsabteilung verwenden",
+    "Utiliser cette unité",
+    "Usar esta unidad",
+  ],
+  po: [
+    "Purchase-order reference",
+    "Bestellreferenz",
+    "Référence d’achat",
+    "Referencia de compra",
+  ],
+  requestApproval: [
+    "Request purchase approval",
+    "Einkaufsfreigabe anfragen",
+    "Demander approbation",
+    "Solicitar aprobación",
+  ],
+  pending: [
+    "Pending approval",
+    "Freigabe ausstehend",
+    "Approbation en attente",
+    "Aprobación pendiente",
+  ],
+  approved: ["Approved", "Freigegeben", "Approuvé", "Aprobado"],
+  rejected: ["Rejected", "Abgelehnt", "Refusé", "Rechazado"],
+  consumed: ["Purchased", "Bestellt", "Commandé", "Comprado"],
+  reject: [
+    "Reject purchase",
+    "Einkauf ablehnen",
+    "Refuser achat",
+    "Rechazar compra",
+  ],
+  quickOrder: [
+    "Quick order by SKU",
+    "Schnellbestellung nach Artikelnummer",
+    "Commande rapide par référence",
+    "Pedido rápido por referencia",
+  ],
+  skuHint: [
+    "One SKU and quantity per line, separated by a comma. Replaces the current cart.",
+    "Eine Artikelnummer und Menge pro Zeile, getrennt durch Komma. Ersetzt den aktuellen Warenkorb.",
+    "Une référence et quantité par ligne, séparées par une virgule. Remplace le panier.",
+    "Una referencia y cantidad por línea, separadas por coma. Sustituye el carrito.",
+  ],
+  apply: [
+    "Apply to cart",
+    "In Warenkorb übernehmen",
+    "Appliquer au panier",
+    "Aplicar al carrito",
+  ],
+  saveList: [
+    "Save current cart as a list",
+    "Aktuellen Warenkorb als Liste speichern",
+    "Enregistrer panier comme liste",
+    "Guardar carrito como lista",
+  ],
+  shared: [
+    "Share with purchasing unit",
+    "Mit Einkaufsabteilung teilen",
+    "Partager avec l’unité",
+    "Compartir con unidad",
+  ],
+  remove: ["Delete list", "Liste löschen", "Supprimer liste", "Eliminar lista"],
+  budgetAvailable: [
+    "Within unit budget",
+    "Im Abteilungsbudget",
+    "Dans le budget",
+    "Dentro del presupuesto",
+  ],
+  budgetExceeded: [
+    "Unit budget exceeded",
+    "Abteilungsbudget überschritten",
+    "Budget dépassé",
+    "Presupuesto superado",
+  ],
+  blankList: [
+    "Name your order list",
+    "Benenne deine Bestellliste",
+    "Nommez votre liste",
+    "Pon nombre a tu lista",
+  ],
+  emptyPortal: [
+    "Your merchant can enable company access for this customer account.",
+    "Dein Händler kann den Firmenzugang für dieses Kundenkonto freischalten.",
+    "Votre marchand peut activer l’accès entreprise de ce compte.",
+    "Tu comerciante puede habilitar acceso empresarial a esta cuenta.",
+  ],
+  refresh: ["Refresh", "Aktualisieren", "Actualiser", "Actualizar"],
+  back: ["Companies", "Firmen", "Entreprises", "Empresas"],
+  loading: ["Loading…", "Wird geladen…", "Chargement…", "Cargando…"],
+} as const;
+export type B2BWord = keyof typeof b2bWords;
+export function useB2BText() {
+  const { locale } = useLocale();
+  const i = locale.startsWith("de")
+    ? 1
+    : locale.startsWith("fr")
+      ? 2
+      : locale.startsWith("es")
+        ? 3
+        : 0;
+  return (key: B2BWord) => b2bWords[key][i];
+}

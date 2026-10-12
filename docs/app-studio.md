@@ -158,3 +158,14 @@ and receipts receive `orderId`. Existing app record scopes, explicit install
 consent and native order references remain authoritative. Service apps may
 subscribe to projected `pos.sale_created` / `pos.sale_completed` events.
 [Register setup, full commerce call path and limits](pos.md).
+
+## Modular B2B and EDI — 12 October 2026
+
+Native company units, current employee rights, private catalogs, currency-bound
+budgets, separate approval, RFQ negotiation, quick order and repeat lists reuse
+the existing checkout, inventory, order, document and Flow owners. The Studio and
+customer account use the same API/MCP contracts. [Setup, source owners and precise
+B2B comparison](b2b-commerce.md). The independent `extensions/apps/edi/` package owns
+bounded EDIFACT/UBL/cXML parsing, mapped private requisition import and immutable
+native document export; no Core codec or second ledger. [EDI profiles, deployment
+and network/certification limits](edi.md).

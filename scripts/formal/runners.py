@@ -19,9 +19,12 @@ def rust_dispatch(functions):
     lines = ['//! Generated conformance driver; invokes the same production policy functions as the commerce server.',
         'use vendune::verified_kernel::*;', 'use serde_json::{Value, json};',
         'pub(super) fn eval(j: &Value) -> Result<Value, String> {',
-        '    let args = &j["args"];', '    match j["function"].as_str() {']
+        '    let args = &j["args"];',
+        '    let n = |key: &str| args[key].as_u64().ok_or_else(|| format!("Invalid {key}"));',
+        '    let b = |key: &str| args[key].as_bool().ok_or_else(|| format!("Invalid {key}"));',
+        '    match j["function"].as_str() {']
     for f in functions:
-        args = ', '.join(f'args["{n}"].as_{t}().ok_or("Invalid {n}")?' for n,t in f.args)
+        args = ', '.join(f'{"n" if t == "u64" else "b"}("{n}")?' for n,t in f.args)
         lines.append(f'        Some("{f.name}") => Ok(json!({f.name}({args}))),')
     lines += ['        _ => Err("Unknown policy".into()),', '    }', '}']
     return '\n'.join(lines)+'\n'
