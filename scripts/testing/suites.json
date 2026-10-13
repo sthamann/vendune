@@ -50,6 +50,7 @@
     "app_assets",
     "pos",
     "b2b",
+    "b2b_ucp",
     "behavior_intelligence"
   ],
   "providers": [

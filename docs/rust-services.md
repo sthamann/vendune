@@ -188,3 +188,7 @@ and network/certification limits](edi.md).
 It uses existing commerce callbacks, revisioned app records, native PostgreSQL job
 leases and outbox; it has no direct database credential or second order queue.
 [Setup, seller authorization and review boundaries](marketplaces.md).
+
+## UCP B2B protocol boundary
+
+`src/ucp/` adapts checkout and the versioned Vendune negotiation extension to existing `src/b2b/` owners. Platform-profile fetching reuses the bounded public HTTPS egress client; identity never comes from a profile. RFQs, prices, approvals, budgets, events and orders share native storage and transactions. [Contract, sequence and executable flow](b2b-ucp-negotiation.md).

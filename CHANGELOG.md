@@ -1,5 +1,14 @@
 # Changelog
 
+## UCP B2B offer negotiation — 13 October 2026
+
+- Advertise the versioned Vendune B2B negotiation extension alongside UCP checkout, with a namespace-bound composed schema and configured hosted endpoint.
+- Route buyer RFQs, counterproposal messages, original-cart offer acceptance/release and purchasing approval requests to existing B2B owners; retain the merchant Studio quote inbox, APIs, MCP, history and transactional Flow events.
+- Select exact platform capability versions through bounded public HTTPS profiles, or an explicit vendor client shortcut. Profile compatibility never grants identity; current customer/unit permissions, foreign-object denial, CAS, expiry, budgets and final checkout guards remain native.
+- Expose current purchasing blockers, original-cart quote reads, scoped continuation/order URLs and terminal quote state. Add real PostgreSQL/UCP purchase and denial regressions; preserve the selected-protocol and simulated-payment boundaries.
+- Document the sequence, native operations, extension version and ownership; regenerate the Developer API catalogue and complete rendered source inventory.
+
+
 ## New feature video tours — 13 October 2026
 
 - Add three silent 1080p tours with English captions: POS/shared orders/B2B, visual apps/working preview/Flow canvas/selected release, and marketplace content/consented visitor statistics/semantic journeys.

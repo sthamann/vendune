@@ -558,6 +558,14 @@ Infrastructure probes PostgreSQL version/size/connections, Qdrant readiness, Rus
 
 Browser shopping, merchant HTTP and protocol adapters call shared operations. MCP publishes typed shopping/knowledge/merchant/app tools filtered by current rights; direct invocation is independently authorized. The stdio bridge forwards to the running Core rather than implementing another calculator. The native HTTP MCP subset uses stateless JSON responses and no SSE subscription. UCP's documented checkout adapter shares carts, quotes and order behavior.
 
+The selected `ai.vendune.app.shopping.b2b_negotiation` extension adds native RFQs,
+buyer counterproposals, merchant offers, original-cart acceptance, current purchasing
+constraints and separate approval requests to that checkout. Its profile negotiates
+software compatibility, never company authority; prices, budget, stock, final order
+and Flow events stay with the same native owners. [Versioned contract and working
+purchase sequence](b2b-ucp-negotiation.md). This vendor extension does not claim a
+ratified upstream commercial-negotiation capability or autonomous bargaining.
+
 A reachable HTTPS endpoint and account-side registration are still required for hosted ChatGPT/Claude clients. A custom UI connector requiring OAuth needs its own gateway; a scoped token alone does not implement an OAuth authorization server. [Connection instructions](connectors.md) · [API catalog](studio-api-and-channels.md) · [Protocol scope](shopware-parity.md).
 
 ![Agent commerce distinguishes the shopping path, real adapter counters and client setup](assets/feature-tour/agent-commerce.jpg)

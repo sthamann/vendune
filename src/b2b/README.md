@@ -30,3 +30,5 @@ suites, frontend B2B units and the extracted budget/approval Lean policies. Thes
 do not prove SQL/async correctness or complete B2B-suite equivalence.
 
 Company/unit Studio and HTTP/MCP history delegate to the shared history owner. Configuration restoration preserves current catalog/grants/spending; staging separately publishes reviewed catalog selection. Native method/currency dependency guards protect policy references.
+
+UCP checkout uses these same quote and approval operations via `src/ucp/`; `quote.get`/`quote.current` recheck original-cart ownership and current membership. See [UCP negotiation contract](../../docs/b2b-ucp-negotiation.md). The extension does not create another B2B ledger.

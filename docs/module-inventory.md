@@ -443,7 +443,11 @@ This lists every checked-in source module in these roots, including files with n
 | [src/translations/mod.rs](../src/translations/mod.rs) | Tenant-scoped, resumable AI translation drafts; applying is revision checked and emits native product events. |
 | [src/translations/routes.rs](../src/translations/routes.rs) | Authorized translation job creation, progress, paginated drafts and resume/cancel controls. |
 | [src/translations/worker.rs](../src/translations/worker.rs) | One leased product per step: keyset traversal, bounded inference and resumable provider errors. |
-| [src/ucp.rs](../src/ucp.rs) | Selected UCP checkout adapters sharing the native cart. |
+| [src/ucp/document.rs](../src/ucp/document.rs) | Project the native checkout and current purchasing constraints into UCP; never authorize a purchase. |
+| [src/ucp/messages.rs](../src/ucp/messages.rs) | Human-readable UCP purchasing messages follow the native checkout locale; stable codes remain language-independent. |
+| [src/ucp/mod.rs](../src/ucp/mod.rs) | UCP transport adapters reuse native cart, B2B, pricing, approval and checkout owners. |
+| [src/ucp/negotiation.rs](../src/ucp/negotiation.rs) | UCP B2B commands route to native RFQ/CAS/approval owners; a checkout token alone never identifies an employee. |
+| [src/ucp/profile.rs](../src/ucp/profile.rs) | Discover the versioned B2B extension and intersect opt-in platform profiles through bounded public HTTPS. |
 | [src/verified_kernel.rs](../src/verified_kernel.rs) | Closed, side-effect-free commerce policies extracted to Lean; keep within the checked bool/u64 grammar. |
 | [src/work_signal.rs](../src/work_signal.rs) | One dedicated LISTEN connection per worker process. Commit notifications are hints; polling repairs lost hints. |
 | [src/workers.rs](../src/workers.rs) | Independently deployable worker roles; leases and durable receipts coordinate replicas. |
@@ -1095,6 +1099,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/automation_lifecycle.py](../scripts/automation_lifecycle.py) | Tenant-bound default configuration, revision-safe deletion and actual event-flow effects. |
 | [scripts/automation_registry.py](../scripts/automation_registry.py) | Rebuild the native rule catalog from pinned PHP reflection and explicitly reviewed scope bindings. |
 | [scripts/b2b.py](../scripts/b2b.py) | Native company procurement with real isolated PostgreSQL: approval, budgets, catalogs and shared checkout. |
+| [scripts/b2b_ucp.py](../scripts/b2b_ucp.py) | Real UCP -> native B2B RFQ -> merchant counteroffer -> separate approval -> one durable order. |
 | [scripts/behavior_intelligence.py](../scripts/behavior_intelligence.py) | Real native event, consent, order, graph, MCP and tenant/PII regression; synthetic buyers only. |
 | [scripts/benchmark.py](../scripts/benchmark.py) | Reproducible local HTTP + PostgreSQL benchmark, with response validation. |
 | [scripts/branding.py](../scripts/branding.py) | Keep the public Vendune identity, shared vector assets and executable package/deployment paths consistent. |

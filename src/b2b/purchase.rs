@@ -164,7 +164,7 @@ pub(crate) async fn preview(a: &App, c: &StoredCart, q: &mut Value) -> Result<()
     .bind(fingerprint(c, q, &policy.version))
     .fetch_optional(&mut *tx)
     .await?;
-    q["b2b"] = json!({"companyId":policy.company_id,"company":policy.company.name,"unitId":context.unit_id,"unit":policy.unit.name,"purchaseOrder":context.purchase_order,"quoteId":context.quote_id,"costCenter":policy.unit.cost_center,"currency":policy.unit.currency,"budgetPeriod":period,"budgetMinor":policy.unit.budget_minor,"spentMinor":spent,"approvalRequired":needs_approval(&policy,total),"approval":approval.map(|r|json!({"id":r.get::<String,_>("id"),"state":r.get::<String,_>("state")})),"budgetAvailable":policy.unit.budget_minor.is_none_or(|limit|verified_kernel::b2b_budget_admissible(limit,spent,total))});
+    q["b2b"] = json!({"companyId":policy.company_id,"company":policy.company.name,"unitId":context.unit_id,"unit":policy.unit.name,"purchaseOrder":context.purchase_order,"purchaseOrderRequired":policy.unit.require_purchase_order,"quoteId":context.quote_id,"costCenter":policy.unit.cost_center,"currency":policy.unit.currency,"budgetPeriod":period,"budgetMinor":policy.unit.budget_minor,"spentMinor":spent,"quotesAllowed":policy.member.allows("quotes"),"approvalRequired":needs_approval(&policy,total),"approval":approval.map(|r|json!({"id":r.get::<String,_>("id"),"state":r.get::<String,_>("state")})),"budgetAvailable":policy.unit.budget_minor.is_none_or(|limit|verified_kernel::b2b_budget_admissible(limit,spent,total))});
     Ok(())
 }
 

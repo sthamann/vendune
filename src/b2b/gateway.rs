@@ -18,6 +18,11 @@ pub(crate) const CAPABILITIES: &[(&str, &str)] = &[
         "Revise the purchasing unit product catalog",
     ),
     ("b2b.quotes", "List your company quote requests"),
+    ("b2b.quote.get", "Read an owned original-cart quote"),
+    (
+        "b2b.quote.current",
+        "Read quotes for the current owned company cart",
+    ),
     ("b2b.quotes.merchant", "Read merchant quote inbox"),
     ("b2b.quote.request", "Request a native company cart quote"),
     ("b2b.quote.offer", "Send a currency-bound merchant offer"),
@@ -174,7 +179,7 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
             lists::invoke(a, h, op, v).await
         }
         op @ ("quotes" | "quotes.merchant" | "quote.request" | "quote.offer" | "quote.message"
-        | "quote.reject") => quotes::invoke(a, h, op, v).await,
+        | "quote.reject" | "quote.get" | "quote.current") => quotes::invoke(a, h, op, v).await,
         "quote.accept" => quote_contract::select(a, h, v, true).await,
         "quote.release" => quote_contract::select(a, h, v, false).await,
         "requisition.import" => requisition::import(a, h, v).await,

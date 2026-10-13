@@ -130,7 +130,7 @@ See [international commerce](international-commerce.md) for the exact contract.
 | [`src/sandbox.rs`](../src/sandbox.rs) | Pure Wasmtime guest execution with bounded resources and no host imports. | `Rust guest boundary tests + protocols.py + extensions.py + restart.py` |
 | [`src/seed.rs`](../src/seed.rs) | Idempotent synthetic template catalogue initialization. | `integration.py + users.py + extensions.py + restart.py` |
 | [`src/studio.rs`](../src/studio.rs) | Verified merchant overview facts consumed by the chat and activity views. | `studio.py + users.py` |
-| [`src/ucp.rs`](../src/ucp.rs) | Selected UCP checkout adapters sharing the native cart. | `protocols.py + integration.py + commerce.py + users.py` |
+| [`src/ucp/`](../src/ucp/) | Checkout transport, native projection, profile/version selection and vendor B2B negotiation adapter. | `protocols.py + b2b_ucp.py + b2b.py + tenant_isolation.py` |
 
 ## New v0.5 modules
 

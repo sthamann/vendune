@@ -894,8 +894,8 @@
     },
     "src/apps/egress.rs": {
       "status": "unproved",
-      "sha256": "7e918355bff07cf102013977aae3f47eb41d84f81b741953c592ac5d3991c993",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "b7ad055b5bd892662c2b0dc51d0797ae884ce056b9d379ffee3f776189898db5",
+      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
     },
     "src/apps/event_contract.rs": {
       "status": "unproved",
@@ -969,8 +969,8 @@
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "0b5fd2121f5f76f02d4fed437fdaafca59c820d8166ef8874ff53de90eb4f98f",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "sha256": "bbe88317deef374f78b61a9a2c4ca6db2f54d21d718fc121a23b3b0d8d12c086",
+      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
@@ -1309,8 +1309,8 @@
     },
     "src/b2b/gateway.rs": {
       "status": "unproved",
-      "sha256": "1359a987d684f30480543175fae33ab391a007af85fe81016f8d009942f0e1d2",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "68ac645fff07cd501596727ef3aa0e24348a3219820f056a63c8930ba6ebf7d4",
+      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
     },
     "src/b2b/lists.rs": {
       "status": "unproved",
@@ -1339,8 +1339,8 @@
     },
     "src/b2b/purchase.rs": {
       "status": "reviewed-binding",
-      "sha256": "736bbb01507333bdb1c018286238130b36a7c3d42ec98c5bb6958c14ad50d070",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "f0c8015c7c0c8ebee1dd9c0cbc2541a81275e5a2748d1b180c314ea3599066ff",
+      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
     },
     "src/b2b/quick_order.rs": {
       "status": "unproved",
@@ -1354,8 +1354,8 @@
     },
     "src/b2b/quotes.rs": {
       "status": "unproved",
-      "sha256": "1a75cfe6572c2b4f2f2be8a553dbd84269b20ec27b23fa1df20b22aacd0e2db7",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "b59c5d7a163e9837ac35005aba1fbc6d8e413fd98967cc06ef8cc462653251df",
+      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
     },
     "src/b2b/requisition.rs": {
       "status": "unproved",
@@ -1509,8 +1509,8 @@
     },
     "src/checkout_handoff.rs": {
       "status": "unproved",
-      "sha256": "a567acb75c77daa86924a71772cebcc31ac4d4733605b865c6d1ecd3d635ac28",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "01e69c4d4e4d98bd1f01462bf50138885fab573999196cd76ebebcad8d1eee18",
+      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
     },
     "src/checkout_page.rs": {
       "status": "unproved",
@@ -2199,8 +2199,8 @@
     },
     "src/main.rs": {
       "status": "unproved",
-      "sha256": "6a03426ecdeb5166e69b5ab0b4d0c9396fe71eeab1bb27f30cfa51f7dec591a1",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "23270e8753d7992317fa4c2c0914679aa720f3f26998bd7b3a4331623333742f",
+      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
     },
     "src/marketing/app_flows.rs": {
       "status": "reviewed-binding",
@@ -2609,8 +2609,8 @@
     },
     "src/performance/delivery.rs": {
       "status": "unproved",
-      "sha256": "29cac2eab4421f527764d620c5a06727e9a04f5d5e11385d4638ce51fe814b63",
-      "review": "Reviewed final admission, binding and immutable Arc settings diff; native-only static bypass consumes exact Lean policy and hosted paths remain admitted. Domain resolver runs before compression classification; explicit secret-free opt-in, Vary Accept-Encoding, MIME/ranges/SSE and deterministic sidecars preserve HTTP contracts. Fresh snapshot SQL and joined credential membership preserve tenant/channel ownership and immediate pause/revocation. Batched persisted inventory uses sorted locks and idempotent release; one overview SQL plus three branches preserves mixed-currency business response fingerprints. Embedded SQL and build inputs are now review locked. Real two-replica read, tenant, channel, checkout, strict runtime and PgBouncer regressions passed. These async/SQL/browser/provider adapters remain unproved."
+      "sha256": "87dbf0a9212f291001b8749400d850e76b8a1aa5b68bf2c8b9d90fc8443bf0bb",
+      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
     },
     "src/performance/invalidation.rs": {
       "status": "unproved",
@@ -2779,8 +2779,8 @@
     },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "8a9bc3a78f3b70359b7db04646a11c8b2059d2ef6d71af1a775a1509eb95cfc1",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "53729d63617a59c1463b38d3789b8dd5bcaf898accc5217a2151bf6dad258487",
+      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",
@@ -2947,10 +2947,30 @@
       "sha256": "3a4078d45460790b5298c9627fe5059ec33dd7e2f168f8de89c956f8c09e8b89",
       "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
     },
-    "src/ucp.rs": {
+    "src/ucp/document.rs": {
       "status": "unproved",
-      "sha256": "6594c59ecffe00d5aac20a6a45050edbe5711f13d9a15c1dbb211b02b3014ceb",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "f9743e0b65bb6849a9d2851c6a2990795156368c9021abb56b06617999c2fcfb",
+      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+    },
+    "src/ucp/messages.rs": {
+      "status": "unproved",
+      "sha256": "c969c7bd0d1c3581923aec9073d8bd809c9bc89b1feb17249b85cc405f0ef89a",
+      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+    },
+    "src/ucp/mod.rs": {
+      "status": "unproved",
+      "sha256": "4c5e04e498315aad797232cfc22d105cb7a2128ad737b1d081b5605d448244b6",
+      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+    },
+    "src/ucp/negotiation.rs": {
+      "status": "unproved",
+      "sha256": "37920311f0e9cb34a2fc6163694d8efc999261a4ced4955e220c3a47129a16c0",
+      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+    },
+    "src/ucp/profile.rs": {
+      "status": "unproved",
+      "sha256": "8256046da9ad065fd7ec7557238691b30b56a9979f8fe6fe1163e5f9696170fa",
+      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
     },
     "src/verified_kernel.rs": {
       "status": "extracted-policy",
@@ -3406,8 +3426,8 @@
       "review": "Reviewed exact paid external-order amount and positive-total guards, their live import consumers, signed-input rejection, Lean properties and negative mutations; provider tax law, SQL and external effects remain unproved"
     },
     "scripts/formal/registry.py": {
-      "sha256": "29d0faa4493e4248ddd93991c8b4a9515ac29f90fe849e872577c8705a18e7d2",
-      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
+      "sha256": "76fe686dccf1a4c3b625983909e8f5251cd076d9bb75a4c407cd1f2e917e2a05",
+      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
     },
     "scripts/formal/runners.py": {
       "sha256": "66d5041b9201ceb7421bf868e49a2b7bd241a5959f21c1ac7b8394e628825b1d",
@@ -3496,6 +3516,10 @@
     "src/studio/overview.sql": {
       "sha256": "08ab1c71d526596a2f283bb46c5778e03a9d3d1a03b8cc7dc325300f19f097af",
       "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
+    },
+    "src/ucp/b2b-negotiation.json": {
+      "sha256": "f04cd0653b19ddf3e6d8bcbfc5990789b78d846e761302f913f35856657d5514",
+      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
     }
   }
 }

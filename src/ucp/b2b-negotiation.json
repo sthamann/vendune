@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://app.vendune.ai/ucp/2026-10-13/b2b-negotiation.json",
+  "name": "ai.vendune.app.shopping.b2b_negotiation",
+  "version": "2026-10-13",
+  "title": "Vendune company purchasing and offer negotiation",
+  "description": "Vendor extension backed by native original-cart RFQs, integer-currency merchant offers and separate purchasing approvals. Not a standardized UCP commercial-negotiation capability.",
+  "requires": {
+    "protocol": {
+      "min": "2026-08-25",
+      "max": "2026-08-25"
+    },
+    "capabilities": {
+      "dev.ucp.shopping.checkout": {
+        "min": "2026-08-25",
+        "max": "2026-08-25"
+      }
+    }
+  },
+  "$defs": {
+    "negotiation": {
+      "type": "object",
+      "required": [
+        "checkout_revision",
+        "purchasing",
+        "quotes"
+      ],
+      "properties": {
+        "checkout_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "purchasing": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "quotes": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "type": "object"
+          }
+        },
+        "quote_limit": {
+          "const": 20
+        },
+        "result": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "dev.ucp.shopping.checkout": {
+      "allOf": [
+        {
+          "$ref": "https://ucp.dev/2026-08-25/schemas/shopping/checkout.json"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "b2b_negotiation": {
+              "$ref": "#/$defs/negotiation"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
