@@ -248,7 +248,7 @@ it("keeps read-only catalog navigation without offering creation or mutable prod
   expect(screen.getByLabelText("Price")).toBeDisabled();
   await user.click(screen.getByRole("tab", { name: "Media" }));
   expect(container.querySelector("input[type=file]")).toBeNull();
-  await user.click(screen.getByRole("button", { name: "Back", exact: true }));
+  await user.click(screen.getByRole("button", { name: /^Back$/ }));
   expect(screen.getByLabelText("Image URL")).toHaveValue("/back.png");
   expect(screen.getByLabelText("Image URL")).toBeDisabled();
   await user.click(screen.getByRole("tab", { name: "Variants" }));
