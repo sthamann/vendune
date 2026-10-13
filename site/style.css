@@ -1,9 +1,9 @@
 :root {
   color-scheme: dark;
-  --paper: #0c0e11;
-  --ink: #f4f5ef;
+  --paper: #171B18;
+  --ink: #F5F3EC;
   --muted: #a8afb9;
-  --accent: #d2fa69;
+  --accent: #D2F34A;
   --line: #2c3139;
   --panel: #15191f;
   --soft: #1d242c;
@@ -1033,3 +1033,5 @@ details p {
     width: 100%;
   }
 }
+
+.brand-wordmark { width: 160px; height: 30px; object-fit: contain; flex-shrink: 0; }

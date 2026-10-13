@@ -1,4 +1,4 @@
-# The Vendune app platform
+# The VEYNDO app platform
 
 An app is an immutable, reviewed Manifest. Studio, coding agents, API, MCP, Flow
 Builder and storefront surfaces use that same contract. The public core owns

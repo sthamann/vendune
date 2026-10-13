@@ -71,5 +71,5 @@ reconciliation mechanism even when no PSP webhook is used.
 
 No wallet custody, onramp integration, node deployment, exchange-rate service or
 live transfer has been added or tested. The third-party onramp linked in the issue
-is not an endorsed Vendune dependency. A subsequent implementation proposal needs
+is not an endorsed VEYNDO dependency. A subsequent implementation proposal needs
 a runnable adapter and evidence for the lifecycle above.

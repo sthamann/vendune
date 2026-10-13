@@ -1,94 +1,106 @@
-# New feature video tours
+# VEYNDO video tours
 
-**Recorded 13 October 2026.** Three 1080p tours with English burned-in captions, optional WebVTT and no audio. [Watch the chapter player](https://sthamann.github.io/vendune/index.html#demo). The German/English [team briefing](https://team.vendune.ai/#tours) includes these films alongside the original Experience and SaaS tours.
+Fresh VEYNDO captures, 13 October 2026. The approved Living V identity and
+"Commerce that thinks and acts." claim are used throughout. All data is synthetic.
+Payments are simulated. Clips are silent, captioned and edited for readability;
+they are not latency measurements or production-provider acceptance.
 
-## Capture boundary
+## Connected Commerce
 
-These are actual application recordings from merged commit `c6b3c3c1a6050c36e5a64de900b873f856ab733e`, running against an isolated local PostgreSQL database and synthetic Nord Atelier shop. The films show current merged UI behavior, not a claim that every hosted service already runs that commit. No credentials or real customer records are published. No paid AI call, outgoing email, external marketplace sync or real payment is performed.
+[Watch the film](assets/showcase/connected-commerce.mp4) · [English captions](assets/showcase/connected-commerce.vtt)
 
-## Connected commerce
+One catalogue. Shared orders. Controlled business purchasing.
 
-[![Connected commerce](assets/showcase/connected-commerce.webp)](assets/showcase/connected-commerce.mp4)
+Actual UI screencast. A cash sale was recorded only in an isolated synthetic shop; no fiscal-device or external EDI delivery is demonstrated.
 
-**1:10 · English · silent.** Complete a native cash sale, issue its shared receipt, inspect the order and configure business buying.
+Duration: 38.3 seconds. Actual UI source: Core `5b2ebb5`.
 
-| Time | Chapter |
-| --- | --- |
-| 0:05 | Cashier |
-| 0:25 | One Order System |
-| 0:35 | Business Buying |
-| 0:53 | Independent Apps |
+## Build And Automate
 
-Cash is recorded in an isolated demo. B2B policies and EDI permissions are shown; no fiscal device certification or external EDI delivery is claimed.
+[Watch the film](assets/showcase/build-and-automate.mp4) · [English captions](assets/showcase/build-and-automate.vtt)
 
-### Transcript
+Typed apps. Visible workflows. Deliberate releases.
 
-Connected commerce: a guided tour of the connected Vendune prototype.
-Cashier focus keeps products and the current sale together. Complete a cash sale and generate its receipt.
-The same sale appears in order management, with payment, fulfillment, documents and history.
-Configure company buying with a cost center, budget, approval threshold and employee permissions.
-The EDI app declares its data, actions and permissions. Its independent adapter handles supported document profiles.
-Explore the source, follow the guides and test a workflow of your own.
+Editorial sequence of fresh actual UI stills. An app draft version, an unsaved Flow edit and a selected product release are shown as distinct operations.
 
-## Build and automate
+Duration: 29.0 seconds. Actual UI source: Core `5b2ebb5`.
 
-[![Build and automate](assets/showcase/build-and-automate.webp)](assets/showcase/build-and-automate.mp4)
+## Connected Intelligence
 
-**1:16 · English · silent.** Design an app visually, save a product-bound record in its working preview and publish just the app package from staging.
+[Watch the film](assets/showcase/connected-intelligence.mp4) · [English captions](assets/showcase/connected-intelligence.vtt)
 
-| Time | Chapter |
-| --- | --- |
-| 0:05 | Visual Design |
-| 0:25 | Working Preview |
-| 0:41 | Event Flows |
-| 0:57 | Selective Release |
+Connected knowledge. Reviewed sources. Explicit limits.
 
-No paid model call is made. The Flow canvas branch is an unsaved edit; execution history shows the already saved POS note flow.
+Actual UI screencast of reviewed synthetic knowledge and explicit autonomy limits. No continuous business optimization or model training is demonstrated.
 
-### Transcript
+Duration: 50.4 seconds. Actual UI source: Core `5b2ebb5`.
 
-Build and automate: a guided tour of the connected Vendune prototype.
-Start from a working app pattern. Add controls, undo, switch merchant and shopper views, then inspect its data model.
-Choose a real product in the sandbox, enter care advice and save it through the app’s actual data contract.
-Inspect the cashier event flow and add a branch on its canvas. Completed executions show the earlier sale’s note.
-Review the changed app package, select it and publish. Sandbox test records are not copied into the live shop.
-Explore the source, follow the guides and test a workflow of your own.
+## Checkout
 
-## Connected intelligence
+[Watch the film](assets/showcase/checkout.mp4) · [English captions](assets/showcase/checkout.vtt)
 
-[![Connected intelligence](assets/showcase/connected-intelligence.webp)](assets/showcase/connected-intelligence.mp4)
+Choose a variant. Review the order. Keep the experience connected.
 
-**1:12 · English · silent.** Edit channel-specific offer content, inspect consented visitor statistics and follow shopping events into the semantic product graph.
+Actual UI screencast with synthetic contact/address data and simulated authorization; no real payment.
 
-| Time | Chapter |
-| --- | --- |
-| 0:05 | Channel Content |
-| 0:23 | Consented Signals |
-| 0:37 | Connected Knowledge |
-| 0:55 | Merchant Control |
+Duration: 24.9 seconds. Actual UI source: Core `5b2ebb5`.
 
-Marketplace credentials are not connected. Visitor observations and orders are synthetic; graph links do not establish causal uplift or automatic model training.
+## App Studio
 
-### Transcript
+[Watch the film](assets/showcase/app-studio.mp4) · [English captions](assets/showcase/app-studio.vtt)
 
-Connected intelligence: a guided tour of the connected Vendune prototype.
-Override a marketplace title, description, images or mapped fields without replacing the original catalog product.
-Explore browser, screen and referral groups alongside product views, cart additions and native order counts.
-The graph connects observed products to their existing shop knowledge. Inspect a consented guest journey for its evidence.
-Explore the knowledge connections and their origin. Merchant review controls which evidence can support customer-facing answers.
-Explore the source, follow the guides and test a workflow of your own.
+Design it. Test it privately. Save a version.
 
-## Try the demonstrated workflows
+Actual UI screencast. The saved immutable app version is a draft, not a published package.
 
-- **POS:** create a POS sales channel, select a product and cash/pickup, complete a synthetic sale, create its invoice/receipt and open the same order in Studio. [POS guide](pos.md).
-- **B2B:** edit company and unit policies, exact-currency budget, approval threshold, employee permissions and ordering rules. [B2B guide](b2b-commerce.md) · [Independent EDI app](edi.md).
-- **App Studio:** choose a pattern, design a view, approve/install in a private sandbox, save a product-bound record through the working preview, then select only the app release unit. [Visual designer](app-studio.md).
-- **Flows:** inspect the POS completion event and its recorded note executions; the filmed branch edit itself is not saved. [Rules and flows](automation.md).
-- **Marketplaces:** review channel-specific listing content and field mapping before enabling credentials or publication. [Marketplace boundaries](marketplaces.md).
-- **Visitor intelligence:** use current analytics consent, record synthetic shopping events, inspect reports and product-linked journeys. [Behavior intelligence](behavior-intelligence.md).
+Duration: 44.6 seconds. Actual UI source: Core `5b2ebb5`.
 
-## Media and reproducibility
+## Knowledge
 
-Chapter times, capture date, source commit, codec, dimensions, file sizes and hashes are stored in [the tour manifest](assets/showcase/tours.json). Source recordings are trimmed at scene boundaries; a final real frame may be held to leave reading time. No UI actions are reordered and UI colors are preserved. Titles and captions explain relationships and scope. Raw recordings, local authentication state and private code are excluded from publication.
+[Watch the film](assets/showcase/knowledge.mp4) · [English captions](assets/showcase/knowledge.vtt)
 
-The existing six workflow clips and their original capture provenance remain available below the new tours. Silent videos load on demand; native controls, keyboard-accessible tabs and chapter jumps remain available.
+Connected knowledge. Reviewed sources. Explicit limits.
+
+Actual UI screencast of a reviewed synthetic source. Price autonomy remains disabled; no model training is demonstrated.
+
+Duration: 50.4 seconds. Actual UI source: Core `5b2ebb5`.
+
+## Flows
+
+[Watch the film](assets/showcase/flows.mp4) · [English captions](assets/showcase/flows.vtt)
+
+Inspect execution traces. Design a reviewable flow. Publish deliberately.
+
+Actual UI screencast. The edited branch is not saved; execution history belongs to existing saved flows.
+
+Duration: 24.3 seconds. Actual UI source: Core `5b2ebb5`.
+
+## Release
+
+[Watch the film](assets/showcase/release.mp4) · [English captions](assets/showcase/release.vtt)
+
+Private changes. Explicit review. Selected publication.
+
+Editorial sequence of fresh actual UI stills. A selected product change was published in the synthetic shop; this does not show an app-package release.
+
+Duration: 20.0 seconds. Actual UI source: Core `5b2ebb5`.
+
+## Translations
+
+[Watch the film](assets/showcase/translations.mp4) · [English captions](assets/showcase/translations.vtt)
+
+One catalogue. Separate content languages. Explicit inheritance.
+
+Actual UI screencast of existing English/German/French content. No translation-provider job was invoked.
+
+Duration: 17.6 seconds. Actual UI source: Core `5b2ebb5`.
+
+## Capture provenance
+
+[File hashes, sizes and media metadata](assets/showcase/manifest.json) and
+[chaptered tour provenance](assets/showcase/tours.json) identify the published files.
+The captures were produced on the verified rebrand branch; their existence does
+not establish that the branch has been merged or deployed. Raw recordings and
+credentials are excluded from the public repository.
+
+[Team briefing](https://team.veyndo.ai/#tours) · [Complete feature guide](features.md).

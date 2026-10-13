@@ -1,6 +1,6 @@
 # Email delivery: SMTP, Resend and SendGrid
 
-Install **Email Delivery** in **Vendune Studio → Apps**, open its detail page,
+Install **Email Delivery** in **VEYNDO Studio → Apps**, open its detail page,
 and choose SMTP, Resend or SendGrid. The workspace and order-confirmation templates
 support English, German, French and Spanish. Gmail remains a separate read-only
 support-mail import app. Email Delivery is a new transactional service; it is not
@@ -77,7 +77,8 @@ separate configuration and deployment boundaries:
   SMTP settings do not implicitly configure every shop's order notifications.
 
 As of 2026-10-07, `mail.vendune.ai` is authenticated at Brevo and its sender
-`Vendune <hello@mail.vendune.ai>` is verified. The existing `vendune-experience`
+The existing sender `Vendune <hello@mail.vendune.ai>` was verified for the previous
+domain. A VEYNDO sender on the new domain needs its own verification before use. The existing `vendune-experience`
 Northflank service has its SMTP configuration in a runtime secret file and has
 been restarted. A single signup-code request through the public Experience page
 was confirmed `Sent` and `Delivered` by Brevo at 08:43 CEST that day. Inbox

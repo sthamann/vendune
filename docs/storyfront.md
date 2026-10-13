@@ -23,7 +23,7 @@ is a deployment choice, not something inferred from the installed app.
 the separately configured catalog publication and one-use checkout-transfer path.
 Its dated acceptance evidence retains its original scope.
 
-Storyfront (Ambient-C) can use Vendune as its catalog and checkout backend.
+Storyfront (Ambient-C) can use VEYNDO as its catalog and checkout backend.
 The connector is an independently deployed app, not storefront-specific business
 logic inside the Rust core. It creates a valid merchant manifest, copies product
 images, and connects the cinematic bag to the same cart and order operations used
@@ -209,7 +209,7 @@ cart ID and order ID, never merchant credentials or customer details.
 sequenceDiagram
     participant Bag as Original Storyfront bag
     participant Bridge as Private Storyfront API
-    participant Core as Vendune checkout
+    participant Core as VEYNDO checkout
     Bag->>Bridge: Product IDs and quantities
     Bridge->>Core: Existing one-use handoff
     Core-->>Bag: Native checkout in a registered-origin frame

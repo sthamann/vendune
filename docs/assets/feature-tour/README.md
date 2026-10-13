@@ -2,7 +2,7 @@
 
 [Feature guide](../../features.md) · [All media provenance](../README.md)
 
-These are screenshots and recordings of the actual Vendune application, captured
+These are screenshots and recordings of the actual Veyndo application, captured
 through its browser UI in an isolated local Docker installation with real
 PostgreSQL and Qdrant. The shop, merchant/customer identities, addresses, order,
 knowledge source and app records are synthetic. No production shop or customer

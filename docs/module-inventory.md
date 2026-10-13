@@ -1121,7 +1121,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/b2b_ucp.py](../scripts/b2b_ucp.py) | Real UCP -> native B2B RFQ -> merchant counteroffer -> separate approval -> one durable order. |
 | [scripts/behavior_intelligence.py](../scripts/behavior_intelligence.py) | Real native event, consent, order, graph, MCP and tenant/PII regression; synthetic buyers only. |
 | [scripts/benchmark.py](../scripts/benchmark.py) | Reproducible local HTTP + PostgreSQL benchmark, with response validation. |
-| [scripts/branding.py](../scripts/branding.py) | Keep the public Vendune identity, shared vector assets and executable package/deployment paths consistent. |
+| [scripts/branding.py](../scripts/branding.py) | Keep approved VEYNDO graphics consistent while the existing runtime namespace awaits its separate migration. |
 | [scripts/build_app_ui.py](../scripts/build_app_ui.py) | Export deterministic example HTML and its operator uiDigests entry; never fetch remote resources. |
 | [scripts/build_site.py](../scripts/build_site.py) | Build marketing pages and the complete Markdown documentation for GitHub Pages. |
 | [scripts/catalog_management.py](../scripts/catalog_management.py) | Real HTTP/PostgreSQL catalog creation, categories, multilingual editor, visibility and staging regressions. Synthetic isolated shops only. |

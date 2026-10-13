@@ -34,10 +34,10 @@ synthetic Commerce Playground. It shows the current grouped shell, dedicated
 settings navigation and native company form. The UI was captured directly,
 without mocked responses, layout editing or image generation.
 
-The `../screenshots/vendune-shipping.jpg` and `vendune-product-media.jpg` captures were recorded on 2026-10-05 from the current Vendune build in the synthetic Commerce Playground. They show the shared settings/content-language controls and the saved three-image mug gallery, without mocked responses or image editing. The gallery uses bundled demo illustrations; these are not generated product photographs or evidence of paid model quality. No live configuration was changed for these captures.
+The `../screenshots/veyndo-shipping.jpg` and `veyndo-product-media.jpg` captures were recorded on 2026-10-05 from the current Veyndo build in the synthetic Commerce Playground. They show the shared settings/content-language controls and the saved three-image mug gallery, without mocked responses or image editing. The gallery uses bundled demo illustrations; these are not generated product photographs or evidence of paid model quality. No live configuration was changed for these captures.
 
-The `../screenshots/vendune-app-discovery.png` and `vendune-app-details.png`
-captures were recorded on 2026-10-05 from the real running Vendune build in the
+The `../screenshots/veyndo-app-discovery.png` and `veyndo-app-details.png`
+captures were recorded on 2026-10-05 from the real running Veyndo build in the
 synthetic Commerce Playground, with English UI and no mocked data or image
 editing. Cover illustrations are generated inline vectors, not official provider
 logos or AI photographs. No app installation, live deactivation or provider call

@@ -122,7 +122,7 @@ configured by this release. [Guide and exact boundaries](marketplaces.md).
 ### Checkout continuity
 
 [PR #82](https://github.com/sthamann/vendune/pull/82) adds the existing native
-Vendune checkout as an embedded surface inside the original Storyfront experience.
+VEYNDO checkout as an embedded surface inside the original Storyfront experience.
 The same calculation, legal review, delivery, payment and immutable order owners
 serve both checkout surfaces. Only the registered shop/channel origin may embed
 the checkout; foreign origins and non-default HTTPS ports are rejected.
@@ -206,7 +206,7 @@ The receipt confirms simulated authorization; no money was charged. The return
 button exposed a separate SPA-navigation defect, repaired with canonical hosted
 navigation while preserving local SPA behavior and channel/language scope.
 
-![Original Storyfront Studio in the Vendune frame](assets/showcase/native-public-studio-20261009.png)
+![Original Storyfront Studio in the VEYNDO frame](assets/showcase/native-public-studio-20261009.png)
 
 ![Actual original German product-answer scene](assets/showcase/native-public-ai-scene-20261009.png)
 

@@ -1,6 +1,6 @@
 # Knowledge workspace
 
-Open **Vendune Studio → Shop intelligence** (German: **Shopwissen**). The workspace separates authoritative
+Open **VEYNDO Studio → Shop intelligence** (German: **Shopwissen**). The workspace separates authoritative
 catalogue data, merchant-managed sources, curated graph connections, order-derived
 associations and explicit merchant approvals. It shows actual persisted data;
 an empty shop does not receive fabricated questions, support tickets or learning.

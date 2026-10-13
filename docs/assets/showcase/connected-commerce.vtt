@@ -1,19 +1,10 @@
 WEBVTT
 
-00:00:00.000 --> 00:00:05.000
-Connected commerce: a guided tour of the connected Vendune prototype.
+00:00:00.000 --> 00:00:04.000
+VEYNDO. Commerce that thinks and acts.
 
-00:00:05.000 --> 00:00:25.000
-Cashier focus keeps products and the current sale together. Complete a cash sale and generate its receipt.
+00:00:04.000 --> 00:00:34.333
+One catalogue. Shared orders. Controlled business purchasing.
 
-00:00:25.000 --> 00:00:35.000
-The same sale appears in order management, with payment, fulfillment, documents and history.
-
-00:00:35.000 --> 00:00:53.000
-Configure company buying with a cost center, budget, approval threshold and employee permissions.
-
-00:00:53.000 --> 00:01:05.000
-The EDI app declares its data, actions and permissions. Its independent adapter handles supported document profiles.
-
-00:01:05.000 --> 00:01:10.000
-Explore the source, follow the guides and test a workflow of your own.
+00:00:34.333 --> 00:00:38.333
+People set the rules.

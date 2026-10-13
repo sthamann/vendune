@@ -2,12 +2,12 @@
 
 **Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).
 
-Vendune supports company purchasing on the same catalog, currency calculation,
+VEYNDO supports company purchasing on the same catalog, currency calculation,
 cart, inventory transaction, payment-provider contract, order and document owners
 used by B2C and POS. A company is inside one merchant tenant. A sales channel is a
 shared selling context; an unrelated SaaS merchant remains a separate tenant.
 
-**UCP buyers:** [Discoverable offer negotiation](b2b-ucp-negotiation.md) connects the same RFQs, merchant inbox and purchasing approvals to UCP checkout. This is a versioned Vendune extension, not an official UCP price-negotiation capability.
+**UCP buyers:** [Discoverable offer negotiation](b2b-ucp-negotiation.md) connects the same RFQs, merchant inbox and purchasing approvals to UCP checkout. This is a versioned VEYNDO extension, not an official UCP price-negotiation capability.
 
 ## Build only the modules a buyer needs
 
@@ -108,7 +108,7 @@ the app projection strips customer identity, addresses and private quote/cart to
 and [commercetools Associate APIs](https://docs.commercetools.com/api/associates-overview)
 are useful references for organization, employee and purchase authorization.
 This is an independently implemented native slice, not copied proprietary code
-or a claim of one-to-one equivalence. Vendune implements organization units,
+or a claim of one-to-one equivalence. VEYNDO implements organization units,
 explicit employee permissions, quick orders, repeat lists, quote negotiation,
 threshold approvals and unit budgets in the connected path described above.
 
