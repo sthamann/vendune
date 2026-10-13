@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Keep the public Vendune identity, shared vector assets and executable package/deployment paths consistent."""
+"""Keep approved VEYNDO graphics consistent while the existing runtime namespace awaits its separate migration."""
 import json
 import os
 import re
@@ -22,12 +22,13 @@ lock_names = re.findall(r'^name = "([^"]+)"$', (ROOT / 'Cargo.lock').read_text()
 assert lock_names == sorted(lock_names), 'Normalize Cargo.lock with full cargo metadata after a crate rename'
 for file in ('frontend/package.json', 'frontend/package-lock.json'):
     assert json.loads((ROOT / file).read_text())['name'] == 'vendune-experience'
-mark = (ROOT / 'docs/brand/vendune-mark.svg').read_bytes()
+mark = (ROOT / 'docs/brand/veyndo-mark.svg').read_bytes()
+assert (ROOT / 'docs/brand/vendune-mark.svg').read_bytes() == mark, 'Compatibility asset differs from approved identity'
 for file in ('frontend/public/brand/vendune-mark.svg', 'site/favicon.svg'):
     assert (ROOT / file).read_bytes() == mark, f'Divergent mark: {file}'
 for file in (ROOT / 'docs/brand').glob('*.svg'):
     svg = ElementTree.fromstring(file.read_text())
-    assert svg.tag.endswith('svg') and svg.attrib.get('aria-label') == 'Vendune'
+    assert svg.tag.endswith('svg') and svg.attrib.get('aria-label') == 'VEYNDO'
     assert not any(n.tag.endswith('script') for n in svg.iter())
     assert not re.search(r'\b(?:href|src)=["\'](?:https?:|data:|javascript:)', file.read_text())
 for folder in ('src', 'scripts', 'deploy', '.github'):
@@ -37,7 +38,7 @@ for folder in ('src', 'scripts', 'deploy', '.github'):
             assert 'target/debug/rust-ai-commerce' not in path.read_text(), path
             assert '/app/rust-ai-commerce' not in path.read_text(), path
 assert '/brand/vendune-mark.svg' in (ROOT / 'frontend/index.html').read_text()
-assert 'https://github.com/sthamann/vendune' in (ROOT / 'site/llms.txt').read_text()
+assert 'https://github.com/sthamann/veyndo' in (ROOT / 'site/llms.txt').read_text()
 assert 'vendune-postgres-1' in (ROOT / '.github/workflows/verify.yml').read_text()
 
 # Execute the real launcher through a fake Docker boundary; stop before any database or install mutation.
