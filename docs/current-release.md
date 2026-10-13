@@ -299,7 +299,7 @@ Storyfront manifest links them; it contains no closed renderer or provider keys.
   Google/Apple OAuth acceptance, real payment settlement or production capacity.
 - **No external transaction for this documentation refresh:** no new email, paid
   inference, image generation or payment; the new screenshots are passive English
-  captures of an owned public demo. [Exact media provenance](assets/showcase/README.md#public-integration-captures-8-october-2026).
+  captures of an owned public demo. [Exact media provenance](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/showcase/README.md#public-integration-captures-8-october-2026).
 
 The retained 6 October fashion demo recordings are dated evidence of those local
 workflows, not relabelled captures of this later release. For full scope, use

@@ -1,11 +1,8 @@
-# App tutorial capture inventory — 12 October 2026
+# VEYNDO app tutorial capture inventory — 13 October 2026
 
-Unretouched Chrome browser captures from the real local VEYNDO workbench.
-Frontend/core implementation: `10fa6bd727b14e416b7d406aa30e9cb8f4918ebb` source,
-with identical production code to the package-ownership update. The English
-interface runs with a synthetic merchant and a private staging environment.
-Images are JPEG bytes with `.jpg` filenames; no generated UI, annotations,
-post-processing, provider credentials or real customer data are included.
+Unretouched browser captures of the actual local VEYNDO workbench, with synthetic records and a private preview environment. The original rebrand capture set uses source `5b2ebb5`; the new customer, schedule and ERP PNGs use `3cea18a`. JPEG files contain JPEG bytes; current PNG files contain PNG bytes. No generated UI, provider credentials or real customer data are included.
+
+The six new tutorial captures are recorded in [individual provenance](../remaining-veyndo-captures.json). Draft configuration is not app installation, a scheduled tick or external delivery. Earlier acceptance remains in the [archived inventory](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/app-tutorials/README.md).
 
 | File | Visible step | What it proves / excludes |
 | --- | --- | --- |

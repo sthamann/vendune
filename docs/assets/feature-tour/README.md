@@ -1,91 +1,11 @@
-# Feature-tour captures — 6 and 8 October 2026
+# VEYNDO feature-tour captures — 13 October 2026
 
-[Feature guide](../../features.md) · [All media provenance](../README.md)
+[Feature guide](../../features.md) · [Media provenance](../README.md)
 
-These are screenshots and recordings of the actual VEYNDO application, captured
-through its browser UI in an isolated local Docker installation with real
-PostgreSQL and Qdrant. The shop, merchant/customer identities, addresses, order,
-knowledge source and app records are synthetic. No production shop or customer
-data is used. Responses and DOM/layout were not mocked or rearranged; screenshots
-were not generated or retouched.
+The current feature guide uses fresh screenshots and twelve refreshed GIFs from the real VEYNDO UI. The isolated Nord Atelier fixture uses PostgreSQL and synthetic merchant/customer records. The interface and responses were not generated, mocked or rearranged. Product photographs are bundled demonstration artwork.
 
-The guide was subsequently reviewed on 8 October; its new public integration
-captures have [separate provenance](../showcase/README.md#public-integration-captures-8-october-2026).
-The recordings in this directory retain their 6 October source versions.
+The initial rebrand capture source is `5b2ebb5`; the additional context views use `3cea18a`. [Additional capture metadata](../additional-veyndo-captures.json), [remaining-capture metadata](../remaining-veyndo-captures.json) and [context-capture metadata](../veyndo-current-context-captures.json) record individual hashes, source revisions and limits. [Recording metadata](recordings.json) identifies the current GIFs.
 
-The two 8 October App Studio PNGs (`app-form-designer.png` and
-`app-private-preview.png`) were captured from the `feat/app-platform-v2` working
-tree based on `a8755f4`, using the actual Chrome UI and Rust runtime on port 61610
-with isolated PostgreSQL 17. The synthetic shop is App Studio Lab. The preview
-contains a lamp care record saved through the native app gateway and reloaded
-from PostgreSQL. No provider call, production data, Qdrant assertion, mocked
-response or image modification is involved in these two captures. The final
-commit containing them identifies the exact captured source changes.
+Current illustrations include actual product editors, currencies, country settings, knowledge sources, the API explorer, disabled test-mode email settings, POS layouts and persisted synthetic cash-sale orders. The USD checkout capture did not submit an order. The contextual assistant was opened without a model request. Customer, schedule and ERP tutorial drafts were not installed; the schedule was not run and no ERP endpoint was called.
 
-## Source versions
-
-The feature guide was reviewed against `main` at **`5e4f8b5`**. The unchanged UI
-screenshots and all twelve GIFs were captured from **`036b36a`** (the current
-Nord Atelier demo, including the preceding platform controls). The instance was
-then rebuilt from `5e4f8b5` to check the trusted identity/hosted frontend additions.
-`identity-explorer.jpg`, `app-data-models.jpg`, `app-design-still.jpg`,
-`product-pricing.jpg`, `product-visibility.jpg`, `product-specifications.jpg`,
-`product-seo.jpg`, `product-cross-selling.jpg`, `product-reviews.jpg`,
-`shipping.jpg` and `customer-groups.jpg` were captured from that rebuild. They
-show the latest identity route, actual saved app model/design and native product,
-shipping and customer-group controls. This distinction avoids relabeling older captures as a
-different source build.
-
-The twelve checked-in fashion photographs are generated demo artwork. The
-screenshots show those actual bundled files; they do not establish image-provider
-quality or a new inference call. The two separately dated email/Product Lab
-illustrations referenced by the feature guide retain their original provenance
-in the parent media directory.
-
-## Recording inventory
-
-| File | Real interaction | Observed boundary |
-| --- | --- | --- |
-| [variants-cart.gif](variants-cart.gif) | Switch coat size, inspect SKU/stock and add to cart | The cart contains the selected child product |
-| [checkout.gif](checkout.gif) | Select delivery, review quote and place order | Simulated authorization/order only; no real charge |
-| [product-languages.gif](product-languages.gif) | Change saved content language and open Markdown | Hydrates existing translations; no automatic model translation |
-| [variant-generator.gif](variant-generator.gif) | Generate XL/XXL draft combinations | Stops at review; the children are not created |
-| [history-restore.gif](history-restore.gif) | Confirm restore of a previous product revision | Native validated restore; live stock is preserved |
-| [knowledge-publication.gif](knowledge-publication.gif) | Request publication and confirm the decision | The fictional source becomes eligible public knowledge |
-| [flow-canvas.gif](flow-canvas.gif) | Navigate and inspect the saved six-step flow | Editor interaction; no external delivery is asserted |
-| [channel-wizard.gif](channel-wizard.gif) | Select languages/category root and review a channel | Final creation is a separate step |
-| [app-design.gif](app-design.gif) | Add Text/Cards, undo and redo | Native canvas with explicitly labeled sample data |
-| [app-preview.gif](app-preview.gif) | Save a product-bound care record in the working preview | Actual sandbox-managed persistence |
-| [selective-release.gif](selective-release.gif) | Release the selected app package | Separate app-record data remains in the sandbox |
-| [shop-lifecycle.gif](shop-lifecycle.gif) | Pause, trash and restore an empty shop | Recoverable lifecycle of the isolated `lifecycle-tour` shop |
-
-The GIFs use actual browser screencast JPEG frames, encoded at 1,024 pixels wide
-with an eight-frame-per-second presentation and a 128-color palette. Long waits
-are shortened and important states are held for readability; recording segments
-of the same operation are joined where needed. No interaction or successful
-result is synthesized. Their timing must not be used as a latency benchmark.
-[recordings.json](recordings.json) records the source segment names, captured
-frame counts, final byte sizes and SHA-256 digests.
-
-## Service and verification scope
-
-### 12 October workbench capture
-
-[app-workbench-patterns.jpg](app-workbench-patterns.jpg) shows the actual German
-App Studio in the synthetic local `workbench-preview` shop: Product advisor,
-Returns workspace and ERP handoff starting points in the same creation wizard.
-It is a browser capture, not a mockup. The returns pattern was separately tested
-with an owned order, native persistence and a real local-model edit; this image
-alone does not establish hosted or external-provider acceptance.
-
-All checkout payments are simulated. The optional model, email, Slack, OAuth,
-PayPal and private Storyfront services were not contacted for these captures.
-Provider settings illustrate configuration; “Configured” is not a health check
-or evidence of a successful external transaction. The knowledge test uses native
-source retrieval without an LLM call. Platform counters/probes describe the
-isolated instance rather than production capacity.
-
-The guide combines observed UI behavior with the reviewed native contracts.
-Screenshots do not establish every configuration, external integration or failure
-case. Keep that distinction, source versions and synthetic-data boundary when
-replacing media after a feature change.
+The local fixtures do not establish every production provider integration. Earlier feature acceptance and screenshots remain available in the [immutable archived feature-tour inventory](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/feature-tour/README.md). Their original dated evidence must not be relabeled as a current build.
