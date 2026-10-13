@@ -14,7 +14,7 @@ This is implemented behavior, not a measured conversion advantage over Shopify.
 ## API contract
 
 `POST /store-api/checkout/order` can bind its review using both
-`x-commerce-cart-revision` and `x-commerce-total-minor` (integer cents). Veyndo's
+`x-commerce-cart-revision` and `x-commerce-total-minor` (integer cents). VEYNDO's
 storefront always sends the pair with the cart token and stable cart-specific
 idempotency key. Partial, malformed, negative, stale or changed reviews fail
 before order/inventory writes. Already committed replay returns the original
@@ -48,7 +48,7 @@ Polling is bounded and non-overlapping; terminal states stop it.
 The separate private repository is `sthamann/veyndo-shopware-payments`.
 It currently establishes the proprietary attribution/source boundary, not a
 working Shopware Payments network adapter. The official standalone API/SDK,
-onboarding agreement and Veyndo-authorized test account are still required.
+onboarding agreement and VEYNDO-authorized test account are still required.
 Do not relabel the native PayPal adapter as Shopware Payments or invent endpoints.
 Vendor implementation and authorized codes remain private; the public core keeps
 generic commerce/payment contracts.

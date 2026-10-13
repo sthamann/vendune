@@ -2,7 +2,7 @@
 
 **12 October workbench update:** editable app patterns, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. [How to use it, ownership and verification boundaries](connected-workbench.md).
 
-Veyndo's commerce server and bundled Email Delivery / Google Analytics / Gmail / Slack
+VEYNDO's commerce server and bundled Email Delivery / Google Analytics / Gmail / Slack
 service run in Rust. The connector is a separate process (`cargo build --locked --bin
 connectors`), not provider logic embedded in checkout handlers. Both services use
 PostgreSQL; connector private records are encrypted with AES-256-GCM, bound to tenant
@@ -191,4 +191,4 @@ leases and outbox; it has no direct database credential or second order queue.
 
 ## UCP B2B protocol boundary
 
-`src/ucp/` adapts checkout and the versioned Veyndo negotiation extension to existing `src/b2b/` owners. Platform-profile fetching reuses the bounded public HTTPS egress client; identity never comes from a profile. RFQs, prices, approvals, budgets, events and orders share native storage and transactions. [Contract, sequence and executable flow](b2b-ucp-negotiation.md).
+`src/ucp/` adapts checkout and the versioned VEYNDO negotiation extension to existing `src/b2b/` owners. Platform-profile fetching reuses the bounded public HTTPS egress client; identity never comes from a profile. RFQs, prices, approvals, budgets, events and orders share native storage and transactions. [Contract, sequence and executable flow](b2b-ucp-negotiation.md).

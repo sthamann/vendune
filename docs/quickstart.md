@@ -26,7 +26,7 @@ The storefront, SKU selection, quantity pricing, cart and simulated checkout
 work without a running LLM. Chat planning and vector indexing require their
 respective model services and report errors when unavailable.
 
-Open Veyndo Studio (`/#merchant`). The login page offers **Create shop** for
+Open VEYNDO Studio (`/#merchant`). The login page offers **Create shop** for
 a new personal owner account, **Sign in** for an existing account and invitation
 acceptance. Select **Create shop** for the first local tour.
 Create a personal owner account and a synthetic shop. One identity can belong
@@ -147,9 +147,9 @@ when running setup; keep applied source immutable and add new migration files.
 Plan the initial index build before serving a large existing database. This
 process separation is a foundation, not a production deployment recipe.
 
-## Upgrading an existing pre-Veyndo checkout
+## Upgrading an existing pre-VEYNDO checkout
 
-The repository and binaries are now named **Veyndo**. An old checkout directory
+The repository and binaries are now named **VEYNDO**. An old checkout directory
 can stay in place. `scripts/dev.sh` reuses a detected legacy Compose database
 project; an explicit `COMPOSE_PROJECT_NAME` overrides detection. Use that actual
 project name when stopping it. Never remove the old data volume to rename the

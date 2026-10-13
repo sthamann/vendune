@@ -1,6 +1,6 @@
 # Email delivery: SMTP, Resend and SendGrid
 
-Install **Email Delivery** in **Veyndo Studio → Apps**, open its detail page,
+Install **Email Delivery** in **VEYNDO Studio → Apps**, open its detail page,
 and choose SMTP, Resend or SendGrid. The workspace and order-confirmation templates
 support English, German, French and Spanish. Gmail remains a separate read-only
 support-mail import app. Email Delivery is a new transactional service; it is not
@@ -77,7 +77,7 @@ separate configuration and deployment boundaries:
   SMTP settings do not implicitly configure every shop's order notifications.
 
 As of 2026-10-07, `mail.veyndo.ai` is authenticated at Brevo and its sender
-`Veyndo <hello@mail.veyndo.ai>` is verified. The existing `veyndo-experience`
+`VEYNDO <hello@mail.veyndo.ai>` is verified. The existing `veyndo-experience`
 Northflank service has its SMTP configuration in a runtime secret file and has
 been restarted. A single signup-code request through the public Experience page
 was confirmed `Sent` and `Delivered` by Brevo at 08:43 CEST that day. Inbox

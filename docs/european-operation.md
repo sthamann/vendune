@@ -1,6 +1,6 @@
 # European commerce: privacy, consumer rights and sector information
 
-Veyndo connects legal configuration to the actual storefront, checkout, product
+VEYNDO connects legal configuration to the actual storefront, checkout, product
 facts, HTTP/MCP operations, outbox and transactional email. This is an operational
 toolkit, **not a legal certificate**. Applicability depends on destination, trader,
 customer type, product and national implementation. Sources below were checked

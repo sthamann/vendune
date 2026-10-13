@@ -1,7 +1,7 @@
-# Veyndo identity and compatibility
+# VEYNDO identity and compatibility
 
-**Product:** Veyndo. **Merchant workspace:** Veyndo Studio.
-**Operator console:** Veyndo Platform.
+**Product:** VEYNDO. **Merchant workspace:** VEYNDO Studio.
+**Operator console:** VEYNDO Platform.
 **Canonical repository:** https://github.com/sthamann/veyndo.
 **Documentation:** https://sthamann.github.io/veyndo/docs/.
 

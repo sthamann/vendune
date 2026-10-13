@@ -1,7 +1,7 @@
 # Fast commerce reads and a scalable database boundary
 
 Rust removes PHP runtime overhead; it cannot remove a network round trip, an
-unbounded query or a contended database row. Veyndo's fast path therefore reuses
+unbounded query or a contended database row. VEYNDO's fast path therefore reuses
 immutable decoded context, reduces SQL statements, bounds work and preserves
 authoritative purchase decisions. This document separates delivered changes
 from the next architecture stages.

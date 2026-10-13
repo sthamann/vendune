@@ -1,6 +1,6 @@
 # Native point of sale
 
-POS is a **sales-channel type in the existing Veyndo commerce system**. A register
+POS is a **sales-channel type in the existing VEYNDO commerce system**. A register
 uses the same products, inventory, prices, taxes, currencies, promotions, orders,
 provider ledger and immutable documents as a storefront. It has no second checkout
 or register-specific database. The interface is an authenticated Studio workspace.
@@ -12,7 +12,7 @@ or register-specific database. The interface is an authenticated Studio workspac
    country from the enabled country catalogue and select its languages/products.
 3. Choose two to six product columns, optional compact cards and a translated
    receipt footer. Missing translations inherit the shop main language.
-4. Save. Veyndo adds cash and free immediate collection **to this channel's existing
+4. Save. VEYNDO adds cash and free immediate collection **to this channel's existing
    settings override**, leaving the other channels' payment and delivery settings intact.
 5. Open **Point of sale**, choose the register and search or scan a product number/EAN.
    **Open register** on the channel opens the dedicated register mode immediately.
@@ -63,7 +63,7 @@ value. Reducing goods below a fixed adjustment or changing its currency requires
 and reapplying it. The cart revision, cashier and reason are retained in transactional
 `pos.discount_changed` events. This is not a second promotion or pricing engine.
 
-**Ask Veyndo** beside the register reuses the existing grounded merchant chat and its
+**Ask VEYNDO** beside the register reuses the existing grounded merchant chat and its
 configured provider. The question includes the current item labels, not customer contact
 data. This panel displays advice only: it exposes no apply/payment action. Normal model
 permissions, quotas and provider configuration apply. It does not claim an automatic
@@ -75,7 +75,7 @@ upsell effect or a new model integration.
 
 Add products, adjust purchase-step-aware quantities, apply configured coupon codes
 and optionally choose another enabled channel currency. All totals are returned by
-Veyndo; the browser does not calculate a discount or tax. The cart's final integer
+VEYNDO; the browser does not calculate a discount or tax. The cart's final integer
 minor-unit total and revision must match at completion.
 
 For cash, enter the received amount or select **Exact amount**. Change uses integer

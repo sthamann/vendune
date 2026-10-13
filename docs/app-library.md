@@ -1,6 +1,6 @@
 # App library and management
 
-Open **Veyndo Studio → Apps**. **Installed** shows the actual tenant packages,
+Open **VEYNDO Studio → Apps**. **Installed** shows the actual tenant packages,
 versions and activation status; **Discover** shows the built-in packages available
 to install. Search includes translated names, IDs and summaries. Categories and
 status filters reduce the list; returning from a detail page preserves filters.

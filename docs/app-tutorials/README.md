@@ -1,4 +1,4 @@
-# Build five apps with Veyndo
+# Build five apps with VEYNDO
 
 These illustrated workshops follow the current App Studio: one visual designer,
 one Manifest, the same API/MCP gateway and an explicit staging/release workflow.
@@ -20,7 +20,7 @@ real app-owned packages; the nine assistants create the same editable contract.*
 
 ## Before you start
 
-1. [Run Veyndo locally](../quickstart.md) or sign in to your merchant Studio.
+1. [Run VEYNDO locally](../quickstart.md) or sign in to your merchant Studio.
    Use a synthetic shop when following the data-writing and automation examples.
 2. Open **Staging & releases**, create a private environment and select it in the
    top bar. Return to **Developers → App Studio → New app**. Creation/version

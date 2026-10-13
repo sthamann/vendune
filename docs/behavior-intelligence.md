@@ -1,6 +1,6 @@
 # Visitor behavior and shop knowledge
 
-Veyndo can record **consented first-party observations** for guests and signed-in
+VEYNDO can record **consented first-party observations** for guests and signed-in
 customers, then connect them to current products, native orders and the existing
 semantic product graph. Open **Studio → Shop knowledge → Visitor behavior**.
 Choose a sales channel and a one-, seven- or thirty-day window. This is a native
@@ -107,7 +107,7 @@ product and customer ownership independently of API object predicates.
 
 A visitor can export or erase the current context through the same cart token.
 This does not erase financial orders. Policy and consent configuration remain in
-Veyndo's existing legal settings; this feature does not certify legal compliance.
+VEYNDO's existing legal settings; this feature does not certify legal compliance.
 
 ## Native API and MCP
 
@@ -135,7 +135,7 @@ Example event (send normal native shop/channel/context headers):
 
 The same report is available to the existing bounded merchant agent read loop.
 No separate AI pipeline or automatic model training is introduced. Storefront capture
-is installed in the **native Veyndo frontend**. Storyfront, POS and other headless
+is installed in the **native VEYNDO frontend**. Storyfront, POS and other headless
 frontends can use this contract, but require explicit consent-aware adapters; their
 installation alone does not mean these observations are being recorded. This feature
 is independent of the Google Analytics app and its opt-in tag/provider service.
@@ -145,7 +145,7 @@ is independent of the Google Analytics app and its opt-in tag/provider service.
 Optional `BEHAVIOR_GEO_SHARED_SECRET` is server-only, 32–256 bytes. A trusted proxy
 must strip client-supplied geography headers, authenticate its own requests with
 `x-veyndo-geo-token`, and supply a validated ISO country as `x-veyndo-geo-country`.
-It must resolve geography before proxying; Veyndo does not install a GeoIP provider
+It must resolve geography before proxying; VEYNDO does not install a GeoIP provider
 or infer visitor location from the shipping address. Never expose this secret in a
 browser bundle. Invalid tokens or unassigned country codes remain unknown. This
 optional ingress has been tested with synthetic requests, not configured on public

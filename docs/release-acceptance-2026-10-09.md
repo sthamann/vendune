@@ -244,7 +244,7 @@ The receipt confirms simulated authorization; no money was charged. The return
 button exposed a separate SPA-navigation defect, repaired with canonical hosted
 navigation while preserving local SPA behavior and channel/language scope.
 
-![Original Storyfront Studio in the Veyndo frame](assets/showcase/native-public-studio-20261009.png)
+![Original Storyfront Studio in the VEYNDO frame](assets/showcase/native-public-studio-20261009.png)
 
 ![Actual original German product-answer scene](assets/showcase/native-public-ai-scene-20261009.png)
 
