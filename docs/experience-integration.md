@@ -1,6 +1,6 @@
 # Trusted identity and hosted frontend integration
 
-Vendune exposes a generic integration boundary. No Storyfront source or provider credentials belong in this public repository. A separately operated private experience service can verify a merchant, create an owned tenant, inherit the operator model and mount a public storefront.
+VEYNDO exposes a generic integration boundary. No Storyfront source or provider credentials belong in this public repository. A separately operated private experience service can verify a merchant, create an owned tenant, inherit the operator model and mount a public storefront.
 
 ## Identity and inference
 

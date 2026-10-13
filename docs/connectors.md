@@ -5,7 +5,7 @@ There are two distinct connections. Both use the same commerce capabilities.
 ## Models inside the merchant chat
 
 Operators can configure encrypted global provider settings and shop overrides
-in **Vendune Platform → AI providers**; ordinary shops inherit that selection.
+in **VEYNDO Platform → AI providers**; ordinary shops inherit that selection.
 Configured flags are not provider-health checks. See [provider inheritance](platform.md#central-ai-inherited-by-all-shops).
 
 For a local environment-based setup, set credentials in the private, ignored

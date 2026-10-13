@@ -1,6 +1,6 @@
 # Studio setup, roles and safe delegation
 
-Vendune uses the same tenant and permission owners for Studio, HTTP, MCP, API
+VEYNDO uses the same tenant and permission owners for Studio, HTTP, MCP, API
 keys, app callbacks and background Flow execution. A hidden menu is a convenience;
 it is never the security boundary.
 

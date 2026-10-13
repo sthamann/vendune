@@ -1,7 +1,7 @@
 # Marketplace channels
 
 Marketplace Studio connects Amazon, eBay and Kaufland through an independent Rust
-app. One Vendune catalogue remains authoritative for product identity, native
+app. One VEYNDO catalogue remains authoritative for product identity, native
 currency pricing, available stock and orders. Every connection belongs to an
 existing `marketplace` sales channel in the same merchant workspace.
 
@@ -14,13 +14,13 @@ existing `marketplace` sales channel in the same merchant workspace.
 | Mapping | Automatic standard title/description/image/stock/price projection; explicit data-only source paths for provider attributes. Custom attributes win. Preview records missing minimum requirements before sending. |
 | Sync | Explicit listing/update or paginated order-retrieval job through the native job/outbox/app gateway. Native job idempotency, CAS record revisions, worker admission and renewed leases. |
 | Orders | Preserve original source in private inbox; suggest unique SKU matches and source address/quantity fields; review payment, complete addresses and exact source gross/tax amounts, then atomically create native order, guest customer snapshot, stock allocation/consumption and events. |
-| Documents | Native immutable invoice/PDF flow, order detail/status/history and app/Flow consumers. Marketplace payment is recorded externally; Vendune performs no second charge. |
+| Documents | Native immutable invoice/PDF flow, order detail/status/history and app/Flow consumers. Marketplace payment is recorded externally; VEYNDO performs no second charge. |
 | API/MCP/Flow | Manifest actions are the same contract for Studio, API and permitted MCP tools; `sync` is Flow-enabled. Explicit PII and paid-import permissions apply. Paid intake also requires the calling user’s `payments.manage` and `customers.pii` rights, not merely the service credential. |
 | App Studio | Import/version the same package, entities, service/job actions and sales-channel core references. Provider implementations remain app-owned. |
 
 ```mermaid
 flowchart LR
-  Studio[Vendune Studio / API / MCP / Flow] --> Core[Native permission-aware app gateway]
+  Studio[VEYNDO Studio / API / MCP / Flow] --> Core[Native permission-aware app gateway]
   Core --> Jobs[PostgreSQL app jobs + outbox]
   Jobs --> Service[Independent marketplace Rust service]
   Service --> Sellers[Amazon / eBay / Kaufland]
@@ -54,7 +54,7 @@ queue, pricing engine, order ledger or receipt implementation.
    job status/result; a next-page button preserves the exact original timestamp filter.
 7. **Order inbox** → **Review order**. Check source payment, product matches, both
    addresses and exact line/shipping gross and taxes. Unknown amounts remain blank.
-   Import opens the regular Vendune order; invoice generation uses the usual API/UI.
+   Import opens the regular VEYNDO order; invoice generation uses the usual API/UI.
 
 ![Marketplace Studio with synthetic local Amazon and eBay offers](../extensions/apps/marketplaces/assets/studio-offers.jpg)
 

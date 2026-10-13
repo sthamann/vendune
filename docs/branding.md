@@ -1,7 +1,7 @@
-# Vendune identity and compatibility
+# VEYNDO identity and compatibility
 
-**Product:** Vendune. **Merchant workspace:** Vendune Studio.
-**Operator console:** Vendune Platform.
+**Product:** VEYNDO. **Merchant workspace:** VEYNDO Studio.
+**Operator console:** VEYNDO Platform.
 **Canonical repository:** https://github.com/sthamann/vendune.
 **Documentation:** https://sthamann.github.io/vendune/docs/.
 
@@ -46,8 +46,8 @@ never delete its database volume to perform a rename.
 - Dated verification/benchmark records and old recordings retain their original
   names, paths and measured evidence. Historical images are evidence, not a
   representation of the current interface. README screenshots are recaptured
-  from Vendune. Historic GitHub repository links redirect after the repo rename;
-  new links use the canonical Vendune URL.
+  from VEYNDO. Historic GitHub repository links redirect after the repo rename;
+  new links use the canonical VEYNDO URL.
 
 `python3 scripts/branding.py` checks package/runtime paths, current public
 identity, shared SVG assets, source ownership and the absence of stale platform
