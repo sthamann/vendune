@@ -5,17 +5,20 @@
 **Canonical repository:** https://github.com/sthamann/sellm.
 **Documentation:** https://sthamann.github.io/sellm/docs/.
 
-The seLLM mark connects two L-shaped paths, with a terminal node for intelligence
-and action. The shared colors are azure `#2459ef` and mint `#55e7bd`. The mark is a small, dependency-free SVG. UI and site favicons use
-identical copies checked by `scripts/branding.py`; the wordmark includes light
-and dark variants. [Mark](brand/sellm-mark.svg), [wordmark](brand/sellm-logo.svg),
+The seLLM identity uses an outlined geometric wordmark with a mint terminal
+cursor. The restrained palette is charcoal `#17212b`, off-white `#f3f7fb` and
+mint `#2be3b7`. The compact double-L mark is reserved for favicons and compact
+surfaces. UI and site favicons use identical copies checked by
+`scripts/branding.py`; wordmarks have light and dark variants.
+[Mark](brand/sellm-mark.svg), [wordmark](brand/sellm-logo.svg),
 [dark wordmark](brand/sellm-logo-dark.svg). `shared/ui/Brand.tsx` owns the UI
-identity. Tenant-owned company logos and merchant shop names are independent.
+identity and places the Studio label below the wordmark within the available
+width. Tenant-owned company logos and merchant shop names are independent.
 
-The [repository header](brand/sellm-readme.svg) uses the same mark, azure/mint
-palette. Its connected intelligence diagram
-is authored brand artwork, not a browser screenshot or a performance claim.
-README product images remain unedited captures of the actual English prototype.
+The [repository header](brand/sellm-readme.svg) uses the same identity. Its
+connected intelligence diagram is authored brand artwork, not a browser
+screenshot or a performance claim. README product images remain unedited
+captures of the actual English prototype.
 
 ## Package and deployment naming
 
@@ -41,7 +44,7 @@ never delete its database volume to perform a rename.
   headers retain their existing security behavior; renaming them is unnecessary
   and would invalidate sessions or integrations. Client principal headers remain
   untrusted and cannot grant access.
-- Stored migration-ledger checksums remain unchanged. Five historical sources
+- Stored migration-ledger checksums remain unchanged. Six historical sources
   receive the explicit identity-only update requested for this rename. The
   migration runner accepts only the documented exact old/new SHA-256 pairs in
   `src/migrations/identity_checksums.rs`; an unreviewed byte change still fails.

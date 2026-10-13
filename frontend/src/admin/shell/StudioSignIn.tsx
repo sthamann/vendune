@@ -49,8 +49,7 @@ export default function StudioSignIn({
   const content = (
     <section className="studio-auth-card">
       <div className="studio-auth-mark">
-        <Icon name="spark" size={26} />
-        <strong>{BRAND.name}</strong>
+        <img className="sellm-logo" src={BRAND.logo} alt={BRAND.name} />
         <span>{t("studio")}</span>
       </div>
       <h1 id="studio-auth-title">

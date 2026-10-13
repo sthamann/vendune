@@ -140,6 +140,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/bin/verified_kernel/dispatch.rs](../src/bin/verified_kernel/dispatch.rs) | Generated conformance driver; invokes the same production policy functions as the commerce server. |
 | [src/bin/verified_kernel.rs](../src/bin/verified_kernel.rs) | Generated input/output driver; production policies are dispatched by the generated module. |
 | [src/bootstrap.rs](../src/bootstrap.rs) | Startup, additive migrations, persisted extensions and outbox worker. |
+| [src/brand_redirect.rs](../src/brand_redirect.rs) | Operator-configured domain migration preserves the host prefix, path, query and HTTP method. |
 | [src/capabilities/catalog.rs](../src/capabilities/catalog.rs) | Shared catalogue composes native capabilities and cognitive contracts without duplicating authorization. |
 | [src/capabilities/core_catalog.rs](../src/capabilities/core_catalog.rs) | Public HTTP/MCP capability catalogue, separate from authorization and dispatch. |
 | [src/capabilities.rs](../src/capabilities.rs) | Shared HTTP/MCP capability dispatch and tool authorization. |
@@ -333,6 +334,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/mcp/transport.rs](../src/mcp/transport.rs) | MCP visibility and shared read-scope memoization, independent of internal planning tools. |
 | [src/mcp/visibility.rs](../src/mcp/visibility.rs) | MCP discovery applies current merchant permissions through the same capability owners as invocation. |
 | [src/mcp.rs](../src/mcp.rs) | Typed MCP schemas and JSON-RPC transport. |
+| [src/migrations/identity_checksums.rs](../src/migrations/identity_checksums.rs) | Explicit source-hash pairs for the reviewed identity-only migration source update. |
 | [src/migrations/recent_schema.rs](../src/migrations/recent_schema.rs) | Later additive migrations retain the same ordered ledger and checksum contract. |
 | [src/migrations/schema.rs](../src/migrations/schema.rs) | Append-only ordered migration source catalogue; deployed checksums are never rewritten. |
 | [src/migrations.rs](../src/migrations.rs) | Versioned setup is separate from serving; no catalog-wide startup repair. |

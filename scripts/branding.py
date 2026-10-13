@@ -25,6 +25,8 @@ for file in ('frontend/package.json', 'frontend/package-lock.json'):
 mark = (ROOT / 'docs/brand/sellm-mark.svg').read_bytes()
 for file in ('frontend/public/brand/sellm-mark.svg', 'site/favicon.svg'):
     assert (ROOT / file).read_bytes() == mark, f'Divergent mark: {file}'
+for name in ('sellm-logo.svg', 'sellm-logo-dark.svg'):
+    assert (ROOT / 'frontend/public/brand' / name).read_bytes() == (ROOT / 'docs/brand' / name).read_bytes(), f'Divergent wordmark: {name}'
 for file in (ROOT / 'docs/brand').glob('*.svg'):
     svg = ElementTree.fromstring(file.read_text())
     assert svg.tag.endswith('svg') and svg.attrib.get('aria-label') == 'seLLM'

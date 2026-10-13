@@ -65,8 +65,13 @@ export default function StudioHeader() {
         </span>
       </div>
       <div className="topbar-actions">
-        <button className="studio-secondary" onClick={auth.logout}>
-          {s("logout")}
+        <button
+          className="studio-secondary studio-signout"
+          aria-label={s("logout")}
+          onClick={auth.logout}
+        >
+          <Icon name="logout" size={18} />
+          <span>{s("logout")}</span>
         </button>
         {canOpenStudio("assistant", access) && (
           <button

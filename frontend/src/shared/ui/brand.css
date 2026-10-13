@@ -1,8 +1,11 @@
 /** Shared vector brand sizing and typography for Studio and the operator console. */
 .sellm-brand {
   display: inline-flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  min-width: 0;
+  max-width: 100%;
 }
 .sellm-mark {
   width: 38px;
@@ -30,4 +33,29 @@
   height: 44px;
 }
 
-.sellm-logo { width: 145px; height: 38px; object-fit: contain; }
+.sellm-logo-pair {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+}
+.sellm-logo {
+  display: block;
+  width: 112px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: left center;
+}
+.sellm-logo--dark {
+  display: none;
+}
+[data-theme="dark"] .sellm-logo--light {
+  display: none;
+}
+[data-theme="dark"] .sellm-logo--dark {
+  display: block;
+}
+.studio-brand {
+  min-width: 0;
+  max-width: 100%;
+}

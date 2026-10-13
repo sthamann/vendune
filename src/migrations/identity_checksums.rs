@@ -27,6 +27,11 @@ const APPROVED: &[(&str, &str, &str)] = &[
         "558d728f668e9438d70826484eb45fdebfaf243a19868d1afc161ca33be49ec2",
         "3832cddadcb7a940f1a096af0315e5e4efeba299c3cc60b4813005e8e55518c9",
     ),
+    (
+        "082-workspace-roles",
+        "cc6761ee27a71878646eb47431ad9c77b3d2878a9c7fc79868e15615610de538",
+        "2e425ca0b2e553243d8a6537eb2e8057c467717b9b20846d6a8cfb88464d5f44",
+    ),
 ];
 pub(super) fn matches(version: &str, source: &str, applied: &str) -> bool {
     let current = hash(source);
@@ -42,7 +47,10 @@ mod tests {
     #[test]
     fn only_exact_reviewed_source_and_ledger_pairs_are_accepted() {
         for (version, new, old) in APPROVED {
-            let source = super::super::sources().iter().find(|(v, _)| v == version).unwrap().1;
+            let source = super::super::sources()
+                .find(|(v, _)| v == version)
+                .unwrap()
+                .1;
             assert_eq!(hash(source), *new);
             assert!(matches(version, source, old));
             assert!(matches(version, source, new));

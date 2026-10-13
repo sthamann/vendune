@@ -199,6 +199,33 @@ body:has(.studio) {
   .studio .studio-sidebar {
     gap: 14px;
   }
+  .studio .studio-topbar > div:first-child {
+    flex: 0 0 36px;
+    overflow: visible;
+  }
+  .studio .studio-topbar .mobile-menu {
+    flex-shrink: 0;
+    width: 36px;
+  }
+  .studio .breadcrumb {
+    display: none;
+  }
+  .studio .studio-signout {
+    width: 36px;
+    min-width: 36px;
+    padding: 0;
+  }
+  .studio .studio-signout span {
+    display: none;
+  }
+  .studio .topbar-actions {
+    min-width: 0;
+    flex: 1;
+    overflow-x: auto;
+  }
+  .studio .topbar-actions > * {
+    flex-shrink: 0;
+  }
   .studio .topbar-actions .connection-state {
     display: none;
   }

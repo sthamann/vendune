@@ -504,8 +504,8 @@
     },
     "extensions/apps/edi/service/export.rs": {
       "status": "unproved",
-      "sha256": "eae9a739d59e7677c605386754ac06ebc00c4145e1df33eff7e674c25c05f991",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "5bfa4beb34e31db5477ecabce2dd1955c93db61ab9eb8ba492cb7137760d1b9e",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "extensions/apps/edi/service/export_tests.rs": {
       "status": "unproved",
@@ -539,8 +539,8 @@
     },
     "extensions/apps/email/src/smtp.rs": {
       "status": "unproved",
-      "sha256": "2b4f2f3fcb554e355af133cab3b8678e22dc93d719c1b2fb78849f8cc4c15c7d",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "1f3461bec29eff21aeb1517d68bae87be80c9ba8c2c15378a05411cc42e4e431",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "extensions/apps/email/src/templates.rs": {
       "status": "unproved",
@@ -554,8 +554,8 @@
     },
     "extensions/apps/erp-handoff/service/delivery.rs": {
       "status": "unproved",
-      "sha256": "09cefa868917f72238c17a911ba1bba53ecb147858aaf6a89ae430cc90ff85a7",
-      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+      "sha256": "3af0d4612bea6eb73052b34558fe31db34cad01d94dcbe41f595638f86407acb",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "extensions/apps/erp-handoff/service/events.rs": {
       "status": "unproved",
@@ -659,8 +659,8 @@
     },
     "extensions/apps/marketplaces/service/transport.rs": {
       "status": "unproved",
-      "sha256": "f814d36189a39b25f77b4bc40dedcad65fdaa308f0281faea6ba238fa538cd09",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "sha256": "ba7f81e0e17896a9afe9dd4190f7706a77cfd055ac05ab6a662c583782ead4a4",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "extensions/apps/paypal/src/adapter.rs": {
       "status": "unproved",
@@ -754,8 +754,8 @@
     },
     "extensions/services/connectors/src/server.rs": {
       "status": "unproved",
-      "sha256": "5edcae08b7e7ba72a2e906f3ba3fbfb931311870a11ab5f6b3f49ebfade8522b",
-      "review": "Reviewed connector strict non-owner runtime startup audit, dedicated least-privilege PostgreSQL service role, forced RLS and UTC transaction context. Two actual non-bypass replicas, tenant ownership, provider/flow/MCP protocols and migration are regression-tested; SQL and providers remain unproved."
+      "sha256": "6f7746f254af010e094516f5adc30ecf23631c17f4d8fe88914cc46b601895a7",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "extensions/services/connectors/src/store.rs": {
       "status": "unproved",
@@ -829,8 +829,8 @@
     },
     "src/apps/approval.rs": {
       "status": "reviewed-binding",
-      "sha256": "5604b8f89a39b4df7fd0eaa2c5c0a8d489771375f737613bbcecb1f827e6ecbe",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "sha256": "0105510003cb8323bf0a7341dd2b88510c1b0101494e439d8f058039b209545f",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/apps/asset_surfaces.rs": {
       "status": "unproved",
@@ -844,8 +844,8 @@
     },
     "src/apps/commerce_hooks.rs": {
       "status": "unproved",
-      "sha256": "59ad869c7ee17168cbd28cfc5539e7b8d93f2e3778fb7ab3f6771639a9aa80f8",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "7aef0c181d2660a837d8d40131fb2c4fb330c90573b6032775a031a7dd658daa",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/apps/compatibility.rs": {
       "status": "unproved",
@@ -879,8 +879,8 @@
     },
     "src/apps/distribution.rs": {
       "status": "unproved",
-      "sha256": "f2a9e2e54a9f484ca54d66a5d62c6d372897b9b243e13c1b106d7e2bb4dd3589",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "4b18c7488d93b5ed4fde4e6c6f535489249c34e70f0e0c947e2598df7ffe30ea",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/apps/editor_contract.rs": {
       "status": "reviewed-binding",
@@ -894,13 +894,13 @@
     },
     "src/apps/egress.rs": {
       "status": "unproved",
-      "sha256": "b7ad055b5bd892662c2b0dc51d0797ae884ce056b9d379ffee3f776189898db5",
-      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+      "sha256": "239cb98fde2112c28f6ea922c41908daf3b4ff82cb6dd9644b3055b75e469ec5",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/apps/event_contract.rs": {
       "status": "unproved",
-      "sha256": "1692ccbf4c851a25d3e77e2db00483cdd26e1ed2f02a52cd2e8339e0c8e4bd98",
-      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+      "sha256": "70d87c5010803eb9d421dcc6ad0f62f99da645b72d49afd55f95234ce2ba0f66",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/apps/event_projection.rs": {
       "status": "unproved",
@@ -924,8 +924,8 @@
     },
     "src/apps/field_values.rs": {
       "status": "unproved",
-      "sha256": "270d09ee46a7229a81d4ec5a3a6627f40571b9c05754d95496409f7a171816c0",
-      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+      "sha256": "22ca7da6b63eb8e1712283b8e79663537b5faccde5162db0859f40081d206f72",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/apps/form_layout.rs": {
       "status": "unproved",
@@ -1049,8 +1049,8 @@
     },
     "src/apps/secrets.rs": {
       "status": "unproved",
-      "sha256": "a3cdfe65766dc84b1d9014f878d1b2bc803fd7f61fc771f10ca1809d37320f63",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "01d80ae695e08f28b48c21353d7f9962db1639c4fb278eb16568e803c24b0466",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/apps/service_limits.rs": {
       "status": "unproved",
@@ -1059,8 +1059,8 @@
     },
     "src/apps/service_policy.rs": {
       "status": "reviewed-binding",
-      "sha256": "b65445d6eef70d2cc665f29127b0f2fa2b6f2b934ef9c4557d00dabb0826e6af",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "4bc838a4bbe339642e9eca91890a0a043fb358620d1f6238f2cdca9d30b3a196",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/apps/storage.rs": {
       "status": "unproved",
@@ -1164,13 +1164,13 @@
     },
     "src/auth/abuse.rs": {
       "status": "unproved",
-      "sha256": "20f838239e252cb7d7edb9775bf2f170613ced3b3a9c152b9377ac6ab7afd4f0",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "c27a67aca719557451c9146ecc1aa0421e9df078aaa1fe8d6c281470ac2d317f",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/auth/broker.rs": {
       "status": "unproved",
-      "sha256": "7f1f95d3e000b762fc71fb658e72c2663da38fd1a645895e2490b4ee7ab1b531",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "bad35c03610436783aacd7fcb252c8f142de7d79ceca0ebec631bbcec9460be3",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/auth/broker_credentials.rs": {
       "status": "unproved",
@@ -1184,8 +1184,8 @@
     },
     "src/auth/credentials.rs": {
       "status": "unproved",
-      "sha256": "f9b7abb5b6e1e014a48a19340a7349ba9c875e7bd3b79acdea22c66f7ecab6c6",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "5a8acc0ed3bc28d85e4ae9f733208801b27360711c479f7d565062a43465c2e6",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/auth/dto.rs": {
       "status": "unproved",
@@ -1219,8 +1219,8 @@
     },
     "src/auth/middleware.rs": {
       "status": "reviewed-binding",
-      "sha256": "c053fb53b5a2dd244b0c0e361957df27baff1ac2ae3375cd6a979ac7c5bf6932",
-      "review": "Reviewed mounted public frontend API delegation: registered Core handlers retain permissions; hostname mount derives tenant/channel; no early admission bypass, no merchant credentials forwarded. Real identity_broker and channel_management HTTP/PostgreSQL regressions pass GET/POST, unmounted/foreign/paused/private/stale-preview controls. Async transport remains unproved."
+      "sha256": "584d8729594dfc392db1b1eb1035269b08a18d96af3d0d638e9d5d9abad93d32",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/auth/mod.rs": {
       "status": "unproved",
@@ -1384,43 +1384,43 @@
     },
     "src/bin/automation_rules.rs": {
       "status": "unproved",
-      "sha256": "8d5994b0922f61cd5c209a7598f377fa664709704c4ea911bc3b7e33958d3d8e",
-      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "a459e910c6f3540cb0b2f7874a9e213bc8286efd3111be072ec1b1f6194c64df",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/bin/connectors.rs": {
       "status": "unproved",
-      "sha256": "1dd59535b6bd96a861d8c4652365ffb6dd4fd9b3c8856aef8a796faa11f4885e",
-      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
+      "sha256": "a6c305da7e70ae1ce0ec563861a08a27ce4cd73a2133d1b961dc0007a00af4ec",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/bin/context.rs": {
       "status": "unproved",
-      "sha256": "78d283a37b639a820e611587baf609987c14281721fd05b3581ef04e0b5cbb22",
-      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "bac43450aadf223a2fc806bb5ce1c539556b11e0f01dd1c5f2c4890756622d17",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/bin/delivery.rs": {
       "status": "unproved",
-      "sha256": "e88ed79091431feb4755ce4dbbe390666c20c7f44ec47ba799ad19b268924d23",
-      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "5af41d3d8605d686dbc217d3e02c8e5fe0998bfa7d4871c2b02a97cc76a9cc95",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/bin/money_boundary.rs": {
       "status": "unproved",
-      "sha256": "8761741a705ff97ba1869d92d672a160feae11f7a908a14fca0ddb316b4d8392",
-      "review": "Reviewed all changed Rust, append-only schemas, build/extraction and Lean inputs: lease hooks bind new/reused connections and reset on release; strict runtime rejects owner/bypass/TRUNCATE and preserves app-schema ownership; two-replica non-owner PostgreSQL tests deny forged foreign writes, enforce operator quotas and parent-stage daily usage, release persisted allocation quantities once despite corrupted snapshots, and distinguish commit from rollback invalidation. Money retains legacy EUR rounding with explicit scale and original Shopware differential; receipt-backed state admission is monotonic with late capture/refund. Async SQL/provider code remains unproved. Rust 113 tests, staging/app/automation/settings and strict checkout/CRM/tenant regressions passed; 274 frontend tests and production build passed."
+      "sha256": "3818f8c5145f779acd07329674f4149ba0e59e64db59881488b3d5626cf3c67f",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/bin/price.rs": {
       "status": "unproved",
-      "sha256": "378b39b2951c9eb06f5de230a592403111eee93e9f5dda6295ce4422306d6a50",
-      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "be27d5dae6d1964336901bb45f5c36094df7f15f924f46f8eef793857899025e",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/bin/rules.rs": {
       "status": "unproved",
-      "sha256": "21196640f2c70d6a458000d1f33ba5705570eaeba142f2386951bc79d9b17cdc",
-      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "6f21f736549b993d32641cbf807958d41fc5e7bc5aab3d8724818f26c5ec88bf",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/bin/verified_kernel/dispatch.rs": {
       "status": "unproved",
-      "sha256": "8d1d8c6216592955ba760977484f5b4d9ab7011c74cf73f24d613ad97188c194",
-      "review": "Reviewed exact paid external-order amount and positive-total guards, their live import consumers, signed-input rejection, Lean properties and negative mutations; provider tax law, SQL and external effects remain unproved"
+      "sha256": "9661082b7d7b31ca38cec141d8bffafc7973bbe3643e623422af1554a1e28b45",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/bin/verified_kernel.rs": {
       "status": "conformance-driver",
@@ -1429,8 +1429,13 @@
     },
     "src/bootstrap.rs": {
       "status": "unproved",
-      "sha256": "56f228a0baa6d45df2efb82ce3729b86c5ac8717d409e2a71c902081ca8ee081",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "42b595a43d52a0abd38ecb4378798cf9bdfcab727d331b65c83d1d9fcb88a43a",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+    },
+    "src/brand_redirect.rs": {
+      "status": "unproved",
+      "sha256": "13481ddc84c7bee1201a5bba7a21fa4cd66c22dba70abe75df9d6bd21e24ad0e",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
@@ -1459,8 +1464,8 @@
     },
     "src/cart_price.rs": {
       "status": "unproved",
-      "sha256": "0f266bb8c6dc113bb1649959066f2547777172e549ed85074a1a7a317aa5199f",
-      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+      "sha256": "2a1ecd2fb97381c4981f8848f60678eba42d4d500909ed3ce7aad5d5c8fd37e1",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/cart_routes.rs": {
       "status": "unproved",
@@ -1474,8 +1479,8 @@
     },
     "src/catalog_model.rs": {
       "status": "unproved",
-      "sha256": "6619053466d5263929ca90a9a2e6960510faa314af9daf6aba3e26fc8afa33b4",
-      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "fcdee3f754bc5fa89c6116a878dc4032b143a5b2f643b64de5ac23837b14810e",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/catalog_page.rs": {
       "status": "unproved",
@@ -1514,8 +1519,8 @@
     },
     "src/channel_metrics.rs": {
       "status": "unproved",
-      "sha256": "61c5be5f12ed0cbeacf38246e23172ef170ec3f2e1cc0ec50212708483c548ef",
-      "review": "Review HTTP diagnostic histogram: status-only bounded keys, existing buffered flush and tenant RLS unchanged; shared operator reads preserve unclassified legacy totals. Rust unit classification and frontend outcome tests; real platform integration required before merge. No verified commerce policy changed."
+      "sha256": "40055b351779b00d8419247622db4c403b2e409f1395ab33af32109717bfdd3d",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/chat_lease.rs": {
       "status": "unproved",
@@ -1529,8 +1534,8 @@
     },
     "src/checkout_page.rs": {
       "status": "unproved",
-      "sha256": "6e31bb857d6a8667af9efadde4113232fe9cbdb5e61f00617dd8d165cadf21ba",
-      "review": "Reviewed tenant/channel registered-origin checkout framing, immutable localized checkout snapshots using existing inheritance, and shopper-only receipt transport. Verified origin negatives and German parent/variant label persistence with PostgreSQL; these adapters remain unproved, existing extracted kernel policies unchanged. Explicit non-default ports are rejected so admission matches the registered HTTPS origin."
+      "sha256": "3681e1835b5006f464e095b6b8e5e6a838b15d08ebd4c59bf596ed29fd6ff25b",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/checkout_products.rs": {
       "status": "unproved",
@@ -1559,8 +1564,8 @@
     },
     "src/cognition/behavior/geography.rs": {
       "status": "unproved",
-      "sha256": "a36f2ba54ceea934f31729b2cefd7939adcd5d3a9f341d820ac009228eff07eb",
-      "review": "Behavior analytics reviewed: existing cart-locked consent predicate reused; purpose-separated withdrawal, tenant/FK scope, typed and bounded observations, private journey permissions and derived reports. New SQL/frontend/proxy adapters remain unproved; no new theorem claim."
+      "sha256": "c017a81950c6cc4950269c44d15e390ea8c43b67e4b8d4b160ed1322ba1d5140",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/cognition/behavior/input.rs": {
       "status": "unproved",
@@ -1664,23 +1669,23 @@
     },
     "src/cognition/signed.rs": {
       "status": "unproved",
-      "sha256": "80f9ec6a965b0ef947bf47d016dc395f492a639fb427dac0010e8975c8ce160e",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "08aad2455f8f563f60653904ba1490741c30c490618b6fd607250d4258a492e8",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/cognition/stream.rs": {
       "status": "unproved",
-      "sha256": "f475aab031260b0c2f6709330e699178a47e7776194c0f52de0c41d6eb1579ba",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "381c917247fed87c8152e742d71aafc9153ae6634bec606aa11e1d53505ccd00",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/cognition/tools.rs": {
       "status": "unproved",
-      "sha256": "e940a7893ff7479050cef853454e542c192f2dcac905691e525f5a30446795e5",
-      "review": "Behavior analytics reviewed: existing cart-locked consent predicate reused; purpose-separated withdrawal, tenant/FK scope, typed and bounded observations, private journey permissions and derived reports. New SQL/frontend/proxy adapters remain unproved; no new theorem claim."
+      "sha256": "467b160a6b01d01b710ff138196192b105bb1bedcad9f939545763673f385a3f",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/commerce/app_adjustments.rs": {
       "status": "unproved",
-      "sha256": "927cc3e28cb913ccf1fbd0a488290c386544cce53eabca9a3b0a7c59870859aa",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "c28f4cc67bbdfc01d82303a2b6c82510cb11dc9e84143a9c9da1f7fec28c7fe6",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/commerce/catalog.rs": {
       "status": "unproved",
@@ -1709,8 +1714,8 @@
     },
     "src/commerce/delivery.rs": {
       "status": "unproved",
-      "sha256": "0d644f5d8f80f40acf5e4b328a8c3e15cb695ddc5c4e7697750c0923c2c98095",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "1bcfe33d3a37a355a63c53dbec05a5c7dbdd1a45684495639b57e1d77ac931d7",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/commerce/detail.rs": {
       "status": "unproved",
@@ -1764,8 +1769,8 @@
     },
     "src/commerce/mod.rs": {
       "status": "unproved",
-      "sha256": "12d0e8cfb9853562a9445e9b54764fbd389c45a941d7cee74d741b1ce645a81c",
-      "review": "Behavior analytics reviewed: existing cart-locked consent predicate reused; purpose-separated withdrawal, tenant/FK scope, typed and bounded observations, private journey permissions and derived reports. New SQL/frontend/proxy adapters remain unproved; no new theorem claim."
+      "sha256": "f528453b70ef56969e30357fc4fd885fe5ab9fc15a0712afd0acf4df9237e956",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/commerce/order_fields.rs": {
       "status": "unproved",
@@ -1804,8 +1809,8 @@
     },
     "src/commerce/product_fields.rs": {
       "status": "unproved",
-      "sha256": "71c1e6e3304a8d6fa05c56f51bd8f42cac8d4e9a67d0a3351bba52a979e3f81d",
-      "review": "Reviewed equivalent date/datetime rejection and product price range expressions required by Rust 1.96 Clippy; accepted date/string shapes and finite 0 through 1000000 prices stay unchanged. Rust formatting, lint and unit tests passed. Complete Docker image builds and the existing AGE PostgreSQL image smoke test passes personal operator/shop provisioning and auth gates. No business guarantee or Lean property changed."
+      "sha256": "41a519386d71b255ef1a33816b6f7a11ec6cf0723221972bd63bfc919dddc861",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/commerce/product_languages.rs": {
       "status": "unproved",
@@ -1889,13 +1894,13 @@
     },
     "src/component_runtime.rs": {
       "status": "unproved",
-      "sha256": "dab32b8bb9b9ccb4982fd3573bf770b73a73ff452cd7f49e1d350b63fc43c7dc",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "b5f7acaa9dcfaee7a442b7b24fd8102111f7e6efbb0519c9184c4fb41ac65bd3",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/concierge.rs": {
       "status": "unproved",
-      "sha256": "0da6b25f3318a49c2a8a6f03bb7a5582c2bf84e356c93245de61525f8c67004d",
-      "review": "Reviewed single-retrieval candidate hydration and buyer graph; native admitted fields replace index/search commerce facts, post-inference exact original-ID locale/channel/catalog/evidence comparison. Extracted predicates unchanged; adapters and free model prose remain unproved."
+      "sha256": "ead1c212a7cf3ed4c46a0d702abcb6b1f6fc03c2f1f44ed6b9df06f2bfd3f841",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/context.rs": {
       "status": "unproved",
@@ -1909,8 +1914,8 @@
     },
     "src/currencies/jobs.rs": {
       "status": "unproved",
-      "sha256": "dd04e9408f9f9f71b16db13ff98b9c0b6263a527dbe685b71c12d501b29337a6",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "e37cb7fde177a536b819eedb11cfd9359e2ff4d95a89052d1c9679397cc29c91",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/currencies/mod.rs": {
       "status": "unproved",
@@ -1924,8 +1929,8 @@
     },
     "src/currencies/pricing.rs": {
       "status": "unproved",
-      "sha256": "e102361d903905298ef0f610dc8c5c8d303752a7420e59c3d144789b886d0fa8",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "4b0f5b88a758f075fdd870666b4ae2163df57d52f546399e1548385b963014b7",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/currencies/rates.rs": {
       "status": "unproved",
@@ -2079,8 +2084,8 @@
     },
     "src/history/mod.rs": {
       "status": "unproved",
-      "sha256": "64ecee20b01252961765f38574ded384a5a799d7523d271ec037f95a767b720b",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "ed3bf12d027a2f21e2b0d560728a12d3aad65ffaa25bda56df28417af14df1b8",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/history/product.rs": {
       "status": "unproved",
@@ -2109,8 +2114,8 @@
     },
     "src/inference/protocol.rs": {
       "status": "unproved",
-      "sha256": "6dd7f408c93b9c972e34d211ed54fe9cc11847af709392eca19a1be492dff13b",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "68c0d6369e3592a53f4f32990d3517a8dbb8321486dba3885fd8b38056c7d47a",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/inference/schema.rs": {
       "status": "unproved",
@@ -2159,8 +2164,8 @@
     },
     "src/knowledge/vectors.rs": {
       "status": "unproved",
-      "sha256": "b8df7a365b6b8c6d428d94f865714a89262179b2d33c939b726721f1a9b207b3",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "8907d28fa554123a8444b64bd8374e5c7c58a52a2e062b6296a5c87833bba2f2",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/knowledge.rs": {
       "status": "unproved",
@@ -2209,23 +2214,23 @@
     },
     "src/localization.rs": {
       "status": "unproved",
-      "sha256": "72e7e9ab402b29ccf95c7135b5df20d4a508155f04b5ccfc824c2b7e06a808b0",
-      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+      "sha256": "b352aa34f26b42acb4e6e27c0ed963fd19aab805671c6a64a1ba961a06d836ad",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/main.rs": {
       "status": "unproved",
-      "sha256": "23270e8753d7992317fa4c2c0914679aa720f3f26998bd7b3a4331623333742f",
-      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+      "sha256": "2f4079fb50daa91ce439e726b4fd166b0ed359eae631a828fae6eb45f3955294",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/marketing/app_flows.rs": {
       "status": "reviewed-binding",
-      "sha256": "4fd59b663aaba80f967bd51464781831e10aee811764f3618280c1e0a8a126a8",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "939848d35282e4a7f833edbd7c6052048ba990289c5de74a1204cb13b15f4492",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/marketing/catalog.rs": {
       "status": "unproved",
-      "sha256": "02adf5abd0140ac6e325732b71dbb2e865243294f3e5e672de3908dd9173338d",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "1c2d930fa53cd051a81862b7164497388b001ef227d1a4794b95a5321ca637f3",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/marketing/channel_access.rs": {
       "status": "reviewed-binding",
@@ -2239,8 +2244,8 @@
     },
     "src/marketing/channel_preview.rs": {
       "status": "unproved",
-      "sha256": "5fedad9902daa5cf5d5a7d3277dfe0f6935f1611512d1e86ef14569341fec3c8",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "5b85a7456d1c7e74710952af80201aeba19f7115a8295f6db5be9dcabe70f018",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/marketing/channels.rs": {
       "status": "unproved",
@@ -2284,8 +2289,8 @@
     },
     "src/marketing/flow_mutations.rs": {
       "status": "unproved",
-      "sha256": "37ea2c3f89e3bc66813da41a825dac68e3cde69d3e12808f7c3565f3413dcae6",
-      "review": "Reviewed connected CRM: configured group pricing admission with exact Lean contract, settings lock and dependency rejection; independent revisioned default addresses and ownership-validated book restore; trusted transaction-local actors with deferred one-per-transaction credential-free aggregate history; scoped read/write/MCP restore through domain handlers preserving current stock, identity and financial events. Real crm_history tests cover all twelve editable entity restore types, checkout, stale writes, group dependencies, foreign shops and viewer rejection; Rust unit/lint and affected integration suites verify existing consumers. SQL/async adapters remain unproved."
+      "sha256": "1bfbb7e0a0cfc6d0ee4cb4e9d0f8425ad5975a7b2a2e228a2d892726edd4c52c",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/marketing/flow_policy.rs": {
       "status": "unproved",
@@ -2334,8 +2339,8 @@
     },
     "src/marketing/pipeline.rs": {
       "status": "reviewed-binding",
-      "sha256": "bc5bf207f695d803935ef72ec972f83a16eb008e85eeb31d5d9daad64fb5f0f8",
-      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "67b2467eae96430f7c176c9f4ec077d5d560a62c76fce7aa7170ea3c46258fd3",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/marketing/pipeline_runtime.rs": {
       "status": "unproved",
@@ -2349,8 +2354,8 @@
     },
     "src/marketing/promotions.rs": {
       "status": "unproved",
-      "sha256": "a5b192ac0de0f5e8d18f165d4ac323588eb00f6debe1b33ae36438a1c7e95639",
-      "review": "Reviewed multi-currency selected-context adapters, rational minor-unit prices, immutable order/payment scales, row-locked creation-bounded price jobs and exact order mail snapshots; API/tenant/restart/protocol fixtures passed."
+      "sha256": "02f7754cf8521da8769a986325aa8b616eca580929e3f11f4228d8c4b4760281",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/marketing/routes.rs": {
       "status": "unproved",
@@ -2359,13 +2364,13 @@
     },
     "src/marketing/rule_fields.rs": {
       "status": "unproved",
-      "sha256": "2eb6494b41af4f1e35e69d77107084ec2776d5001a9bd584781d689364e5e0e8",
-      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "5c0a986e7aeb6d54170ce7ffe3eead7ce69d4d4adbf5d7917127355284decdab",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/marketing/rule_match.rs": {
       "status": "reviewed-binding",
-      "sha256": "3a1906acc85db543e35fe060fc8bdcadead699d0fe49233f8ad4e17490983e3f",
-      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "7b7a5311d96d50f51cf7bbd4154df1166e6cf2c359ff3045e39844cde10b4cfe",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/marketing/rule_snapshot.rs": {
       "status": "unproved",
@@ -2374,13 +2379,13 @@
     },
     "src/marketing/rule_tests.rs": {
       "status": "unproved",
-      "sha256": "ddd05401c0e80e1c050835682962599b552e58821357ef963f2cdb56d375f6c2",
-      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "2ab9416b7376952bb198e192c3ce1c00f4cf72712eecad7ab83ebbd76d12d6f1",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/marketing/rules.rs": {
       "status": "unproved",
-      "sha256": "220c9b190697cd8df3238aeeb15c5b3966dc3983e89547995484141dddbd37a9",
-      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "5c0cd8cb8780f193d783c69cc78d683063bc0cd231aa8b6337ed5e92593e8326",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/mcp/transport.rs": {
       "status": "unproved",
@@ -2394,13 +2399,18 @@
     },
     "src/mcp.rs": {
       "status": "unproved",
-      "sha256": "0acc23b1de32a6a152e8179360b1c6432492654f0c8e1ae79e290d8d2d1ad16d",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "4340d3b0323cebd19ee76bb9394c747bc254f50cca257103da8b3b8753442214",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+    },
+    "src/migrations/identity_checksums.rs": {
+      "status": "unproved",
+      "sha256": "c856e7c5f438cf3c2c8a586a2a3705de0ceafb34728738afedba06c01ef407ba",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "35560b04de636a9b7df9b3f5dac1aaee0c282bce8706905cd558b82af107f870",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "6748914503300483bfe8871eb8e5591d29ccedb7ca7da0711589dd6f5293832b",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -2409,8 +2419,8 @@
     },
     "src/migrations.rs": {
       "status": "unproved",
-      "sha256": "413a50341f481773b65f2fd940a5efd64780702a3207a808a23979fc699772f9",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "9689bdf08eb57a8a0ba5797949d120e10bef43ae20f4dfeac6a0da4e6eeee685",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/money.rs": {
       "status": "reviewed-binding",
@@ -2514,8 +2524,8 @@
     },
     "src/outbox/control.rs": {
       "status": "unproved",
-      "sha256": "998cf1835e04560664d51d21e6c6b1a941cdedb4f1381ebc8b8ee9be6c49fa20",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "da3c069ee09e240f59b8a1edf3caa5f50fffb1d3bccfd5408eb164f3294d5989",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/outbox/retention.rs": {
       "status": "unproved",
@@ -2559,8 +2569,8 @@
     },
     "src/payments/provider.rs": {
       "status": "unproved",
-      "sha256": "25f78a9591c0b33cfc8a5c3fc0250f34af85db318ab19729e73e59fe5f7e4d11",
-      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
+      "sha256": "e6f8ccff03fe788acebad4748e4a02a1f620939774f28e1eefded6f4e2650998",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/payments/provider_configuration.rs": {
       "status": "unproved",
@@ -2589,8 +2599,8 @@
     },
     "src/payments/return_urls.rs": {
       "status": "unproved",
-      "sha256": "43fea1d4dce44663ece95c13cda31ba57fea208b4bcab02d34d9e94c87dcfeb5",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "fd468b18696d5e2dcdd0ac1692d81c60a872138334bbb79964ec664efcbdf225",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/payments/routes.rs": {
       "status": "unproved",
@@ -2624,8 +2634,8 @@
     },
     "src/performance/admission.rs": {
       "status": "unproved",
-      "sha256": "8547918c07ac7fc37da32385fe162c92a7681cbe884f06fb1870d9dac853b008",
-      "review": "Reviewed shared UTC-day quota extraction, SSE classification and native knowledge.extract pipeline; all Rust tests and Clippy pass, native provider checks prove HTTP/MCP/Flow quota parity, exact quotes, source-language handling and current actor revocation."
+      "sha256": "50c84bd4d1d4d59df5ef984e0dab0550d082af772bac3b371ee7d555130a2a02",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/performance/cache.rs": {
       "status": "unproved",
@@ -2634,8 +2644,8 @@
     },
     "src/performance/cluster_lease.rs": {
       "status": "unproved",
-      "sha256": "a04b4850b9157448e274ef91debbef71bbbefb5c0b426aa416fe96e1e795d936",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "d3c5797097053b049722f5db717ae321d56e25c4495511a4c8c07b02d46e5168",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/performance/delivery.rs": {
       "status": "unproved",
@@ -2644,8 +2654,8 @@
     },
     "src/performance/invalidation.rs": {
       "status": "unproved",
-      "sha256": "df84bbbfe8ff832490c2c08765c4203df00e206a65909f3ae12a7cfe61a1b23e",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "de2c29b109390b1c3c1bf3d57c36c5355ac2187f2ed879d0c673497a46893167",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/performance/languages.rs": {
       "status": "unproved",
@@ -2664,8 +2674,8 @@
     },
     "src/performance/row_security.rs": {
       "status": "unproved",
-      "sha256": "cea94da18b960c922e06381e1dcda81616e787327845e44c29b419be37108585",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "b35ad243b64e743f18f9840caca3c9cd9766427e790f19a727bd2a8bb8f9fd1c",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/performance/settings.rs": {
       "status": "unproved",
@@ -2674,13 +2684,13 @@
     },
     "src/planner.rs": {
       "status": "unproved",
-      "sha256": "45f6d77399c9fc70ea24af63add6bc5d346ee0be1495211e6608743593059c3c",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "5998255e1d6ded7a49009b0e9c6961849d90cf3cb58ddfc747ef5184df2a10b3",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/platform/ai.rs": {
       "status": "reviewed-binding",
-      "sha256": "43b845a10c045f75f7523a3b934f58a38ab4ec5550198bd72022c88ad5aedfcc",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "4340845aed927952af5cbb31cdc8418b27fd5546f8e17631b55a06b6fb4ee7d2",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/platform/auth.rs": {
       "status": "reviewed-binding",
@@ -2779,8 +2789,8 @@
     },
     "src/prelude.rs": {
       "status": "unproved",
-      "sha256": "9e1620a9f521a629b62cc91a8c4fc3370d18bb511b30e7dbd6029ba4483e097e",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "c967a5426fe49a832132db11a189e525c42119834b329fc0ddfd3275e938f105",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/pricing.rs": {
       "status": "unproved",
@@ -2809,8 +2819,8 @@
     },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "1ffe839ebea810a05f9670f0e865695734b86acfb443af9866910f693a206222",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "9903c5cde96594a68bf6966a7f0213f5980fe866db066b9d6147130ac17b5def",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",
@@ -2819,8 +2829,8 @@
     },
     "src/runtime_config.rs": {
       "status": "unproved",
-      "sha256": "3defa274031a3e746bcd46bdbb3fe3799d64f2e26be010b02b82155ddbd3dfb6",
-      "review": "Reviewed native behavioral consent reuse, purpose withdrawal, bounded tenant/FK reports and private identity links; geography configuration validation and frontend locale inheritance. SQL/proxy/worker adapters remain unproved."
+      "sha256": "de458e3bc94c4883a5d8ebe9671833281f8f1fc5926c10e2ccbad4a99a6bced4",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/sandbox.rs": {
       "status": "reviewed-binding",
@@ -2864,8 +2874,8 @@
     },
     "src/shop_domains/frontend_transport.rs": {
       "status": "unproved",
-      "sha256": "771083e8799113cb49bf400c41aef887eb5c9594df062630699873f8f94dac63",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "49c303b285e83c5f439b8935fc6180ad6b77d9004a108b4d62a2394ef52f5b9e",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/shop_domains/frontends.rs": {
       "status": "unproved",
@@ -2874,8 +2884,8 @@
     },
     "src/shop_domains.rs": {
       "status": "unproved",
-      "sha256": "1a16aa3267ac79a8496b93c1e9810ca7e59dda8518aee0b79618bbb42c39d612",
-      "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
+      "sha256": "dd48937f2ada8539c8cb2b436f5ee86b551eb7ce77e803169c5b0af397848649",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/staging/access.rs": {
       "status": "unproved",
@@ -2944,8 +2954,8 @@
     },
     "src/studio.rs": {
       "status": "unproved",
-      "sha256": "f123f923bac49e92e8f0c6fb5dcc103a101eb2a6e591a1a842f58aa950c0746e",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "481d3890b992e007f3c84556e005746ce8f99484d1f2f03204a9759f72a082b3",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/tenant_scope.rs": {
       "status": "unproved",
@@ -2994,13 +3004,13 @@
     },
     "src/ucp/negotiation.rs": {
       "status": "unproved",
-      "sha256": "37920311f0e9cb34a2fc6163694d8efc999261a4ced4955e220c3a47129a16c0",
-      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+      "sha256": "4b1c427cd8f5ff94aa1388255e2e7dc0b6dff47dce4a91daaa92728f6bf0c78b",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/ucp/profile.rs": {
       "status": "unproved",
-      "sha256": "8256046da9ad065fd7ec7557238691b30b56a9979f8fe6fe1163e5f9696170fa",
-      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+      "sha256": "72d6618bcb1b199b5324da0edc3e7040a26e4b8e2d71fe55c8f1a2efe905cc74",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/verified_kernel.rs": {
       "status": "extracted-policy",
@@ -3009,31 +3019,31 @@
     },
     "src/work_signal.rs": {
       "status": "unproved",
-      "sha256": "09dcbde6a46c7e564a8d9519f9bc9756011c1a20bc55968bba4138317d40bbf7",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "3dd30a67e02478c76fa0f151643f47c0575ddedeb4c648e2d236b2ecf23b09bc",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/workers.rs": {
       "status": "unproved",
-      "sha256": "0b66cadf8b710d71cae3c7cdc80b7d101e66a84d05e8d25c4bd70908e98105f7",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "ca1d54403c0bb52c0ace610074f0bd102b20b9487fe1a8c0a2495ef1fda0670a",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     }
   },
   "inputs": {
     ".github/workflows/verify.yml": {
-      "sha256": "848fac3f003127db906cec7fd117a8b63492fa6c3453f284d79ee88980bfc9e8",
-      "review": "Production image copies historical app manifests required by Rust include_str. Public build reproduced eight missing inputs; dependency closure and negative copy-removal control pass. No Rust, schema or policy changed."
+      "sha256": "aa7d154a5bdb570f1c0d78c5e5b69629763da57eeed8510ba805f7cc4edae9ed",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "Cargo.lock": {
-      "sha256": "d120eef91ac11cce858a2ce8e0164c8a8b3c5b2fdb2f1a4f07642b2860e8b4ce",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "2b4a614e874070f77d1ac08c081bb85109c71cc5cbbdc50c35593b0d20cb79cf",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "Cargo.toml": {
-      "sha256": "3a710c28bbba321c86ed72dc6e11120179a37c6d90024b13e4f444205839ed14",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "sha256": "9b85a25a8c6f85e0e6de738c903cc997ef4300a52f822070f7975254f947093c",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "deploy/Dockerfile": {
-      "sha256": "dc7c2c8b35843285ac1f25e3404c8c930d2dc8b0c1525ab5a3886ba028671f23",
-      "review": "Production image copies historical app manifests required by Rust include_str. Public build reproduced eight missing inputs; dependency closure and negative copy-removal control pass. No Rust, schema or policy changed."
+      "sha256": "fc19a648b2fd4eaab37466630fd03cfe9e56f172288ca457b944f59447091283",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "fixtures/app-studio-schema.json": {
       "sha256": "e644a609345a94bcf23ad9e1dd94948526e0fac2345f80f2fb7211c4e043be9e",
@@ -3064,12 +3074,12 @@
       "review": "Reviewed international configuration, destination tax predicates and native bindings; targeted PostgreSQL international/catalog cases plus Rust tests pass. Translation fixtures verify restart, provider rejection, tenant permissions and revision conflicts. Config/product/apply share row locks. Additive schema 028 and versioned MIT geography reviewed; surrounding SQL/provider behavior remains unproved."
     },
     "frontend/package-lock.json": {
-      "sha256": "cf88e8829a1279478920ddeb85285b1a86f08bd3e12321090dc946730480d49e",
-      "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
+      "sha256": "1f1eaef433f36816a1590d5373ee45f8599fef04c9f608efc3abb11bb8cccfda",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "frontend/package.json": {
-      "sha256": "6e4477bff112bb5cd91ff60696701396844df2ad7d639538bac05f90c6111e7b",
-      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
+      "sha256": "07e26dc33e95d2a3817b25ede1d965603c27b84ba41f4e009e5266950ebdeee9",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "frontend/scripts/precompress.mjs": {
       "sha256": "dbe91d7985386628933dfb734bd5555ba4e8b97502d1f644b26488434cfc195c",
@@ -3224,12 +3234,12 @@
       "review": "Reviewed managed-install variants and append-only legacy vector/relation conversion, SQL knowledge/app visibility joins, durable Qdrant queue with tenant/model/digest hydration and deletion, hostname scope before authentication, personal-only bootstrap and SIGTERM entry routing; verified fresh ordinary PostgreSQL operator/shop creation, real Qdrant isolation/deletion/outage retry, public document scope, legacy count/vector/checksum preservation and negative ledger drift. These SQL/network/hosting adapters remain unproved; verified kernel unchanged."
     },
     "migrations/034-entity-history.sql": {
-      "sha256": "04510e911fc5693c4d4f41772b099122f6928678318c6c65c15a55b9d96c567e",
-      "review": "Reviewed connected CRM: configured group pricing admission with exact Lean contract, settings lock and dependency rejection; independent revisioned default addresses and ownership-validated book restore; trusted transaction-local actors with deferred one-per-transaction credential-free aggregate history; scoped read/write/MCP restore through domain handlers preserving current stock, identity and financial events. Real crm_history tests cover all twelve editable entity restore types, checkout, stale writes, group dependencies, foreign shops and viewer rejection; Rust unit/lint and affected integration suites verify existing consumers. SQL/async adapters remain unproved."
+      "sha256": "8cf1682e7aab1772c40c00cdb07333b74ae01075d596d2bd45133b98dc396fd3",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "migrations/035-history-finalization.sql": {
-      "sha256": "570844745676f6c08e66dc980123c742546c2b75779438efc17a59a6932a49c2",
-      "review": "Reviewed connected CRM: configured group pricing admission with exact Lean contract, settings lock and dependency rejection; independent revisioned default addresses and ownership-validated book restore; trusted transaction-local actors with deferred one-per-transaction credential-free aggregate history; scoped read/write/MCP restore through domain handlers preserving current stock, identity and financial events. Real crm_history tests cover all twelve editable entity restore types, checkout, stale writes, group dependencies, foreign shops and viewer rejection; Rust unit/lint and affected integration suites verify existing consumers. SQL/async adapters remain unproved."
+      "sha256": "5927dfde5938dad74cfcb4dee947b1864d82375fbc97c8e2db331c28eb1f031d",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "migrations/036-app-assistants.sql": {
       "sha256": "46130e80715648ba78b63e297c39f84eec37ec25e56d45c8ee4c0429dbdf48d8",
@@ -3272,8 +3282,8 @@
       "review": "Reviewed all changed Rust, append-only schemas, build/extraction and Lean inputs: lease hooks bind new/reused connections and reset on release; strict runtime rejects owner/bypass/TRUNCATE and preserves app-schema ownership; two-replica non-owner PostgreSQL tests deny forged foreign writes, enforce operator quotas and parent-stage daily usage, release persisted allocation quantities once despite corrupted snapshots, and distinguish commit from rollback invalidation. Money retains legacy EUR rounding with explicit scale and original Shopware differential; receipt-backed state admission is monotonic with late capture/refund. Async SQL/provider code remains unproved. Rust 113 tests, staging/app/automation/settings and strict checkout/CRM/tenant regressions passed; 274 frontend tests and production build passed."
     },
     "migrations/046-cache-invalidation.sql": {
-      "sha256": "7ce152c278cc59d596454f7c3b41d18290305ee28c926400792be74e1e08679f",
-      "review": "Reviewed all changed Rust, append-only schemas, build/extraction and Lean inputs: lease hooks bind new/reused connections and reset on release; strict runtime rejects owner/bypass/TRUNCATE and preserves app-schema ownership; two-replica non-owner PostgreSQL tests deny forged foreign writes, enforce operator quotas and parent-stage daily usage, release persisted allocation quantities once despite corrupted snapshots, and distinguish commit from rollback invalidation. Money retains legacy EUR rounding with explicit scale and original Shopware differential; receipt-backed state admission is monotonic with late capture/refund. Async SQL/provider code remains unproved. Rust 113 tests, staging/app/automation/settings and strict checkout/CRM/tenant regressions passed; 274 frontend tests and production build passed."
+      "sha256": "5b7a9dbb315c5169f41de96af7057dfd28550fea81f9f1157b4f50bb7cb03238",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "migrations/047-order-reservations.sql": {
       "sha256": "704c12521e6d19df1fd0651ed17c518539ed06ce4a76319aab32a820dfb4b483",
@@ -3312,12 +3322,12 @@
       "review": "Reviewed tenant-scoped hosted app association, transactional immutable Storyfront installation and one-time validated migration 055; dependency deactivation shares config/app locks; private renderer excluded. PostgreSQL regressions cover foreign references and cold restart. SQL/network adapters remain unproved."
     },
     "migrations/056-http-response-diagnostics.sql": {
-      "sha256": "7e3bf0048bc33ba0092e5dfc4f2decc0316bfd4a99c197f32ea2a627b6bf141f",
-      "review": "Review HTTP diagnostic histogram: status-only bounded keys, existing buffered flush and tenant RLS unchanged; shared operator reads preserve unclassified legacy totals. Rust unit classification and frontend outcome tests; real platform integration required before merge. No verified commerce policy changed."
+      "sha256": "8a73e789addfe7328d5fe09a4fbe02044e21c18282ba14de7e290d8ff1c7556d",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "migrations/057-core-hardening.sql": {
-      "sha256": "3832cddadcb7a940f1a096af0315e5e4efeba299c3cc60b4813005e8e55518c9",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "558d728f668e9438d70826484eb45fdebfaf243a19868d1afc161ca33be49ec2",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "migrations/058-tenant-app-schemas.sql": {
       "sha256": "52df74abe24e9cbe9ecb548d26c830d6e27d790f9b9d6ff3d8c0e3ba1e6312e9",
@@ -3416,12 +3426,16 @@
       "review": "Reviewed nullable product/customer reference retirement and cart/channel analytics cascade; existing financial dependency guards remain authoritative. Behavior SQL, proxy and browser adapters remain unproved."
     },
     "migrations/082-workspace-roles.sql": {
-      "sha256": "2e425ca0b2e553243d8a6537eb2e8057c467717b9b20846d6a8cfb88464d5f44",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "cc6761ee27a71878646eb47431ad9c77b3d2878a9c7fc79868e15615610de538",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "migrations/083-customer-lookup.sql": {
       "sha256": "e40e1d3541ffe68b2cbaeb2453a6749f3352df51494404a3541dcb56206007ec",
       "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+    },
+    "migrations/090-sellm-identity.sql": {
+      "sha256": "816f5a20066bbb01d82703945f364246dfb503e91a537a609f655bbeaba61a8c",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "proof/Commerce/Claims.lean": {
       "sha256": "9ffc4b92e9fb2c3d7b91f6c3ab8e0f1a3d4a5821d5b9c656e74b1b8c3607f0bc",
@@ -3468,8 +3482,8 @@
       "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
     },
     "scripts/formal/runners.py": {
-      "sha256": "66d5041b9201ceb7421bf868e49a2b7bd241a5959f21c1ac7b8394e628825b1d",
-      "review": "Reviewed generated conformance dispatcher refactor: typed JSON argument closures preserve u64/bool validation and all original policy calls/errors, keeping generated module below 320 lines as the inventory grows. Policies and production semantics are unchanged; conformance and mutation gates re-run."
+      "sha256": "95435c73e8f487d627185072c25f4d0568e9713b2f8e671ec6ad782080e04ce2",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "scripts/formal.py": {
       "sha256": "0d152edcec333aa5facf70830240473e6533970c86ff020ab10b734cd05743fd",
@@ -3556,8 +3570,8 @@
       "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
     },
     "src/ucp/b2b-negotiation.json": {
-      "sha256": "f04cd0653b19ddf3e6d8bcbfc5990789b78d846e761302f913f35856657d5514",
-      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+      "sha256": "ceae1bacad595c0246e01832bcf5acae46a2b2932c7cebcdf07b3d5d42e2ea78",
+      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     }
   }
 }

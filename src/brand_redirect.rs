@@ -16,7 +16,7 @@ fn domain(value: &str) -> bool {
         })
 }
 fn destination(host: &str, path: &str, canonical: &str, legacy: &str) -> Option<String> {
-    if !domain(canonical) {
+    if !domain(canonical) || host.contains('@') || host.contains('/') {
         return None;
     }
     let authority: axum::http::uri::Authority = host.parse().ok()?;
@@ -29,10 +29,10 @@ fn destination(host: &str, path: &str, canonical: &str, legacy: &str) -> Option<
         if host == old {
             return Some(format!("https://{canonical}{path}"));
         }
-        if let Some(prefix) = host.strip_suffix(&format!(".{old}")) {
-            if domain(&format!("{prefix}.test")) {
-                return Some(format!("https://{prefix}.{canonical}{path}"));
-            }
+        if let Some(prefix) = host.strip_suffix(&format!(".{old}"))
+            && domain(&format!("{prefix}.test"))
+        {
+            return Some(format!("https://{prefix}.{canonical}{path}"));
         }
     }
     None
@@ -84,7 +84,10 @@ mod tests {
             "user@previous.test",
             "previous.test/path",
         ] {
-            assert!(destination(host, "/", "sellm.ai", "previous.test").is_none());
+            assert!(
+                destination(host, "/", "sellm.ai", "previous.test").is_none(),
+                "unexpected redirect for {host}"
+            );
         }
         assert!(destination("previous.test", "/", "https://evil.test", "previous.test").is_none());
         assert!(destination("previous.test", "/", "previous.test", "previous.test").is_none());
