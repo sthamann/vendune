@@ -37,7 +37,7 @@ that the browser caused a purchase or that a model learned a new fact**. Behavio
 edges are derived at read time; private visitor histories are not permanently
 copied into `knowledge_relations` or an embedding index.
 
-![Observed browsers, localized native products and semantic product intents](assets/behavior/graph.png)
+[Archived capture from the preceding release: Observed browsers, localized native products and semantic product intents](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/behavior/graph.png)
 
 *Solid edges represent consented observations; dashed edges come from existing
 confirmed product knowledge. Select a product to open the native product view.*

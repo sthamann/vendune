@@ -1,17 +1,19 @@
 # Northflank releases and private performance tests
 
-The `veyndo-main-release` Northflank workflow listens to pushes to `main` only.
+The product and source namespace are VEYNDO. Existing Northflank resource IDs and private DNS names below are retained deployment identifiers; they must not be recreated merely to change the brand. The Git push trigger now points to `sthamann/veyndo` on `main`.
+
+The `vendune-main-release` Northflank workflow listens to pushes to `main` only.
 GitHub branch protection requires the complete `verify` check, an up-to-date
 branch and pull requests; enforcement applies to administrators as well.
 The workflow queues releases, builds the exact triggering SHA, waits for a
-PostgreSQL native backup, deploys that exact image to `veyndo-migrate`, waits
+PostgreSQL native backup, deploys that exact image to `vendune-migrate`, waits
 for its successful migration-only run, then deploys the same image to Core and
 waits for readiness. Core's direct CD and the builder's direct CI stay disabled.
 A failed backup, build or migration prevents the service deployment.
 
-`veyndo-migrate` runs `/app/veyndo` with `BOOTSTRAP_MODE=migrate`, without
+`vendune-migrate` runs `/app/veyndo` with `BOOTSTRAP_MODE=migrate`, without
 operator credentials or demo seeding. It inherits only the existing private
-PostgreSQL URI from `veyndo-runtime`. Migration ledger/checksums and the database
+PostgreSQL URI from `vendune-runtime`. Migration ledger/checksums and the database
 migration lock remain authoritative. Do not edit a released migration: add a new
 one. Use expand/contract schema changes while the previous version is serving.
 A database backup is not automatic rollback: restore is an operator decision,
@@ -19,10 +21,10 @@ and backward-incompatible changes require a staged rollout. Release backups are
 additional to the daily seven-day retention schedule; manage their retention as
 catalog size grows.
 
-The manual `veyndo-benchmark` job builds `deploy/Dockerfile.benchmark`. It has
+The manual `vendune-benchmark` job builds `deploy/Dockerfile.benchmark`. It has
 no public port or schedule. Runtime-only database linkage must never be granted
 to a build. Set `BENCHMARK_ENVIRONMENT=veyndo-northflank-test` and
-`BASE_URL=http://veyndo-core:8787`. The bounded job creates fresh synthetic tenant
+`BASE_URL=http://vendune-core:8787`. The bounded job creates fresh synthetic tenant
 IDs and retains their fixtures for diagnosis. It never modifies another tenant.
 No authentication secrets, customer sessions or connection strings are logged.
 
@@ -67,3 +69,13 @@ readiness workflow. Its public one-page checkout saved synthetic order
 `RAC-7cdc9432` with structured address, standard shipping and explicitly simulated
 payment (EUR 79.80). No real payment was made.
 This check does not certify actual payments or production SaaS security.
+
+## VEYNDO domain cutover — 13 October 2026
+
+Core `ced4a38` and Experience `a6d3472` are running on Northflank. Core's release run `2eebf99a-d4cf-4fe5-ae35-3c984fa5cf49` built the new image, saved the PostgreSQL snapshot and ran migration job `be34855e-c9fa-467d-97be-4f7893d40874` successfully. Old workers were paused for the identity migration and resumed with the new image. Experience automatic deployment was restored after coordinated cutover.
+
+Runtime origins are `https://app.veyndo.ai` and `https://experience.veyndo.ai`; the shop suffix is `veyndo.ai`. The existing Experience identity state is copied through the configured migration adapter without changing tenant identity or replacing collisions. Migration 090 is additive; released migration files and checksums remain authoritative.
+
+[The reviewed frontend-origin transaction](operations/update-hosted-frontend-origins.sql) updates only the three configured, owned previous Experience origins. Run it as an authorized operator with the existing runtime database link, never a build credential. The operator transaction must set the established RLS system context to `on`; `true` does not satisfy that policy. Production execution updated 11 mounts and invalidated 10 tenants, committed and exited successfully. Repeating the transaction makes no additional changes.
+
+Cloudflare manages DNS; United Domains retains registration. The apex redirects to HTTPS `www.veyndo.ai` with path and query preserved. Northflank serves www, team, start, Experience, Studio and wildcard shops. Its certificate was issued after the temporary Universal SSL verification conflict was cleared; Universal SSL is enabled again. Automatic renewal through the overlapping DCV configuration has not yet been demonstrated. Old root/team DNS and Apple callback updates remain pending provider-account access.

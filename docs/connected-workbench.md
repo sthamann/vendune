@@ -171,7 +171,7 @@ workspace tab has a distinct semantic icon. The design preview performs no data
 calls; F5 still uses the original bounded actor-private runtime.
 [All-app ownership](plugin-ownership.md).
 
-![App-owned Returns workspace with semantic controls and translated schema labels](assets/app-workbench-designer.png)
+![Current Product advisor form designer with semantic controls and translated schema labels](assets/feature-tour/app-form-designer.png)
 
 Captured from the real local private sandbox on 12 October 2026. This is the passive design view with labelled sample controls; switch to the existing working preview to exercise actual app records.
 

@@ -13,12 +13,12 @@ post-processing, provider credentials or real customer data are included.
 | [product-advisor.jpg](product-advisor.jpg) | Product advisor design canvas | Passive sample layout, not saved product advice |
 | [product-access.jpg](product-access.jpg) | Product advice access/surface configuration | Explicit public read and private saving |
 | [returns-model.jpg](returns-model.jpg) | Returns schema and order reference | App-owned fields; no refund implementation |
-| [customer-assistant.jpg](customer-assistant.jpg) | Customer placement assistant | Actual input/setup before creating the draft |
-| [customer-model.jpg](customer-model.jpg) | Customer-bound private schema | Required reference and translatable fields |
-| [customer-choices.jpg](customer-choices.jpg) | Stable Standard/Priority choice values | One selected-language editor |
-| [scheduled-assistant.jpg](scheduled-assistant.jpg) | Daily shop review setup | 08:00 UTC configuration, not a due tick |
-| [scheduled-connections.jpg](scheduled-connections.jpg) | Emit event and active draft schedule | Native schedule contract, not external delivery |
-| [erp-connections.jpg](erp-connections.jpg) | Order event, filters and batching | Editable contract, not a connected ERP |
+| [customer-assistant-current.png](customer-assistant-current.png) | Customer placement assistant | Actual input/setup before creating the draft |
+| [customer-model-current.png](customer-model-current.png) | Customer-bound private schema | Required reference and translatable fields |
+| [customer-choices-current.png](customer-choices-current.png) | Stable Standard/Priority choice values | One selected-language editor |
+| [scheduled-assistant-current.png](scheduled-assistant-current.png) | Daily shop review setup | 08:00 UTC configuration, not a due tick |
+| [scheduled-connections-current.png](scheduled-connections-current.png) | Emit event and active draft schedule | Native schedule contract, not external delivery |
+| [erp-connections-current.png](erp-connections-current.png) | Order event, filters and batching | Editable contract, not a connected ERP |
 | [coding-agent.jpg](coding-agent.jpg) | Task prompt, provider selector and JSON import | Shared editing path; no model call made for this capture |
 | [versions.jpg](versions.jpg) | Existing immutable versions and staging review | Saved local versions; no public release claimed |
 

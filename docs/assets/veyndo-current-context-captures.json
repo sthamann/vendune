@@ -1,0 +1,34 @@
+[
+  {
+    "path": "docs/assets/feature-tour/product-knowledge-current.png",
+    "sha256": "4e407d09d0d64d7cbbcc8156da9690fa878554c2c19e2324e812c13013e3ce5a",
+    "capturedAt": "2026-10-13T19:39:36.123264+00:00",
+    "source": "Actual local VEYNDO UI, synthetic fixture",
+    "sourceRevision": "3cea18ad64a87b15ea6ad13e8186335e0dd0defd",
+    "boundary": "No model call, no payment, no published app or provider account change"
+  },
+  {
+    "path": "docs/assets/feature-tour/flow-current.png",
+    "sha256": "a392efce994526edfef39ab6ec790ae53fb45975825880621aeb2535ea195ea3",
+    "capturedAt": "2026-10-13T19:39:36.123561+00:00",
+    "source": "Actual local VEYNDO UI, synthetic fixture",
+    "sourceRevision": "3cea18ad64a87b15ea6ad13e8186335e0dd0defd",
+    "boundary": "No model call, no payment, no published app or provider account change"
+  },
+  {
+    "path": "docs/assets/feature-tour/identity-explorer-current.png",
+    "sha256": "a157447e9252f0da46359b2727ba85568b0cc7305c9fdc02b7e321cdd3e575f5",
+    "capturedAt": "2026-10-13T19:39:36.123650+00:00",
+    "source": "Actual local VEYNDO UI, synthetic fixture",
+    "sourceRevision": "3cea18ad64a87b15ea6ad13e8186335e0dd0defd",
+    "boundary": "No model call, no payment, no published app or provider account change"
+  },
+  {
+    "path": "docs/assets/feature-tour/workspace-assistant-current.png",
+    "sha256": "d22264b2d981dad2533e64bb169ae8470964017d78211ae08c5c6107e0256054",
+    "capturedAt": "2026-10-13T19:39:36.123715+00:00",
+    "source": "Actual local VEYNDO UI, synthetic fixture",
+    "sourceRevision": "3cea18ad64a87b15ea6ad13e8186335e0dd0defd",
+    "boundary": "No model call, no payment, no published app or provider account change"
+  }
+]

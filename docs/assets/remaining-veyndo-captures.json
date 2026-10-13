@@ -1,0 +1,154 @@
+[
+  {
+    "asset": "assets/feature-tour/knowledge-source-editor.png",
+    "sha256": "d1d74d812090e1759c76903413b243ad7ab6a534f05dfb2528cc32d8f635dc90",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual local VEYNDO UI, isolated Nord Atelier demo fixture. No external provider calls or real payment.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/feature-tour/countries-current.png",
+    "sha256": "43bef00ae83418d87212627c963a03a692a54c9e79efe14b3476f88dfa97bb24",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual local VEYNDO UI, isolated Nord Atelier demo fixture. No external provider calls or real payment.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/feature-tour/currency-settings-current.png",
+    "sha256": "2db512d9e09a0360bf79494d43df216c2a87659cbbc2b778e56069b2f1543167",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual local VEYNDO UI, isolated Nord Atelier demo fixture. No external provider calls or real payment.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/feature-tour/currency-channel-current.png",
+    "sha256": "608129c1de922b176dadbc15747dff7758b9ce429505da7cf18c1aea9319ae86",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual local VEYNDO UI, isolated Nord Atelier demo fixture. No external provider calls or real payment.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/feature-tour/currency-checkout-mobile-current.png",
+    "sha256": "8542bae32d82a8a00fd8758f582a8b58acda6d0ccb5ea284b0b9a7b8fc8c59c5",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual local VEYNDO UI, isolated Nord Atelier demo fixture. No external provider calls or real payment.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/feature-tour/studio-legal-current.png",
+    "sha256": "3376c3f47ba3523bffb718f749531118615eb4ca3347d6b6a0082863a7ab6036",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual local VEYNDO UI, isolated Nord Atelier demo fixture. No external provider calls or real payment.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/feature-tour/product-detail-current.png",
+    "sha256": "ea907ef657a2d06117434a2a57e6a51714496a5e47207d3bc9e7803cad14df20",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual local VEYNDO UI, isolated Nord Atelier demo fixture. No external provider calls or real payment.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/feature-tour/email-workspace-current.png",
+    "sha256": "43ca442bc4c635ae18e3243f273ad2f16b97a8c21310557cdaa2712f870fbe04",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "3cea18ad64a87b15ea6ad13e8186335e0dd0defd",
+    "source": "Actual local VEYNDO UI in the isolated Nord Atelier fixture. New POS draft cleared without completing a sale; the displayed recorded sale was already synthetic. Email delivery disabled; no external send.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/feature-tour/pos-focus-current.png",
+    "sha256": "30f0d6be8e6e7b4262f585b5d18e09f2cbc1ea30b6fffec00a99b131ddb9bda8",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "3cea18ad64a87b15ea6ad13e8186335e0dd0defd",
+    "source": "Actual local VEYNDO UI in the isolated Nord Atelier fixture. New POS draft cleared without completing a sale; the displayed recorded sale was already synthetic. Email delivery disabled; no external send.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/feature-tour/pos-variants-current.png",
+    "sha256": "d9eed1935146012582c05a068c7f0d711df94c1b55f27347745888c5af8401d6",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "3cea18ad64a87b15ea6ad13e8186335e0dd0defd",
+    "source": "Actual local VEYNDO UI in the isolated Nord Atelier fixture. New POS draft cleared without completing a sale; the displayed recorded sale was already synthetic. Email delivery disabled; no external send.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/feature-tour/pos-mobile-current.png",
+    "sha256": "53f2630cd1de257d57e55aac31b00c7a4dc616ee14aab4129df8b0869f78aea8",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "3cea18ad64a87b15ea6ad13e8186335e0dd0defd",
+    "source": "Actual local VEYNDO UI in the isolated Nord Atelier fixture. New POS draft cleared without completing a sale; the displayed recorded sale was already synthetic. Email delivery disabled; no external send.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/feature-tour/pos-completion-current.png",
+    "sha256": "2bff63c0d091b5291b198df5dd63fb3408244e421d10bdbb1f5e613c9b02dc4d",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual local VEYNDO UI in the isolated Nord Atelier fixture. New POS draft cleared without completing a sale; the displayed recorded sale was already synthetic. Email delivery disabled; no external send.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/feature-tour/pos-order-current.png",
+    "sha256": "863011390316706ecf0246f9ed6bac7df6bfabdd9a56de2de4cc4b8e344fecb0",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "3cea18ad64a87b15ea6ad13e8186335e0dd0defd",
+    "source": "Actual local VEYNDO UI in the isolated Nord Atelier fixture. New POS draft cleared without completing a sale; the displayed recorded sale was already synthetic. Email delivery disabled; no external send.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/app-tutorials/customer-assistant-current.png",
+    "sha256": "d86c822b241ae304bdaa24253ea4546d89e8a9c60efc17707dd53dcfe4c5151a",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "3cea18ad64a87b15ea6ad13e8186335e0dd0defd",
+    "source": "Actual native local App Studio assistant/model/contract. Unpublished client drafts, never installed; no customer records exposed, scheduler started or ERP call made.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/app-tutorials/customer-model-current.png",
+    "sha256": "c61066da1d1509d9a393ba3b68b35a5f6113503e55fb4556e94447abfa0f57de",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "3cea18ad64a87b15ea6ad13e8186335e0dd0defd",
+    "source": "Actual native local App Studio assistant/model/contract. Unpublished client drafts, never installed; no customer records exposed, scheduler started or ERP call made.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/app-tutorials/customer-choices-current.png",
+    "sha256": "53b2342c38ef5f3843c165be9538aa472e5f84905aa9ebb3e7529c678492c9a1",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "3cea18ad64a87b15ea6ad13e8186335e0dd0defd",
+    "source": "Actual native local App Studio assistant/model/contract. Unpublished client drafts, never installed; no customer records exposed, scheduler started or ERP call made.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/app-tutorials/scheduled-assistant-current.png",
+    "sha256": "f4cb6006aef6b27efe807a45342454bd0221a0bcf38268376263c845c4253bdd",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "3cea18ad64a87b15ea6ad13e8186335e0dd0defd",
+    "source": "Actual native local App Studio assistant/model/contract. Unpublished client drafts, never installed; no customer records exposed, scheduler started or ERP call made.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/app-tutorials/scheduled-connections-current.png",
+    "sha256": "d1ce0d55ebfc6f8d84a3914cc112e2e15b162b069e70898a874eff02714bf3c1",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "3cea18ad64a87b15ea6ad13e8186335e0dd0defd",
+    "source": "Actual native local App Studio assistant/model/contract. Unpublished client drafts, never installed; no customer records exposed, scheduler started or ERP call made.",
+    "kind": "browser screenshot"
+  },
+  {
+    "asset": "assets/app-tutorials/erp-connections-current.png",
+    "sha256": "756e34ab5f14922eaa021ab8343db32c5bf6216fd575fbf6d104351b729dd398",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "3cea18ad64a87b15ea6ad13e8186335e0dd0defd",
+    "source": "Actual native local App Studio assistant/model/contract. Unpublished client drafts, never installed; no customer records exposed, scheduler started or ERP call made.",
+    "kind": "browser screenshot"
+  }
+]

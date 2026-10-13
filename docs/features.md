@@ -99,7 +99,7 @@ Customer identities are separate from Studio users. Accounts support registratio
 
 Paid digital files become available through purchase entitlements. Orders pin immutable asset IDs; replacing or withdrawing a public file does not silently replace the purchased bytes. Full refunds revoke relevant access; partial refunds retain it. All-digital carts omit physical shipping; mixed carts calculate it for physical items. Recovery, verified email/email changes and complete account export/erasure remain additional work. [Customer and download contracts](merchant-operations.md).
 
-![Separate customer account with personal data and a saved address](assets/feature-tour/customer-account.jpg)
+[Archived capture from the preceding release: Separate customer account with personal data and a saved address](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/feature-tour/customer-account.jpg)
 
 ## VEYNDO Studio
 
@@ -381,7 +381,7 @@ The creation assistant has **Basics → Catalog & languages → Review & create*
 
 Experience onboarding installs the public Storyfront integration in the same transaction as its owned frontend binding. Migration 055 repairs older Experience shops without repeated package revisions. Apps, Storyfronts and the channel connection list show the same domain/channel and open the existing deployment-selected editor. App deactivation is blocked while its frontend dependencies remain. Installation neither copies private code nor publishes a draft.
 
-![Automatically installed Storyfront app with its domain, sales channel and editor](assets/showcase/storyfront-managed.png)
+[Archived capture from the preceding release: Automatically installed Storyfront app with its domain, sales channel and editor](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/showcase/storyfront-managed.png)
 
 The public Experience deployment currently retains its React revision editor. The private native image builds the original Astro Studio and Cinematic renderer, but its successful isolated CI test does not mean every public shop uses that renderer. Native activation, workers and provider configuration are explicit deployment choices. [Current release](current-release.md) · [Generic connection contract](experience-integration.md).
 
@@ -401,7 +401,7 @@ A personal merchant can issue a **one-use 60-second Studio ticket**. Redeeming i
 
 These adapters are opt-in and disabled without operator configuration. Trusted inference has a durable 50-call allowance per verified email per UTC day; this is a prototype abuse boundary, not SaaS billing. The public private-service deployment and owned connection were observed in the latest release review; those observations do not certify Google/Apple OAuth, every email delivery or production scale. [Trust contract, routes and configuration](experience-integration.md).
 
-![Latest source-derived API explorer with the trusted identity exchange contract](assets/feature-tour/identity-explorer.jpg)
+![Current source-derived API explorer with the identity exchange route; write execution is disabled](assets/feature-tour/identity-explorer-current.png)
 
 ## Apps and App Studio
 
@@ -428,9 +428,9 @@ The bundled catalog is not an external marketplace of arbitrary vetted services.
 
 OAuth/token refresh and connector queues live in independent app services with their own encrypted configuration/storage. Imported content is evidence, never an instruction. Disconnect fences/removes its active planning sources. Order-event and equivalent Flow notifications are two distinct paths; intentionally choose one if only one message is wanted. [Connected apps](connected-apps.md) · [Email delivery](email-delivery.md).
 
-![Configured-service email workspace from its separately dated synthetic walkthrough](assets/email-app-en.png)
+![Current native Email Delivery controls in the isolated VEYNDO demonstration](assets/feature-tour/email-workspace-current.png)
 
-*This retained image illustrates transport settings; the new feature-tour capture does not send external email or claim a live connected account.*
+*Current capture: the local Rust connector is running, delivery remains disabled and no sender credentials or real provider calls are supplied.*
 
 ### Nine guided app starting points
 
@@ -448,7 +448,7 @@ The palette contains text, forms, grids, cards, inputs, choices, dates, buttons,
 
 *GIF: real draft layout changes. The design canvas labels its sample data; it is distinct from the working sandbox preview.*
 
-![Native form designer with snapping geometry and property inspector, captured 8 October](assets/feature-tour/app-form-designer.png)
+![Native form designer with snapping geometry and property inspector, captured 13 October in an isolated demo shop](assets/feature-tour/app-form-designer.png)
 
 Data models include date/time, explicit-currency money, scaled decimals, private images/files, rich text and multiple relations alongside translated/JSON/scalar fields. Physical tenant/app tables enforce RLS, scoped relations, recursive validation, uniqueness and quotas. Explicit rename/remove/convert/fill migrations retain bounded recovery snapshots; arbitrary SQL is prohibited. [Manifest/storage contracts](app-platform.md).
 
@@ -458,11 +458,11 @@ Data models include date/time, explicit-currency money, scaled decimals, private
 
 F5 runs the current autosaved draft in an actor-private, expiring sandbox without publishing a package. Changes hot-reload actual app records; schema edits reset the private preview. For publication, select a staging sandbox, save an immutable version, inspect changes/digest and approve installation. **Working sandbox preview** runs the actual native renderer with real managed records. For embedded forms, choose a real matching object, save, reopen and inspect persisted data/revision. Package publication and app-data publication are independent.
 
-![Private preview after saving and reloading a product-bound record, captured 8 October](assets/feature-tour/app-private-preview.png)
+![Private preview after saving and reloading a product-bound record, captured 13 October in an isolated demo shop](assets/feature-tour/app-private-preview.png)
 
 Code-behind can validate a form, call its allowed gateway action, refresh the view
 and display a translated result. Breakpoints pause between bounded instructions.
-The retained 6 October recording below illustrates the separate staging path.
+The 13 October recording below illustrates the separate staging path in an isolated demo shop.
 
 ![Save a product-bound care record and observe it in the actual sandbox renderer](assets/feature-tour/app-preview.gif)
 
@@ -476,7 +476,7 @@ The Coding agent view exports a task/manifest contract with credential placehold
 
 Full apps can own admin modules, product/order panels, storefront pages/home/header/detail/cart/account surfaces, namespaced HTTP aliases, MCP tools, selected planning facts and an independent service/database/model. Product Lab is a runnable example. Custom UI runs in an opaque iframe with a scoped SDK bridge; it receives no merchant bearer token and cannot replace parent DOM. Per-action rights, public reads, MCP exposure and selected planning tools are separate decisions. [Full app platform and SDK](app-platform.md).
 
-![Actual Product Lab app-owned admin surface from its dated local example](assets/app-admin-en.jpg)
+[Archived capture from the preceding release: Actual Product Lab app-owned admin surface from its dated local example](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/app-admin-en.jpg)
 
 External calls have deadlines/payload/admission limits and do not hold a core DB connection. Operator configuration supplies trusted service/UI origins. Canonical signatures, dependency/channel validation, scoped app callback keys and server-enforced surface grants are implemented. Arbitrary source builds/rollout and hostile-code microVM containment remain external.
 

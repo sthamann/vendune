@@ -77,7 +77,7 @@ Flow executions refresh every three seconds. Open a run to inspect branch choice
 completed actions and a scheduled continuation. Wait for it to complete before
 checking **Orders → Documents**. Browser reloads do not discard persisted jobs.
 
-![Installed six-step playground flow: saved rule, two tag branches, delay, invoice and stop](assets/playground-flow-en.jpg)
+[Archived capture from the preceding release: Installed six-step playground flow: saved rule, two tag branches, delay, invoice and stop](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/playground-flow-en.jpg)
 
 ## Try the other workspaces
 

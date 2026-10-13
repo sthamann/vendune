@@ -9,9 +9,9 @@ it is never the security boundary.
 These screenshots use a disposable local shop and synthetic customer records.
 They demonstrate UI behavior; they are not a claim of public deployment.
 
-![Marketplace channel saved through the three-step wizard](assets/showcase/studio-marketplace-channel-en-20261013.jpg)
+[Archived capture from the preceding release: Marketplace channel saved through the three-step wizard](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/showcase/studio-marketplace-channel-en-20261013.jpg)
 
-![App draft retained after returning to the overview](assets/showcase/studio-app-return-en-20261013.jpg)
+[Archived capture from the preceding release: App draft retained after returning to the overview](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/showcase/studio-app-return-en-20261013.jpg)
 
 ![Central revisioned B2B feature settings](assets/showcase/studio-b2b-settings-en-20261013.jpg)
 

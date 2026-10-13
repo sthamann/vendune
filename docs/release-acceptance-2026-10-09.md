@@ -244,11 +244,11 @@ The receipt confirms simulated authorization; no money was charged. The return
 button exposed a separate SPA-navigation defect, repaired with canonical hosted
 navigation while preserving local SPA behavior and channel/language scope.
 
-![Original Storyfront Studio in the VEYNDO frame](assets/showcase/native-public-studio-20261009.png)
+[Archived capture from the preceding release: Original Storyfront Studio in the VEYNDO frame](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/showcase/native-public-studio-20261009.png)
 
-![Actual original German product-answer scene](assets/showcase/native-public-ai-scene-20261009.png)
+[Archived capture from the preceding release: Actual original German product-answer scene](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/showcase/native-public-ai-scene-20261009.png)
 
-![Actual original Bag to canonical checkout receipt, fictional contact details](assets/showcase/native-public-checkout-20261009.png)
+[Archived capture from the preceding release: Actual original Bag to canonical checkout receipt, fictional contact details](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/showcase/native-public-checkout-20261009.png)
 
 Original intro/controls still include English copy. Universal native worker
 provider inheritance, complete advanced-media import, externally settled payments
