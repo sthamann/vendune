@@ -46,7 +46,10 @@ export default function SalesChannelsWorkspace({
           setChannels(a.channels);
           setSettings(c.data);
           setCategories(k.elements);
-          setManage(p.permissions.includes("settings.write"));
+          setManage(
+            p.permissions.includes("channels.manage") ||
+              p.permissions.includes("settings.write"),
+          );
         }
       })
       .catch((e) => {

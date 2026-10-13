@@ -2,8 +2,11 @@
 use crate::*;
 use sqlx::PgPool;
 
+mod recent_schema;
 mod schema;
-use schema::SCHEMA;
+fn sources() -> impl Iterator<Item = &'static (&'static str, &'static str)> {
+    schema::SCHEMA.iter().chain(recent_schema::SCHEMA.iter())
+}
 
 pub(crate) async fn apply(pool: &PgPool) {
     sqlx::query("SELECT set_config('rac.system','on',false)")
@@ -35,7 +38,7 @@ pub(crate) async fn apply(pool: &PgPool) {
             assert_eq!(applied, hash(source), "Legacy migration drift: {version}");
         }
     }
-    for (version, source) in SCHEMA {
+    for (version, source) in sources() {
         let checksum = hash(source);
         let applied: Option<String> =
             sqlx::query_scalar("SELECT checksum FROM public.commerce_migrations WHERE version=$1")
@@ -145,7 +148,7 @@ pub(crate) async fn seed_demo(a: &App, setup: &PgPool) {
 
 /// Every required schema must match, including domain schemas introduced after bounded reads.
 pub(crate) async fn ready(db: &vendune::scoped_pool::ScopedPool) {
-    for (version, source) in SCHEMA {
+    for (version, source) in sources() {
         let current: Option<String> =
             sqlx::query_scalar("SELECT checksum FROM public.commerce_migrations WHERE version=$1")
                 .bind(version)

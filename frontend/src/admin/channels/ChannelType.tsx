@@ -13,11 +13,13 @@ export default function ChannelType({
   draft,
   patch,
   countries,
+  countryError,
 }: {
   request: RequestFn;
   draft: Channel;
   patch: (v: Partial<Channel["data"]>) => void;
   countries: string[];
+  countryError?: string;
 }) {
   const t = useChannelText();
   const p = usePosText();
@@ -88,15 +90,18 @@ export default function ChannelType({
       </div>
       {draft.data.kind === "pos" && (
         <section className="commerce-fields">
-          <CountryPicker
-            countries={world.filter((c) => countries.includes(c.code))}
-            label={p("country")}
-            value={[config.country]}
-            single
-            onChange={(value) =>
-              patch({ pos: { ...config, country: value[0] ?? "" } })
-            }
-          />
+          <div className={countryError ? "field-invalid" : ""}>
+            <CountryPicker
+              countries={world.filter((c) => countries.includes(c.code))}
+              label={p("country")}
+              value={[config.country]}
+              single
+              onChange={(value) =>
+                patch({ pos: { ...config, country: value[0] ?? "" } })
+              }
+            />
+            {countryError && <small role="alert">{countryError}</small>}
+          </div>
           <label>
             {p("columns")}
             <select

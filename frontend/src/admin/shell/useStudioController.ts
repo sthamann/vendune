@@ -12,9 +12,11 @@ import "../styles/studio.css";
 import type { Message, Overview, Provider } from "./studio-types";
 
 import { useEntityNavigation } from "./useEntityNavigation";
+import { canOpenStudio, firstStudioTab } from "./permissions";
 import { useStudioNavigation } from "./navigation";
 import { useStudioRequests } from "./requests";
 import { useServerHealth } from "./useServerHealth";
+import { useStudioPermissions } from "./useStudioPermissions";
 import { useStudioAccess } from "./useStudioAccess";
 
 export function useStudioController({
@@ -77,7 +79,9 @@ export function useStudioController({
   const [previewOpen, setPreviewOpen] = useState(false);
   const navigation = useEntityNavigation(
     JSON.stringify([workspace, environment]),
-    nav.map((n) => n.id),
+    (connected ? nav.filter((n) => canOpenStudio(n.id, access)) : nav).map(
+      (n) => n.id,
+    ),
   );
   const { tab, setTab, entityTarget, openEntity, entityBack } = navigation;
   const [appSurface, setAppSurface] = useState<AppSurface | null>(null);
@@ -110,20 +114,29 @@ export function useStudioController({
     liveRequest,
   );
   const sessionExpired = auth.expired;
+  useStudioPermissions(
+    !!auth.identity,
+    auth.expired,
+    connected,
+    request,
+    access,
+    setAccess,
+    () => {
+      setData(undefined);
+      setMessages([]);
+      setConversations([]);
+      setProviders([]);
+      setId(undefined);
+      setAppSurface(null);
+      setConnectionAttempt((v) => v + 1);
+    },
+  );
   useEffect(() => {
-    let active = true;
-    if (auth.active)
-      void request("/api/auth/access")
-        .then((v) => {
-          if (active) setAccess(v.permissions);
-        })
-        .catch(() => {
-          if (active) setAccess([]);
-        });
-    return () => {
-      active = false;
-    };
-  }, [auth.active, request]);
+    if (connected && !canOpenStudio(tab, access)) {
+      const first = firstStudioTab(access);
+      if (first) selectTab(first);
+    }
+  }, [connected, access, tab]);
   const refreshEnvironments = useCallback(
     async () =>
       setEnvironments((await liveRequest("/api/environments")).environments),
@@ -138,7 +151,13 @@ export function useStudioController({
   }, [auth.active, refreshEnvironments]);
   const refresh = useCallback(async () => {
     setData(await request("/api/merchant/overview"));
-    setConversations((await request("/api/agent/conversations")).conversations);
+    const current = await request("/api/auth/access");
+    setAccess(current.permissions);
+    setConversations(
+      canOpenStudio("assistant", current.permissions)
+        ? (await request("/api/agent/conversations")).conversations
+        : [],
+    );
     setUpdated(new Date().toISOString());
     window.dispatchEvent(new Event("commerce.apps.changed"));
   }, [request]);
@@ -166,17 +185,31 @@ export function useStudioController({
     if (connectionScope.current !== scope) setConnected(false);
     connectionScope.current = scope;
     setConnectionPending(true);
-    Promise.all([
-      request("/api/agent/providers"),
-      request("/api/merchant/overview"),
-      request("/api/agent/conversations"),
-      liveRequest("/api/auth/session"),
-    ])
-      .then(([providerData, overview, history, session]) => {
+    request("/api/auth/access")
+      .then(async (current) => {
+        if (!active) return;
+        setAccess(current.permissions);
+        const permissions: string[] = current.permissions;
+        return Promise.all([
+          canOpenStudio("assistant", permissions)
+            ? request("/api/agent/providers")
+            : Promise.resolve({ providers: [] }),
+          request("/api/merchant/overview"),
+          canOpenStudio("assistant", permissions)
+            ? request("/api/agent/conversations")
+            : Promise.resolve({ conversations: [] }),
+          liveRequest("/api/auth/session"),
+        ]);
+      })
+      .then((result) => {
+        if (!result) return;
+        const [providerData, overview, history, session] = result;
         if (!active) return;
         const ps: Provider[] = providerData.providers;
         setProviders(ps);
-        setModel(ps.find((p) => p.id === provider)?.model ?? ps[0].model);
+        setModel(
+          ps.find((p) => p.id === provider)?.model ?? ps[0]?.model ?? "",
+        );
         setData(overview);
         setConversations(history.conversations);
         setWorkspaceName(
@@ -214,13 +247,6 @@ export function useStudioController({
   useEffect(() => {
     localStorage.setItem("rac-studio-theme-v03", theme);
   }, [theme]);
-  const connect = async () => {
-    const ps: Provider[] = (await request("/api/agent/providers")).providers;
-    setProviders(ps);
-    setModel(ps.find((p) => p.id === provider)?.model || ps[0].model);
-    await refresh();
-    setConnected(true);
-  };
   const load = async (conversationId: string) => {
     const value = await request(`/api/agent/conversations/${conversationId}`);
     setId(value.conversationId);
@@ -357,7 +383,6 @@ export function useStudioController({
     refreshEnvironments,
     refresh,
     run,
-    connect,
     load,
     newChat,
     intent,

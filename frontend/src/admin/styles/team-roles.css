@@ -1,0 +1,72 @@
+/* Native team roles and readable scopes share Studio surfaces and responsive form rhythm. */
+.roles-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+.role-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+.role-card {
+  display: grid;
+  gap: 12px;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+.role-card:hover {
+  border-color: var(--accent);
+  background: var(--hover);
+}
+.role-card small,
+.roles-header p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+.roles-manager fieldset {
+  border: 0;
+  padding: 0;
+  display: grid;
+  gap: 20px;
+}
+.permission-search {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0;
+}
+.permission-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  line-height: 1.5;
+}
+.permission-option code {
+  color: var(--muted);
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+.permission-option input {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+}
+@media (max-width: 700px) {
+  .roles-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .permission-grid {
+    grid-template-columns: 1fr;
+  }
+}

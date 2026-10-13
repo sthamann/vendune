@@ -4,7 +4,7 @@ use axum::response::sse::{Event, KeepAlive, Sse};
 pub(crate) fn router() -> Router<App> {
     Router::new().secure_route(
         "/api/agent/chat/stream",
-        &[("POST", "knowledge.read")],
+        &[("POST", "assistant.use")],
         post(chat),
     )
 }
@@ -14,7 +14,7 @@ async fn chat(
     Json(v): Json<Value>,
 ) -> Result<impl axum::response::IntoResponse> {
     merchant(&a, &h)?;
-    auth::permit(&h, "knowledge.read")?;
+    agent::assistant_access(&h)?;
     if !v["message"]
         .as_str()
         .is_some_and(|s| !s.is_empty() && s.len() <= 4000)

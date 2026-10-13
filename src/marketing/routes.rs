@@ -5,28 +5,37 @@ pub(crate) fn router() -> Router<App> {
         .merge(channel_preview::router())
         .merge(catalog::router())
         .merge(metadata::router())
-        .secure_route("/api/automation", &[("GET", "settings.read")], get(list))
+        .secure_route("/api/automation", &[("GET", "read")], get(list))
         .secure_route(
             "/api/automation/executions",
-            &[("GET", "settings.read")],
+            &[("GET", "read")],
             get(jobs::list),
         )
         .secure_route(
             "/api/automation/{kind}/{id}",
-            &[("PUT", "settings.write"), ("DELETE", "settings.write")],
+            &[("PUT", "read"), ("DELETE", "read")],
             axum::routing::put(save).delete(lifecycle::delete),
         )
         .secure_route(
             "/api/automation/{kind}/{id}/dependencies",
-            &[("GET", "settings.read")],
+            &[("GET", "read")],
             get(lifecycle::dependencies),
         )
         .secure_route(
             "/api/automation/rules/preview",
-            &[("POST", "settings.read")],
+            &[("POST", "read")],
             post(preview),
         )
         .route("/store-api/checkout/coupons", axum::routing::put(coupons))
+}
+pub(crate) fn configuration_right(kind: &str, write: bool) -> Result<&'static str> {
+    match (kind, write) {
+        ("channels", false) => Ok("channels.read"),
+        ("channels", true) => Ok("channels.manage"),
+        ("rules" | "flows" | "promotions", false) => Ok("automation.read"),
+        ("rules" | "flows" | "promotions", true) => Ok("automation.manage"),
+        _ => Err(bad("Unknown configuration type")),
+    }
 }
 pub(super) fn table(kind: &str) -> Result<&'static str> {
     match kind {
@@ -38,10 +47,19 @@ pub(super) fn table(kind: &str) -> Result<&'static str> {
     }
 }
 pub(super) async fn list(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {
-    auth::permit(&h, "settings.read")?;
     let t = merchant(&a, &h)?;
+    if !["automation.read", "channels.read"]
+        .iter()
+        .any(|s| auth::allowed(&h, s))
+    {
+        auth::permit(&h, "automation.read")?;
+    }
     let mut result = json!({});
     for kind in ["rules", "promotions", "flows", "channels"] {
+        if !auth::allowed(&h, configuration_right(kind, false)?) {
+            result[kind] = json!([]);
+            continue;
+        }
         let table = table(kind)?;
         let sql = if kind == "rules" {
             format!(
@@ -62,7 +80,11 @@ pub(super) async fn list(State(a): State<App>, h: RequestContext) -> Result<Json
             channel["data"]["locales"] = json!(settings.locales);
         }
     }
-    result["jobs"] = jobs::values(&a, &t).await?;
+    result["jobs"] = if auth::allowed(&h, "automation.read") {
+        jobs::values(&a, &t, &h).await?
+    } else {
+        json!([])
+    };
     Ok(Json(result))
 }
 pub(crate) async fn save(
@@ -71,7 +93,7 @@ pub(crate) async fn save(
     Path((kind, id)): Path<(String, String)>,
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
-    auth::permit(&h, "settings")?;
+    auth::permit(&h, configuration_right(&kind, true)?)?;
     let t = merchant(&a, &h)?;
     if !apps::identifier(&id) {
         return Err(bad("Invalid configuration ID"));
@@ -184,7 +206,7 @@ pub(super) async fn preview(
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
-    auth::permit(&h, "settings.read")?;
+    auth::permit(&h, "automation.read")?;
     let c: rules::Condition =
         serde_json::from_value(v["condition"].clone()).map_err(|_| bad("Unsupported condition"))?;
     c.validate(0)?;

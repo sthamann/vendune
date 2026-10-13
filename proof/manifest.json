@@ -824,8 +824,8 @@
     },
     "src/agent.rs": {
       "status": "unproved",
-      "sha256": "2df29e2142aa4c39751272a2c0557ffe91f27f28d6a7edd94d10b99ace1c8ab3",
-      "review": "Reviewed current-source answer fence against native tenant/publication/archive/revision/hash/chunk/locale and exact product snapshot; delayed uncited provider HTTP regressions reject withdrawal/reassignment/product mutation. Registered saved-fact indexes and transactional rebuildable diagnostic deltas; isolated PostgreSQL/Qdrant tests cover 1000-job backfill, concurrent deltas/reset/delete/tenant separation. 184 Rust unit checks and format/clippy pass; SQL/async boundary remains outside extracted proofs."
+      "sha256": "319ecd68ca5fbc76b0fba426a2a725521cf022499ccbe7424759fa0617f6a02e",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/apps/approval.rs": {
       "status": "reviewed-binding",
@@ -859,8 +859,8 @@
     },
     "src/apps/core_callbacks.rs": {
       "status": "unproved",
-      "sha256": "ac6f09e01b13f9b1dc1b30a200815cda23bde9ca3d9322e21a593e8d9880144c",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "sha256": "0a3b5aaf73c31aa24281c0493b121ef7c98d5c84d91e1952ba3f1f907a962ce8",
+      "review": "Reviewed tenant role, PII and B2B admission changes with independent reviewer; fixed stale owner/invitation races tested against PostgreSQL. App callbacks preserve existing safe projections without elevating identities; separate PII consent required for full reads, foreign IDs rejected and retained guest/group fields regression tested. SQL/async/UI remain outside proof boundary; verified commerce kernel unchanged."
     },
     "src/apps/core_exchange.rs": {
       "status": "unproved",
@@ -949,8 +949,8 @@
     },
     "src/apps/job_callbacks.rs": {
       "status": "unproved",
-      "sha256": "6b22f44d95dfe07b59d6a630ae8c7896df35159797773bd109b2550982fcd469",
-      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
+      "sha256": "3fdbc1c4c92bbf5307f76c50f22464e65e5a42de5435e4b463a83d4ba5d1a146",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/apps/jobs.rs": {
       "status": "unproved",
@@ -1024,8 +1024,8 @@
     },
     "src/apps/routes.rs": {
       "status": "unproved",
-      "sha256": "d617c61dee79394c82a511488d619d19dbe2a07002faf70e9a5c30bd34c44f3a",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "sha256": "03a2e3f857bd02a384a59843294608e90f5a14dd523f73df22cf63e4c02bc6ef",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/apps/runtime.rs": {
       "status": "unproved",
@@ -1169,8 +1169,8 @@
     },
     "src/auth/broker.rs": {
       "status": "unproved",
-      "sha256": "6b91d59807be47f4080d96cd67741060e985bd2181aea0fbd85cdb7ae2083782",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "7f1f95d3e000b762fc71fb658e72c2663da38fd1a645895e2490b4ee7ab1b531",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/auth/broker_credentials.rs": {
       "status": "unproved",
@@ -1184,8 +1184,8 @@
     },
     "src/auth/credentials.rs": {
       "status": "unproved",
-      "sha256": "728924dc33b4b6dc1233c5d63f20d928492deddaf12798ebe6784b5b4169278b",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "f9b7abb5b6e1e014a48a19340a7349ba9c875e7bd3b79acdea22c66f7ecab6c6",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/auth/dto.rs": {
       "status": "unproved",
@@ -1194,8 +1194,8 @@
     },
     "src/auth/handoff.rs": {
       "status": "unproved",
-      "sha256": "df9389efaaf6426393deabc0e73b2ebac25e96e0aee2fc6f625847c22ffe41a3",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "72518a5b35cb97055b38e18b5573d3d7928eaccf256c9583f604d74a050e1aaf",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/auth/identity.rs": {
       "status": "unproved",
@@ -1209,13 +1209,13 @@
     },
     "src/auth/invitations.rs": {
       "status": "unproved",
-      "sha256": "1122b02d6d628565feaa003d7a85f34e9fa8d8b45b95c1c8654ea7d8c9bc5d30",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "bb92c9500a3efee431d5da7772d5506894c6283825cb8794d48102492a12fc42",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/auth/members.rs": {
       "status": "unproved",
-      "sha256": "2447c3fcd3f22c4dafb3e8b359cbc62a37bd1d1660672e5cc69c512e5e8df25e",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "2c1749000a3aca822427e8f427d4304fbf161a5772568ba3e9d31a1e32ae1aa6",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/auth/middleware.rs": {
       "status": "reviewed-binding",
@@ -1224,13 +1224,13 @@
     },
     "src/auth/mod.rs": {
       "status": "unproved",
-      "sha256": "dfce27a9d90676bb35b82ca677ea49d9e6139bb7b5bec72a0d9c5d5b1df260eb",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "c878e31760b8a42b977100c234f0969af54fdcbdda21cd8c1ed5f09158d36a97",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/auth/permissions.rs": {
       "status": "reviewed-binding",
-      "sha256": "d5dda36320f92a56a2cc2a335ccf53846be3109d43a91dc4541543dd71f3af82",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "5e339697f42bb8dbfc1a96666582ca3e4797559d2a15ebb74149ef5b86b7fd8b",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/auth/provision.rs": {
       "status": "unproved",
@@ -1242,6 +1242,11 @@
       "sha256": "49fc9d4038dc42c817034f8fb9db4ec83cbccdfe25cc2813af575a027681cba8",
       "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
     },
+    "src/auth/roles.rs": {
+      "status": "unproved",
+      "sha256": "5938ac48748cc995e7b12b6881759ed5361e043f23f727a4d0f64b689ddd856b",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+    },
     "src/auth/route_policy.rs": {
       "status": "unproved",
       "sha256": "7bc70dd86dc0498f4b69b97b673ac390619ed8e58cb0287068b7f413dfb94a9b",
@@ -1249,8 +1254,8 @@
     },
     "src/auth/sessions.rs": {
       "status": "unproved",
-      "sha256": "ad6bba9ee4e776d30c5688a7ac8fc73caaef7a65bb7c6bb31244ab8f6d14e8a7",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "88a3d46f0bcbd59baf8cf8dbb220f77a31c38723afc307beb167c4d0a54180b8",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/automation_rules/comparison.rs": {
       "status": "unproved",
@@ -1294,8 +1299,8 @@
     },
     "src/b2b/access.rs": {
       "status": "unproved",
-      "sha256": "72c8606e7f732ada94ba5244de7d2e4c4e6914f663eb87e3c77b6451ce972799",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "0a8d2f7a04f49cc751353b138a27f015fcfb03774889bff9206d5761c96d905e",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/b2b/approval.rs": {
       "status": "reviewed-binding",
@@ -1309,8 +1314,8 @@
     },
     "src/b2b/gateway.rs": {
       "status": "unproved",
-      "sha256": "68ac645fff07cd501596727ef3aa0e24348a3219820f056a63c8930ba6ebf7d4",
-      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+      "sha256": "886e7743c0520d8f1c865048f317d406895940c7bee88093d7897bc57bdd75cf",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/b2b/lists.rs": {
       "status": "unproved",
@@ -1319,13 +1324,18 @@
     },
     "src/b2b/mod.rs": {
       "status": "unproved",
-      "sha256": "3d0b99180ce397a37b13850e457e8a0d70f288bce8e062d190e9dc19c7638e86",
-      "review": "Reviewed selective-publication domain rights, transactional channel and current installed Flow action admission, shared B2B configuration writers with history and staging, method/currency dependency guards, and inherited consent-bound analytics. PostgreSQL and frontend regressions exercise successful effects, denied access, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "70cda13986f06938fd19728cbce38732a43576645f6f03b39fe71347ed8d2f6b",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/b2b/model.rs": {
       "status": "unproved",
       "sha256": "a6ae2a51f3e22405784165617648cc7bf037d6d30760761b894681be85bd4884",
       "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "src/b2b/onboarding.rs": {
+      "status": "unproved",
+      "sha256": "dc1d2531fa43016831456437144e16d0854532d076a3b0909f0bc3311eacf338",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/b2b/orders.rs": {
       "status": "unproved",
@@ -1334,8 +1344,8 @@
     },
     "src/b2b/organization.rs": {
       "status": "unproved",
-      "sha256": "50802b3ccc1f4e1820667a9d0f247cda1ddcd4f25b2fbe1e84538c5118c35a7f",
-      "review": "Reviewed selective-publication domain rights, transactional channel and current installed Flow action admission, shared B2B configuration writers with history and staging, method/currency dependency guards, and inherited consent-bound analytics. PostgreSQL and frontend regressions exercise successful effects, denied access, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "a552dc1f513ae66d43554087ca0c5f4bfed88d2dae20b45d53f27f7f845e07fe",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/b2b/purchase.rs": {
       "status": "reviewed-binding",
@@ -1361,6 +1371,11 @@
       "status": "unproved",
       "sha256": "1067fcd7ae3fd2773faf66802da47e26a8446f05c7948ecee5939c9aa37a9db7",
       "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+    },
+    "src/b2b/settings.rs": {
+      "status": "unproved",
+      "sha256": "c04f9b14eaef19d883430c4690af5457236da716019b18974755971bdfdd1a12",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/b2b/staging.rs": {
       "status": "unproved",
@@ -1419,8 +1434,8 @@
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
-      "sha256": "94f05e2ade3b90aea9580060d3371692ae62cc8b169afbfb1084fb5f016e58d3",
-      "review": "Behavior analytics reviewed: existing cart-locked consent predicate reused; purpose-separated withdrawal, tenant/FK scope, typed and bounded observations, private journey permissions and derived reports. New SQL/frontend/proxy adapters remain unproved; no new theorem claim."
+      "sha256": "500abac112848f57dd7bcbeee412ecee7dc98a9e18e4cdd8573544ecb0af8a78",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/capabilities/core_catalog.rs": {
       "status": "unproved",
@@ -1429,8 +1444,8 @@
     },
     "src/capabilities.rs": {
       "status": "unproved",
-      "sha256": "cb43e6b57e23a18c356db56f60ab6041db59daea326a23c2ca0df95ba6803ac4",
-      "review": "Reviewed synchronous boxed capability selection preserving every existing domain handler and permission boundary; Linux coverage pos.cart stack overflow reproduced and actual POS/B2B HTTP PostgreSQL MCP regressions pass locally with 1.5 MiB worker stacks; no stack limit increase or new proof claim."
+      "sha256": "1e4d187feb1b675faa2a988821b5dfdd6c753563647dad08a2478d883c91af2c",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/cart_model.rs": {
       "status": "unproved",
@@ -1584,8 +1599,8 @@
     },
     "src/cognition/evidence.rs": {
       "status": "unproved",
-      "sha256": "4db1f892764345b0fdde475a6ca9648b35613865b2b09214b116f538f65ec66e",
-      "review": "Reviewed evidence.rs confidence validation before writes: omitted prior 0.5 retained; supplied null/string/boolean/container/out-of-range scores rejected. Native knowledge_workspace confirms no partial claim insertion and normal quote/source/revision lifecycle; unit boundaries and Clippy pass. SQL/semantic truth remain unproved."
+      "sha256": "ade8a8f68965833a8d78d6045683dece18d7f44ea23fcf234310df6f987f0a92",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/cognition/experiments/mod.rs": {
       "status": "unproved",
@@ -1604,8 +1619,8 @@
     },
     "src/cognition/extraction.rs": {
       "status": "unproved",
-      "sha256": "dcca4834f537db9b42da692d7cba5205da32bbe9c0ad8cd0dfe85226aca4efdd",
-      "review": "Reviewed shared UTC-day quota extraction, SSE classification and native knowledge.extract pipeline; all Rust tests and Clippy pass, native provider checks prove HTTP/MCP/Flow quota parity, exact quotes, source-language handling and current actor revocation."
+      "sha256": "b7ec49d633e89587d19e6f3e68810046be390ad398072f6956b74aa7a9bf3f5d",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/cognition/generations.rs": {
       "status": "unproved",
@@ -1654,8 +1669,8 @@
     },
     "src/cognition/stream.rs": {
       "status": "unproved",
-      "sha256": "0b7b0bfcbaa489d8d12ddd7521c34655ead59b0235142c38501949b73adda097",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "f475aab031260b0c2f6709330e699178a47e7776194c0f52de0c41d6eb1579ba",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/cognition/tools.rs": {
       "status": "unproved",
@@ -1829,8 +1844,8 @@
     },
     "src/commerce/settings_patch.rs": {
       "status": "unproved",
-      "sha256": "c748fc062fc42e45b4cabf3b7b67e018c1713513f68cade7a2adc4860ba7609f",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "bb2e8787a3d76bd0761643ef2a8f89185592b9676611f166fb3b1a8bd000c61f",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/commerce/settings_release.rs": {
       "status": "unproved",
@@ -1869,8 +1884,8 @@
     },
     "src/commerce/types.rs": {
       "status": "unproved",
-      "sha256": "bcd49f721f111149ccf095634ed605583db0edf4a8f734a9e808868d26a4ecbd",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "60fda9e95d8b4fc11f3100744b216f6ca23c39f0658957bdc4430d8bedd3d54c",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/component_runtime.rs": {
       "status": "unproved",
@@ -1939,8 +1954,8 @@
     },
     "src/developer/archive.rs": {
       "status": "unproved",
-      "sha256": "7adbdc74c9ff1bc04108b08bd5b7ac1c7d92a5a1fb95b38c5cc2769acc38e6b6",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "c949d273fa724098e5dc777d658c0a5d7c3d1bb6bf170a3e5b30c25cf6c41512",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/developer/builds.rs": {
       "status": "unproved",
@@ -1949,8 +1964,8 @@
     },
     "src/developer/drafts.rs": {
       "status": "unproved",
-      "sha256": "aea17c31d6080f2c75df18c44a5fa1bd4d71344d9218facdfca5e3646797c83c",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "c928c7f5ebb423f9859e1652c6636d97a4b46041d73e31e636856462f379581e",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/developer/generation.rs": {
       "status": "unproved",
@@ -1969,18 +1984,18 @@
     },
     "src/developer/mod.rs": {
       "status": "unproved",
-      "sha256": "a512d4ed39869c4c9e087fcfefdfb6ce6bdb9e7a0f76f17b47ac9ff0e2f08249",
-      "review": "Reviewed bounded RFC6902 model edit adapter, protected metadata and storage/access retention, atomic clone application and host versions; real local Qwen textbox/button, native HTTP staging and no-op/destructive negative cases. SQL/provider adapters remain unproved."
+      "sha256": "7c4d24951aae069658cea6b9305c6a49d96e2c7057d8a99a88542ece8bd24f5b",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/developer/preview.rs": {
       "status": "unproved",
-      "sha256": "9fc42c3601ab6897c974d106289696bbef243ca0715a2eef55a73e34eaf5e4be",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "90b690a0fc2d1ae1faeb0977241bdd60d17d483a050f470ecdc3a17bb2e6f2b7",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/developer/routes.rs": {
       "status": "unproved",
-      "sha256": "d0f592f6c1572830a1576d238d3ef8e821a4b04412b2a79924e2f4f9c4ff0854",
-      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
+      "sha256": "485de9d17a8c7b88d90bac0cef473ad53f7b882ad47f4702b4d90f96edaeabf1",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/discount.rs": {
       "status": "reviewed-binding",
@@ -1994,18 +2009,18 @@
     },
     "src/documents/ingestion.rs": {
       "status": "unproved",
-      "sha256": "fe9016d20bfab3548ee9ecae07694e89f3460a5f6397307b79ed0db4201d6df1",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "58455b92235280f0a48d1d61a2fd42abffd09cf2999182b341b5bc0e6694578b",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/documents/lifecycle.rs": {
       "status": "unproved",
-      "sha256": "4927bea3ab5caa649c70f8c244d0eb4d385dbcfdaed459bf1fa91b0042918279",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "f64b6aadec4b4c0aa55a3ba86e44bc5a71442f39ecdb4bd567299c557404a525",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/documents/mod.rs": {
       "status": "unproved",
-      "sha256": "36872cdd55f2cdca157ca7d617c4b3acf21d081f0d20bc2d35904a5fc9d402cc",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "20a7310349c7931aaf14bb46c4ad781a7ef92856b54daab6b6b666a28f3dc169",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/documents/parser.rs": {
       "status": "unproved",
@@ -2029,8 +2044,8 @@
     },
     "src/documents/retrieval.rs": {
       "status": "unproved",
-      "sha256": "eb492f0f206118a7adc1d419ab1e38e9e6fe233ca305aac2306b398a44998b2d",
-      "review": "Reviewed migration 079 composite source keys, FORCE RLS and transaction-bound lexical triggers/backfill; both native query owners recheck current text/publication with indexed tenant word candidates. Actual NOSUPERUSER NOBYPASSRLS product/document plans, missing/foreign context and source edit/withdrawal/delete regressions pass; native strict-runtime suite passes. No extracted decision or theorem changed; SQL/query plans remain unproved."
+      "sha256": "8646e01e9128e4dbf2ad5cde9af0937935488740e294095f1346403d6238a011",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/documents/tools.rs": {
       "status": "unproved",
@@ -2039,8 +2054,8 @@
     },
     "src/documents/workspace.rs": {
       "status": "unproved",
-      "sha256": "fb37086ac9822a1a80c68602c47af23510b415c67b0dee78c07346c1692f1d2c",
-      "review": "Reviewed cognitive source intake, geometry and lease fences, bounded read-agent dispatch, current evidence/compiler bindings, native guardrails/autonomy, delayed consent-bound payment experiments, minimized intelligence event projections and Flow/catalogue consumers. Real PostgreSQL/Qdrant isolation, source-change/restart, withdrawal/cache and provider fixtures plus Rust units validate contracts; SQL/statistics/provider truth remain outside Lean."
+      "sha256": "ab7c139b1314bc4a8c954efdb068b7a73b39c518de352768dfed6c725e0a4803",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/experience.rs": {
       "status": "unproved",
@@ -2059,13 +2074,13 @@
     },
     "src/history/capability.rs": {
       "status": "unproved",
-      "sha256": "dbde4ea0188d93b6557cdbb7a013a423636105a0aa71184775bd397302ea5715",
-      "review": "Reviewed selective-publication domain rights, transactional channel and current installed Flow action admission, shared B2B configuration writers with history and staging, method/currency dependency guards, and inherited consent-bound analytics. PostgreSQL and frontend regressions exercise successful effects, denied access, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "54e7b26cea97c7d5d1ea5af86187de2bd2ea7edfe367c7fe13bf558c5b7d9a8e",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/history/mod.rs": {
       "status": "unproved",
-      "sha256": "0ffe21ea2e332b69ddcb714c3aa828ea63750a1cbbf232994f34b6b04ca5fcb2",
-      "review": "Reviewed selective-publication domain rights, transactional channel and current installed Flow action admission, shared B2B configuration writers with history and staging, method/currency dependency guards, and inherited consent-bound analytics. PostgreSQL and frontend regressions exercise successful effects, denied access, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "64ecee20b01252961765f38574ded384a5a799d7523d271ec037f95a767b720b",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/history/product.rs": {
       "status": "unproved",
@@ -2074,13 +2089,13 @@
     },
     "src/history/restore.rs": {
       "status": "unproved",
-      "sha256": "fc1a23fbe2f8a877d95e24ba2f465206d76b9b2b55614324cd162e92d2d1458e",
-      "review": "Reviewed selective-publication domain rights, transactional channel and current installed Flow action admission, shared B2B configuration writers with history and staging, method/currency dependency guards, and inherited consent-bound analytics. PostgreSQL and frontend regressions exercise successful effects, denied access, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "a62209361844d8f00c216e48b01f5a2a16e32f8992053f018f2ddd7061fe92b7",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/history/routes.rs": {
       "status": "unproved",
-      "sha256": "d451d549eccd834341148d6c52e78bfeeb12c02440b7267bd57e86a89374b55c",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "9c45b44b7837b61a2bfb6709c24ffda0ed687b1c28f00e8a47e0b0753a399cf2",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/http_json.rs": {
       "status": "unproved",
@@ -2204,13 +2219,13 @@
     },
     "src/marketing/app_flows.rs": {
       "status": "reviewed-binding",
-      "sha256": "2c83a641f0d85c29c75aa40c543cae0897ea0d98549c32e6c5b7e57b39a9755a",
-      "review": "Reviewed selective-publication domain rights, transactional channel and current installed Flow action admission, shared B2B configuration writers with history and staging, method/currency dependency guards, and inherited consent-bound analytics. PostgreSQL and frontend regressions exercise successful effects, denied access, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "4fd59b663aaba80f967bd51464781831e10aee811764f3618280c1e0a8a126a8",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/marketing/catalog.rs": {
       "status": "unproved",
-      "sha256": "295544f26841a660e2bc46d9c468ab04b28d2861237d15cb4db809f123930bd0",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "02adf5abd0140ac6e325732b71dbb2e865243294f3e5e672de3908dd9173338d",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/marketing/channel_access.rs": {
       "status": "reviewed-binding",
@@ -2224,8 +2239,8 @@
     },
     "src/marketing/channel_preview.rs": {
       "status": "unproved",
-      "sha256": "f42a8ae57c988bac83acd61d3d5b38a48660fac6e0a0801fdb4a1702191f5551",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "5fedad9902daa5cf5d5a7d3277dfe0f6935f1611512d1e86ef14569341fec3c8",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/marketing/channels.rs": {
       "status": "unproved",
@@ -2259,13 +2274,13 @@
     },
     "src/marketing/flow_access.rs": {
       "status": "unproved",
-      "sha256": "fb1f4020919733162f7c1e65feb4baf0881e8dc266ce67c510382b42995d28de",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "8efccf05bb75c8a9b75d10592a251d9824bb069da9855c87c759c28ce2537d7b",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/marketing/flow_actions.rs": {
       "status": "unproved",
-      "sha256": "702b3335af915f85b636d32df8313aea0904fc51366880a3d129adae194f459e",
-      "review": "Reviewed shared UTC-day quota extraction, SSE classification and native knowledge.extract pipeline; all Rust tests and Clippy pass, native provider checks prove HTTP/MCP/Flow quota parity, exact quotes, source-language handling and current actor revocation."
+      "sha256": "9b55bd3c2646870f23d65f7c071fa17e3bf076603210045880b4ee1911c861fc",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/marketing/flow_mutations.rs": {
       "status": "unproved",
@@ -2274,8 +2289,8 @@
     },
     "src/marketing/flow_policy.rs": {
       "status": "unproved",
-      "sha256": "f31af28e79dee02259cc970e69ec3618ae920b85334109d568e7cfd6cfcd4686",
-      "review": "Reviewed selective-publication domain rights, shared transaction admission and consistent automation-before-settings/app lock order, current installed Flow action schema/activation and publishing actor, B2B configuration history/staging through native writers, method/currency dependencies and inherited consent-bound analytics. Real PostgreSQL and frontend regressions inspect successful effects, denied writes, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "52ab66406ed33fa99240a4cae274ded1ad30c4b7c8a908e2b9ba5f7fb059c2f4",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/marketing/flow_text.rs": {
       "status": "unproved",
@@ -2284,8 +2299,8 @@
     },
     "src/marketing/flows.rs": {
       "status": "unproved",
-      "sha256": "3f768dac8a36dcf452da12cbedcf114326f91d206f720b0eae155eff777a941d",
-      "review": "Reviewed POS identity revalidation and immediate PII revocation, transactional discount/customer events and shared Flow consumption; exact extracted adjustment admission guard; SQL adapters stay unproved with real regression coverage"
+      "sha256": "8e3c98e0d6093cdc83598e1a1ddfa508f28c441b6db47775db15f6bc366ff4e8",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/marketing/gateway.rs": {
       "status": "unproved",
@@ -2294,13 +2309,13 @@
     },
     "src/marketing/jobs.rs": {
       "status": "unproved",
-      "sha256": "6ef9b4249d59be4cffd95c084333d1b532d8d746debbb897b92297284ad1d5a8",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "dd18f8c6fddb2113e93a68aaf3cb7ec4ae5b4f2bdb08c931e72876946688e4cf",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/marketing/lifecycle.rs": {
       "status": "unproved",
-      "sha256": "4c24a13a05cea28de9ba8f59bbab67f1b27e6989076bcebeb0aa7a1ad0bfffe0",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "bb9275d60e58277515d64ac33e51148f02ab5717fec83940f5dfdd2a0c5a80bf",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/marketing/line_facts.rs": {
       "status": "unproved",
@@ -2309,8 +2324,8 @@
     },
     "src/marketing/metadata.rs": {
       "status": "unproved",
-      "sha256": "c14418a525def9b3578a850f71a8f4f39e39f96d542a49e61f7d728c11b7321d",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "d1c14657940d92957fe0b8d33a3adba49ba3ae388c1556bdbb554b8bf10fdbb9",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/marketing/mod.rs": {
       "status": "unproved",
@@ -2329,8 +2344,8 @@
     },
     "src/marketing/pipeline_tests.rs": {
       "status": "unproved",
-      "sha256": "c075cdfffec24d8146bc635ac98cb909c3af6503b07aac8ee27596c1150cd145",
-      "review": "Reviewed shared UTC-day quota extraction, SSE classification and native knowledge.extract pipeline; all Rust tests and Clippy pass, native provider checks prove HTTP/MCP/Flow quota parity, exact quotes, source-language handling and current actor revocation."
+      "sha256": "10dfdb6008f17fc188ab2df832735dc79ec6d21e4ae041a45ae3ac8286f846db",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/marketing/promotions.rs": {
       "status": "unproved",
@@ -2339,8 +2354,8 @@
     },
     "src/marketing/routes.rs": {
       "status": "unproved",
-      "sha256": "3963e88106d01416ce06743cfe5a9dfb03cf80f0bc4807d74faff9d5ae868f60",
-      "review": "Reviewed selective-publication domain rights, shared transaction admission and consistent automation-before-settings/app lock order, current installed Flow action schema/activation and publishing actor, B2B configuration history/staging through native writers, method/currency dependencies and inherited consent-bound analytics. Real PostgreSQL and frontend regressions inspect successful effects, denied writes, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "e0184fdac1965b1bb577daf1a2184ba74f4f8732542e510302b84e38dda4f241",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/marketing/rule_fields.rs": {
       "status": "unproved",
@@ -2374,23 +2389,28 @@
     },
     "src/mcp/visibility.rs": {
       "status": "unproved",
-      "sha256": "375b72ec5b008279266b7f96bd83b602d16341d58bebf70525d8b8f63b45f6b2",
-      "review": "Behavior analytics reviewed: existing cart-locked consent predicate reused; purpose-separated withdrawal, tenant/FK scope, typed and bounded observations, private journey permissions and derived reports. New SQL/frontend/proxy adapters remain unproved; no new theorem claim."
+      "sha256": "8e9ffcbd49e3a09f4e4a7f56aea26b7b08ade4422bb9b435c62594d48b221925",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/mcp.rs": {
       "status": "unproved",
-      "sha256": "0f43a6147d4016e33d454f26005d4565571604df9a96950a6943736496fddebf",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "0acc23b1de32a6a152e8179360b1c6432492654f0c8e1ae79e290d8d2d1ad16d",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+    },
+    "src/migrations/recent_schema.rs": {
+      "status": "unproved",
+      "sha256": "35560b04de636a9b7df9b3f5dac1aaee0c282bce8706905cd558b82af107f870",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
-      "sha256": "daf4b91467e023220cd635d5c16fe278005f4b3073c74fb77c89e9c2f61a7109",
-      "review": "Behavior analytics reviewed: existing cart-locked consent predicate reused; purpose-separated withdrawal, tenant/FK scope, typed and bounded observations, private journey permissions and derived reports. New SQL/frontend/proxy adapters remain unproved; no new theorem claim."
+      "sha256": "352e1a86c02ad295b98dec1a4047b799edf565e9ed5d4866771bb04743ebc092",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/migrations.rs": {
       "status": "unproved",
-      "sha256": "987d8e6c89c570e71d259ee5ab554e46de57bc5dce9625a9c3a715e0417905b8",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "413a50341f481773b65f2fd940a5efd64780702a3207a808a23979fc699772f9",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/money.rs": {
       "status": "reviewed-binding",
@@ -2404,8 +2424,8 @@
     },
     "src/operations/addresses.rs": {
       "status": "unproved",
-      "sha256": "c77639682ef403c94bf60a6acc8fb490af31bc153549670697befcdd09e9839a",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "dc879a218586eee0318914955760395a1fe2ab936d4d5f989fadfc2d4949d35f",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/operations/company_logo.rs": {
       "status": "unproved",
@@ -2422,10 +2442,15 @@
       "sha256": "b2b80b505b3fb7f7007c6cd74825e0c46e01978a3faed14524bbfce687867f69",
       "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
     },
+    "src/operations/customer_lookup.rs": {
+      "status": "unproved",
+      "sha256": "ef89ce0432669cd388fab1536d40093942fdb2695e7311c0105d18f179e8fd0c",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+    },
     "src/operations/customers.rs": {
       "status": "unproved",
-      "sha256": "eddd9ec2f33cc694287c889055b68d67343274cf347d4aa63b8288cc5ee9cb6c",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "fff0b7cfd41cef55720fc4f80fe4258affb21e1803719c7df1cc9aaf235bf69b",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/operations/guest_customers.rs": {
       "status": "unproved",
@@ -2439,13 +2464,13 @@
     },
     "src/operations/mod.rs": {
       "status": "unproved",
-      "sha256": "429e2cc55ca475fb3f7987892e8bd9baaf242264778ce3362b72ce25426ab510",
-      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+      "sha256": "b9ea68eb0ce988585773782504ea65fafcc6e38633285a4b9075b8c7232a9f39",
+      "review": "Reviewed tenant role, PII and B2B admission changes with independent reviewer; fixed stale owner/invitation races tested against PostgreSQL. App callbacks preserve existing safe projections without elevating identities; separate PII consent required for full reads, foreign IDs rejected and retained guest/group fields regression tested. SQL/async/UI remain outside proof boundary; verified commerce kernel unchanged."
     },
     "src/operations/orders.rs": {
       "status": "unproved",
-      "sha256": "5e85b56d0a8e0ef156ad44d2c57f4661061faa4312ce69b71c4eca483fb74f77",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "9c3ec21cb2edc5a1a8676a81ba979b4031d1d569d12865cd68aef25aaadadb1d",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/operations/receipt_pdf.rs": {
       "status": "unproved",
@@ -2459,13 +2484,18 @@
     },
     "src/operations/receipts.rs": {
       "status": "unproved",
-      "sha256": "03b9410e5a46651c2e9bff295f32b959373e00d7a97af84a761f51eb64eff51d",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "a3c405932642bd24739f555d5a6ce36de1be2be32f8fb6a85f2009e77124e00e",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+    },
+    "src/operations/redacted_reads.rs": {
+      "status": "unproved",
+      "sha256": "e95b1e3a4ab7b47dd55afc2986e03ca05a483905b2ffde14abfb21139a090a6e",
+      "review": "Reviewed tenant role, PII and B2B admission changes with independent reviewer; fixed stale owner/invitation races tested against PostgreSQL. App callbacks preserve existing safe projections without elevating identities; separate PII consent required for full reads, foreign IDs rejected and retained guest/group fields regression tested. SQL/async/UI remain outside proof boundary; verified commerce kernel unchanged."
     },
     "src/operations/routes.rs": {
       "status": "unproved",
-      "sha256": "a997c9a2fff299e64d261dd0a2e08a21d90a9613a91690e63d69a6bb8f46ed51",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "4694bd2ef464416bd6a049842c6b721ac635786867f98faadd27b4e2bd6422ac",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/operations/workflow.rs": {
       "status": "unproved",
@@ -2479,8 +2509,8 @@
     },
     "src/order_routes.rs": {
       "status": "unproved",
-      "sha256": "a91c1826fc26ed00cfe70dcc326981b81a78c2c7b2191f238ba2d299b31ccebb",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "ef47050aa7d513062744f421a39de09ff59faa6025bac29ff8af84b1bdb8d16b",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/outbox/control.rs": {
       "status": "unproved",
@@ -2644,8 +2674,8 @@
     },
     "src/planner.rs": {
       "status": "unproved",
-      "sha256": "ca73277597e90e213360689123c8ec52499054d4a72132e26fb420e09dde982e",
-      "review": "Reviewed generated app schema and retained storage/access/service contracts, explicit merchant translation enqueue transaction and replay guards, app-only inference output budget and personalization scope/explanation adapters. Verified relevant SQL/provider/frontend fixtures; adapter changes remain outside the extracted policy proof scope."
+      "sha256": "45f6d77399c9fc70ea24af63add6bc5d346ee0be1495211e6608743593059c3c",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/platform/ai.rs": {
       "status": "reviewed-binding",
@@ -2769,8 +2799,8 @@
     },
     "src/proposal_routes.rs": {
       "status": "unproved",
-      "sha256": "7ce03b64560022bf4890850e82f10db154fd46871c02afeb7bcb29680cd940f1",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "df90140a172eaa20d01e5e431909de85949f2cc868a54a3a4a74d785b496ad5a",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/request_context.rs": {
       "status": "unproved",
@@ -2779,8 +2809,8 @@
     },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "53729d63617a59c1463b38d3789b8dd5bcaf898accc5217a2151bf6dad258487",
-      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+      "sha256": "1ffe839ebea810a05f9670f0e865695734b86acfb443af9866910f693a206222",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",
@@ -2849,8 +2879,8 @@
     },
     "src/staging/access.rs": {
       "status": "unproved",
-      "sha256": "1233ec34ba5d6e2ea98a065ed99b3596bbb5f6b04b90085ef7a48b819993e764",
-      "review": "Reviewed selective-publication domain rights, transactional channel and current installed Flow action admission, shared B2B configuration writers with history and staging, method/currency dependency guards, and inherited consent-bound analytics. PostgreSQL and frontend regressions exercise successful effects, denied access, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "e1486f6c41729e796e103dbb982c351ba75af823b1f0c11dc7b8a147e7269bab",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/staging/assets.rs": {
       "status": "unproved",
@@ -2864,8 +2894,8 @@
     },
     "src/staging/clone.rs": {
       "status": "unproved",
-      "sha256": "9203508916174c7e4d44ac159227ed657bc3aae5ee56a9cc3a1da7f266ce50b7",
-      "review": "Reviewed selective-publication domain rights, transactional channel and current installed Flow action admission, shared B2B configuration writers with history and staging, method/currency dependency guards, and inherited consent-bound analytics. PostgreSQL and frontend regressions exercise successful effects, denied access, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "2f4f6321223e48fbc6b1d1cc37040dd113fd89d73f7415297930753868c2bb85",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/staging/company.rs": {
       "status": "unproved",
@@ -2884,13 +2914,13 @@
     },
     "src/staging/mod.rs": {
       "status": "unproved",
-      "sha256": "93bfdd62b788fbffa52efce803f9953b305c2e17e336c9425d0470df5a413794",
-      "review": "Reviewed selective-publication domain rights, transactional channel and current installed Flow action admission, shared B2B configuration writers with history and staging, method/currency dependency guards, and inherited consent-bound analytics. PostgreSQL and frontend regressions exercise successful effects, denied access, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "9e6f2dd8062dd98cb279e9ce9f37b5a8103e1b03affacd0497fc7898d9af08f2",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/staging/release.rs": {
       "status": "unproved",
-      "sha256": "8b924368a5425af6e7fe6c4f4a8076599bb18b68b2c6a0809754f9d886c950b5",
-      "review": "Reviewed selective-publication domain rights, transactional channel and current installed Flow action admission, shared B2B configuration writers with history and staging, method/currency dependency guards, and inherited consent-bound analytics. PostgreSQL and frontend regressions exercise successful effects, denied access, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "296af16bc02968b52dfe3dd38456301b676e5061b0ee4d4562d6ddc5c5f8c140",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/staging/snapshot.rs": {
       "status": "unproved",
@@ -2914,8 +2944,8 @@
     },
     "src/studio.rs": {
       "status": "unproved",
-      "sha256": "7ca93fcad2560711980dc22e55ab36de92f33528780fb41aa1408dc3ebe202f8",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "f123f923bac49e92e8f0c6fb5dcc103a101eb2a6e591a1a842f58aa950c0746e",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/tenant_scope.rs": {
       "status": "unproved",
@@ -3385,6 +3415,14 @@
       "sha256": "6f5b8df29102ce895f911d12cadc8d3afca7a40f1961f9b31a813c9de122a96a",
       "review": "Reviewed nullable product/customer reference retirement and cart/channel analytics cascade; existing financial dependency guards remain authoritative. Behavior SQL, proxy and browser adapters remain unproved."
     },
+    "migrations/082-workspace-roles.sql": {
+      "sha256": "2e425ca0b2e553243d8a6537eb2e8057c467717b9b20846d6a8cfb88464d5f44",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+    },
+    "migrations/083-customer-lookup.sql": {
+      "sha256": "e40e1d3541ffe68b2cbaeb2453a6749f3352df51494404a3541dcb56206007ec",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+    },
     "proof/Commerce/Claims.lean": {
       "sha256": "9ffc4b92e9fb2c3d7b91f6c3ab8e0f1a3d4a5821d5b9c656e74b1b8c3607f0bc",
       "review": "Reviewed exact paid external-order amount and positive-total guards, their live import consumers, signed-input rejection, Lean properties and negative mutations; provider tax law, SQL and external effects remain unproved"
@@ -3438,8 +3476,8 @@
       "review": "Native POS cash admission, shared currency/coupon forwarding and private cart consumer guards reviewed. Original coupon owner extracted and tenant-scoped; provider confirmation rejoins POS outbox once. Generated conformance dispatcher moved to a small dedicated module without policy duplication."
     },
     "src/auth/identity.sql": {
-      "sha256": "760f0269802a3070f4aab12dac091bb90772331774a76e1d16c009cf37dd0bb8",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "d30de8019090f4ae166e656aaa5daf19d51f7b7efa9ebc0702127c997723c1fe",
+      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
     "src/catalog_channel.sql": {
       "sha256": "2eca0d892fc281f0948daac41f59a67d1fab8443e341eb5e9bf64fded533c1e6",

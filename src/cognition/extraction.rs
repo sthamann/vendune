@@ -2,7 +2,7 @@
 use super::*;
 pub(crate) async fn extract(a: &App, h: &RequestContext, v: &Value) -> Result<Value> {
     let t = merchant(a, h)?;
-    auth::permit(h, "catalog.write")?;
+    auth::permit(h, "knowledge.write")?;
     auth::permit(h, "knowledge.read")?;
     let source = v["sourceId"].as_str().ok_or(bad("Source ID required"))?;
     let row=sqlx::query("SELECT content_hash,product_id,locale FROM knowledge_documents WHERE tenant=$1 AND id=$2 AND NOT archived").bind(&t).bind(source).fetch_optional(&a.db).await?.ok_or(Error(StatusCode::NOT_FOUND,"Source not found".into()))?;

@@ -1,5 +1,7 @@
 # Testing, coverage and maintenance contracts
 
+**Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).
+
 ## Connected feature audit — 12 October 2026
 
 [Integration map and repaired boundaries](feature-integration.md). Real isolated

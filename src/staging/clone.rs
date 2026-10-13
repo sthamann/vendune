@@ -21,7 +21,14 @@ async fn create_inner(
     v: Value,
     preview_owner: Option<String>,
 ) -> Result<Json<Value>> {
-    auth::permit(&h, "users")?;
+    auth::permit(
+        &h,
+        if preview_owner.is_some() {
+            "developer.manage"
+        } else {
+            "environments.manage"
+        },
+    )?;
     let t = live(&a, &h).await?;
     let name = v["name"]
         .as_str()

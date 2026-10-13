@@ -124,6 +124,7 @@ pub(crate) fn resolve(base: &Settings, patch: Value) -> Result<Settings> {
         || settings.currencies.rate_source != base.currencies.rate_source
         || settings.currencies.rate_date != base.currencies.rate_date
         || settings.currencies.auto_refresh != base.currencies.auto_refresh
+        || settings.b2b != base.b2b
         || settings.main_locale != base.main_locale
         || settings.locales != base.locales
         || json!(settings.country_definitions) != json!(base.country_definitions)

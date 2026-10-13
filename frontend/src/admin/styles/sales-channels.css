@@ -156,3 +156,22 @@
   border-bottom: 1px solid var(--border);
   margin-bottom: 24px;
 }
+
+.channel-editor .field-invalid input,
+.channel-editor .field-invalid textarea,
+.channel-editor .field-invalid [role="combobox"],
+.channel-editor .field-invalid {
+  border-color: #dc3545;
+}
+.channel-editor .field-invalid small,
+.channel-editor [role="alert"] {
+  color: #be2437;
+}
+.channel-editor .commerce-fields {
+  display: grid;
+  gap: 18px;
+}
+.channel-editor .commerce-fields > label {
+  display: grid;
+  gap: 10px;
+}

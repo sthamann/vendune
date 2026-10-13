@@ -1,11 +1,14 @@
 //! Native modular company procurement; protocol-specific EDI adapters remain in their app packages.
 use crate::*;
+mod settings;
+pub(crate) use settings::Config;
 mod access;
 mod approval;
 mod catalog;
 mod gateway;
 mod lists;
 mod model;
+mod onboarding;
 mod orders;
 mod organization;
 pub(crate) use organization::save as restore_configuration;

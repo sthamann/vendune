@@ -1,4 +1,5 @@
 /** StudioHeader: focused Studio view; state and commands come from the session-scoped controller. */
+import { useShopText } from "../../shared/i18n/shop-i18n";
 import { surfaceLabel } from "../../shared/apps/AppSurfaces";
 import { locales } from "../../shared/i18n/i18n";
 import "../../shared/styles/workbench.css";
@@ -6,16 +7,19 @@ import Icon from "../../shared/ui/Icon";
 import "../styles/operations.css";
 import "../styles/studio.css";
 
+import { canOpenStudio } from "./permissions";
 import { useStudio } from "./StudioContext";
 import { useState } from "react";
 import { useExperienceUIText } from "../../shared/i18n/experience-ui-i18n";
 import WorkspaceCopilot from "../assistant/WorkspaceCopilot";
 
 export default function StudioHeader() {
+  const { s } = useShopText();
   const [copilot, setCopilot] = useState(false);
   const { u } = useExperienceUIText();
   const {
     t,
+    access,
     setMenu,
     menu,
     workspaceName,
@@ -61,22 +65,27 @@ export default function StudioHeader() {
         </span>
       </div>
       <div className="topbar-actions">
-        <button
-          className="copilot-launch"
-          aria-label={u("copilot")}
-          aria-haspopup={
-            tab === "assistant" && !appSurface ? undefined : "dialog"
-          }
-          onClick={() =>
-            tab === "assistant" && !appSurface
-              ? document.getElementById("studio-message")?.focus()
-              : setCopilot(true)
-          }
-        >
-          <Icon name="spark" size={18} />
-          <span>{u("copilot")}</span>
+        <button className="studio-secondary" onClick={auth.logout}>
+          {s("logout")}
         </button>
-        {auth.active && (
+        {canOpenStudio("assistant", access) && (
+          <button
+            className="copilot-launch"
+            aria-label={u("copilot")}
+            aria-haspopup={
+              tab === "assistant" && !appSurface ? undefined : "dialog"
+            }
+            onClick={() =>
+              tab === "assistant" && !appSurface
+                ? document.getElementById("studio-message")?.focus()
+                : setCopilot(true)
+            }
+          >
+            <Icon name="spark" size={18} />
+            <span>{u("copilot")}</span>
+          </button>
+        )}
+        {auth.active && access.includes("environments.read") && (
           <select
             className="environment-switch"
             aria-label={w("environments")}
@@ -151,7 +160,9 @@ export default function StudioHeader() {
           )}
         </button>
       </div>
-      {copilot && <WorkspaceCopilot onClose={() => setCopilot(false)} />}
+      {copilot && canOpenStudio("assistant", access) && (
+        <WorkspaceCopilot onClose={() => setCopilot(false)} />
+      )}
     </header>
   );
 }

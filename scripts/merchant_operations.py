@@ -43,8 +43,8 @@ req('/api/settings/master-data',{'revision':3,'data':master},headers(foreign),'P
 check('central issuer updates advance revisions, reject stale/foreign writes and serialize concurrent saves')
 
 inv=req('/api/workspace/invitations',{'email':'support'+suffix+'@example.test','role':'viewer'},h);support=req('/api/auth/accept',{'name':'Support','password':password,'invitationToken':inv['token']});sh=headers(support)
-req('/api/workspace/members/'+support['user']['id'],{'role':'viewer','active':True,'permissions':['orders.read','orders.write']},h,'PUT')
-assert req('/api/auth/access',h=sh)['permissions']==['orders.read','orders.write']
+req('/api/workspace/members/'+support['user']['id'],{'role':'viewer','active':True,'permissions':['orders.read','orders.write','customers.pii']},h,'PUT')
+assert set(req('/api/auth/access',h=sh)['permissions'])=={'orders.read','orders.write','customers.pii','overview.read'}
 req('/api/merchant/customers',h=sh,expected=403);req('/api/payments',h=sh,expected=403)
 tools=req('/mcp',{'jsonrpc':'2.0','id':2,'method':'tools/list'},sh)['result']['tools'];assert any(t['name']=='merchant.order.transition' for t in tools);assert not any(t['name']=='merchant.receipt.create' for t in tools)
 assert mcp('merchant.customers',{},sh)['isError'];req('/api/workspace/members/'+support['user']['id'],{'role':'viewer','active':True,'permissions':['unknown']},h,'PUT',400)
@@ -123,7 +123,7 @@ check('customer deactivation/group changes revoke existing sessions and privileg
 inv=req('/api/workspace/invitations',{'email':'revoked'+suffix+'@example.test','role':'viewer'},h);req('/api/workspace/invitations/'+inv['id'],h=h,method='DELETE');req('/api/auth/accept',{'name':'Revoked','password':password,'invitationToken':inv['token']},expected=404)
 logged=req('/api/auth/login',{'email':owner['user']['email'],'password':password});sessions=req('/api/auth/sessions',h=h)['sessions'];other=next(s for s in sessions if not s['current']);req('/api/auth/sessions/'+other['id'],h=h,method='DELETE');req('/api/auth/session',h=headers(logged),expected=401)
 check('invitations and individual sessions can be revoked without affecting current access')
-key=req('/api/workspace/integrations',{'name':'Read orders only','expiresInDays':30,'permissions':['orders.read']},h);kh={'Authorization':'Bearer '+key['key'],'x-tenant':owner['workspace']}
+key=req('/api/workspace/integrations',{'name':'Read orders only','expiresInDays':30,'permissions':['orders.read','customers.pii']},h);kh={'Authorization':'Bearer '+key['key'],'x-tenant':owner['workspace']}
 assert req('/api/merchant/orders',h=kh)['elements'];req('/api/merchant/customers',h=kh,expected=403);req('/api/merchant/orders/'+id+'/notes',{'revision':order['revision'],'text':'forbidden'},kh,expected=403)
 req('/api/merchant/orders',h={**kh,'x-tenant':foreign['workspace']},expected=403);assert not mcp('merchant.order',{'id':id},kh)['isError']
 assert 'digest' not in json.dumps(req('/api/workspace/integrations',h=h)) and key['key'] not in json.dumps(req('/api/workspace/integrations',h=h))

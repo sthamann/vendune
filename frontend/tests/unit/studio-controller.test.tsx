@@ -3,7 +3,7 @@ import { act, renderHook, waitFor } from "@testing-library/react";
 import { it, expect, vi } from "vitest";
 import { useStudioController } from "../../src/admin/shell/useStudioController";
 import { LocaleProvider } from "../../src/shared/i18n/i18n";
-import { overview, providers, session } from "./fixtures";
+import { ownerRights, overview, providers, session } from "./fixtures";
 import type { Message } from "../../src/admin/shell/studio-types";
 import { shopApi } from "../../src/shared/api/shop-api";
 function network() {
@@ -21,8 +21,7 @@ function network() {
       const p = String(path);
       let value: unknown;
       if (p === "/health") return { ok: true };
-      if (p === "/api/auth/access")
-        value = { permissions: ["orders.read", "catalog.write"] };
+      if (p === "/api/auth/access") value = { permissions: ownerRights };
       else if (p === "/api/environments")
         value = { environments: [{ id: "stage", name: "Stage" }] };
       else if (p === "/api/agent/providers") value = providers;
@@ -218,7 +217,7 @@ it("suspends Studio in place when a product request rejects the current session"
   expect(result.current.token).toBe("unit-token");
   expect(sessionStorage.getItem("rac-user-token")).toBeNull();
   expect(result.current.data).toEqual(overview);
-  expect(result.current.access).toEqual(["orders.read", "catalog.write"]);
+  expect(result.current.access).toEqual(ownerRights);
   expect(result.current.messages).toEqual(messages);
   expect(result.current.auth.active).toBe(false);
   sessionStorage.setItem("rac-user-token", "renewed-token");

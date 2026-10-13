@@ -14,6 +14,7 @@ mod invitations;
 pub(crate) use integrations::*;
 mod members;
 mod middleware;
+pub(crate) mod roles;
 pub(crate) mod route_policy;
 pub(crate) use route_policy::SecureRoutes;
 mod permissions;

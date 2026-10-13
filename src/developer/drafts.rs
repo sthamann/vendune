@@ -10,12 +10,12 @@ pub(super) fn router() -> Router<App> {
     Router::new()
         .secure_route(
             "/api/developer/drafts",
-            &[("GET", "apps.manage")],
+            &[("GET", "developer.manage")],
             get(list),
         )
         .secure_route(
             "/api/developer/drafts/{id}",
-            &[("PUT", "apps.manage"), ("DELETE", "apps.manage")],
+            &[("PUT", "developer.manage"), ("DELETE", "developer.manage")],
             axum::routing::put(save).delete(remove),
         )
 }

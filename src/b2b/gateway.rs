@@ -2,6 +2,14 @@
 use super::*;
 pub(crate) const CAPABILITIES: &[(&str, &str)] = &[
     (
+        "b2b.company.create",
+        "Create a company with its first purchasing unit and optional existing customer",
+    ),
+    (
+        "b2b.settings.save",
+        "Configure native B2B features using shared revisioned settings",
+    ),
+    (
         "b2b.configuration",
         "Read shared purchasing configuration without unrelated settings authority",
     ),
@@ -75,9 +83,10 @@ pub(crate) const CAPABILITIES: &[(&str, &str)] = &[
 ];
 pub(crate) fn permission(name: &str) -> Option<&str> {
     match name.strip_prefix("b2b.")? {
+        "settings.save" => Some("settings.write"),
         "companies" | "company" | "configuration" => Some("b2b.read"),
-        "requisition.import" | "company.save" | "unit.save" | "member.save" | "catalog.save"
-        | "quotes.merchant" | "quote.offer" => Some("b2b.manage"),
+        "requisition.import" | "company.create" | "company.save" | "unit.save" | "member.save"
+        | "catalog.save" | "quotes.merchant" | "quote.offer" => Some("b2b.manage"),
         _ => None,
     }
 }
@@ -148,20 +157,25 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
     } else {
         accounts::identity(a, h).await?;
     }
+    let (settings, revision) = commerce::config(a, &tenant(h)?).await?;
+    settings
+        .b2b
+        .admit(name.strip_prefix("b2b.").unwrap_or(""))?;
     match name
         .strip_prefix("b2b.")
         .ok_or(bad("Unknown company command"))?
     {
+        "settings.save" => settings::save(a, h, v).await,
         "configuration" => {
-            let (settings, _) = commerce::config(a, &tenant(h)?).await?;
             let s = json!(settings);
             let methods = |key: &str| {
                 json!(s[key].as_array().map(|v|v.iter().map(|m|json!({"id":m["id"],"name":m["name"],"translations":m["translations"],"active":m["active"]})).collect::<Vec<_>>()).unwrap_or_default())
             };
             Ok(
-                json!({"mainLocale":s["mainLocale"],"locales":s["locales"],"currencies":{"defaultCurrency":s["currencies"]["defaultCurrency"],"enabled":s["currencies"]["enabled"]},"shipping":methods("shipping"),"payments":methods("payments")}),
+                json!({"features":s["b2b"],"revision":revision,"mainLocale":s["mainLocale"],"locales":s["locales"],"currencies":{"defaultCurrency":s["currencies"]["defaultCurrency"],"enabled":s["currencies"]["enabled"]},"shipping":methods("shipping"),"payments":methods("payments")}),
             )
         }
+        "company.create" => onboarding::create(a, h, v).await,
         "companies" => organization::list(a, &tenant(h)?).await,
         "company" => {
             auth::permit(h, "customers.pii")?;

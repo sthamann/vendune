@@ -11,7 +11,7 @@ import {
 } from "../../src/admin/channels/channel-model";
 it("creates a channel with translated name, searchable product assignment and real shop languages", async () => {
   const user = userEvent.setup(),
-    request = vi.fn(async (path: string, body?: any) => {
+    request = vi.fn(async (path: string, body?: any, _method?: string) => {
       if (body) return { revision: 1 };
       if (path === "/api/automation") return { channels: [] };
       if (path === "/api/auth/access")
@@ -157,4 +157,93 @@ it("opens existing inherited channel settings at the selected scope", async () =
       "/api/settings/master-data/channels/fashion",
     ),
   );
+});
+it.each(["pos", "marketplace"] as const)(
+  "creates %s in a German interface with an English shop main language",
+  async (kind) => {
+    localStorage.setItem("rac-locale", "de-DE");
+    const user = userEvent.setup(),
+      request = vi.fn(async (path: string, body?: any, _method?: string) =>
+        body
+          ? { revision: 1 }
+          : path === "/store-api/countries"
+            ? { countries: [] }
+            : { elements: [] },
+      );
+    render(
+      <LocaleProvider>
+        <ChannelEditor
+          initial={freshChannel("en-GB")}
+          request={request}
+          languages={["en-GB", "de-DE"]}
+          mainLocale="en-GB"
+          countries={["DE"]}
+          categories={[]}
+          workspace="shop"
+          canWrite
+          onBack={vi.fn()}
+          onSaved={vi.fn()}
+        />
+      </LocaleProvider>,
+    );
+    await user.type(screen.getByLabelText(/Kanalname/), "Berlin");
+    await user.click(
+      screen.getByRole("button", {
+        name: kind === "pos" ? /Kasse.*Geschützte/ : /Marktplatz.*Amazon/,
+      }),
+    );
+    await user.click(screen.getByRole("button", { name: "Weiter" }));
+    expect(
+      screen.getByRole("heading", { name: "Verfügbare Sprachen" }),
+    ).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Weiter" }));
+    await user.click(
+      screen.getByRole("button", { name: "Verkaufskanal anlegen" }),
+    );
+    await waitFor(() =>
+      expect(
+        request.mock.calls.some(
+          (c) => c[1]?.data?.name?.["en-GB"] === "Berlin",
+        ),
+      ).toBe(true),
+    );
+    localStorage.removeItem("rac-locale");
+  },
+);
+
+it("marks the actual missing channel name instead of showing an unrelated generic error", async () => {
+  const user = userEvent.setup(),
+    request = vi.fn(async (_path: string, _body?: unknown) => ({
+      elements: [],
+    }));
+  render(
+    <ChannelEditor
+      initial={freshChannel("en-GB")}
+      request={request}
+      languages={["en-GB"]}
+      mainLocale="en-GB"
+      countries={["DE"]}
+      categories={[]}
+      workspace="shop"
+      canWrite
+      onBack={() => {}}
+      onSaved={() => {}}
+    />,
+    { wrapper: LocaleProvider },
+  );
+  await user.click(screen.getByRole("button", { name: "Next" }));
+  expect(screen.getByLabelText(/Channel name/)).toHaveAttribute(
+    "aria-invalid",
+    "true",
+  );
+  expect(
+    screen
+      .getAllByRole("alert")
+      .every((e) => /name/i.test(e.textContent ?? "")),
+  ).toBe(true);
+  expect(
+    request.mock.calls.some(
+      (c) => c[0].startsWith("/api/automation/channels/") && c.length > 1,
+    ),
+  ).toBe(false);
 });

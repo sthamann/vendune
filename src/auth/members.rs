@@ -1,5 +1,5 @@
 //! Workspace member visibility and immediately effective role/revocation changes.
-use super::{SCOPES, allowed, permit, role_allowed, validate_permissions};
+use super::{permit, role_allowed, roles, validate_permissions};
 use crate::{
     App, Error, Json, Path, RequestContext, Result, Row, State, StatusCode, Value, bad, conflict,
     header, json, merchant,
@@ -26,6 +26,12 @@ pub(crate) async fn update_member(
     let active = v["active"]
         .as_bool()
         .ok_or(bad("Active boolean required"))?;
+    let mut tx = a.db.begin().await?;
+    sqlx::query("SELECT id FROM tenants WHERE id=$1 FOR UPDATE")
+        .bind(&t)
+        .fetch_one(&mut *tx)
+        .await?;
+    let h = roles::current(&mut tx, &h, &t).await?;
     let actor = if header(&h, "x-rac-role") == Some("owner") {
         "owner"
     } else {
@@ -37,11 +43,7 @@ pub(crate) async fn update_member(
             "Cannot assign this role".into(),
         ));
     }
-    let mut tx = a.db.begin().await?;
-    sqlx::query("SELECT id FROM tenants WHERE id=$1 FOR UPDATE")
-        .bind(&t)
-        .fetch_one(&mut *tx)
-        .await?;
+    let role_grants = roles::grants(&mut tx, &t, role).await?;
     let old = sqlx::query(
         "SELECT role,active,permissions FROM memberships WHERE tenant=$1 AND user_id=$2",
     )
@@ -76,18 +78,14 @@ pub(crate) async fn update_member(
     } else {
         old.get("permissions")
     };
-    if permissions.is_null() && header(&h, "x-rac-permissions").is_some() {
-        let mut defaults = RequestContext::new();
-        defaults.insert("x-rac-role", role.parse().unwrap());
-        for scope in SCOPES {
-            if allowed(&defaults, scope) && !allowed(&h, scope) {
-                return Err(Error(
-                    StatusCode::FORBIDDEN,
-                    "Cannot delegate broader role defaults".into(),
-                ));
-            }
-        }
-    }
+    validate_permissions(
+        &h,
+        if permissions.is_null() {
+            &role_grants
+        } else {
+            &permissions
+        },
+    )?;
     if role == "owner" && !permissions.is_null() {
         return Err(bad("Owner permissions cannot be restricted"));
     }

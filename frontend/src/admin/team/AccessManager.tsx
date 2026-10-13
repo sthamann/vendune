@@ -1,8 +1,13 @@
 /** Fine-grained team overrides, revocable invitations and personal session inventory. */
+import RolesManager from "./RolesManager";
+import PermissionPicker from "./PermissionPicker";
+import { usePermissionText } from "./permission-i18n";
 import { useCallback, useEffect, useState } from "react";
 import { useOperationsText } from "../../shared/i18n/operations-i18n";
 import type { RequestFn } from "../shell/studio-types";
 export default function AccessManager({ request }: { request: RequestFn }) {
+  const pt = usePermissionText();
+  const [granted, setGranted] = useState<string[]>([]);
   const { o, locale } = useOperationsText();
   const [members, setMembers] = useState<any[]>([]),
     [invites, setInvites] = useState<any[]>([]),
@@ -17,6 +22,7 @@ export default function AccessManager({ request }: { request: RequestFn }) {
   const load = useCallback(async () => {
     const access = await request("/api/auth/access");
     setScopes(access.available);
+    setGranted(access.permissions);
     setCanManage(access.permissions.includes("team.manage"));
     if (access.permissions.includes("team.manage")) {
       const v = await request("/api/workspace/members");
@@ -43,6 +49,9 @@ export default function AccessManager({ request }: { request: RequestFn }) {
   };
   return (
     <div className="studio-page workbench">
+      {canManage && (
+        <RolesManager request={request} onChanged={() => void load()} />
+      )}
       <section className="studio-card">
         <h2>{o("access")}</h2>
         <p>{o("accessHint")}</p>
@@ -67,36 +76,22 @@ export default function AccessManager({ request }: { request: RequestFn }) {
                     )
                   }
                 />
-                {o("defaultRights")}
+                {pt("inherited")}
               </label>
               {m.permissions !== null && (
-                <div className="permission-grid">
-                  {scopes.map((scope) => (
-                    <label className="checkbox-label" key={scope}>
-                      <input
-                        type="checkbox"
-                        checked={m.permissions.includes(scope)}
-                        onChange={(e) =>
-                          setMembers(
-                            members.map((x) =>
-                              x.id === m.id
-                                ? {
-                                    ...x,
-                                    permissions: e.target.checked
-                                      ? [...x.permissions, scope]
-                                      : x.permissions.filter(
-                                          (s: string) => s !== scope,
-                                        ),
-                                  }
-                                : x,
-                            ),
-                          )
-                        }
-                      />
-                      {o(scope)}
-                    </label>
-                  ))}
-                </div>
+                <PermissionPicker
+                  available={scopes}
+                  granted={granted}
+                  disabled={busy}
+                  value={m.permissions}
+                  onChange={(permissions) =>
+                    setMembers(
+                      members.map((x) =>
+                        x.id === m.id ? { ...x, permissions } : x,
+                      ),
+                    )
+                  }
+                />
               )}
               <button
                 disabled={busy}
@@ -202,24 +197,13 @@ export default function AccessManager({ request }: { request: RequestFn }) {
                 required
               />
             </label>
-            <div className="permission-grid">
-              {scopes.map((scope) => (
-                <label className="checkbox-label" key={scope}>
-                  <input
-                    type="checkbox"
-                    checked={keyScopes.includes(scope)}
-                    onChange={(e) =>
-                      setKeyScopes(
-                        e.target.checked
-                          ? [...keyScopes, scope]
-                          : keyScopes.filter((s) => s !== scope),
-                      )
-                    }
-                  />
-                  {o(scope)}
-                </label>
-              ))}
-            </div>
+            <PermissionPicker
+              available={scopes}
+              granted={granted}
+              disabled={busy}
+              value={keyScopes}
+              onChange={setKeyScopes}
+            />
             <button disabled={busy} className="studio-primary">
               {o("createKey")}
             </button>

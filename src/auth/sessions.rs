@@ -24,7 +24,7 @@ pub(crate) async fn user_data(a: &App, user: &str) -> Result<Value> {
             .bind(user)
             .fetch_one(&a.db)
             .await?;
-    let ms=sqlx::query("SELECT t.id,t.name,m.role FROM memberships m JOIN tenants t ON t.id=m.tenant WHERE m.user_id=$1 AND m.active ORDER BY t.name").bind(user).fetch_all(&a.db).await?;
+    let ms=sqlx::query("SELECT t.id,t.name,m.role FROM membership_grants m JOIN tenants t ON t.id=m.tenant WHERE m.user_id=$1 AND m.active ORDER BY t.name").bind(user).fetch_all(&a.db).await?;
     Ok(
         json!({"user":{"id":r.get::<String,_>("id"),"email":r.get::<String,_>("email"),"name":r.get::<String,_>("name")},"passwordSetupRequired":!r.get::<bool, _>("password_initialized"),"workspaces":ms.iter().map(|r|json!({"id":r.get::<String,_>("id"),"name":r.get::<String,_>("name"),"role":r.get::<String,_>("role"),"urls":crate::shop_domains::links(&r.get::<String,_>("id"))})).collect::<Vec<_>>(),"expiresIn":43200}),
     )
@@ -52,7 +52,7 @@ pub(crate) async fn user_login(
     }
     let user = row.unwrap().get::<String, _>("id");
     let membership = sqlx::query(
-        "SELECT tenant FROM memberships WHERE user_id=$1 AND active ORDER BY tenant LIMIT 1",
+        "SELECT tenant FROM membership_grants WHERE user_id=$1 AND active ORDER BY tenant LIMIT 1",
     )
     .bind(&user)
     .fetch_optional(&a.db)

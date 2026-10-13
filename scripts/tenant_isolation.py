@@ -49,7 +49,7 @@ def fixture():
     user = call('/api/auth/register', {'workspaceId': t, 'workspaceName': 'Isolation fixture', 'name': 'Owner', 'email': t + '@example.test', 'password': PASSWORD})
     h = {'x-tenant': t, 'Authorization': 'Bearer ' + user['token']}
     p = {'x-tenant': t}
-    integration = call('/api/workspace/integrations', {'name': 'Deletion control', 'expiresInDays': 1, 'permissions': ['orders.read']}, h)
+    integration = call('/api/workspace/integrations', {'name': 'Deletion control', 'expiresInDays': 1, 'permissions': ['orders.read', 'customers.pii']}, h)
     address = {'name': 'Test Buyer', 'firstName': 'Test', 'lastName': 'Buyer', 'street': 'Test Road 1', 'postalCode': '10115', 'city': 'Berlin', 'country': 'DE'}
     email = t + '-buyer@example.test'
     reg = call('/store-api/account/register', {'email': email, 'name': 'Test Buyer', 'password': PASSWORD, 'billingAddress': address}, p)
@@ -145,7 +145,7 @@ for attacker, victim in ((a, b), (b, a)):
 invite = call('/api/workspace/invitations', {'email': a['user']['user']['email'], 'role': 'admin'}, b['h'])
 call('/api/auth/accept', {'name': 'Owner', 'password': PASSWORD, 'invitationToken': invite['token']})
 call('/api/merchant/orders', h={**a['h'], 'x-tenant': b['tenant']})
-key = call('/api/workspace/integrations', {'name': 'Orders reader', 'expiresInDays': 1, 'permissions': ['orders.read']}, a['h'])
+key = call('/api/workspace/integrations', {'name': 'Orders reader', 'expiresInDays': 1, 'permissions': ['orders.read', 'customers.pii']}, a['h'])
 kh = {'Authorization': 'Bearer ' + key['key'], 'x-tenant': a['tenant']}
 call('/api/merchant/orders', h={**kh, 'x-tenant': b['tenant']}, expected=403)
 call('/api/merchant/customers', h=kh, expected=403)

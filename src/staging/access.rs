@@ -6,8 +6,10 @@ pub(super) fn permit(h: &RequestContext, keys: &[String]) -> Result<()> {
             "product" | "category" | "asset" | "document" => "catalog.write",
             "app" | "appdata" => "apps.manage",
             "b2b-company" | "b2b-unit" => "b2b.manage",
+            "channel" => "channels.manage",
+            "rule" | "promotion" | "flow" => "automation.manage",
             "company" | "company-channel" | "settings" | "settings-channel" | "experience"
-            | "rule" | "promotion" | "flow" | "channel" | "order-workflow" => "settings.write",
+            | "order-workflow" => "settings.write",
             _ => return Err(bad("Unsupported release unit")),
         };
         auth::permit(h, scope)?;
@@ -20,4 +22,20 @@ pub(super) fn permit(h: &RequestContext, keys: &[String]) -> Result<()> {
         }
     }
     Ok(())
+}
+
+/// Staging diffs contain actual records, so each domain read right is mandatory.
+pub(super) fn can_read(h: &RequestContext, key: &str) -> bool {
+    let scope = match key.split(':').next().unwrap_or("") {
+        "product" | "category" | "asset" | "document" => "catalog.read",
+        "app" => "apps.read",
+        "appdata" => "apps.manage",
+        "b2b-company" | "b2b-unit" => "b2b.read",
+        "channel" => "channels.read",
+        "rule" | "promotion" | "flow" => "automation.read",
+        _ => "settings.read",
+    };
+    auth::allowed(h, scope)
+        && (!(key.starts_with("b2b-") || key.starts_with("appdata:"))
+            || auth::allowed(h, "customers.pii"))
 }

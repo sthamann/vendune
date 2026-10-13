@@ -7,6 +7,7 @@ pub(super) async fn list(
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "customers.read")?;
+    auth::permit(&h, "customers.pii")?;
     Ok(Json(accounts::address_list(&a, &t, &email).await?))
 }
 pub(super) async fn create(
@@ -17,6 +18,7 @@ pub(super) async fn create(
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "customers.write")?;
+    auth::permit(&h, "customers.pii")?;
     Ok(Json(
         accounts::address_save(&a, &t, &email, None, &v, &h).await?,
     ))
@@ -29,6 +31,7 @@ pub(super) async fn save(
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "customers.write")?;
+    auth::permit(&h, "customers.pii")?;
     Ok(Json(
         accounts::address_save(&a, &t, &email, Some(&id), &v, &h).await?,
     ))
@@ -41,6 +44,7 @@ pub(super) async fn remove(
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "customers.write")?;
+    auth::permit(&h, "customers.pii")?;
     Ok(Json(
         accounts::address_delete(
             &a,

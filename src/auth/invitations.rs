@@ -1,6 +1,6 @@
 //! Single-use, expiring invitations. Acceptance verifies an existing account password.
 use super::{
-    SCOPES, allowed, email, hash_password, issue_session, name, password, permit, role_allowed,
+    email, hash_password, issue_session, name, password, permit, role_allowed, roles,
     verify_password,
 };
 use crate::{
@@ -16,6 +16,12 @@ pub(crate) async fn invite_user(
     let t = merchant(&a, &h)?;
     permit(&h, "users")?;
     let role = v["role"].as_str().unwrap_or("viewer");
+    let mut tx = a.db.begin().await?;
+    sqlx::query("SELECT id FROM tenants WHERE id=$1 FOR UPDATE")
+        .bind(&t)
+        .fetch_one(&mut *tx)
+        .await?;
+    let h = roles::current(&mut tx, &h, &t).await?;
     let actor_role = if header(&h, "x-rac-role") == Some("owner") {
         "owner"
     } else {
@@ -27,21 +33,13 @@ pub(crate) async fn invite_user(
             "Cannot assign this role".into(),
         ));
     }
-    let mut defaults = RequestContext::new();
-    defaults.insert("x-rac-role", role.parse().unwrap());
-    if SCOPES
-        .iter()
-        .any(|s| allowed(&defaults, s) && !allowed(&h, s))
-    {
-        return Err(Error(
-            StatusCode::FORBIDDEN,
-            "Cannot delegate broader role defaults".into(),
-        ));
-    }
+    let grants = roles::grants(&mut tx, &t, role).await?;
+    super::validate_permissions(&h, &grants)?;
     let email = email(&v)?;
     let token = format!("{}{}", uid(), uid());
     let id = uid();
-    sqlx::query("INSERT INTO user_invites(id,digest,tenant,email,role,created_by) VALUES($1,$2,$3,$4,$5,$6)").bind(&id).bind(hash(&token)).bind(&t).bind(email).bind(role).bind(header(&h,"x-rac-user").unwrap()).execute(&a.db).await?;
+    sqlx::query("INSERT INTO user_invites(id,digest,tenant,email,role,created_by) VALUES($1,$2,$3,$4,$5,$6)").bind(&id).bind(hash(&token)).bind(&t).bind(email).bind(role).bind(header(&h,"x-rac-user").unwrap()).execute(&mut *tx).await?;
+    tx.commit().await?;
     Ok(Json(
         json!({"id":id,"token":token,"role":role,"workspace":t,"expiresIn":86400,"emailSent":false}),
     ))
@@ -57,13 +55,20 @@ pub(crate) async fn accept_invite(
     let password = password(&v)?;
     let name = name(&v)?;
     let mut tx = a.db.begin().await?;
+    let invite_tenant: String = sqlx::query_scalar("SELECT tenant FROM user_invites WHERE digest=$1 AND redeemed_at IS NULL AND expires_at>now()")
+        .bind(hash(token)).fetch_optional(&mut *tx).await?.ok_or(Error(StatusCode::NOT_FOUND,"Invitation expired or redeemed".into()))?;
+    sqlx::query("SELECT id FROM tenants WHERE id=$1 FOR UPDATE")
+        .bind(&invite_tenant)
+        .fetch_one(&mut *tx)
+        .await?;
     let invite=sqlx::query("SELECT * FROM user_invites WHERE digest=$1 AND redeemed_at IS NULL AND expires_at>now() FOR UPDATE").bind(hash(token)).fetch_optional(&mut *tx).await?.ok_or(Error(StatusCode::NOT_FOUND,"Invitation expired or redeemed".into()))?;
     let email = invite.get::<String, _>("email");
     let tenant = invite.get::<String, _>("tenant");
     let creator: String = invite.get("created_by");
+    let grants = roles::grants(&mut tx, &tenant, &invite.get::<String, _>("role")).await?;
     if creator != "bootstrap" {
         let member = sqlx::query(
-            "SELECT role,permissions FROM memberships WHERE tenant=$1 AND user_id=$2 AND active",
+            "SELECT role,permissions FROM membership_grants WHERE tenant=$1 AND user_id=$2 AND active",
         )
         .bind(&tenant)
         .bind(creator)
@@ -83,20 +88,20 @@ pub(crate) async fn accept_invite(
             actor.insert("x-rac-permissions", scopes.to_string().parse().unwrap());
         }
         permit(&actor, "users")?;
-        let mut defaults = RequestContext::new();
-        defaults.insert(
-            "x-rac-role",
-            invite.get::<String, _>("role").parse().unwrap(),
-        );
-        if SCOPES
-            .iter()
-            .any(|s| allowed(&defaults, s) && !allowed(&actor, s))
-        {
+        if !role_allowed(
+            if header(&actor, "x-rac-role") == Some("owner") {
+                "owner"
+            } else {
+                "admin"
+            },
+            &invite.get::<String, _>("role"),
+        ) {
             return Err(Error(
                 StatusCode::FORBIDDEN,
-                "Invitation creator cannot grant this role".into(),
+                "Invitation creator can no longer assign this role".into(),
             ));
         }
+        super::validate_permissions(&actor, &grants)?;
     }
     let existing = sqlx::query("SELECT id,password_hash FROM merchant_users WHERE email=$1")
         .bind(&email)

@@ -34,7 +34,7 @@ pub(super) async fn dependencies(
     h: RequestContext,
     Path((kind, id)): Path<(String, String)>,
 ) -> Result<Json<Value>> {
-    auth::permit(&h, "settings.read")?;
+    auth::permit(&h, routes::configuration_right(&kind, false)?)?;
     let t = merchant(&a, &h)?;
     let mut conn = a.db.begin().await?;
     let rev = revision(&mut conn, &t, &kind, &id, false).await?;
@@ -48,7 +48,7 @@ pub(super) async fn delete(
     Path((kind, id)): Path<(String, String)>,
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
-    auth::permit(&h, "settings.write")?;
+    auth::permit(&h, routes::configuration_right(&kind, true)?)?;
     let t = merchant(&a, &h)?;
     let expected = v["revision"].as_i64().ok_or(bad("Revision required"))?;
     let mut tx = a.db.begin().await?;

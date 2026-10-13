@@ -2,6 +2,7 @@
 use crate::*;
 pub(crate) fn router(a: App) -> Router {
     Router::new()
+        .merge(auth::roles::router())
         .route("/products/{id}", get(storefront_pages::product_page))
         .route(
             "/products/{id}/{slug}",
@@ -145,7 +146,7 @@ pub(crate) fn router(a: App) -> Router {
         .route("/store-api/countries", get(commerce::country_catalogue))
         .secure_route(
             "/api/merchant/overview",
-            &[("GET", "orders.read")],
+            &[("GET", "read")],
             get(merchant_overview),
         )
         .secure_route(
@@ -207,27 +208,27 @@ pub(crate) fn router(a: App) -> Router {
         )
         .secure_route(
             "/api/agent/plan",
-            &[("POST", "knowledge.read")],
+            &[("POST", "assistant.use")],
             post(agent_plan),
         )
         .secure_route(
             "/api/agent/providers",
-            &[("GET", "knowledge.read")],
+            &[("GET", "read")],
             get(model_providers),
         )
         .secure_route(
             "/api/agent/chat",
-            &[("POST", "knowledge.read")],
+            &[("POST", "assistant.use")],
             post(merchant_chat),
         )
         .secure_route(
             "/api/agent/conversations",
-            &[("GET", "knowledge.read")],
+            &[("GET", "assistant.use")],
             get(conversations),
         )
         .secure_route(
             "/api/agent/conversations/{id}",
-            &[("GET", "knowledge.read")],
+            &[("GET", "assistant.use")],
             get(conversation),
         )
         .secure_route(
@@ -247,10 +248,10 @@ pub(crate) fn router(a: App) -> Router {
         )
         .secure_route(
             "/api/knowledge/reindex",
-            &[("POST", "catalog.write")],
+            &[("POST", "knowledge.write")],
             post(reindex),
         )
-        .secure_route("/api/agent/tasks", &[("GET", "knowledge.read")], get(tasks))
+        .secure_route("/api/agent/tasks", &[("GET", "assistant.use")], get(tasks))
         .secure_route(
             "/api/agent/tasks/{id}/apply",
             &[("POST", "catalog.write")],

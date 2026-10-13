@@ -1,4 +1,5 @@
 /** Grants reference actual customer identities, never email guesses; pauses retain historical purchases. */
+import CustomerPicker from "./CustomerPicker";
 import { useEffect, useState } from "react";
 import type { RequestFn } from "../../shared/api/types";
 import { useB2BText, type B2BWord } from "../../shared/i18n/b2b-i18n";
@@ -19,10 +20,7 @@ export default function Members({
   refresh: () => Promise<void>;
 }) {
   const t = useB2BText();
-  const [query, setQuery] = useState(""),
-    [customers, setCustomers] = useState<{ id: string; email: string }[]>([]),
-    [error, setError] = useState(""),
-    [threshold, setThreshold] = useState<number | null>(null),
+  const [threshold, setThreshold] = useState<number | null>(null),
     [selected, setSelected] = useState(""),
     [permissions, setPermissions] = useState<string[]>(["buy", "lists"]);
   useEffect(() => {
@@ -33,54 +31,16 @@ export default function Members({
     setPermissions(m?.data.permissions ?? ["buy", "lists"]);
     setThreshold(m?.data.approvalAboveMinor ?? null);
   }, [selected, members]);
-  useEffect(() => {
-    let active = true;
-    const timer = setTimeout(() => {
-      void request(
-        "/api/merchant/customers?limit=20&query=" + encodeURIComponent(query),
-      )
-        .then((v) => {
-          if (active) {
-            setCustomers(v.elements.filter((c: { id: string | null }) => c.id));
-            setError("");
-          }
-        })
-        .catch((e) => {
-          if (active) {
-            setCustomers([]);
-            setError(e.message);
-          }
-        });
-    }, 250);
-    return () => {
-      active = false;
-      clearTimeout(timer);
-    };
-  }, [query, request, unit]);
   return (
     <section className="b2b-members">
       <h3>{t("members")}</h3>
-      {error && <p role="alert">{error}</p>}
       <div className="b2b-fields">
-        <label>
-          {t("chooseCustomer")}
-          <input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <select
-            value={selected}
-            onChange={(e) => setSelected(e.target.value)}
-          >
-            <option value="">{t("chooseCustomer")}</option>
-            {customers.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.email}
-              </option>
-            ))}
-          </select>
-        </label>
+        <CustomerPicker
+          request={request}
+          value={selected}
+          onChange={setSelected}
+          disabled={busy}
+        />
         <label>
           {t("threshold")}
           <input

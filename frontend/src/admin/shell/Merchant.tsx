@@ -148,7 +148,7 @@ export default function Merchant(props: {
                   </div>
                 )}
                 <WorkspaceBoundary
-                  key={`${workspace}:${environment}:${tab}:${appSurface?.surface.id ?? ""}`}
+                  key={`${workspace}:${environment}:${tab}:${appSurface?.surface.id ?? ""}:${controller.access.join(",")}`}
                   title={t("failure")}
                   retryLabel={t("refresh")}
                   onRetry={() => window.location.reload()}

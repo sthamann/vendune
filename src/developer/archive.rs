@@ -1,7 +1,7 @@
 //! Recoverable App Studio project deletion; installed packages and app records retain their independent lifecycle.
 use super::*;
 pub(super) async fn set(a: &App, h: &RequestContext, v: &Value) -> Result<Value> {
-    auth::permit(h, "users")?;
+    auth::permit(h, "developer.manage")?;
     let t = staging::live(a, h).await?;
     let app = v["app"]
         .as_str()

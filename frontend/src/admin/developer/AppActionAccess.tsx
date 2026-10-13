@@ -1,29 +1,11 @@
 /** Team permissions and MCP visibility are independent from public storefront reads and AI grounding. */
+import { permissionScopes } from "../team/permission-i18n";
+import { usePermissionText } from "../team/permission-i18n";
 import { useAssistantText } from "../../shared/i18n/app-assistant-i18n";
 import type { Manifest } from "../../shared/apps/native/types";
 import Icon from "../../shared/ui/Icon";
 // Matches the native permission registry; the editor regression detects drift.
-export const appScopes = [
-  "pos.use",
-  "b2b.read",
-  "b2b.manage",
-  "catalog.read",
-  "catalog.write",
-  "customers.read",
-  "customers.pii",
-  "customers.write",
-  "orders.read",
-  "orders.write",
-  "documents.read",
-  "documents.create",
-  "payments.read",
-  "payments.manage",
-  "settings.read",
-  "settings.write",
-  "apps.manage",
-  "team.manage",
-  "knowledge.read",
-];
+export const appScopes = permissionScopes;
 export default function AppActionAccess({
   manifest,
   onChange,
@@ -32,6 +14,7 @@ export default function AppActionAccess({
   onChange: (m: Manifest) => void;
 }) {
   const { t } = useAssistantText();
+  const pt = usePermissionText();
   return (
     <section className="app-model-card">
       <header>
@@ -63,7 +46,7 @@ export default function AppActionAccess({
               </option>
               {appScopes.map((s) => (
                 <option value={s} key={s}>
-                  {s}
+                  {pt(s)} ({s})
                 </option>
               ))}
             </select>

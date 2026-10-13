@@ -1,4 +1,6 @@
 <p align="center">
+
+**Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](docs/studio-access-and-setup.md).
   <img src="docs/brand/vendune-readme.svg" alt="Vendune — Commerce for humans. Built for agents." width="100%">
 </p>
 

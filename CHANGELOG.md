@@ -1,5 +1,14 @@
 # Changelog
 
+## Studio setup and reusable roles — 13 October 2026
+
+- Fix POS/marketplace wizard validation across interface and content languages. New channels start in the shop main language; missing fields have targeted errors and accessible invalid states.
+- Add an explicit App Studio overview return that retains the current draft and closes private previews.
+- Persist localized tenant roles with standard defaults, CAS/history, immutable owner authority, reference-checked custom deletion and immediately current session/key/worker grants. Team delegation and acceptance serialize with role changes; retained overrides also require current delegation authority.
+- Add domain scopes and shared readable permission selectors. Filter Studio navigation, direct workspaces and startup data; preserve normal reauthentication drafts. Protect full CRM/order/history/PDF data with the separate PII grant, and redact arbitrary Flow results for limited readers.
+- Add central versioned B2B feature settings, an explanatory module landing, atomic guided company/unit/customer creation and bounded indexed customer search.
+- Add real PostgreSQL concurrent-demotion, privacy, MCP and rollback tests, plus visible wizard, role-editor, App Studio return and limited-navigation regressions. [Usage, ownership and limits](docs/studio-access-and-setup.md).
+
 ## UCP B2B offer negotiation — 13 October 2026
 
 - Advertise the versioned Vendune B2B negotiation extension alongside UCP checkout, with a namespace-bound composed schema and configured hosted endpoint.

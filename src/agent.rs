@@ -1,5 +1,16 @@
 //! Persistent grounded conversations and tenant-scoped semantic knowledge HTTP adapters.
 use super::*;
+pub(crate) fn assistant_access(h: &RequestContext) -> Result<()> {
+    for right in [
+        "assistant.use",
+        "catalog.read",
+        "orders.read",
+        "knowledge.read",
+    ] {
+        auth::permit(h, right)?;
+    }
+    Ok(())
+}
 
 pub(super) fn choice(v: &Value) -> Result<Option<Choice>> {
     v.get("inference")
@@ -11,6 +22,17 @@ pub(super) async fn model_providers(
     h: RequestContext,
 ) -> Result<Json<Value>> {
     merchant(&a, &h)?;
+    if ![
+        "assistant.use",
+        "developer.read",
+        "knowledge.read",
+        "ai.manage",
+    ]
+    .iter()
+    .any(|s| auth::allowed(&h, s))
+    {
+        auth::permit(&h, "assistant.use")?;
+    }
     Ok(Json(a.inference.public_providers().await.map_err(bad)?))
 }
 pub(super) async fn knowledge_graph(
@@ -86,6 +108,7 @@ pub(super) async fn semantic_search(
     ))
 }
 pub(super) async fn reindex(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {
+    auth::permit(&h, "knowledge.write")?;
     let t = merchant(&a, &h)?;
     let queued = cognition::indexing::enqueue(&a, &t, None).await?;
     Ok(Json(
@@ -93,6 +116,7 @@ pub(super) async fn reindex(State(a): State<App>, h: RequestContext) -> Result<J
     ))
 }
 pub(super) async fn conversations(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {
+    assistant_access(&h)?;
     let t = merchant(&a, &h)?;
     let rows=sqlx::query("SELECT id,title,created_at::text AS created_at FROM conversations WHERE tenant=$1 ORDER BY created_at DESC LIMIT 40").bind(&t).fetch_all(&a.db).await?;
     Ok(Json(
@@ -109,6 +133,7 @@ pub(super) async fn conversation(
     h: RequestContext,
     Path(id): Path<String>,
 ) -> Result<Json<Value>> {
+    assistant_access(&h)?;
     let t = merchant(&a, &h)?;
     let exists: bool =
         sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM conversations WHERE tenant=$1 AND id=$2)")
@@ -131,6 +156,7 @@ pub(super) async fn merchant_chat(
     h: RequestContext,
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
+    assistant_access(&h)?;
     let t = merchant(&a, &h)?;
     auth::permit(&h, "knowledge.read")?;
     let instruction = v["message"]

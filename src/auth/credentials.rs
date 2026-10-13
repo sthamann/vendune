@@ -53,8 +53,7 @@ pub(crate) async fn verify_password(password: String, saved: String) -> Result<b
     .map_err(|_| bad("Password worker failed"))
 }
 pub(crate) fn role_allowed(actor: &str, target: &str) -> bool {
-    ["owner", "admin", "editor", "viewer"].contains(&target)
-        && (actor == "owner" || actor == "admin" && target != "owner")
+    crate::apps::identifier(target) && (actor == "owner" || actor == "admin" && target != "owner")
 }
 /// HMAC verification compares fixed-size authenticators in constant time, including different token lengths.
 pub(crate) fn bootstrap_matches(candidate: &str, expected: &str) -> bool {

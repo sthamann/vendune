@@ -595,6 +595,11 @@
     "source": "src/operations/routes.rs"
   },
   {
+    "path": "/api/merchant/customers/lookup",
+    "method": "GET",
+    "source": "src/operations/routes.rs"
+  },
+  {
     "path": "/api/merchant/customers/{email}",
     "method": "GET",
     "source": "src/operations/routes.rs"
@@ -983,6 +988,26 @@
     "path": "/api/workspace/members/{id}",
     "method": "PUT",
     "source": "src/routes.rs"
+  },
+  {
+    "path": "/api/workspace/roles",
+    "method": "GET",
+    "source": "src/auth/roles.rs"
+  },
+  {
+    "path": "/api/workspace/roles/{id}",
+    "method": "DELETE",
+    "source": "src/auth/roles.rs"
+  },
+  {
+    "path": "/api/workspace/roles/{id}",
+    "method": "PUT",
+    "source": "src/auth/roles.rs"
+  },
+  {
+    "path": "/api/workspace/roles/{id}/dependencies",
+    "method": "GET",
+    "source": "src/auth/roles.rs"
   },
   {
     "path": "/api/workspaces",

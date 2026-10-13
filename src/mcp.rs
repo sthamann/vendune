@@ -4,6 +4,9 @@ mod transport;
 mod visibility;
 use transport::invoke_transport;
 pub(crate) fn tool_schema(name: &str) -> Value {
+    if let Some(schema) = auth::roles::schema(name) {
+        return schema;
+    }
     if let Some(schema) = b2b::schema(name) {
         return schema;
     }
@@ -26,6 +29,9 @@ pub(crate) fn tool_schema(name: &str) -> Value {
         return schema;
     }
     let props = match name {
+        "merchant.customer.lookup" => {
+            json!({"query":{"type":"string","maxLength":200},"limit":{"type":"integer","minimum":1,"maximum":100},"after":{"type":"string"}})
+        }
         "merchant.company" => json!({"channelId":{"type":"string"}}),
         "merchant.company.save" => {
             json!({"channelId":{"type":"string"},"revision":{"type":"integer","minimum":0},"baseRevision":{"type":"integer","minimum":0},"data":{"type":"object"}})
