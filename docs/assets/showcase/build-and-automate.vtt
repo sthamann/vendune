@@ -1,19 +1,10 @@
 WEBVTT
 
-00:00:00.000 --> 00:00:05.000
-Build and automate: a guided tour of the connected Veyndo prototype.
+00:00:00.000 --> 00:00:04.000
+VEYNDO. Commerce that thinks and acts.
 
-00:00:05.000 --> 00:00:25.000
-Start from a working app pattern. Add controls, undo, switch merchant and shopper views, then inspect its data model.
+00:00:04.000 --> 00:00:25.000
+Typed apps. Visible workflows. Deliberate releases.
 
-00:00:25.000 --> 00:00:41.000
-Choose a real product in the sandbox, enter care advice and save it through the app’s actual data contract.
-
-00:00:41.000 --> 00:00:57.000
-Inspect the cashier event flow and add a branch on its canvas. Completed executions show the earlier sale’s note.
-
-00:00:57.000 --> 00:01:11.000
-Review the changed app package, select it and publish. Sandbox test records are not copied into the live shop.
-
-00:01:11.000 --> 00:01:16.000
-Explore the source, follow the guides and test a workflow of your own.
+00:00:25.000 --> 00:00:29.000
+People set the rules.

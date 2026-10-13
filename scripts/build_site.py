@@ -92,6 +92,7 @@ def build():
         if asset.is_file():
             shutil.copyfile(asset, DEST / 'assets' / asset.name)
     shutil.copytree(ROOT / 'docs/assets/showcase', DEST / 'docs/assets/showcase')
+    shutil.copytree(ROOT / 'docs/brand', DEST / 'docs/brand')
     urls = []
 
     def write_page(path, title, description, content):

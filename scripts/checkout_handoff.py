@@ -55,6 +55,19 @@ for parent,shop,channel in [('https://foreign.veyndo.ai',u['workspace'],'default
  try: urllib.request.urlopen(frame_url(parent,shop,channel),timeout=20);raise AssertionError('Unregistered parent admitted')
  except urllib.error.HTTPError as e: assert e.code in [400,403],e.code
 check('Embedded checkout admits only the exact registered tenant/channel origin')
+# Rebranding keeps machine calls on their original host and retains the same native tenant admission.
+legacy='migration.previous.test'
+legacy_cart=call('/store-api/checkout/cart',{'session':uuid.uuid4().hex},{'Host':u['workspace']+'.'+legacy})
+stored=subprocess.run(psql(os.getenv('DB_CONTAINER','veyndo-postgres-1'),'commerce',os.getenv('TEST_DATABASE','commerce'),'-Atc',f"SELECT tenant FROM carts WHERE id='{legacy_cart['id']}'"),check=True,capture_output=True,text=True).stdout.strip()
+assert stored==u['workspace'],stored
+call('/store-api/context',h={'Host':other['workspace']+'.'+legacy,'x-tenant':u['workspace']},expected=400)
+legacy_origin='https://'+alias+'.'+legacy
+with urllib.request.urlopen(frame_url(legacy_origin),timeout=20) as page:
+ assert page.status==200 and ('frame-ancestors \'self\' '+legacy_origin) in page.headers['content-security-policy']
+for parent,shop in [('https://foreign.'+legacy,u['workspace']),(legacy_origin,other['workspace'])]:
+ try: urllib.request.urlopen(frame_url(parent,shop),timeout=20);raise AssertionError('Foreign legacy parent admitted')
+ except urllib.error.HTTPError as e: assert e.code in [400,403],e.code
+check('Legacy API hosts preserve the exact tenant and registered checkout origin; foreign scopes remain denied')
 # Localized names are saved from locked products, independent of the last request header.
 p=call('/api/merchant/products/mug',h=mh)
 p['translations']['de']={'name':'Tasse Deutsch unveränderlich','description':'Deutscher Produkttext'}

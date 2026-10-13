@@ -77,6 +77,7 @@ env.update({
     "OLLAMA_URL": "http://127.0.0.1:1", "TEST_PERSONAL": "1",
     "PLATFORM_SECRET_KEY": "07"*32, "INFERENCE_ALLOW_LOOPBACK": "true",
     "SHOP_DOMAIN_SUFFIX": "veyndo.ai",
+    "CANONICAL_DOMAIN": "veyndo.ai", "LEGACY_DOMAINS": "migration.previous.test",
     "HOSTED_FRONTEND_ORIGIN": f"http://127.0.0.1:{frontend_port}",
     "HOSTED_FRONTEND_KEY": "fixture-gateway-" + "x"*64,
     "HOSTED_FRONTEND_EDITOR_URL": f"http://127.0.0.1:{frontend_port}/design/{{alias}}",

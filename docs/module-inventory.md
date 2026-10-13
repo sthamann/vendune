@@ -140,7 +140,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/bin/verified_kernel/dispatch.rs](../src/bin/verified_kernel/dispatch.rs) | Generated conformance driver; invokes the same production policy functions as the commerce server. |
 | [src/bin/verified_kernel.rs](../src/bin/verified_kernel.rs) | Generated input/output driver; production policies are dispatched by the generated module. |
 | [src/bootstrap.rs](../src/bootstrap.rs) | Startup, additive migrations, persisted extensions and outbox worker. |
-| [src/brand_redirect.rs](../src/brand_redirect.rs) | Operator-configured domain migration preserves the host prefix, path, query and HTTP method. |
+| [src/brand_redirect.rs](../src/brand_redirect.rs) | Move browser pages to the configured domain while retaining integration and checkout endpoints. |
 | [src/capabilities/catalog.rs](../src/capabilities/catalog.rs) | Shared catalogue composes native capabilities and cognitive contracts without duplicating authorization. |
 | [src/capabilities/core_catalog.rs](../src/capabilities/core_catalog.rs) | Public HTTP/MCP capability catalogue, separate from authorization and dispatch. |
 | [src/capabilities.rs](../src/capabilities.rs) | Shared HTTP/MCP capability dispatch and tool authorization. |
@@ -508,6 +508,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/automation/lifecycle-i18n.ts](../frontend/src/admin/automation/lifecycle-i18n.ts) | Shared lifecycle, starting-process and dependency vocabulary for every automation editor. |
 | [frontend/src/admin/automation/pipeline-types.ts](../frontend/src/admin/automation/pipeline-types.ts) | Stable graph data mirrors the Rust pipeline contract, with explicit true/false edges and persistent node identifiers. |
 | [frontend/src/admin/automation/source-rules.ts](../frontend/src/admin/automation/source-rules.ts) | Convert source condition nodes for the graphical editor without losing original payload fields. |
+| [frontend/src/admin/automation/useAutomationLanguages.ts](../frontend/src/admin/automation/useAutomationLanguages.ts) | Load the current shop's content-language context and ignore replies after the workspace changes. |
 | [frontend/src/admin/b2b/B2BWorkspace.tsx](../frontend/src/admin/b2b/B2BWorkspace.tsx) | Tenant-scoped company workspace; canonical API operations are also exposed through MCP. |
 | [frontend/src/admin/b2b/CompanyCreate.tsx](../frontend/src/admin/b2b/CompanyCreate.tsx) | Guided company creation is one atomic native API command; the main-language name is always visible. |
 | [frontend/src/admin/b2b/CustomerPicker.tsx](../frontend/src/admin/b2b/CustomerPicker.tsx) | Debounced, bounded native customer search with cancellation fencing and explicit selection. |

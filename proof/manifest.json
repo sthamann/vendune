@@ -1434,8 +1434,8 @@
     },
     "src/brand_redirect.rs": {
       "status": "unproved",
-      "sha256": "d1d3ad27c90cd6381c7a38e1df64bcff47248e61e93b68af3f899bb4181497e3",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "e87808961f1acc0966a18aa3327f6251fdd0f0692ce9660682a27f251a6586e9",
+      "review": "Reviewed domain cutover adapters: only browser GET/HEAD redirect; explicit legacy suffixes retain native tenant/channel ownership and exact HTTPS checkout origins. Scoped HTTP/PostgreSQL handoff, checkout-review and tenant-isolation suites passed. This records adapter review, not a proof of middleware correctness."
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
@@ -1534,8 +1534,8 @@
     },
     "src/checkout_page.rs": {
       "status": "unproved",
-      "sha256": "752f4e54fe7952750578465cf2cad3c459a68ffd77f55800d75106a89045a372",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "8728b2332d76cec434dd44ab8b9e72747d43d0e852e6dc217e592703c050378e",
+      "review": "Reviewed domain cutover adapters: only browser GET/HEAD redirect; explicit legacy suffixes retain native tenant/channel ownership and exact HTTPS checkout origins. Scoped HTTP/PostgreSQL handoff, checkout-review and tenant-isolation suites passed. This records adapter review, not a proof of middleware correctness."
     },
     "src/checkout_products.rs": {
       "status": "unproved",
@@ -2619,8 +2619,8 @@
     },
     "src/payments/sessions.rs": {
       "status": "unproved",
-      "sha256": "62ed4bb637c64a3450dcd11adf40f892ad8f728db60ee4f000982e65a430f0a5",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "3a20e4f03083bc4d67bf6222d5dcaba909d39e291b2c9babf501c3036fdad6b1",
+      "review": "Reviewed domain cutover adapters: only browser GET/HEAD redirect; explicit legacy suffixes retain native tenant/channel ownership and exact HTTPS checkout origins. Scoped HTTP/PostgreSQL handoff, checkout-review and tenant-isolation suites passed. This records adapter review, not a proof of middleware correctness."
     },
     "src/payments/state.rs": {
       "status": "reviewed-binding",
@@ -2894,8 +2894,8 @@
     },
     "src/shop_domains.rs": {
       "status": "unproved",
-      "sha256": "62267ca90d10f05c129ec93475828a70194721794df06b61f8a5b4c89dfa731a",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "5cf8ea5e3f7583da7fa78be7eca7f3768c77d84f45fc17aa21d72450d352ca89",
+      "review": "Reviewed domain cutover adapters: only browser GET/HEAD redirect; explicit legacy suffixes retain native tenant/channel ownership and exact HTTPS checkout origins. Scoped HTTP/PostgreSQL handoff, checkout-review and tenant-isolation suites passed. This records adapter review, not a proof of middleware correctness."
     },
     "src/staging/access.rs": {
       "status": "unproved",

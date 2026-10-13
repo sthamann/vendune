@@ -2,113 +2,183 @@
   {
     "file": "variants-cart.gif",
     "sourceRecordings": [
-      "variants-cart"
+      "checkout"
     ],
-    "capturedFrames": 27,
-    "bytes": 770235,
-    "sha256": "e944db9eeb1b362d4f010db23d16b70a45b39e77110dc9f326a65300f2de15bd"
+    "capturedFrames": 17,
+    "bytes": 707047,
+    "sha256": "23a5cd117a3d851688459fd4e709d100f956bcc09b59f07c5ce27e68b3799f94",
+    "capturedAt": "2026-10-13",
+    "brand": "VEYNDO",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual isolated VEYNDO UI; synthetic data; edited for readability, not latency evidence.",
+    "clipStartSeconds": 0,
+    "clipDurationSeconds": 6,
+    "captureType": "UI screencast"
   },
   {
     "file": "checkout.gif",
     "sourceRecordings": [
-      "checkout-review",
-      "checkout-place"
+      "checkout"
     ],
-    "capturedFrames": 117,
-    "bytes": 166513,
-    "sha256": "25278333897e05fc29e3805eaeb6566f27765c0414790cb8dc99cd1561612522"
+    "capturedFrames": 17,
+    "bytes": 1099640,
+    "sha256": "a62c2cd3de64a4710cc7b4d17027052a29b2289223af6be1336ff46f9f356f8e",
+    "capturedAt": "2026-10-13",
+    "brand": "VEYNDO",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual isolated VEYNDO UI; synthetic data; edited for readability, not latency evidence.",
+    "clipStartSeconds": 0,
+    "captureType": "UI screencast"
   },
   {
     "file": "product-languages.gif",
     "sourceRecordings": [
-      "product-languages"
+      "translations"
     ],
-    "capturedFrames": 10,
-    "bytes": 183038,
-    "sha256": "2ebc12302224c8abf0ee6490c97207533c34fb8e96c5789c54e3d0570c6bac50"
+    "capturedFrames": 6,
+    "bytes": 681854,
+    "sha256": "e4e12c6098ae2b2ff399b86f871bc2d80ce0a113294310c23e8320f85dcdbb80",
+    "capturedAt": "2026-10-13",
+    "brand": "VEYNDO",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual isolated VEYNDO UI; synthetic data; edited for readability, not latency evidence.",
+    "clipStartSeconds": 0,
+    "captureType": "UI screencast"
   },
   {
     "file": "flow-canvas.gif",
     "sourceRecordings": [
-      "flow-canvas"
+      "flows"
     ],
-    "capturedFrames": 41,
-    "bytes": 1047802,
-    "sha256": "ab5981693fd583a260e5031545f9950872d5c69a56905add1d0b16feb7ee3aa1"
+    "capturedFrames": 14,
+    "bytes": 1137472,
+    "sha256": "2e5792a8309cd1195d547f7de4732f80e95b664456dce6fb66cbaa84db729efd",
+    "capturedAt": "2026-10-13",
+    "brand": "VEYNDO",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual isolated VEYNDO UI; synthetic data; edited for readability, not latency evidence.",
+    "clipStartSeconds": 0,
+    "captureType": "UI screencast"
   },
   {
     "file": "channel-wizard.gif",
     "sourceRecordings": [
       "channel-wizard"
     ],
-    "capturedFrames": 15,
-    "bytes": 194774,
-    "sha256": "8b3ca59e9a0e250f31250507a7715711dba65a25c5d414882cdb1526e1dfcbc2"
+    "capturedFrames": 7,
+    "bytes": 579104,
+    "sha256": "eae6af1d0ea5c13c74e99530d2e850ac1c17b5b85ac337aabdaab0d9d8411e49",
+    "capturedAt": "2026-10-13",
+    "brand": "VEYNDO",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual private headless channel draft. The review step is shown; the channel is not created.",
+    "clipStartSeconds": 0,
+    "captureType": "UI screencast"
   },
   {
     "file": "app-design.gif",
     "sourceRecordings": [
-      "app-design"
+      "app-studio"
     ],
-    "capturedFrames": 23,
-    "bytes": 275438,
-    "sha256": "da1a96c27512ff599b408e532b29b11686dada7fa820bec39f913f122aa22a60"
+    "capturedFrames": 33,
+    "bytes": 704215,
+    "sha256": "675f4d6fcfa55d525f525f6b984a7608ff9692511b1b766f582dde353ad11998",
+    "capturedAt": "2026-10-13",
+    "brand": "VEYNDO",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual isolated VEYNDO UI; synthetic data; edited for readability, not latency evidence.",
+    "clipStartSeconds": 0,
+    "clipDurationSeconds": 10,
+    "captureType": "UI screencast"
   },
   {
     "file": "app-preview.gif",
     "sourceRecordings": [
-      "app-preview"
+      "app-studio"
     ],
-    "capturedFrames": 7,
-    "bytes": 141034,
-    "sha256": "d4e1d382da40b4aca40cb632ab871f997d90d84559681d3ad55bf03b9e9f975f"
+    "capturedFrames": 33,
+    "bytes": 877810,
+    "sha256": "355871ffb6845a74bc34f6a9e457aa9d067757f910fbff2ed21137b2d2c1c73a",
+    "capturedAt": "2026-10-13",
+    "brand": "VEYNDO",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual isolated VEYNDO UI; synthetic data; edited for readability, not latency evidence.",
+    "clipStartSeconds": 15,
+    "clipDurationSeconds": 12,
+    "captureType": "UI screencast"
   },
   {
     "file": "selective-release.gif",
     "sourceRecordings": [
-      "selective-release"
+      "release"
     ],
-    "capturedFrames": 11,
-    "bytes": 179170,
-    "sha256": "dd9bd29e36d460cc2a762ef3e53136b4e1e83f0c0d6154731b0b03fd84e74e2f"
+    "capturedFrames": 3,
+    "bytes": 571516,
+    "sha256": "fcfc1873d277d01bcd8aa784b0e59ca94f22ebe9fa86897417b46de90cf748ea",
+    "capturedAt": "2026-10-13",
+    "brand": "VEYNDO",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual isolated VEYNDO UI; synthetic data; edited for readability, not latency evidence.",
+    "clipStartSeconds": 0,
+    "captureType": "Editorial montage of actual UI screenshots"
   },
   {
     "file": "knowledge-publication.gif",
     "sourceRecordings": [
-      "knowledge-publish",
-      "knowledge-confirm"
+      "knowledge-publication"
     ],
-    "capturedFrames": 13,
-    "bytes": 316995,
-    "sha256": "1c8c8ceb1a1a70564cdbb603a87c23b2767d6786f3bc97637e9fe0a499cfa8a0"
+    "capturedFrames": 12,
+    "bytes": 1049312,
+    "sha256": "abc0941a9739cec24ca55dde887f34f4b262c937d8341de4243306bab91c9898",
+    "capturedAt": "2026-10-13",
+    "brand": "VEYNDO",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual isolated VEYNDO UI; synthetic data; edited for readability, not latency evidence.",
+    "clipStartSeconds": 0
   },
   {
     "file": "shop-lifecycle.gif",
     "sourceRecordings": [
-      "shop-pause",
-      "shop-trash",
-      "shop-restore"
+      "shop-lifecycle"
     ],
     "capturedFrames": 16,
-    "bytes": 347565,
-    "sha256": "1afea4cd29a4793629d4c6a0fdf743149665be029fcf014027a93947c40bd741"
+    "bytes": 368379,
+    "sha256": "bf02492ce4c004c4daae10de35a792d4d7db4c6a0ab2a37c729d8958230094f9",
+    "capturedAt": "2026-10-13",
+    "brand": "VEYNDO",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual isolated Workshop fixture: paused and activated again. Trash confirmation was shown and cancelled; no deletion occurred.",
+    "clipStartSeconds": 0,
+    "captureType": "UI screencast"
   },
   {
     "file": "history-restore.gif",
     "sourceRecordings": [
       "history-restore"
     ],
-    "capturedFrames": 6,
-    "bytes": 136270,
-    "sha256": "3160d069ba25326b7ec82d32cc6369ec933d8af2eb36af7694fd33be7924ee51"
+    "capturedFrames": 14,
+    "bytes": 1223129,
+    "sha256": "3991ac45c2865c6e00c43ef66191a94529a39eef063223f1b867e39a4aeecba7",
+    "capturedAt": "2026-10-13",
+    "brand": "VEYNDO",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual isolated VEYNDO UI; synthetic data; edited for readability, not latency evidence.",
+    "clipStartSeconds": 0,
+    "captureType": "UI screencast"
   },
   {
     "file": "variant-generator.gif",
     "sourceRecordings": [
       "variant-generator"
     ],
-    "capturedFrames": 8,
-    "bytes": 163255,
-    "sha256": "183bf6934edaa2d5dd569fcb325c076002d436cfa9337d42b33d3b07bacf0641"
+    "capturedFrames": 6,
+    "bytes": 725929,
+    "sha256": "65e43072de80578f1f29f716456dc65de42768a3bc64adf8b31734d32610c62b",
+    "capturedAt": "2026-10-13",
+    "brand": "VEYNDO",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "source": "Actual isolated VEYNDO UI; synthetic data; edited for readability, not latency evidence.",
+    "clipStartSeconds": 0,
+    "captureType": "UI screencast"
   }
 ]

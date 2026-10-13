@@ -1,8 +1,8 @@
-//! Operator-configured domain migration preserves the host prefix, path, query and HTTP method.
+//! Move browser pages to the configured domain while retaining integration and checkout endpoints.
 use crate::*;
-use axum::{extract::Request, middleware::Next};
+use axum::{extract::Request, http::Method, middleware::Next};
 
-fn domain(value: &str) -> bool {
+pub(crate) fn domain(value: &str) -> bool {
     value.len() <= 253
         && value.contains('.')
         && value.split('.').all(|part| {
@@ -37,7 +37,31 @@ fn destination(host: &str, path: &str, canonical: &str, legacy: &str) -> Option<
     }
     None
 }
+fn browser_page(method: &Method, path: &str) -> bool {
+    matches!(*method, Method::GET | Method::HEAD)
+        && ![
+            "/api",
+            "/experience-api",
+            "/store-api",
+            "/mcp",
+            "/ucp",
+            "/.well-known",
+            "/checkout",
+            "/assets",
+            "/brand",
+            "/media",
+        ]
+        .iter()
+        .any(|prefix| path == *prefix || path.starts_with(&format!("{prefix}/")))
+}
 pub(crate) async fn apply(request: Request, next: Next) -> Response {
+    let accept = header(request.headers(), "accept").unwrap_or_default();
+    if !browser_page(request.method(), request.uri().path())
+        || request.headers().contains_key("authorization")
+        || (accept.contains("application/json") && !accept.contains("text/html"))
+    {
+        return next.run(request).await;
+    }
     let canonical = env::var("CANONICAL_DOMAIN").unwrap_or_default();
     let legacy = env::var("LEGACY_DOMAINS").unwrap_or_default();
     let path = request
@@ -58,6 +82,23 @@ pub(crate) async fn apply(request: Request, next: Next) -> Response {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn integrations_and_existing_checkout_are_not_redirected() {
+        for path in [
+            "/api/orders",
+            "/store-api/cart",
+            "/mcp",
+            "/ucp/checkout-sessions",
+            "/.well-known/ucp",
+            "/checkout",
+        ] {
+            assert!(!browser_page(&Method::GET, path), "{path}");
+        }
+        assert!(!browser_page(&Method::POST, "/callback"));
+        assert!(browser_page(&Method::GET, "/products/coat"));
+        assert!(browser_page(&Method::HEAD, "/"));
+        assert!(browser_page(&Method::GET, "/apiary"));
+    }
     #[test]
     fn redirects_only_admitted_domains_without_losing_routing_or_query() {
         for (host, expected) in [
