@@ -8,7 +8,7 @@
 
 Eleven existing frontend mounts across ten tenants were moved from the owned prior Experience origins to `https://experience.veyndo.ai`. The operator transaction preserves aliases and tenant/channel bindings, increments revisions and invalidates affected read caches. [Deployment and migration procedure](cloud-releases.md).
 
-Current documentation uses new captures with synthetic fixtures. Dated acceptance captures below are immutable archive links, not new tests. Google branding and callback configuration were updated; an end-to-end new-domain sign-in and the Apple account update remain separate checks. The old root/team DNS cutover and certificate-renewal conflict are still operational follow-ups.
+Current documentation uses new captures with synthetic fixtures. Dated acceptance captures below are immutable archive links, not new tests. Google branding and callback configuration were updated, and the new-domain sign-in reached the existing merchant workspace successfully. Eight stored native-shop links now use `veyndo.ai`; reloading displayed the corrected destinations. The Apple account update remains pending. The old root/team DNS cutover and certificate-renewal conflict are still operational follow-ups.
 
 **Connected source audit — 13 October:** POS, B2B/EDI, marketplaces and visitor
 intelligence share native version, rights, settings, sandbox, API/MCP and event
