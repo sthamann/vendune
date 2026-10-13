@@ -43,7 +43,7 @@ export const es: Record<Key, string> = {
   nextPage: "Página siguiente",
   moreVariants: "Cargar más variantes",
 
-  studio: "seLLM Studio",
+  studio: "Sellama Studio",
   users: "Equipo y acceso",
   login: "Iniciar sesión",
   register: "Crear tienda",
@@ -188,7 +188,7 @@ export const es: Record<Key, string> = {
   freeFrom: "Gratis desde",
   invalidOption: "Esta combinación no está disponible.",
   pricing: "Precio para tu cuenta",
-  ask: "Pregunta a seLLM",
+  ask: "Pregunta a Sellama",
   wish: "¿Qué buscas? Un rincón de lectura acogedor por menos de 300 € …",
   thinking: "Buscando productos adecuados …",
   adapted: "Ordenado según tus intereses",

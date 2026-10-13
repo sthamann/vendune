@@ -1,6 +1,6 @@
 //! Bind each borrowed PostgreSQL connection to task scope, and reject unsafe strict-runtime roles.
-use sellm::scoped_pool::ScopedPool as PgPool;
-use sellm::tenant_scope::{Scope, current};
+use sellama::scoped_pool::ScopedPool as PgPool;
+use sellama::tenant_scope::{Scope, current};
 use sqlx::PgConnection;
 use std::env;
 

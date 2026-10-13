@@ -1,7 +1,7 @@
 -- PostgreSQL delivers NOTIFY only after commit; rollback cannot evict an authoritative snapshot.
 CREATE FUNCTION notify_outbox_cache() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
- PERFORM pg_notify('sellm_read_invalidation',json_build_object('tenant',NEW.tenant)::text);
+ PERFORM pg_notify('sellama_read_invalidation',json_build_object('tenant',NEW.tenant)::text);
  RETURN NEW;
 END $$;
 CREATE TRIGGER outbox_cache_notification AFTER INSERT ON outbox FOR EACH ROW EXECUTE FUNCTION notify_outbox_cache();

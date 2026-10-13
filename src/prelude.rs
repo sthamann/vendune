@@ -7,8 +7,8 @@ pub(crate) use axum::{
     response::{IntoResponse, Response},
     routing::{get, post},
 };
-pub(crate) use sellm::scoped_pool::ScopedPool as PgPool;
-pub(crate) use sellm::{
+pub(crate) use sellama::scoped_pool::ScopedPool as PgPool;
+pub(crate) use sellama::{
     inference::{Choice, Inference},
     knowledge,
     pricing::{PriceInput, calculate, math_round},

@@ -28,9 +28,9 @@ pub(super) async fn catalog(State(a): State<App>, h: RequestContext) -> Result<J
         .as_array_mut()
         .unwrap()
         .push(json!("ruleReference"));
-    result["sourceConditions"] = sellm::automation_rules::catalog()["conditions"].clone();
+    result["sourceConditions"] = sellama::automation_rules::catalog()["conditions"].clone();
     result["actions"] = json!(flow_actions::ACTIONS);
-    result["sourceActions"] = sellm::automation_rules::catalog()["actions"].clone();
+    result["sourceActions"] = sellama::automation_rules::catalog()["actions"].clone();
     result["pipelineContract"] = json!({"nodes":["condition","action","delay","stop"],"maxNodes":100,"maxDelaySeconds":2592000,"cyclicGraphs":false});
     Ok(Json(result))
 }
@@ -79,7 +79,7 @@ fn normalize(v: &Value, depth: usize) -> Result<Value> {
         }
         copy
     };
-    if sellm::automation_rules::definition(typ).is_some() && typ != "alwaysValid" {
+    if sellama::automation_rules::definition(typ).is_some() && typ != "alwaysValid" {
         let node = source_node(v, depth)?;
         return Ok(json!({"type":"shopwareCondition","name":typ,"config":node["config"]}));
     }
@@ -141,7 +141,7 @@ fn source_node(v: &Value, depth: usize) -> Result<Value> {
             config[key] = source_node(&child, depth + 1)?;
         }
     }
-    sellm::automation_rules::validate(name, &config, depth).map_err(bad)?;
+    sellama::automation_rules::validate(name, &config, depth).map_err(bad)?;
     Ok(json!({"type":name,"config":config}))
 }
 

@@ -1,5 +1,5 @@
 //! Batch price fixture transport for the original-PHP differential comparator.
-use sellm::pricing::{PriceInput, calculate};
+use sellama::pricing::{PriceInput, calculate};
 use std::io::{self, Read};
 fn main() {
     let mut input = String::new();

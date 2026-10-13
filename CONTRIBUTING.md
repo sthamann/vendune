@@ -1,4 +1,4 @@
-# Contributing to seLLM
+# Contributing to Sellama
 
 This is an experimental commerce and migration laboratory. Changes should keep
 merchant authority, tenant isolation and deterministic commerce operations explicit.
@@ -68,8 +68,8 @@ Describe the concrete before/after behavior, relevant checks and remaining
 limits. Keep unrelated changes out of the diff. Do not commit `.env`, provider
 keys, session tokens, private data or dependency/build directories.
 
-Contributions are made under the [seLLM Sustainable Use License](LICENSE).
-seLLM is source available; own-business stores are permitted, while commercial
+Contributions are made under the [Sellama Sustainable Use License](LICENSE).
+Sellama is source available; own-business stores are permitted, while commercial
 shop platforms, managed hosting and SaaS for independent merchants require
 separate written permission. Preserve upstream licenses and copyright notices.
 You retain ownership of your contribution; no copyright transfer or blanket

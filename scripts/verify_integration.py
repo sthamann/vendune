@@ -18,7 +18,7 @@ from testing.runtime import ROOT, run, serve, stop
 from testing.database import psql
 
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument("--container", default="sellm-postgres-1")
+parser.add_argument("--container", default="sellama-postgres-1")
 parser.add_argument("--existing-database", action="store_true")
 parser.add_argument("--only", nargs="+", help="Run selected registered HTTP/provider/browser/tooling suites in an isolated database")
 args = parser.parse_args()
@@ -76,7 +76,7 @@ env.update({
     "COMMERCE_PUBLIC_ORIGIN": "https://studio.example.test",
     "OLLAMA_URL": "http://127.0.0.1:1", "TEST_PERSONAL": "1",
     "PLATFORM_SECRET_KEY": "07"*32, "INFERENCE_ALLOW_LOOPBACK": "true",
-    "SHOP_DOMAIN_SUFFIX": "sellm.ai",
+    "SHOP_DOMAIN_SUFFIX": "sellama.ai",
     "HOSTED_FRONTEND_ORIGIN": f"http://127.0.0.1:{frontend_port}",
     "HOSTED_FRONTEND_KEY": "fixture-gateway-" + "x"*64,
     "HOSTED_FRONTEND_EDITOR_URL": f"http://127.0.0.1:{frontend_port}/design/{{alias}}",

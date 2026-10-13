@@ -8,6 +8,7 @@ mod relations;
 pub mod rerank;
 mod search;
 mod vector_cache;
+pub mod vector_namespace;
 pub mod vectors;
 pub use relations::{
     graph, seed_relations, sync_document, sync_integration, sync_observation, sync_product,

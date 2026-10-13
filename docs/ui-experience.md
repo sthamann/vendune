@@ -1,10 +1,10 @@
 # Connected Studio and storefront experience
 
-seLLM's interface follows one path: **workspace → evidence → conversation → reviewed change → live result**. The assistant belongs beside the task. Opening help must preserve an unsaved product editor; suggestions must not invoke a model or apply a change until the merchant explicitly submits or approves it.
+Sellama's interface follows one path: **workspace → evidence → conversation → reviewed change → live result**. The assistant belongs beside the task. Opening help must preserve an unsaved product editor; suggestions must not invoke a model or apply a change until the merchant explicitly submits or approves it.
 
 ## Studio
 
-`admin/shell/StudioHeader.tsx` exposes **Ask seLLM** on every workspace. `admin/assistant/WorkspaceCopilot.tsx` opens a native dialog beside the current screen. It reuses `StudioConversation`, `StudioComposer`, the session-scoped controller and the existing proposal renderer. The current workspace/environment, area and a selected linked entity reference are included in an editable prompt. Product list entries use the same entity navigation as orders/customers, keeping deep links and back navigation connected.
+`admin/shell/StudioHeader.tsx` exposes **Ask Sellama** on every workspace. `admin/assistant/WorkspaceCopilot.tsx` opens a native dialog beside the current screen. It reuses `StudioConversation`, `StudioComposer`, the session-scoped controller and the existing proposal renderer. The current workspace/environment, area and a selected linked entity reference are included in an editable prompt. Product list entries use the same entity navigation as orders/customers, keeping deep links and back navigation connected.
 
 The prompt describes the screen; it grants no permission and does not automatically include unsaved field contents. Authorization and tenant scope stay in the existing transport and backend. The drawer shares the existing conversation instead of maintaining a second chat state. A native modal traps keyboard focus, restores it on close, releases the screen when a session expires and closes before provider settings are opened.
 

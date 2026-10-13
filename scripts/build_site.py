@@ -11,8 +11,8 @@ from site_markdown import build_documents
 
 ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / '.site'
-BASE = 'https://sthamann.github.io/sellm/'
-REPO = 'https://github.com/sthamann/sellm'
+BASE = 'https://sthamann.github.io/sellama/'
+REPO = 'https://github.com/sthamann/sellama'
 
 
 def evidence_fields():
@@ -112,7 +112,7 @@ def build():
             'description': html.escape(description, quote=True),
             'canonical': url,
             'image': BASE + ('docs/assets/showcase/storefront.webp' if filename == 'index.html'
-                             else 'assets/sellm-studio-en.jpg'),
+                             else 'assets/sellama-studio-en.jpg'),
             'schema': json.dumps(schema, ensure_ascii=False).replace('<', '\\u003c'),
             'content': content,
             'root': '' if path.parent == Path('.') else os.path.relpath('.', path.parent) + '/',

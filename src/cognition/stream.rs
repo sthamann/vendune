@@ -22,7 +22,9 @@ async fn chat(
         return Err(bad("Message must contain 1..4000 characters"));
     }
     let mut job =
-        sellm::tenant_scope::spawn(async move { agent::merchant_chat(State(a), h, Json(v)).await });
+        sellama::tenant_scope::spawn(
+            async move { agent::merchant_chat(State(a), h, Json(v)).await },
+        );
     let stream = async_stream::stream! {
         yield Ok::<_,std::convert::Infallible>(Event::default().event("accepted").data("{}"));
         let started=std::time::Instant::now();

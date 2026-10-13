@@ -12,7 +12,7 @@ class Pooler:
     def __init__(self, runtime_url):
         executable=os.environ.get('TEST_PGBOUNCER') or shutil.which('pgbouncer')
         if not executable:raise RuntimeError('Transaction-pool verification requires PgBouncer 1.21+ (TEST_PGBOUNCER)')
-        self.directory=tempfile.TemporaryDirectory(prefix='sellm-pooler-')
+        self.directory=tempfile.TemporaryDirectory(prefix='sellama-pooler-')
         folder=Path(self.directory.name)
         uri=urlsplit(runtime_url)
         # Generated fixture identities are closed-alphabet; do not accept arbitrary user-supplied INI values.

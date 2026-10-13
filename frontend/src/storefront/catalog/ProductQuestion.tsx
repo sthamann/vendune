@@ -44,7 +44,7 @@ export default function ProductQuestion({ productId }: { productId: string }) {
             if (current === generation.current) {
               setAnswer(result);
               window.dispatchEvent(
-                new CustomEvent("sellm:product-question", {
+                new CustomEvent("sellama:product-question", {
                   detail: { productId },
                 }),
               );

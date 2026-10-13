@@ -64,7 +64,7 @@ pub(crate) async fn rounds(
     system: &str,
     prompt: &str,
     schema: &Value,
-) -> Result<(sellm::inference::Output, Vec<Value>)> {
+) -> Result<(sellama::inference::Output, Vec<Value>)> {
     rounds_for(a, h, choice, system, prompt, schema, false).await
 }
 pub(crate) async fn rounds_for(
@@ -75,7 +75,7 @@ pub(crate) async fn rounds_for(
     prompt: &str,
     schema: &Value,
     public: bool,
-) -> Result<(sellm::inference::Output, Vec<Value>)> {
+) -> Result<(sellama::inference::Output, Vec<Value>)> {
     let mut tools = if public {
         vec!["catalog.search", "catalog.detail", "catalog.facts"]
             .into_iter()

@@ -13,8 +13,8 @@ export function validShopId(id: string): boolean {
 }
 export function hostnameShop(): string | undefined {
   const host = location.hostname;
-  if (!host.endsWith(".sellm.ai")) return undefined;
-  const shop = host.slice(0, -".sellm.ai".length);
+  if (!host.endsWith(".sellama.ai")) return undefined;
+  const shop = host.slice(0, -".sellama.ai".length);
   return validShopId(shop) ? shop : undefined;
 }
 export function shopScope(): string {
@@ -26,11 +26,11 @@ export function shopScope(): string {
 }
 export function storefrontURL(id: string, studio = false): string {
   const publicHost =
-    location.hostname === "sellm.ai" ||
-    location.hostname.endsWith(".sellm.ai");
+    location.hostname === "sellama.ai" ||
+    location.hostname.endsWith(".sellama.ai");
   const path = `/?shop=${encodeURIComponent(id)}${studio ? "#merchant" : ""}`;
   if (!publicHost || !validShopId(id)) return path;
-  return studio ? `https://app.sellm.ai${path}` : `https://${id}.sellm.ai/`;
+  return studio ? `https://app.sellama.ai${path}` : `https://${id}.sellama.ai/`;
 }
 /** Upgrade legacy shared-origin storefront bookmarks without moving login, Studio or private staging sessions. */
 export function canonicalShopURL(url: URL): string | undefined {
@@ -38,7 +38,7 @@ export function canonicalShopURL(url: URL): string | undefined {
   // through payment and receipt. A mounted Storyfront must not capture it.
   if (url.pathname === "/checkout" || url.hash.startsWith("#checkout/")) return;
   if (
-    !["app.sellm.ai", "sellm.ai", "www.sellm.ai"].includes(url.hostname)
+    !["app.sellama.ai", "sellama.ai", "www.sellama.ai"].includes(url.hostname)
   )
     return;
   const id = url.searchParams.get("shop");
@@ -50,7 +50,7 @@ export function canonicalShopURL(url: URL): string | undefined {
   )
     return;
   const target = new URL(url.href);
-  target.hostname = `${id}.sellm.ai`;
+  target.hostname = `${id}.sellama.ai`;
   target.searchParams.delete("shop");
   target.searchParams.delete("studio");
   return target.href;

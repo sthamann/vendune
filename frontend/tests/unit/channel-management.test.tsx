@@ -64,8 +64,8 @@ it("shows the actual domain and canonical editor and changes the channel with a 
       experienceAlias: "original-experience",
       channel: "default",
       revision: 4,
-      url: "https://shop-one.sellm.ai/",
-      editorUrl: "https://experience.sellm.ai/design/original-experience",
+      url: "https://shop-one.sellama.ai/",
+      editorUrl: "https://experience.sellama.ai/design/original-experience",
     };
   const request = vi.fn(async (path: string, body?: any) =>
     path === "/api/automation"
@@ -92,10 +92,10 @@ it("shows the actual domain and canonical editor and changes the channel with a 
       />
     </LocaleProvider>,
   );
-  expect(await screen.findByText("shop-one.sellm.ai")).toBeInTheDocument();
+  expect(await screen.findByText("shop-one.sellama.ai")).toBeInTheDocument();
   expect(screen.getByRole("link", { name: /Edit Storyfront/ })).toHaveAttribute(
     "href",
-    "https://experience.sellm.ai/design/original-experience?locale=en-GB",
+    "https://experience.sellama.ai/design/original-experience?locale=en-GB",
   );
   await user.selectOptions(
     screen.getByLabelText("Assigned sales channel"),
@@ -120,7 +120,7 @@ it("requires confirmation to disconnect an address and keeps read-only controls 
       alias: "shop-one",
       channel: "default",
       revision: 4,
-      url: "https://shop-one.sellm.ai/",
+      url: "https://shop-one.sellama.ai/",
     };
   const request = vi.fn(async (path: string, body?: any) =>
     path === "/api/automation"

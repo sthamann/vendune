@@ -87,7 +87,7 @@ export default function AppCanvas({
                 )
                   e.preventDefault();
                 else
-                  e.dataTransfer.setData("application/vnd.sellm.kind", kind);
+                  e.dataTransfer.setData("application/vnd.sellama.kind", kind);
               }}
               disabled={
                 view.blocks.length >= 32 ||

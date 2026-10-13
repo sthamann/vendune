@@ -33,7 +33,7 @@ pub(crate) async fn command(
     let name = operation(&op)?;
     if !profile::selected(&h).await? {
         return Err(conflict(
-            "capabilities_incompatible: negotiate ai.sellm.app.shopping.b2b_negotiation first",
+            "capabilities_incompatible: negotiate ai.sellama.app.shopping.b2b_negotiation first",
         ));
     }
     let c = ucp_load(&a, &h, &id).await?;

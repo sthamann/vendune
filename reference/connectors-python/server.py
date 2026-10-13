@@ -284,14 +284,14 @@ class Handler(BaseHTTPRequestHandler):
                 True,
                 {
                     "connected": app,
-                    "message": "Connected. Return to seLLM Studio and refresh the app.",
+                    "message": "Connected. Return to Sellama Studio and refresh the app.",
                 },
             )
         except Exception:
             self.completion(
                 False,
                 {
-                    "error": "Authorization failed or expired. Start again in seLLM Studio."
+                    "error": "Authorization failed or expired. Start again in Sellama Studio."
                 },
             )
 

@@ -162,7 +162,7 @@ operations and persisted effects, not simply endpoint availability.
 
 | Check | Evidence / scope |
 | --- | --- |
-| Complete merged-Core CI | [Run 37868239729](https://github.com/sthamann/sellm/actions/runs/37868239729), successful against `598bbec`; units, formal checks/mutations, original PHP comparisons, native DB/provider contracts, coverage and build |
+| Complete merged-Core CI | [Run 37868239729](https://github.com/sthamann/sellama/actions/runs/37868239729), successful against `598bbec`; units, formal checks/mutations, original PHP comparisons, native DB/provider contracts, coverage and build |
 | Rust/compiler checks repeated locally | 187 tests (48 library + 139 server), formatting and strict clippy pass |
 | Frontend repeated locally | 388 tests / 64 files; build, formatting, module ownership and four-language checks pass |
 | Complete integration rerun | All 48 HTTP + 17 provider/connector + four browser contracts + three tooling suites pass locally in a fresh database after the fixture repair; original registry remains the single owner |
@@ -230,11 +230,11 @@ multi-chapter scene naming its three products and correct 24.90 EUR Tote price.
 The native Bag opens with item counts, removal and total; a 390px check measured
 390px document width.
 
-[PR #79](https://github.com/sthamann/sellm/pull/79) fixes hosted original public
+[PR #79](https://github.com/sthamann/sellama/pull/79) fixes hosted original public
 API routing with current tenant/channel/preview admission. Private PR #42 removes
 intermittent module activation failure by sharing only still-running admission
 checks, immediately forgetting completed checks. No stale authorization cache or
-quota bypass is introduced. [PR #80](https://github.com/sthamann/sellm/pull/80)
+quota bypass is introduced. [PR #80](https://github.com/sthamann/sellama/pull/80)
 keeps the native checkout transfer on the shared `/checkout` route. Its merged
 Core `b995b5a` is deployed as `dependent-floor-9352`; the new pod passed its health
 check. The actual original Bag transferred two canonical Canvas Totes into the
@@ -244,7 +244,7 @@ The receipt confirms simulated authorization; no money was charged. The return
 button exposed a separate SPA-navigation defect, repaired with canonical hosted
 navigation while preserving local SPA behavior and channel/language scope.
 
-![Original Storyfront Studio in the seLLM frame](assets/showcase/native-public-studio-20261009.png)
+![Original Storyfront Studio in the Sellama frame](assets/showcase/native-public-studio-20261009.png)
 
 ![Actual original German product-answer scene](assets/showcase/native-public-ai-scene-20261009.png)
 

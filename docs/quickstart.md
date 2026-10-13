@@ -15,8 +15,8 @@ Ollama and API credentials are optional for the initial commerce tour.
 ## Start commerce without a model download
 
 ```sh
-git clone https://github.com/sthamann/sellm.git
-cd sellm
+git clone https://github.com/sthamann/sellama.git
+cd sellama
 ./scripts/dev.sh
 ```
 
@@ -26,7 +26,7 @@ The storefront, SKU selection, quantity pricing, cart and simulated checkout
 work without a running LLM. Chat planning and vector indexing require their
 respective model services and report errors when unavailable.
 
-Open seLLM Studio (`/#merchant`). The login page offers **Create shop** for
+Open Sellama Studio (`/#merchant`). The login page offers **Create shop** for
 a new personal owner account, **Sign in** for an existing account and invitation
 acceptance. Select **Create shop** for the first local tour.
 Create a personal owner account and a synthetic shop. One identity can belong
@@ -42,7 +42,7 @@ A separately configured native PayPal adapter supports Sandbox/Live;
 actual PSP transactions remain unverified.
 
 Stop the app with Ctrl+C. Restart with `./scripts/dev.sh`; database data is
-retained. Stop the database with `docker compose -p sellm stop`.
+retained. Stop the database with `docker compose -p sellama stop`.
 Do not remove its volume if you want to retain orders and accounts.
 
 ## Add the connected playground
@@ -105,13 +105,13 @@ Use a different Compose project and database/application ports on a fresh checko
 
 ```sh
 DB_PORT=15489 QDRANT_PORT=16335 BIND_ADDR=127.0.0.1:8789 \
-COMPOSE_PROJECT_NAME=sellm-second ./scripts/dev.sh
+COMPOSE_PROJECT_NAME=sellama-second ./scripts/dev.sh
 ```
 
 `DB_PORT` is used when generating a new `.env`. For an existing `.env`, update
 its `DATABASE_URL` to the chosen port and keep `QDRANT_URL` consistent with
 `QDRANT_PORT` if it is already configured. Use the same project name/ports when
-restarting; stop its database with `docker compose -p sellm-second stop`.
+restarting; stop its database with `docker compose -p sellama-second stop`.
 Never point a test run at a shop whose data you need to preserve.
 
 ## Troubleshooting
@@ -130,14 +130,14 @@ Local development defaults to `BOOTSTRAP_MODE=auto` and `PROCESS_ROLE=all`.
 For independently operated processes, run setup once before starting replicas:
 
 ```sh
-BOOTSTRAP_MODE=migrate target/release/sellm
-BOOTSTRAP_MODE=serve PROCESS_ROLE=http target/release/sellm
+BOOTSTRAP_MODE=migrate target/release/sellama
+BOOTSTRAP_MODE=serve PROCESS_ROLE=http target/release/sellama
 # Separate terminals/processes, using the same private database configuration:
-BOOTSTRAP_MODE=serve PROCESS_ROLE=memory-worker target/release/sellm
-BOOTSTRAP_MODE=serve PROCESS_ROLE=payment-worker target/release/sellm
-BOOTSTRAP_MODE=serve PROCESS_ROLE=app-worker target/release/sellm
-BOOTSTRAP_MODE=serve PROCESS_ROLE=translation-worker target/release/sellm
-BOOTSTRAP_MODE=serve PROCESS_ROLE=media-worker target/release/sellm
+BOOTSTRAP_MODE=serve PROCESS_ROLE=memory-worker target/release/sellama
+BOOTSTRAP_MODE=serve PROCESS_ROLE=payment-worker target/release/sellama
+BOOTSTRAP_MODE=serve PROCESS_ROLE=app-worker target/release/sellama
+BOOTSTRAP_MODE=serve PROCESS_ROLE=translation-worker target/release/sellama
+BOOTSTRAP_MODE=serve PROCESS_ROLE=media-worker target/release/sellama
 ```
 
 The HTTP role does not consume the durable outbox. The memory worker creates
@@ -147,12 +147,12 @@ when running setup; keep applied source immutable and add new migration files.
 Plan the initial index build before serving a large existing database. This
 process separation is a foundation, not a production deployment recipe.
 
-## Upgrading an existing pre-seLLM checkout
+## Upgrading an existing pre-Sellama checkout
 
-The repository and binaries are now named **seLLM**. An old checkout directory
+The repository and binaries are now named **Sellama**. An old checkout directory
 can stay in place. `scripts/dev.sh` reuses a detected legacy Compose database
 project; an explicit `COMPOSE_PROJECT_NAME` overrides detection. Use that actual
 project name when stopping it. Never remove the old data volume to rename the
-app. Rebuild frontend and Rust before starting the new `target/debug/sellm`
+app. Rebuild frontend and Rust before starting the new `target/debug/sellama`
 binary. Existing shop IDs and browser sessions remain valid. See [branding and
 compatibility](branding.md).

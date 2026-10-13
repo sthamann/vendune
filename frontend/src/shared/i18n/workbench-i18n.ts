@@ -456,10 +456,10 @@ export const workbenchWords = {
     "Las apps nativas de datos, API e interfaz funcionan aquí. El código libre y los servicios requieren una compilación externa aislada.",
   ],
   storyHint: [
-    "Connect your catalog to a conversational storefront. seLLM keeps prices, inventory and checkout authoritative.",
-    "Verbinde deinen Katalog mit einem dialogorientierten Shop. seLLM berechnet Preise, Bestand und Checkout verbindlich.",
-    "Connectez votre catalogue à une boutique conversationnelle. seLLM gère les prix, stocks et paiements.",
-    "Conecta tu catálogo con una tienda conversacional. seLLM controla precios, inventario y checkout.",
+    "Connect your catalog to a conversational storefront. Sellama keeps prices, inventory and checkout authoritative.",
+    "Verbinde deinen Katalog mit einem dialogorientierten Shop. Sellama berechnet Preise, Bestand und Checkout verbindlich.",
+    "Connectez votre catalogue à une boutique conversationnelle. Sellama gère les prix, stocks et paiements.",
+    "Conecta tu catálogo con una tienda conversacional. Sellama controla precios, inventario y checkout.",
   ],
   connectStory: [
     "Add Storyfront integration",

@@ -6,7 +6,7 @@ from testing.database import psql
 
 root = pathlib.Path(__file__).resolve().parents[1]
 name = "platform_setup_" + uuid.uuid4().hex[:12]
-container = os.getenv("DB_CONTAINER", "sellm-postgres-1")
+container = os.getenv("DB_CONTAINER", "sellama-postgres-1")
 checks = []
 
 
@@ -44,7 +44,7 @@ env.pop("PAYPAL_ACCOUNTS", None)
 env.pop("OPENAI_API_KEY", None)
 env.pop("ANTHROPIC_API_KEY", None)
 env["APP_SERVICES"] = "{}"
-binary = str(root / "target/debug/sellm")
+binary = str(root / "target/debug/sellama")
 process = None
 try:
     sql("CREATE DATABASE " + name)

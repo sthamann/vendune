@@ -155,7 +155,7 @@ pub(crate) async fn plan_with(
     validate_proposal(&p, &ps)?;
     let policy_revision = cognition::guardrails::validate_plan(a, t, &p, &ps).await?;
     let id = uid();
-    let evidence = json!({"model":output.model,"inference":output.provider,"usage":output.usage,"evalCount":output.usage["output_tokens"],"knowledge":graph,"instruction":instruction,"locale":locale,"proposal":p,"translationInference":choice.cloned().unwrap_or(Choice{provider:sellm::inference::Provider::Platform,model:None}),"verifiedFacts":facts,"catalogBefore":ps,"memory":memory,"contextLimit":24,"policyRevision":policy_revision,"actor":header(authority,"x-rac-user"),"toolTrace":tool_trace,"appActions":app_names,"appContext":app_context,"modelAppContext":model_app_context,"documentSources":document_sources,"externalSources":private_sources,"experienceBefore":er.get::<Value,_>("data"),"applied":false});
+    let evidence = json!({"model":output.model,"inference":output.provider,"usage":output.usage,"evalCount":output.usage["output_tokens"],"knowledge":graph,"instruction":instruction,"locale":locale,"proposal":p,"translationInference":choice.cloned().unwrap_or(Choice{provider:sellama::inference::Provider::Platform,model:None}),"verifiedFacts":facts,"catalogBefore":ps,"memory":memory,"contextLimit":24,"policyRevision":policy_revision,"actor":header(authority,"x-rac-user"),"toolTrace":tool_trace,"appActions":app_names,"appContext":app_context,"modelAppContext":model_app_context,"documentSources":document_sources,"externalSources":private_sources,"experienceBefore":er.get::<Value,_>("data"),"applied":false});
     sqlx::query("INSERT INTO tasks(id,tenant,proposal) VALUES($1,$2,$3)")
         .bind(&id)
         .bind(t)

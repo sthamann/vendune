@@ -67,7 +67,7 @@ pub(super) async fn send(a: &App, t: &str, id: &str) -> Result<Value> {
     let c = &a.config.tenants[t];
     let payload = json!({"apiVersion":"1","tenant":t,"order":order(a,t,id).await?});
     let key = format!(
-        "sellm-{:x}",
+        "sellama-{:x}",
         Sha256::digest(format!("{t}:{}:{id}", a.config.app_id))
     );
     if let Some(existing) = store::claim(a, t, id, &payload, &key).await? {

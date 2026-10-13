@@ -227,7 +227,7 @@ five-minute validity window. Configure `FACT_SIGNING_SEED` as 32-byte hexadecima
 or use the domain-separated existing platform secret. Verify the exact decoded
 `payloadBase64` bytes with the public JWK, not a separately reserialized payload.
 Stock is not reserved and estimated delivery is not guaranteed by a signature.
-The UCP facts route is a seLLM extension, not complete UCP certification.
+The UCP facts route is a Sellama extension, not complete UCP certification.
 
 ## Saved fact navigation
 

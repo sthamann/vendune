@@ -19,4 +19,4 @@ Run `npm run build`, `npm test`, `npm run test:coverage` and `npm run architectu
 
 ## Service directory and operator controls
 
-`AdminHub.tsx` is the public `admin.sellm.ai` directory. Merchant login uses the shared Studio origin; operator access uses the independently checked grant. `PlatformAI`, `PlatformShopDetail` and `PlatformInfrastructure` own separate editors/readouts. `platform-api.ts` keeps typed operator contracts; `shared/i18n/control-i18n.ts` supplies EN/DE/ES/FR vocabulary.
+`AdminHub.tsx` is the public `admin.sellama.ai` directory. Merchant login uses the shared Studio origin; operator access uses the independently checked grant. `PlatformAI`, `PlatformShopDetail` and `PlatformInfrastructure` own separate editors/readouts. `platform-api.ts` keeps typed operator contracts; `shared/i18n/control-i18n.ts` supplies EN/DE/ES/FR vocabulary.

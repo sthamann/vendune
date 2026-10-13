@@ -15,7 +15,7 @@ pub(crate) async fn page(
             .get("parentOrigin")
             .ok_or(bad("Checkout parent required"))?;
         let url = reqwest::Url::parse(origin).map_err(|_| bad("Invalid checkout parent"))?;
-        let suffix = env::var("SHOP_DOMAIN_SUFFIX").unwrap_or_else(|_| "sellm.ai".into());
+        let suffix = env::var("SHOP_DOMAIN_SUFFIX").unwrap_or_else(|_| "sellama.ai".into());
         let host = url.host_str().ok_or(bad("Invalid checkout parent"))?;
         let alias = host
             .strip_suffix(&format!(".{suffix}"))

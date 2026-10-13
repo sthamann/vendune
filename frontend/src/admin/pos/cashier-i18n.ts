@@ -98,10 +98,10 @@ export const cashierWords = {
     "/ Buscar · Intro Escanear",
   ],
   assistantTitle: [
-    "Ask seLLM",
-    "Frag seLLM",
-    "Demander à seLLM",
-    "Pregunta a seLLM",
+    "Ask Sellama",
+    "Frag Sellama",
+    "Demander à Sellama",
+    "Pregunta a Sellama",
   ],
   assistantHint: [
     "Product advice from your shop knowledge. Suggestions never change prices or complete a sale.",

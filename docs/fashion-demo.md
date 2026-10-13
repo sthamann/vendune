@@ -35,7 +35,7 @@ When `SEED_DEMO` is enabled, a separate `nord-atelier` built-in demo is created 
 
 ## Private Experience integration
 
-The private Experience app imports the public commerce catalog through the Store API. Its demo choice inherits this same fashion template; no private Storyfront source belongs in this repository. Generated pages use the catalog's real image URLs, product IDs and sizes. Money, shipping, stock and checkout remain authoritative in seLLM. Public deployments must ship both the updated Rust service and its generated frontend assets.
+The private Experience app imports the public commerce catalog through the Store API. Its demo choice inherits this same fashion template; no private Storyfront source belongs in this repository. Generated pages use the catalog's real image URLs, product IDs and sizes. Money, shipping, stock and checkout remain authoritative in Sellama. Public deployments must ship both the updated Rust service and its generated frontend assets.
 
 ## Verify
 

@@ -1,6 +1,6 @@
 /* One-page checkout: calm responsive workspace with a sticky, readable order review. */
 @import "./checkout-fields.css";
-.shop-bag.sellm-checkout {
+.shop-bag.sellama-checkout {
   width: min(1120px, calc(100vw - 40px));
   max-width: none;
   height: min(940px, calc(100dvh - 40px));
@@ -13,35 +13,35 @@
   color: var(--ink);
   background: #fff;
 }
-.sellm-checkout[open] {
+.sellama-checkout[open] {
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-.sellm-checkout::backdrop {
+.sellama-checkout::backdrop {
   background: #15243b77;
   backdrop-filter: blur(5px);
 }
-.sellm-checkout .bag-heading {
+.sellama-checkout .bag-heading {
   flex-shrink: 0;
   padding: 26px 32px;
   background: #fff;
   border-bottom: 1px solid var(--line);
 }
-.sellm-checkout .bag-heading h2 {
+.sellama-checkout .bag-heading h2 {
   font-size: 28px;
   letter-spacing: -0.8px;
 }
-.sellm-checkout .bag-heading p {
+.sellama-checkout .bag-heading p {
   color: var(--muted);
   font-size: 14px;
   margin: 6px 0 0;
 }
-.sellm-checkout .bag-heading button {
+.sellama-checkout .bag-heading button {
   min-width: 44px;
   min-height: 44px;
 }
-.sellm-checkout .bag-body {
+.sellama-checkout .bag-body {
   flex: 1;
   min-height: 0;
   max-height: none;
@@ -278,16 +278,16 @@
   text-align: center;
 }
 @media (max-width: 760px) {
-  .shop-bag.sellm-checkout {
+  .shop-bag.sellama-checkout {
     width: 100vw;
     height: 100dvh;
     border-radius: 0;
     margin: 0;
   }
-  .sellm-checkout .bag-heading {
+  .sellama-checkout .bag-heading {
     padding: 18px;
   }
-  .sellm-checkout .bag-heading h2 {
+  .sellama-checkout .bag-heading h2 {
     font-size: 24px;
   }
   .checkout-layout {
@@ -309,7 +309,7 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sellm-checkout * {
+  .sellama-checkout * {
     scroll-behavior: auto;
     transition: none;
   }
@@ -336,30 +336,30 @@
   grid-template-columns: 48px 1fr;
   column-gap: 10px;
 }
-.sellm-checkout .checkout-details form > label:not(.customer-checkbox) {
+.sellama-checkout .checkout-details form > label:not(.customer-checkbox) {
   display: grid;
   gap: 8px;
   margin: 0;
   font-size: 14px;
 }
-.sellm-checkout
+.sellama-checkout
   .checkout-details
   form
   > label
   > input:not([type="checkbox"]) {
   width: 100%;
 }
-.sellm-checkout .checkout-b2b {
+.sellama-checkout .checkout-b2b {
   padding: 1.25rem;
   margin-block: 1rem;
   border: 1px solid var(--shop-border, #d6dfdb);
   border-radius: 1rem;
   background: var(--shop-surface, #fff);
 }
-.sellm-checkout .checkout-b2b p {
+.sellama-checkout .checkout-b2b p {
   margin-block: 0.75rem;
   line-height: 1.5;
 }
-.sellm-checkout .checkout-b2b button {
+.sellama-checkout .checkout-b2b button {
   margin: 0.5rem 0.5rem 0.5rem 0;
 }

@@ -163,7 +163,7 @@ export default function Storefront(props: { onMerchant: () => void }) {
                   <a href="#privacy-rights">{l("rights")}</a>
                   <button onClick={openConsent}>{l("consent")}</button>
                   <p>{s("simulation")}</p>
-                  <a href="https://github.com/sthamann/sellm">GitHub ↗</a>
+                  <a href="https://github.com/sthamann/sellama">GitHub ↗</a>
                 </footer>
               )}
               {account && !channelPreview() && (

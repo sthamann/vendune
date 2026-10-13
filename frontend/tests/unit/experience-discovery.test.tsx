@@ -64,7 +64,7 @@ it("submits an explicit request with tenant and checkout context, then shows ser
   render(<Discovery />, { wrapper: LocaleProvider });
   const user = userEvent.setup();
   await user.type(screen.getByRole("textbox"), "A reading light under 100 EUR");
-  await user.click(screen.getByRole("button", { name: "Ask seLLM ↗" }));
+  await user.click(screen.getByRole("button", { name: "Ask Sellama ↗" }));
   await waitFor(() =>
     expect(screen.getByRole("status")).toHaveTextContent(
       "Stored catalogue recommendation",

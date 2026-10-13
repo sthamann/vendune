@@ -60,15 +60,15 @@ it.each(["close button", "native Escape cancellation"])(
     history.replaceState(
       null,
       "",
-      "/checkout?embed=1&parentOrigin=https%3A%2F%2Fown.sellm.ai",
+      "/checkout?embed=1&parentOrigin=https%3A%2F%2Fown.sellama.ai",
     );
     render(<Storefront onMerchant={vi.fn()} />, { wrapper: LocaleProvider });
     if (action === "close button")
       await userEvent.click(screen.getByRole("button", { name: "Close" }));
     else fireEvent(screen.getByRole("dialog"), new Event("cancel"));
     expect(postMessage).toHaveBeenCalledExactlyOnceWith(
-      { type: "sellm.checkout.close" },
-      "https://own.sellm.ai",
+      { type: "sellama.checkout.close" },
+      "https://own.sellama.ai",
     );
     expect(state.setBag).toHaveBeenCalledExactlyOnceWith(false);
     expect(fetch).not.toHaveBeenCalled();

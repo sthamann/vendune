@@ -1,6 +1,6 @@
 # Product management and category navigation
 
-seLLM Studio now owns one **Products** workspace. The **Products** tab provides a server-filtered, cursor-paginated list; **Categories** provides the translated category tree. Select a product to edit the complete native aggregate, or choose **Create product**. A new product starts inactive. Set its number, name, price, stock and assignments, then save. Activation makes it available through the same Store API consumed by the storefront.
+Sellama Studio now owns one **Products** workspace. The **Products** tab provides a server-filtered, cursor-paginated list; **Categories** provides the translated category tree. Select a product to edit the complete native aggregate, or choose **Create product**. A new product starts inactive. Set its number, name, price, stock and assignments, then save. Activation makes it available through the same Store API consumed by the storefront.
 
 The interface supports English, German, French and Spanish. Content editors use every enabled shop content language. Change **Content language** to edit the corresponding name, short description, rich description, specifications and SEO fields. Missing/null fields inherit the shop main language; an explicitly empty description stays empty. Viewing a fallback never saves a fabricated translation. Existing rich descriptions remain language-specific. Changing the Studio interface language keeps the selected product, content language and unsaved draft open; switching shops or environments starts a separate scoped workspace.
 
@@ -30,7 +30,7 @@ phrases use that claim language; absent phrases inherit the shop main language,
 while explicit empty phrases add no matches. Source archive/privacy changes remove
 graph membership immediately. Active products, channel restrictions and cursor
 pagination remain native. Definitions use the same category revision/history and
-selective staging release. This is a seLLM extension, not original Shopware
+selective staging release. This is a Sellama extension, not original Shopware
 dynamic-product-group equivalence. See [connected cognition](cognitive-commerce.md).
 
 Reference: Shopware **6.7.14.2**, commit [`29535190246fcaf0b091d7bdf02dd16358c943c4`](https://github.com/shopware/shopware/blob/29535190246fcaf0b091d7bdf02dd16358c943c4/src/Core/Content/Category/CategoryDefinition.php), and the official [category guide](https://docs.shopware.com/en/shopware-6-en/catalogues/categories) / [product guide](https://docs.shopware.com/en/shopware-6-en/catalogues/products).

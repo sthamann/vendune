@@ -50,10 +50,10 @@ call('/store-api/personalization/events',personal,h)
 choices({'analytics':True})
 assert len(call('/store-api/behavior/events',h=h)['events'])==1
 # An ordinary country header is ignored; a provider-specific secret is required and countries are ISO validated.
-call('/store-api/behavior/events',event(),{**h,'x-sellm-geo-country':'US','x-sellm-geo-token':'wrong'})
+call('/store-api/behavior/events',event(),{**h,'x-sellama-geo-country':'US','x-sellama-geo-token':'wrong'})
 if os.environ.get('TEST_BEHAVIOR_GEO_SECRET'):
- call('/store-api/behavior/events',event(),{**h,'x-sellm-geo-country':'US','x-sellm-geo-token':os.environ['TEST_BEHAVIOR_GEO_SECRET']})
- call('/store-api/behavior/events',event(),{**h,'x-sellm-geo-country':'ZZ','x-sellm-geo-token':os.environ['TEST_BEHAVIOR_GEO_SECRET']})
+ call('/store-api/behavior/events',event(),{**h,'x-sellama-geo-country':'US','x-sellama-geo-token':os.environ['TEST_BEHAVIOR_GEO_SECRET']})
+ call('/store-api/behavior/events',event(),{**h,'x-sellama-geo-country':'ZZ','x-sellama-geo-token':os.environ['TEST_BEHAVIOR_GEO_SECRET']})
  report=call('/api/knowledge/behavior',{},mh)
  assert [d for d in report['dimensions'] if d['dimension']=='geoCountry' and d['label']=='US'][0]['contexts']==1
 # Concurrent retry writes one observation under the same cart lock.

@@ -49,8 +49,8 @@ export default function StudioConversation({
         (event as CustomEvent<{ elapsedSeconds: number }>).detail
           .elapsedSeconds,
       );
-    window.addEventListener("sellm-agent-progress", update);
-    return () => window.removeEventListener("sellm-agent-progress", update);
+    window.addEventListener("sellama-agent-progress", update);
+    return () => window.removeEventListener("sellama-agent-progress", update);
   }, [busy]);
   return (
     <section className="studio-conversation">

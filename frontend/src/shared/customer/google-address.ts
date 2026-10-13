@@ -20,7 +20,7 @@ type MapsWindow = Window & {
   google?: {
     maps: { importLibrary: (name: string) => Promise<PlacesLibrary> };
   };
-  sellmPlacesReady?: () => void;
+  sellamaPlacesReady?: () => void;
 };
 const mapsWindow = () => window as MapsWindow;
 let loading: Promise<PlacesLibrary> | undefined;
@@ -40,20 +40,20 @@ export function loadPlaces(key: string): Promise<PlacesLibrary> {
       return;
     }
     const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?${new URLSearchParams({ key, libraries: "places", v: "weekly", loading: "async", callback: "sellmPlacesReady" })}`;
+    script.src = `https://maps.googleapis.com/maps/api/js?${new URLSearchParams({ key, libraries: "places", v: "weekly", loading: "async", callback: "sellamaPlacesReady" })}`;
     script.async = true;
     script.referrerPolicy = "strict-origin-when-cross-origin";
     const timer = window.setTimeout(() => fail(), 15000);
     const clear = () => {
       window.clearTimeout(timer);
-      delete mapsWindow().sellmPlacesReady;
+      delete mapsWindow().sellamaPlacesReady;
     };
     const fail = () => {
       clear();
       script.remove();
       reject(new Error("Places unavailable"));
     };
-    mapsWindow().sellmPlacesReady = () => {
+    mapsWindow().sellamaPlacesReady = () => {
       clear();
       resolve();
     };

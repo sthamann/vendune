@@ -1,7 +1,7 @@
 # Upstream attribution
 
-Original seLLM code in this revision is offered under the
-[seLLM Sustainable Use License](LICENSE). The notices and permissions below,
+Original Sellama code in this revision is offered under the
+[Sellama Sustainable Use License](LICENSE). The notices and permissions below,
 and licenses of external dependencies and datasets, remain unchanged. Previously
 distributed MIT versions retain their original terms; see [licensing](docs/licensing.md).
 

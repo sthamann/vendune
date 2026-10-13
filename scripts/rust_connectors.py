@@ -17,7 +17,7 @@ def wait(fn):
   time.sleep(.1)
  raise AssertionError('Timed out waiting for actual worker result')
 def sql(query):
- result=subprocess.run(psql(os.getenv('DB_CONTAINER','sellm-postgres-1'),'commerce',os.environ['TEST_DATABASE'],'-X','-q','-At','-v','ON_ERROR_STOP=1'),input=query,text=True,capture_output=True)
+ result=subprocess.run(psql(os.getenv('DB_CONTAINER','sellama-postgres-1'),'commerce',os.environ['TEST_DATABASE'],'-X','-q','-At','-v','ON_ERROR_STOP=1'),input=query,text=True,capture_output=True)
  assert result.returncode==0,result.stderr
  return result.stdout.strip()
 class Wire(BaseHTTPRequestHandler):
@@ -49,7 +49,7 @@ class Wire(BaseHTTPRequestHandler):
    value={'rowCount':1,'rows':[{'dimensionValues':[{'value':'tee'},{'value':'Tee'}],'metricValues':[{'value':'3'},{'value':'2'},{'value':'1'},{'value':'9.99'}]}]}
   raw=json.dumps(value).encode();self.send_response(code);self.send_header('Content-Length',str(len(raw)));self.send_header('Retry-After','1');self.end_headers();self.wfile.write(raw)
 
-with tempfile.TemporaryDirectory(prefix='sellm-rust-connectors-') as directory:
+with tempfile.TemporaryDirectory(prefix='sellama-rust-connectors-') as directory:
  Contracts.setUpClass()
  services=[];logs=[];core=None;runtime_role=None;provider=ThreadingHTTPServer(('127.0.0.1',0),Wire);provider.calls=[]
  threading.Thread(target=provider.serve_forever,daemon=True).start()

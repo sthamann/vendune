@@ -17,7 +17,7 @@ def lean_runner(functions):
 
 def rust_dispatch(functions):
     lines = ['//! Generated conformance driver; invokes the same production policy functions as the commerce server.',
-        'use sellm::verified_kernel::*;', 'use serde_json::{Value, json};',
+        'use sellama::verified_kernel::*;', 'use serde_json::{Value, json};',
         'pub(super) fn eval(j: &Value) -> Result<Value, String> {',
         '    let args = &j["args"];',
         '    let n = |key: &str| args[key].as_u64().ok_or_else(|| format!("Invalid {key}"));',

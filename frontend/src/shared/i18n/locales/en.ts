@@ -9,7 +9,7 @@ export const en = {
     "Read-only access: an editor or administrator must approve this change.",
   users: "Team & access",
   commerce: "Sales & delivery",
-  studio: "seLLM Studio",
+  studio: "Sellama Studio",
   overview: "Shop today",
   assistant: "Assistant",
   knowledge: "Shop intelligence",

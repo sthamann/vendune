@@ -90,10 +90,10 @@ export const crmWords = {
     "Sistema / autor desconocido",
   ],
   merchant: [
-    "seLLM Studio / API",
-    "seLLM Studio / API",
-    "seLLM Studio / API",
-    "seLLM Studio / API",
+    "Sellama Studio / API",
+    "Sellama Studio / API",
+    "Sellama Studio / API",
+    "Sellama Studio / API",
   ],
   customer: [
     "Customer account",

@@ -127,6 +127,10 @@ pub(crate) async fn run() {
             .expect("PostgreSQL migration connection");
         migrations::apply(&db).await;
         migrations::ready(&PgPool::new(db.clone(), false)).await;
+        let aliases = knowledge::vector_namespace::migrate_configured()
+            .await
+            .expect("Qdrant namespace migration failed");
+        println!("Qdrant namespace aliases created: {aliases}");
         db.close().await;
         println!("Migration-only setup complete");
         return;
@@ -141,7 +145,7 @@ pub(crate) async fn run() {
     let app = router(a.clone());
     let addr = env::var("BIND_ADDR").unwrap_or("127.0.0.1:8787".into());
     let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
-    println!("sellm listening on http://{addr}");
+    println!("sellama listening on http://{addr}");
     axum::serve(
         listener,
         app.into_make_service_with_connect_info::<std::net::SocketAddr>(),
@@ -191,8 +195,8 @@ pub(crate) fn entry() {
     }
     tokio::runtime::Runtime::new()
         .unwrap()
-        .block_on(sellm::tenant_scope::scoped(
-            sellm::tenant_scope::Scope::System,
+        .block_on(sellama::tenant_scope::scoped(
+            sellama::tenant_scope::Scope::System,
             run(),
         ));
 }

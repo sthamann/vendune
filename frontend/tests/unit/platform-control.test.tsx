@@ -83,8 +83,8 @@ it("requires shop ID and reason before moving a shop to trash", async () => {
         statusRevision: 4,
         createdAt: "2026-10-06T12:00:00Z",
         urls: {
-          storefrontUrl: "https://own-shop.sellm.ai/",
-          studioUrl: "https://app.sellm.ai/?shop=own-shop#merchant",
+          storefrontUrl: "https://own-shop.sellama.ai/",
+          studioUrl: "https://app.sellama.ai/?shop=own-shop#merchant",
         },
         counts: { products: 2, customers: 0, apps: 1 },
         members: [],

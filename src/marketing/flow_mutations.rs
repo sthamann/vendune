@@ -10,7 +10,7 @@ pub(crate) async fn execute(
     id: &str,
 ) -> Result<Value> {
     let mut tx = a.db.begin().await?;
-    sqlx::query("SELECT set_config('sellm.actor',$1,true),set_config('sellm.source','flow',true),set_config('sellm.reason',$2,true)").bind(&f.actor).bind(format!("flow:{key}:{action}")).execute(&mut *tx).await?;
+    sqlx::query("SELECT set_config('sellama.actor',$1,true),set_config('sellama.source','flow',true),set_config('sellama.reason',$2,true)").bind(&f.actor).bind(format!("flow:{key}:{action}")).execute(&mut *tx).await?;
     let (settings, _) = commerce::scoped_locked(&mut tx, t, "default").await?;
     if action == "action.change.customer.group"
         && !settings

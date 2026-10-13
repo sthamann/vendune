@@ -121,7 +121,7 @@ export default function ProductPage({
     }
     const seo = data?.product.extra?.seo?.[contentLanguage];
     if (seo) {
-      document.title = seo.title ?? data?.product.name ?? "seLLM";
+      document.title = seo.title ?? data?.product.name ?? "Sellama";
       let meta = document.querySelector<HTMLMetaElement>(
         'meta[name="description"]',
       );

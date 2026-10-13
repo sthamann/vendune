@@ -1,9 +1,9 @@
 //! Discover the versioned B2B extension and intersect opt-in platform profiles through bounded public HTTPS.
 use super::*;
-pub(super) const B2B: &str = "ai.sellm.app.shopping.b2b_negotiation";
+pub(super) const B2B: &str = "ai.sellama.app.shopping.b2b_negotiation";
 pub(super) const VERSION: &str = "2026-10-13";
 const CHECKOUT: &str = "dev.ucp.shopping.checkout";
-const SCHEMA: &str = "https://app.sellm.ai/ucp/2026-10-13/b2b-negotiation.json";
+const SCHEMA: &str = "https://app.sellama.ai/ucp/2026-10-13/b2b-negotiation.json";
 pub(crate) fn ucp_meta() -> Value {
     json!({"version":UCP_VERSION,"capabilities":{CHECKOUT:[{"version":UCP_VERSION}]}})
 }
@@ -26,17 +26,17 @@ pub(crate) async fn ucp_profile(h: RequestContext) -> Result<Json<Value>> {
         json!("https://ucp.dev/2026-08-25/specification/shopping/checkout/");
     meta["capabilities"][CHECKOUT][0]["schema"] =
         json!("https://ucp.dev/2026-08-25/schemas/shopping/checkout.json");
-    meta["capabilities"][B2B] = json!([{"version":VERSION,"extends":[CHECKOUT],"schema":SCHEMA,"spec":"https://sthamann.github.io/sellm/docs/b2b-ucp-negotiation.html"}]);
+    meta["capabilities"][B2B] = json!([{"version":VERSION,"extends":[CHECKOUT],"schema":SCHEMA,"spec":"https://sthamann.github.io/sellama/docs/b2b-ucp-negotiation.html"}]);
     meta["payment_handlers"] = json!({});
     Ok(Json(json!({"ucp":meta})))
 }
 /// An advertised profile grants protocol compatibility only, never customer or merchant authority.
 pub(super) async fn selected(h: &RequestContext) -> Result<bool> {
-    let inline = header(h, "x-sellm-ucp-b2b-version");
+    let inline = header(h, "x-sellama-ucp-b2b-version");
     let agent = header(h, "ucp-agent");
     if inline.is_some() && agent.is_some() {
         return Err(bad(
-            "Choose UCP-Agent profile or pre-negotiated seLLM extension version",
+            "Choose UCP-Agent profile or pre-negotiated Sellama extension version",
         ));
     }
     if let Some(v) = inline {
@@ -44,7 +44,7 @@ pub(super) async fn selected(h: &RequestContext) -> Result<bool> {
             Ok(true)
         } else {
             Err(conflict(
-                "capabilities_incompatible: unsupported seLLM B2B version",
+                "capabilities_incompatible: unsupported Sellama B2B version",
             ))
         };
     }
@@ -119,7 +119,7 @@ fn intersect(p: &Value) -> Result<bool> {
             })
     {
         return Err(bad(
-            "seLLM B2B schema authority or parent capability mismatch",
+            "Sellama B2B schema authority or parent capability mismatch",
         ));
     }
     Ok(selected)

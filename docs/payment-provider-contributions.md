@@ -2,7 +2,7 @@
 
 Payment proposals are welcome, but adding a method name does not implement a
 payment provider. This guide records the integration requirements discussed in
-[issue #9](https://github.com/sthamann/sellm/issues/9). These are contribution
+[issue #9](https://github.com/sthamann/sellama/issues/9). These are contribution
 requirements, **not a claim that the current app host implements them all**.
 
 ## Current boundary
@@ -71,5 +71,5 @@ reconciliation mechanism even when no PSP webhook is used.
 
 No wallet custody, onramp integration, node deployment, exchange-rate service or
 live transfer has been added or tested. The third-party onramp linked in the issue
-is not an endorsed seLLM dependency. A subsequent implementation proposal needs
+is not an endorsed Sellama dependency. A subsequent implementation proposal needs
 a runnable adapter and evidence for the lifecycle above.

@@ -5,8 +5,8 @@ import PlatformLanguage from "./PlatformLanguage";
 import "./styles/platform.css";
 export default function AdminHub() {
   const t = useControlText();
-  const shared = location.hostname.endsWith(".sellm.ai")
-    ? "https://app.sellm.ai/"
+  const shared = location.hostname.endsWith(".sellama.ai")
+    ? "https://app.sellama.ai/"
     : "/";
   return (
     <div className="platform-console platform-hub">
@@ -31,7 +31,7 @@ export default function AdminHub() {
             <p>{t("operatorHint")}</p>
           </a>
           <a
-            href="https://sthamann.github.io/sellm/docs/"
+            href="https://sthamann.github.io/sellama/docs/"
             target="_blank"
             rel="noreferrer"
           >

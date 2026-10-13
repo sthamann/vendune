@@ -504,8 +504,8 @@
     },
     "extensions/apps/edi/service/export.rs": {
       "status": "unproved",
-      "sha256": "5bfa4beb34e31db5477ecabce2dd1955c93db61ab9eb8ba492cb7137760d1b9e",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "5d7522d6442296878b38de2fcc63f84c386589a3c11ec27566b9fb9803d2afcb",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "extensions/apps/edi/service/export_tests.rs": {
       "status": "unproved",
@@ -539,8 +539,8 @@
     },
     "extensions/apps/email/src/smtp.rs": {
       "status": "unproved",
-      "sha256": "1f3461bec29eff21aeb1517d68bae87be80c9ba8c2c15378a05411cc42e4e431",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "f83aab528392639fdee7451939f73d365e084b5f26a0a609ada57fac5081dd1a",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "extensions/apps/email/src/templates.rs": {
       "status": "unproved",
@@ -554,8 +554,8 @@
     },
     "extensions/apps/erp-handoff/service/delivery.rs": {
       "status": "unproved",
-      "sha256": "3af0d4612bea6eb73052b34558fe31db34cad01d94dcbe41f595638f86407acb",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "213fb0d7e4ff3af445b9c9d018c83d8eca7062a19392205d54db90437289726a",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "extensions/apps/erp-handoff/service/events.rs": {
       "status": "unproved",
@@ -659,8 +659,8 @@
     },
     "extensions/apps/marketplaces/service/transport.rs": {
       "status": "unproved",
-      "sha256": "ba7f81e0e17896a9afe9dd4190f7706a77cfd055ac05ab6a662c583782ead4a4",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "7bc8ac76af68144e25360eeecae0bfb11efbac92b2dccb3721ccf25468c8f540",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "extensions/apps/paypal/src/adapter.rs": {
       "status": "unproved",
@@ -754,8 +754,8 @@
     },
     "extensions/services/connectors/src/server.rs": {
       "status": "unproved",
-      "sha256": "6f7746f254af010e094516f5adc30ecf23631c17f4d8fe88914cc46b601895a7",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "eb6a1a3a2afd5d6105014351500c574f65c1763ca2fd11a7bfccfdeaeb8333f0",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "extensions/services/connectors/src/store.rs": {
       "status": "unproved",
@@ -829,8 +829,8 @@
     },
     "src/apps/approval.rs": {
       "status": "reviewed-binding",
-      "sha256": "0105510003cb8323bf0a7341dd2b88510c1b0101494e439d8f058039b209545f",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "cd85c7603645c385a76c2b9e8195f72551a394604bd7ce0255b59f3b68d823eb",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/apps/asset_surfaces.rs": {
       "status": "unproved",
@@ -844,8 +844,8 @@
     },
     "src/apps/commerce_hooks.rs": {
       "status": "unproved",
-      "sha256": "7aef0c181d2660a837d8d40131fb2c4fb330c90573b6032775a031a7dd658daa",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "f7ca7492ba6d53bdb0caf7218f8a203eb7130c1aa0dad8f9fd774dc859302e25",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/apps/compatibility.rs": {
       "status": "unproved",
@@ -879,8 +879,8 @@
     },
     "src/apps/distribution.rs": {
       "status": "unproved",
-      "sha256": "4b18c7488d93b5ed4fde4e6c6f535489249c34e70f0e0c947e2598df7ffe30ea",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "fb1df6dd3af1ca3c713d21f7d6a5a85306ccbf2ba65690020c046d5d36119991",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/apps/editor_contract.rs": {
       "status": "reviewed-binding",
@@ -894,13 +894,13 @@
     },
     "src/apps/egress.rs": {
       "status": "unproved",
-      "sha256": "239cb98fde2112c28f6ea922c41908daf3b4ff82cb6dd9644b3055b75e469ec5",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "08042188a159351f9f4bb4a9943b581e3f59856ea259ca61f2463cb0809ca197",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/apps/event_contract.rs": {
       "status": "unproved",
-      "sha256": "70d87c5010803eb9d421dcc6ad0f62f99da645b72d49afd55f95234ce2ba0f66",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "6ff84d2651493f02da70967b92a18696a907e74ecd03bb55ec7c99f7e1dae98d",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/apps/event_projection.rs": {
       "status": "unproved",
@@ -924,8 +924,8 @@
     },
     "src/apps/field_values.rs": {
       "status": "unproved",
-      "sha256": "22ca7da6b63eb8e1712283b8e79663537b5faccde5162db0859f40081d206f72",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "0f143f0b27ecca7fb1b0806fd489f70a73d8fcda9727cb4125e28212d49cbb70",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/apps/form_layout.rs": {
       "status": "unproved",
@@ -1049,8 +1049,8 @@
     },
     "src/apps/secrets.rs": {
       "status": "unproved",
-      "sha256": "01d80ae695e08f28b48c21353d7f9962db1639c4fb278eb16568e803c24b0466",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "940dbbe450a1894fe9f1fdedd3442919057386e619e45c983717a732b66b71d7",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/apps/service_limits.rs": {
       "status": "unproved",
@@ -1059,8 +1059,8 @@
     },
     "src/apps/service_policy.rs": {
       "status": "reviewed-binding",
-      "sha256": "4bc838a4bbe339642e9eca91890a0a043fb358620d1f6238f2cdca9d30b3a196",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "8fcadb4c5fa27e1830811060929827032ca72ab477547593b09b3d00ea8916cc",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/apps/storage.rs": {
       "status": "unproved",
@@ -1164,13 +1164,13 @@
     },
     "src/auth/abuse.rs": {
       "status": "unproved",
-      "sha256": "c27a67aca719557451c9146ecc1aa0421e9df078aaa1fe8d6c281470ac2d317f",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "f102b10827cef9eb80a6bab83cf8495c75ff54ffef4f8ecd62e29148504b3aa0",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/auth/broker.rs": {
       "status": "unproved",
-      "sha256": "bad35c03610436783aacd7fcb252c8f142de7d79ceca0ebec631bbcec9460be3",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "4141ec0baa4181c1fae738eab2f935db7e1731d39cb4e460fab2b6286952d828",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/auth/broker_credentials.rs": {
       "status": "unproved",
@@ -1184,8 +1184,8 @@
     },
     "src/auth/credentials.rs": {
       "status": "unproved",
-      "sha256": "5a8acc0ed3bc28d85e4ae9f733208801b27360711c479f7d565062a43465c2e6",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "54997d3abb30c066fe72e1cbcdf290f0c90e1722ffbb078109d68ab58593f33f",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/auth/dto.rs": {
       "status": "unproved",
@@ -1219,8 +1219,8 @@
     },
     "src/auth/middleware.rs": {
       "status": "reviewed-binding",
-      "sha256": "584d8729594dfc392db1b1eb1035269b08a18d96af3d0d638e9d5d9abad93d32",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "2078c8efc9d48ca3eda19cbb0fcb086d45abed7a8b69044e5f8a9bee0d340f9a",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/auth/mod.rs": {
       "status": "unproved",
@@ -1384,43 +1384,43 @@
     },
     "src/bin/automation_rules.rs": {
       "status": "unproved",
-      "sha256": "a459e910c6f3540cb0b2f7874a9e213bc8286efd3111be072ec1b1f6194c64df",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "35b99a123c1ed8a4a495f62996b548a01b0d0c8306f64f5aa508161563ceac6e",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/bin/connectors.rs": {
       "status": "unproved",
-      "sha256": "a6c305da7e70ae1ce0ec563861a08a27ce4cd73a2133d1b961dc0007a00af4ec",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "4bce92b966ac7a2f0112a8e0c7f4390a8eb195fdcc6a2214e913f9a420e0f974",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/bin/context.rs": {
       "status": "unproved",
-      "sha256": "bac43450aadf223a2fc806bb5ce1c539556b11e0f01dd1c5f2c4890756622d17",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "8d509fb078fd968cf4fa86d8cee9c74a64ef7a74eb9d008251b5566ef515563d",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/bin/delivery.rs": {
       "status": "unproved",
-      "sha256": "5af41d3d8605d686dbc217d3e02c8e5fe0998bfa7d4871c2b02a97cc76a9cc95",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "3d538148f3f73870db9d03fcbbaf4885879f75c3900e118f45d516dd49da69e3",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/bin/money_boundary.rs": {
       "status": "unproved",
-      "sha256": "3818f8c5145f779acd07329674f4149ba0e59e64db59881488b3d5626cf3c67f",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "96d922ec5169d345273ec1bc3c557b6fdda9a314317f1391f0e1312746a0ca93",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/bin/price.rs": {
       "status": "unproved",
-      "sha256": "be27d5dae6d1964336901bb45f5c36094df7f15f924f46f8eef793857899025e",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "d59a48e4ef134fd2078584e71737df785df6fc5c5ce147893e28267aebfb1f4b",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/bin/rules.rs": {
       "status": "unproved",
-      "sha256": "6f21f736549b993d32641cbf807958d41fc5e7bc5aab3d8724818f26c5ec88bf",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "d661b3b55a43d1b00417c4138440921d374ce15f69ff47f5d9cc54b314cbbfb0",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/bin/verified_kernel/dispatch.rs": {
       "status": "unproved",
-      "sha256": "9661082b7d7b31ca38cec141d8bffafc7973bbe3643e623422af1554a1e28b45",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "3dc606b402fca0cb8bb1cdd191a0cd85cac36ec5cbed5f0bc0af5d3c3247cf37",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/bin/verified_kernel.rs": {
       "status": "conformance-driver",
@@ -1429,13 +1429,13 @@
     },
     "src/bootstrap.rs": {
       "status": "unproved",
-      "sha256": "42b595a43d52a0abd38ecb4378798cf9bdfcab727d331b65c83d1d9fcb88a43a",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "10751211db0b237c1c249186409538878327e5947012d45799f7dc763b0e2b19",
+      "review": "Sellama identity review: exact crate/config/schema namespace replacements and six allowlisted historical SQL hashes; explicit Qdrant alias migration validates all names/vector shapes/conflicts before atomic additive aliases, preserves physical points and alias-aware tenant deletion, exercised by registered real managed-search HTTP suite; configured WIT 1.0 compatibility links only existing cart/product/record host calls, preserves snapshot/money/fuel/epoch limits, four real component tests pass; crypto sealing keys and persisted credential formats unchanged."
     },
     "src/brand_redirect.rs": {
       "status": "unproved",
-      "sha256": "13481ddc84c7bee1201a5bba7a21fa4cd66c22dba70abe75df9d6bd21e24ad0e",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "19d0019735d43a3678cebb600488f71158746bac71e1b6ea2b8199d1f700bd66",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
@@ -1464,8 +1464,8 @@
     },
     "src/cart_price.rs": {
       "status": "unproved",
-      "sha256": "2a1ecd2fb97381c4981f8848f60678eba42d4d500909ed3ce7aad5d5c8fd37e1",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "f09e97300cc8970ce47ff46f5ecab8e291a8a83872dada5e6bd35e76195944dd",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/cart_routes.rs": {
       "status": "unproved",
@@ -1479,8 +1479,8 @@
     },
     "src/catalog_model.rs": {
       "status": "unproved",
-      "sha256": "fcdee3f754bc5fa89c6116a878dc4032b143a5b2f643b64de5ac23837b14810e",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "283f7e07adbcad6b213650a65fab8b97f2bdb352cf1aecd8f17fa6c5b9b6a2f1",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/catalog_page.rs": {
       "status": "unproved",
@@ -1519,8 +1519,8 @@
     },
     "src/channel_metrics.rs": {
       "status": "unproved",
-      "sha256": "40055b351779b00d8419247622db4c403b2e409f1395ab33af32109717bfdd3d",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "15d42538fba3dfb4a41978f82f4b62ae716a468ef74cf9c774e83ce3f7d7564e",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/chat_lease.rs": {
       "status": "unproved",
@@ -1534,8 +1534,8 @@
     },
     "src/checkout_page.rs": {
       "status": "unproved",
-      "sha256": "3681e1835b5006f464e095b6b8e5e6a838b15d08ebd4c59bf596ed29fd6ff25b",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "211252d6d7e764965dd7ce56031ec941c80b5e09bd94505ba47582a440105132",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/checkout_products.rs": {
       "status": "unproved",
@@ -1564,8 +1564,8 @@
     },
     "src/cognition/behavior/geography.rs": {
       "status": "unproved",
-      "sha256": "c017a81950c6cc4950269c44d15e390ea8c43b67e4b8d4b160ed1322ba1d5140",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "66e4f185fcc13db3cc59d71a3a3a8b293456d6bfa560cfbfcd52f5697a8e096e",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/cognition/behavior/input.rs": {
       "status": "unproved",
@@ -1669,23 +1669,23 @@
     },
     "src/cognition/signed.rs": {
       "status": "unproved",
-      "sha256": "08aad2455f8f563f60653904ba1490741c30c490618b6fd607250d4258a492e8",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "fa6e1bfa1ec7a7e865a19896d882fbf98abbbea1e1a8bdb9b4701549a518c45e",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/cognition/stream.rs": {
       "status": "unproved",
-      "sha256": "381c917247fed87c8152e742d71aafc9153ae6634bec606aa11e1d53505ccd00",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "b974d0ce9ce1f801b28e3322f12999893fe3410c8b409ac9775e28066f3a5512",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/cognition/tools.rs": {
       "status": "unproved",
-      "sha256": "467b160a6b01d01b710ff138196192b105bb1bedcad9f939545763673f385a3f",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "0dd6b269250aeaa53392e511c82086be51d4bbce478822ade3e21903e3968a67",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/commerce/app_adjustments.rs": {
       "status": "unproved",
-      "sha256": "c28f4cc67bbdfc01d82303a2b6c82510cb11dc9e84143a9c9da1f7fec28c7fe6",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "e5e68254dd8bbdcf02a84fe33036e0c18b76ff050154786f5d83d785ccdf405d",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/commerce/catalog.rs": {
       "status": "unproved",
@@ -1714,8 +1714,8 @@
     },
     "src/commerce/delivery.rs": {
       "status": "unproved",
-      "sha256": "1bcfe33d3a37a355a63c53dbec05a5c7dbdd1a45684495639b57e1d77ac931d7",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "9791bc3ed511a4d374bac9de8ba602810753c4f751b9e971292223f44ed2720e",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/commerce/detail.rs": {
       "status": "unproved",
@@ -1769,8 +1769,8 @@
     },
     "src/commerce/mod.rs": {
       "status": "unproved",
-      "sha256": "f528453b70ef56969e30357fc4fd885fe5ab9fc15a0712afd0acf4df9237e956",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "784e02d6bd96c00830133e3613a4f0a0661ad904ff762f52cf4cbbd390151557",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/commerce/order_fields.rs": {
       "status": "unproved",
@@ -1809,8 +1809,8 @@
     },
     "src/commerce/product_fields.rs": {
       "status": "unproved",
-      "sha256": "41a519386d71b255ef1a33816b6f7a11ec6cf0723221972bd63bfc919dddc861",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "c3b4371a13cc3e7bdb35a57e58f3b163024eeb101e7f930adbff356923dfa00e",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/commerce/product_languages.rs": {
       "status": "unproved",
@@ -1892,15 +1892,20 @@
       "sha256": "60fda9e95d8b4fc11f3100744b216f6ca23c39f0658957bdc4430d8bedd3d54c",
       "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
+    "src/component_runtime/abi.rs": {
+      "status": "unproved",
+      "sha256": "45df198bd7260874bb2275daf578c45a752058a06c88820605e2a35b2c8a9a4f",
+      "review": "Reviewed final Sellama identity and historical-checksum allowlist; Qdrant migration is additive and prevalidates physical collection shapes/alias collisions, preserves point IDs and tenant deletion; WIT compatibility preserves original bounded Host methods and exact version/types, actual component tests pass; final clippy fixes remove only redundant borrows. Full 42 library and 169 commerce unit tests, strict clippy and build pass. Real managed-search suite runs in CI; no claim of live production migration yet."
+    },
     "src/component_runtime.rs": {
       "status": "unproved",
-      "sha256": "b5f7acaa9dcfaee7a442b7b24fd8102111f7e6efbb0519c9184c4fb41ac65bd3",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "d85e83fd99a4e99ed57ce947bd69b316826a747f5e74b71c9a2c502e6b36a3e0",
+      "review": "Sellama identity review: exact crate/config/schema namespace replacements and six allowlisted historical SQL hashes; explicit Qdrant alias migration validates all names/vector shapes/conflicts before atomic additive aliases, preserves physical points and alias-aware tenant deletion, exercised by registered real managed-search HTTP suite; configured WIT 1.0 compatibility links only existing cart/product/record host calls, preserves snapshot/money/fuel/epoch limits, four real component tests pass; crypto sealing keys and persisted credential formats unchanged."
     },
     "src/concierge.rs": {
       "status": "unproved",
-      "sha256": "ead1c212a7cf3ed4c46a0d702abcb6b1f6fc03c2f1f44ed6b9df06f2bfd3f841",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "696f6cdfccc4ced8842ed83afe85ed4a01db11099fbcf543e499e7ccfaeb39fe",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/context.rs": {
       "status": "unproved",
@@ -1914,8 +1919,8 @@
     },
     "src/currencies/jobs.rs": {
       "status": "unproved",
-      "sha256": "e37cb7fde177a536b819eedb11cfd9359e2ff4d95a89052d1c9679397cc29c91",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "4c9083dfdbc857f629941d7b45fa0765aaf899f1648ad99532cab27f05ab08a9",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/currencies/mod.rs": {
       "status": "unproved",
@@ -1929,8 +1934,8 @@
     },
     "src/currencies/pricing.rs": {
       "status": "unproved",
-      "sha256": "4b0f5b88a758f075fdd870666b4ae2163df57d52f546399e1548385b963014b7",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "681ca16cbeb4cb180a6909a4e266f540af3598678af21b7407057e8b9142b063",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/currencies/rates.rs": {
       "status": "unproved",
@@ -2084,8 +2089,8 @@
     },
     "src/history/mod.rs": {
       "status": "unproved",
-      "sha256": "ed3bf12d027a2f21e2b0d560728a12d3aad65ffaa25bda56df28417af14df1b8",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "7602f68d907eeba768f3d6fd41326342fcc7fede7629d7ccd0eadac261ae37c4",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/history/product.rs": {
       "status": "unproved",
@@ -2114,8 +2119,8 @@
     },
     "src/inference/protocol.rs": {
       "status": "unproved",
-      "sha256": "68c0d6369e3592a53f4f32990d3517a8dbb8321486dba3885fd8b38056c7d47a",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "583237c3d41fedcab6a16031d2fcaf9dabe780cf234e4ff9cd0532fa2161a43f",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/inference/schema.rs": {
       "status": "unproved",
@@ -2162,15 +2167,20 @@
       "sha256": "c9b79364aa0eab1a7f42e3d0fa0f2392c1615aeff8e46f6007479464dec67022",
       "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
     },
+    "src/knowledge/vector_namespace.rs": {
+      "status": "unproved",
+      "sha256": "3e95d134994e1fded345b9e72e796396998e191e75e5ba04cb4d729744d51aad",
+      "review": "Sellama identity review: exact crate/config/schema namespace replacements and six allowlisted historical SQL hashes; explicit Qdrant alias migration validates all names/vector shapes/conflicts before atomic additive aliases, preserves physical points and alias-aware tenant deletion, exercised by registered real managed-search HTTP suite; configured WIT 1.0 compatibility links only existing cart/product/record host calls, preserves snapshot/money/fuel/epoch limits, four real component tests pass; crypto sealing keys and persisted credential formats unchanged."
+    },
     "src/knowledge/vectors.rs": {
       "status": "unproved",
-      "sha256": "8907d28fa554123a8444b64bd8374e5c7c58a52a2e062b6296a5c87833bba2f2",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "33048cd45aead032cb51145e92b829ece0b5f13a867b59be0991118d68145a2d",
+      "review": "Sellama identity review: exact crate/config/schema namespace replacements and six allowlisted historical SQL hashes; explicit Qdrant alias migration validates all names/vector shapes/conflicts before atomic additive aliases, preserves physical points and alias-aware tenant deletion, exercised by registered real managed-search HTTP suite; configured WIT 1.0 compatibility links only existing cart/product/record host calls, preserves snapshot/money/fuel/epoch limits, four real component tests pass; crypto sealing keys and persisted credential formats unchanged."
     },
     "src/knowledge.rs": {
       "status": "unproved",
-      "sha256": "589ac40c9f49816b66148d60e96392651fff2bd537b2b5a2c8095b401a9a7c37",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "52805a36bd625ceb62b0459ec7c0fcf632fda4fac6a79d4e46b5f430bdc23c9f",
+      "review": "Sellama identity review: exact crate/config/schema namespace replacements and six allowlisted historical SQL hashes; explicit Qdrant alias migration validates all names/vector shapes/conflicts before atomic additive aliases, preserves physical points and alias-aware tenant deletion, exercised by registered real managed-search HTTP suite; configured WIT 1.0 compatibility links only existing cart/product/record host calls, preserves snapshot/money/fuel/epoch limits, four real component tests pass; crypto sealing keys and persisted credential formats unchanged."
     },
     "src/legal/capabilities.rs": {
       "status": "unproved",
@@ -2214,23 +2224,23 @@
     },
     "src/localization.rs": {
       "status": "unproved",
-      "sha256": "b352aa34f26b42acb4e6e27c0ed963fd19aab805671c6a64a1ba961a06d836ad",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "ae61dfa1296f94121cf5ab442f2e9560ced588a1be6bd146d1af7876f1bd985d",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/main.rs": {
       "status": "unproved",
       "sha256": "2f4079fb50daa91ce439e726b4fd166b0ed359eae631a828fae6eb45f3955294",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "review": "Reviewed the coordinated Sellama crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/marketing/app_flows.rs": {
       "status": "reviewed-binding",
-      "sha256": "939848d35282e4a7f833edbd7c6052048ba990289c5de74a1204cb13b15f4492",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "2e8edc37fd0fd6d30be36426f13f37f91d0ce319cf00072a64aca458d30a193c",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/marketing/catalog.rs": {
       "status": "unproved",
-      "sha256": "1c2d930fa53cd051a81862b7164497388b001ef227d1a4794b95a5321ca637f3",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "39fd05f93ebedf4e859b2f7632097d7736adadc04400a391cbf484ba9f4094f5",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/marketing/channel_access.rs": {
       "status": "reviewed-binding",
@@ -2244,8 +2254,8 @@
     },
     "src/marketing/channel_preview.rs": {
       "status": "unproved",
-      "sha256": "5b85a7456d1c7e74710952af80201aeba19f7115a8295f6db5be9dcabe70f018",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "c08fa6182f3bf5d7854702be0ef8614aa7e3cb66b3164697b1f0a7f8ddf7c2a4",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/marketing/channels.rs": {
       "status": "unproved",
@@ -2289,8 +2299,8 @@
     },
     "src/marketing/flow_mutations.rs": {
       "status": "unproved",
-      "sha256": "1bfbb7e0a0cfc6d0ee4cb4e9d0f8425ad5975a7b2a2e228a2d892726edd4c52c",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "e2fa14b7890959b17222e4ce39fd8dc6097412e7ce01f5a20d2e32632b9d2c75",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/marketing/flow_policy.rs": {
       "status": "unproved",
@@ -2339,8 +2349,8 @@
     },
     "src/marketing/pipeline.rs": {
       "status": "reviewed-binding",
-      "sha256": "67b2467eae96430f7c176c9f4ec077d5d560a62c76fce7aa7170ea3c46258fd3",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "515df8d74d698616510314e19b402e7823dd1132b47e9f6bfb5cca4b2f6460ca",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/marketing/pipeline_runtime.rs": {
       "status": "unproved",
@@ -2354,8 +2364,8 @@
     },
     "src/marketing/promotions.rs": {
       "status": "unproved",
-      "sha256": "02f7754cf8521da8769a986325aa8b616eca580929e3f11f4228d8c4b4760281",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "1389580722092f32161aa5e6d33b0a22be3f8ba721fac9c0f947cc593dfcfa9f",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/marketing/routes.rs": {
       "status": "unproved",
@@ -2364,13 +2374,13 @@
     },
     "src/marketing/rule_fields.rs": {
       "status": "unproved",
-      "sha256": "5c0a986e7aeb6d54170ce7ffe3eead7ce69d4d4adbf5d7917127355284decdab",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "c19cf327f04f51c50aab3bcdd678a98dbfe99493e3d849ff858c135e27b6c070",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/marketing/rule_match.rs": {
       "status": "reviewed-binding",
-      "sha256": "7b7a5311d96d50f51cf7bbd4154df1166e6cf2c359ff3045e39844cde10b4cfe",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "cabb8c1ce117360657e6517366abbb0b53ccd8620b81e3accfd6e5ed83cbbe8f",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/marketing/rule_snapshot.rs": {
       "status": "unproved",
@@ -2379,13 +2389,13 @@
     },
     "src/marketing/rule_tests.rs": {
       "status": "unproved",
-      "sha256": "2ab9416b7376952bb198e192c3ce1c00f4cf72712eecad7ab83ebbd76d12d6f1",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "2121a52806af8eb5299cde059c77bb02160b302de7f625c17fa37c3ab1b1b83b",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/marketing/rules.rs": {
       "status": "unproved",
-      "sha256": "5c0cd8cb8780f193d783c69cc78d683063bc0cd231aa8b6337ed5e92593e8326",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "190256a474361d56780818c7c13c92d7b7123b6d87531677d0b20ac2356f6462",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/mcp/transport.rs": {
       "status": "unproved",
@@ -2399,18 +2409,18 @@
     },
     "src/mcp.rs": {
       "status": "unproved",
-      "sha256": "4340d3b0323cebd19ee76bb9394c747bc254f50cca257103da8b3b8753442214",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "f87538f4dc286f35a9961b4bb0367edc3e7151b874a977d406709df03fa7b236",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/migrations/identity_checksums.rs": {
       "status": "unproved",
-      "sha256": "c856e7c5f438cf3c2c8a586a2a3705de0ceafb34728738afedba06c01ef407ba",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "928b73ada6f0135dfc9bd2ebccff7225b1615446e97c22c0450d1bc46c2d4227",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "6748914503300483bfe8871eb8e5591d29ccedb7ca7da0711589dd6f5293832b",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "288046563b2488f39a2a74876b43ca2855919af81de1b0b113ecfa3a524f60b7",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -2419,8 +2429,8 @@
     },
     "src/migrations.rs": {
       "status": "unproved",
-      "sha256": "9689bdf08eb57a8a0ba5797949d120e10bef43ae20f4dfeac6a0da4e6eeee685",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "1945e346bee09a612f7fea7e9a0ff23958ee078986712af2b470379eb9ea7f41",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/money.rs": {
       "status": "reviewed-binding",
@@ -2524,8 +2534,8 @@
     },
     "src/outbox/control.rs": {
       "status": "unproved",
-      "sha256": "da3c069ee09e240f59b8a1edf3caa5f50fffb1d3bccfd5408eb164f3294d5989",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "8604cbe0e9f7ebcc7f26e1c87bc5ba2d6bb786f50532f8d06e60fc6b5a6beb92",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/outbox/retention.rs": {
       "status": "unproved",
@@ -2569,8 +2579,8 @@
     },
     "src/payments/provider.rs": {
       "status": "unproved",
-      "sha256": "e6f8ccff03fe788acebad4748e4a02a1f620939774f28e1eefded6f4e2650998",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "725664f575c84d25454415a0dc6c860f43c83b5fb860dfa7bba6e018f0fda38b",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/payments/provider_configuration.rs": {
       "status": "unproved",
@@ -2599,8 +2609,8 @@
     },
     "src/payments/return_urls.rs": {
       "status": "unproved",
-      "sha256": "fd468b18696d5e2dcdd0ac1692d81c60a872138334bbb79964ec664efcbdf225",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "5fbc617b9561ea8512534e904c6675d55327a1858e06e0b7c24ccfeac0696f2e",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/payments/routes.rs": {
       "status": "unproved",
@@ -2634,8 +2644,8 @@
     },
     "src/performance/admission.rs": {
       "status": "unproved",
-      "sha256": "50c84bd4d1d4d59df5ef984e0dab0550d082af772bac3b371ee7d555130a2a02",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "a749fae47e5e76b78cca27fba55800a61361c05887f4e95dadf998e5afb04b31",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/performance/cache.rs": {
       "status": "unproved",
@@ -2644,8 +2654,8 @@
     },
     "src/performance/cluster_lease.rs": {
       "status": "unproved",
-      "sha256": "d3c5797097053b049722f5db717ae321d56e25c4495511a4c8c07b02d46e5168",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "376689f365c7315da834fb005a7bda933dba1b004b61346a0b4198ad517a02de",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/performance/delivery.rs": {
       "status": "unproved",
@@ -2654,8 +2664,8 @@
     },
     "src/performance/invalidation.rs": {
       "status": "unproved",
-      "sha256": "de2c29b109390b1c3c1bf3d57c36c5355ac2187f2ed879d0c673497a46893167",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "029fefdcdc45c1109b2e3bf092735153e9bac5e589889ed7c30c76640c46e529",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/performance/languages.rs": {
       "status": "unproved",
@@ -2674,8 +2684,8 @@
     },
     "src/performance/row_security.rs": {
       "status": "unproved",
-      "sha256": "b35ad243b64e743f18f9840caca3c9cd9766427e790f19a727bd2a8bb8f9fd1c",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "8e031e415acde93f1d9a696353616e415ee188c9ff7f5b4b669a3586b1b89eaf",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/performance/settings.rs": {
       "status": "unproved",
@@ -2684,13 +2694,13 @@
     },
     "src/planner.rs": {
       "status": "unproved",
-      "sha256": "5998255e1d6ded7a49009b0e9c6961849d90cf3cb58ddfc747ef5184df2a10b3",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "eaf9408c33f6be02573d7b98e3c10963f41d52eb75c84754e9cf9fa990d997a7",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/platform/ai.rs": {
       "status": "reviewed-binding",
-      "sha256": "4340845aed927952af5cbb31cdc8418b27fd5546f8e17631b55a06b6fb4ee7d2",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "45292e2e824694ca9c30406f2a73d15fe25abb2e2cea910b17f08251bed62d03",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/platform/auth.rs": {
       "status": "reviewed-binding",
@@ -2789,8 +2799,8 @@
     },
     "src/prelude.rs": {
       "status": "unproved",
-      "sha256": "c967a5426fe49a832132db11a189e525c42119834b329fc0ddfd3275e938f105",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "d9040d699bbf7ca076eb94066117315db3e0c9efa918329092f8537a565b04bb",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/pricing.rs": {
       "status": "unproved",
@@ -2820,7 +2830,7 @@
     "src/routes.rs": {
       "status": "unproved",
       "sha256": "9903c5cde96594a68bf6966a7f0213f5980fe866db066b9d6147130ac17b5def",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "review": "Reviewed the coordinated Sellama crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",
@@ -2829,8 +2839,8 @@
     },
     "src/runtime_config.rs": {
       "status": "unproved",
-      "sha256": "de458e3bc94c4883a5d8ebe9671833281f8f1fc5926c10e2ccbad4a99a6bced4",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "9ff5958f350320538c44fdec83d85cdbed150dc021a62b91bb3046b5316fbea4",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/sandbox.rs": {
       "status": "reviewed-binding",
@@ -2874,8 +2884,8 @@
     },
     "src/shop_domains/frontend_transport.rs": {
       "status": "unproved",
-      "sha256": "49c303b285e83c5f439b8935fc6180ad6b77d9004a108b4d62a2394ef52f5b9e",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "fae7ff043a91e186671792437058a53028e69a2688cd248541a1a6a8d81acc29",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/shop_domains/frontends.rs": {
       "status": "unproved",
@@ -2884,8 +2894,8 @@
     },
     "src/shop_domains.rs": {
       "status": "unproved",
-      "sha256": "dd48937f2ada8539c8cb2b436f5ee86b551eb7ce77e803169c5b0af397848649",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "5dac33366a6344fec02a9621d4c0b3f222d4dd46095cdad1ef92749e4ca20f81",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/staging/access.rs": {
       "status": "unproved",
@@ -2954,8 +2964,8 @@
     },
     "src/studio.rs": {
       "status": "unproved",
-      "sha256": "481d3890b992e007f3c84556e005746ce8f99484d1f2f03204a9759f72a082b3",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "b7aaa4a14fdccc8b3e959c0a5c3ea10e4f8545649daed22cac2d0ec68f3fceb0",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/tenant_scope.rs": {
       "status": "unproved",
@@ -3004,13 +3014,13 @@
     },
     "src/ucp/negotiation.rs": {
       "status": "unproved",
-      "sha256": "4b1c427cd8f5ff94aa1388255e2e7dc0b6dff47dce4a91daaa92728f6bf0c78b",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "41aa840d1593700976eb348b2b53f92e34464369e498afdcda500bf79871e7a2",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/ucp/profile.rs": {
       "status": "unproved",
-      "sha256": "72d6618bcb1b199b5324da0edc3e7040a26e4b8e2d71fe55c8f1a2efe905cc74",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "54f6d6f30804ca1e46b907bd0447900962e9236760f183a871bac3db695beaed",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/verified_kernel.rs": {
       "status": "extracted-policy",
@@ -3019,31 +3029,31 @@
     },
     "src/work_signal.rs": {
       "status": "unproved",
-      "sha256": "3dd30a67e02478c76fa0f151643f47c0575ddedeb4c648e2d236b2ecf23b09bc",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "572f39360241cdf1b0950942d0dca6d2e766b793cd3a052a54821d349c7afd22",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "src/workers.rs": {
       "status": "unproved",
-      "sha256": "ca1d54403c0bb52c0ace610074f0bd102b20b9487fe1a8c0a2495ef1fda0670a",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "e891b1783c43300ccd99129d61aa8c77eb4f5108a7840e94e7d7ebb42cc435ee",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     }
   },
   "inputs": {
     ".github/workflows/verify.yml": {
-      "sha256": "aa7d154a5bdb570f1c0d78c5e5b69629763da57eeed8510ba805f7cc4edae9ed",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "8fa5e165ece5fd1809839931ece3099c0f781807c2139c91dd05f1ca6d67e941",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "Cargo.lock": {
-      "sha256": "2b4a614e874070f77d1ac08c081bb85109c71cc5cbbdc50c35593b0d20cb79cf",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "d52b3dc95e76bbae58fed27bfb76e05403be98f0530501d5c42dbc592fa64a7b",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "Cargo.toml": {
-      "sha256": "9b85a25a8c6f85e0e6de738c903cc997ef4300a52f822070f7975254f947093c",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "048a7e199aee2f1e205ed54e4213bd9b9bbbe42c17d86b0ce9594f18d76b6f97",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "deploy/Dockerfile": {
-      "sha256": "fc19a648b2fd4eaab37466630fd03cfe9e56f172288ca457b944f59447091283",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "f013b07a5b99789b8acb19ee2a2e0f7fb7f7b6e561821fb5e2503dfa59e93eaa",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "fixtures/app-studio-schema.json": {
       "sha256": "e644a609345a94bcf23ad9e1dd94948526e0fac2345f80f2fb7211c4e043be9e",
@@ -3074,12 +3084,12 @@
       "review": "Reviewed international configuration, destination tax predicates and native bindings; targeted PostgreSQL international/catalog cases plus Rust tests pass. Translation fixtures verify restart, provider rejection, tenant permissions and revision conflicts. Config/product/apply share row locks. Additive schema 028 and versioned MIT geography reviewed; surrounding SQL/provider behavior remains unproved."
     },
     "frontend/package-lock.json": {
-      "sha256": "1f1eaef433f36816a1590d5373ee45f8599fef04c9f608efc3abb11bb8cccfda",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "8bea207b2236ee5a3a68c11236ebd18edc5f30003c63a6303e3340cfebdf8ad9",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "frontend/package.json": {
-      "sha256": "07e26dc33e95d2a3817b25ede1d965603c27b84ba41f4e009e5266950ebdeee9",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "95ff66608dd8946a07713c3b2d00848b3ea07761386dbb5b45d99d7fc87779c2",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "frontend/scripts/precompress.mjs": {
       "sha256": "dbe91d7985386628933dfb734bd5555ba4e8b97502d1f644b26488434cfc195c",
@@ -3234,12 +3244,12 @@
       "review": "Reviewed managed-install variants and append-only legacy vector/relation conversion, SQL knowledge/app visibility joins, durable Qdrant queue with tenant/model/digest hydration and deletion, hostname scope before authentication, personal-only bootstrap and SIGTERM entry routing; verified fresh ordinary PostgreSQL operator/shop creation, real Qdrant isolation/deletion/outage retry, public document scope, legacy count/vector/checksum preservation and negative ledger drift. These SQL/network/hosting adapters remain unproved; verified kernel unchanged."
     },
     "migrations/034-entity-history.sql": {
-      "sha256": "8cf1682e7aab1772c40c00cdb07333b74ae01075d596d2bd45133b98dc396fd3",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "64216b1b49cd5078a57a03a5a82de6ef68a5c3563f3b5e91fcf56eef05d47820",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "migrations/035-history-finalization.sql": {
-      "sha256": "5927dfde5938dad74cfcb4dee947b1864d82375fbc97c8e2db331c28eb1f031d",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "a98327e1a4d5a89266d559a93e2e92f90ba18188196f89407ababd47fcb0dbb5",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "migrations/036-app-assistants.sql": {
       "sha256": "46130e80715648ba78b63e297c39f84eec37ec25e56d45c8ee4c0429dbdf48d8",
@@ -3282,8 +3292,8 @@
       "review": "Reviewed all changed Rust, append-only schemas, build/extraction and Lean inputs: lease hooks bind new/reused connections and reset on release; strict runtime rejects owner/bypass/TRUNCATE and preserves app-schema ownership; two-replica non-owner PostgreSQL tests deny forged foreign writes, enforce operator quotas and parent-stage daily usage, release persisted allocation quantities once despite corrupted snapshots, and distinguish commit from rollback invalidation. Money retains legacy EUR rounding with explicit scale and original Shopware differential; receipt-backed state admission is monotonic with late capture/refund. Async SQL/provider code remains unproved. Rust 113 tests, staging/app/automation/settings and strict checkout/CRM/tenant regressions passed; 274 frontend tests and production build passed."
     },
     "migrations/046-cache-invalidation.sql": {
-      "sha256": "5b7a9dbb315c5169f41de96af7057dfd28550fea81f9f1157b4f50bb7cb03238",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "be29ec68e295aa33ee9f5c16b41037dc2d7750654c7a1a10f84f2ad0efaab81a",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "migrations/047-order-reservations.sql": {
       "sha256": "704c12521e6d19df1fd0651ed17c518539ed06ce4a76319aab32a820dfb4b483",
@@ -3322,12 +3332,12 @@
       "review": "Reviewed tenant-scoped hosted app association, transactional immutable Storyfront installation and one-time validated migration 055; dependency deactivation shares config/app locks; private renderer excluded. PostgreSQL regressions cover foreign references and cold restart. SQL/network adapters remain unproved."
     },
     "migrations/056-http-response-diagnostics.sql": {
-      "sha256": "8a73e789addfe7328d5fe09a4fbe02044e21c18282ba14de7e290d8ff1c7556d",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "e66f965dd57e49371c26da394681f39d6ae8b3ab54e809ae286616f0513065ec",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "migrations/057-core-hardening.sql": {
-      "sha256": "558d728f668e9438d70826484eb45fdebfaf243a19868d1afc161ca33be49ec2",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "4aae1b2844ecc237ae01beffaa0cd13afa62252c48f29940094d6ca6ca3357e1",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "migrations/058-tenant-app-schemas.sql": {
       "sha256": "52df74abe24e9cbe9ecb548d26c830d6e27d790f9b9d6ff3d8c0e3ba1e6312e9",
@@ -3426,16 +3436,16 @@
       "review": "Reviewed nullable product/customer reference retirement and cart/channel analytics cascade; existing financial dependency guards remain authoritative. Behavior SQL, proxy and browser adapters remain unproved."
     },
     "migrations/082-workspace-roles.sql": {
-      "sha256": "cc6761ee27a71878646eb47431ad9c77b3d2878a9c7fc79868e15615610de538",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "c93a4200e102439707e4150ac5449196c7ec669ff8feaeff2f420bf94e04e98e",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "migrations/083-customer-lookup.sql": {
       "sha256": "e40e1d3541ffe68b2cbaeb2453a6749f3352df51494404a3541dcb56206007ec",
       "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
-    "migrations/090-sellm-identity.sql": {
-      "sha256": "816f5a20066bbb01d82703945f364246dfb503e91a537a609f655bbeaba61a8c",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+    "migrations/090-sellama-identity.sql": {
+      "sha256": "0d94599dfec3e77e9cba98827d2eb5c83cfc985ebf513bb0d1040abae4f9fd8a",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "proof/Commerce/Claims.lean": {
       "sha256": "9ffc4b92e9fb2c3d7b91f6c3ab8e0f1a3d4a5821d5b9c656e74b1b8c3607f0bc",
@@ -3482,8 +3492,8 @@
       "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
     },
     "scripts/formal/runners.py": {
-      "sha256": "95435c73e8f487d627185072c25f4d0568e9713b2f8e671ec6ad782080e04ce2",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "244df194f6d277411c901e047bf47dda75af8b484f13732a4424c5dd167e8652",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     },
     "scripts/formal.py": {
       "sha256": "0d152edcec333aa5facf70830240473e6533970c86ff020ab10b734cd05743fd",
@@ -3570,8 +3580,8 @@
       "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
     },
     "src/ucp/b2b-negotiation.json": {
-      "sha256": "ceae1bacad595c0246e01832bcf5acae46a2b2932c7cebcdf07b3d5d42e2ea78",
-      "review": "Reviewed the coordinated seLLM crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "2cf2fa59be96ea0e292775b4e5ea458d0c75cacdab8b736f0d60eb111a40f511",
+      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
     }
   }
 }

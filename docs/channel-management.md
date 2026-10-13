@@ -30,7 +30,7 @@ flowchart LR
   Registry --> Gate[Current channel access check]
   Gate -->|Public or authorized preview| Frontend[Existing frontend gateway]
   Frontend --> Experience[Private Experience / Storyfront service]
-  Experience --> Core[Scoped seLLM Store API]
+  Experience --> Core[Scoped Sellama Store API]
   Core --> Catalog[Catalog, pricing and checkout]
 ```
 

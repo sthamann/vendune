@@ -2603,7 +2603,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "sellm"
+name = "sellama"
 version = "0.5.0"
 dependencies = [
  "aes-gcm",

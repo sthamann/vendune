@@ -65,7 +65,7 @@ The core enforces global provider/environment/account receipt allocation, immuta
 
 `GET /store-api/payments/{attempt}/session?parentOrigin=...` requires the owning cart context token. A parent must be the configured commerce origin or the tenant's owned shop/channel subdomain. The provider returns `uiUrl`, scoped sessionToken, matching nonce and expiresIn (maximum 600 seconds). UI and shop must have separate origins; the UI origin must be approved in operator configuration.
 
-The checkout iframe receives only the scoped token and nonce via an exact-origin message. Parent messages require the exact frame window, origin and nonce. `sellm.payment.changed` requests server reconciliation; `sellm.payment.redirect` may navigate only to the already server-approved URL. The private service independently validates the bound parent. An actual provider frontend can implement hosted card fields, wallets or additional fields without obtaining a commerce merchant token. Customer secrets remain with the provider.
+The checkout iframe receives only the scoped token and nonce via an exact-origin message. Parent messages require the exact frame window, origin and nonce. `sellama.payment.changed` requests server reconciliation; `sellama.payment.redirect` may navigate only to the already server-approved URL. The private service independently validates the bound parent. An actual provider frontend can implement hosted card fields, wallets or additional fields without obtaining a commerce merchant token. Customer secrets remain with the provider.
 
 ## Admin, MCP, flows and events
 

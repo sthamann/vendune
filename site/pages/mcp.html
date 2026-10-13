@@ -1,8 +1,8 @@
 <article class="article"><p class="eyebrow">Guide / Model Context Protocol</p><h1>Connect Claude Desktop to a commerce MCP server.</h1><p class="lead">Use a local stdio bridge to connect a compatible MCP client to the same Rust commerce operations used by the storefront.</p><h2>Start the Rust app first</h2><p>Complete the <a href="quickstart.html">commerce quickstart</a>. The bridge forwards requests to a running server; it does not start the application. No model download is needed to expose public product and cart tools.</p><h2>Add the MCP server configuration</h2><p>Add this entry to your client's MCP configuration. Replace the checkout path with your actual absolute path and preserve any existing server entries.</p><pre><code>{
   "mcpServers": {
-    "sellm": {
+    "sellama": {
       "command": "python3",
-      "args": ["/absolute/path/sellm/scripts/mcp_stdio.py"],
+      "args": ["/absolute/path/sellama/scripts/mcp_stdio.py"],
       "env": {
         "COMMERCE_URL": "http://127.0.0.1:8787",
         "COMMERCE_TENANT": "atelier"

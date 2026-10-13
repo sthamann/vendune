@@ -105,7 +105,7 @@ export default function CheckoutPanel({
   return (
     <dialog
       ref={ref}
-      className="shop-bag sellm-checkout"
+      className="shop-bag sellama-checkout"
       onCancel={(e) => {
         if (locked) e.preventDefault();
         else close();

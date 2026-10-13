@@ -27,7 +27,7 @@ call('/api/apps/engraving/entities/rules',{'id':'default','revision':2,'fields':
 table='app_'+hashlib.sha256((u['workspace']+':engraving').encode()).hexdigest()[:24]+'_rules';role='test_rls_'+uuid.uuid4().hex[:12]
 # Local database bootstrap identity is a superuser; SET LOCAL ROLE proves the policy under a restricted identity.
 query=f"BEGIN; CREATE ROLE {role}; GRANT SELECT ON {table} TO {role}; SELECT set_config('rac.tenant','{u['workspace']}',true); SET LOCAL ROLE {role}; SELECT count(*) FROM {table} WHERE tenant <> '{u['workspace']}'; SELECT count(*) FROM {table} WHERE tenant = '{u['workspace']}'; ROLLBACK;"
-output=subprocess.check_output(psql(os.getenv('DB_CONTAINER','sellm-postgres-1'),'commerce',os.getenv('TEST_DATABASE','commerce'),'-Atq','-c',query),text=True).splitlines()
+output=subprocess.check_output(psql(os.getenv('DB_CONTAINER','sellama-postgres-1'),'commerce',os.getenv('TEST_DATABASE','commerce'),'-Atq','-c',query),text=True).splitlines()
 assert output[-2:]==['0','1'],output
 check('Forced app RLS filters another tenant even when SQL omits an application tenant predicate')
 
@@ -160,7 +160,7 @@ assert call('/api/apps/independent/entities/notes',h=h)['elements'][0]['title']=
 assert call('/api/apps/independent/entities/notes',h=oh)['elements'][0]['title']==42
 check('Different tenants can install the same app ID with incompatible columns without DDL collisions')
 def sql(statement):
-    return subprocess.check_output(psql(os.getenv('DB_CONTAINER','sellm-postgres-1'),'commerce',os.getenv('TEST_DATABASE','commerce'),'-Atq','-c',statement),text=True).strip()
+    return subprocess.check_output(psql(os.getenv('DB_CONTAINER','sellama-postgres-1'),'commerce',os.getenv('TEST_DATABASE','commerce'),'-Atq','-c',statement),text=True).strip()
 t=u['workspace'];app='independent'
 usage=sql(f"SELECT rows||':'||bytes FROM app_storage_usage WHERE tenant='{t}' AND app='{app}'").split(':')
 assert int(usage[0])==1 and int(usage[1])>0

@@ -12,19 +12,19 @@ it("keeps checkout and legacy transfer destinations on the shared commerce host"
     expect(
       canonicalShopURL(
         new URL(
-          `https://app.sellm.ai/checkout?shop=merchant-shop&channel=default${hash}`,
+          `https://app.sellama.ai/checkout?shop=merchant-shop&channel=default${hash}`,
         ),
       ),
     ).toBeUndefined();
   }
   expect(
     canonicalShopURL(
-      new URL("https://app.sellm.ai/?shop=merchant-shop#checkout/legacy"),
+      new URL("https://app.sellama.ai/?shop=merchant-shop#checkout/legacy"),
     ),
   ).toBeUndefined();
   expect(
     canonicalShopURL(
-      new URL("https://app.sellm.ai/?shop=merchant-shop#product/tee"),
+      new URL("https://app.sellama.ai/?shop=merchant-shop#product/tee"),
     ),
-  ).toBe("https://merchant-shop.sellm.ai/#product/tee");
+  ).toBe("https://merchant-shop.sellama.ai/#product/tee");
 });

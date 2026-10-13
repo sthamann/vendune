@@ -24,7 +24,7 @@ def stop(process):
 
 def serve(env, url, log):
     process = subprocess.Popen(
-        [str(ROOT / "target/debug/sellm")],
+        [str(ROOT / "target/debug/sellama")],
         cwd=ROOT,
         env=env,
         stdout=log,

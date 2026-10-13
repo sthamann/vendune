@@ -157,7 +157,7 @@ export default function ShoppingPreferences({ token }: { token?: string }) {
               );
               const link = document.createElement("a");
               link.href = url;
-              link.download = "sellm-preferences.json";
+              link.download = "sellama-preferences.json";
               link.click();
               URL.revokeObjectURL(url);
             })

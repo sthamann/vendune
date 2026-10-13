@@ -139,7 +139,7 @@ pub(crate) async fn promote(
                 .map(|l| (l["price"]["totalPrice"].as_f64().unwrap() * factor).round() as i64)
                 .collect::<Vec<_>>();
             let allocated =
-                sellm::discount::allocate(&totals, (total * ratio * factor).round() as i64);
+                sellama::discount::allocate(&totals, (total * ratio * factor).round() as i64);
             let mut after = 0.;
             let mut tax = 0.;
             for (index, line) in q["lineItems"]

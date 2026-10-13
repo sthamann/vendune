@@ -1,5 +1,5 @@
 //! Generated conformance driver; invokes the same production policy functions as the commerce server.
-use sellm::verified_kernel::*;
+use sellama::verified_kernel::*;
 use serde_json::{Value, json};
 pub(super) fn eval(j: &Value) -> Result<Value, String> {
     let args = &j["args"];

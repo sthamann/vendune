@@ -1,4 +1,4 @@
-# seLLM feature guide
+# Sellama feature guide
 
 **Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).
 
@@ -41,7 +41,7 @@ The 6 October screenshots and GIFs show the real local application with syntheti
 | Processes | Saved rules, coupons, campaigns, graphical branches, durable delays and app actions | [Rules and flows](#rules-campaigns-and-flow-builder) |
 | Experiences | Sales channels, inherited settings, Storyfront checkout transfer and hosted private frontends | [Channels](#sales-channels-and-connected-experiences) |
 | Extensions | Bundled apps, visual App Studio, typed data, SDK surfaces, services, webhooks, schedules and Wasm | [Apps](#apps-and-app-studio) |
-| Control | Team rights, scoped API keys, private stages, selected releases, shop administration and diagnostics | [Workspace](#workspace-access-and-releases) · [Platform](#sellm-platform) |
+| Control | Team rights, scoped API keys, private stages, selected releases, shop administration and diagnostics | [Workspace](#workspace-access-and-releases) · [Platform](#sellama-platform) |
 | European operation | Consent gates, channel legal documents, sector facts, guarded checkout and durable consumer requests | [European operation](european-operation.md) |
 | Foundation | Shared HTTP/MCP/UCP operations, transactional storage, independent workers and bounded verification | [Core](#shared-apis-storage-and-verification) |
 
@@ -79,7 +79,7 @@ Quantity minimums, steps, maximums and customer-group tiers feed the same server
 
 Submitted reviews start pending. Studio exposes publication/hiding controls; public ratings count only published reviews. A verified-purchase flag is derived from an actual completed customer purchase, not a shopper-supplied checkbox. Cross-selling uses configured same-shop products. Merchant-approved co-purchase associations can supply recommendations without exposing private customer identities.
 
-**Ask seLLM** and product questions use eligible catalog facts and explicitly published sources when a model is configured. Missing facts and provider failures remain visible. These controls do not imply a model is included in every installation, and the source-retrieval test below can be used without inference. Personalization has a shopper toggle; its bounded session affinity and persisted discovery/comparison policy change retrieval/layout selection, not model weights or proven sales uplift. [Intelligence contracts](intelligence-apps-payments.md).
+**Ask Sellama** and product questions use eligible catalog facts and explicitly published sources when a model is configured. Missing facts and provider failures remain visible. These controls do not imply a model is included in every installation, and the source-retrieval test below can be used without inference. Personalization has a shopper toggle; its bounded session affinity and persisted discovery/comparison policy change retrieval/layout selection, not model weights or proven sales uplift. [Intelligence contracts](intelligence-apps-payments.md).
 
 ### One-page checkout
 
@@ -101,7 +101,7 @@ Paid digital files become available through purchase entitlements. Orders pin im
 
 ![Separate customer account with personal data and a saved address](assets/feature-tour/customer-account.jpg)
 
-## seLLM Studio
+## Sellama Studio
 
 The sidebar groups **15 workspaces**. The shell provides a shop switcher, live/private-stage selector, English/German/French/Spanish interface language, theme toggle, refresh, conversation entry and storefront access. Content editors use the shop's enabled content languages, which can extend beyond the four interface languages.
 
@@ -387,7 +387,7 @@ The public Experience deployment currently retains its React revision editor. Th
 
 ### Optional companion catalog publication and checkout transfer
 
-For independently operated companion installations, the Storyfront app connects to an **operator-configured private companion service**. It publishes a bounded catalog snapshot with real SKU mappings, translations and allowed product media, reports job status/counts and opens its configured storefront. Shopper intent transfers through a single-use cart ticket into the authoritative seLLM checkout. The ticket expires, is consumed once and rotates the cart token; merchant credentials do not enter the shopper link.
+For independently operated companion installations, the Storyfront app connects to an **operator-configured private companion service**. It publishes a bounded catalog snapshot with real SKU mappings, translations and allowed product media, reports job status/counts and opens its configured storefront. Shopper intent transfers through a single-use cart ticket into the authoritative Sellama checkout. The ticket expires, is consumed once and rotates the cart token; merchant credentials do not enter the shopper link.
 
 A native install alone does not deploy the private service, generate an AI story release or enable customer account SSO. Provider configuration, consent/tracking, continuous sync and companion ownership remain explicit. The earlier end-to-end Storyfront evidence is retained and dated in its guide. [Storyfront integration](storyfront.md).
 
@@ -520,11 +520,11 @@ A sandbox clones catalog/translations/categories, settings/company, experience s
 
 *GIF: one selected package is released and entered in release history. The separate app-data change remains available in the sandbox.*
 
-## seLLM Platform
+## Sellama Platform
 
 ### Separate operator console and shop directory
 
-The public service hub at **admin.sellm.ai** links merchant and platform entry points. A platform grant is separate from merchant ownership and the bootstrap token. Operators see a bounded searchable shop directory, staging separately, per-shop team/business/channel/app information and 7/30/90-day statistics. Access is checked on every operator request; platform access does not automatically authorize every merchant Studio.
+The public service hub at **admin.sellama.ai** links merchant and platform entry points. A platform grant is separate from merchant ownership and the bootstrap token. Operators see a bounded searchable shop directory, staging separately, per-shop team/business/channel/app information and 7/30/90-day statistics. Access is checked on every operator request; platform access does not automatically authorize every merchant Studio.
 
 Metrics distinguish recorded gross order value, simulation and confirmed captures by currency. Captures are not net revenue after refunds/fees. Stored lifetime HTTP requests are not visitors. Daily buckets use the database/UTC calendar. [Metric definitions](platform.md).
 
@@ -532,7 +532,7 @@ Metrics distinguish recorded gross order value, simulation and confirmed capture
 
 ### Shop creation, addresses and inherited AI
 
-Create an empty/sample shop with an optional existing owner. No shared-password demo customers are created by operator provisioning. Payments start simulated. With configured wildcard routing, shops use `https://SHOP_ID.sellm.ai`; old public query links retain product/channel/language context during upgrade. Studio/private stages keep their authenticated origin. DNS/certificates, arbitrary custom domains, billing and island migration are separate operator work.
+Create an empty/sample shop with an optional existing owner. No shared-password demo customers are created by operator provisioning. Payments start simulated. With configured wildcard routing, shops use `https://SHOP_ID.sellama.ai`; old public query links retain product/channel/language context during upgrade. Studio/private stages keep their authenticated origin. DNS/certificates, arbitrary custom domains, billing and island migration are separate operator work.
 
 Global provider configuration has an enabled/default **Ollama/OpenAI/Anthropic** choice, provider models/endpoints and independent image capability/model. Shops inherit it or have an explicit override. Provider keys are write-only and encrypted with the runtime key; they are not returned to the browser. A configured status reports saved configuration, not provider health or a completed inference call. Disabling a provider denies use; there is no silent fallback. [AI and address controls](platform.md).
 
@@ -560,7 +560,7 @@ Infrastructure probes PostgreSQL version/size/connections, Qdrant readiness, Rus
 
 Browser shopping, merchant HTTP and protocol adapters call shared operations. MCP publishes typed shopping/knowledge/merchant/app tools filtered by current rights; direct invocation is independently authorized. The stdio bridge forwards to the running Core rather than implementing another calculator. The native HTTP MCP subset uses stateless JSON responses and no SSE subscription. UCP's documented checkout adapter shares carts, quotes and order behavior.
 
-The selected `ai.sellm.app.shopping.b2b_negotiation` extension adds native RFQs,
+The selected `ai.sellama.app.shopping.b2b_negotiation` extension adds native RFQs,
 buyer counterproposals, merchant offers, original-cart acceptance, current purchasing
 constraints and separate approval requests to that checkout. Its profile negotiates
 software compatibility, never company authority; prices, budget, stock, final order

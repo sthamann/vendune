@@ -6,7 +6,7 @@ Each file starts with its responsibility. See [the source inventory](../../../..
 
 ## Modules
 
-- [`Brand.tsx`](Brand.tsx): Shared seLLM identity; product branding is independent of tenant-owned company logos and session keys.
+- [`Brand.tsx`](Brand.tsx): Shared Sellama identity; product branding is independent of tenant-owned company logos and session keys.
 - [`ConfirmDialog.tsx`](ConfirmDialog.tsx): Shared modal confirmation with focus containment, Escape, focus restoration and an explicit destructive action.
 - [`Icon.tsx`](Icon.tsx): Icon: Presentational icons and catalogue artwork with explicit inputs..
 - [`ProductArt.tsx`](ProductArt.tsx): Product Art: Presentational icons and catalogue artwork with explicit inputs..
@@ -18,4 +18,4 @@ Each file starts with its responsibility. See [the source inventory](../../../..
 
 Run `npm run build`, `npm test`, `npm run test:coverage` and `npm run architecture` from `frontend/`. Coverage includes untested source files. See [testing and limitations](../../../../docs/testing.md); file presence does not mean full test coverage.
 
-`Brand.tsx` owns the fixed seLLM name and canonical repository/mark; `brand.css` sizes the shared identity. Merchant company logos remain tenant configuration.
+`Brand.tsx` owns the fixed Sellama name and canonical repository/mark; `brand.css` sizes the shared identity. Merchant company logos remain tenant configuration.

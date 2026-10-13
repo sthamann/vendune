@@ -1,5 +1,5 @@
 //! Bounded ports of original language-chain, rule priority and quantity selection.
-use sellm::context::{Language, Tier, fix_quantity, language_chain, select_tier};
+use sellama::context::{Language, Tier, fix_quantity, language_chain, select_tier};
 use serde_json::{Value, json};
 use std::io::{self, Read};
 fn main() {

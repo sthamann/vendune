@@ -63,7 +63,7 @@ it("seeds the correct staging context, keeps edits and restores focus after clos
     screen.getByRole("button", { name: "Open contextual help" }),
   );
   expect(
-    screen.getByRole("dialog", { name: "Ask seLLM" }),
+    screen.getByRole("dialog", { name: "Ask Sellama" }),
   ).toBeInTheDocument();
   await user.click(
     screen.getByRole("button", { name: /Explain what is happening/ }),

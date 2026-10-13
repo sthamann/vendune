@@ -34,7 +34,7 @@ export default function PrivacyProvider({
 }) {
   const { l } = useLegalText();
   const scope = consentScope(),
-    key = `sellm-consent:${scope}`;
+    key = `sellama-consent:${scope}`;
   const [policy, setPolicy] = useState<LegalPolicy>(),
     [open, setOpen] = useState(false),
     [detail, setDetail] = useState(false),
@@ -90,13 +90,13 @@ export default function PrivacyProvider({
       };
     window.addEventListener("focus", focus);
     window.addEventListener("storage", focus);
-    window.addEventListener("sellm:privacy-open", show);
+    window.addEventListener("sellama:privacy-open", show);
     return () => {
       active = false;
       window.clearInterval(interval);
       window.removeEventListener("focus", focus);
       window.removeEventListener("storage", focus);
-      window.removeEventListener("sellm:privacy-open", show);
+      window.removeEventListener("sellama:privacy-open", show);
       publishConsent(undefined, scope);
     };
   }, [scope, token]);

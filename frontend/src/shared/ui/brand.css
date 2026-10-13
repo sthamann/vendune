@@ -1,5 +1,5 @@
 /** Shared vector brand sizing and typography for Studio and the operator console. */
-.sellm-brand {
+.sellama-brand {
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
@@ -7,19 +7,19 @@
   min-width: 0;
   max-width: 100%;
 }
-.sellm-mark {
+.sellama-mark {
   width: 38px;
   height: 38px;
   flex-shrink: 0;
   object-fit: contain;
 }
-.sellm-wordmark {
+.sellama-wordmark {
   font-size: 23px;
   font-weight: 700;
   letter-spacing: -1px;
   line-height: 1.2;
 }
-.sellm-wordmark small {
+.sellama-wordmark small {
   display: block;
   font-size: 10px;
   font-weight: 500;
@@ -28,31 +28,31 @@
   margin-top: 3px;
   color: var(--muted, #65738a);
 }
-.platform-brand .sellm-mark {
+.platform-brand .sellama-mark {
   width: 44px;
   height: 44px;
 }
 
-.sellm-logo-pair {
+.sellama-logo-pair {
   display: block;
   min-width: 0;
   max-width: 100%;
 }
-.sellm-logo {
+.sellama-logo {
   display: block;
-  width: 112px;
+  width: 140px;
   max-width: 100%;
   height: auto;
   object-fit: contain;
   object-position: left center;
 }
-.sellm-logo--dark {
+.sellama-logo--dark {
   display: none;
 }
-[data-theme="dark"] .sellm-logo--light {
+[data-theme="dark"] .sellama-logo--light {
   display: none;
 }
-[data-theme="dark"] .sellm-logo--dark {
+[data-theme="dark"] .sellama-logo--dark {
   display: block;
 }
 .studio-brand {

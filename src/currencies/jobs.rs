@@ -170,8 +170,8 @@ pub(crate) fn worker(a: &App) {
         return;
     }
     let a = a.clone();
-    tokio::spawn(sellm::tenant_scope::scoped(
-        sellm::tenant_scope::Scope::System,
+    tokio::spawn(sellama::tenant_scope::scoped(
+        sellama::tenant_scope::Scope::System,
         async move {
             let mut ticks = 0_u64;
             let mut cursor = String::new();

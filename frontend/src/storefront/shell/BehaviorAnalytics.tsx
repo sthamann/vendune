@@ -142,9 +142,9 @@ export default function BehaviorAnalytics({
           token,
         ).catch(() => {});
     };
-    window.addEventListener("sellm:product-question", receive);
+    window.addEventListener("sellama:product-question", receive);
     return () =>
-      window.removeEventListener("sellm:product-question", receive);
+      window.removeEventListener("sellama:product-question", receive);
   }, [enabled, scope, id, token]);
   return null;
 }

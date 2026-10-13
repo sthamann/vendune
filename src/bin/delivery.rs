@@ -1,5 +1,5 @@
 //! Batch proportional-tax fixture transport for the original-PHP comparator.
-use sellm::pricing::{CalculatedTax, proportional_tax_rules};
+use sellama::pricing::{CalculatedTax, proportional_tax_rules};
 use serde::Deserialize;
 use std::io::{self, Read};
 #[derive(Deserialize)]

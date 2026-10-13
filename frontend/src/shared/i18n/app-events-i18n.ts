@@ -49,10 +49,10 @@ export const appEventWords = {
     "Fuente del componente WIT (WAT)",
   ],
   componentLimit: [
-    "Maximum 32 KiB. Must implement sellm:commerce/extension@1.0.0. Compilation and ABI checks run on the server before installation; see the snapshot-pricing example.",
-    "Maximal 32 KiB. Muss sellm:commerce/extension@1.0.0 implementieren. Kompilierung und ABI-Prüfung laufen vor der Installation auf dem Server; siehe snapshot-pricing-Beispiel.",
-    "32 Kio maximum. Interface sellm:commerce/extension@1.0.0 obligatoire. Compilation et vérification avant installation ; voir snapshot-pricing.",
-    "Máximo 32 KiB. Debe implementar sellm:commerce/extension@1.0.0. Compilación y validación antes de instalar; véase snapshot-pricing.",
+    "Maximum 32 KiB. Must implement sellama:commerce/extension@1.0.0. Compilation and ABI checks run on the server before installation; see the snapshot-pricing example.",
+    "Maximal 32 KiB. Muss sellama:commerce/extension@1.0.0 implementieren. Kompilierung und ABI-Prüfung laufen vor der Installation auf dem Server; siehe snapshot-pricing-Beispiel.",
+    "32 Kio maximum. Interface sellama:commerce/extension@1.0.0 obligatoire. Compilation et vérification avant installation ; voir snapshot-pricing.",
+    "Máximo 32 KiB. Debe implementar sellama:commerce/extension@1.0.0. Compilación y validación antes de instalar; véase snapshot-pricing.",
   ],
   addHostRecord: [
     "Add an immutable app record snapshot",

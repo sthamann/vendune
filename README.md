@@ -1,26 +1,26 @@
 <p align="center">
 
 **Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](docs/studio-access-and-setup.md).
-  <img src="docs/brand/sellm-readme.svg" alt="seLLM — Commerce for humans. Built for agents." width="100%">
+  <img src="docs/brand/sellama-readme.svg" alt="Sellama — Commerce for humans. Built for agents." width="100%">
 </p>
 
 <div align="center">
 
-# seLLM
+# Sellama
 
 **Your storefront. Your apps. Your AI. One commerce core.**
 
-[![Verify](https://github.com/sthamann/sellm/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/sthamann/sellm/actions/workflows/verify.yml)
-[![Documentation](https://github.com/sthamann/sellm/actions/workflows/pages.yml/badge.svg?branch=main)](https://sthamann.github.io/sellm/docs/)
+[![Verify](https://github.com/sthamann/sellama/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/sthamann/sellama/actions/workflows/verify.yml)
+[![Documentation](https://github.com/sthamann/sellama/actions/workflows/pages.yml/badge.svg?branch=main)](https://sthamann.github.io/sellama/docs/)
 [![Status: working prototype](https://img.shields.io/badge/status-working_prototype-2459ef)](#current-boundaries)
 [![License: Sustainable Use](https://img.shields.io/badge/license-Sustainable_Use-18b9d9)](LICENSE)
 
-[**Start locally**](#get-started) · [**See it in action**](#see-sellm-in-action) · [**Interactive demos**](https://sthamann.github.io/sellm/index.html#demo) · [**Full feature tour**](https://sthamann.github.io/sellm/docs/features.html) · [**Latest release**](docs/current-release.md) · [**Build five apps**](docs/app-tutorials/README.md) · [**How it works**](docs/production-architecture.md) · [**Documentation**](https://sthamann.github.io/sellm/docs/)
+[**Start locally**](#get-started) · [**See it in action**](#see-sellama-in-action) · [**Interactive demos**](https://sthamann.github.io/sellama/index.html#demo) · [**Full feature tour**](https://sthamann.github.io/sellama/docs/features.html) · [**Latest release**](docs/current-release.md) · [**Build five apps**](docs/app-tutorials/README.md) · [**How it works**](docs/production-architecture.md) · [**Documentation**](https://sthamann.github.io/sellama/docs/)
 
 </div>
 
-seLLM is a self-hosted **Rust commerce system** for B2C and B2B shops. Run a
-storefront, manage it in seLLM Studio, build custom experiences and give agents
+Sellama is a self-hosted **Rust commerce system** for B2C and B2B shops. Run a
+storefront, manage it in Sellama Studio, build custom experiences and give agents
 access to the same catalog, prices, inventory and checkout. AI retrieves shop
 knowledge and proposes changes; you review the exact changes before they go live.
 
@@ -28,7 +28,7 @@ knowledge and proposes changes; you review the exact changes before they go live
 | --- | --- | --- |
 | Products, variants, customer accounts, orders, taxes, shipping and documents | Visual App Studio, typed data, custom storefronts, HTTP/MCP actions and app services | Private sandboxes, selected releases, scoped team access, version history and central AI settings |
 
-[![Nord Atelier — the actual seLLM storefront with generated fashion product photography](docs/assets/showcase/storefront.webp)](docs/features.md#storefront-and-shopping)
+[![Nord Atelier — the actual Sellama storefront with generated fashion product photography](docs/assets/showcase/storefront.webp)](docs/features.md#storefront-and-shopping)
 
 **Meet Nord Atelier.** The default demo has **12 fashion products, 34 purchasable
 SKUs, seven categories and four content languages**, with individually generated
@@ -78,7 +78,7 @@ inference; concurrent withdrawal or changes return localized retry guidance.
 **9 October public update:** the private Experience service now runs original Storyfront Studio and Cinematic presentation. Fresh AI catalog/image creation, original review/build/publication and a live German product-answer scene were checked. Core still owns prices, stock and orders. [Live acceptance and remaining boundaries](docs/current-release.md#public-original-storyfront-update--9-october-2026).
 
 **One experience through checkout:** the original Storyfront now embeds the same
-seLLM checkout, keeping the shop URL. A public mobile demo purchase saved the
+Sellama checkout, keeping the shop URL. A public mobile demo purchase saved the
 German product name and cleared the original Bag after server confirmation,
 including after reload. Canceling keeps the Bag. The original Studio overview
 uses the actual connected catalogue and live address. [Screenshots and exact acceptance](docs/current-release.md#checkout-continuity).
@@ -95,13 +95,13 @@ uses the actual connected catalogue and live address. [Screenshots and exact acc
 **Rust stable 1.96+ · Node.js 22+ · Docker Compose · Python 3**
 
 ```sh
-git clone https://github.com/sthamann/sellm.git
-cd sellm
+git clone https://github.com/sthamann/sellama.git
+cd sellama
 ./scripts/dev.sh
 ```
 
 Open [the storefront](http://127.0.0.1:8787/) or
-[seLLM Studio](http://127.0.0.1:8787/#merchant). Choose **Create shop** on the
+[Sellama Studio](http://127.0.0.1:8787/#merchant). Choose **Create shop** on the
 Studio login page to create your personal owner account and a separate shop.
 The fashion demo, variants, cart and simulated checkout work **without a model
 download or provider API key**.
@@ -134,15 +134,15 @@ terminal open; Ctrl+C stops the app and retains the database.
 
 </details>
 
-## See seLLM in action
+## See Sellama in action
 
 **New feature tours · 13 October 2026.** Actual current UI, English captions and no sound.
 
 | Connected commerce · 1:10 | Build and automate · 1:16 | Connected intelligence · 1:12 |
 | --- | --- | --- |
-| [![POS, orders and B2B](docs/assets/showcase/connected-commerce.webp)](https://sthamann.github.io/sellm/index.html#demo) | [![Visual apps, preview and release](docs/assets/showcase/build-and-automate.webp)](https://sthamann.github.io/sellm/index.html#demo) | [![Marketplace content and visitor graph](docs/assets/showcase/connected-intelligence.webp)](https://sthamann.github.io/sellm/index.html#demo) |
+| [![POS, orders and B2B](docs/assets/showcase/connected-commerce.webp)](https://sthamann.github.io/sellama/index.html#demo) | [![Visual apps, preview and release](docs/assets/showcase/build-and-automate.webp)](https://sthamann.github.io/sellama/index.html#demo) | [![Marketplace content and visitor graph](docs/assets/showcase/connected-intelligence.webp)](https://sthamann.github.io/sellama/index.html#demo) |
 
-[**Watch with chapters**](https://sthamann.github.io/sellm/index.html#demo) · [**Transcripts and capture boundaries**](docs/video-tours.md) · [**Team briefing in German and English**](https://team.sellm.ai/#tours)
+[**Watch with chapters**](https://sthamann.github.io/sellama/index.html#demo) · [**Transcripts and capture boundaries**](docs/video-tours.md) · [**Team briefing in German and English**](https://team.sellama.ai/#tours)
 
 Recorded in an isolated local synthetic shop at merged commit `c6b3c3c`. The clips show a saved POS sale/receipt, a working app preview and an app-only sandbox release; marketplace and EDI scenes show configuration, not live external delivery.
 
@@ -163,7 +163,7 @@ visibility, specifications, SEO, cross-selling, downloads and reviews together. 
 
 ### Intelligence beside the work
 
-**Ask seLLM** opens beside products, orders, customers, settings and app workspaces. It prepares an editable question with the current workspace, staging environment and linked entity reference. The existing conversation, evidence and permission-checked proposals stay connected; opening help preserves the product editor.
+**Ask Sellama** opens beside products, orders, customers, settings and app workspaces. It prepares an editable question with the current workspace, staging environment and linked entity reference. The existing conversation, evidence and permission-checked proposals stay connected; opening help preserves the product editor.
 
 [![Contextual Studio assistance beside a selected product](docs/assets/showcase/workspace-copilot.png)](docs/ui-experience.md)
 
@@ -278,7 +278,7 @@ Capture versions, recording edits and live-provider limits remain explicit.
 
 ## Operate the whole platform
 
-[**admin.sellm.ai**](https://admin.sellm.ai/) is the entry to merchant and
+[**admin.sellama.ai**](https://admin.sellama.ai/) is the entry to merchant and
 platform sign-in. The separate operator console creates shops, inspects their dossiers, and
 supports pause, recoverable trash and restore. Configured wildcard routing gives
 shops subdomains; diagnostics probe the actual database, index, pools and queues.
@@ -366,11 +366,11 @@ bounded fuel/memory and no network/filesystem access.
 | **45 extracted production policies · 97 Lean properties** | Exact named pure decisions, Rust/Lean conformance and rejected negative mutations. Surrounding SQL/providers/browser behavior remains outside those proofs. [Formal boundary](docs/formal-verification.md). |
 | **1,000,000 products + 1,000,000 translations** | Dated local commerce workloads with retained raw measurements and failures; not production capacity or a Shopware speed ratio. [Benchmarks](docs/benchmarks.md). |
 | **Translation workflow** | Four-language Studio, platform, checkout and bundled app controls; shared content inheritance, additional shop content languages and translator-friendly catalogue export/import. [How translations work](docs/localization.md). |
-| **Continuous verification** | Source ownership, localization, Rust/frontend checks, real PostgreSQL integration, original PHP comparisons and Lean/mutation gates. [CI](https://github.com/sthamann/sellm/actions) · [Testing](docs/testing.md). |
+| **Continuous verification** | Source ownership, localization, Rust/frontend checks, real PostgreSQL integration, original PHP comparisons and Lean/mutation gates. [CI](https://github.com/sthamann/sellama/actions) · [Testing](docs/testing.md). |
 
 ## Production architecture
 
-[![How seLLM connects storefronts, Studio, commerce transactions, apps and intelligence](docs/assets/architecture/system.svg)](docs/production-architecture.md)
+[![How Sellama connects storefronts, Studio, commerce transactions, apps and intelligence](docs/assets/architecture/system.svg)](docs/production-architecture.md)
 
 The core now includes an exact money boundary with explicit currency scale, strict
 RLS deployment checks, allocations for all payment methods, a central payment state
@@ -415,7 +415,7 @@ ledger integration. [Payment provider requirements and current limits](docs/paym
 
 ## License and contributions
 
-**Source available under the [seLLM Sustainable Use License 1.0](LICENSE).**
+**Source available under the [Sellama Sustainable Use License 1.0](LICENSE).**
 Run and customize your company's own stores, brands and apps. Selling a competing
 shop system, white-labeling or providing managed commerce/SaaS for independent
 merchants requires a separate written commercial license.
@@ -426,7 +426,7 @@ retain their original rights; third-party terms remain intact.
 
 Bring a reproducible commerce bug, a useful extension, a locale correction or a
 bounded Shopware port with original-source comparisons.
-[Contribute](CONTRIBUTING.md) · [Open an issue](https://github.com/sthamann/sellm/issues/new/choose) ·
+[Contribute](CONTRIBUTING.md) · [Open an issue](https://github.com/sthamann/sellama/issues/new/choose) ·
 [Changelog](CHANGELOG.md).
 
 ### Channel management and private previews
@@ -435,7 +435,7 @@ Existing sales channels now support revisioned editing, pause/resume and public/
 
 ### Checkout inside connected experiences
 
-Connected original Storyfront experiences can open seLLM’s existing checkout in
+Connected original Storyfront experiences can open Sellama’s existing checkout in
 a native overlay, keeping the shopper on the experience domain. Completion is
 verified with Core before the original bag is updated. Checkout order labels use
 the cart language and remain immutable. The original Studio overview recognizes
