@@ -7,11 +7,12 @@ Current product illustrations use the approved Living V identity and were captur
 - [Additional current interface captures](additional-veyndo-captures.json)
 - [Remaining feature and tutorial captures](remaining-veyndo-captures.json)
 - [Current product knowledge, flow, identity explorer and contextual assistant](veyndo-current-context-captures.json)
+- [Public domain and checkout captures](public-domain-captures.json)
 - [Feature recordings](feature-tour/recordings.json)
 - [App tutorial inventory](app-tutorials/README.md)
 
 The files are browser captures or explicitly identified editorial sequences of actual captured UI. Waiting and readability holds are edited; film duration is not response-time evidence. Bundled product artwork is demo merchandise imagery, separate from the interface capture.
 
-Earlier release acceptance pictures are linked at their immutable preceding revision in the relevant guides. They retain their actual capture date and test boundary; they do not illustrate the current branding. [Archived capture documentation](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/README.md).
+Earlier release acceptance pictures are linked at their immutable preceding revision in the relevant guides. They retain their actual capture date and test boundary; they do not illustrate the current branding. [Archived capture documentation](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/README.md).
 
 Benchmark JSON files retain the dates and scope of their original measurements. They are not live-shop statistics or new performance results from the brand migration.

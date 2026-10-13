@@ -17,11 +17,11 @@
   },
   {
     "path": "docs/assets/feature-tour/identity-explorer-current.png",
-    "sha256": "a157447e9252f0da46359b2727ba85568b0cc7305c9fdc02b7e321cdd3e575f5",
-    "capturedAt": "2026-10-13T19:39:36.123650+00:00",
-    "source": "Actual local VEYNDO UI, synthetic fixture",
-    "sourceRevision": "3cea18ad64a87b15ea6ad13e8186335e0dd0defd",
-    "boundary": "No model call, no payment, no published app or provider account change"
+    "sha256": "7389d48ab0b95b831e040e6db5dc4782b5609247f7294a56c49a47246a66f738",
+    "capturedAt": "2026-10-13T20:32:56.585155+00:00",
+    "source": "Actual public VEYNDO Studio, newly created synthetic migration test shop",
+    "sourceRevision": "ced4a3887086e8c6a943d774a78bc8cca5deb5dd",
+    "boundary": "Identity explorer screenshot; no real payment, model call or credential printed"
   },
   {
     "path": "docs/assets/feature-tour/workspace-assistant-current.png",

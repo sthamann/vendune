@@ -140,7 +140,8 @@
       "width": 1440,
       "height": 900,
       "sha256": "d7a1fb76e8309995426b368f8714c5b66c466fb5d1a645622e5d1becf5330752",
-      "source": "Fresh actual VEYNDO UI, isolated synthetic shop, core 5b2ebb5, 13 October 2026."
+      "source": "Actual visual App Studio. The captured version is a private draft.",
+      "capturedAt": "2026-10-13"
     },
     "flows.webp": {
       "width": 1440,
@@ -176,13 +177,55 @@
       "width": 1425,
       "height": 891,
       "sha256": "58ee8d28d797531637ea5abdd3cbeac9b761f1daba20dc0699b1363283212f2d",
-      "source": "Fresh actual VEYNDO UI, isolated synthetic shop, core 5b2ebb5, 13 October 2026."
+      "source": "Actual VEYNDO storefront with a synthetic fashion catalogue and bundled demo product artwork.",
+      "capturedAt": "2026-10-13"
     },
-    "product-detail.webp": {
+    "native-storefront-current.png": {
+      "width": 1894,
+      "height": 885,
+      "sha256": "4d457f7c31ecf51531f5ca3806d9c0f2bd48ec649730cd9997d8e6f45283a0d7",
+      "source": "Existing Cobalt Atelier demo on its new veyndo.ai domain, captured 13 October 2026.",
+      "capturedAt": "2026-10-13"
+    },
+    "native-products-current.png": {
+      "width": 1894,
+      "height": 885,
+      "sha256": "e770be991ba5626eabb0919eaa915993e1884aa94e5d794a986b5e2715ef5a63",
+      "source": "Actual native product collection and quick-add controls after the hostname migration.",
+      "capturedAt": "2026-10-13"
+    },
+    "admin-live-current.png": {
+      "width": 1894,
+      "height": 885,
+      "sha256": "533a004b8eb90507f30892a694f256a87a2d3dff12816871cb24b618b6b69a86",
+      "source": "Actual authenticated VEYNDO Studio on the public deployment. The Living V lockup fits the sidebar.",
+      "capturedAt": "2026-10-13"
+    },
+    "native-checkout-current.png": {
+      "width": 1894,
+      "height": 885,
+      "sha256": "8a157d58e3c987e0f3363257888839f2c6d58240c0149085d50982aee1ca4574",
+      "source": "Actual native cart handed to the embedded Core checkout on app.veyndo.ai. This capture stops before an order.",
+      "capturedAt": "2026-10-13"
+    },
+    "new-shop-order-current.png": {
+      "width": 1894,
+      "height": 885,
+      "sha256": "2a9acbcaf900b1e085700f10403fe60b527d62feb5570f17cbc98fd5010672a3",
+      "source": "New migration test shop, actual saved order RAC-51aa18c2 for EUR 169.00. Explicit demo payment; no real money.",
+      "capturedAt": "2026-10-13"
+    },
+    "product-detail-current.png": {
+      "width": 1879,
+      "height": 878,
+      "sha256": "ea907ef657a2d06117434a2a57e6a51714496a5e47207d3bc9e7803cad14df20",
+      "source": "Actual local VEYNDO UI, synthetic fixture; recorded 13 October 2026. See remaining and current context capture inventories."
+    },
+    "product-knowledge-current.png": {
       "width": 1440,
-      "height": 1000,
-      "sha256": "78d969bd2357e39a392d9fd0911f51cfb583c5bc080ddb1273c693cf253df5a8",
-      "source": "84d4f1b actual UI"
+      "height": 900,
+      "sha256": "4e407d09d0d64d7cbbcc8156da9690fa878554c2c19e2324e812c13013e3ce5a",
+      "source": "Actual local VEYNDO UI, synthetic fixture; recorded 13 October 2026. See remaining and current context capture inventories."
     }
   },
   "boundary": "Actual browser UI, synthetic shops and accounts. No real payment or paid inference. Presentation edits are not latency measurements."

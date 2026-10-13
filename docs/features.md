@@ -99,7 +99,7 @@ Customer identities are separate from Studio users. Accounts support registratio
 
 Paid digital files become available through purchase entitlements. Orders pin immutable asset IDs; replacing or withdrawing a public file does not silently replace the purchased bytes. Full refunds revoke relevant access; partial refunds retain it. All-digital carts omit physical shipping; mixed carts calculate it for physical items. Recovery, verified email/email changes and complete account export/erasure remain additional work. [Customer and download contracts](merchant-operations.md).
 
-[Archived capture from the preceding release: Separate customer account with personal data and a saved address](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/feature-tour/customer-account.jpg)
+[Archived capture from the preceding release: Separate customer account with personal data and a saved address](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/feature-tour/customer-account.jpg)
 
 ## VEYNDO Studio
 
@@ -381,7 +381,7 @@ The creation assistant has **Basics → Catalog & languages → Review & create*
 
 Experience onboarding installs the public Storyfront integration in the same transaction as its owned frontend binding. Migration 055 repairs older Experience shops without repeated package revisions. Apps, Storyfronts and the channel connection list show the same domain/channel and open the existing deployment-selected editor. App deactivation is blocked while its frontend dependencies remain. Installation neither copies private code nor publishes a draft.
 
-[Archived capture from the preceding release: Automatically installed Storyfront app with its domain, sales channel and editor](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/showcase/storyfront-managed.png)
+[Archived capture from the preceding release: Automatically installed Storyfront app with its domain, sales channel and editor](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/storyfront-managed.png)
 
 The public Experience deployment currently retains its React revision editor. The private native image builds the original Astro Studio and Cinematic renderer, but its successful isolated CI test does not mean every public shop uses that renderer. Native activation, workers and provider configuration are explicit deployment choices. [Current release](current-release.md) · [Generic connection contract](experience-integration.md).
 
@@ -476,7 +476,7 @@ The Coding agent view exports a task/manifest contract with credential placehold
 
 Full apps can own admin modules, product/order panels, storefront pages/home/header/detail/cart/account surfaces, namespaced HTTP aliases, MCP tools, selected planning facts and an independent service/database/model. Product Lab is a runnable example. Custom UI runs in an opaque iframe with a scoped SDK bridge; it receives no merchant bearer token and cannot replace parent DOM. Per-action rights, public reads, MCP exposure and selected planning tools are separate decisions. [Full app platform and SDK](app-platform.md).
 
-[Archived capture from the preceding release: Actual Product Lab app-owned admin surface from its dated local example](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/app-admin-en.jpg)
+[Archived capture from the preceding release: Actual Product Lab app-owned admin surface from its dated local example](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/app-admin-en.jpg)
 
 External calls have deadlines/payload/admission limits and do not hold a core DB connection. Operator configuration supplies trusted service/UI origins. Canonical signatures, dependency/channel validation, scoped app callback keys and server-enforced surface grants are implemented. Arbitrary source builds/rollout and hostile-code microVM containment remain external.
 

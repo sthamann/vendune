@@ -54,17 +54,17 @@ flowchart LR
 
 These unretouched captures show a synthetic local merchant and buyer. A unit cost-center edit persisted with actor/revision history; the buyer selected that unit, entered a PO, submitted two SKU lines and requested an approval. No external payment, email or model call was made.
 
-[Archived capture from the preceding release: Native company and purchasing-unit workspace](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/showcase/b2b-company-20261012.png)
+[Archived capture from the preceding release: Native company and purchasing-unit workspace](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/b2b-company-20261012.png)
 
-[Archived capture from the preceding release: Buyer account reuses the native cart, budget and purchasing policy](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/showcase/b2b-buyer-20261012.png)
+[Archived capture from the preceding release: Buyer account reuses the native cart, budget and purchasing policy](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/b2b-buyer-20261012.png)
 
-[Archived capture from the preceding release: The same account at 390 × 844 without horizontal overflow](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/showcase/b2b-buyer-mobile-20261012.png)
+[Archived capture from the preceding release: The same account at 390 × 844 without horizontal overflow](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/b2b-buyer-mobile-20261012.png)
 
 A complete local Chrome buyer → independent approver → checkout run saved order **RAC-f0646e6d**, **134.83 EUR**, and Bag **0**. After reloading, the same order remained visible. PostgreSQL held exactly one unreleased `13483`-minor-unit EUR budget allocation and the consumed approval. The shared final-order transport now forwards the current tenant-scoped customer session; a read-only approval refresh preserves checkout review, while changed price/revision invalidates it. These are synthetic products/contact details and a simulated payment.
 
-[Archived capture from the preceding release: Independent approval confirmed inside the reviewed checkout](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/showcase/b2b-checkout-approved-20261012.png)
+[Archived capture from the preceding release: Independent approval confirmed inside the reviewed checkout](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/b2b-checkout-approved-20261012.png)
 
-[Archived capture from the preceding release: Actual local order completion persisted after reload](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/showcase/b2b-purchase-completed-20261012.png)
+[Archived capture from the preceding release: Actual local order completion persisted after reload](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/b2b-purchase-completed-20261012.png)
 
 Reopening the account preserves its current unit and purchase-order reference. The unit/PO restoration, independent employee grants, list ownership and one-field language inheritance have UI regressions; approval completion, native order, PDF and Flow effects have HTTP/PostgreSQL acceptance.
 
@@ -72,7 +72,7 @@ Reopening the account preserves its current unit and purchase-order reference. T
 
 The hosted B2B source tree from PR #93 passed both full CI runs, its migration job completed, and the Core reached Running, 1/1. A synthetic company and unit were saved through Studio, reloaded and reopened with their original EUR budget, approval threshold, cost center and required PO. During this test a digit-led UUID exposed an invalid generated reference; the shared generator now guarantees the native identifier contract, with a regression covering both editors. The capture uses explicit valid references. It confirms hosted configuration persistence, not certified EDI transport or a real provider charge.
 
-[Archived capture from the preceding release: Public company and unit configuration after reload](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/showcase/b2b-public-unit-20261012.png)
+[Archived capture from the preceding release: Public company and unit configuration after reload](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/b2b-public-unit-20261012.png)
 
 ## HTTP, MCP and app integration
 

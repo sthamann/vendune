@@ -8,4 +8,4 @@ Local captures contain synthetic shops, accounts, addresses and records. Payment
 
 The two current public deployment pictures (`veyndo-admin-live.png` and `veyndo-checkout-live.png`) are from the actual new Northflank deployment on `app.veyndo.ai` and a public `veyndo.ai` shop. The admin image shows the sign-in entry. The checkout image shows an unsubmitted simulated-payment form. [Current release evidence](../../current-release.md).
 
-Earlier dated B2B, Storyfront and app-lifecycle acceptance pictures are archived at their preceding immutable revision in the current release notes. [Original showcase provenance](https://github.com/sthamann/veyndo/blob/e2eee5f7a1baacd00be3cfbbae97ff4c24522674/docs/assets/showcase/README.md) preserves their actual earlier domain, source and capture date.
+Earlier dated B2B, Storyfront and app-lifecycle acceptance pictures are archived at their preceding immutable revision in the current release notes. [Original showcase provenance](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/README.md) preserves their actual earlier domain, source and capture date.

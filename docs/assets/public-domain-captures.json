@@ -1,0 +1,52 @@
+[
+  {
+    "path": "docs/assets/showcase/admin-live-current.png",
+    "sha256": "533a004b8eb90507f30892a694f256a87a2d3dff12816871cb24b618b6b69a86",
+    "capturedAt": "2026-10-13",
+    "source": "Actual public deployment browser capture with synthetic demo records",
+    "coreRevision": "ced4a3887086e8c6a943d774a78bc8cca5deb5dd",
+    "experienceRevision": "b6caaf832ede2c7a5f6a2b892718466debe63069",
+    "nativeRevision": "e3470a62",
+    "boundary": "No new order, model call or provider setting change from this capture."
+  },
+  {
+    "path": "docs/assets/showcase/native-checkout-current.png",
+    "sha256": "8a157d58e3c987e0f3363257888839f2c6d58240c0149085d50982aee1ca4574",
+    "capturedAt": "2026-10-13",
+    "source": "Actual public deployment browser capture with synthetic demo records",
+    "coreRevision": "ced4a3887086e8c6a943d774a78bc8cca5deb5dd",
+    "experienceRevision": "b6caaf832ede2c7a5f6a2b892718466debe63069",
+    "nativeRevision": "e3470a62",
+    "boundary": "No new order, model call or provider setting change from this capture."
+  },
+  {
+    "path": "docs/assets/showcase/native-products-current.png",
+    "sha256": "e770be991ba5626eabb0919eaa915993e1884aa94e5d794a986b5e2715ef5a63",
+    "capturedAt": "2026-10-13",
+    "source": "Actual public deployment browser capture with synthetic demo records",
+    "coreRevision": "ced4a3887086e8c6a943d774a78bc8cca5deb5dd",
+    "experienceRevision": "b6caaf832ede2c7a5f6a2b892718466debe63069",
+    "nativeRevision": "e3470a62",
+    "boundary": "No new order, model call or provider setting change from this capture."
+  },
+  {
+    "path": "docs/assets/showcase/native-storefront-current.png",
+    "sha256": "4d457f7c31ecf51531f5ca3806d9c0f2bd48ec649730cd9997d8e6f45283a0d7",
+    "capturedAt": "2026-10-13",
+    "source": "Actual public deployment browser capture with synthetic demo records",
+    "coreRevision": "ced4a3887086e8c6a943d774a78bc8cca5deb5dd",
+    "experienceRevision": "b6caaf832ede2c7a5f6a2b892718466debe63069",
+    "nativeRevision": "e3470a62",
+    "boundary": "No new order, model call or provider setting change from this capture."
+  },
+  {
+    "path": "docs/assets/showcase/new-shop-order-current.png",
+    "sha256": "2a9acbcaf900b1e085700f10403fe60b527d62feb5570f17cbc98fd5010672a3",
+    "capturedAt": "2026-10-13",
+    "source": "Actual public deployment browser capture with synthetic demo records",
+    "coreRevision": "ced4a3887086e8c6a943d774a78bc8cca5deb5dd",
+    "experienceRevision": "b6caaf832ede2c7a5f6a2b892718466debe63069",
+    "nativeRevision": "e3470a62",
+    "boundary": "Explicit simulated demo order; no real money."
+  }
+]
