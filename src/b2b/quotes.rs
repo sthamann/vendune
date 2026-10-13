@@ -14,12 +14,12 @@ pub(super) async fn invoke(a: &App, h: &RequestContext, op: &str, v: &Value) -> 
         merchant(a, h)?;
         auth::permit(h, "b2b.manage")?;
     }
-    let c = if op == "quote.request" {
+    let c = if ["quote.request", "quote.get", "quote.current"].contains(&op) {
         Some(load_cart(a, h).await?)
     } else {
         None
     };
-    let q = if let Some(c) = &c {
+    let q = if let Some(c) = c.as_ref().filter(|_| op == "quote.request") {
         {
             let mut snapshot = cart_json(a, c).await?;
             if let Some(v) = snapshot.as_object_mut() {
@@ -51,6 +51,28 @@ pub(super) async fn invoke(a: &App, h: &RequestContext, op: &str, v: &Value) -> 
         require(&policy, "quotes")?;
         let rows=sqlx::query("SELECT id,unit_id,buyer_id,state,revision,data FROM b2b_quotes WHERE tenant=$1 AND unit_id=$2 AND buyer_id=$3 ORDER BY created_at DESC LIMIT 100").bind(&t).bind(unit).bind(customer).fetch_all(&mut *tx).await?;
         return Ok(json!({"elements":rows.iter().map(wire).collect::<Vec<_>>()}));
+    }
+    if ["quote.get", "quote.current"].contains(&op) {
+        let c = c.as_ref().unwrap();
+        let policy = guard_conn(&mut tx, h, c)
+            .await?
+            .ok_or(bad("Select a purchasing unit first"))?;
+        require(&policy, "quotes")?;
+        let context = c.data.b2b.as_ref().unwrap();
+        let id = if op == "quote.get" {
+            Some(v["id"].as_str().ok_or(bad("Quote required"))?)
+        } else {
+            None
+        };
+        let rows = sqlx::query("SELECT id,unit_id,buyer_id,state,revision,data FROM b2b_quotes WHERE tenant=$1 AND cart_id=$2 AND buyer_id=$3 AND unit_id=$4 AND ($5::text IS NULL OR id=$5) ORDER BY created_at DESC,id DESC LIMIT 20")
+            .bind(&t).bind(&c.id).bind(&context.customer_id).bind(&context.unit_id).bind(id).fetch_all(&mut *tx).await?;
+        if op == "quote.get" {
+            return rows.first().map(wire).ok_or(Error(
+                StatusCode::NOT_FOUND,
+                "Quote not found in this cart".into(),
+            ));
+        }
+        return Ok(json!({"elements":rows.iter().map(wire).collect::<Vec<_>>(),"limit":20}));
     }
     if let Some(c) = &c {
         if c.status != "open"

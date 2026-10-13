@@ -283,17 +283,7 @@ pub(crate) fn router(a: App) -> Router {
             "/mcp",
             post(mcp).get(|| async { StatusCode::METHOD_NOT_ALLOWED }),
         )
-        .route("/.well-known/ucp", get(ucp_profile))
-        .route("/ucp/v1/checkout-sessions", post(ucp_create))
-        .route(
-            "/ucp/v1/checkout-sessions/{id}",
-            get(ucp_get).put(ucp_update),
-        )
-        .route(
-            "/ucp/v1/checkout-sessions/{id}/complete",
-            post(ucp_complete),
-        )
-        .route("/ucp/v1/checkout-sessions/{id}/cancel", post(ucp_cancel))
+        .merge(ucp::ucp_router())
         .fallback_service(performance::delivery::assets())
         .layer(axum::extract::DefaultBodyLimit::max(64 * 1024))
         .layer(axum::middleware::from_fn(performance::memoize))

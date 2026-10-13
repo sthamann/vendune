@@ -22,7 +22,11 @@ pub(crate) fn native_static(path: &str) -> bool {
         || path.starts_with("/brand/")
         || matches!(
             path,
-            "/favicon.svg" | "/robots.txt" | "/manifest.webmanifest"
+            "/favicon.svg"
+                | "/robots.txt"
+                | "/manifest.webmanifest"
+                // Immutable, secret-free protocol contract, readable without a tenant.
+                | "/ucp/2026-10-13/b2b-negotiation.json"
         )
 }
 
@@ -117,7 +121,12 @@ mod tests {
     }
     #[test]
     fn static_bypass_never_captures_scoped_assets_or_operations() {
-        for path in ["/", "/assets/index-12345678.js", "/images/logo.svg"] {
+        for path in [
+            "/",
+            "/assets/index-12345678.js",
+            "/images/logo.svg",
+            "/ucp/2026-10-13/b2b-negotiation.json",
+        ] {
             assert!(super::native_static(path));
         }
         for path in [
@@ -127,6 +136,8 @@ mod tests {
             "/channel-preview/a",
             "/mcp",
             "/ucp/v1/checkout-sessions",
+            "/ucp/2026-10-13/b2b-negotiation.json/private",
+            "/ucp/2099-01-01/b2b-negotiation.json",
         ] {
             assert!(!super::native_static(path));
         }

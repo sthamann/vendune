@@ -144,7 +144,7 @@ does not certify the private Shopware Payments adapter for every currency.
 
 - `src/currencies/{model,pricing,rates,routes,jobs,capabilities}.rs`: registry,
   deterministic price resolution, bounded retrieval, public/private APIs and workers.
-- `src/commerce/`, `src/cart_price.rs`, `src/order_checkout.rs`, `src/ucp.rs`:
+- `src/commerce/`, `src/cart_price.rs`, `src/order_checkout.rs`, `src/ucp/`:
   catalog, destination taxes, shipping, checkout and protocol consumers.
 - `src/payments/`, `src/operations/receipt_text.rs`, `src/studio/revenue.rs`:
   provider ledger, documents and separated invoice-currency reporting.

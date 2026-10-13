@@ -45,7 +45,7 @@ This folder owns the Rust modules listed below. Each source begins with its resp
 - [`seed.rs`](seed.rs): Idempotent synthetic template catalogue initialization.
 - [`shop_domains.rs`](shop_domains.rs): Resolve configured shop subdomains before authentication; reject unknown hosts and conflicting scopes.
 - [`studio.rs`](studio.rs): Verified merchant overview facts consumed by the chat and activity views.
-- [`ucp.rs`](ucp.rs): Selected UCP checkout adapters sharing the native cart.
+- [`ucp/`](ucp/): Versioned UCP checkout, discovery and native B2B negotiation adapters.
 - [`verified_kernel.rs`](verified_kernel.rs): Closed, side-effect-free commerce policies extracted to Lean; keep within the checked bool/u64 grammar.
 - [`workers.rs`](workers.rs): Independently deployable worker roles; leases and durable receipts coordinate replicas.
 

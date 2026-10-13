@@ -6,7 +6,7 @@ pub(crate) fn router() -> Router<App> {
         .route("/store-api/checkout/handoff", post(issue))
         .route("/store-api/checkout/handoff/consume", post(consume))
 }
-async fn issue(
+pub(crate) async fn issue(
     State(a): State<App>,
     h: RequestContext,
     Json(v): Json<Value>,

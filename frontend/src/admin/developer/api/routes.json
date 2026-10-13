@@ -7,7 +7,7 @@
   {
     "path": "/.well-known/ucp",
     "method": "GET",
-    "source": "src/routes.rs"
+    "source": "src/ucp/mod.rs"
   },
   {
     "path": "/api/agent/chat",
@@ -1415,29 +1415,39 @@
     "source": "src/routes.rs"
   },
   {
+    "path": "/ucp/2026-10-13/b2b-negotiation.json",
+    "method": "GET",
+    "source": "src/ucp/mod.rs"
+  },
+  {
     "path": "/ucp/v1/checkout-sessions",
     "method": "POST",
-    "source": "src/routes.rs"
+    "source": "src/ucp/mod.rs"
   },
   {
     "path": "/ucp/v1/checkout-sessions/{id}",
     "method": "GET",
-    "source": "src/routes.rs"
+    "source": "src/ucp/mod.rs"
   },
   {
     "path": "/ucp/v1/checkout-sessions/{id}",
     "method": "PUT",
-    "source": "src/routes.rs"
+    "source": "src/ucp/mod.rs"
+  },
+  {
+    "path": "/ucp/v1/checkout-sessions/{id}/b2b/{operation}",
+    "method": "POST",
+    "source": "src/ucp/mod.rs"
   },
   {
     "path": "/ucp/v1/checkout-sessions/{id}/cancel",
     "method": "POST",
-    "source": "src/routes.rs"
+    "source": "src/ucp/mod.rs"
   },
   {
     "path": "/ucp/v1/checkout-sessions/{id}/complete",
     "method": "POST",
-    "source": "src/routes.rs"
+    "source": "src/ucp/mod.rs"
   },
   {
     "path": "/ucp/v1/products/{id}/facts",

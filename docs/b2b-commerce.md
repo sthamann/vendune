@@ -5,6 +5,8 @@ cart, inventory transaction, payment-provider contract, order and document owner
 used by B2C and POS. A company is inside one merchant tenant. A sales channel is a
 shared selling context; an unrelated SaaS merchant remains a separate tenant.
 
+**UCP buyers:** [Discoverable offer negotiation](b2b-ucp-negotiation.md) connects the same RFQs, merchant inbox and purchasing approvals to UCP checkout. This is a versioned Vendune extension, not an official UCP price-negotiation capability.
+
 ## Build only the modules a buyer needs
 
 | Module | Configuration / actual behavior |
