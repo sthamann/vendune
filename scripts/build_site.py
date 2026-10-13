@@ -11,8 +11,8 @@ from site_markdown import build_documents
 
 ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / '.site'
-BASE = 'https://sthamann.github.io/vendune/'
-REPO = 'https://github.com/sthamann/vendune'
+BASE = 'https://sthamann.github.io/veyndo/'
+REPO = 'https://github.com/sthamann/veyndo'
 
 
 def evidence_fields():
@@ -92,6 +92,7 @@ def build():
         if asset.is_file():
             shutil.copyfile(asset, DEST / 'assets' / asset.name)
     shutil.copytree(ROOT / 'docs/assets/showcase', DEST / 'docs/assets/showcase')
+    shutil.copytree(ROOT / 'docs/brand', DEST / 'docs/brand')
     urls = []
 
     def write_page(path, title, description, content):
@@ -112,7 +113,7 @@ def build():
             'description': html.escape(description, quote=True),
             'canonical': url,
             'image': BASE + ('docs/assets/showcase/storefront.webp' if filename == 'index.html'
-                             else 'assets/vendune-studio-en.jpg'),
+                             else 'assets/veyndo-studio-en.jpg'),
             'schema': json.dumps(schema, ensure_ascii=False).replace('<', '\\u003c'),
             'content': content,
             'root': '' if path.parent == Path('.') else os.path.relpath('.', path.parent) + '/',

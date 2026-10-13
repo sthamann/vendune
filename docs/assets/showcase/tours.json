@@ -78,37 +78,33 @@
     "connected-intelligence": {
       "id": "connected-intelligence",
       "title": "Connected intelligence",
-      "durationSeconds": 72,
+      "durationSeconds": 50.4,
       "chapters": [
         {
-          "start": 5,
-          "title": "Channel Content"
+          "start": 0,
+          "title": "VEYNDO"
         },
         {
-          "start": 23,
-          "title": "Consented Signals"
+          "start": 4,
+          "title": "Knowledge and boundaries"
         },
         {
-          "start": 37,
-          "title": "Connected Knowledge"
-        },
-        {
-          "start": 55,
-          "title": "Merchant Control"
+          "start": 46,
+          "title": "People in control"
         }
       ],
-      "sourceCommit": "c6b3c3c1a6050c36e5a64de900b873f856ab733e",
+      "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
       "capturedAt": "2026-10-13",
       "language": "en",
       "audio": false,
       "captions": "Burned in and WebVTT",
       "width": 1920,
       "height": 1080,
-      "description": "Edit channel-specific offer content, inspect consented visitor statistics and follow shopping events into the semantic product graph.",
-      "boundary": "Marketplace credentials are not connected. Visitor observations and orders are synthetic; graph links do not establish causal uplift or automatic model training.",
-      "source": "Actual local merged Vendune UI, isolated synthetic shop; chapter trims preserve action order.",
-      "sha256": "e80e67135b0ff72a937b7ac38c15808ce66f5761c58b1ab090e875c2cc2c7d66",
-      "bytes": 5556715,
+      "description": "Explore connected knowledge, a reviewed demonstration source and explicit limits for bounded price autonomy.",
+      "boundary": "Synthetic demonstration source and shop. Price autonomy stays disabled. No model training, continuous autonomous optimization or external assistant account is claimed.",
+      "source": "Actual local VEYNDO UI from a verified rebrand branch, isolated synthetic shop; no claim of merged or production deployment.",
+      "sha256": "6c3cdbbb6c34c701964c88a33ec8f8ea0a3059dfb353620d2c6d8243df79e904",
+      "bytes": 1481543,
       "codec": "h264",
       "fps": 30
     }

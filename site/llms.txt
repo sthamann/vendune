@@ -1,40 +1,40 @@
-# Vendune
+# Veyndo
 
-> A source-available Rust ecommerce prototype under the Vendune Sustainable Use License for merchant-approved AI operations,
+> A source-available Rust ecommerce prototype under the Veyndo Sustainable Use License for merchant-approved AI operations,
 > local LLMs, partial MCP/UCP adapters and selected original Shopware behavior ports.
 
 ## Start
-- [Overview](https://sthamann.github.io/vendune/)
-- [Measured local performance](https://sthamann.github.io/vendune/benchmarks.html)
-- [Local quickstart](https://sthamann.github.io/vendune/quickstart.html)
-- [Local MCP bridge](https://sthamann.github.io/vendune/mcp.html)
-- [Shopware behavior ports](https://sthamann.github.io/vendune/shopware.html)
+- [Overview](https://sthamann.github.io/veyndo/)
+- [Measured local performance](https://sthamann.github.io/veyndo/benchmarks.html)
+- [Local quickstart](https://sthamann.github.io/veyndo/quickstart.html)
+- [Local MCP bridge](https://sthamann.github.io/veyndo/mcp.html)
+- [Shopware behavior ports](https://sthamann.github.io/veyndo/shopware.html)
 
-- [Connected playground](https://sthamann.github.io/vendune/playground.html)
+- [Connected playground](https://sthamann.github.io/veyndo/playground.html)
 
 ## Current release
-- [Core hardening](https://sthamann.github.io/vendune/docs/core-hardening.html): Eighteen review findings, trusted request identity, explicit API permissions, non-owner forced RLS, transaction-local scoping, real PgBouncer tests, shared resource leases and durable outbox recovery. Deployment cutover and proof boundaries are explicit.
-- [8 October release review](https://sthamann.github.io/vendune/docs/current-release.html): Managed Storyfront apps, domains/editor links, channel pause/private previews, guest buyers and merchant enrollment; public/native deployment boundaries.
-- [Sales channels and domains](https://sthamann.github.io/vendune/docs/channel-management.html)
-- [Currencies and pricing](https://sthamann.github.io/vendune/docs/currencies.html)
-- [Rust app services](https://sthamann.github.io/vendune/docs/rust-services.html)
+- [Core hardening](https://sthamann.github.io/veyndo/docs/core-hardening.html): Eighteen review findings, trusted request identity, explicit API permissions, non-owner forced RLS, transaction-local scoping, real PgBouncer tests, shared resource leases and durable outbox recovery. Deployment cutover and proof boundaries are explicit.
+- [8 October release review](https://sthamann.github.io/veyndo/docs/current-release.html): Managed Storyfront apps, domains/editor links, channel pause/private previews, guest buyers and merchant enrollment; public/native deployment boundaries.
+- [Sales channels and domains](https://sthamann.github.io/veyndo/docs/channel-management.html)
+- [Currencies and pricing](https://sthamann.github.io/veyndo/docs/currencies.html)
+- [Rust app services](https://sthamann.github.io/veyndo/docs/rust-services.html)
 
 ## Full HTML documentation
-- [Production architecture](https://sthamann.github.io/vendune/docs/production-architecture.html): Illustrated request, checkout, tenant security, cache, quota and grounded AI paths, with source locations, deployment configuration and explicit proof limits.
-- [All guides and developer notes](https://sthamann.github.io/vendune/docs/)
-- [Shop knowledge](https://sthamann.github.io/vendune/docs/knowledge-workspace.html)
-- [App Studio](https://sthamann.github.io/vendune/docs/app-studio.html)
-- [Five illustrated app workshops](https://sthamann.github.io/vendune/docs/app-tutorials/README.html): Product advice, private returns, customer fields, UTC review flows and ERP handoff; current English screenshots, agent prompts, rights and staging/release steps.
+- [Production architecture](https://sthamann.github.io/veyndo/docs/production-architecture.html): Illustrated request, checkout, tenant security, cache, quota and grounded AI paths, with source locations, deployment configuration and explicit proof limits.
+- [All guides and developer notes](https://sthamann.github.io/veyndo/docs/)
+- [Shop knowledge](https://sthamann.github.io/veyndo/docs/knowledge-workspace.html)
+- [App Studio](https://sthamann.github.io/veyndo/docs/app-studio.html)
+- [Five illustrated app workshops](https://sthamann.github.io/veyndo/docs/app-tutorials/README.html): Product advice, private returns, customer fields, UTC review flows and ERP handoff; current English screenshots, agent prompts, rights and staging/release steps.
 
 ## Original documentation
-- [Repository](https://github.com/sthamann/vendune)
-- [Feature matrix](https://sthamann.github.io/vendune/docs/shopware-parity.html)
-- [Recorded verification](https://github.com/sthamann/vendune/blob/main/docs/verification.json)
-- [Security and SaaS boundaries](https://sthamann.github.io/vendune/docs/security.html)
+- [Repository](https://github.com/sthamann/veyndo)
+- [Feature matrix](https://sthamann.github.io/veyndo/docs/shopware-parity.html)
+- [Recorded verification](https://github.com/sthamann/veyndo/blob/main/docs/verification.json)
+- [Security and SaaS boundaries](https://sthamann.github.io/veyndo/docs/security.html)
 
-- [Rules and durable flows](https://sthamann.github.io/vendune/docs/automation.html)
-- [Full app contract](https://sthamann.github.io/vendune/docs/app-platform.html)
-- [Measured test coverage](https://sthamann.github.io/vendune/docs/testing.html)
+- [Rules and durable flows](https://sthamann.github.io/veyndo/docs/automation.html)
+- [Full app contract](https://sthamann.github.io/veyndo/docs/app-platform.html)
+- [Measured test coverage](https://sthamann.github.io/veyndo/docs/testing.html)
 
 ## Limits
 Working prototype. The tour uses simulated/manual payments. Configured PayPal Sandbox/Live is supported; actual PSP transactions remain unverified.
@@ -47,5 +47,5 @@ Live cloud quality, production scale and causal sales uplift are unverified.
 Own-business storefronts are permitted. Commercial shop platforms, managed hosting,
 white-label or embedded commerce SaaS for independent merchants need separate written permission.
 Previously distributed MIT versions retain their terms. Third-party licenses remain intact.
-- [License](https://github.com/sthamann/vendune/blob/main/LICENSE)
-- [Usage guide](https://sthamann.github.io/vendune/docs/licensing.html)
+- [License](https://github.com/sthamann/veyndo/blob/main/LICENSE)
+- [Usage guide](https://sthamann.github.io/veyndo/docs/licensing.html)

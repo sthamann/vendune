@@ -11,12 +11,12 @@
       "source": "84d4f1b; checkout-sku.webm [154,166] + checkout-order.webm in capture order; idle removed; no speed changes"
     },
     "app-studio": {
-      "durationSeconds": 6.875,
-      "width": 1024,
-      "height": 576,
-      "bytes": 126467,
-      "sha256": "035a0ec357a5a372f98ac6d9555b3f9f7a14992c95600d4425f52cb0ca594cb1",
-      "source": "036b36a; ../feature-tour/app-design.gif; H.264 transcode; source presentation holds retained"
+      "durationSeconds": 44.6,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 1715590,
+      "sha256": "f352787280835fa95b7fd09c97f13d3852b992760f3c646868a5c0a38c85abb9",
+      "source": "Actual VEYNDO UI, isolated synthetic shop, core 5b2ebb5; static waits shortened; approved Living V identity. No live payment or paid inference."
     },
     "knowledge": {
       "durationSeconds": 6.0,
@@ -107,16 +107,16 @@
       "source": "feature-tour; see README.md"
     },
     "app-studio.webp": {
-      "width": 1024,
-      "height": 576,
-      "sha256": "1407fce3ae54be5f03b5cd2d115ce4f3f561fe4355bd226c20dda859499a9879",
-      "source": "feature-tour; see README.md"
+      "width": 1440,
+      "height": 900,
+      "sha256": "72542a94ceee50e4ca6d73844b7e369914042213c7c4848942e765b6f09b2113",
+      "source": "Actual isolated VEYNDO rebrand branch, core 5b2ebb5, 13 October 2026."
     },
     "storefront.webp": {
-      "width": 1440,
-      "height": 1000,
-      "sha256": "0a6f288c3331097d1519d795d6daac3633003600369437ba440acf007bf76d08",
-      "source": "84d4f1b actual UI"
+      "width": 1425,
+      "height": 891,
+      "sha256": "58ee8d28d797531637ea5abdd3cbeac9b761f1daba20dc0699b1363283212f2d",
+      "source": "Actual isolated VEYNDO rebrand branch, core 5b2ebb5, 13 October 2026."
     },
     "product-detail.webp": {
       "width": 1440,

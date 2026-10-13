@@ -13,7 +13,7 @@ from urllib.parse import quote, unquote, urlsplit, urlunsplit
 import markdown
 
 ROOT = Path(__file__).resolve().parents[1]
-REPO = 'https://github.com/sthamann/vendune'
+REPO = 'https://github.com/sthamann/veyndo'
 MEDIA = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg', '.mp4', '.webm', '.pdf'}
 
 
@@ -75,7 +75,7 @@ class Document(HTMLParser):
                 output.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(target, output)
         else:
-            return urlunsplit(('https', 'github.com', '/sthamann/vendune/' +
+            return urlunsplit(('https', 'github.com', '/sthamann/veyndo/' +
                               ('tree' if target.is_dir() else 'blob') + '/main/' +
                               quote(relative.as_posix(), safe='/'), url.query, url.fragment))
         path = os.path.relpath(mapped, destination(self.source).parent).replace(os.sep, '/')
@@ -148,12 +148,12 @@ def build_documents(dest, write_page):
                    f'<a href="{REPO}/blob/main/{quote(source.as_posix(), safe="/")}">View on GitHub ↗</a>'
                    '</div>' + body + '</article></div>')
         description = text[len(title):].strip()[:180] or title
-        write_page(path, title + ' | ' + source.as_posix() + ' | Vendune', description, content)
+        write_page(path, title + ' | ' + source.as_posix() + ' | Veyndo', description, content)
         records.append({'source': source.as_posix(), 'url': path.as_posix(),
                         'title': title, 'description': description, 'text': text})
     groups = [('Guides', [r for r in records if r['source'].startswith('docs/')]),
               ('Repository and module notes', [r for r in records if not r['source'].startswith('docs/')])]
-    content = ('<article class="article docs-index"><p class="eyebrow">Vendune documentation</p>'
+    content = ('<article class="article docs-index"><p class="eyebrow">Veyndo documentation</p>'
                '<h1>Guides and developer reference</h1><p class="lead">Read the Markdown guides '
                'as web pages. Every page is built from its repository source on publication.</p>'
                '<div class="docs-start"><a href="quickstart.html">Get started</a>'
@@ -172,8 +172,8 @@ def build_documents(dest, write_page):
                         '</a><small>' + html.escape(record['source']) + '</small></li>')
         content += '</ul></section>'
     content += '</div></article><script src="../docs.js" defer></script>'
-    write_page(Path('docs/index.html'), 'Documentation | Vendune',
-               'Search and read all Vendune guides, source ownership notes and developer contracts.', content)
+    write_page(Path('docs/index.html'), 'Documentation | Veyndo',
+               'Search and read all Veyndo guides, source ownership notes and developer contracts.', content)
     (dest / 'docs/search.json').write_text(json.dumps(records, ensure_ascii=False))
     (dest / 'docs/manifest.json').write_text(json.dumps(
         [{'source': r['source'], 'url': r['url']} for r in records], indent=2) + '\n')
