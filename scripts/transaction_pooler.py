@@ -4,7 +4,7 @@ import os
 import subprocess
 import sys
 subprocess.run(
-    [sys.executable,'scripts/verify_integration.py','--container',os.environ.get('TEST_DB_CONTAINER','vendune-postgres-1'),'--only','production_foundations'],
+    [sys.executable,'scripts/verify_integration.py','--container',os.environ.get('TEST_DB_CONTAINER','sellm-postgres-1'),'--only','production_foundations'],
     env={**os.environ,'TEST_TRANSACTION_POOLING':'1'},check=True,
 )
 print('PASS real PgBouncer transaction mode with direct commit-notification listeners')

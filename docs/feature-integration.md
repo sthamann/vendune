@@ -98,4 +98,4 @@ consent-aware capture adapters for external frontends remain separate work.
 
 ## UCP purchasing integration — 13 October 2026
 
-The namespaced Vendune UCP extension connects existing quote conversations, integer-currency merchant offers, original-cart acceptance and separate approvals to the same checkout. Discovery, native Store/MCP commands, current-version selection, bounded public-profile HTTPS intake and canonical continuation links share existing owners. No second offer ledger or price engine was introduced. [Detailed contract and acceptance boundaries](b2b-ucp-negotiation.md).
+The namespaced seLLM UCP extension connects existing quote conversations, integer-currency merchant offers, original-cart acceptance and separate approvals to the same checkout. Discovery, native Store/MCP commands, current-version selection, bounded public-profile HTTPS intake and canonical continuation links share existing owners. No second offer ledger or price engine was introduced. [Detailed contract and acceptance boundaries](b2b-ucp-negotiation.md).

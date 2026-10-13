@@ -11,7 +11,7 @@
 
 ## UCP B2B offer negotiation — 13 October 2026
 
-- Advertise the versioned Vendune B2B negotiation extension alongside UCP checkout, with a namespace-bound composed schema and configured hosted endpoint.
+- Advertise the versioned seLLM B2B negotiation extension alongside UCP checkout, with a namespace-bound composed schema and configured hosted endpoint.
 - Route buyer RFQs, counterproposal messages, original-cart offer acceptance/release and purchasing approval requests to existing B2B owners; retain the merchant Studio quote inbox, APIs, MCP, history and transactional Flow events.
 - Select exact platform capability versions through bounded public HTTPS profiles, or an explicit vendor client shortcut. Profile compatibility never grants identity; current customer/unit permissions, foreign-object denial, CAS, expiry, budgets and final checkout guards remain native.
 - Expose current purchasing blockers, original-cart quote reads, scoped continuation/order URLs and terminal quote state. Add real PostgreSQL/UCP purchase and denial regressions; preserve the selected-protocol and simulated-payment boundaries.
@@ -177,7 +177,7 @@
 
 ## Original public Storyfront acceptance — 9 October 2026
 
-- Replace the reduced hosted Experience editor with the original private Storyfront Studio, Cinematic renderer and workers on the existing Experience service. Keep private source and provider credentials out of public Vendune.
+- Replace the reduced hosted Experience editor with the original private Storyfront Studio, Cinematic renderer and workers on the existing Experience service. Keep private source and provider credentials out of public seLLM.
 - Record a fresh AI demo catalog with three generated product images, original review/build/Go live, persisted brand edits, a real German product-answer scene and a 390px responsive check.
 - Verify original Bag → canonical checkout → saved simulated order RAC-4aed0976 (54.70 EUR). Return-to-shop uses canonical hosted navigation instead of retaining the standard SPA; local navigation remains unchanged.
 - Document canonical Core ownership, mounted public API admission, one-use checkout handoff, source pins and actual browser screenshots. Preserve dated legacy observations and explicit upstream localization, provider and production-capacity limits.
@@ -228,11 +228,11 @@
 - Added compiler-typed mail configuration, verified SMTP STARTTLS/TLS and Resend/SendGrid delivery, atomic offline migration, actual multi-process/provider regressions and the extracted Lean retry predicate.
 - Archived the previous Python implementation as a migration comparison oracle. Python remains in development tools and independent app examples, outside the first-party central runtime. See [the architecture and language audit](docs/rust-services.md).
 
-## Vendune identity — October 2026
+## seLLM identity — October 2026
 
-- Renamed the public repository, Rust crate/binary, frontend package, Docker images, MCP identity and documentation to Vendune.
-- Added the original Vendune V/dune vector mark, light/dark wordmarks, shared Studio/operator branding and favicons.
-- Preserve existing shop identities, browser sessions and database volumes; fresh installations use Vendune names.
+- Renamed the public repository, Rust crate/binary, frontend package, Docker images, MCP identity and documentation to seLLM.
+- Added the original seLLM V/dune vector mark, light/dark wordmarks, shared Studio/operator branding and favicons.
+- Preserve existing shop identities, browser sessions and database volumes; fresh installations use seLLM names.
 - Recaptured current English README views and added a public-brand consistency check.
 
 ## Unified content translation editors
@@ -248,7 +248,7 @@
 This release packages the current experimental commerce slice. It is not a
 production-readiness or complete Shopware-compatibility claim.
 
-- Modular Rust commerce core and multilingual storefront/Vendune Studio.
+- Modular Rust commerce core and multilingual storefront/seLLM Studio.
 - Personal users, independent workspaces, invitations and merchant roles.
 - SKU variants, quantity prices, review moderation and configurable demo checkout.
 - Durable PostgreSQL storage with Apache AGE and pgvector.

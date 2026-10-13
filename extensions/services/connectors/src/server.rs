@@ -87,7 +87,7 @@ async fn callback(
         )
             .into_response()
     } else {
-        (code,Json(if let Ok(app)=result {json!({"connected":app,"message":"Connected. Return to Vendune Studio and refresh the app."})}else{json!({"error":"Authorization failed or expired. Start again in Vendune Studio."})})).into_response()
+        (code,Json(if let Ok(app)=result {json!({"connected":app,"message":"Connected. Return to seLLM Studio and refresh the app."})}else{json!({"error":"Authorization failed or expired. Start again in seLLM Studio."})})).into_response()
     };
     for (name, value) in [
         ("cache-control", "no-store"),
@@ -106,35 +106,35 @@ fn completion(language: &str, ok: bool) -> String {
     let (title, message) = match (locale, ok) {
         ("de", true) => (
             "Konto verbunden",
-            "Kehre ins Vendune Studio zurück und aktualisiere die App.",
+            "Kehre ins seLLM Studio zurück und aktualisiere die App.",
         ),
         ("de", false) => (
             "Verbindung fehlgeschlagen",
-            "Die Freigabe ist fehlgeschlagen oder abgelaufen. Starte erneut im Vendune Studio.",
+            "Die Freigabe ist fehlgeschlagen oder abgelaufen. Starte erneut im seLLM Studio.",
         ),
         ("fr", true) => (
             "Compte connecté",
-            "Revenez dans Vendune Studio et actualisez l’application.",
+            "Revenez dans seLLM Studio et actualisez l’application.",
         ),
         ("fr", false) => (
             "Échec de connexion",
-            "L’autorisation a échoué ou expiré. Recommencez dans Vendune Studio.",
+            "L’autorisation a échoué ou expiré. Recommencez dans seLLM Studio.",
         ),
         ("es", true) => (
             "Cuenta conectada",
-            "Vuelve a Vendune Studio y actualiza la app.",
+            "Vuelve a seLLM Studio y actualiza la app.",
         ),
         ("es", false) => (
             "Conexión fallida",
-            "La autorización falló o caducó. Vuelve a empezar en Vendune Studio.",
+            "La autorización falló o caducó. Vuelve a empezar en seLLM Studio.",
         ),
         (_, true) => (
             "Account connected",
-            "Return to Vendune Studio and refresh the app.",
+            "Return to seLLM Studio and refresh the app.",
         ),
         (_, false) => (
             "Connection failed",
-            "Authorization failed or expired. Start again in Vendune Studio.",
+            "Authorization failed or expired. Start again in seLLM Studio.",
         ),
     };
     let language = if ["de", "fr", "es"].contains(&locale) {
@@ -143,7 +143,7 @@ fn completion(language: &str, ok: bool) -> String {
         "en"
     };
     format!(
-        "<!doctype html><html lang='{language}'><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>{title}</title><style>body{{font:17px system-ui;background:#edf3ff;color:#172e51;display:grid;min-height:100vh;place-items:center}}main{{max-width:480px;background:white;padding:48px;border-radius:24px}}p{{line-height:1.6}}</style><main><small>Vendune Studio</small><h1>{title}</h1><p>{message}</p></main></html>"
+        "<!doctype html><html lang='{language}'><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>{title}</title><style>body{{font:17px system-ui;background:#edf3ff;color:#172e51;display:grid;min-height:100vh;place-items:center}}main{{max-width:480px;background:white;padding:48px;border-radius:24px}}p{{line-height:1.6}}</style><main><small>seLLM Studio</small><h1>{title}</h1><p>{message}</p></main></html>"
     )
 }
 pub async fn run() -> Result<()> {

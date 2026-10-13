@@ -17,12 +17,12 @@ fn main() {
                 })
             };
             let result = match v["kind"].as_str().unwrap_or("numeric") {
-                "string" => vendune::rule_comparison::string(
+                "string" => sellm::rule_comparison::string(
                     v["item"].as_str(),
                     v["rule"].as_str().unwrap_or(""),
                     op,
                 ),
-                "stringArray" => vendune::rule_comparison::string_array(
+                "stringArray" => sellm::rule_comparison::string_array(
                     v["item"].as_str(),
                     &v["rule"]
                         .as_array()
@@ -32,12 +32,12 @@ fn main() {
                         .collect::<Vec<_>>(),
                     op,
                 ),
-                "uuids" => vendune::rule_comparison::uuids(
+                "uuids" => sellm::rule_comparison::uuids(
                     strings(&v["item"]).as_deref(),
                     strings(&v["rule"]).as_deref(),
                     op,
                 ),
-                _ => vendune::rule_comparison::numeric(v["item"].as_f64(), v["rule"].as_f64(), op),
+                _ => sellm::rule_comparison::numeric(v["item"].as_f64(), v["rule"].as_f64(), op),
             };
             match result {
                 Ok(b) => json!(b),

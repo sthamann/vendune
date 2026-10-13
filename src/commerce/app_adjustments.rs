@@ -49,7 +49,7 @@ pub(crate) fn apply(q: &mut Value, kind: &str, minor: i64) -> Result<()> {
             return Err(bad("App adjustment exceeds current goods value"));
         }
         // The existing allocator distributes exact minor units without creating a second rounding implementation.
-        let after = vendune::discount::allocate(&totals, minor);
+        let after = sellm::discount::allocate(&totals, minor);
         let b2b = q["price"]["taxStatus"] == "net";
         for (i, line) in q["lineItems"]
             .as_array_mut()
@@ -65,9 +65,9 @@ pub(crate) fn apply(q: &mut Value, kind: &str, minor: i64) -> Result<()> {
             let rules = line["price"]["calculatedTaxes"]
                 .as_array()
                 .ok_or(bad("Quote taxes missing"))?;
-            let taxes: Vec<vendune::pricing::CalculatedTax> = rules
+            let taxes: Vec<sellm::pricing::CalculatedTax> = rules
                 .iter()
-                .map(|r| vendune::pricing::CalculatedTax {
+                .map(|r| sellm::pricing::CalculatedTax {
                     tax_rate: r["taxRate"].as_f64().unwrap_or(0.),
                     price: r["price"].as_f64().unwrap_or(0.),
                     tax: r["tax"].as_f64().unwrap_or(0.),

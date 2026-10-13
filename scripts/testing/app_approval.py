@@ -9,7 +9,7 @@ def digest(manifest):
     with tempfile.NamedTemporaryFile(mode='w', suffix='.json') as source:
         json.dump(manifest, source)
         source.flush()
-        return subprocess.check_output([str(ROOT/'target/debug/vendune'), '--app-digest', source.name], text=True).strip()
+        return subprocess.check_output([str(ROOT/'target/debug/sellm'), '--app-digest', source.name], text=True).strip()
 
 
 def pin(config, app, manifest):

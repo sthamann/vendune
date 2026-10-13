@@ -16,17 +16,17 @@ for _ in range(2):
     shops.append((shop, {'x-tenant':shop,'Authorization':'Bearer '+user['token']}))
 one, admin = shops[0]; two, other = shops[1]
 for path in ['/products/mug', '/products/mug/tasse-aus-keramik']:
-    html = call(path, headers={'Host':one+'.vendune.ai'})
+    html = call(path, headers={'Host':one+'.sellm.ai'})
     assert b'id="root"' in html and b'assets/' in html
     call(path+'?shop='+one+'&language=de-DE')
-    call(path+'?shop='+two, headers={'Host':one+'.vendune.ai'}, expected=400)
-    call(path, headers={'Host':one+'.vendune.ai','x-tenant':two}, expected=400)
-call('/products/not-a-product', headers={'Host':one+'.vendune.ai'}, expected=404)
-call('/products/mug', headers={'Host':'no-such-shop-123.vendune.ai'}, expected=404)
+    call(path+'?shop='+two, headers={'Host':one+'.sellm.ai'}, expected=400)
+    call(path, headers={'Host':one+'.sellm.ai','x-tenant':two}, expected=400)
+call('/products/not-a-product', headers={'Host':one+'.sellm.ai'}, expected=404)
+call('/products/mug', headers={'Host':'no-such-shop-123.sellm.ai'}, expected=404)
 p = call('/api/merchant/products/mug', headers=admin)
 p['catalog']['active'] = False
 call('/api/merchant/products/mug', p, admin, 'PUT')
-call('/products/mug/tasse', headers={'Host':one+'.vendune.ai'}, expected=404)
-call('/products/mug/tasse', headers={'Host':two+'.vendune.ai'})
-call('/store-api/not-a-route', headers={'Host':one+'.vendune.ai'}, expected=404)
+call('/products/mug/tasse', headers={'Host':one+'.sellm.ai'}, expected=404)
+call('/products/mug/tasse', headers={'Host':two+'.sellm.ai'})
+call('/store-api/not-a-route', headers={'Host':one+'.sellm.ai'}, expected=404)
 print('PASS product HTML, localized deep links, unknown/inactive products, host/query/header isolation and API 404s')

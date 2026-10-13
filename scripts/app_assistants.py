@@ -64,7 +64,7 @@ def call(path, body=None, headers=None, expected=200, method=None, raw=None):
 
 
 def sql(statement):
-    return subprocess.run(psql(env.get('TEST_DB_CONTAINER', 'vendune-postgres-1'),'commerce',env['TEST_DATABASE'],'-At','-v','ON_ERROR_STOP=1','-c',statement), check=True, text=True, capture_output=True).stdout.strip()
+    return subprocess.run(psql(env.get('TEST_DB_CONTAINER', 'sellm-postgres-1'),'commerce',env['TEST_DATABASE'],'-At','-v','ON_ERROR_STOP=1','-c',statement), check=True, text=True, capture_output=True).stdout.strip()
 
 
 def wait(predicate):

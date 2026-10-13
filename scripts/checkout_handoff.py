@@ -28,7 +28,7 @@ c,ch=cart();call('/store-api/checkout/handoff',{'revision':c['revision']-1},ch,e
 ticket=issue(c,ch);call('/store-api/checkout/handoff/consume',{'ticket':ticket},{'x-tenant':other['workspace']},expected=410)
 old=ticket;ticket=issue(c,ch);call('/store-api/checkout/handoff/consume',{'ticket':old},h,expected=410);check('Tickets are tenant scoped and reissue revokes the previous transfer')
 digest=hashlib.sha256(ticket.encode()).hexdigest()
-subprocess.run(psql(os.getenv('DB_CONTAINER','vendune-postgres-1'),'commerce',os.getenv('TEST_DATABASE','commerce'),'-q','-c',f"UPDATE checkout_handoffs SET expires_at=now()-interval '1 second' WHERE digest='{digest}'"),check=True,capture_output=True)
+subprocess.run(psql(os.getenv('DB_CONTAINER','sellm-postgres-1'),'commerce',os.getenv('TEST_DATABASE','commerce'),'-q','-c',f"UPDATE checkout_handoffs SET expires_at=now()-interval '1 second' WHERE digest='{digest}'"),check=True,capture_output=True)
 call('/store-api/checkout/handoff/consume',{'ticket':ticket},h,expected=410);check('Expired transfers fail against database time')
 ticket=issue(c,ch)
 with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:results=list(pool.map(lambda _:call('/store-api/checkout/handoff/consume',{'ticket':ticket},h,expected=None),range(2)))
@@ -44,14 +44,14 @@ call('/store-api/checkout/handoff',{'revision':new['revision']},{**h,'sw-context
 # The embedded checkout is permitted only by this tenant/channel's registered frontend.
 alias='embedded-'+uuid.uuid4().hex[:12]
 call('/api/settings/frontends',{'alias':alias,'channel':'default','revision':0},mh,'PUT')
-origin='https://'+alias+'.vendune.ai'
+origin='https://'+alias+'.sellm.ai'
 from urllib.parse import urlencode
 def frame_url(parent,shop=u['workspace'],channel='default'):
  return BASE+'/checkout?'+urlencode({'shop':shop,'channel':channel,'parentOrigin':parent,'embed':'1'})
 with urllib.request.urlopen(frame_url(origin),timeout=20) as page:
  assert page.status==200 and ('frame-ancestors \'self\' '+origin) in page.headers['content-security-policy']
  assert page.headers['cache-control']=='no-store' and page.headers['referrer-policy']=='no-referrer'
-for parent,shop,channel in [('https://foreign.vendune.ai',u['workspace'],'default'),(origin,other['workspace'],'default'),(origin,u['workspace'],'unknown'),('https://'+alias+'.vendune.ai.evil.test',u['workspace'],'default'),(origin+'/path',u['workspace'],'default'),(origin+':8443',u['workspace'],'default')]:
+for parent,shop,channel in [('https://foreign.sellm.ai',u['workspace'],'default'),(origin,other['workspace'],'default'),(origin,u['workspace'],'unknown'),('https://'+alias+'.sellm.ai.evil.test',u['workspace'],'default'),(origin+'/path',u['workspace'],'default'),(origin+':8443',u['workspace'],'default')]:
  try: urllib.request.urlopen(frame_url(parent,shop,channel),timeout=20);raise AssertionError('Unregistered parent admitted')
  except urllib.error.HTTPError as e: assert e.code in [400,403],e.code
 check('Embedded checkout admits only the exact registered tenant/channel origin')

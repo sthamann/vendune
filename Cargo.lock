@@ -2603,6 +2603,46 @@ dependencies = [
 ]
 
 [[package]]
+name = "sellm"
+version = "0.5.0"
+dependencies = [
+ "aes-gcm",
+ "argon2",
+ "async-stream",
+ "axum",
+ "base64 0.22.1",
+ "chrono",
+ "chrono-tz",
+ "cron",
+ "futures-util",
+ "hmac 0.12.1",
+ "image",
+ "json-patch",
+ "lettre",
+ "libc",
+ "pdf-extract",
+ "regex",
+ "reqwest",
+ "ring",
+ "roxmltree",
+ "rustls-pemfile",
+ "scraper",
+ "semver",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "sqlx",
+ "tokio",
+ "tokio-rustls",
+ "tower-http",
+ "tracing-subscriber",
+ "uuid",
+ "wasmtime",
+ "wat",
+ "webpki-roots",
+]
+
+[[package]]
 name = "semver"
 version = "1.0.28"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3445,46 +3485,6 @@ name = "vcpkg"
 version = "0.2.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "accd4ea62f7bb7a82fe23066fb0957d48ef677f6eeb8215f372f52e48bb32426"
-
-[[package]]
-name = "vendune"
-version = "0.5.0"
-dependencies = [
- "aes-gcm",
- "argon2",
- "async-stream",
- "axum",
- "base64 0.22.1",
- "chrono",
- "chrono-tz",
- "cron",
- "futures-util",
- "hmac 0.12.1",
- "image",
- "json-patch",
- "lettre",
- "libc",
- "pdf-extract",
- "regex",
- "reqwest",
- "ring",
- "roxmltree",
- "rustls-pemfile",
- "scraper",
- "semver",
- "serde",
- "serde_json",
- "sha2 0.10.9",
- "sqlx",
- "tokio",
- "tokio-rustls",
- "tower-http",
- "tracing-subscriber",
- "uuid",
- "wasmtime",
- "wat",
- "webpki-roots",
-]
 
 [[package]]
 name = "version_check"

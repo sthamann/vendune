@@ -2,7 +2,7 @@
 """Real UCP -> native B2B RFQ -> merchant counteroffer -> separate approval -> one durable order."""
 import datetime,json,os,time,urllib.request,urllib.error,uuid
 BASE=os.environ['BASE_URL'];suffix=uuid.uuid4().hex[:8]
-VERSION='2026-10-13';EXT='ai.vendune.app.shopping.b2b_negotiation';PASSWORD='Synthetic-UCP-B2B-2026!'
+VERSION='2026-10-13';EXT='ai.sellm.app.shopping.b2b_negotiation';PASSWORD='Synthetic-UCP-B2B-2026!'
 def call(path,body=None,h=None,method=None,status=200):
     req=urllib.request.Request(BASE+path,data=None if body is None else json.dumps(body).encode(),headers={'Content-Type':'application/json',**(h or {})},method=method or ('GET' if body is None else 'POST'))
     try:r=urllib.request.urlopen(req,timeout=30)
@@ -15,7 +15,7 @@ mh=shop('ucpb2b');foreign=shop('ucpforeign');public={'x-tenant':mh['x-tenant'],'
 def customer(label):
     email=label+suffix+'@example.test'
     c=call('/store-api/account/register',{'name':label,'email':email,'password':PASSWORD},public)
-    h={**public,'x-customer-token':c['customerToken'],'x-vendune-ucp-b2b-version':VERSION}
+    h={**public,'x-customer-token':c['customerToken'],'x-sellm-ucp-b2b-version':VERSION}
     return call('/store-api/account/profile',h=h)['id'],h,email
 buyer,bh,email=customer('buyer');approver,ah,_=customer('approver');other,oh,_=customer('other')
 def admin(op,v,h=mh,status=200):return call('/api/b2b/'+op,v,h,status=status)
@@ -42,9 +42,9 @@ def command(op,v,hdr=None,status=200):return call(path+'/b2b/'+op,v,hdr or h,sta
 command('select',{'unitId':'it','revision':c['b2b_negotiation']['checkout_revision']},{**h,'x-customer-token':oh['x-customer-token']},403)
 # Negotiated capabilities never replace a current customer identity.
 command('contexts',{}, {**h,'x-customer-token':''},401)
-no_version={k:v for k,v in h.items() if k!='x-vendune-ucp-b2b-version'}
+no_version={k:v for k,v in h.items() if k!='x-sellm-ucp-b2b-version'}
 command('contexts',{},no_version,409)
-command('contexts',{}, {**h,'x-vendune-ucp-b2b-version':'2099-01-01'},409)
+command('contexts',{}, {**h,'x-sellm-ucp-b2b-version':'2099-01-01'},409)
 command('contexts',{}, {**no_version,'UCP-Agent':'profile="http://127.0.0.1:1/private"'},400)
 command('contexts',{}, {**no_version,'UCP-Agent':'profile="https://127.0.0.1/private"'},403)
 # The same public-only egress owner denies DNS rebinding/private targets before connecting.

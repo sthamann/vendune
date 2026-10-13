@@ -22,23 +22,23 @@ it("sends the receipt capability only from an explicitly embedded checkout to an
   history.replaceState(
     null,
     "",
-    "/checkout?embed=1&parentOrigin=https%3A%2F%2Fown.vendune.ai",
+    "/checkout?embed=1&parentOrigin=https%3A%2F%2Fown.sellm.ai",
   );
   const order = {
     id: "order",
     cart: { id: "cart", token: "capability" },
     customer: { email: "must-not-leave" },
   } as unknown as Order;
-  expect(checkoutParent()).toBe("https://own.vendune.ai");
+  expect(checkoutParent()).toBe("https://own.sellm.ai");
   notifyCheckout(order);
   expect(postMessage).toHaveBeenCalledWith(
     {
-      type: "vendune.checkout.completed",
+      type: "sellm.checkout.completed",
       cartId: "cart",
       token: "capability",
       orderId: "order",
     },
-    "https://own.vendune.ai",
+    "https://own.sellm.ai",
   );
   expect(JSON.stringify(postMessage.mock.calls)).not.toContain(
     "must-not-leave",
@@ -46,9 +46,9 @@ it("sends the receipt capability only from an explicitly embedded checkout to an
   expect(returnFromCheckout()).toBe(true);
   for (const path of [
     "/checkout?embed=1&parentOrigin=http://evil.test",
-    "/checkout?embed=1&parentOrigin=https://own.vendune.ai/path",
-    "/checkout?parentOrigin=https://own.vendune.ai",
-    "/?embed=1&parentOrigin=https://own.vendune.ai",
+    "/checkout?embed=1&parentOrigin=https://own.sellm.ai/path",
+    "/checkout?parentOrigin=https://own.sellm.ai",
+    "/?embed=1&parentOrigin=https://own.sellm.ai",
   ]) {
     history.replaceState(null, "", path);
     expect(checkoutParent()).toBeUndefined();
@@ -58,7 +58,7 @@ it("ordinary top-level checkout sends no receipt to another window", () => {
   history.replaceState(
     null,
     "",
-    "/checkout?embed=1&parentOrigin=https://own.vendune.ai",
+    "/checkout?embed=1&parentOrigin=https://own.sellm.ai",
   );
   expect(checkoutParent()).toBeUndefined();
   expect(returnFromCheckout()).toBe(false);

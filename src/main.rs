@@ -88,6 +88,7 @@ mod seed;
 mod ucp;
 pub(crate) use seed::*;
 mod bootstrap;
+mod brand_redirect;
 mod channel_metrics;
 mod migrations;
 mod performance;

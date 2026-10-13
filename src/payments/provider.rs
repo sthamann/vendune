@@ -42,18 +42,18 @@ pub(crate) fn attempt(r: &sqlx::postgres::PgRow) -> Attempt {
         bn_code: r.get("bn_code"),
     }
 }
-pub(crate) fn wire_currency(code: &str) -> Result<vendune::money::Currency> {
-    vendune::money::Currency::new(
+pub(crate) fn wire_currency(code: &str) -> Result<sellm::money::Currency> {
+    sellm::money::Currency::new(
         code,
         currencies::scale(code).ok_or(bad("Unsupported provider currency"))?,
     )
     .map_err(bad)
 }
 pub(crate) fn format_amount(minor: i64, code: &str) -> Result<String> {
-    Ok(vendune::money::Money::new(minor, wire_currency(code)?).decimal())
+    Ok(sellm::money::Money::new(minor, wire_currency(code)?).decimal())
 }
 pub(crate) fn parse_amount(value: &str, code: &str) -> Result<i64> {
-    let money = vendune::money::Money::parse(value, wire_currency(code)?).map_err(bad)?;
+    let money = sellm::money::Money::parse(value, wire_currency(code)?).map_err(bad)?;
     if money.minor() < 0 || value.starts_with('-') {
         return Err(bad("Invalid provider money amount"));
     }
@@ -61,12 +61,11 @@ pub(crate) fn parse_amount(value: &str, code: &str) -> Result<i64> {
 }
 #[cfg(test)]
 pub(crate) fn amount_string(minor: i64) -> String {
-    vendune::money::Money::new(minor, vendune::money::Currency::eur()).decimal()
+    sellm::money::Money::new(minor, sellm::money::Currency::eur()).decimal()
 }
 #[cfg(test)]
 pub(crate) fn parse_minor(value: &str) -> Result<i64> {
-    let amount =
-        vendune::money::Money::parse(value, vendune::money::Currency::eur()).map_err(bad)?;
+    let amount = sellm::money::Money::parse(value, sellm::money::Currency::eur()).map_err(bad)?;
     if amount.minor() < 0 || value.starts_with('-') {
         return Err(bad("Invalid provider money amount"));
     }

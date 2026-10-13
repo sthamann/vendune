@@ -10,7 +10,7 @@ export const de: Dictionary = {
     "Lesezugriff: Ein Bearbeiter oder Administrator muss diese Änderung freigeben.",
   users: "Team & Zugang",
   commerce: "Verkauf & Lieferung",
-  studio: "Vendune Studio",
+  studio: "seLLM Studio",
   overview: "Shop heute",
   assistant: "Assistent",
   knowledge: "Shopwissen",

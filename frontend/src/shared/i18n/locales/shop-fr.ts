@@ -43,7 +43,7 @@ export const fr: Record<Key, string> = {
   nextPage: "Page suivante",
   moreVariants: "Charger plus de variantes",
 
-  studio: "Vendune Studio",
+  studio: "seLLM Studio",
   users: "Équipe & accès",
   login: "Se connecter",
   register: "Créer une boutique",
@@ -189,7 +189,7 @@ export const fr: Record<Key, string> = {
   freeFrom: "Gratuit à partir de",
   invalidOption: "Cette combinaison est indisponible.",
   pricing: "Prix de votre compte",
-  ask: "Demandez à Vendune",
+  ask: "Demandez à seLLM",
   wish: "Que cherchez-vous ? Un coin lecture chaleureux à moins de 300 € …",
   thinking: "Recherche des produits adaptés …",
   adapted: "Trié selon vos intérêts",

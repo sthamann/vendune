@@ -130,14 +130,14 @@ export default function AppGridCanvas({
         onDrop={(e) => {
           e.preventDefault();
           if (tabMode) return;
-          const id = e.dataTransfer.getData("application/vnd.vendune.block");
+          const id = e.dataTransfer.getData("application/vnd.sellm.block");
           const p = position(e.clientX, e.clientY),
             index = view.blocks.findIndex((b) => b.id === id);
           if (index >= 0)
             patch(id, { ...geometry(view.blocks[index], index), ...p });
           else if (view.blocks.length < 32) {
             const kind = e.dataTransfer.getData(
-              "application/vnd.vendune.kind",
+              "application/vnd.sellm.kind",
             ) as Block["kind"];
             if (
               ["text", "table", "cards", "form", ...controlKinds].includes(kind)
@@ -165,7 +165,7 @@ export default function AppGridCanvas({
               }
             }}
             onDragStart={(e) =>
-              e.dataTransfer.setData("application/vnd.vendune.block", b.id)
+              e.dataTransfer.setData("application/vnd.sellm.block", b.id)
             }
             onDoubleClick={() => {
               if (tabMode) return;

@@ -4,7 +4,7 @@ use sha2::{Digest, Sha256};
 use std::time::Duration;
 fn collection(kind: &str, model: &str, dimensions: usize) -> String {
     format!(
-        "vendune_{kind}_v2_{}_{dimensions}",
+        "sellm_{kind}_v2_{}_{dimensions}",
         hex(model).get(..16).unwrap()
     )
 }
@@ -122,7 +122,7 @@ pub async fn drain(db: &PgPool) -> Result<usize, String> {
                 .ok_or("Invalid collections")?
                 .iter()
                 .filter_map(|c| c["name"].as_str())
-                .filter(|n| n.starts_with(&format!("vendune_{kind}_")))
+                .filter(|n| n.starts_with(&format!("sellm_{kind}_")))
             {
                 request(
                     reqwest::Method::POST,

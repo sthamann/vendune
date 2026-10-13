@@ -1,6 +1,6 @@
 # Reproduce the million-product commerce measurement
 
-The [published benchmark page](https://sthamann.github.io/vendune/benchmarks.html)
+The [published benchmark page](https://sthamann.github.io/sellm/benchmarks.html)
 contains the current bounded million-product workloads and the earlier full-catalog
 baseline comparison. Raw JSON includes every measured latency, errors, source and
 binary metadata. These are local synthetic HTTP/PostgreSQL measurements, not
@@ -28,8 +28,8 @@ DB_PORT=15490 docker compose -p rust-commerce-performance up -d --build --wait p
 export DATABASE_URL="postgres://commerce:${DB_PASSWORD}@127.0.0.1:15490/commerce"
 export BIND_ADDR=127.0.0.1:8791
 cargo build --release --locked
-BOOTSTRAP_MODE=migrate target/release/vendune
-BOOTSTRAP_MODE=serve PROCESS_ROLE=http target/release/vendune
+BOOTSTRAP_MODE=migrate target/release/sellm
+BOOTSTRAP_MODE=serve PROCESS_ROLE=http target/release/sellm
 ```
 
 Keep that server running. In another terminal, in the same checkout:
@@ -55,7 +55,7 @@ Start the independent outbox worker in another terminal with the same private
 database environment before measuring:
 
 ```sh
-BOOTSTRAP_MODE=serve PROCESS_ROLE=memory-worker target/release/vendune
+BOOTSTRAP_MODE=serve PROCESS_ROLE=memory-worker target/release/sellm
 ```
 
 The accepted million-product measurement uses these two independent processes.

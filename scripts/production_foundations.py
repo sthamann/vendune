@@ -68,7 +68,7 @@ try:
     # Strict startup must reject a role that has a whole-table RLS bypass operation.
     sql(f'GRANT TRUNCATE ON products TO {role};')
     with (ROOT/'artifacts/production-unsafe-role.log').open('w') as bad_log:
-        rejected = subprocess.Popen([str(ROOT/'target/debug/vendune')], cwd=ROOT,
+        rejected = subprocess.Popen([str(ROOT/'target/debug/sellm')], cwd=ROOT,
             env={**env,'BIND_ADDR':f'127.0.0.1:{port()}'}, stdout=bad_log, stderr=bad_log)
         assert rejected.wait(timeout=20) != 0, 'Unsafe runtime role was admitted'
     assert 'Runtime role must not own core tables' in (ROOT/'artifacts/production-unsafe-role.log').read_text(), 'Startup failed before role audit'

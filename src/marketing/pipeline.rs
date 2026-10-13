@@ -68,7 +68,7 @@ impl Pipeline {
             match node {
                 Node::Condition { condition, .. } => condition.validate(0)?,
                 Node::Delay { seconds, .. }
-                    if !vendune::verified_kernel::flow_delay_admissible(*seconds) =>
+                    if !sellm::verified_kernel::flow_delay_admissible(*seconds) =>
                 {
                     return Err(bad("Flow delay exceeds 30 days"));
                 }

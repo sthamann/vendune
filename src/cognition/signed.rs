@@ -20,7 +20,7 @@ fn key() -> Result<Ed25519KeyPair> {
         .collect::<Vec<_>>();
     let seed = Sha256::digest(
         [
-            b"vendune/public-facts/ed25519/v1".as_slice(),
+            b"sellm/public-facts/ed25519/v1".as_slice(),
             bytes.as_slice(),
         ]
         .concat(),

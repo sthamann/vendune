@@ -35,8 +35,8 @@ export function posUrl(shop: string, channel: string) {
   return `/?shop=${encodeURIComponent(shop)}&studio=pos&posMode=focus&posChannel=${encodeURIComponent(channel)}#merchant`;
 }
 export function channelUrl(shop: string, channel: string) {
-  const publicOrigin = location.hostname.endsWith(".vendune.ai")
-    ? "https://app.vendune.ai"
+  const publicOrigin = location.hostname.endsWith(".sellm.ai")
+    ? "https://app.sellm.ai"
     : location.origin;
   const url = new URL(
     channel === "default"

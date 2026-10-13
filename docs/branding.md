@@ -1,29 +1,29 @@
-# Vendune identity and compatibility
+# seLLM identity and compatibility
 
-**Product:** Vendune. **Merchant workspace:** Vendune Studio.
-**Operator console:** Vendune Platform.
-**Canonical repository:** https://github.com/sthamann/vendune.
-**Documentation:** https://sthamann.github.io/vendune/docs/.
+**Product:** seLLM. **Merchant workspace:** seLLM Studio.
+**Operator console:** seLLM Platform.
+**Canonical repository:** https://github.com/sthamann/sellm.
+**Documentation:** https://sthamann.github.io/sellm/docs/.
 
-The V mark combines a folded V with a dune contour, using azure `#2459ef` and
-cyan `#18b9d9`. The mark is a small, dependency-free SVG. UI and site favicons use
+The seLLM mark connects two L-shaped paths, with a terminal node for intelligence
+and action. The shared colors are azure `#2459ef` and mint `#55e7bd`. The mark is a small, dependency-free SVG. UI and site favicons use
 identical copies checked by `scripts/branding.py`; the wordmark includes light
-and dark variants. [Mark](brand/vendune-mark.svg), [wordmark](brand/vendune-logo.svg),
-[dark wordmark](brand/vendune-logo-dark.svg). `shared/ui/Brand.tsx` owns the UI
+and dark variants. [Mark](brand/sellm-mark.svg), [wordmark](brand/sellm-logo.svg),
+[dark wordmark](brand/sellm-logo-dark.svg). `shared/ui/Brand.tsx` owns the UI
 identity. Tenant-owned company logos and merchant shop names are independent.
 
-The [repository header](brand/vendune-readme.svg) uses the same mark, blue/cyan
-palette and dune contours. Its connected Storefront/Studio/Apps/Agents diagram
+The [repository header](brand/sellm-readme.svg) uses the same mark, azure/mint
+palette. Its connected intelligence diagram
 is authored brand artwork, not a browser screenshot or a performance claim.
 README product images remain unedited captures of the actual English prototype.
 
 ## Package and deployment naming
 
-The Rust crate and HTTP binary are `vendune`; Rust imports use `vendune::`.
-The frontend package is `vendune-experience`. The application image uses `vendune`; fresh local database/search containers use
-standard PostgreSQL and Qdrant images. The legacy `vendune-db` image is retained
-for existing AGE/pgvector conversions. Fresh local installations use Compose project `vendune` and
-container `vendune-postgres-1`. Start and worker commands, differential runners,
+The Rust crate and HTTP binary are `sellm`; Rust imports use `sellm::`.
+The frontend package is `sellm-experience`. The application image uses `sellm`; fresh local database/search containers use
+standard PostgreSQL and Qdrant images. The legacy `sellm-db` image is retained
+for existing AGE/pgvector conversions. Fresh local installations use Compose project `sellm` and
+container `sellm-postgres-1`. Start and worker commands, differential runners,
 MCP examples, deployment files and CI use these names consistently.
 
 Existing checkouts can stay in their original folder. `scripts/dev.sh` detects
@@ -41,13 +41,16 @@ never delete its database volume to perform a rename.
   headers retain their existing security behavior; renaming them is unnecessary
   and would invalidate sessions or integrations. Client principal headers remain
   untrusted and cannot grant access.
-- Applied SQL migrations retain their exact bytes and checksum. No destructive
-  data rewrite is part of branding.
-- Dated verification/benchmark records and old recordings retain their original
-  names, paths and measured evidence. Historical images are evidence, not a
-  representation of the current interface. README screenshots are recaptured
-  from Vendune. Historic GitHub repository links redirect after the repo rename;
-  new links use the canonical Vendune URL.
+- Stored migration-ledger checksums remain unchanged. Five historical sources
+  receive the explicit identity-only update requested for this rename. The
+  migration runner accepts only the documented exact old/new SHA-256 pairs in
+  `src/migrations/identity_checksums.rs`; an unreviewed byte change still fails.
+  Additive migration `090-sellm-identity` updates the active trigger contracts
+  and renames the diagnostic function while retaining its grants and behavior.
+  No orders, customer records, IDs or audit history are rewritten.
+- Git history retains the original dated evidence. Current documentation uses
+  the canonical product name and links. Regenerated media carries its actual
+  new capture source, date and hashes; no old capture is presented as new.
 
 `python3 scripts/branding.py` checks package/runtime paths, current public
 identity, shared SVG assets, source ownership and the absence of stale platform

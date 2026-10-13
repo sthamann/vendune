@@ -49,7 +49,7 @@ export function usePurpose(purpose: Purpose) {
   return c.decided && c.choices[purpose] === true;
 }
 export function openConsent() {
-  window.dispatchEvent(new Event("vendune:privacy-open"));
+  window.dispatchEvent(new Event("sellm:privacy-open"));
 }
 export function consentCurrent(c: Consent, policy: string, now = Date.now()) {
   return (

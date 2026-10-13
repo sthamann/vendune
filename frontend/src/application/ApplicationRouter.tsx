@@ -18,14 +18,14 @@ export default function ApplicationRouter() {
     if (canonical) location.replace(canonical);
   }, [canonical]);
   const [hub, setHub] = useState(
-    location.hostname === "admin.vendune.ai" && !location.hash,
+    location.hostname === "admin.sellm.ai" && !location.hash,
   );
   const [platform, setPlatform] = useState(
     location.hash === "#platform" ||
       (!location.hash &&
         !location.search &&
-        (location.hostname === "vendune.ai" ||
-          location.hostname === "app.vendune.ai" ||
+        (location.hostname === "sellm.ai" ||
+          location.hostname === "app.sellm.ai" ||
           location.hostname.endsWith(".code.run"))),
   );
   const [admin, setAdmin] = useState(
@@ -33,13 +33,13 @@ export default function ApplicationRouter() {
   );
   useEffect(() => {
     const change = () => {
-      setHub(location.hostname === "admin.vendune.ai" && !location.hash);
+      setHub(location.hostname === "admin.sellm.ai" && !location.hash);
       setPlatform(
         location.hash === "#platform" ||
           (!location.hash &&
             !location.search &&
-            (location.hostname === "vendune.ai" ||
-              location.hostname === "app.vendune.ai" ||
+            (location.hostname === "sellm.ai" ||
+              location.hostname === "app.sellm.ai" ||
               location.hostname.endsWith(".code.run"))),
       );
       setAdmin(

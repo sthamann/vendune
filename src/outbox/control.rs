@@ -20,7 +20,7 @@ pub(crate) async fn retry(
             "Quarantined event not found in this shop".into(),
         ));
     }
-    sqlx::query("SELECT pg_notify('vendune_work_ready','outbox')")
+    sqlx::query("SELECT pg_notify('sellm_work_ready','outbox')")
         .execute(&a.db)
         .await?;
     Ok(Json(json!({"eventId":id,"queued":true})))

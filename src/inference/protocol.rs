@@ -42,7 +42,7 @@ pub(super) fn prompt_cache(provider: &Provider, request: &mut Value, system: &st
         Provider::Openai if env::var("OPENAI_PROTOCOL").as_deref() != Ok("chat") => {
             use sha2::{Digest, Sha256};
             request["prompt_cache_key"] = json!(format!(
-                "vendune-system-{:x}",
+                "sellm-system-{:x}",
                 Sha256::digest(system.as_bytes())
             ));
         }

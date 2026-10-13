@@ -1,6 +1,6 @@
 ;; Typed fixture: calls the real host cart snapshot and returns one percent of its subtotal.
 (component
-  (import "vendune:commerce/context@1.0.0" (instance $context
+  (import "sellm:commerce/context@1.0.0" (instance $context
     (type $money-local (record (field "minor" s64) (field "currency" string) (field "scale" u8)))
     (export "money" (type $money (eq $money-local)))
     (type $item-local (record (field "id" string) (field "quantity" u32) (field "price" $money)))
@@ -61,5 +61,5 @@
     (export "kind" (type $kind))
     (export "outcome" (type $outcome))
     (export "evaluate" (func $evaluate)))
-  (export "vendune:commerce/hooks@1.0.0" (instance $hooks))
+  (export "sellm:commerce/hooks@1.0.0" (instance $hooks))
 )

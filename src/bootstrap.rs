@@ -141,7 +141,7 @@ pub(crate) async fn run() {
     let app = router(a.clone());
     let addr = env::var("BIND_ADDR").unwrap_or("127.0.0.1:8787".into());
     let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
-    println!("vendune listening on http://{addr}");
+    println!("sellm listening on http://{addr}");
     axum::serve(
         listener,
         app.into_make_service_with_connect_info::<std::net::SocketAddr>(),
@@ -191,8 +191,8 @@ pub(crate) fn entry() {
     }
     tokio::runtime::Runtime::new()
         .unwrap()
-        .block_on(vendune::tenant_scope::scoped(
-            vendune::tenant_scope::Scope::System,
+        .block_on(sellm::tenant_scope::scoped(
+            sellm::tenant_scope::Scope::System,
             run(),
         ));
 }

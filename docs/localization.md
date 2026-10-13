@@ -1,6 +1,6 @@
-# One translation contract across Vendune
+# One translation contract across seLLM
 
-Vendune separates **interface language** from **shop content language**. The
+seLLM separates **interface language** from **shop content language**. The
 Studio, customer account, checkout, platform console and bundled app controls
 ship English, German, French and Spanish. A shop can enable additional content
 languages, including regional variants, without adding another field to every
@@ -28,9 +28,9 @@ introduce another runtime dictionary, DOM replacement layer or automatic model
 call for interface labels. Export one translator-friendly JSON document:
 
 ```sh
-npm --prefix frontend run translations -- export /tmp/vendune-translations.json
+npm --prefix frontend run translations -- export /tmp/sellm-translations.json
 # Edit entries[].values.en/de/fr/es in a translation editor.
-npm --prefix frontend run translations -- import /tmp/vendune-translations.json
+npm --prefix frontend run translations -- import /tmp/sellm-translations.json
 npm --prefix frontend run localization
 npm --prefix frontend run build
 npm --prefix frontend test
@@ -94,7 +94,7 @@ sdk.onContext(() => refreshVisibleText());
 the requested content language and shop main-language fallback. Both preserve
 explicit empty strings and support named parameters. Product Lab and Storyfront's
 public connector UI use this SDK. SDK timeouts are localized. Independent apps
-own their own translations and must run equivalent checks; Vendune cannot prove
+own their own translations and must run equivalent checks; seLLM cannot prove
 that arbitrary remotely hosted HTML is translated.
 
 The private Experience application remains in its private repository. Its own

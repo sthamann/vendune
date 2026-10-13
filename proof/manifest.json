@@ -1385,7 +1385,7 @@
     "src/bin/automation_rules.rs": {
       "status": "unproved",
       "sha256": "8d5994b0922f61cd5c209a7598f377fa664709704c4ea911bc3b7e33958d3d8e",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
     },
     "src/bin/connectors.rs": {
       "status": "unproved",
@@ -1395,12 +1395,12 @@
     "src/bin/context.rs": {
       "status": "unproved",
       "sha256": "78d283a37b639a820e611587baf609987c14281721fd05b3581ef04e0b5cbb22",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
     },
     "src/bin/delivery.rs": {
       "status": "unproved",
       "sha256": "e88ed79091431feb4755ce4dbbe390666c20c7f44ec47ba799ad19b268924d23",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
     },
     "src/bin/money_boundary.rs": {
       "status": "unproved",
@@ -1410,12 +1410,12 @@
     "src/bin/price.rs": {
       "status": "unproved",
       "sha256": "378b39b2951c9eb06f5de230a592403111eee93e9f5dda6295ce4422306d6a50",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
     },
     "src/bin/rules.rs": {
       "status": "unproved",
       "sha256": "21196640f2c70d6a458000d1f33ba5705570eaeba142f2386951bc79d9b17cdc",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
     },
     "src/bin/verified_kernel/dispatch.rs": {
       "status": "unproved",
@@ -1475,7 +1475,7 @@
     "src/catalog_model.rs": {
       "status": "unproved",
       "sha256": "6619053466d5263929ca90a9a2e6960510faa314af9daf6aba3e26fc8afa33b4",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
     },
     "src/catalog_page.rs": {
       "status": "unproved",
@@ -2335,7 +2335,7 @@
     "src/marketing/pipeline.rs": {
       "status": "reviewed-binding",
       "sha256": "bc5bf207f695d803935ef72ec972f83a16eb008e85eeb31d5d9daad64fb5f0f8",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
     },
     "src/marketing/pipeline_runtime.rs": {
       "status": "unproved",
@@ -2360,12 +2360,12 @@
     "src/marketing/rule_fields.rs": {
       "status": "unproved",
       "sha256": "2eb6494b41af4f1e35e69d77107084ec2776d5001a9bd584781d689364e5e0e8",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
     },
     "src/marketing/rule_match.rs": {
       "status": "reviewed-binding",
       "sha256": "3a1906acc85db543e35fe060fc8bdcadead699d0fe49233f8ad4e17490983e3f",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
     },
     "src/marketing/rule_snapshot.rs": {
       "status": "unproved",
@@ -2375,12 +2375,12 @@
     "src/marketing/rule_tests.rs": {
       "status": "unproved",
       "sha256": "ddd05401c0e80e1c050835682962599b552e58821357ef963f2cdb56d375f6c2",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
     },
     "src/marketing/rules.rs": {
       "status": "unproved",
       "sha256": "220c9b190697cd8df3238aeeb15c5b3966dc3983e89547995484141dddbd37a9",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "review": "Reviewed seLLM crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use seLLM; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
     },
     "src/mcp/transport.rs": {
       "status": "unproved",

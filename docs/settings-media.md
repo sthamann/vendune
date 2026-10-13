@@ -3,7 +3,7 @@
 ## Open the current Studio
 
 A tab kept open across an update can retain the previous JavaScript bundle. Reload it.
-The current shell is branded **Vendune** and settings show a **Settings scope** selector
+The current shell is branded **seLLM** and settings show a **Settings scope** selector
 plus **Content language**. The legacy tab title `Atelier · Rust AI Commerce` and
 stacked EN/DE/FR/ES inputs identify an older loaded interface. The explicit
 `?shop=<id>&studio=commerce#merchant` link opens the same current merchant workspace.

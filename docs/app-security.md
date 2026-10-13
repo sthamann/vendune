@@ -22,7 +22,7 @@ before adding runtimes, stores or credentials. [Architecture](app-platform.md) a
 Use the server's serializer rather than an independent JSON hashing implementation:
 
 ```sh
-cargo run --bin vendune -- --app-digest extensions/apps/service-example/manifest.json
+cargo run --bin sellm -- --app-digest extensions/apps/service-example/manifest.json
 python3 scripts/build_app_ui.py service-example --output .run/service-example.html
 ```
 
@@ -52,7 +52,7 @@ private-network access; it must never be merchant-controlled.
 
 Register Ed25519 public keys in `APP_PUBLISHERS` as
 `{"publisher":{"key_id":"BASE64_PUBLIC_KEY"}}`. Only signatures using registered
-keys can occupy `publisher_app`. `vendune --sign-app MANIFEST.json` consumes a base64
+keys can occupy `publisher_app`. `sellm --sign-app MANIFEST.json` consumes a base64
 32-byte seed from stdin and returns the signed manifest and public key. Private
 seeds do not belong in app packages, environment JSON, logs or Git. A publisher
 signature does not automatically authorize an operator service or a changed UI bundle.

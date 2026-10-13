@@ -1,7 +1,7 @@
 //! Cluster-wide tenant resource leases. DB serialization protects admission; cancellation releases the fenced lease.
 use crate::{App, Error, Result, StatusCode, uid};
 pub(crate) struct Lease {
-    db: vendune::scoped_pool::ScopedPool,
+    db: sellm::scoped_pool::ScopedPool,
     id: String,
     heartbeat: Option<tokio::task::JoinHandle<()>>,
 }
@@ -10,13 +10,13 @@ impl Lease {
         Self::weighted(&a.db, tenant, class, limit, 1).await
     }
     async fn weighted(
-        db: &vendune::scoped_pool::ScopedPool,
+        db: &sellm::scoped_pool::ScopedPool,
         tenant: &str,
         class: &str,
         limit: usize,
         slots: i32,
     ) -> Result<Self> {
-        vendune::tenant_scope::scoped(vendune::tenant_scope::Scope::System, async {
+        sellm::tenant_scope::scoped(sellm::tenant_scope::Scope::System, async {
             let id = uid();
             let inserted: bool = sqlx::query_scalar("SELECT claim_resource_lease($1,$2,$3,$4,$5)")
                 .bind(&id)
@@ -41,7 +41,7 @@ impl Lease {
         })
         .await
     }
-    pub(crate) async fn connection_budget(db: &vendune::scoped_pool::ScopedPool) -> Result<Self> {
+    pub(crate) async fn connection_budget(db: &sellm::scoped_pool::ScopedPool) -> Result<Self> {
         let config = crate::runtime_config::get();
         let mut lease = Self::weighted(
             db,
@@ -53,7 +53,7 @@ impl Lease {
         .await?;
         let pool = db.clone();
         let id = lease.id.clone();
-        lease.heartbeat = Some(vendune::tenant_scope::spawn(async move {
+        lease.heartbeat = Some(sellm::tenant_scope::spawn(async move {
             let mut timer = tokio::time::interval(std::time::Duration::from_secs(60));
             loop {
                 timer.tick().await;
@@ -75,7 +75,7 @@ impl Lease {
         if let Some(heartbeat) = &self.heartbeat {
             heartbeat.abort();
         }
-        vendune::tenant_scope::scoped(vendune::tenant_scope::Scope::System, async {
+        sellm::tenant_scope::scoped(sellm::tenant_scope::Scope::System, async {
             if let Err(error) = sqlx::query("DELETE FROM resource_leases WHERE id=$1")
                 .bind(&self.id)
                 .execute(&self.db)
@@ -95,8 +95,8 @@ impl Drop for Lease {
         let db = self.db.clone();
         let id = self.id.clone();
         // Only this UUID is released. Expiry recovers a killed process; it cannot remove a replacement lease.
-        tokio::spawn(vendune::tenant_scope::scoped(
-            vendune::tenant_scope::Scope::System,
+        tokio::spawn(sellm::tenant_scope::scoped(
+            sellm::tenant_scope::Scope::System,
             async move {
                 let _ = sqlx::query("DELETE FROM resource_leases WHERE id=$1")
                     .bind(id)

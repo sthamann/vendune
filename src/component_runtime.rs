@@ -3,10 +3,10 @@ use std::collections::HashMap;
 use wasmtime::component::{Component, Linker};
 use wasmtime::{Engine, Store, StoreLimits, StoreLimitsBuilder};
 wasmtime::component::bindgen!({path:"extensions/sdk/wit",world:"extension",imports:{default:trappable}});
-pub use self::vendune::commerce::context::{
+pub use self::sellm::commerce::context::{
     AppRecord, CartItem, CartSnapshot, Money, ProductSnapshot,
 };
-pub use exports::vendune::commerce::hooks::{Kind, Outcome};
+pub use exports::sellm::commerce::hooks::{Kind, Outcome};
 #[derive(Clone)]
 pub struct Snapshot {
     pub cart: CartSnapshot,
@@ -27,7 +27,7 @@ impl Host {
         Ok(())
     }
 }
-impl self::vendune::commerce::context::Host for Host {
+impl self::sellm::commerce::context::Host for Host {
     fn cart(&mut self) -> wasmtime::Result<CartSnapshot> {
         self.charge()?;
         Ok(self.snapshot.cart.clone())
@@ -168,7 +168,7 @@ impl Module {
         let guest = Extension::instantiate(&mut store, &self.component, &linker)
             .map_err(|e| e.to_string())?;
         let result = guest
-            .vendune_commerce_hooks()
+            .sellm_commerce_hooks()
             .call_evaluate(&mut store, hook, input)
             .map_err(|e| format!("{e:#}"))?;
         if result.reason_code.len() > 100

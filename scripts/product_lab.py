@@ -35,7 +35,7 @@ def configuration():
     sys.path.insert(0, str(ROOT/'extensions/sdk'))
     from ui_bundle import bundle
     manifest = ROOT/'extensions/apps/product-lab/manifest.json'
-    package_digest = subprocess.check_output([str(ROOT/'target/debug/vendune'), '--app-digest', str(manifest)], text=True).strip()
+    package_digest = subprocess.check_output([str(ROOT/'target/debug/sellm'), '--app-digest', str(manifest)], text=True).strip()
     directory = manifest.parent
     ui = bundle((directory/'index.html').read_text(), (directory/'app.js').read_text())
     services['product_lab'] = {'url':origin, 'uiUrl':origin, 'token':values['APP_TOKEN'],

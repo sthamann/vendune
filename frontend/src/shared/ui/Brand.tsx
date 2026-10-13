@@ -1,19 +1,19 @@
-/** Shared Vendune identity; product branding is independent of tenant-owned company logos and session keys. */
+/** Shared seLLM identity; product branding is independent of tenant-owned company logos and session keys. */
 import "./brand.css";
 export const BRAND = Object.freeze({
-  name: "Vendune",
+  name: "seLLM",
   studio: "Studio",
-  repository: "https://github.com/sthamann/vendune",
-  mark: "/brand/vendune-mark.svg",
+  repository: "https://github.com/sthamann/sellm",
+  mark: "/brand/sellm-mark.svg",
+  logo: "/brand/sellm-logo.svg",
 });
 export default function Brand({ markOnly = false }: { markOnly?: boolean }) {
   return markOnly ? (
-    <img className="vendune-mark" src={BRAND.mark} alt={BRAND.name} />
+    <img className="sellm-mark" src={BRAND.mark} alt={BRAND.name} />
   ) : (
-    <span className="vendune-brand">
-      <img className="vendune-mark" src={BRAND.mark} alt="" />
-      <span className="vendune-wordmark">
-        {BRAND.name}
+    <span className="sellm-brand">
+      <img className="sellm-logo" src={BRAND.logo} alt={BRAND.name} />
+      <span className="sellm-wordmark">
         <small>{BRAND.studio}</small>
       </span>
     </span>

@@ -9,7 +9,7 @@ def core(operation,body):
     req=urllib.request.Request(BASE+'/api/apps/'+APP+'/core/'+operation,data=json.dumps(body).encode(),headers={'Content-Type':'application/json','x-tenant':TENANT,'Authorization':'Bearer '+KEY})
     with urllib.request.urlopen(req,timeout=15) as r:return json.load(r)
 def upload(product,data):
-    boundary='vendune-export-file';fields={'productId':product,'title':json.dumps({'en':'Catalog export'}),'kind':'attachment'}
+    boundary='sellm-export-file';fields={'productId':product,'title':json.dumps({'en':'Catalog export'}),'kind':'attachment'}
     parts=[f'--{boundary}\r\nContent-Disposition: form-data; name="{k}"\r\n\r\n{v}\r\n'.encode() for k,v in fields.items()]
     parts+=[f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="catalog.csv.txt"\r\nContent-Type: text/plain\r\n\r\n'.encode()+data+b'\r\n',f'--{boundary}--\r\n'.encode()]
     req=urllib.request.Request(BASE+'/api/apps/'+APP+'/core/asset_upload',data=b''.join(parts),headers={'Content-Type':'multipart/form-data; boundary='+boundary,'x-tenant':TENANT,'Authorization':'Bearer '+KEY})

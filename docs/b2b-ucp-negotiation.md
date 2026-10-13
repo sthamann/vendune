@@ -2,25 +2,25 @@
 
 A buying agent can request an offer, exchange counterproposal messages, inspect a
 merchant's revised prices, accept that offer and request purchasing approval on a
-UCP checkout. Vendune's **existing** B2B quote, budget, tax, stock, payment and order
+UCP checkout. seLLM's **existing** B2B quote, budget, tax, stock, payment and order
 owners execute the work. Studio's existing quote inbox shows the same RFQ; no second
 negotiation database or agent-only pricing engine exists.
 
-## What is standard and what is Vendune
+## What is standard and what is seLLM
 
 [UCP 2026-08-25](https://ucp.dev/2026-08-25/specification/overview/)
 standardizes discovery, capability/version negotiation and extension composition.
 That capability negotiation selects compatible software contracts; it does not
 itself negotiate a product's price. Commercial negotiation has been discussed in
 [the upstream proposal](https://github.com/Universal-Commerce-Protocol/ucp/discussions/502),
-but Vendune does **not** claim to implement a ratified `dev.ucp.*` negotiation capability.
+but seLLM does **not** claim to implement a ratified `dev.ucp.*` negotiation capability.
 
-Our discoverable extension is **`ai.vendune.app.shopping.b2b_negotiation`**, version
+Our discoverable extension is **`ai.sellm.app.shopping.b2b_negotiation`**, version
 **`2026-10-13`**, extending **`dev.ucp.shopping.checkout`**, version **`2026-08-25`**.
 The schema is served from the corresponding namespace authority:
-`https://app.vendune.ai/ucp/2026-10-13/b2b-negotiation.json`.
+`https://app.sellm.ai/ucp/2026-10-13/b2b-negotiation.json`.
 Its `$defs["dev.ucp.shopping.checkout"]` composes with the official checkout schema
-using `allOf`. This is a selected Vendune UCP adapter, not whole-protocol certification.
+using `allOf`. This is a selected seLLM UCP adapter, not whole-protocol certification.
 The immutable, secret-free schema has a precise public route; its admission exception
 does not include checkout sessions, future schemas or B2B commands.
 Shipping/payment terms still use native checkout selection; delivery contracts,
@@ -29,7 +29,7 @@ credit agreements, autonomous price bargaining and AP2 mandates are not added he
 ```mermaid
 sequenceDiagram
     participant Agent as Authenticated buyer / agent
-    participant UCP as Vendune UCP adapter
+    participant UCP as seLLM UCP adapter
     participant B2B as Existing B2B owner
     participant Seller as Merchant quote inbox
     participant Approver as Separate purchasing approver
@@ -73,7 +73,7 @@ Two explicit opt-in transports are supported:
   merchant/customer credentials; five-second request timeout and 32 KiB body limit.
   Missing parent/protocol compatibility fails; unsupported vendor versions cannot
   invoke B2B commands. There is no persistent platform-profile cache.
-- **Pre-negotiated Vendune client:** `x-vendune-ucp-b2b-version: 2026-10-13`.
+- **Pre-negotiated seLLM client:** `x-sellm-ucp-b2b-version: 2026-10-13`.
   This vendor-specific shortcut explicitly selects the known published contract.
   It is useful for direct clients and offline/local integration tests; it is **not**
   a replacement for UCP's interoperable platform-profile advertisement. Supplying
@@ -88,10 +88,10 @@ Example platform profile fragment:
     "version": "2026-08-25",
     "capabilities": {
       "dev.ucp.shopping.checkout": [{"version": "2026-08-25"}],
-      "ai.vendune.app.shopping.b2b_negotiation": [{
+      "ai.sellm.app.shopping.b2b_negotiation": [{
         "version": "2026-10-13",
         "extends": ["dev.ucp.shopping.checkout"],
-        "schema": "https://app.vendune.ai/ucp/2026-10-13/b2b-negotiation.json"
+        "schema": "https://app.sellm.ai/ucp/2026-10-13/b2b-negotiation.json"
       }]
     }
   }

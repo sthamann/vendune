@@ -52,7 +52,7 @@ independent Python example remains an optional extension example.
 The operator obtains the reviewed package digest through the existing core:
 
 ```sh
-target/debug/vendune --app-digest extensions/apps/erp-handoff/manifest.json
+target/debug/sellm --app-digest extensions/apps/erp-handoff/manifest.json
 ```
 
 For an edited/generated app, hash its **actual exported package**, not the unedited

@@ -211,7 +211,7 @@ No full Shopware Payments, accelerated wallet/card or conversion-uplift parity i
 
 ## European-operation additions
 
-Vendune-native legal/privacy settings connect cart/channel consent, built-in tracking gates, document snapshots, public withdrawal/data-rights intake, private review and receipt-email events. These are additions, not a claim of one-to-one Shopware or statutory parity. The [requirement matrix](european-operation.md#requirements-catalog-and-actual-implementation-boundary) explicitly marks missing price-history computation, age verification and subscription cancellation workflows.
+seLLM-native legal/privacy settings connect cart/channel consent, built-in tracking gates, document snapshots, public withdrawal/data-rights intake, private review and receipt-email events. These are additions, not a claim of one-to-one Shopware or statutory parity. The [requirement matrix](european-operation.md#requirements-catalog-and-actual-implementation-boundary) explicitly marks missing price-history computation, age verification and subscription cancellation workflows.
 
 ## Multi-currency native extension
 

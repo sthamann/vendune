@@ -38,7 +38,7 @@ fixture=ThreadingHTTPServer(('127.0.0.1',0),Embed)
 threading.Thread(target=fixture.serve_forever,daemon=True).start()
 with socket.socket() as probe:
     probe.bind(('127.0.0.1',0)); port=probe.getsockname()[1]
-env={**os.environ,'BIND_ADDR':f'127.0.0.1:{port}','SHOP_DOMAIN_SUFFIX':'vendune.ai','OLLAMA_URL':f'http://127.0.0.1:{fixture.server_port}','EMBEDDING_MODEL':'synthetic-managed-contract-'+uuid.uuid4().hex[:8],'QDRANT_URL':f'http://127.0.0.1:{fixture.server_port}','RERANKER_URL':f'http://127.0.0.1:{fixture.server_port}'}
+env={**os.environ,'BIND_ADDR':f'127.0.0.1:{port}','SHOP_DOMAIN_SUFFIX':'sellm.ai','OLLAMA_URL':f'http://127.0.0.1:{fixture.server_port}','EMBEDDING_MODEL':'synthetic-managed-contract-'+uuid.uuid4().hex[:8],'QDRANT_URL':f'http://127.0.0.1:{fixture.server_port}','RERANKER_URL':f'http://127.0.0.1:{fixture.server_port}'}
 base=f'http://127.0.0.1:{port}'; token=os.environ['MERCHANT_TOKEN']
 def call(path,body=None,tenant='atelier',host=None,status=200):
     headers={'Content-Type':'application/json','Authorization':'Bearer '+token,'x-tenant':tenant}
@@ -60,7 +60,7 @@ env['DATABASE_URL']=urlunsplit(db._replace(path='/'+fixture_db))
 env['TEST_DATABASE']=fixture_db
 os.environ['TEST_DATABASE']=fixture_db
 log=open(root/'.run/managed-search.log','w')
-process=subprocess.Popen([str(root/'target/debug/vendune')],cwd=root,env=env,stdout=log,stderr=log)
+process=subprocess.Popen([str(root/'target/debug/sellm')],cwd=root,env=env,stdout=log,stderr=log)
 try:
     for _ in range(100):
         if process.poll() is not None: raise RuntimeError('Managed search app failed; see .run/managed-search.log')
@@ -70,7 +70,7 @@ try:
     assert sql("SELECT udt_name FROM information_schema.columns WHERE table_name='semantic_products' AND column_name='embedding'")=='_float4'
     print('PASS ordinary PostgreSQL has no AGE/vector dependency')
     # Existing sources must rebuild automatically when the configured model changes.
-    name='vendune_product_v2_'+hashlib.sha256(env['EMBEDDING_MODEL'].encode()).hexdigest()[:16]+'_384'
+    name='sellm_product_v2_'+hashlib.sha256(env['EMBEDDING_MODEL'].encode()).hexdigest()[:16]+'_384'
     for _ in range(200):
         if sql("SELECT (SELECT count(*) FROM vector_index_queue WHERE tenant IN ('atelier','workshop'))+(SELECT count(*) FROM embedding_jobs WHERE tenant IN ('atelier','workshop'))")=='0' and sql("SELECT count(*) FROM embedding_generations WHERE tenant IN ('atelier','workshop') AND phase='complete'")=='2':break
         time.sleep(.1)
@@ -108,9 +108,9 @@ try:
     result=qdrant('/collections/'+name+'/points/query',{'query':[1.0]+[0.0]*383,'using':'text','filter':{'must':[{'key':'tenant','match':{'value':'workshop'}}]},'limit':100,'with_payload':True})
     assert len(result['points'])==int(sql("SELECT count(*) FROM products WHERE tenant='workshop'")) and all(p['payload']['tenant']=='workshop' for p in result['points'])
     print('PASS real Qdrant persists tenant/model-scoped vectors and Core hydrates current commerce rows')
-    call('/store-api/product',{},'atelier','workshop.vendune.ai',400)
-    call('/store-api/product',{},'missing','missing.vendune.ai',404)
-    assert len(call('/store-api/product',{},'workshop','workshop.vendune.ai')['elements'])==6
+    call('/store-api/product',{},'atelier','workshop.sellm.ai',400)
+    call('/store-api/product',{},'missing','missing.sellm.ai',404)
+    assert len(call('/store-api/product',{},'workshop','workshop.sellm.ai')['elements'])==6
     print('PASS shop hostname rejects unknown shops and conflicting tenant headers')
     state['outage']=True
     sql("DELETE FROM semantic_products WHERE tenant='workshop' AND product_id='lamp'")
@@ -152,7 +152,7 @@ try:
     print('PASS 150 products index automatically in bounded batches; source changes re-embed, commerce-only changes do not')
     process.terminate();process.wait(timeout=15)
     env['EMBEDDING_MODEL']+='-changed'
-    process=subprocess.Popen([str(root/'target/debug/vendune')],cwd=root,env=env,stdout=log,stderr=log)
+    process=subprocess.Popen([str(root/'target/debug/sellm')],cwd=root,env=env,stdout=log,stderr=log)
     for _ in range(400):
         if process.poll() is not None: raise RuntimeError('Model-change restart failed')
         if sql("SELECT count(*) FROM semantic_products WHERE tenant='workshop' AND product_id LIKE 'batch-%' AND embedding_model='"+env['EMBEDDING_MODEL']+"'")=='150' and sql("SELECT count(*) FROM embedding_generations WHERE tenant IN ('atelier','workshop') AND phase='complete' AND model='"+env['EMBEDDING_MODEL']+"'")=='2' and sql("SELECT count(*) FROM embedding_jobs WHERE tenant IN ('atelier','workshop')")=='0':break

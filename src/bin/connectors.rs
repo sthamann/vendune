@@ -1,5 +1,5 @@
 //! Independent Rust standard-app service; no provider code executes in commerce request workers.
-use vendune::{money, network_policy, verified_kernel};
+use sellm::{money, network_policy, verified_kernel};
 #[path = "../../extensions/services/connectors/src/mod.rs"]
 mod connectors;
 #[tokio::main]

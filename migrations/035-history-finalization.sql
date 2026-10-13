@@ -22,7 +22,7 @@ BEGIN
   IF NOT EXISTS(SELECT 1 FROM entity_history WHERE tenant=t AND entity=kind AND entity_id=k AND transaction_id=txid_current()) THEN
    s:=entity_history_snapshot(kind,t,k);
    INSERT INTO entity_history(tenant,entity,entity_id,transaction_id,actor,source,reason,before_state)
-   VALUES(t,kind,k,txid_current(),nullif(current_setting('vendune.actor',true),''),coalesce(nullif(current_setting('vendune.source',true),''),'system'),nullif(current_setting('vendune.reason',true),''),s);
+   VALUES(t,kind,k,txid_current(),nullif(current_setting('sellm.actor',true),''),coalesce(nullif(current_setting('sellm.source',true),''),'system'),nullif(current_setting('sellm.reason',true),''),s);
   END IF;
  ELSIF EXISTS(SELECT 1 FROM entity_history WHERE tenant=t AND entity=kind AND entity_id=k AND transaction_id=txid_current() AND NOT finalized) THEN
   s:=entity_history_snapshot(kind,t,k);

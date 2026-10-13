@@ -172,4 +172,5 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         "083-customer-lookup",
         include_str!("../../migrations/083-customer-lookup.sql"),
     ),
+    ("090-sellm-identity", include_str!("../../migrations/090-sellm-identity.sql")),
 ];

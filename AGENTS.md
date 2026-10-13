@@ -1,4 +1,4 @@
-# Changes to Vendune
+# Changes to seLLM
 
 Prefer the codebase-memory MCP graph for structural code discovery. Keep Rust
 modules small and give every source file a responsibility comment; the existing
@@ -284,7 +284,7 @@ orders/documents/PII consent. Keep bounded-profile, no-network-certification lim
 visible until corresponding official validation/transport acceptance exists.
 See `docs/b2b-commerce.md`, `docs/edi.md` and `src/b2b/README.md`.
 
-`src/ucp/` is a transport adapter only. Its `ai.vendune.app.shopping.b2b_negotiation` extension invokes the existing `b2b.*` quote/approval owners. Keep merchant offers and buyer acceptance separate; retain current customer membership, original cart/currency/expiry and both CAS revisions. Platform profiles establish compatibility, never identity or permissions. Reuse the shared public HTTPS egress client for bounded profile reads; never forward secrets or allow private DNS/redirects. Do not introduce another quote store, approval engine, FX calculator or outbox. The detailed versioned contract is `docs/b2b-ucp-negotiation.md`; RFQs/approvals/spent budgets remain operational, never staged configuration.
+`src/ucp/` is a transport adapter only. Its `ai.sellm.app.shopping.b2b_negotiation` extension invokes the existing `b2b.*` quote/approval owners. Keep merchant offers and buyer acceptance separate; retain current customer membership, original cart/currency/expiry and both CAS revisions. Platform profiles establish compatibility, never identity or permissions. Reuse the shared public HTTPS egress client for bounded profile reads; never forward secrets or allow private DNS/redirects. Do not introduce another quote store, approval engine, FX calculator or outbox. The detailed versioned contract is `docs/b2b-ucp-negotiation.md`; RFQs/approvals/spent budgets remain operational, never staged configuration.
 
 ## Marketplace ownership
 

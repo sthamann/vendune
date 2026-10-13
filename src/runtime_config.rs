@@ -91,7 +91,7 @@ pub(crate) fn get() -> &'static Config {
             &payment_services,
         );
         let frame_ancestors = env::var("STUDIO_FRAME_ORIGINS")
-            .unwrap_or("https://app.vendune.ai https://experience.vendune.ai".into());
+            .unwrap_or("https://app.sellm.ai https://experience.sellm.ai".into());
         for origin in frame_ancestors.split_whitespace() {
             let url = reqwest::Url::parse(origin).expect("Invalid STUDIO_FRAME_ORIGINS");
             assert!(

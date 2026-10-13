@@ -31,8 +31,8 @@ pub(crate) async fn resolve(State(a): State<App>, mut request: Request, next: Ne
             return Error(StatusCode::NOT_FOUND, "Unknown shop".into()).into_response();
         }
         let channel = header(request.headers(), "sw-sales-channel-id").unwrap_or("default");
-        let access = vendune::tenant_scope::scoped(
-            vendune::tenant_scope::Scope::System,
+        let access = sellm::tenant_scope::scoped(
+            sellm::tenant_scope::Scope::System,
             crate::performance::access_snapshot::AccessSnapshot::load(
                 &a,
                 Some(shop),

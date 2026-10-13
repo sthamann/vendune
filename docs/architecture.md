@@ -138,7 +138,7 @@ conversations and approval state, alongside the earlier ledger/policy checks.
 
 ## Historical v0.3: merchant visibility and language context
 
-Vendune Studio reads one tenant-scoped overview containing actual order
+seLLM Studio reads one tenant-scoped overview containing actual order
 aggregates, seven-day counts, inventory, AGE relations, vector-index metadata,
 recorded policy counters, activity and provider/connector boundaries. Every
 product selection shares the same preview state. Preview quote construction

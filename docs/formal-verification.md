@@ -11,7 +11,7 @@ mismatches**. Local verification is distinct from the historical published repor
 below; the complete required CI and mutation suite must pass before landing.
 
 The [published verification report](formal-verification.json) is copied from the
-completed [merged-Core CI run 37868239729](https://github.com/sthamann/vendune/actions/runs/37868239729),
+completed [merged-Core CI run 37868239729](https://github.com/sthamann/sellm/actions/runs/37868239729),
 recording source `598bbec112165fcac1847797786e2ba5c606e06f`. It includes the compiled
 conformance result and exact source inventory. Later documentation edits do not
 extend its proof scope. [Release acceptance and measured gaps](release-acceptance-2026-10-09.md).

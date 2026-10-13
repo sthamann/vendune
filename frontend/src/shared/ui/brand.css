@@ -1,22 +1,22 @@
 /** Shared vector brand sizing and typography for Studio and the operator console. */
-.vendune-brand {
+.sellm-brand {
   display: inline-flex;
   align-items: center;
   gap: 12px;
 }
-.vendune-mark {
+.sellm-mark {
   width: 38px;
   height: 38px;
   flex-shrink: 0;
   object-fit: contain;
 }
-.vendune-wordmark {
+.sellm-wordmark {
   font-size: 23px;
   font-weight: 700;
   letter-spacing: -1px;
   line-height: 1.2;
 }
-.vendune-wordmark small {
+.sellm-wordmark small {
   display: block;
   font-size: 10px;
   font-weight: 500;
@@ -25,7 +25,9 @@
   margin-top: 3px;
   color: var(--muted, #65738a);
 }
-.platform-brand .vendune-mark {
+.platform-brand .sellm-mark {
   width: 44px;
   height: 44px;
 }
+
+.sellm-logo { width: 145px; height: 38px; object-fit: contain; }

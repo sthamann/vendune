@@ -49,8 +49,8 @@ export default function StudioConversation({
         (event as CustomEvent<{ elapsedSeconds: number }>).detail
           .elapsedSeconds,
       );
-    window.addEventListener("vendune-agent-progress", update);
-    return () => window.removeEventListener("vendune-agent-progress", update);
+    window.addEventListener("sellm-agent-progress", update);
+    return () => window.removeEventListener("sellm-agent-progress", update);
   }, [busy]);
   return (
     <section className="studio-conversation">

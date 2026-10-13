@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://app.vendune.ai/ucp/2026-10-13/b2b-negotiation.json",
-  "name": "ai.vendune.app.shopping.b2b_negotiation",
+  "$id": "https://app.sellm.ai/ucp/2026-10-13/b2b-negotiation.json",
+  "name": "ai.sellm.app.shopping.b2b_negotiation",
   "version": "2026-10-13",
-  "title": "Vendune company purchasing and offer negotiation",
+  "title": "seLLM company purchasing and offer negotiation",
   "description": "Vendor extension backed by native original-cart RFQs, integer-currency merchant offers and separate purchasing approvals. Not a standardized UCP commercial-negotiation capability.",
   "requires": {
     "protocol": {

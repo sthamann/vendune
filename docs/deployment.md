@@ -2,7 +2,7 @@
 
 **Current status:** the operator console and deployment package are implemented
 and tested locally. The managed Rust Studio and `/health` are reachable at
-`https://app.vendune.ai/` (checked 2026-10-06). The root `vendune.ai` currently fails
+`https://app.sellm.ai/` (checked 2026-10-06). The root `sellm.ai` currently fails
 TLS hostname negotiation. Public Vercel commerce deployment and production checkout
 remain unverified; see [managed hosting](managed-hosting.md) for the active topology.
 GitHub Pages hosts documentation, not the Rust commerce service.
@@ -76,7 +76,7 @@ python3 scripts/hosting_check.py --origin https://YOUR-BACKEND-DOMAIN
 python3 scripts/prepare_vercel.py --backend https://YOUR-BACKEND-DOMAIN
 ```
 
-Create the dedicated `vendune` Vercel project from this GitHub repository.
+Create the dedicated `sellm` Vercel project from this GitHub repository.
 Select `frontend` as root, Vite, `npm run build`, and `dist`. **Enable including
 source files outside the root directory**: the frontend imports the shared
 `extensions/sdk/analytics` module. This is also covered by the corrected Docker
@@ -109,7 +109,7 @@ DNS/certificate provisioning for arbitrary merchant domains remains unimplemente
 ## Local release checks
 
 ```sh
-docker build -f deploy/Dockerfile -t vendune:platform .
+docker build -f deploy/Dockerfile -t sellm:platform .
 # With the existing local Compose PostgreSQL container and private DATABASE_URL:
 python3 scripts/hosting_container.py
 ```
@@ -129,9 +129,9 @@ The Northflank topology, cost model and migration boundaries are in [managed-hos
 
 ## Central provider secrets and shop domains
 
-With wildcard DNS/TLS and `SHOP_DOMAIN_SUFFIX=vendune.ai`, new shops use
-`SHOP.vendune.ai`; `admin.vendune.ai` is the public service directory. Set
-`COMMERCE_PUBLIC_ORIGIN=https://app.vendune.ai` for the shared merchant Studio.
+With wildcard DNS/TLS and `SHOP_DOMAIN_SUFFIX=sellm.ai`, new shops use
+`SHOP.sellm.ai`; `admin.sellm.ai` is the public service directory. Set
+`COMMERCE_PUBLIC_ORIGIN=https://app.sellm.ai` for the shared merchant Studio.
 Provision `PLATFORM_SECRET_KEY` as a persistent runtime-only 64-character random
 hex key before saving provider API keys in the operator console. All replicas and
 AI workers need the same key; back it up separately. Do not rotate it without
@@ -144,8 +144,8 @@ The generic trusted broker, one-use Studio handoff and hosted frontend mount are
 
 ### Storefront product addresses
 
-Public storefronts use `https://SHOP.vendune.ai/`. The shared Studio deliberately remains at
-`https://app.vendune.ai/?shop=SHOP#merchant` so merchant login stays on its original domain.
+Public storefronts use `https://SHOP.sellm.ai/`. The shared Studio deliberately remains at
+`https://app.sellm.ai/?shop=SHOP#merchant` so merchant login stays on its original domain.
 Legacy product bookmarks discard stale `studio` parameters and move to the shop domain.
 Product links use `/products/SKU/LOCALIZED-SLUG` (or `/products/SKU` without a slug),
 with the selected content language and sales channel retained. SKU identity prevents two

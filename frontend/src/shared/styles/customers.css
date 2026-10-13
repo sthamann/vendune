@@ -129,7 +129,7 @@
 .order-address {
   margin-top: 24px;
 }
-.shop-bag:not(.vendune-checkout) {
+.shop-bag:not(.sellm-checkout) {
   width: min(780px, calc(100vw - 32px)) !important;
 }
 .customer-actions .shop-primary,
@@ -159,7 +159,7 @@
   .customer-actions button {
     flex: 1;
   }
-  .shop-bag:not(.vendune-checkout) {
+  .shop-bag:not(.sellm-checkout) {
     width: calc(100vw - 16px) !important;
   }
 }

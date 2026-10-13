@@ -1,10 +1,10 @@
 # Trusted identity and hosted frontend integration
 
-Vendune exposes a generic integration boundary. No Storyfront source or provider credentials belong in this public repository. A separately operated private experience service can verify a merchant, create an owned tenant, inherit the operator model and mount a public storefront.
+seLLM exposes a generic integration boundary. No Storyfront source or provider credentials belong in this public repository. A separately operated private experience service can verify a merchant, create an owned tenant, inherit the operator model and mount a public storefront.
 
 ## Identity and inference
 
-`POST /api/identity/exchange` accepts an HMAC-SHA256 assertion signed with the runtime-only `IDENTITY_BROKER_KEY` (at least 64 characters). `IDENTITY_BROKER_ISSUER` must match its `iss`. Claims include `aud=vendune-identity`, `verified=true`, `sub`, `email`, `name`, `iat`, `exp`, a random 64-hex nonce, `workspaceId`, `workspaceName` and `demoCatalog`. Sign the exact path, a newline and the base64url JSON payload. Lifetime is at most 60 seconds; PostgreSQL consumes the nonce once across replicas and restarts. Only an active owner may reconnect an existing shop. Email changes require explicit recovery. Default fashion fixtures are copied only when requested.
+`POST /api/identity/exchange` accepts an HMAC-SHA256 assertion signed with the runtime-only `IDENTITY_BROKER_KEY` (at least 64 characters). `IDENTITY_BROKER_ISSUER` must match its `iss`. Claims include `aud=sellm-identity`, `verified=true`, `sub`, `email`, `name`, `iat`, `exp`, a random 64-hex nonce, `workspaceId`, `workspaceName` and `demoCatalog`. Sign the exact path, a newline and the base64url JSON payload. Lifetime is at most 60 seconds; PostgreSQL consumes the nonce once across replicas and restarts. Only an active owner may reconnect an existing shop. Email changes require explicit recovery. Default fashion fixtures are copied only when requested.
 
 This key delegates **verified-email identity authority**; its holder can link the corresponding merchant account. Store it only in the trusted service and Core runtime. It is not a browser API key. The deployment is opt-in and disabled without configuration; it does not weaken normal API authentication.
 
@@ -29,7 +29,7 @@ the same transaction. Migration 055 backfills existing Experience mounts. Mercha
 do not reinstall a connector; Apps and Storyfronts show the same owned connections,
 including multiple frontends on one shop. Listing itself has no install side effect.
 
-Set `HOSTED_FRONTEND_EDITOR_URL=https://experience.vendune.ai/design/{alias}` on
+Set `HOSTED_FRONTEND_EDITOR_URL=https://experience.sellm.ai/design/{alias}` on
 the core deployment to expose a passive `editorUrl` on each mount. The operator
 template accepts a single alias path component and HTTPS (or local loopback);
 credentials, query strings and fragments are rejected. No merchant token is

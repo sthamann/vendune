@@ -127,7 +127,7 @@ class Contracts(unittest.TestCase):
         extensions = cert.with_name("leaf.ext")
         extensions.write_text("subjectAltName=DNS:localhost,IP:127.0.0.1\nbasicConstraints=critical,CA:FALSE\nkeyUsage=critical,digitalSignature,keyEncipherment\nextendedKeyUsage=serverAuth\nsubjectKeyIdentifier=hash\nauthorityKeyIdentifier=keyid,issuer\n")
         for command in [
-            ["openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes", "-keyout", str(ca_key), "-out", str(ca), "-days", "1", "-subj", "/CN=Vendune synthetic CA", "-addext", "basicConstraints=critical,CA:TRUE", "-addext", "keyUsage=critical,keyCertSign,cRLSign"],
+            ["openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes", "-keyout", str(ca_key), "-out", str(ca), "-days", "1", "-subj", "/CN=seLLM synthetic CA", "-addext", "basicConstraints=critical,CA:TRUE", "-addext", "keyUsage=critical,keyCertSign,cRLSign"],
             ["openssl", "req", "-newkey", "rsa:2048", "-nodes", "-keyout", str(key), "-out", str(csr), "-subj", "/CN=localhost"],
             ["openssl", "x509", "-req", "-in", str(csr), "-CA", str(ca), "-CAkey", str(ca_key), "-CAcreateserial", "-out", str(cert), "-days", "1", "-extfile", str(extensions)],
         ]:
@@ -419,7 +419,7 @@ class Contracts(unittest.TestCase):
         base = "http://127.0.0.1:" + str(port)
         # Other running workers must never consume this fixture's flow jobs.
         database = "commerce_mail_" + uuid.uuid4().hex[:12]
-        container = os.getenv("DB_CONTAINER", "vendune-postgres-1")
+        container = os.getenv("DB_CONTAINER", "sellm-postgres-1")
         from testing.database import psql
         sql = lambda command: subprocess.run(
             psql(container, "commerce", "postgres", "-v", "ON_ERROR_STOP=1", "-c", command),
@@ -452,7 +452,7 @@ class Contracts(unittest.TestCase):
         log = open(self.temp.name + "/core.log", "w")
         self.addCleanup(log.close)
         backend = subprocess.Popen(
-            [str(ROOT / "target/debug/vendune")],
+            [str(ROOT / "target/debug/sellm")],
             cwd=ROOT,
             env=env,
             stdout=log,

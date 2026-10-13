@@ -1,6 +1,6 @@
 # Multi-currency commerce
 
-Vendune has one shop currency registry, a default and enabled subset per sales
+seLLM has one shop currency registry, a default and enabled subset per sales
 channel, and one authoritative currency on each cart. The storefront, Store API,
 MCP and the implemented UCP checkout routes use the same price operations.
 Orders and payment attempts retain their original currency, precision and totals.

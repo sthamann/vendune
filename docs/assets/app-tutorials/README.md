@@ -1,6 +1,6 @@
 # App tutorial capture inventory — 12 October 2026
 
-Unretouched Chrome browser captures from the real local Vendune workbench.
+Unretouched Chrome browser captures from the real local seLLM workbench.
 Frontend/core implementation: `10fa6bd727b14e416b7d406aa30e9cb8f4918ebb` source,
 with identical production code to the package-ownership update. The English
 interface runs with a synthetic merchant and a private staging environment.

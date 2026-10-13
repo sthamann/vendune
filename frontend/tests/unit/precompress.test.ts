@@ -13,7 +13,7 @@ import { brotliDecompressSync, gunzipSync } from "node:zlib";
 import { expect, test } from "vitest";
 
 test("precompressed assets round-trip in folders with spaces and clean stale encodings", () => {
-  const dir = mkdtempSync(join(tmpdir(), "vendune delivery "));
+  const dir = mkdtempSync(join(tmpdir(), "sellm delivery "));
   try {
     const file = join(dir, "bundle.js");
     const original = Buffer.from(

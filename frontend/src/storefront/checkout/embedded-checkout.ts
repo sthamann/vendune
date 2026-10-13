@@ -17,7 +17,7 @@ export function notifyCheckout(order: Order): void {
   if (parent)
     window.parent.postMessage(
       {
-        type: "vendune.checkout.completed",
+        type: "sellm.checkout.completed",
         cartId: order.cart.id,
         token: order.cart.token,
         orderId: order.id,
@@ -28,6 +28,6 @@ export function notifyCheckout(order: Order): void {
 export function returnFromCheckout(): boolean {
   const parent = checkoutParent();
   if (!parent) return false;
-  window.parent.postMessage({ type: "vendune.checkout.close" }, parent);
+  window.parent.postMessage({ type: "sellm.checkout.close" }, parent);
   return true;
 }
