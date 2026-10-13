@@ -29,9 +29,9 @@ a product or app alongside it additionally requires that domain's current write 
 [Cross-feature integration and verification](feature-integration.md).
 POS channels do not expose a public storefront or public Store API/UCP checkout.
 
-![Focused register with visible tender and shared prices](assets/pos/cashier-focus-en.png)
+![Focused register with visible tender and shared prices](assets/feature-tour/pos-focus-current.png)
 
-[View native variant selection](assets/pos/variants.png) · [Focused mobile payment view](assets/pos/cashier-mobile-en.png)
+[View native variant selection](assets/feature-tour/pos-variants-current.png) · [Focused mobile payment view](assets/feature-tour/pos-mobile-current.png)
 
 On smaller screens, **Products / Current sale** switches views while keeping the
 cart and its authoritative total. Product cards and payment controls remain touch-sized.
@@ -69,7 +69,7 @@ data. This panel displays advice only: it exposes no apply/payment action. Norma
 permissions, quotas and provider configuration apply. It does not claim an automatic
 upsell effect or a new model integration.
 
-![Completed local cashier sale with shared receipt and printer controls](assets/pos/cashier-completion-en.png)
+![Recorded synthetic cash sale with order and receipt-creation controls](assets/feature-tour/pos-completion-current.png)
 
 ## A sale
 
@@ -108,7 +108,7 @@ paper to a physical receipt printer. Recent
 register sales link to the existing order-management screen, including its normal
 state transitions, cancellation documents and delivery/customer information.
 
-![Shared order and receipt after a cash sale](assets/pos/receipt.png)
+![Stored synthetic cash-sale order with payment and document controls](assets/feature-tour/pos-order-current.png)
 
 ## How the pieces connect
 

@@ -14,7 +14,7 @@ Open **Developers → New app → Scheduled automation**. Enter **Daily shop rev
 technical ID `tutorial_review`, placement **Own admin module**, and cron
 `0 0 8 * * *`. Leave MCP off. Choose **Create editable draft**.
 
-![Daily shop review assistant with its explicit UTC schedule](../assets/app-tutorials/scheduled-assistant.jpg)
+![Daily shop review assistant with its explicit UTC schedule](../assets/app-tutorials/scheduled-assistant-current.png)
 
 The six fields are **seconds, minutes, hours, day, month, weekday**. `0 0 8 * * *`
 means 08:00 UTC daily. It does not track a country's daylight-saving time.
@@ -28,7 +28,7 @@ declared emit action `received`. For this technical ID, the emitted event is
 `app.tutorial_review.received`. Changing the app ID changes this event name; use
 the actual installed ID in the Flow Builder.
 
-![The native schedule and event name in Connections](../assets/app-tutorials/scheduled-connections.jpg)
+![The native schedule and event name in Connections](../assets/app-tutorials/scheduled-connections-current.png)
 
 The equivalent contract fragment is:
 

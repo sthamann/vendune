@@ -23,7 +23,7 @@ fills genuine owned order references before schema approval.
 
 ## 2. Inspect subscriptions, actions and rights
 
-![ERP order-event subscription, filters, batching and optional signed delivery](../assets/app-tutorials/erp-connections.jpg)
+![ERP order-event subscription, filters, batching and optional signed delivery](../assets/app-tutorials/erp-connections-current.png)
 
 In **Connections → Automation contract**, inspect `order.placed`, permitted
 filters and **Events per delivery (1–25)**. An empty signed-webhook destination

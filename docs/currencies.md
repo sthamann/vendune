@@ -14,7 +14,7 @@ ECB reference rates, choose a pricing strategy, and save the configuration. Rate
 are decimal strings: `1.25000000` means one unit of the base currency buys 1.25
 units of this currency. The base currency always has rate one.
 
-![English Studio currency settings with a shared EUR base and USD storefront default](assets/currency-settings-en.jpg)
+![Current Studio currency controls with an EUR basis and an optional USD definition](assets/feature-tour/currency-settings-current.png)
 
 The initial registry contains EUR. The chooser currently supports **39 currency
 codes**, with explicit scales: JPY/KRW/CLP use zero decimal places;
@@ -27,7 +27,7 @@ currency for that channel. The rates and product pricing strategies inherit from
 the shop. An unmodified channel inherits later shop changes. Availability is
 validated server-side; sending a different header cannot enable a disabled currency.
 
-![Japan channel overriding offered currencies and default, with explicit inheritance restoration](assets/currency-channel-en.jpg)
+![Atelier Berlin demo channel overriding the shared USD default with EUR, alongside explicit inheritance restoration](assets/feature-tour/currency-channel-current.png)
 
 The storefront selector requotes an open cart, including taxes, shipping, coupons
 and payment availability. Its remembered choice is scoped to shop and channel.
@@ -105,7 +105,7 @@ FX-normalized revenue report is implied.
 The actual mobile checkout retains the chosen currency for products, shipping,
 taxes and the final review:
 
-![Mobile USD checkout using the shared cart calculation](assets/currency-checkout-mobile.jpg)
+![Mobile USD checkout using the shared cart calculation](assets/feature-tour/currency-checkout-mobile-current.png)
 
 Set `x-tenant`, `sw-sales-channel-id` and, for a new cart, `x-commerce-currency`.
 An existing `sw-context-token` owns its saved currency; changing the header alone

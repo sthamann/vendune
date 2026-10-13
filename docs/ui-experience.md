@@ -22,7 +22,7 @@ flowchart LR
 
 This implements contextual entry, not a claim that every possible module has a fully specialized autonomous agent. Merchant editors remain explicit, reliable controls. Existing preview, staging, knowledge and proposal flows are the foundation for subsequent task-specific assistance.
 
-![Contextual assistant beside the selected product](assets/showcase/workspace-copilot.png)
+![Contextual assistant beside the selected product](assets/feature-tour/workspace-assistant-current.png)
 
 ## Standard storefront and customer account
 

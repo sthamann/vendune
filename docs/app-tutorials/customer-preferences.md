@@ -14,7 +14,7 @@ a unique technical ID such as `tutorial_customer`, and select **Customer ·
 additional fields**. Leave **Expose action to MCP / agents** disabled. Create the
 editable draft; resolve the replacement prompt only after saving earlier work.
 
-![Customer placement and explicit MCP choice in the guided assistant](../assets/app-tutorials/customer-assistant.jpg)
+![Customer placement and explicit MCP choice in the guided assistant](../assets/app-tutorials/customer-assistant-current.png)
 
 ## 2. Keep the customer relation; edit labels and choices
 
@@ -23,13 +23,13 @@ In **Data models**, the assistant supplies required indexed `customer_id` with
 Keep **Allow shoppers to read this model** off. Rename the displayed labels to
 **Preference subject**, **Merchant notes** and **Service level**.
 
-![Customer-bound fields in the real draft model](../assets/app-tutorials/customer-model.jpg)
+![Customer-bound fields in the real draft model](../assets/app-tutorials/customer-model-current.png)
 
 For `segment`, retain technical values `standard` / `priority`; edit their
 displayed labels through **Content language**. Changing a caption is not changing
 stored choice identity. An unknown choice is rejected by the native validator.
 
-![One language at a time for choice captions; stable technical values](../assets/app-tutorials/customer-choices.jpg)
+![One language at a time for choice captions; stable technical values](../assets/app-tutorials/customer-choices-current.png)
 
 An optional new field can be added with **Add field**. For example, add a boolean
 `contact_requested` with a translated label. This records a merchant workflow

@@ -56,7 +56,7 @@ queue, pricing engine, order ledger or receipt implementation.
    addresses and exact line/shipping gross and taxes. Unknown amounts remain blank.
    Import opens the regular VEYNDO order; invoice generation uses the usual API/UI.
 
-![Marketplace Studio with synthetic local Amazon and eBay offers](../extensions/apps/marketplaces/assets/studio-offers.jpg)
+[Archived capture from the preceding release: Marketplace Studio with synthetic local Amazon and eBay offers](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/extensions/apps/marketplaces/assets/studio-offers.jpg)
 
 The screenshot shows synthetic local seller fixtures, not live marketplace accounts.
 

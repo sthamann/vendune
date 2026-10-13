@@ -17,7 +17,7 @@ inline domain implementations inside the assistant or Rust core.
 
 Existing apps still open through their cards and **Edit app**. Regeneration preserves existing action access settings for actions with the same app/action identity. New generated actions default to MCP off. External agent JSON is reviewed and validated before staging.
 
-![Nine app assistants](screenshots/app-studio-assistants.png)
+![Nine app assistants](assets/feature-tour/app-assistants.jpg)
 
 ## Editor extensions with actual ownership
 

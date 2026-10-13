@@ -5,7 +5,7 @@ multilingual control plane for the platform operator, with a light blue workspac
 shop directory, statistics, shop creation and a bounded activity log. Its personal
 session is independent of the merchant studio's browser session.
 
-![Operator overview with synthetic database totals](assets/platform-overview-en.png)
+![Operator overview with synthetic database totals](assets/feature-tour/platform-overview.jpg)
 
 ## What the numbers mean
 
@@ -146,7 +146,7 @@ jobs use the inherited OpenAI connection but still require
 `IMAGE_GENERATION_ENABLED=true` and keep their independent image model. Central
 settings do not start a paid inference/image request by themselves.
 
-![Central AI settings in the actual local operator UI](assets/platform-ai-en.png)
+![Central AI settings in the actual local operator UI](assets/feature-tour/platform-ai.jpg)
 
 ## Shop lifecycle and dossier
 
@@ -170,7 +170,7 @@ not automatically cancel orders, refund payments or terminate running providers.
 
 ## Infrastructure and measurement boundaries
 
-![Actual local service probes; unavailable Linux counters remain empty](assets/platform-infrastructure-en.png)
+![Actual local service probes; unavailable Linux counters remain empty](assets/feature-tour/platform-infrastructure.jpg)
 
 **Infrastructure** shows PostgreSQL size/version/connection probes, Qdrant
 health, Rust pool/cache diagnostics and pending events. HTTP counters persist

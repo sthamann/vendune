@@ -171,7 +171,7 @@ A browser added `mug-terracotta-500`, transferred it to the native Rust checkout
 and placed order `RAC-a36105f8` for EUR 29.90. The database contains the exact
 variant and explicitly records `realMoneyCharged: false`.
 
-![Storyfront order saved by the Rust checkout](storyfront-order.png)
+[Archived capture from the preceding release: Storyfront order saved by the Rust checkout](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/storyfront-order.png)
 
 Seven live HTTP checks covered authoritative pricing, unavailable variants, injected
 tenants/prices, foreign origins, unknown hosts and oversized requests. Eleven companion

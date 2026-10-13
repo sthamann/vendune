@@ -1,5 +1,15 @@
 # Current release — 13 October 2026
 
+**VEYNDO deployment — 13 October:** [Core identity migration #102](https://github.com/sthamann/veyndo/pull/102) and [public documentation #103](https://github.com/sthamann/veyndo/pull/103) are merged. Northflank deployed Core `ced4a38` (`airy-wish-3827`) after a database snapshot and a successful migration-only job. Experience deployed `a6d3472` (`wiggly-crayon-7324`). Website, team, Studio, Experience and public shop routes now use `veyndo.ai` and the approved Living V identity. The checked public storefront loaded products, added a cart line and opened the simulated checkout; it did not place an order or charge a payment.
+
+![Deployed VEYNDO Studio entry](assets/showcase/veyndo-admin-live.png)
+
+![Public Experience checkout on the new domain; no order submitted](assets/showcase/veyndo-checkout-live.png)
+
+Eleven existing frontend mounts across ten tenants were moved from the owned prior Experience origins to `https://experience.veyndo.ai`. The operator transaction preserves aliases and tenant/channel bindings, increments revisions and invalidates affected read caches. [Deployment and migration procedure](cloud-releases.md).
+
+Current documentation uses new captures with synthetic fixtures. Dated acceptance captures below are immutable archive links, not new tests. Google branding and callback configuration were updated, and the new-domain sign-in reached the existing merchant workspace successfully. Eight stored native-shop links now use `veyndo.ai`; reloading displayed the corrected destinations. The Apple account update remains pending. The old root/team DNS cutover and certificate-renewal conflict are still operational follow-ups.
+
 **Connected source audit — 13 October:** POS, B2B/EDI, marketplaces and visitor
 intelligence share native version, rights, settings, sandbox, API/MCP and event
 owners. The audit closes selective-release permission gaps, app Flow admission,
@@ -8,7 +18,7 @@ Linux coverage MCP stack overflow is repaired in the shared dispatcher without
 raising worker limits. [Integration matrix and walkthroughs](feature-integration.md)
 · [Current test evidence and proof boundary](testing.md).
 
-This source audit does not establish a new public Core deployment. The following
+The source audit below is separate from the VEYNDO deployment above. The following
 hosted/browser acceptance entries retain their original dates and image evidence.
 
 **Cashier workspace — 12 October:** dedicated focus mode, customer/card selection, audited percentage/fixed adjustments, existing-model advice and system-printer invoice layouts now reuse the same commerce owners. Isolated native POS/provider/account suites pass. Local Chrome completed a customer-bound discounted sale, issued its immutable invoice and reached print preview without a physical print. [Setup, exact rights, acceptance and boundaries](pos.md).
@@ -19,13 +29,13 @@ Local Chrome acceptance edited a unit cost center and observed its actor/revisio
 
 The B2B implementation is merged in [PR #93](https://github.com/sthamann/veyndo/pull/93) (`6beb771`). Both complete GitHub verification runs on `3776717` passed. Northflank's `lean-oranges-8265` image uses that byte-identical source tree; its migration job succeeded before the Core deployment reached Running, 1/1. A hosted Chrome check saved and reopened a synthetic company and purchasing unit with EUR budget `100000`, approval threshold `25000`, cost center and a required PO. A digit-led generated reference exposed a UI creation defect: the API correctly rejected it, and the shared reference generator and both editor request paths now have a regression. The public capture below used explicit valid references. Existing POS order `RAC-138a9e02` and invoice `INV-00000001` remained accessible after the deployment. No new EDI cloud service, partner transport or real payment was created.
 
-![Hosted company policies persisted after reloading Studio](assets/showcase/b2b-public-unit-20261012.png)
+[Archived capture from the preceding release: Hosted company policies persisted after reloading Studio](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/b2b-public-unit-20261012.png)
 
 A subsequent local Chrome purchase completed **RAC-f0646e6d**, **134.83 EUR**, after an independent employee approved the final reviewed checkout. Bag **0** and the order survived reload. PostgreSQL recorded one `13483`-minor-unit budget allocation and a consumed approval. The follow-up fixes current-customer forwarding on the final checkout command and moves approval request/refresh into the reviewed checkout; it preserves the exact quote and native server checks. This browser acceptance uses a simulated payment. The normal order workspace also issued `INV-00000001`, visible to the separately authorized unit colleague through the existing account order detail. The customer-session/approval fix was subsequently deployed publicly as `small-dusk-4307` (`498faf8`), Running 1/1 with zero restarts. Hosted Chrome created and reloaded a new company and unit without overriding either generated reference; cost center, EUR 1,000 monthly budget, EUR 250 approval threshold and required PO persisted. This hosted editor acceptance does not constitute a real provider charge or a public B2B purchase.
 
-![Fresh public company and purchasing unit, using generated references](assets/showcase/b2b-public-created-20261012.png)
+[Archived capture from the preceding release: Fresh public company and purchasing unit, using generated references](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/b2b-public-created-20261012.png)
 
-![B2B checkout after independent approval](assets/showcase/b2b-checkout-approved-20261012.png)
+[Archived capture from the preceding release: B2B checkout after independent approval](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/b2b-checkout-approved-20261012.png)
 
 App Studio exposes B2B, POS and PII permissions for both actions and embedded editor surfaces. A regression compares this selectable set with the native permission registry and verifies saving B2B action/surface restrictions.
 
@@ -54,11 +64,11 @@ builds. A subsequent simulated checkout saved **RAC-96c745a2**, **169.00 EUR**,
 and returned Bag **0**. This acceptance preceded the new Core runtime deployment;
 it validates the existing lifecycle and checkout, not every new guard in production.
 
-![Public creation reaches the original Storyfront draft](assets/showcase/experience-admission-20261012.png)
+[Archived capture from the preceding release: Public creation reaches the original Storyfront draft](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/experience-admission-20261012.png)
 
-![Original Storyfront brand editor reached from the corrected onboarding](assets/showcase/experience-original-studio-20261012.png)
+[Archived capture from the preceding release: Original Storyfront brand editor reached from the corrected onboarding](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/experience-original-studio-20261012.png)
 
-![Public simulated checkout following app upgrade and restoration](assets/showcase/app-lifecycle-checkout-20261012.png)
+[Archived capture from the preceding release: Public simulated checkout following app upgrade and restoration](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/app-lifecycle-checkout-20261012.png)
 
 The follow-up Core is merged in [PR #90](https://github.com/sthamann/veyndo/pull/90)
 (`6823f6f`). Both complete GitHub verification runs on `cdd0724` passed. The deployed
@@ -74,9 +84,9 @@ The updated public App Studio separates merchant and shopper views, hides the
 payment-provider tab for non-payment apps, and recognizes the restored package
 as an already saved version. The earlier receipt remains available after deployment.
 
-![Updated public App Studio with distinct merchant and shopper surfaces](assets/showcase/app-studio-after-release-20261012.png)
+[Archived capture from the preceding release: Updated public App Studio with distinct merchant and shopper surfaces](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/app-studio-after-release-20261012.png)
 
-![Fresh simulated checkout receipt persisted after the Core deployment](assets/showcase/app-lifecycle-after-release-20261012.png)
+[Archived capture from the preceding release: Fresh simulated checkout receipt persisted after the Core deployment](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/app-lifecycle-after-release-20261012.png)
 
 The corrected suite includes **202 Rust tests, 433 frontend tests**, all registered
 HTTP/PostgreSQL/provider/browser-contract suites and their formal/differential/
@@ -158,11 +168,11 @@ catalog was reused; this acceptance made no new model/image call or real charge.
 Core image `acc137c` has exactly the merged `aa4e644` source tree and passed both
 full CI runs before deployment.
 
-![Native checkout inside the original Storyfront experience](assets/showcase/native-embedded-checkout-20261009.jpg)
+[Archived capture from the preceding release: Native checkout inside the original Storyfront experience](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/native-embedded-checkout-20261009.jpg)
 
-![German immutable receipt from the embedded demo purchase](assets/showcase/native-embedded-receipt-20261009.jpg)
+[Archived capture from the preceding release: German immutable receipt from the embedded demo purchase](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/native-embedded-receipt-20261009.jpg)
 
-![Original Storyfront Bag remains empty after reload](assets/showcase/native-bag-cleared-20261009.jpg)
+[Archived capture from the preceding release: Original Storyfront Bag remains empty after reload](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/native-bag-cleared-20261009.jpg)
 
 Private release `414e117` is healthy with the original Storyfront `b11b6e4` pin.
 The public original overview now opens in German, reports the live address,
@@ -171,7 +181,7 @@ pending. Navigation and budget/status copy use the four-language source catalogu
 original renderer chrome and other advanced editor copy remain a separate
 localization scope.
 
-![Original German Studio overview with actual connected live state](assets/showcase/native-overview-de-20261009.jpg)
+[Archived capture from the preceding release: Original German Studio overview with actual connected live state](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/native-overview-de-20261009.jpg)
 
 
 
@@ -206,11 +216,11 @@ The receipt confirms simulated authorization; no money was charged. The return
 button exposed a separate SPA-navigation defect, repaired with canonical hosted
 navigation while preserving local SPA behavior and channel/language scope.
 
-![Original Storyfront Studio in the VEYNDO frame](assets/showcase/native-public-studio-20261009.png)
+[Archived capture from the preceding release: Original Storyfront Studio in the VEYNDO frame](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/native-public-studio-20261009.png)
 
-![Actual original German product-answer scene](assets/showcase/native-public-ai-scene-20261009.png)
+[Archived capture from the preceding release: Actual original German product-answer scene](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/native-public-ai-scene-20261009.png)
 
-![Actual original Bag to canonical checkout receipt, fictional contact details](assets/showcase/native-public-checkout-20261009.png)
+[Archived capture from the preceding release: Actual original Bag to canonical checkout receipt, fictional contact details](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/native-public-checkout-20261009.png)
 
 Original intro/controls still include English copy. Universal native worker
 provider inheritance, complete advanced-media import, externally settled payments
@@ -271,7 +281,7 @@ Core owns catalogue, price, stock, authentication and checkout. The private Expe
 service owns presentation and its current/native editor selection. The public
 Storyfront manifest links them; it contains no closed renderer or provider keys.
 
-![Managed Storyfront connection and its existing editor](assets/showcase/storyfront-managed.png)
+[Archived capture from the preceding release: Managed Storyfront connection and its existing editor](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/storyfront-managed.png)
 
 ![Actual domain and channel management](assets/showcase/channel-domains.png)
 
@@ -289,7 +299,7 @@ Storyfront manifest links them; it contains no closed renderer or provider keys.
   Google/Apple OAuth acceptance, real payment settlement or production capacity.
 - **No external transaction for this documentation refresh:** no new email, paid
   inference, image generation or payment; the new screenshots are passive English
-  captures of an owned public demo. [Exact media provenance](assets/showcase/README.md#public-integration-captures-8-october-2026).
+  captures of an owned public demo. [Exact media provenance](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/README.md#public-integration-captures-8-october-2026).
 
 The retained 6 October fashion demo recordings are dated evidence of those local
 workflows, not relabelled captures of this later release. For full scope, use

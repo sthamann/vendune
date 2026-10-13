@@ -28,7 +28,7 @@ card and detail page show the actual connection, domain, sales channel and **Edi
 experience** link. Apps, Storyfronts and channel management use one mount registry
 and the same existing editor, with native/retained selection owned by that deployment.
 
-![Storyfront installed and enabled for an existing public demo experience](assets/showcase/storyfront-installed.png)
+[Archived capture from the preceding release: Storyfront installed and enabled for an existing public demo experience](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/showcase/storyfront-installed.png)
 
 The public manifest contains no private renderer. Listing apps does not install
 anything; installation does not publish or generate an Experience. A hosted app

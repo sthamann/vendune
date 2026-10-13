@@ -6,7 +6,7 @@ scope selector chooses the shared company basis or a configured sales channel.
 Storefront and headless channels use the same resolver. Separate SaaS tenants
 never inherit from each other.
 
-![Structured company editor](screenshots/company-settings.jpg)
+![Structured company editor](assets/feature-tour/company.jpg)
 
 ## Identity and address
 
