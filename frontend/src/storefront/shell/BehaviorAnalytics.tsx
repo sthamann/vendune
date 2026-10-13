@@ -142,9 +142,8 @@ export default function BehaviorAnalytics({
           token,
         ).catch(() => {});
     };
-    window.addEventListener("vendune:product-question", receive);
-    return () =>
-      window.removeEventListener("vendune:product-question", receive);
+    window.addEventListener("veyndo:product-question", receive);
+    return () => window.removeEventListener("veyndo:product-question", receive);
   }, [enabled, scope, id, token]);
   return null;
 }

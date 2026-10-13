@@ -1,7 +1,7 @@
 # Upstream attribution
 
-Original Vendune code in this revision is offered under the
-[Vendune Sustainable Use License](LICENSE). The notices and permissions below,
+Original Veyndo code in this revision is offered under the
+[Veyndo Sustainable Use License](LICENSE). The notices and permissions below,
 and licenses of external dependencies and datasets, remain unchanged. Previously
 distributed MIT versions retain their original terms; see [licensing](docs/licensing.md).
 

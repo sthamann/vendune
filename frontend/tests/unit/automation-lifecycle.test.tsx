@@ -71,7 +71,7 @@ it("opens existing rules immediately and honors granular automation.manage for c
       : path === "/api/auth/access"
         ? { permissions: ["settings.write", "automation.manage"] }
         : path === "/store-api/context"
-          ? { mainLocale: "en-GB", locales: ["en-GB"] }
+          ? { mainLocale: "en-GB", availableLocales: ["en-GB"] }
           : path === "/api/automation/catalog"
             ? {
                 conditions: ["alwaysValid"],

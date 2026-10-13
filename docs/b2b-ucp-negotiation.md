@@ -15,10 +15,10 @@ itself negotiate a product's price. Commercial negotiation has been discussed in
 [the upstream proposal](https://github.com/Universal-Commerce-Protocol/ucp/discussions/502),
 but VEYNDO does **not** claim to implement a ratified `dev.ucp.*` negotiation capability.
 
-Our discoverable extension is **`ai.vendune.app.shopping.b2b_negotiation`**, version
+Our discoverable extension is **`ai.veyndo.app.shopping.b2b_negotiation`**, version
 **`2026-10-13`**, extending **`dev.ucp.shopping.checkout`**, version **`2026-08-25`**.
 The schema is served from the corresponding namespace authority:
-`https://app.vendune.ai/ucp/2026-10-13/b2b-negotiation.json`.
+`https://app.veyndo.ai/ucp/2026-10-13/b2b-negotiation.json`.
 Its `$defs["dev.ucp.shopping.checkout"]` composes with the official checkout schema
 using `allOf`. This is a selected VEYNDO UCP adapter, not whole-protocol certification.
 The immutable, secret-free schema has a precise public route; its admission exception
@@ -73,7 +73,7 @@ Two explicit opt-in transports are supported:
   merchant/customer credentials; five-second request timeout and 32 KiB body limit.
   Missing parent/protocol compatibility fails; unsupported vendor versions cannot
   invoke B2B commands. There is no persistent platform-profile cache.
-- **Pre-negotiated VEYNDO client:** `x-vendune-ucp-b2b-version: 2026-10-13`.
+- **Pre-negotiated VEYNDO client:** `x-veyndo-ucp-b2b-version: 2026-10-13`.
   This vendor-specific shortcut explicitly selects the known published contract.
   It is useful for direct clients and offline/local integration tests; it is **not**
   a replacement for UCP's interoperable platform-profile advertisement. Supplying
@@ -88,10 +88,10 @@ Example platform profile fragment:
     "version": "2026-08-25",
     "capabilities": {
       "dev.ucp.shopping.checkout": [{"version": "2026-08-25"}],
-      "ai.vendune.app.shopping.b2b_negotiation": [{
+      "ai.veyndo.app.shopping.b2b_negotiation": [{
         "version": "2026-10-13",
         "extends": ["dev.ucp.shopping.checkout"],
-        "schema": "https://app.vendune.ai/ucp/2026-10-13/b2b-negotiation.json"
+        "schema": "https://app.veyndo.ai/ucp/2026-10-13/b2b-negotiation.json"
       }]
     }
   }

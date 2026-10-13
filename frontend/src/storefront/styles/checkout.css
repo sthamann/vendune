@@ -1,6 +1,6 @@
 /* One-page checkout: calm responsive workspace with a sticky, readable order review. */
 @import "./checkout-fields.css";
-.shop-bag.vendune-checkout {
+.shop-bag.veyndo-checkout {
   width: min(1120px, calc(100vw - 40px));
   max-width: none;
   height: min(940px, calc(100dvh - 40px));
@@ -13,35 +13,35 @@
   color: var(--ink);
   background: #fff;
 }
-.vendune-checkout[open] {
+.veyndo-checkout[open] {
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-.vendune-checkout::backdrop {
+.veyndo-checkout::backdrop {
   background: #15243b77;
   backdrop-filter: blur(5px);
 }
-.vendune-checkout .bag-heading {
+.veyndo-checkout .bag-heading {
   flex-shrink: 0;
   padding: 26px 32px;
   background: #fff;
   border-bottom: 1px solid var(--line);
 }
-.vendune-checkout .bag-heading h2 {
+.veyndo-checkout .bag-heading h2 {
   font-size: 28px;
   letter-spacing: -0.8px;
 }
-.vendune-checkout .bag-heading p {
+.veyndo-checkout .bag-heading p {
   color: var(--muted);
   font-size: 14px;
   margin: 6px 0 0;
 }
-.vendune-checkout .bag-heading button {
+.veyndo-checkout .bag-heading button {
   min-width: 44px;
   min-height: 44px;
 }
-.vendune-checkout .bag-body {
+.veyndo-checkout .bag-body {
   flex: 1;
   min-height: 0;
   max-height: none;
@@ -278,16 +278,16 @@
   text-align: center;
 }
 @media (max-width: 760px) {
-  .shop-bag.vendune-checkout {
+  .shop-bag.veyndo-checkout {
     width: 100vw;
     height: 100dvh;
     border-radius: 0;
     margin: 0;
   }
-  .vendune-checkout .bag-heading {
+  .veyndo-checkout .bag-heading {
     padding: 18px;
   }
-  .vendune-checkout .bag-heading h2 {
+  .veyndo-checkout .bag-heading h2 {
     font-size: 24px;
   }
   .checkout-layout {
@@ -309,7 +309,7 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .vendune-checkout * {
+  .veyndo-checkout * {
     scroll-behavior: auto;
     transition: none;
   }
@@ -336,30 +336,26 @@
   grid-template-columns: 48px 1fr;
   column-gap: 10px;
 }
-.vendune-checkout .checkout-details form > label:not(.customer-checkbox) {
+.veyndo-checkout .checkout-details form > label:not(.customer-checkbox) {
   display: grid;
   gap: 8px;
   margin: 0;
   font-size: 14px;
 }
-.vendune-checkout
-  .checkout-details
-  form
-  > label
-  > input:not([type="checkbox"]) {
+.veyndo-checkout .checkout-details form > label > input:not([type="checkbox"]) {
   width: 100%;
 }
-.vendune-checkout .checkout-b2b {
+.veyndo-checkout .checkout-b2b {
   padding: 1.25rem;
   margin-block: 1rem;
   border: 1px solid var(--shop-border, #d6dfdb);
   border-radius: 1rem;
   background: var(--shop-surface, #fff);
 }
-.vendune-checkout .checkout-b2b p {
+.veyndo-checkout .checkout-b2b p {
   margin-block: 0.75rem;
   line-height: 1.5;
 }
-.vendune-checkout .checkout-b2b button {
+.veyndo-checkout .checkout-b2b button {
   margin: 0.5rem 0.5rem 0.5rem 0;
 }

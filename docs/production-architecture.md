@@ -160,7 +160,7 @@ injection, a compromised process, all side channels or arbitrary external servic
    to their app schema group. Run it as the actual migration owner after additive migrations; rerun role provisioning for new tables. Never grant the migration owner to runtime.
 3. Set `DATABASE_RUNTIME_URL`, `DB_RLS_REQUIRED=true`, `BOOTSTRAP_MODE=serve` and
    `ALLOW_BOOTSTRAP_AUTH=false` for public HTTP and worker deployments. Membership
-   in `vendune_runtime` must be inherited by the runtime login. App tables may be
+   in `veyndo_runtime` must be inherited by the runtime login. App tables may be
    owned by that limited app-schema group; core tables stay with the migration owner.
 4. Reserve `DB_POOL_MAX + 2` per process for the pool and listeners against the shared `DB_CLUSTER_CONNECTION_BUDGET`. A fenced heartbeat enforces this fleet budget; a lost lease stops its process.
 5. Run the strict `production_foundations` suite on a disposable database and test

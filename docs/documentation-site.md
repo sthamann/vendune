@@ -1,6 +1,6 @@
 # Read and maintain the public documentation
 
-The [documentation website](https://sthamann.github.io/vendune/docs/) publishes
+The [documentation website](https://sthamann.github.io/veyndo/docs/) publishes
 every tracked Markdown file in this repository. Guides under `docs/` appear at
 `docs/NAME.html`; repository and module notes appear under `docs/repository/`. Hidden source directories use a `dot-` prefix in public
 paths (for example `.github/` becomes `dot-github/`), because [GitHub Pages artifact

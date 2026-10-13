@@ -43,7 +43,7 @@ def call(path,body=None,headers=None,method=None,expected=200):
     return data
 
 def signed(path,subject,**extra):
-    now=int(time.time());claims={'iss':issuer,'aud':'vendune-identity','verified':True,'sub':subject,'email':subject+'@example.test','name':'Test owner','iat':now,'exp':now+60,'nonce':uuid.uuid4().hex+uuid.uuid4().hex,**extra}
+    now=int(time.time());claims={'iss':issuer,'aud':'veyndo-identity','verified':True,'sub':subject,'email':subject+'@example.test','name':'Test owner','iat':now,'exp':now+60,'nonce':uuid.uuid4().hex+uuid.uuid4().hex,**extra}
     payload=base64.urlsafe_b64encode(json.dumps(claims).encode()).decode().rstrip('=')
     signature=base64.urlsafe_b64encode(hmac.new(key.encode(),(path+'\n'+payload).encode(),hashlib.sha256).digest()).decode().rstrip('=')
     return {'payload':payload,'signature':signature}
@@ -126,7 +126,7 @@ with (ROOT/'artifacts/identity-broker-server.log').open('w') as log:
         check('Existing Experience mounts and operator editor links are discoverable only in the authenticated member workspace')
         call('/api/settings/frontends',{'alias':alias,'channel':'default'},th,method='PUT',expected=409)
         call('/api/settings/frontends',{'alias':alias,'channel':'missing'},mh,method='PUT',expected=400)
-        host={'Host':alias+'.vendune.ai','cookie':'merchant-cookie','Authorization':'Bearer '+one['token']}
+        host={'Host':alias+'.veyndo.ai','cookie':'merchant-cookie','Authorization':'Bearer '+one['token']}
         data=call('/',headers=host);assert data['tenant']==shop and data['channel']=='default' and data['authenticated'] and data['cookie'] is None and data['authorization'] is None
         data=call('/',headers={**host,'cookie':'admin_token=secret; shopper_sid=opaque-123'});assert data['cookie']=='shopper_sid=opaque-123' and data['authorization'] is None
         public_api='/api/v1/commerce.json'
@@ -135,7 +135,7 @@ with (ROOT/'artifacts/identity-broker-server.log').open('w') as log:
         data=call(public_api,{'operation':'checkout','sku':stable},host)
         assert json.loads(data['body'])=={'operation':'checkout','sku':stable} and data['tenant']==shop
         call(public_api,headers={'x-tenant':shop},expected=403)
-        call(public_api,headers={'Host':other+'.vendune.ai'},expected=403)
+        call(public_api,headers={'Host':other+'.veyndo.ai'},expected=403)
         call(public_api,headers={**host,'x-tenant':other},expected=400)
         call('/api/unregistered',headers=host,expected=403)
         call('/api/v1/%2e%2e/platform/shops',headers=host,expected=403)
@@ -154,7 +154,7 @@ with (ROOT/'artifacts/identity-broker-server.log').open('w') as log:
         finally:finish_stream.set()
         check('Only configured opaque shopper cookies round-trip; first SSE event arrives before upstream EOF')
         call('/',headers={**host,'x-tenant':other},expected=400)
-        call('/api/platform/overview',headers={'Host':alias+'.vendune.ai'},expected=401)
+        call('/api/platform/overview',headers={'Host':alias+'.veyndo.ai'},expected=401)
         call(path,signed(path,'new-'+suffix,workspaceId=alias,workspaceName='Reserved alias'),expected=409)
         check('Hosted addresses are tenant-bound, forbid collisions, strip credentials and do not proxy merchant APIs')
         import subprocess

@@ -2,28 +2,31 @@
 
 **Product:** VEYNDO. **Merchant workspace:** VEYNDO Studio.
 **Operator console:** VEYNDO Platform.
-**Canonical repository:** https://github.com/sthamann/vendune.
-**Documentation:** https://sthamann.github.io/vendune/docs/.
+**Canonical repository:** https://github.com/sthamann/veyndo.
+**Documentation:** https://sthamann.github.io/veyndo/docs/.
 
-The V mark combines a folded V with a dune contour, using azure `#2459ef` and
-cyan `#18b9d9`. The mark is a small, dependency-free SVG. UI and site favicons use
-identical copies checked by `scripts/branding.py`; the wordmark includes light
-and dark variants. [Mark](brand/vendune-mark.svg), [wordmark](brand/vendune-logo.svg),
-[dark wordmark](brand/vendune-logo-dark.svg). `shared/ui/Brand.tsx` owns the UI
-identity. Tenant-owned company logos and merchant shop names are independent.
+The VEYNDO identity uses the approved Living V symbol and custom outlined
+geometric lettering. Two offset solid elements form one directed V, expressing
+connected intelligence turning understanding into action. The palette is
+graphite `#171B18`, warm white `#F5F3EC` and lime `#D2F34A`. The V mark is used
+for favicons and compact surfaces. UI and site favicons use identical copies checked by
+`scripts/branding.py`; wordmarks have light and dark variants.
+[Mark](brand/veyndo-mark.svg), [wordmark](brand/veyndo-logo.svg),
+[dark wordmark](brand/veyndo-logo-dark.svg). `shared/ui/Brand.tsx` owns the UI
+identity and places the Studio label below the wordmark within the available
+width. Tenant-owned company logos and merchant shop names are independent.
 
-The [repository header](brand/vendune-readme.svg) uses the same mark, blue/cyan
-palette and dune contours. Its connected Storefront/Studio/Apps/Agents diagram
-is authored brand artwork, not a browser screenshot or a performance claim.
-README product images remain unedited captures of the actual English prototype.
+The [repository header](brand/veyndo-readme.svg) uses the same vector identity
+and the approved subtitle “Commerce that thinks and acts.” README product
+images are unedited captures of the actual prototype.
 
 ## Package and deployment naming
 
-The Rust crate and HTTP binary are `vendune`; Rust imports use `vendune::`.
-The frontend package is `vendune-experience`. The application image uses `vendune`; fresh local database/search containers use
-standard PostgreSQL and Qdrant images. The legacy `vendune-db` image is retained
-for existing AGE/pgvector conversions. Fresh local installations use Compose project `vendune` and
-container `vendune-postgres-1`. Start and worker commands, differential runners,
+The Rust crate and HTTP binary are `veyndo`; Rust imports use `veyndo::`.
+The frontend package is `veyndo-experience`. The application image uses `veyndo`; fresh local database/search containers use
+standard PostgreSQL and Qdrant images. The legacy `veyndo-db` image is retained
+for existing AGE/pgvector conversions. Fresh local installations use Compose project `veyndo` and
+container `veyndo-postgres-1`. Start and worker commands, differential runners,
 MCP examples, deployment files and CI use these names consistently.
 
 Existing checkouts can stay in their original folder. `scripts/dev.sh` detects
@@ -41,13 +44,36 @@ never delete its database volume to perform a rename.
   headers retain their existing security behavior; renaming them is unnecessary
   and would invalidate sessions or integrations. Client principal headers remain
   untrusted and cannot grant access.
-- Applied SQL migrations retain their exact bytes and checksum. No destructive
-  data rewrite is part of branding.
-- Dated verification/benchmark records and old recordings retain their original
-  names, paths and measured evidence. Historical images are evidence, not a
-  representation of the current interface. README screenshots are recaptured
-  from VEYNDO. Historic GitHub repository links redirect after the repo rename;
-  new links use the canonical VEYNDO URL.
+- Stored migration-ledger checksums remain unchanged. Six historical sources
+  receive the explicit identity-only update requested for this rename. The
+  migration runner accepts only the documented exact old/new SHA-256 pairs in
+  `src/migrations/identity_checksums.rs`; an unreviewed byte change still fails.
+  Additive migration `090-veyndo-identity` updates the active trigger contracts
+  and renames the diagnostic function while retaining its grants and behavior.
+  No orders, customer records, IDs or audit history are rewritten.
+- Existing Qdrant projections are preserved through additive collection aliases.
+  Run the migration-only job with `QDRANT_NAMESPACE_MIGRATE_FROM` set to the
+  deployment's actual previous namespace, alongside the existing `QDRANT_URL`
+  and optional `QDRANT_API_KEY`. Leave it empty on fresh installs and serving
+  replicas. The job validates the exact v2 collection names, model hash suffix,
+  vector dimension and cosine geometry before changing any aliases. Existing
+  canonical collections or conflicting aliases stop the job. It does not
+  delete collections, change point IDs or spend credits on re-embedding.
+  Repeating the job is idempotent; the regular deletion worker includes aliases
+  so customer/merchant deletion still removes the appropriate tenant's points.
+  The existing real PostgreSQL/Qdrant managed-search suite checks this migration
+  through the compiled setup job and the normal search/deletion paths.
+- The current WIT package is `veyndo:commerce@1.0.0`. Existing immutable
+  component packages can retain their approved source and digests: configure
+  their actual previous namespace in `COMPONENT_LEGACY_NAMESPACES` during
+  cutover. Only explicitly listed v1 namespaces are admitted. They reach the
+  same bounded cart/product/app-record host through structurally checked WIT
+  types; memory, tables, fuel, read-call quotas, money and output validation
+  remain unchanged. Unknown namespaces/versions are rejected. No installed
+  package is rewritten, resigned or granted additional permissions.
+- Git history retains the original dated evidence. Current documentation uses
+  the canonical product name and links. Regenerated media carries its actual
+  new capture source, date and hashes; no old capture is presented as new.
 
 `python3 scripts/branding.py` checks package/runtime paths, current public
 identity, shared SVG assets, source ownership and the absence of stale platform

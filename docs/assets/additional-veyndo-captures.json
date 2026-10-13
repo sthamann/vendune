@@ -1,0 +1,97 @@
+[
+  {
+    "path": "feature-tour/api-integrations.jpg",
+    "sha256": "7e49797d93dfa6c416432c175373cfae72c0c17ae62e679a0c572c7457c66092",
+    "source": "api-integrations.png",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "boundary": "Actual local rebrand-branch UI in an isolated synthetic shop. Visitor view has no consented observations. Knowledge test uses text retrieval without inference."
+  },
+  {
+    "path": "feature-tour/overview.jpg",
+    "sha256": "cc4277df4331d1e58eb9361607028cc91b9554d2e087fcd5b99bded4775ef765",
+    "source": "overview.png",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "boundary": "Actual local rebrand-branch UI in an isolated synthetic shop. Visitor view has no consented observations. Knowledge test uses text retrieval without inference."
+  },
+  {
+    "path": "behavior/overview.png",
+    "sha256": "38d3d58f985ec26e7f7cfa27284ad487ad57b0a3e473ea8d42d7ea48cd6bba2d",
+    "source": "visitor-insights.png",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "boundary": "Actual local rebrand-branch UI in an isolated synthetic shop. Visitor view has no consented observations. Knowledge test uses text retrieval without inference."
+  },
+  {
+    "path": "feature-tour/knowledge-test.jpg",
+    "sha256": "1de5986945f117af840d8a1f5272ec189e2a8f867d8bbd8f1b8ae0a7eb60907c",
+    "source": "knowledge-test.png",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "boundary": "Actual local rebrand-branch UI in an isolated synthetic shop. Visitor view has no consented observations. Knowledge test uses text retrieval without inference."
+  },
+  {
+    "path": "feature-tour/campaigns.jpg",
+    "sha256": "1032dd4eeba14e43613296def8dfaff80e7793553c398d6b9bf5bd52d0bf1c46",
+    "source": "campaigns.png",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "boundary": "Actual isolated local demo editor; Returns pattern is an editable draft, not installed or published. No model, external provider or refund invoked."
+  },
+  {
+    "path": "feature-tour/app-assistants.jpg",
+    "sha256": "57f3b6e5c33aa52386ab4976d3dfd9c2e6ba6c89905842d9838fb81f9e4f5f5e",
+    "source": "app-assistants.png",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "boundary": "Actual isolated local demo editor; Returns pattern is an editable draft, not installed or published. No model, external provider or refund invoked."
+  },
+  {
+    "path": "app-tutorials/assistant.jpg",
+    "sha256": "57f3b6e5c33aa52386ab4976d3dfd9c2e6ba6c89905842d9838fb81f9e4f5f5e",
+    "source": "app-assistants.png",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "boundary": "Actual isolated local demo editor; Returns pattern is an editable draft, not installed or published. No model, external provider or refund invoked."
+  },
+  {
+    "path": "app-tutorials/coding-agent.jpg",
+    "sha256": "1b74ec172403bf7e0ba97f30f9f1e8795e727dc7f0885c2b4afc00c4239e84a3",
+    "source": "app-coding-agent.png",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "boundary": "Actual isolated local demo editor; Returns pattern is an editable draft, not installed or published. No model, external provider or refund invoked."
+  },
+  {
+    "path": "app-tutorials/product-access.jpg",
+    "sha256": "9012e75d065c0af4740d9256be3087caa873ecb265b7da0543cc6684a148b041",
+    "source": "product-access.png",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "boundary": "Actual isolated local demo editor; Returns pattern is an editable draft, not installed or published. No model, external provider or refund invoked."
+  },
+  {
+    "path": "app-tutorials/returns-model.jpg",
+    "sha256": "1d6b6dae4bff80860182bb22da6b979c599f38095aca9a4367b46f84396bdc5e",
+    "source": "returns-model.png",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "boundary": "Actual isolated local demo editor; Returns pattern is an editable draft, not installed or published. No model, external provider or refund invoked."
+  },
+  {
+    "path": "app-tutorials/returns-workflow-editor.png",
+    "sha256": "2a6248028a6520eeba5d4ffc2c1d3c1be68766aece792e0eadd61abaa09fb803",
+    "source": "returns-workflow-editor.png",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "boundary": "Actual isolated local demo editor; Returns pattern is an editable draft, not installed or published. No model, external provider or refund invoked."
+  },
+  {
+    "path": "app-tutorials/returns-case-confirmed.png",
+    "sha256": "eb793645c0433c29d4df592ba919f29ab5f765ae6d29c7e7fbc0001ea26f1352",
+    "capturedAt": "2026-10-13",
+    "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+    "boundary": "Actual isolated local app release and native order consumer. Demo case passed New -> Under review -> Goods received -> Closed; date 2026-10-13 and Closed persisted after browser reload. No refund, payment, inventory or native order state changed."
+  }
+]

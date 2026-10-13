@@ -33,7 +33,7 @@ export async function readAgentStream(response: Response): Promise<any> {
         if (event === "complete" || event === "error") return parsed;
         if (event === "waiting" && Number.isFinite(parsed.elapsedSeconds))
           window.dispatchEvent(
-            new CustomEvent("vendune-agent-progress", { detail: parsed }),
+            new CustomEvent("veyndo-agent-progress", { detail: parsed }),
           );
       }
       if (buffer.length > 4 * 1024 * 1024)

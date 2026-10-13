@@ -52,7 +52,7 @@ mod tests {
     #[test]
     fn scoped_return_and_cancel_are_distinct_and_encoded() {
         let (a, c) = build(
-            "https://app.vendune.ai/",
+            "https://app.veyndo.ai/",
             "shop-a",
             "web & de",
             "attempt-a",

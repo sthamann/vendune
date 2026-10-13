@@ -4,13 +4,13 @@ body:has(.studio) {
   overflow: hidden;
 }
 .studio {
-  --bg: #f6f7fb;
-  --panel: #f6f8fc;
-  --hover: #edf2ff;
-  --border: #e3e8f0;
-  --text: #1c2940;
-  --muted: #65738a;
-  --accent: #3067e8;
+  --bg: #f5f3ec;
+  --panel: #eeeee6;
+  --hover: #eaf2cc;
+  --border: #dedfd5;
+  --text: #171b18;
+  --muted: #657063;
+  --accent: #536817;
   --danger: #b32942;
   font-family:
     Inter,
@@ -22,14 +22,14 @@ body:has(.studio) {
   grid-template-columns: 228px minmax(0, 1fr);
 }
 .studio[data-theme="dark"] {
-  --bg: #172338;
-  --surface: #21314b;
-  --panel: #273a56;
-  --hover: #314b70;
-  --border: #425573;
-  --text: #f0f5ff;
-  --muted: #bdcbe0;
-  --accent: #8bb6ff;
+  --bg: #171b18;
+  --surface: #222922;
+  --panel: #293129;
+  --hover: #39452b;
+  --border: #485344;
+  --text: #f5f3ec;
+  --muted: #b8c2b0;
+  --accent: #d2f34a;
   --danger: #ffa0ae;
 }
 .studio .studio-sidebar {
@@ -45,7 +45,7 @@ body:has(.studio) {
   color: var(--accent-text);
   border: 0;
   border-radius: 11px;
-  box-shadow: 0 4px 14px #3067e830;
+  box-shadow: 0 4px 14px #53681730;
 }
 .studio .workspace-switch {
   border-radius: 10px;
@@ -157,7 +157,7 @@ body:has(.studio) {
   border-radius: 9px;
 }
 .studio :is(input, textarea, select):focus-visible {
-  box-shadow: 0 0 0 4px #3067e812;
+  box-shadow: 0 0 0 4px #53681712;
   outline-offset: 0;
 }
 .studio .operation-row {
@@ -198,6 +198,33 @@ body:has(.studio) {
   }
   .studio .studio-sidebar {
     gap: 14px;
+  }
+  .studio .studio-topbar > div:first-child {
+    flex: 0 0 36px;
+    overflow: visible;
+  }
+  .studio .studio-topbar .mobile-menu {
+    flex-shrink: 0;
+    width: 36px;
+  }
+  .studio .breadcrumb {
+    display: none;
+  }
+  .studio .studio-signout {
+    width: 36px;
+    min-width: 36px;
+    padding: 0;
+  }
+  .studio .studio-signout span {
+    display: none;
+  }
+  .studio .topbar-actions {
+    min-width: 0;
+    flex: 1;
+    overflow-x: auto;
+  }
+  .studio .topbar-actions > * {
+    flex-shrink: 0;
   }
   .studio .topbar-actions .connection-state {
     display: none;

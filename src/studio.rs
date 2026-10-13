@@ -104,7 +104,7 @@ pub(super) async fn merchant_overview(
         "knowledge":{"graph":graph,"indexedProducts":if auth::allowed(&h,"knowledge.read") {facts["indexedProducts"].clone()} else {json!(0)},"lastIndexed":if auth::allowed(&h,"knowledge.read") {facts["lastIndexed"].clone()} else {Value::Null},"provenance":"curated-demo","modelWeightsLearn":false},
         "learning":{"timeline":facts["learningTimeline"],"variants":facts["variants"],"method":"epsilon-greedy with smoothed purchase rate","reward":"simulated order","causalUpliftProven":false},
         "activity":facts["activity"],"channels":facts["channels"],
-        "connections":{"providers":providers["providers"],"chatgptAccountLinked":false,"claudeAccountLinked":false,"localMCPConfig":{"mcpServers":{"vendune":{"command":"python3","args":[env::current_dir().unwrap().join("scripts/mcp_stdio.py").to_string_lossy()],"env":{"COMMERCE_URL":"http://127.0.0.1:8787","COMMERCE_TENANT":t}}}},"localMCP":true,"ucpCheckout":true,"remoteOAuth":false},
+        "connections":{"providers":providers["providers"],"chatgptAccountLinked":false,"claudeAccountLinked":false,"localMCPConfig":{"mcpServers":{"veyndo":{"command":"python3","args":[env::current_dir().unwrap().join("scripts/mcp_stdio.py").to_string_lossy()],"env":{"COMMERCE_URL":"http://127.0.0.1:8787","COMMERCE_TENANT":t}}}},"localMCP":true,"ucpCheckout":true,"remoteOAuth":false},
         "capabilities":CAPABILITIES.iter().map(|(name,_)|name).collect::<Vec<_>>()
     })))
 }

@@ -140,6 +140,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/bin/verified_kernel/dispatch.rs](../src/bin/verified_kernel/dispatch.rs) | Generated conformance driver; invokes the same production policy functions as the commerce server. |
 | [src/bin/verified_kernel.rs](../src/bin/verified_kernel.rs) | Generated input/output driver; production policies are dispatched by the generated module. |
 | [src/bootstrap.rs](../src/bootstrap.rs) | Startup, additive migrations, persisted extensions and outbox worker. |
+| [src/brand_redirect.rs](../src/brand_redirect.rs) | Move browser pages to the configured domain while retaining integration and checkout endpoints. |
 | [src/capabilities/catalog.rs](../src/capabilities/catalog.rs) | Shared catalogue composes native capabilities and cognitive contracts without duplicating authorization. |
 | [src/capabilities/core_catalog.rs](../src/capabilities/core_catalog.rs) | Public HTTP/MCP capability catalogue, separate from authorization and dispatch. |
 | [src/capabilities.rs](../src/capabilities.rs) | Shared HTTP/MCP capability dispatch and tool authorization. |
@@ -231,6 +232,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/commerce/tax_context.rs](../src/commerce/tax_context.rs) | Tax conditions consume private authoritative pre-tax cart facts without a recursive quote. |
 | [src/commerce/tax_rules.rs](../src/commerce/tax_rules.rs) | Priority-based destination rules; current tax law is merchant configuration, not bundled tax advice. |
 | [src/commerce/types.rs](../src/commerce/types.rs) | Checkout selection and configuration data contracts. |
+| [src/component_runtime/abi.rs](../src/component_runtime/abi.rs) | Exact, operator-configured WIT namespace compatibility with the same bounded host. |
 | [src/component_runtime.rs](../src/component_runtime.rs) | WIT-typed read-only commerce guest. Snapshots are prepared by domain owners; no WASI, HTTP, DB or merchant credentials reach components. |
 | [src/concierge.rs](../src/concierge.rs) | Read-only storefront shopping advisor. |
 | [src/context.rs](../src/context.rs) | Bounded behavioral ports of Shopware 6.7.14.2 context and product-cart selection. |
@@ -285,6 +287,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/knowledge/rerank.rs](../src/knowledge/rerank.rs) | Optional TEI cross-encoder reranking on at most 24 tenant-hydrated texts; malformed or unavailable providers retain fused ordering. |
 | [src/knowledge/search.rs](../src/knowledge/search.rs) | Hybrid exact/lexical + dense RRF; hydrate current tenant rows and retrieve only connected evidence. |
 | [src/knowledge/vector_cache.rs](../src/knowledge/vector_cache.rs) | Bounded, short-lived collection geometry cache; only successful verification is cached. |
+| [src/knowledge/vector_namespace.rs](../src/knowledge/vector_namespace.rs) | Explicit, additive Qdrant namespace migration and alias-aware projection deletion. |
 | [src/knowledge/vectors.rs](../src/knowledge/vectors.rs) | Private Qdrant adapter: tenant/model filters, deterministic identities and durable PostgreSQL index queue. |
 | [src/knowledge.rs](../src/knowledge.rs) | Transactional PostgreSQL knowledge relations and separately indexed Qdrant retrieval. |
 | [src/legal/capabilities.rs](../src/legal/capabilities.rs) | MCP legal tools delegate to the same ownership/permission-checked HTTP domain handlers. |
@@ -333,6 +336,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/mcp/transport.rs](../src/mcp/transport.rs) | MCP visibility and shared read-scope memoization, independent of internal planning tools. |
 | [src/mcp/visibility.rs](../src/mcp/visibility.rs) | MCP discovery applies current merchant permissions through the same capability owners as invocation. |
 | [src/mcp.rs](../src/mcp.rs) | Typed MCP schemas and JSON-RPC transport. |
+| [src/migrations/identity_checksums.rs](../src/migrations/identity_checksums.rs) | Explicit source-hash pairs for the reviewed identity-only migration source update. |
 | [src/migrations/recent_schema.rs](../src/migrations/recent_schema.rs) | Later additive migrations retain the same ordered ledger and checksum contract. |
 | [src/migrations/schema.rs](../src/migrations/schema.rs) | Append-only ordered migration source catalogue; deployed checksums are never rewritten. |
 | [src/migrations.rs](../src/migrations.rs) | Versioned setup is separate from serving; no catalog-wide startup repair. |
@@ -504,6 +508,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/automation/lifecycle-i18n.ts](../frontend/src/admin/automation/lifecycle-i18n.ts) | Shared lifecycle, starting-process and dependency vocabulary for every automation editor. |
 | [frontend/src/admin/automation/pipeline-types.ts](../frontend/src/admin/automation/pipeline-types.ts) | Stable graph data mirrors the Rust pipeline contract, with explicit true/false edges and persistent node identifiers. |
 | [frontend/src/admin/automation/source-rules.ts](../frontend/src/admin/automation/source-rules.ts) | Convert source condition nodes for the graphical editor without losing original payload fields. |
+| [frontend/src/admin/automation/useAutomationLanguages.ts](../frontend/src/admin/automation/useAutomationLanguages.ts) | Load the current shop's content-language context and ignore replies after the workspace changes. |
 | [frontend/src/admin/b2b/B2BWorkspace.tsx](../frontend/src/admin/b2b/B2BWorkspace.tsx) | Tenant-scoped company workspace; canonical API operations are also exposed through MCP. |
 | [frontend/src/admin/b2b/CompanyCreate.tsx](../frontend/src/admin/b2b/CompanyCreate.tsx) | Guided company creation is one atomic native API command; the main-language name is always visible. |
 | [frontend/src/admin/b2b/CustomerPicker.tsx](../frontend/src/admin/b2b/CustomerPicker.tsx) | Debounced, bounded native customer search with cancellation fencing and explicit selection. |
@@ -656,7 +661,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/pos/pos-model.ts](../frontend/src/admin/pos/pos-model.ts) | Small POS view models and exact decimal input conversion; server quotes own all calculations. |
 | [frontend/src/admin/pos/pos-receipt.css](../frontend/src/admin/pos/pos-receipt.css) | Completion, held sale and variant surfaces for the register. |
 | [frontend/src/admin/pos/pos-responsive.css](../frontend/src/admin/pos/pos-responsive.css) | Responsive register breakpoints and reduced-motion behavior. |
-| [frontend/src/admin/pos/pos.css](../frontend/src/admin/pos/pos.css) | POS layout, product cards and touch checkout, using shared Vendune tokens. |
+| [frontend/src/admin/pos/pos.css](../frontend/src/admin/pos/pos.css) | POS layout, product cards and touch checkout, using shared Veyndo tokens. |
 | [frontend/src/admin/pos/useCashierFocus.ts](../frontend/src/admin/pos/useCashierFocus.ts) | URL-preserved register focus uses the existing authenticated Studio; re-login overlays remain outside its shell. |
 | [frontend/src/admin/pos/useRegister.ts](../frontend/src/admin/pos/useRegister.ts) | Register commands share authenticated Studio transport and persist only the cart capability locally. |
 | [frontend/src/admin/pos/useRegisterViewport.ts](../frontend/src/admin/pos/useRegisterViewport.ts) | Size the register pane from its actual header position, including translated toolbars and tablet wraps. |
@@ -743,7 +748,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/studio/08-responsive.css](../frontend/src/admin/styles/studio/08-responsive.css) | studio: responsive styles. Source order is preserved by the entry stylesheet. |
 | [frontend/src/admin/styles/studio/09-responsive.css](../frontend/src/admin/styles/studio/09-responsive.css) | studio: responsive styles. Source order is preserved by the entry stylesheet. |
 | [frontend/src/admin/styles/studio/10-studio-mobile-preview-button.css](../frontend/src/admin/styles/studio/10-studio-mobile-preview-button.css) | studio: studio-mobile-preview-button styles. Source order is preserved by the entry stylesheet. |
-| [frontend/src/admin/styles/studio-sign-in.css](../frontend/src/admin/styles/studio-sign-in.css) | Dedicated access surface: responsive Vendune login and native modal reauthentication. |
+| [frontend/src/admin/styles/studio-sign-in.css](../frontend/src/admin/styles/studio-sign-in.css) | Dedicated access surface: responsive Veyndo login and native modal reauthentication. |
 | [frontend/src/admin/styles/studio.css](../frontend/src/admin/styles/studio.css) | Ordered studio stylesheet entry; domain rules live in the adjacent folder. |
 | [frontend/src/admin/styles/team-roles.css](../frontend/src/admin/styles/team-roles.css) | Native team roles and readable scopes share Studio surfaces and responsive form rhythm. |
 | [frontend/src/admin/styles/variants.css](../frontend/src/admin/styles/variants.css) | Variant family and review table share the catalog's responsive theme and focus treatment. |
@@ -898,7 +903,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/styles/markdown-editor.css](../frontend/src/shared/styles/markdown-editor.css) | Shared visual/Markdown product editor treatment using existing Studio theme tokens. |
 | [frontend/src/shared/styles/native-app.css](../frontend/src/shared/styles/native-app.css) | Native app layouts share commerce design tokens; tables/forms remain bounded and responsive. |
 | [frontend/src/shared/styles/workbench.css](../frontend/src/shared/styles/workbench.css) | Merchant workbench uses the studio's light-blue design tokens and responsive review panels. |
-| [frontend/src/shared/ui/Brand.tsx](../frontend/src/shared/ui/Brand.tsx) | Shared Vendune identity; product branding is independent of tenant-owned company logos and session keys. |
+| [frontend/src/shared/ui/Brand.tsx](../frontend/src/shared/ui/Brand.tsx) | Shared Veyndo identity; product branding is independent of tenant-owned company logos and session keys. |
 | [frontend/src/shared/ui/ConfirmDialog.tsx](../frontend/src/shared/ui/ConfirmDialog.tsx) | Shared modal confirmation with focus containment, Escape, focus restoration and an explicit destructive action. |
 | [frontend/src/shared/ui/Icon.tsx](../frontend/src/shared/ui/Icon.tsx) | Icon: Presentational icons and catalogue artwork with explicit inputs.. |
 | [frontend/src/shared/ui/ProductArt.tsx](../frontend/src/shared/ui/ProductArt.tsx) | Product Art: Presentational icons and catalogue artwork with explicit inputs.. |
@@ -1043,7 +1048,7 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/marketplaces/studio/marketplace-i18n.ts](../extensions/apps/marketplaces/studio/marketplace-i18n.ts) | Marketplace app vocabulary; UI language is independent of inherited content language. |
 | [extensions/apps/marketplaces/studio/marketplace-model.ts](../extensions/apps/marketplaces/studio/marketplace-model.ts) | Native app records and provider policy metadata. IDs never change tenant scope. |
 | [extensions/apps/marketplaces/studio/marketplace-order-i18n.ts](../extensions/apps/marketplaces/studio/marketplace-order-i18n.ts) | Source-order review vocabulary in all supported interface languages. |
-| [extensions/apps/marketplaces/studio/marketplaces.css](../extensions/apps/marketplaces/studio/marketplaces.css) | App-owned responsive workspace uses Vendune surface tokens; no global selectors or provider scripts. |
+| [extensions/apps/marketplaces/studio/marketplaces.css](../extensions/apps/marketplaces/studio/marketplaces.css) | App-owned responsive workspace uses Veyndo surface tokens; no global selectors or provider scripts. |
 | [extensions/apps/marketplaces/tests/integration.py](../extensions/apps/marketplaces/tests/integration.py) | Installed Marketplace app -> independent Rust service -> fixture seller APIs -> native PostgreSQL order effects. No external credentials or requests. |
 | [extensions/apps/paypal/src/adapter.rs](../extensions/apps/paypal/src/adapter.rs) | Legacy PayPal admission/account wiring belongs to the PayPal package, not a second pricing owner. |
 | [extensions/apps/paypal/src/compatibility.rs](../extensions/apps/paypal/src/compatibility.rs) | Native PayPal Orders v2 sandbox wire adapter; credentials never enter prompts or browser responses. |
@@ -1121,7 +1126,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/b2b_ucp.py](../scripts/b2b_ucp.py) | Real UCP -> native B2B RFQ -> merchant counteroffer -> separate approval -> one durable order. |
 | [scripts/behavior_intelligence.py](../scripts/behavior_intelligence.py) | Real native event, consent, order, graph, MCP and tenant/PII regression; synthetic buyers only. |
 | [scripts/benchmark.py](../scripts/benchmark.py) | Reproducible local HTTP + PostgreSQL benchmark, with response validation. |
-| [scripts/branding.py](../scripts/branding.py) | Keep approved VEYNDO graphics consistent while the existing runtime namespace awaits its separate migration. |
+| [scripts/branding.py](../scripts/branding.py) | Keep the public Veyndo identity, shared vector assets and executable package/deployment paths consistent. |
 | [scripts/build_app_ui.py](../scripts/build_app_ui.py) | Export deterministic example HTML and its operator uiDigests entry; never fetch remote resources. |
 | [scripts/build_site.py](../scripts/build_site.py) | Build marketing pages and the complete Markdown documentation for GitHub Pages. |
 | [scripts/catalog_management.py](../scripts/catalog_management.py) | Real HTTP/PostgreSQL catalog creation, categories, multilingual editor, visibility and staging regressions. Synthetic isolated shops only. |

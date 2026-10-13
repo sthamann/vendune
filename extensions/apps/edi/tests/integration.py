@@ -31,7 +31,7 @@ try:
   call(core_url,'/api/b2b/unit.save',{'id':'unit','companyId':'firm','revision':0,'data':{'name':{'en-GB':'EDI unit'},'active':True,'currency':'EUR'}},h)
   call(core_url,'/api/b2b/member.save',{'unitId':'unit','customerId':bid,'revision':0,'data':{'active':True,'permissions':['buy','lists','companyOrders']}},h)
   for fmt in ['edifact','ubl','cxml']:
-   call(core_url,'/api/apps/edi/actions/save_partners',{'id':fmt,'revision':0,'fields':{'partner_id':fmt,'name':{'en-GB':'EDI '+fmt},'format':fmt,'sender_id':'BUYER','receiver_id':'VENDUNE','unit_id':'unit','buyer_id':bid,'active':True}},h)
+   call(core_url,'/api/apps/edi/actions/save_partners',{'id':fmt,'revision':0,'fields':{'partner_id':fmt,'name':{'en-GB':'EDI '+fmt},'format':fmt,'sender_id':'BUYER','receiver_id':'VEYNDO','unit_id':'unit','buyer_id':bid,'active':True}},h)
  app_env={**env,'APP_TOKEN':gateway,'APP_EDI_TENANTS':json.dumps(tenants),'APP_BIND_ADDR':adapter_url.removeprefix('http://')}
  def start():
   p=subprocess.Popen([str(ROOT/'target/debug/edi-gateway')],env=app_env,stdout=log,stderr=log)

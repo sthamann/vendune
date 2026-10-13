@@ -157,7 +157,7 @@ export default function ShoppingPreferences({ token }: { token?: string }) {
               );
               const link = document.createElement("a");
               link.href = url;
-              link.download = "vendune-preferences.json";
+              link.download = "veyndo-preferences.json";
               link.click();
               URL.revokeObjectURL(url);
             })

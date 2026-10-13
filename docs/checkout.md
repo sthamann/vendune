@@ -45,7 +45,7 @@ Polling is bounded and non-overlapping; terminal states stop it.
 
 ## Private Shopware Payments connector
 
-The separate private repository is `sthamann/vendune-shopware-payments`.
+The separate private repository is `sthamann/veyndo-shopware-payments`.
 It currently establishes the proprietary attribution/source boundary, not a
 working Shopware Payments network adapter. The official standalone API/SDK,
 onboarding agreement and VEYNDO-authorized test account are still required.

@@ -30,7 +30,7 @@ pub(crate) fn quote(
         } else {
             vec!["consumer".into()]
         });
-        let tier = vendune::context::select_tier(&p.advanced_prices, &rule_ids, i.quantity);
+        let tier = veyndo::context::select_tier(&p.advanced_prices, &rule_ids, i.quantity);
         let discount = 1. - tier.map(|t| t.discount).unwrap_or(0.);
         let gross = currencies::product_price(p, cfg, currency)?;
         let base = if b2b {
@@ -119,7 +119,7 @@ pub(crate) fn normalized_quantity(p: &Product, q: u32) -> Result<u32> {
     if available < p.min_purchase {
         return Err(bad("Product cannot be purchased in an allowed quantity"));
     }
-    Ok(vendune::context::fix_quantity(
+    Ok(veyndo::context::fix_quantity(
         p.min_purchase as i64,
         q.max(p.min_purchase).min(available) as i64,
         p.purchase_steps as i64,

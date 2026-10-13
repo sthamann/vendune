@@ -98,10 +98,10 @@ export const cashierWords = {
     "/ Buscar · Intro Escanear",
   ],
   assistantTitle: [
-    "Ask Vendune",
-    "Frag Vendune",
-    "Demander à Vendune",
-    "Pregunta a Vendune",
+    "Ask Veyndo",
+    "Frag Veyndo",
+    "Demander à Veyndo",
+    "Pregunta a Veyndo",
   ],
   assistantHint: [
     "Product advice from your shop knowledge. Suggestions never change prices or complete a sale.",

@@ -20,7 +20,7 @@ pub(crate) fn start(a: &App) {
     }
     if ["all", "translation-worker"].contains(&role.as_str()) {
         let worker = a.clone();
-        vendune::tenant_scope::spawn(async move {
+        veyndo::tenant_scope::spawn(async move {
             let mut ticks = work_signal::subscribe();
             loop {
                 ticks.tick().await;
@@ -33,7 +33,7 @@ pub(crate) fn start(a: &App) {
     }
     if ["all", "media-worker"].contains(&role.as_str()) {
         let worker = a.clone();
-        vendune::tenant_scope::spawn(async move {
+        veyndo::tenant_scope::spawn(async move {
             let mut ticks = work_signal::subscribe();
             loop {
                 ticks.tick().await;
@@ -46,7 +46,7 @@ pub(crate) fn start(a: &App) {
     }
     if ["all", "http"].contains(&role.as_str()) {
         let worker = a.clone();
-        vendune::tenant_scope::spawn(async move {
+        veyndo::tenant_scope::spawn(async move {
             let mut ticks = tokio::time::interval(std::time::Duration::from_secs(1));
             loop {
                 ticks.tick().await;
@@ -56,7 +56,7 @@ pub(crate) fn start(a: &App) {
     }
     if ["all", "memory-worker"].contains(&role.as_str()) {
         let indexer = a.clone();
-        vendune::tenant_scope::spawn(async move {
+        veyndo::tenant_scope::spawn(async move {
             let mut ticks = work_signal::subscribe();
             loop {
                 ticks.tick().await;
@@ -67,7 +67,7 @@ pub(crate) fn start(a: &App) {
             }
         });
         let worker = a.clone();
-        vendune::tenant_scope::spawn(async move {
+        veyndo::tenant_scope::spawn(async move {
             let mut ticks = work_signal::subscribe();
             loop {
                 ticks.tick().await;
@@ -80,7 +80,7 @@ pub(crate) fn start(a: &App) {
     }
     if ["all", "payment-worker"].contains(&role.as_str()) {
         let worker = a.clone();
-        vendune::tenant_scope::spawn(async move {
+        veyndo::tenant_scope::spawn(async move {
             let mut ticks = work_signal::subscribe();
             loop {
                 ticks.tick().await;
@@ -93,7 +93,7 @@ pub(crate) fn start(a: &App) {
     }
     if ["all", "app-worker"].contains(&role.as_str()) {
         let collector = a.clone();
-        vendune::tenant_scope::spawn(async move {
+        veyndo::tenant_scope::spawn(async move {
             let mut ticks = tokio::time::interval(std::time::Duration::from_secs(5));
             loop {
                 ticks.tick().await;
@@ -104,7 +104,7 @@ pub(crate) fn start(a: &App) {
             }
         });
         let worker = a.clone();
-        vendune::tenant_scope::spawn(async move {
+        veyndo::tenant_scope::spawn(async move {
             let mut ticks = work_signal::subscribe();
             loop {
                 ticks.tick().await;
@@ -117,7 +117,7 @@ pub(crate) fn start(a: &App) {
         // Independent bounded lanes: a slow provider cannot block other tenant/app queues.
         for _ in 0..8 {
             let worker = a.clone();
-            vendune::tenant_scope::spawn(async move {
+            veyndo::tenant_scope::spawn(async move {
                 let mut wake = work_signal::subscribe();
                 loop {
                     match apps::deliver_once(&worker).await {

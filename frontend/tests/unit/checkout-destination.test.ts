@@ -12,19 +12,19 @@ it("keeps checkout and legacy transfer destinations on the shared commerce host"
     expect(
       canonicalShopURL(
         new URL(
-          `https://app.vendune.ai/checkout?shop=merchant-shop&channel=default${hash}`,
+          `https://app.veyndo.ai/checkout?shop=merchant-shop&channel=default${hash}`,
         ),
       ),
     ).toBeUndefined();
   }
   expect(
     canonicalShopURL(
-      new URL("https://app.vendune.ai/?shop=merchant-shop#checkout/legacy"),
+      new URL("https://app.veyndo.ai/?shop=merchant-shop#checkout/legacy"),
     ),
   ).toBeUndefined();
   expect(
     canonicalShopURL(
-      new URL("https://app.vendune.ai/?shop=merchant-shop#product/tee"),
+      new URL("https://app.veyndo.ai/?shop=merchant-shop#product/tee"),
     ),
-  ).toBe("https://merchant-shop.vendune.ai/#product/tee");
+  ).toBe("https://merchant-shop.veyndo.ai/#product/tee");
 });

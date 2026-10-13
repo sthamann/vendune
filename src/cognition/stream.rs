@@ -22,7 +22,7 @@ async fn chat(
         return Err(bad("Message must contain 1..4000 characters"));
     }
     let mut job =
-        vendune::tenant_scope::spawn(
+        veyndo::tenant_scope::spawn(
             async move { agent::merchant_chat(State(a), h, Json(v)).await },
         );
     let stream = async_stream::stream! {

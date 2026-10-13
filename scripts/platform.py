@@ -35,7 +35,7 @@ def check(message):
 
 def sql(text):
     r = subprocess.run(
-        psql(os.getenv("DB_CONTAINER", "vendune-postgres-1"), "commerce",
+        psql(os.getenv("DB_CONTAINER", "veyndo-postgres-1"), "commerce",
              os.getenv("TEST_DATABASE", "commerce"), "-XqAt", "-v", "ON_ERROR_STOP=1"),
         input=text,
         capture_output=True,
@@ -96,7 +96,7 @@ for action in ["grant"]:
             "--email",
             owner["user"]["email"],
             "--container",
-            os.getenv("DB_CONTAINER", "vendune-postgres-1"),
+            os.getenv("DB_CONTAINER", "veyndo-postgres-1"),
             "--database",
             os.getenv("TEST_DATABASE", "commerce"),
         ],
@@ -273,7 +273,7 @@ subprocess.run(
         "--email",
         owner["user"]["email"],
         "--container",
-        os.getenv("DB_CONTAINER", "vendune-postgres-1"),
+        os.getenv("DB_CONTAINER", "veyndo-postgres-1"),
         "--database",
         os.getenv("TEST_DATABASE", "commerce"),
     ],

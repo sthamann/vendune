@@ -15,7 +15,7 @@ def check_role_races(request, register, headers):
     second = member('owner', 'other-owner'); other = headers(second)
     target = member('viewer', 'race-target')
     url = urlsplit(os.environ['DATABASE_URL'])
-    command = psql(os.environ.get('TEST_DB_CONTAINER', 'vendune-postgres-1'), url.username or 'commerce', url.path[1:], '-Atq', '-v', 'ON_ERROR_STOP=1')
+    command = psql(os.environ.get('TEST_DB_CONTAINER', 'veyndo-postgres-1'), url.username or 'commerce', url.path[1:], '-Atq', '-v', 'ON_ERROR_STOP=1')
     def sql(value):
         return subprocess.check_output(command, input=value, text=True).strip()
     # Fixture identifiers come only from the synthetic registry and have no SQL metacharacters.

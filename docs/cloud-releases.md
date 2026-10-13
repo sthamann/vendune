@@ -1,17 +1,17 @@
 # Northflank releases and private performance tests
 
-The `vendune-main-release` Northflank workflow listens to pushes to `main` only.
+The `veyndo-main-release` Northflank workflow listens to pushes to `main` only.
 GitHub branch protection requires the complete `verify` check, an up-to-date
 branch and pull requests; enforcement applies to administrators as well.
 The workflow queues releases, builds the exact triggering SHA, waits for a
-PostgreSQL native backup, deploys that exact image to `vendune-migrate`, waits
+PostgreSQL native backup, deploys that exact image to `veyndo-migrate`, waits
 for its successful migration-only run, then deploys the same image to Core and
 waits for readiness. Core's direct CD and the builder's direct CI stay disabled.
 A failed backup, build or migration prevents the service deployment.
 
-`vendune-migrate` runs `/app/vendune` with `BOOTSTRAP_MODE=migrate`, without
+`veyndo-migrate` runs `/app/veyndo` with `BOOTSTRAP_MODE=migrate`, without
 operator credentials or demo seeding. It inherits only the existing private
-PostgreSQL URI from `vendune-runtime`. Migration ledger/checksums and the database
+PostgreSQL URI from `veyndo-runtime`. Migration ledger/checksums and the database
 migration lock remain authoritative. Do not edit a released migration: add a new
 one. Use expand/contract schema changes while the previous version is serving.
 A database backup is not automatic rollback: restore is an operator decision,
@@ -19,10 +19,10 @@ and backward-incompatible changes require a staged rollout. Release backups are
 additional to the daily seven-day retention schedule; manage their retention as
 catalog size grows.
 
-The manual `vendune-benchmark` job builds `deploy/Dockerfile.benchmark`. It has
+The manual `veyndo-benchmark` job builds `deploy/Dockerfile.benchmark`. It has
 no public port or schedule. Runtime-only database linkage must never be granted
-to a build. Set `BENCHMARK_ENVIRONMENT=vendune-northflank-test` and
-`BASE_URL=http://vendune-core:8787`. The bounded job creates fresh synthetic tenant
+to a build. Set `BENCHMARK_ENVIRONMENT=veyndo-northflank-test` and
+`BASE_URL=http://veyndo-core:8787`. The bounded job creates fresh synthetic tenant
 IDs and retains their fixtures for diagnosis. It never modifies another tenant.
 No authentication secrets, customer sessions or connection strings are logged.
 
@@ -51,7 +51,7 @@ the number of matching translations; this is not a constant-work search claim.
 ## Public Studio origin
 
 Set both `COMMERCE_PUBLIC_ORIGIN` and `PUBLIC_BASE_URL` on the runtime service to
-`https://app.vendune.ai`, then update/restart the service. Keep these runtime-only;
+`https://app.veyndo.ai`, then update/restart the service. Keep these runtime-only;
 no database credential belongs in the builder. The origin guard intentionally
 ignores Host/forwarded headers and accepts only the configured Studio origin.
 Do not weaken it to repair a 403. No-Origin clients still use ordinary auth checks.

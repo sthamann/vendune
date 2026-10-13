@@ -38,9 +38,9 @@ DB_PASSWORD={db}
 DB_RUNTIME_PASSWORD={runtime}
 DB_CONNECTOR_PASSWORD={connector}
 DATABASE_URL=postgres://commerce:{urllib.parse.quote(db, safe="")}@postgres:5432/commerce
-DATABASE_RUNTIME_URL=postgres://vendune_runtime_login:{urllib.parse.quote(runtime,safe="")}@postgres:5432/commerce
-DATABASE_LISTENER_URL=postgres://vendune_runtime_login:{urllib.parse.quote(runtime,safe="")}@postgres:5432/commerce
-CONNECTOR_DATABASE_URL=postgres://vendune_connectors:{urllib.parse.quote(connector,safe="")}@postgres:5432/commerce
+DATABASE_RUNTIME_URL=postgres://veyndo_runtime_login:{urllib.parse.quote(runtime,safe="")}@postgres:5432/commerce
+DATABASE_LISTENER_URL=postgres://veyndo_runtime_login:{urllib.parse.quote(runtime,safe="")}@postgres:5432/commerce
+CONNECTOR_DATABASE_URL=postgres://veyndo_connectors:{urllib.parse.quote(connector,safe="")}@postgres:5432/commerce
 DB_RLS_REQUIRED=true
 DB_CLUSTER_CONNECTION_BUDGET=80
 DB_MAX_PROCESSES=1

@@ -76,14 +76,13 @@ separate configuration and deployment boundaries:
   tenant's sender and transport through the authenticated app gateway. Experience's
   SMTP settings do not implicitly configure every shop's order notifications.
 
-As of 2026-10-07, `mail.vendune.ai` is authenticated at Brevo and its sender
-The existing sender `Vendune <hello@mail.vendune.ai>` was verified for the previous
-domain. A VEYNDO sender on the new domain needs its own verification before use. The existing `vendune-experience`
+As of 2026-10-07, `mail.veyndo.ai` is authenticated at Brevo and its sender
+`VEYNDO <hello@mail.veyndo.ai>` is verified. The existing `veyndo-experience`
 Northflank service has its SMTP configuration in a runtime secret file and has
 been restarted. A single signup-code request through the public Experience page
 was confirmed `Sent` and `Delivered` by Brevo at 08:43 CEST that day. Inbox
 placement and completed onboarding were not part of that email-only check.
-The independent `vendune-connectors` Rust service is also deployed on Northflank
+The independent `veyndo-connectors` Rust service is also deployed on Northflank
 with a private port, a restricted PostgreSQL role and forced tenant RLS on its six
 connector tables. Its health endpoint and rejection of unauthenticated calls were
 checked in the hosting network. Brevo credentials are encrypted in the test shop's

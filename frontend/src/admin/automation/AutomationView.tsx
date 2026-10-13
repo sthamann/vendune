@@ -1,5 +1,6 @@
 /** Typed merchant rule/campaign/flow/channel forms with exact JSON available for advanced review. */
 import AutomationDefinitions from "./AutomationDefinitions";
+import { useAutomationLanguages } from "./useAutomationLanguages";
 import AutomationDelete from "./AutomationDelete";
 import { useLifecycleText } from "./lifecycle-i18n";
 import "../styles/automation-lifecycle.css";
@@ -27,23 +28,8 @@ export default function AutomationView({
 }) {
   const t = useLifecycleText();
   const { x } = useConnectedText();
-  const [languages, setLanguages] = useState<{
-    locales: string[];
-    mainLocale: string;
-  } | null>(null);
-  useEffect(() => {
-    let active = true;
-    request("/store-api/context")
-      .then((v) => {
-        if (active) setLanguages(v);
-      })
-      .catch((e) => {
-        if (active) setError(e.message);
-      });
-    return () => {
-      active = false;
-    };
-  }, [request]);
+  const [error, setError] = useState("");
+  const languages = useAutomationLanguages(request, setError);
   const [contentLanguage, setContentLanguage] = useState("");
   const [imported, setImported] = useState("");
   const { w, locale } = useWorkbenchText();
@@ -90,7 +76,6 @@ export default function AutomationView({
     active: true,
     condition: { type: "cartCartAmount", operator: ">=", amount: 100 },
   });
-  const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [advanced, setAdvanced] = useState("");
   const [manage, setManage] = useState(false);

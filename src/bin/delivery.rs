@@ -1,7 +1,7 @@
 //! Batch proportional-tax fixture transport for the original-PHP comparator.
 use serde::Deserialize;
 use std::io::{self, Read};
-use vendune::pricing::{CalculatedTax, proportional_tax_rules};
+use veyndo::pricing::{CalculatedTax, proportional_tax_rules};
 #[derive(Deserialize)]
 struct Case {
     taxes: Vec<CalculatedTax>,

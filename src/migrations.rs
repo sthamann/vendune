@@ -2,6 +2,7 @@
 use crate::*;
 use sqlx::PgPool;
 
+mod identity_checksums;
 mod recent_schema;
 mod schema;
 fn sources() -> impl Iterator<Item = &'static (&'static str, &'static str)> {
@@ -47,7 +48,10 @@ pub(crate) async fn apply(pool: &PgPool) {
                 .await
                 .expect("migration status");
         if let Some(applied) = applied {
-            assert_eq!(applied, checksum, "Applied migration changed: {version}");
+            assert!(
+                identity_checksums::matches(version, source, &applied),
+                "Applied migration changed: {version}"
+            );
             continue;
         }
         let mut tx = pool.begin().await.expect("migration transaction");
@@ -147,7 +151,7 @@ pub(crate) async fn seed_demo(a: &App, setup: &PgPool) {
 }
 
 /// Every required schema must match, including domain schemas introduced after bounded reads.
-pub(crate) async fn ready(db: &vendune::scoped_pool::ScopedPool) {
+pub(crate) async fn ready(db: &veyndo::scoped_pool::ScopedPool) {
     for (version, source) in sources() {
         let current: Option<String> =
             sqlx::query_scalar("SELECT checksum FROM public.commerce_migrations WHERE version=$1")
@@ -155,9 +159,10 @@ pub(crate) async fn ready(db: &vendune::scoped_pool::ScopedPool) {
                 .fetch_optional(db)
                 .await
                 .expect("Run BOOTSTRAP_MODE=migrate before serving");
-        assert_eq!(
-            current.as_deref(),
-            Some(hash(source).as_str()),
+        assert!(
+            current
+                .as_deref()
+                .is_some_and(|applied| identity_checksums::matches(version, source, applied)),
             "Schema not ready: {version}; run BOOTSTRAP_MODE=migrate"
         );
     }

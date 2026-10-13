@@ -50,7 +50,7 @@ threading.Thread(target=server.serve_forever,daemon=True).start()
 port=server.server_address[1]
 env={**os.environ,'OPENAI_API_KEY':'contract-openai','ANTHROPIC_API_KEY':'contract-claude','OPENAI_BASE_URL':f'http://127.0.0.1:{port}/v1','ANTHROPIC_BASE_URL':f'http://127.0.0.1:{port}/v1','FACT_SIGNING_SEED':'07'*32,'BIND_ADDR':'127.0.0.1:8789'}
 log=open(root/'.run/provider-contract.log','w')
-process=subprocess.Popen([str(root/'target/debug/vendune')],cwd=root,env=env,stdout=log,stderr=log)
+process=subprocess.Popen([str(root/'target/debug/veyndo')],cwd=root,env=env,stdout=log,stderr=log)
 base='http://127.0.0.1:8789'; ah={'Authorization':'Bearer '+os.environ['MERCHANT_TOKEN'],'x-tenant':'workshop'}
 def call(path,body=None,headers=None,expected=200,method=None):
     if path == '/api/apps' and isinstance(body,dict) and ('manifest' in body or 'builtIn' in body): body=consent(body)
@@ -195,13 +195,13 @@ try:
         assert inference_started.wait(10)
         call('/api/agent/chat',{'conversationId':cid,'message':'Concurrent conflicting turn','inference':{'provider':'openai'}},expected=409)
         assert call('/health')['status']=='ok'
-        idle=subprocess.check_output(psql(os.getenv('DB_CONTAINER','vendune-postgres-1'),'commerce',os.getenv('TEST_DATABASE','commerce'),'-Atc',"SELECT count(*) FROM pg_stat_activity WHERE state='idle in transaction' AND query LIKE '%pg_try_advisory_xact_lock%'"),text=True).strip()
+        idle=subprocess.check_output(psql(os.getenv('DB_CONTAINER','veyndo-postgres-1'),'commerce',os.getenv('TEST_DATABASE','commerce'),'-Atc',"SELECT count(*) FROM pg_stat_activity WHERE state='idle in transaction' AND query LIKE '%pg_try_advisory_xact_lock%'"),text=True).strip()
         assert idle=='0';assert turn.result()['messages'][-1]['data']['taskId']
     behavior['mode']='normal'
     passed('Conversation lease excludes concurrent turns while inference holds no advisory transaction or DB connection')
     process.terminate();process.wait(timeout=15)
     env.update(OPENAI_PROTOCOL='chat',INFERENCE_MODEL_PLANNER_OPENAI='self-hosted-planner',INFERENCE_PROMPT_CACHE='true')
-    process=subprocess.Popen([str(root/'target/debug/vendune')],cwd=root,env=env,stdout=log,stderr=log)
+    process=subprocess.Popen([str(root/'target/debug/veyndo')],cwd=root,env=env,stdout=log,stderr=log)
     for _ in range(60):
         try:call('/health');break
         except OSError:time.sleep(.1)

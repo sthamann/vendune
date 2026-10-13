@@ -24,7 +24,7 @@ export function useRegister(
   const catalogSequence = useRef(0);
   const current = useRef(cart);
   current.current = cart;
-  const storage = `vendune.pos.${workspace}.${channel.id}`;
+  const storage = `veyndo.pos.${workspace}.${channel.id}`;
   const command = useCallback(
     (operation: string, body: Record<string, unknown> = {}) =>
       request(`/api/pos/${encodeURIComponent(channel.id)}/${operation}`, body),

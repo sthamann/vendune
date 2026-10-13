@@ -13,8 +13,8 @@ pub(crate) use sha2::{Digest, Sha256};
 pub(crate) use sqlx::{Row, postgres::PgPoolOptions};
 pub(crate) use std::{collections::HashMap, env, sync::Arc};
 pub(crate) use uuid::Uuid;
-pub(crate) use vendune::scoped_pool::ScopedPool as PgPool;
-pub(crate) use vendune::{
+pub(crate) use veyndo::scoped_pool::ScopedPool as PgPool;
+pub(crate) use veyndo::{
     inference::{Choice, Inference},
     knowledge,
     pricing::{PriceInput, calculate, math_round},

@@ -7,7 +7,7 @@ seed=base64.b64encode(bytes([7])*32).decode()
 def signed(m):
  with tempfile.NamedTemporaryFile(mode='w',suffix='.json') as f:
   json.dump(m,f);f.flush()
-  return json.loads(subprocess.check_output([str(ROOT/'target/debug/vendune'),'--sign-app',f.name],input=seed,text=True))
+  return json.loads(subprocess.check_output([str(ROOT/'target/debug/veyndo'),'--sign-app',f.name],input=seed,text=True))
 m=json.loads((ROOT/'extensions/apps/care-studio/manifest.json').read_text());m.update(id='fixture_base',version='1.0.0',distribution={'publisher':'fixture','keyId':'first','signature':'','channel':'stable','dependencies':[]})
 v=signed(m);m=v['manifest']
 with socket.socket() as probe:probe.bind(('127.0.0.1',0));port=probe.getsockname()[1]

@@ -1,6 +1,6 @@
 //! Operator-only inference administration: optimistic revision, encrypted write-only keys and audit without secrets.
 use super::*;
-use vendune::inference::settings;
+use veyndo::inference::settings;
 pub(super) async fn get(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {
     auth::actor(&h)?;
     snapshot(&a).await.map(Json)

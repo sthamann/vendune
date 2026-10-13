@@ -55,7 +55,7 @@ describe("native POS", () => {
   });
   it("restores an open cart without silently creating an extra sale", async () => {
     sessionStorage.clear();
-    sessionStorage.setItem("vendune.pos.shop.register", cart.token);
+    sessionStorage.setItem("veyndo.pos.shop.register", cart.token);
     const request = vi.fn(async (path: string) =>
       path.endsWith("/context")
         ? { options: { payments: [] }, policy: { policyVersion: "1" } }

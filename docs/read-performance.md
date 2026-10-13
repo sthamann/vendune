@@ -131,7 +131,7 @@ and strict-runtime configuration status; external telemetry export remains open.
 Run the real two-replica regression against a disposable database:
 
 ```sh
-python3 scripts/verify_integration.py --container vendune-postgres-1 --only read_performance
+python3 scripts/verify_integration.py --container veyndo-postgres-1 --only read_performance
 ```
 
 It checks committed writes, overrides and deletion, settings delete/recreate
@@ -148,7 +148,7 @@ commit before building the change, then run the same script with:
 ```sh
 PERFORMANCE_BASELINE_BIN=/absolute/path/to/before-binary \
 PERFORMANCE_BASELINE_REF=original-source-commit \
-python3 scripts/verify_integration.py --container vendune-postgres-1 --only read_performance
+python3 scripts/verify_integration.py --container veyndo-postgres-1 --only read_performance
 ```
 
 The baseline must support the same business contract and be built with the same

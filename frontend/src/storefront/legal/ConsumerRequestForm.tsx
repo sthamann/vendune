@@ -35,7 +35,7 @@ export default function ConsumerRequestForm({
           <p>{result.data.reference}</p>
           <a
             className="shop-primary"
-            download={`vendune-${result.id}.txt`}
+            download={`veyndo-${result.id}.txt`}
             href={`data:text/plain;charset=utf-8,${encodeURIComponent(JSON.stringify(result, null, 2))}`}
           >
             {l("download")}

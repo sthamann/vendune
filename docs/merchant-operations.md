@@ -166,7 +166,7 @@ Local fixtures use synthetic attribution and verify it on wire requests; they do
 not prove partner attribution or a real-money transaction. Live mode requires a
 public HTTPS commerce origin and private credentials. The proprietary connector
 and vendor-specific implementation belong in the private
-`sthamann/vendune-shopware-payments` repository. See [checkout](checkout.md).
+`sthamann/veyndo-shopware-payments` repository. See [checkout](checkout.md).
 
 Advanced cards, vaulting, alternative methods, authorize/void, disputes and
 partner onboarding are not full ports. **Shopware Payments remains unconnected**:

@@ -28,9 +28,9 @@ introduce another runtime dictionary, DOM replacement layer or automatic model
 call for interface labels. Export one translator-friendly JSON document:
 
 ```sh
-npm --prefix frontend run translations -- export /tmp/vendune-translations.json
+npm --prefix frontend run translations -- export /tmp/veyndo-translations.json
 # Edit entries[].values.en/de/fr/es in a translation editor.
-npm --prefix frontend run translations -- import /tmp/vendune-translations.json
+npm --prefix frontend run translations -- import /tmp/veyndo-translations.json
 npm --prefix frontend run localization
 npm --prefix frontend run build
 npm --prefix frontend test

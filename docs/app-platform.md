@@ -134,7 +134,7 @@ Limits are ten active jobs/app, 100/tenant and 1,000 retained jobs/app.
 
 ## Pure commerce components
 
-[`vendune:commerce/extension@1.0.0`](../extensions/sdk/wit/commerce.wit) defines
+[`veyndo:commerce/extension@1.0.0`](../extensions/sdk/wit/commerce.wit) defines
 read-only cart, product and explicitly declared app-record snapshots. The four hooks
 return an accepted flag, integer money adjustment and bounded reason code. The core
 checks currency/scale, bounds and validation semantics, then uses existing native
@@ -153,7 +153,7 @@ source builds and arbitrary asynchronous hooks are external deployment concerns.
 
 Registered publisher public keys are configured by the operator in `APP_PUBLISHERS`.
 A signed package uses `publisher_app` IDs, key ID, stable/beta/development channel,
-Ed25519 signature and semver dependencies. Sign with `vendune --sign-app MANIFEST`
+Ed25519 signature and semver dependencies. Sign with `veyndo --sign-app MANIFEST`
 using a private base64 seed on stdin; never commit it. The signed message binds the
 entire Rust-canonical package including permissions, bundles and dependencies.
 

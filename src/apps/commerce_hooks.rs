@@ -1,7 +1,7 @@
 //! Typed pure commerce hooks share the compiled sandbox cache and receive explicit immutable snapshots, never SQL or credentials.
 use super::*;
 use std::sync::Arc;
-use vendune::component_runtime::{
+use veyndo::component_runtime::{
     self as wit, AppRecord, CartItem, CartSnapshot, Money, ProductSnapshot, Snapshot,
 };
 #[derive(Clone, Serialize, Deserialize)]

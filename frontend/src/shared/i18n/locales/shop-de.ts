@@ -74,7 +74,7 @@ export const de = {
   discovery: "Entdecken",
   collection: "Kollektion",
   business: "Geschäftskonto",
-  studio: "Vendune Studio",
+  studio: "Veyndo Studio",
   bag: "Warenkorb",
   hero: "Gute Dinge. Für deinen Alltag.",
   intro:
@@ -188,7 +188,7 @@ export const de = {
   freeFrom: "Kostenlos ab",
   invalidOption: "Diese Kombination ist nicht verfügbar.",
   pricing: "Preis für dein Kundenkonto",
-  ask: "Frag Vendune",
+  ask: "Frag Veyndo",
   wish: "Was suchst du? Zum Beispiel: eine gemütliche Leseecke unter 300 €",
   thinking: "Suche passende Produkte …",
   adapted: "Nach deinem Interesse sortiert",

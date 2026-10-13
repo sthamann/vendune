@@ -113,14 +113,14 @@ APP_DB=.run/workshop-app.sqlite \
 python3 extensions/apps/service-example/server.py
 ```
 
-Build the self-contained UI with `python3 scripts/build_app_ui.py service-example --output .run/service-example.html`. Hash the built bytes for `uiDigests`; obtain the package digest from `target/debug/vendune --app-digest extensions/apps/service-example/manifest.json`. Configure the core and independently deployed app worker with these exact server-only pins, then restart them:
+Build the self-contained UI with `python3 scripts/build_app_ui.py service-example --output .run/service-example.html`. Hash the built bytes for `uiDigests`; obtain the package digest from `target/debug/veyndo --app-digest extensions/apps/service-example/manifest.json`. Configure the core and independently deployed app worker with these exact server-only pins, then restart them:
 
 ```sh
 export APP_SERVICES='{"workshop_notes":{"url":"http://127.0.0.1:8795","uiUrl":"http://127.0.0.1:8795/","token":"choose-a-private-development-token","approvedDigests":["RUST_CANONICAL_PACKAGE_SHA256"],"uiDigests":{"v1/index.html":"BUILT_HTML_SHA256"}}}'
 # Main HTTP process; projects core events without delivering external events:
-PROCESS_ROLE=http target/debug/vendune
+PROCESS_ROLE=http target/debug/veyndo
 # Separate terminal, with the same DB/APP_SERVICES configuration:
-PROCESS_ROLE=app-worker target/debug/vendune
+PROCESS_ROLE=app-worker target/debug/veyndo
 ```
 
 Install `apps/service-example/manifest.json` in your synthetic shop with

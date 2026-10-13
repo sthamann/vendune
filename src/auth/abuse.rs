@@ -68,7 +68,7 @@ pub(super) async fn run(a: &App, request: Request, next: Next) -> Response {
     }
     let peer = hash(&format!("auth-ip:{}", peer(&request)));
     let checked =
-        vendune::tenant_scope::scoped(vendune::tenant_scope::Scope::System, reserve(a, &peer, 120))
+        veyndo::tenant_scope::scoped(veyndo::tenant_scope::Scope::System, reserve(a, &peer, 120))
             .await;
     if let Err(e) = checked {
         return throttled(e);
@@ -96,7 +96,7 @@ pub(super) async fn run(a: &App, request: Request, next: Next) -> Response {
     let key = account.map(|account| hash(&format!("auth-account:{path}:{tenant}:{account}")));
     if let Some(key) = &key
         && let Err(e) =
-            vendune::tenant_scope::scoped(vendune::tenant_scope::Scope::System, reserve(a, key, 12))
+            veyndo::tenant_scope::scoped(veyndo::tenant_scope::Scope::System, reserve(a, key, 12))
                 .await
     {
         return throttled(e);
@@ -107,7 +107,7 @@ pub(super) async fn run(a: &App, request: Request, next: Next) -> Response {
     if response.status() == StatusCode::UNAUTHORIZED
         && let Some(key) = key
     {
-        let _=vendune::tenant_scope::scoped(vendune::tenant_scope::Scope::System,sqlx::query("UPDATE auth_attempt_buckets SET blocked_until=now()+least(60,power(2,least(attempts,6))::int)*interval '1 second' WHERE key=$1 AND attempts>=5").bind(key).execute(&a.db)).await;
+        let _=veyndo::tenant_scope::scoped(veyndo::tenant_scope::Scope::System,sqlx::query("UPDATE auth_attempt_buckets SET blocked_until=now()+least(60,power(2,least(attempts,6))::int)*interval '1 second' WHERE key=$1 AND attempts>=5").bind(key).execute(&a.db)).await;
     }
     response
 }

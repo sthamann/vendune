@@ -1,6 +1,6 @@
 //! Partner-bound outbound messages serialize existing orders/issued receipts; no fiscal numbers, prices or shipping events are invented.
 use super::*;
-use vendune::money::{Currency, Money};
+use veyndo::money::{Currency, Money};
 #[derive(serde::Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct Input {
@@ -106,7 +106,7 @@ pub async fn execute(a: &App, t: &str, i: Input) -> Result<Value> {
         ));
     }
     Ok(
-        json!({"kind":i.kind,"format":i.format,"document":body,"sourceOrderId":i.order_id,"sourceReceiptId":i.receipt_id,"contentType":if i.format=="ubl"{"application/xml"}else{"application/edifact"},"networkCertified":false,"profile":"vendune-basic-1","sourceHash":hash(&s.to_string())}),
+        json!({"kind":i.kind,"format":i.format,"document":body,"sourceOrderId":i.order_id,"sourceReceiptId":i.receipt_id,"contentType":if i.format=="ubl"{"application/xml"}else{"application/edifact"},"networkCertified":false,"profile":"veyndo-basic-1","sourceHash":hash(&s.to_string())}),
     )
 }
 fn render(fmt: &str, kind: &str, p: &Value, s: &Value) -> Result<String> {

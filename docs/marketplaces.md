@@ -71,7 +71,7 @@ in the service's secret environment; app records contain aliases.
 ```json
 {
   "your-workspace": {
-    "coreUrl": "https://app.vendune.ai",
+    "coreUrl": "https://app.veyndo.ai",
     "callbackToken": "<approved current app key>",
     "accounts": {
       "amazon-eu": {

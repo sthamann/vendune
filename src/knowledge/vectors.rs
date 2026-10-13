@@ -4,7 +4,7 @@ use sha2::{Digest, Sha256};
 use std::time::Duration;
 fn collection(kind: &str, model: &str, dimensions: usize) -> String {
     format!(
-        "vendune_{kind}_v2_{}_{dimensions}",
+        "veyndo_{kind}_v2_{}_{dimensions}",
         hex(model).get(..16).unwrap()
     )
 }
@@ -15,7 +15,7 @@ fn point(tenant: &str, kind: &str, id: &str) -> String {
     let digest = Sha256::digest(json!([tenant, kind, id]).to_string().as_bytes());
     uuid::Uuid::from_slice(&digest[..16]).unwrap().to_string()
 }
-async fn request(
+pub(super) async fn request(
     method: reqwest::Method,
     path: &str,
     body: Option<Value>,
@@ -116,14 +116,7 @@ pub async fn drain(db: &PgPool) -> Result<usize, String> {
             let name = ensure(&kind, &model, embedding.len()).await?;
             request(reqwest::Method::PUT,&format!("/collections/{name}/points?wait=true"),Some(json!({"points":[{"id":point(&tenant,&kind,&id),"vector":{"text":embedding},"payload":{"tenant":tenant,"object_id":id,"model":model,"digest":digest}}]}))).await?;
         } else {
-            let collections = request(reqwest::Method::GET, "/collections", None).await?;
-            for name in collections["result"]["collections"]
-                .as_array()
-                .ok_or("Invalid collections")?
-                .iter()
-                .filter_map(|c| c["name"].as_str())
-                .filter(|n| n.starts_with(&format!("vendune_{kind}_")))
-            {
+            for name in super::vector_namespace::names(&kind).await? {
                 request(
                     reqwest::Method::POST,
                     &format!("/collections/{name}/points/delete?wait=true"),

@@ -147,7 +147,7 @@ def cart_check(args, db, fixture):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--base', default=os.getenv('BASE_URL', 'http://vendune-core:8787'))
+    parser.add_argument('--base', default=os.getenv('BASE_URL', 'http://veyndo-core:8787'))
     parser.add_argument('--requests', type=int, default=300)
     parser.add_argument('--rounds', type=int, default=2)
     parser.add_argument('--concurrency', type=lambda s: [int(c) for c in s.split(',')], default=[1, 8, 32])
@@ -160,8 +160,8 @@ def main():
         parser.error('Concurrency must be 1..128')
     if not 0 <= args.arrival_rate <= 1000:
         parser.error('Arrival rate must be 0..1000')
-    if os.getenv('BENCHMARK_ENVIRONMENT') != 'vendune-northflank-test':
-        raise SystemExit('Explicit BENCHMARK_ENVIRONMENT=vendune-northflank-test required')
+    if os.getenv('BENCHMARK_ENVIRONMENT') != 'veyndo-northflank-test':
+        raise SystemExit('Explicit BENCHMARK_ENVIRONMENT=veyndo-northflank-test required')
     # Use the same linked connection URI as the service; never expose it in logs.
     try:
         connection = psycopg.connect(os.environ['DATABASE_URL'], autocommit=True, connect_timeout=15)

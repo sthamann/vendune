@@ -68,7 +68,7 @@ it("sends a scoped token only to the fixed provider origin and rejects forged fr
   fireEvent.load(frame);
   expect(post).toHaveBeenCalledWith(
     {
-      type: "vendune.payment.init",
+      type: "veyndo.payment.init",
       sessionToken: "scoped-private-browser-token",
       nonce: "fixed-session-nonce",
     },
@@ -77,7 +77,7 @@ it("sends a scoped token only to the fixed provider origin and rejects forged fr
   const event = {
     source: frame.contentWindow,
     origin: "https://provider.example.test",
-    data: { type: "vendune.payment.changed", nonce: "fixed-session-nonce" },
+    data: { type: "veyndo.payment.changed", nonce: "fixed-session-nonce" },
   };
   window.dispatchEvent(
     new MessageEvent("message", {

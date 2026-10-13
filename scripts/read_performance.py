@@ -143,11 +143,11 @@ try:
     # A per-request snapshot must not create a cross-request availability cache.
     sql(f"UPDATE tenants SET status='paused' WHERE id='{tenant}';")
     for server in (first, second):
-        call(server[2], read, headers={'Host':tenant+'.vendune.ai'}, expected=503)
+        call(server[2], read, headers={'Host':tenant+'.veyndo.ai'}, expected=503)
     sql(f"UPDATE tenants SET status='active' WHERE id='{tenant}';")
     sql(f"UPDATE sales_channels SET data=jsonb_set(data,'{{visibility}}','\"private\"') WHERE tenant='{tenant}' AND id='default';")
     for server in (first, second):
-        call(server[2], read, headers={'Host':tenant+'.vendune.ai'}, expected=403)
+        call(server[2], read, headers={'Host':tenant+'.veyndo.ai'}, expected=403)
         call(server[2], read, headers=merchant)
     sql(f"UPDATE sales_channels SET data=jsonb_set(data,'{{visibility}}','\"public\"') WHERE tenant='{tenant}' AND id='default';")
     hotpath.verify(second, tenant, merchant)
@@ -220,7 +220,7 @@ if env.get('PERFORMANCE_BASELINE_BIN'):
     workloads = [
         ('storefront-list', '/store-api/product', {}, {}),
         ('storefront-detail', read, None, {}),
-        ('host-catalog', '/store-api/product', {}, {'Host':tenant+'.vendune.ai'}),
+        ('host-catalog', '/store-api/product', {}, {'Host':tenant+'.veyndo.ai'}),
         ('admin-catalog', '/api/search/product', {}, merchant),
         ('mcp-catalog', '/mcp', {'jsonrpc': '2.0', 'id': 1, 'method': 'tools/call',
             'params': {'name': 'catalog.search', 'arguments': {}}}, {}),
@@ -229,7 +229,7 @@ if env.get('PERFORMANCE_BASELINE_BIN'):
     reports = {}
     fingerprints = {}
     delivery = {}
-    for label, binary in [('before', env['PERFORMANCE_BASELINE_BIN']), ('after', str(ROOT / 'target/debug/vendune'))]:
+    for label, binary in [('before', env['PERFORMANCE_BASELINE_BIN']), ('after', str(ROOT / 'target/debug/veyndo'))]:
         server = start('counts-' + label, binary=binary)
         counts = {}
         count_samples = {}

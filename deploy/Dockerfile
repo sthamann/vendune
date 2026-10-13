@@ -18,11 +18,11 @@ COPY extensions/ extensions/
 COPY fixtures/ fixtures/
 COPY reference/automation-registry.json reference/automation-registry.json
 COPY reference/app-manifests/ reference/app-manifests/
-RUN cargo build --release --locked --bin vendune
+RUN cargo build --release --locked --bin veyndo
 FROM debian:bookworm-slim
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl && rm -rf /var/lib/apt/lists/* && useradd -u 10001 -m commerce
 WORKDIR /app
-COPY --from=rust /build/target/release/vendune /app/vendune
+COPY --from=rust /build/target/release/veyndo /app/veyndo
 COPY --from=frontend /build/frontend/dist /app/frontend/dist
 COPY frontend/public /app/frontend/public
 COPY LICENSE THIRD_PARTY.md /app/
@@ -31,4 +31,4 @@ ENV BIND_ADDR=0.0.0.0:8787
 USER commerce
 EXPOSE 8787
 HEALTHCHECK --interval=15s --timeout=3s CMD curl -fsS http://127.0.0.1:8787/health || exit 1
-CMD ["/app/vendune"]
+CMD ["/app/veyndo"]

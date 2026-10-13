@@ -32,7 +32,7 @@ Files and their individual responsibilities are listed in [the generated source 
 - [`operations.css`](operations.css): Operational screens share the studio's light surface and clear focus states.
 - [`sales-channels.css`](sales-channels.css): Sales-channel cards, onboarding and scoped settings use the same responsive, accessible Studio design.
 - [`settings.css`](settings.css): Independent settings navigation, grouped native forms and save feedback in Studio theme tokens.
-- [`studio-sign-in.css`](studio-sign-in.css): Dedicated access surface: responsive Vendune login and native modal reauthentication.
+- [`studio-sign-in.css`](studio-sign-in.css): Dedicated access surface: responsive Veyndo login and native modal reauthentication.
 - [`studio.css`](studio.css): Ordered studio stylesheet entry; domain rules live in the adjacent folder.
 - [`variants.css`](variants.css): Variant family and review table share the catalog's responsive theme and focus treatment.
 - [`workspace-polish.css`](workspace-polish.css): Consistent Studio density, readable hierarchy and independently scrollable navigation across workspaces.

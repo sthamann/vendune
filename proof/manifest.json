@@ -504,8 +504,8 @@
     },
     "extensions/apps/edi/service/export.rs": {
       "status": "unproved",
-      "sha256": "eae9a739d59e7677c605386754ac06ebc00c4145e1df33eff7e674c25c05f991",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "1d6bb96b939730f390fa77c1b16cfdf12d94e5003c6646ec21259200a2dd3984",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "extensions/apps/edi/service/export_tests.rs": {
       "status": "unproved",
@@ -539,8 +539,8 @@
     },
     "extensions/apps/email/src/smtp.rs": {
       "status": "unproved",
-      "sha256": "2b4f2f3fcb554e355af133cab3b8678e22dc93d719c1b2fb78849f8cc4c15c7d",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "c08344d1b415a938b8ec779ca646cb2a5607f98a06c79dfb93e4c07fd6266b6e",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "extensions/apps/email/src/templates.rs": {
       "status": "unproved",
@@ -554,8 +554,8 @@
     },
     "extensions/apps/erp-handoff/service/delivery.rs": {
       "status": "unproved",
-      "sha256": "09cefa868917f72238c17a911ba1bba53ecb147858aaf6a89ae430cc90ff85a7",
-      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+      "sha256": "f035f79e231fa78b7fc21b3c4974dfe80ae20641875b1ec30d23c2bd995e0237",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "extensions/apps/erp-handoff/service/events.rs": {
       "status": "unproved",
@@ -659,8 +659,8 @@
     },
     "extensions/apps/marketplaces/service/transport.rs": {
       "status": "unproved",
-      "sha256": "f814d36189a39b25f77b4bc40dedcad65fdaa308f0281faea6ba238fa538cd09",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "sha256": "526a93fb242b4db514af6d88bd123766517a9125fbdbe3ee34d0e655e51c2180",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "extensions/apps/paypal/src/adapter.rs": {
       "status": "unproved",
@@ -754,8 +754,8 @@
     },
     "extensions/services/connectors/src/server.rs": {
       "status": "unproved",
-      "sha256": "5edcae08b7e7ba72a2e906f3ba3fbfb931311870a11ab5f6b3f49ebfade8522b",
-      "review": "Reviewed connector strict non-owner runtime startup audit, dedicated least-privilege PostgreSQL service role, forced RLS and UTC transaction context. Two actual non-bypass replicas, tenant ownership, provider/flow/MCP protocols and migration are regression-tested; SQL and providers remain unproved."
+      "sha256": "cdebf78782103deee8883ab5bf6256bcb9c44a14b69420ffce16e5e8a399ee29",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "extensions/services/connectors/src/store.rs": {
       "status": "unproved",
@@ -829,8 +829,8 @@
     },
     "src/apps/approval.rs": {
       "status": "reviewed-binding",
-      "sha256": "5604b8f89a39b4df7fd0eaa2c5c0a8d489771375f737613bbcecb1f827e6ecbe",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "sha256": "cb469f7290eafc68e1e7b368414aaf41afaa21651d1ab09841e1d62c869a16fb",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/apps/asset_surfaces.rs": {
       "status": "unproved",
@@ -844,8 +844,8 @@
     },
     "src/apps/commerce_hooks.rs": {
       "status": "unproved",
-      "sha256": "59ad869c7ee17168cbd28cfc5539e7b8d93f2e3778fb7ab3f6771639a9aa80f8",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "331b9ae4fdf75cd548061cfc1bb519e1d9a8757976a9340a28a251313427d126",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/apps/compatibility.rs": {
       "status": "unproved",
@@ -879,8 +879,8 @@
     },
     "src/apps/distribution.rs": {
       "status": "unproved",
-      "sha256": "f2a9e2e54a9f484ca54d66a5d62c6d372897b9b243e13c1b106d7e2bb4dd3589",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "16b9f3dad97a0a6a9aa5b279c4507837cd4a5f889894b11dc914d3098a35e9cf",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/apps/editor_contract.rs": {
       "status": "reviewed-binding",
@@ -894,13 +894,13 @@
     },
     "src/apps/egress.rs": {
       "status": "unproved",
-      "sha256": "b7ad055b5bd892662c2b0dc51d0797ae884ce056b9d379ffee3f776189898db5",
-      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+      "sha256": "e7d422407527ecf7fc498599e5baf30f46cf5c8f048419de8d5e27f24c6fe0cb",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/apps/event_contract.rs": {
       "status": "unproved",
-      "sha256": "1692ccbf4c851a25d3e77e2db00483cdd26e1ed2f02a52cd2e8339e0c8e4bd98",
-      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+      "sha256": "401051b04662e93ed33a755ea175efb053b9f8e823115f76ebc6e01ddfc40b91",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/apps/event_projection.rs": {
       "status": "unproved",
@@ -924,8 +924,8 @@
     },
     "src/apps/field_values.rs": {
       "status": "unproved",
-      "sha256": "270d09ee46a7229a81d4ec5a3a6627f40571b9c05754d95496409f7a171816c0",
-      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+      "sha256": "b837132287e4dc24f25926059827b3c2c16569d3bacb67dca35701c334e04b6e",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/apps/form_layout.rs": {
       "status": "unproved",
@@ -1049,8 +1049,8 @@
     },
     "src/apps/secrets.rs": {
       "status": "unproved",
-      "sha256": "a3cdfe65766dc84b1d9014f878d1b2bc803fd7f61fc771f10ca1809d37320f63",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "a4720ab6457cc9e1e0e7867930a616ccd6ca76b9df16bd6a2a0b3d082b36d2ea",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/apps/service_limits.rs": {
       "status": "unproved",
@@ -1059,8 +1059,8 @@
     },
     "src/apps/service_policy.rs": {
       "status": "reviewed-binding",
-      "sha256": "b65445d6eef70d2cc665f29127b0f2fa2b6f2b934ef9c4557d00dabb0826e6af",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "daf47ae008a478ecef5cbc69e3518722aef84e73f3736b20a635b7e42bf0b0f7",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/apps/storage.rs": {
       "status": "unproved",
@@ -1164,13 +1164,13 @@
     },
     "src/auth/abuse.rs": {
       "status": "unproved",
-      "sha256": "20f838239e252cb7d7edb9775bf2f170613ced3b3a9c152b9377ac6ab7afd4f0",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "8d213dd5ba677065a21d14d20c3be7cc8b4f4bd9846cf5ba28178af0a9003c38",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/auth/broker.rs": {
       "status": "unproved",
-      "sha256": "7f1f95d3e000b762fc71fb658e72c2663da38fd1a645895e2490b4ee7ab1b531",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "a89710279be6c122362743f9a58c5d10965465e3ff7f2cb8cbc73e72332293ca",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/auth/broker_credentials.rs": {
       "status": "unproved",
@@ -1184,8 +1184,8 @@
     },
     "src/auth/credentials.rs": {
       "status": "unproved",
-      "sha256": "f9b7abb5b6e1e014a48a19340a7349ba9c875e7bd3b79acdea22c66f7ecab6c6",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "36a24c34e95f437e81e79d1057305e9f3e313a05309433d5798010003836d2e8",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/auth/dto.rs": {
       "status": "unproved",
@@ -1219,8 +1219,8 @@
     },
     "src/auth/middleware.rs": {
       "status": "reviewed-binding",
-      "sha256": "c053fb53b5a2dd244b0c0e361957df27baff1ac2ae3375cd6a979ac7c5bf6932",
-      "review": "Reviewed mounted public frontend API delegation: registered Core handlers retain permissions; hostname mount derives tenant/channel; no early admission bypass, no merchant credentials forwarded. Real identity_broker and channel_management HTTP/PostgreSQL regressions pass GET/POST, unmounted/foreign/paused/private/stale-preview controls. Async transport remains unproved."
+      "sha256": "f153894f71be2043aa5b7beecdc604ac9d4eda23643088ffa6611f6c95245f22",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/auth/mod.rs": {
       "status": "unproved",
@@ -1384,43 +1384,43 @@
     },
     "src/bin/automation_rules.rs": {
       "status": "unproved",
-      "sha256": "8d5994b0922f61cd5c209a7598f377fa664709704c4ea911bc3b7e33958d3d8e",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "d8b5949109d473ee0b11f292acb27176c4d3c4835840c9ed1a8923f9de450d1a",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/bin/connectors.rs": {
       "status": "unproved",
-      "sha256": "1dd59535b6bd96a861d8c4652365ffb6dd4fd9b3c8856aef8a796faa11f4885e",
-      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
+      "sha256": "e2fe2d9c1340263da167dc53d624356c84bc4c98f940c76fc6b910c0eff4ff5b",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/bin/context.rs": {
       "status": "unproved",
-      "sha256": "78d283a37b639a820e611587baf609987c14281721fd05b3581ef04e0b5cbb22",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "8da620f6fad47f6e730022d5d0e16cbb6084be86666e8f8428e76eb2d718471d",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/bin/delivery.rs": {
       "status": "unproved",
-      "sha256": "e88ed79091431feb4755ce4dbbe390666c20c7f44ec47ba799ad19b268924d23",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "711c899b0c472251b5c6b1221706b9985a0105c7dcf62b56b5649ac3e3deb719",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/bin/money_boundary.rs": {
       "status": "unproved",
-      "sha256": "8761741a705ff97ba1869d92d672a160feae11f7a908a14fca0ddb316b4d8392",
-      "review": "Reviewed all changed Rust, append-only schemas, build/extraction and Lean inputs: lease hooks bind new/reused connections and reset on release; strict runtime rejects owner/bypass/TRUNCATE and preserves app-schema ownership; two-replica non-owner PostgreSQL tests deny forged foreign writes, enforce operator quotas and parent-stage daily usage, release persisted allocation quantities once despite corrupted snapshots, and distinguish commit from rollback invalidation. Money retains legacy EUR rounding with explicit scale and original Shopware differential; receipt-backed state admission is monotonic with late capture/refund. Async SQL/provider code remains unproved. Rust 113 tests, staging/app/automation/settings and strict checkout/CRM/tenant regressions passed; 274 frontend tests and production build passed."
+      "sha256": "7c192eb3212242dd834976ccb1a9350c05beeab40815d57527b98f25b7ab139e",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/bin/price.rs": {
       "status": "unproved",
-      "sha256": "378b39b2951c9eb06f5de230a592403111eee93e9f5dda6295ce4422306d6a50",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "77a7816e6241fd8459eb3a529c88e34748162688959f92552674525fc857fc2a",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/bin/rules.rs": {
       "status": "unproved",
-      "sha256": "21196640f2c70d6a458000d1f33ba5705570eaeba142f2386951bc79d9b17cdc",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "d8538263efd3bdc98431ec9f622ab4cf104588c231ac819d1b012411a73fc45a",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/bin/verified_kernel/dispatch.rs": {
       "status": "unproved",
-      "sha256": "8d1d8c6216592955ba760977484f5b4d9ab7011c74cf73f24d613ad97188c194",
-      "review": "Reviewed exact paid external-order amount and positive-total guards, their live import consumers, signed-input rejection, Lean properties and negative mutations; provider tax law, SQL and external effects remain unproved"
+      "sha256": "c583bb1820badca78f2103126310329d3c92cbad7331ac9dc8a8de3e5cef4d24",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/bin/verified_kernel.rs": {
       "status": "conformance-driver",
@@ -1429,8 +1429,13 @@
     },
     "src/bootstrap.rs": {
       "status": "unproved",
-      "sha256": "56f228a0baa6d45df2efb82ce3729b86c5ac8717d409e2a71c902081ca8ee081",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "d03239d94348fd65fe402bf40d9693ec313779cb4a898b770f56b7b32b165692",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+    },
+    "src/brand_redirect.rs": {
+      "status": "unproved",
+      "sha256": "e87808961f1acc0966a18aa3327f6251fdd0f0692ce9660682a27f251a6586e9",
+      "review": "Reviewed domain cutover adapters: only browser GET/HEAD redirect; explicit legacy suffixes retain native tenant/channel ownership and exact HTTPS checkout origins. Scoped HTTP/PostgreSQL handoff, checkout-review and tenant-isolation suites passed. This records adapter review, not a proof of middleware correctness."
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
@@ -1459,8 +1464,8 @@
     },
     "src/cart_price.rs": {
       "status": "unproved",
-      "sha256": "0f266bb8c6dc113bb1649959066f2547777172e549ed85074a1a7a317aa5199f",
-      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+      "sha256": "c0a75328b18a3f13cab0b959f6fa4748c3674a2c3d0d3d81dd9a0e513bce1732",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/cart_routes.rs": {
       "status": "unproved",
@@ -1474,8 +1479,8 @@
     },
     "src/catalog_model.rs": {
       "status": "unproved",
-      "sha256": "6619053466d5263929ca90a9a2e6960510faa314af9daf6aba3e26fc8afa33b4",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "412e533f04483f94f2a3fcf5f1eae05935c9ea2fd83af8d4248b0a38e6717cf5",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/catalog_page.rs": {
       "status": "unproved",
@@ -1514,8 +1519,8 @@
     },
     "src/channel_metrics.rs": {
       "status": "unproved",
-      "sha256": "61c5be5f12ed0cbeacf38246e23172ef170ec3f2e1cc0ec50212708483c548ef",
-      "review": "Review HTTP diagnostic histogram: status-only bounded keys, existing buffered flush and tenant RLS unchanged; shared operator reads preserve unclassified legacy totals. Rust unit classification and frontend outcome tests; real platform integration required before merge. No verified commerce policy changed."
+      "sha256": "d83b944d836e96d1bf54ec61ca334a23958414ca0db1dcff463791dc20b7fc78",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/chat_lease.rs": {
       "status": "unproved",
@@ -1529,8 +1534,8 @@
     },
     "src/checkout_page.rs": {
       "status": "unproved",
-      "sha256": "6e31bb857d6a8667af9efadde4113232fe9cbdb5e61f00617dd8d165cadf21ba",
-      "review": "Reviewed tenant/channel registered-origin checkout framing, immutable localized checkout snapshots using existing inheritance, and shopper-only receipt transport. Verified origin negatives and German parent/variant label persistence with PostgreSQL; these adapters remain unproved, existing extracted kernel policies unchanged. Explicit non-default ports are rejected so admission matches the registered HTTPS origin."
+      "sha256": "8728b2332d76cec434dd44ab8b9e72747d43d0e852e6dc217e592703c050378e",
+      "review": "Reviewed domain cutover adapters: only browser GET/HEAD redirect; explicit legacy suffixes retain native tenant/channel ownership and exact HTTPS checkout origins. Scoped HTTP/PostgreSQL handoff, checkout-review and tenant-isolation suites passed. This records adapter review, not a proof of middleware correctness."
     },
     "src/checkout_products.rs": {
       "status": "unproved",
@@ -1559,8 +1564,8 @@
     },
     "src/cognition/behavior/geography.rs": {
       "status": "unproved",
-      "sha256": "a36f2ba54ceea934f31729b2cefd7939adcd5d3a9f341d820ac009228eff07eb",
-      "review": "Behavior analytics reviewed: existing cart-locked consent predicate reused; purpose-separated withdrawal, tenant/FK scope, typed and bounded observations, private journey permissions and derived reports. New SQL/frontend/proxy adapters remain unproved; no new theorem claim."
+      "sha256": "e9fca2feda1d631840993be52ad43d8ebb55b5cda9174ba003a186c8521ffbb1",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/cognition/behavior/input.rs": {
       "status": "unproved",
@@ -1664,23 +1669,23 @@
     },
     "src/cognition/signed.rs": {
       "status": "unproved",
-      "sha256": "80f9ec6a965b0ef947bf47d016dc395f492a639fb427dac0010e8975c8ce160e",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "8a1be9771ddb16aeb95e9a39f49d4595616e5282a1615b988497faed0df96de6",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/cognition/stream.rs": {
       "status": "unproved",
-      "sha256": "f475aab031260b0c2f6709330e699178a47e7776194c0f52de0c41d6eb1579ba",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "7656dfa5f61eac91d4ef1b7f6ea498365eeb011829e07be88fa2a34ba8d3af6e",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/cognition/tools.rs": {
       "status": "unproved",
-      "sha256": "e940a7893ff7479050cef853454e542c192f2dcac905691e525f5a30446795e5",
-      "review": "Behavior analytics reviewed: existing cart-locked consent predicate reused; purpose-separated withdrawal, tenant/FK scope, typed and bounded observations, private journey permissions and derived reports. New SQL/frontend/proxy adapters remain unproved; no new theorem claim."
+      "sha256": "820b72d4ef9841fc99d67334d03be4ae4a18101583a019295ebb2e30cadb61fe",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/commerce/app_adjustments.rs": {
       "status": "unproved",
-      "sha256": "927cc3e28cb913ccf1fbd0a488290c386544cce53eabca9a3b0a7c59870859aa",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "d763e63158601f96418c62bc3ef36793f76f99f4241bc3506e162a8e083ef3a4",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/commerce/catalog.rs": {
       "status": "unproved",
@@ -1709,8 +1714,8 @@
     },
     "src/commerce/delivery.rs": {
       "status": "unproved",
-      "sha256": "0d644f5d8f80f40acf5e4b328a8c3e15cb695ddc5c4e7697750c0923c2c98095",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "a549ece084081d51760edddb49f85fb13c4113ba452faecb3720c4e282150e20",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/commerce/detail.rs": {
       "status": "unproved",
@@ -1764,8 +1769,8 @@
     },
     "src/commerce/mod.rs": {
       "status": "unproved",
-      "sha256": "12d0e8cfb9853562a9445e9b54764fbd389c45a941d7cee74d741b1ce645a81c",
-      "review": "Behavior analytics reviewed: existing cart-locked consent predicate reused; purpose-separated withdrawal, tenant/FK scope, typed and bounded observations, private journey permissions and derived reports. New SQL/frontend/proxy adapters remain unproved; no new theorem claim."
+      "sha256": "caf8ad3ad07e12bebe6571a82d1eabc3f4b62146615e041d7cc452d3b0333efe",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/commerce/order_fields.rs": {
       "status": "unproved",
@@ -1804,8 +1809,8 @@
     },
     "src/commerce/product_fields.rs": {
       "status": "unproved",
-      "sha256": "71c1e6e3304a8d6fa05c56f51bd8f42cac8d4e9a67d0a3351bba52a979e3f81d",
-      "review": "Reviewed equivalent date/datetime rejection and product price range expressions required by Rust 1.96 Clippy; accepted date/string shapes and finite 0 through 1000000 prices stay unchanged. Rust formatting, lint and unit tests passed. Complete Docker image builds and the existing AGE PostgreSQL image smoke test passes personal operator/shop provisioning and auth gates. No business guarantee or Lean property changed."
+      "sha256": "b89be531d237a67c1d96e08fbfbb9c71688516d75ed3ef760a082e0c94803b48",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/commerce/product_languages.rs": {
       "status": "unproved",
@@ -1887,15 +1892,20 @@
       "sha256": "60fda9e95d8b4fc11f3100744b216f6ca23c39f0658957bdc4430d8bedd3d54c",
       "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
+    "src/component_runtime/abi.rs": {
+      "status": "unproved",
+      "sha256": "af2d00a6ecd266ed0b09034e15322c5c1a5d758a04aca7c5ad7eb1b69a9cba03",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+    },
     "src/component_runtime.rs": {
       "status": "unproved",
-      "sha256": "dab32b8bb9b9ccb4982fd3573bf770b73a73ff452cd7f49e1d350b63fc43c7dc",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "7fde158e83c2ac06d27fa23d785e97b0e7d98ca4a44f747a5a77ba4c28c65e46",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/concierge.rs": {
       "status": "unproved",
-      "sha256": "0da6b25f3318a49c2a8a6f03bb7a5582c2bf84e356c93245de61525f8c67004d",
-      "review": "Reviewed single-retrieval candidate hydration and buyer graph; native admitted fields replace index/search commerce facts, post-inference exact original-ID locale/channel/catalog/evidence comparison. Extracted predicates unchanged; adapters and free model prose remain unproved."
+      "sha256": "4a09a690b25d5c78e0ff3d7e708802d17ca6e6085e1f3beccbb144668f6e60ff",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/context.rs": {
       "status": "unproved",
@@ -1909,8 +1919,8 @@
     },
     "src/currencies/jobs.rs": {
       "status": "unproved",
-      "sha256": "dd04e9408f9f9f71b16db13ff98b9c0b6263a527dbe685b71c12d501b29337a6",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "98a5834734123480ade1c3d4aec21a68f688ed080a9a9b68405735d69f1e9f33",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/currencies/mod.rs": {
       "status": "unproved",
@@ -1924,8 +1934,8 @@
     },
     "src/currencies/pricing.rs": {
       "status": "unproved",
-      "sha256": "e102361d903905298ef0f610dc8c5c8d303752a7420e59c3d144789b886d0fa8",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "ba369ee9bf03ee59233d7883979b59cad1b410cf3cce3b5e5210c015e60f3b7f",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/currencies/rates.rs": {
       "status": "unproved",
@@ -2079,8 +2089,8 @@
     },
     "src/history/mod.rs": {
       "status": "unproved",
-      "sha256": "64ecee20b01252961765f38574ded384a5a799d7523d271ec037f95a767b720b",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "67fda3f8b51af25f5770d60b7e6c26c87fd16b95f094b49724a36498250acb8b",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/history/product.rs": {
       "status": "unproved",
@@ -2109,8 +2119,8 @@
     },
     "src/inference/protocol.rs": {
       "status": "unproved",
-      "sha256": "6dd7f408c93b9c972e34d211ed54fe9cc11847af709392eca19a1be492dff13b",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "d81c2653d383299212245ace76a492fc252b1b52a26263f1d0ca4762374de686",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/inference/schema.rs": {
       "status": "unproved",
@@ -2157,15 +2167,20 @@
       "sha256": "c9b79364aa0eab1a7f42e3d0fa0f2392c1615aeff8e46f6007479464dec67022",
       "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
     },
+    "src/knowledge/vector_namespace.rs": {
+      "status": "unproved",
+      "sha256": "5035941a273c2dfd377e9b1ce066248387e385155dcb728ce943e7964c1eff5d",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+    },
     "src/knowledge/vectors.rs": {
       "status": "unproved",
-      "sha256": "b8df7a365b6b8c6d428d94f865714a89262179b2d33c939b726721f1a9b207b3",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "830743305547c5408ba87a90fe34f35978d335dc7f4ce18d4c919ea7661c8bed",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/knowledge.rs": {
       "status": "unproved",
-      "sha256": "589ac40c9f49816b66148d60e96392651fff2bd537b2b5a2c8095b401a9a7c37",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "52805a36bd625ceb62b0459ec7c0fcf632fda4fac6a79d4e46b5f430bdc23c9f",
+      "review": "Veyndo identity review: exact crate/config/schema namespace replacements and six allowlisted historical SQL hashes; explicit Qdrant alias migration validates all names/vector shapes/conflicts before atomic additive aliases, preserves physical points and alias-aware tenant deletion, exercised by registered real managed-search HTTP suite; configured WIT 1.0 compatibility links only existing cart/product/record host calls, preserves snapshot/money/fuel/epoch limits, four real component tests pass; crypto sealing keys and persisted credential formats unchanged."
     },
     "src/legal/capabilities.rs": {
       "status": "unproved",
@@ -2209,23 +2224,23 @@
     },
     "src/localization.rs": {
       "status": "unproved",
-      "sha256": "72e7e9ab402b29ccf95c7135b5df20d4a508155f04b5ccfc824c2b7e06a808b0",
-      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+      "sha256": "829907c4e937808bfb280683a1982a408dcc1a48ddcd98fd1d03bf9d30833f5d",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/main.rs": {
       "status": "unproved",
-      "sha256": "23270e8753d7992317fa4c2c0914679aa720f3f26998bd7b3a4331623333742f",
-      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+      "sha256": "2f4079fb50daa91ce439e726b4fd166b0ed359eae631a828fae6eb45f3955294",
+      "review": "Reviewed the coordinated Veyndo crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/marketing/app_flows.rs": {
       "status": "reviewed-binding",
-      "sha256": "4fd59b663aaba80f967bd51464781831e10aee811764f3618280c1e0a8a126a8",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "6bcf56db8d93a81e120b567af14be470f5f2e29de67ac0920b2583b0116ddd88",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/catalog.rs": {
       "status": "unproved",
-      "sha256": "02adf5abd0140ac6e325732b71dbb2e865243294f3e5e672de3908dd9173338d",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "4531da75b7d996b6c8e606e614446180909056170f3f6a6b4219416bdf972969",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/channel_access.rs": {
       "status": "reviewed-binding",
@@ -2239,8 +2254,8 @@
     },
     "src/marketing/channel_preview.rs": {
       "status": "unproved",
-      "sha256": "5fedad9902daa5cf5d5a7d3277dfe0f6935f1611512d1e86ef14569341fec3c8",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "513fc2514e2c980671de604e8366aae3ad453889d0033cc4fefe7e3669311a60",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/channels.rs": {
       "status": "unproved",
@@ -2284,8 +2299,8 @@
     },
     "src/marketing/flow_mutations.rs": {
       "status": "unproved",
-      "sha256": "37ea2c3f89e3bc66813da41a825dac68e3cde69d3e12808f7c3565f3413dcae6",
-      "review": "Reviewed connected CRM: configured group pricing admission with exact Lean contract, settings lock and dependency rejection; independent revisioned default addresses and ownership-validated book restore; trusted transaction-local actors with deferred one-per-transaction credential-free aggregate history; scoped read/write/MCP restore through domain handlers preserving current stock, identity and financial events. Real crm_history tests cover all twelve editable entity restore types, checkout, stale writes, group dependencies, foreign shops and viewer rejection; Rust unit/lint and affected integration suites verify existing consumers. SQL/async adapters remain unproved."
+      "sha256": "6e2bfb684705347813594154f9415454727b1d491263e2e0f4e4ae4b464c80a8",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/flow_policy.rs": {
       "status": "unproved",
@@ -2334,8 +2349,8 @@
     },
     "src/marketing/pipeline.rs": {
       "status": "reviewed-binding",
-      "sha256": "bc5bf207f695d803935ef72ec972f83a16eb008e85eeb31d5d9daad64fb5f0f8",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "40356c839e7326cf00e416ffca98cb5f50829114a2886013e05f34ee554841a6",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/pipeline_runtime.rs": {
       "status": "unproved",
@@ -2349,8 +2364,8 @@
     },
     "src/marketing/promotions.rs": {
       "status": "unproved",
-      "sha256": "a5b192ac0de0f5e8d18f165d4ac323588eb00f6debe1b33ae36438a1c7e95639",
-      "review": "Reviewed multi-currency selected-context adapters, rational minor-unit prices, immutable order/payment scales, row-locked creation-bounded price jobs and exact order mail snapshots; API/tenant/restart/protocol fixtures passed."
+      "sha256": "6751020d28aaf9afda742be4e795f5f825eab8d2e52f5320de54f2ffa84d1757",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/routes.rs": {
       "status": "unproved",
@@ -2359,13 +2374,13 @@
     },
     "src/marketing/rule_fields.rs": {
       "status": "unproved",
-      "sha256": "2eb6494b41af4f1e35e69d77107084ec2776d5001a9bd584781d689364e5e0e8",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "cbde49185e1cc471f60665b168d4cde0f57c675c7405a82c626f21b867c1b753",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/rule_match.rs": {
       "status": "reviewed-binding",
-      "sha256": "3a1906acc85db543e35fe060fc8bdcadead699d0fe49233f8ad4e17490983e3f",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "3f142ee1283d62461cb2e5728f7cc60a9cb9c71f08bb5eb20e9cba39c3389834",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/rule_snapshot.rs": {
       "status": "unproved",
@@ -2374,13 +2389,13 @@
     },
     "src/marketing/rule_tests.rs": {
       "status": "unproved",
-      "sha256": "ddd05401c0e80e1c050835682962599b552e58821357ef963f2cdb56d375f6c2",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "d1ca508b8a1d82cb539a7bdd2e1b9955b7a8616a4288d6412e88de2657eb85c4",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/rules.rs": {
       "status": "unproved",
-      "sha256": "220c9b190697cd8df3238aeeb15c5b3966dc3983e89547995484141dddbd37a9",
-      "review": "Reviewed Vendune crate rename: all production references use the same renamed library, with no business decision changes. HTTP/MCP identity and startup log use Vendune; authentication identities and immutable migrations remain unchanged. Cargo manifest/lock, runner generation and Docker executable paths agree. 80 Rust tests, 122 UI tests, Clippy and frontend build passed. Database volume compatibility and current-brand SVG checks are separately tested; no new correctness or performance claim."
+      "sha256": "80f1e23235bb4140c79fd089867ed566b00ff0a7b1dd942dcc16e55b48b2867e",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/mcp/transport.rs": {
       "status": "unproved",
@@ -2394,13 +2409,18 @@
     },
     "src/mcp.rs": {
       "status": "unproved",
-      "sha256": "0acc23b1de32a6a152e8179360b1c6432492654f0c8e1ae79e290d8d2d1ad16d",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "19ac9e4a4297bb361e0041389191a01a9c83cc59a5fb0ba7a313e076fc23f183",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+    },
+    "src/migrations/identity_checksums.rs": {
+      "status": "unproved",
+      "sha256": "5fc5c7491c427f461539445c60ac31e15eac11d145dd26a193f5c540d665ca53",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "35560b04de636a9b7df9b3f5dac1aaee0c282bce8706905cd558b82af107f870",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "a4d36e43224eabfb30f469b290f510fff676d7bf682a6eb62127ceca24b743fa",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -2409,8 +2429,8 @@
     },
     "src/migrations.rs": {
       "status": "unproved",
-      "sha256": "413a50341f481773b65f2fd940a5efd64780702a3207a808a23979fc699772f9",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "2704c01778beae7811f04f4a0f2585fd3b7afc39de386cfc4d1ad9e0cbebe7bf",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/money.rs": {
       "status": "reviewed-binding",
@@ -2514,8 +2534,8 @@
     },
     "src/outbox/control.rs": {
       "status": "unproved",
-      "sha256": "998cf1835e04560664d51d21e6c6b1a941cdedb4f1381ebc8b8ee9be6c49fa20",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "b7e2877f1dee2f09525aadfa1704c1a6c40f81e0edb613b1b181e7add3fb6f00",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/outbox/retention.rs": {
       "status": "unproved",
@@ -2559,8 +2579,8 @@
     },
     "src/payments/provider.rs": {
       "status": "unproved",
-      "sha256": "25f78a9591c0b33cfc8a5c3fc0250f34af85db318ab19729e73e59fe5f7e4d11",
-      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
+      "sha256": "5acd3be105ab58bf2491f1421c1ce54c8628952198f930fd7b6cb932e5215682",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/payments/provider_configuration.rs": {
       "status": "unproved",
@@ -2589,8 +2609,8 @@
     },
     "src/payments/return_urls.rs": {
       "status": "unproved",
-      "sha256": "43fea1d4dce44663ece95c13cda31ba57fea208b4bcab02d34d9e94c87dcfeb5",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "e215a6d144f463baebac6b5ec3a538df8a4c2ee4b0f7b2a20e3ac848409fa554",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/payments/routes.rs": {
       "status": "unproved",
@@ -2599,8 +2619,8 @@
     },
     "src/payments/sessions.rs": {
       "status": "unproved",
-      "sha256": "62ed4bb637c64a3450dcd11adf40f892ad8f728db60ee4f000982e65a430f0a5",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "3a20e4f03083bc4d67bf6222d5dcaba909d39e291b2c9babf501c3036fdad6b1",
+      "review": "Reviewed domain cutover adapters: only browser GET/HEAD redirect; explicit legacy suffixes retain native tenant/channel ownership and exact HTTPS checkout origins. Scoped HTTP/PostgreSQL handoff, checkout-review and tenant-isolation suites passed. This records adapter review, not a proof of middleware correctness."
     },
     "src/payments/state.rs": {
       "status": "reviewed-binding",
@@ -2624,8 +2644,8 @@
     },
     "src/performance/admission.rs": {
       "status": "unproved",
-      "sha256": "8547918c07ac7fc37da32385fe162c92a7681cbe884f06fb1870d9dac853b008",
-      "review": "Reviewed shared UTC-day quota extraction, SSE classification and native knowledge.extract pipeline; all Rust tests and Clippy pass, native provider checks prove HTTP/MCP/Flow quota parity, exact quotes, source-language handling and current actor revocation."
+      "sha256": "c13f1290e265a28a9fb702aaf5552afe7fbd2b74b48b17577e3c20a514074665",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/performance/cache.rs": {
       "status": "unproved",
@@ -2634,8 +2654,8 @@
     },
     "src/performance/cluster_lease.rs": {
       "status": "unproved",
-      "sha256": "a04b4850b9157448e274ef91debbef71bbbefb5c0b426aa416fe96e1e795d936",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "bf0661f440cbfb08a7846e28ed30623d8819bc98f8a58537e94f70b37604666c",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/performance/delivery.rs": {
       "status": "unproved",
@@ -2644,8 +2664,8 @@
     },
     "src/performance/invalidation.rs": {
       "status": "unproved",
-      "sha256": "df84bbbfe8ff832490c2c08765c4203df00e206a65909f3ae12a7cfe61a1b23e",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "98eae1609057be698b6608ffd1a5c19183aad77b133ccabe42e6af6349894af2",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/performance/languages.rs": {
       "status": "unproved",
@@ -2664,8 +2684,8 @@
     },
     "src/performance/row_security.rs": {
       "status": "unproved",
-      "sha256": "cea94da18b960c922e06381e1dcda81616e787327845e44c29b419be37108585",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "29d1a2134e09e8c40bcdff2e1fe55f7024061f8914cb54293eb116c8dc60778e",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/performance/settings.rs": {
       "status": "unproved",
@@ -2674,13 +2694,13 @@
     },
     "src/planner.rs": {
       "status": "unproved",
-      "sha256": "45f6d77399c9fc70ea24af63add6bc5d346ee0be1495211e6608743593059c3c",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "52bad84c89198ec28bb1824d176fc6eca51a634145f92235b206e87975ae7268",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/platform/ai.rs": {
       "status": "reviewed-binding",
-      "sha256": "43b845a10c045f75f7523a3b934f58a38ab4ec5550198bd72022c88ad5aedfcc",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "de04d181f674e1f734766ecfa067399a4726672964db10e441441f77fb14133a",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/platform/auth.rs": {
       "status": "reviewed-binding",
@@ -2779,8 +2799,8 @@
     },
     "src/prelude.rs": {
       "status": "unproved",
-      "sha256": "9e1620a9f521a629b62cc91a8c4fc3370d18bb511b30e7dbd6029ba4483e097e",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "50c1c63729b2a9467d5fa5a0bb94d732020d42576061df8c2378e78fcb6dd3dd",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/pricing.rs": {
       "status": "unproved",
@@ -2809,8 +2829,8 @@
     },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "1ffe839ebea810a05f9670f0e865695734b86acfb443af9866910f693a206222",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "9903c5cde96594a68bf6966a7f0213f5980fe866db066b9d6147130ac17b5def",
+      "review": "Reviewed the coordinated Veyndo crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",
@@ -2819,8 +2839,8 @@
     },
     "src/runtime_config.rs": {
       "status": "unproved",
-      "sha256": "3defa274031a3e746bcd46bdbb3fe3799d64f2e26be010b02b82155ddbd3dfb6",
-      "review": "Reviewed native behavioral consent reuse, purpose withdrawal, bounded tenant/FK reports and private identity links; geography configuration validation and frontend locale inheritance. SQL/proxy/worker adapters remain unproved."
+      "sha256": "81197386813fdcd82fcae0d66b88ec76115dafe8d70016c0ed50d7aad0eb8ff3",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/sandbox.rs": {
       "status": "reviewed-binding",
@@ -2864,8 +2884,8 @@
     },
     "src/shop_domains/frontend_transport.rs": {
       "status": "unproved",
-      "sha256": "771083e8799113cb49bf400c41aef887eb5c9594df062630699873f8f94dac63",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "ff6b95f4fb578a57833d2e047255b419a9625c0e63919198befa98b16294fb8a",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/shop_domains/frontends.rs": {
       "status": "unproved",
@@ -2874,8 +2894,8 @@
     },
     "src/shop_domains.rs": {
       "status": "unproved",
-      "sha256": "1a16aa3267ac79a8496b93c1e9810ca7e59dda8518aee0b79618bbb42c39d612",
-      "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
+      "sha256": "5cf8ea5e3f7583da7fa78be7eca7f3768c77d84f45fc17aa21d72450d352ca89",
+      "review": "Reviewed domain cutover adapters: only browser GET/HEAD redirect; explicit legacy suffixes retain native tenant/channel ownership and exact HTTPS checkout origins. Scoped HTTP/PostgreSQL handoff, checkout-review and tenant-isolation suites passed. This records adapter review, not a proof of middleware correctness."
     },
     "src/staging/access.rs": {
       "status": "unproved",
@@ -2944,8 +2964,8 @@
     },
     "src/studio.rs": {
       "status": "unproved",
-      "sha256": "f123f923bac49e92e8f0c6fb5dcc103a101eb2a6e591a1a842f58aa950c0746e",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "aef3da6e45bbf204f09694d51811437eb73b67cc3c7bd00c1167d7ecb2dc72c7",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/tenant_scope.rs": {
       "status": "unproved",
@@ -2994,13 +3014,13 @@
     },
     "src/ucp/negotiation.rs": {
       "status": "unproved",
-      "sha256": "37920311f0e9cb34a2fc6163694d8efc999261a4ced4955e220c3a47129a16c0",
-      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+      "sha256": "a2493903c6d08cc9bde0353b2725431d2c3f57f8f83f518e08b7df43b8324881",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/ucp/profile.rs": {
       "status": "unproved",
-      "sha256": "8256046da9ad065fd7ec7557238691b30b56a9979f8fe6fe1163e5f9696170fa",
-      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+      "sha256": "37559f6293524d7568217ec08429ac596f8ab4fd34714c3c102c6de01220aae0",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/verified_kernel.rs": {
       "status": "extracted-policy",
@@ -3009,31 +3029,31 @@
     },
     "src/work_signal.rs": {
       "status": "unproved",
-      "sha256": "09dcbde6a46c7e564a8d9519f9bc9756011c1a20bc55968bba4138317d40bbf7",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "640ed67b901e03ae0246705e805324355fb5b67fd40f074739d227d70f748a06",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/workers.rs": {
       "status": "unproved",
-      "sha256": "0b66cadf8b710d71cae3c7cdc80b7d101e66a84d05e8d25c4bd70908e98105f7",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "703ac634f63578e31dfd886000c6c6deb761ed285544eaac68dffc10b6be8168",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     }
   },
   "inputs": {
     ".github/workflows/verify.yml": {
-      "sha256": "848fac3f003127db906cec7fd117a8b63492fa6c3453f284d79ee88980bfc9e8",
-      "review": "Production image copies historical app manifests required by Rust include_str. Public build reproduced eight missing inputs; dependency closure and negative copy-removal control pass. No Rust, schema or policy changed."
+      "sha256": "ca81e6fc0d28c9372cebc8a98068c883216e5512b76515f3f92964e7dbb230c3",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "Cargo.lock": {
-      "sha256": "d120eef91ac11cce858a2ce8e0164c8a8b3c5b2fdb2f1a4f07642b2860e8b4ce",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "1e14a3bdec4ea5daeee8e23d2668df7b3fcbc494166c90bd6cc0e9d83f44299e",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "Cargo.toml": {
-      "sha256": "3a710c28bbba321c86ed72dc6e11120179a37c6d90024b13e4f444205839ed14",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "sha256": "5a9df8a23673fae08f6fc94eb65bc7473ac330434c0a453481fd0bd39861b5aa",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "deploy/Dockerfile": {
-      "sha256": "dc7c2c8b35843285ac1f25e3404c8c930d2dc8b0c1525ab5a3886ba028671f23",
-      "review": "Production image copies historical app manifests required by Rust include_str. Public build reproduced eight missing inputs; dependency closure and negative copy-removal control pass. No Rust, schema or policy changed."
+      "sha256": "100168e9587c23009b01ab65775056e5e49abf90ee3b7dca0fdfe05133154e25",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "fixtures/app-studio-schema.json": {
       "sha256": "e644a609345a94bcf23ad9e1dd94948526e0fac2345f80f2fb7211c4e043be9e",
@@ -3064,12 +3084,12 @@
       "review": "Reviewed international configuration, destination tax predicates and native bindings; targeted PostgreSQL international/catalog cases plus Rust tests pass. Translation fixtures verify restart, provider rejection, tenant permissions and revision conflicts. Config/product/apply share row locks. Additive schema 028 and versioned MIT geography reviewed; surrounding SQL/provider behavior remains unproved."
     },
     "frontend/package-lock.json": {
-      "sha256": "cf88e8829a1279478920ddeb85285b1a86f08bd3e12321090dc946730480d49e",
-      "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
+      "sha256": "1b0c696279d2aa3bd23577f2371552c39f9bfae6e1c2b0f5b1664e159be364bd",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "frontend/package.json": {
-      "sha256": "6e4477bff112bb5cd91ff60696701396844df2ad7d639538bac05f90c6111e7b",
-      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
+      "sha256": "a1b0adef2ac1e2368708147f222aab56f5b659d51536f5b167e5d54fd021122a",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "frontend/scripts/precompress.mjs": {
       "sha256": "dbe91d7985386628933dfb734bd5555ba4e8b97502d1f644b26488434cfc195c",
@@ -3224,12 +3244,12 @@
       "review": "Reviewed managed-install variants and append-only legacy vector/relation conversion, SQL knowledge/app visibility joins, durable Qdrant queue with tenant/model/digest hydration and deletion, hostname scope before authentication, personal-only bootstrap and SIGTERM entry routing; verified fresh ordinary PostgreSQL operator/shop creation, real Qdrant isolation/deletion/outage retry, public document scope, legacy count/vector/checksum preservation and negative ledger drift. These SQL/network/hosting adapters remain unproved; verified kernel unchanged."
     },
     "migrations/034-entity-history.sql": {
-      "sha256": "04510e911fc5693c4d4f41772b099122f6928678318c6c65c15a55b9d96c567e",
-      "review": "Reviewed connected CRM: configured group pricing admission with exact Lean contract, settings lock and dependency rejection; independent revisioned default addresses and ownership-validated book restore; trusted transaction-local actors with deferred one-per-transaction credential-free aggregate history; scoped read/write/MCP restore through domain handlers preserving current stock, identity and financial events. Real crm_history tests cover all twelve editable entity restore types, checkout, stale writes, group dependencies, foreign shops and viewer rejection; Rust unit/lint and affected integration suites verify existing consumers. SQL/async adapters remain unproved."
+      "sha256": "94aaea299c5b5b57bdc092e9aa2a93431095af6efa65a81d127d574b1dd93f5d",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "migrations/035-history-finalization.sql": {
-      "sha256": "570844745676f6c08e66dc980123c742546c2b75779438efc17a59a6932a49c2",
-      "review": "Reviewed connected CRM: configured group pricing admission with exact Lean contract, settings lock and dependency rejection; independent revisioned default addresses and ownership-validated book restore; trusted transaction-local actors with deferred one-per-transaction credential-free aggregate history; scoped read/write/MCP restore through domain handlers preserving current stock, identity and financial events. Real crm_history tests cover all twelve editable entity restore types, checkout, stale writes, group dependencies, foreign shops and viewer rejection; Rust unit/lint and affected integration suites verify existing consumers. SQL/async adapters remain unproved."
+      "sha256": "995a59c91250e6961fece0f8c22da599f71f1b8509e12a72508c74969a45ad96",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "migrations/036-app-assistants.sql": {
       "sha256": "46130e80715648ba78b63e297c39f84eec37ec25e56d45c8ee4c0429dbdf48d8",
@@ -3272,8 +3292,8 @@
       "review": "Reviewed all changed Rust, append-only schemas, build/extraction and Lean inputs: lease hooks bind new/reused connections and reset on release; strict runtime rejects owner/bypass/TRUNCATE and preserves app-schema ownership; two-replica non-owner PostgreSQL tests deny forged foreign writes, enforce operator quotas and parent-stage daily usage, release persisted allocation quantities once despite corrupted snapshots, and distinguish commit from rollback invalidation. Money retains legacy EUR rounding with explicit scale and original Shopware differential; receipt-backed state admission is monotonic with late capture/refund. Async SQL/provider code remains unproved. Rust 113 tests, staging/app/automation/settings and strict checkout/CRM/tenant regressions passed; 274 frontend tests and production build passed."
     },
     "migrations/046-cache-invalidation.sql": {
-      "sha256": "7ce152c278cc59d596454f7c3b41d18290305ee28c926400792be74e1e08679f",
-      "review": "Reviewed all changed Rust, append-only schemas, build/extraction and Lean inputs: lease hooks bind new/reused connections and reset on release; strict runtime rejects owner/bypass/TRUNCATE and preserves app-schema ownership; two-replica non-owner PostgreSQL tests deny forged foreign writes, enforce operator quotas and parent-stage daily usage, release persisted allocation quantities once despite corrupted snapshots, and distinguish commit from rollback invalidation. Money retains legacy EUR rounding with explicit scale and original Shopware differential; receipt-backed state admission is monotonic with late capture/refund. Async SQL/provider code remains unproved. Rust 113 tests, staging/app/automation/settings and strict checkout/CRM/tenant regressions passed; 274 frontend tests and production build passed."
+      "sha256": "9898bcc7d1243aaeee68db08047134bf8bbfa3bb4d2e1ae3975ad43621d3daa5",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "migrations/047-order-reservations.sql": {
       "sha256": "704c12521e6d19df1fd0651ed17c518539ed06ce4a76319aab32a820dfb4b483",
@@ -3312,12 +3332,12 @@
       "review": "Reviewed tenant-scoped hosted app association, transactional immutable Storyfront installation and one-time validated migration 055; dependency deactivation shares config/app locks; private renderer excluded. PostgreSQL regressions cover foreign references and cold restart. SQL/network adapters remain unproved."
     },
     "migrations/056-http-response-diagnostics.sql": {
-      "sha256": "7e3bf0048bc33ba0092e5dfc4f2decc0316bfd4a99c197f32ea2a627b6bf141f",
-      "review": "Review HTTP diagnostic histogram: status-only bounded keys, existing buffered flush and tenant RLS unchanged; shared operator reads preserve unclassified legacy totals. Rust unit classification and frontend outcome tests; real platform integration required before merge. No verified commerce policy changed."
+      "sha256": "adbb0d430bfd1a3a3360cfe58055f0b35fab5591245466b27c5b7d995bcc79fc",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "migrations/057-core-hardening.sql": {
-      "sha256": "3832cddadcb7a940f1a096af0315e5e4efeba299c3cc60b4813005e8e55518c9",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "7e0defad9a7f5f9dee73d3a3a8ee5caf0a530d0771de5a7fa0ccfb95c55fc009",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "migrations/058-tenant-app-schemas.sql": {
       "sha256": "52df74abe24e9cbe9ecb548d26c830d6e27d790f9b9d6ff3d8c0e3ba1e6312e9",
@@ -3416,12 +3436,16 @@
       "review": "Reviewed nullable product/customer reference retirement and cart/channel analytics cascade; existing financial dependency guards remain authoritative. Behavior SQL, proxy and browser adapters remain unproved."
     },
     "migrations/082-workspace-roles.sql": {
-      "sha256": "2e425ca0b2e553243d8a6537eb2e8057c467717b9b20846d6a8cfb88464d5f44",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "320ee262d9e79ae90d1735afe6b74024a0664dbda2b6719a2e28e0192a3bf005",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "migrations/083-customer-lookup.sql": {
       "sha256": "e40e1d3541ffe68b2cbaeb2453a6749f3352df51494404a3541dcb56206007ec",
       "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+    },
+    "migrations/090-veyndo-identity.sql": {
+      "sha256": "b29354f29fd5e5aa966e78d6b46ede19f00a9c8f189331936682275eb6f14e84",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "proof/Commerce/Claims.lean": {
       "sha256": "9ffc4b92e9fb2c3d7b91f6c3ab8e0f1a3d4a5821d5b9c656e74b1b8c3607f0bc",
@@ -3468,8 +3492,8 @@
       "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
     },
     "scripts/formal/runners.py": {
-      "sha256": "66d5041b9201ceb7421bf868e49a2b7bd241a5959f21c1ac7b8394e628825b1d",
-      "review": "Reviewed generated conformance dispatcher refactor: typed JSON argument closures preserve u64/bool validation and all original policy calls/errors, keeping generated module below 320 lines as the inventory grows. Policies and production semantics are unchanged; conformance and mutation gates re-run."
+      "sha256": "c73bda913fb0c1949c25ad7589e5d156c05f7e0a89f39ca7be8b8e40ebd5f565",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "scripts/formal.py": {
       "sha256": "0d152edcec333aa5facf70830240473e6533970c86ff020ab10b734cd05743fd",
@@ -3556,8 +3580,8 @@
       "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
     },
     "src/ucp/b2b-negotiation.json": {
-      "sha256": "f04cd0653b19ddf3e6d8bcbfc5990789b78d846e761302f913f35856657d5514",
-      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+      "sha256": "80049231fb689a5a8a105ff73046ec0a5b97caa480e0a5029e8688ad7dfacba7",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     }
   }
 }

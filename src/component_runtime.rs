@@ -1,12 +1,13 @@
 //! WIT-typed read-only commerce guest. Snapshots are prepared by domain owners; no WASI, HTTP, DB or merchant credentials reach components.
 use std::collections::HashMap;
-use wasmtime::component::{Component, Linker};
+use wasmtime::component::Component;
 use wasmtime::{Engine, Store, StoreLimits, StoreLimitsBuilder};
+mod abi;
 wasmtime::component::bindgen!({path:"extensions/sdk/wit",world:"extension",imports:{default:trappable}});
-pub use self::vendune::commerce::context::{
+pub use self::veyndo::commerce::context::{
     AppRecord, CartItem, CartSnapshot, Money, ProductSnapshot,
 };
-pub use exports::vendune::commerce::hooks::{Kind, Outcome};
+pub use exports::veyndo::commerce::hooks::{Kind, Outcome};
 #[derive(Clone)]
 pub struct Snapshot {
     pub cart: CartSnapshot,
@@ -27,7 +28,7 @@ impl Host {
         Ok(())
     }
 }
-impl self::vendune::commerce::context::Host for Host {
+impl self::veyndo::commerce::context::Host for Host {
     fn cart(&mut self) -> wasmtime::Result<CartSnapshot> {
         self.charge()?;
         Ok(self.snapshot.cart.clone())
@@ -44,6 +45,7 @@ impl self::vendune::commerce::context::Host for Host {
 pub struct Module {
     engine: Engine,
     component: Component,
+    namespace: String,
 }
 impl Module {
     pub fn validate_interface(&self) -> Result<(), String> {
@@ -76,17 +78,17 @@ impl Module {
         store.limiter(|s| &mut s.limits);
         store.set_epoch_deadline(5);
         store.set_fuel(100000).map_err(|e| e.to_string())?;
-        let mut linker = Linker::new(&self.engine);
-        Extension::add_to_linker::<_, wasmtime::component::HasSelf<_>>(
-            &mut linker,
-            |h: &mut Host| h,
-        )
-        .map_err(|e| e.to_string())?;
-        Extension::instantiate(&mut store, &self.component, &linker)
+        abi::function(&self.engine, &self.component, &self.namespace, &mut store)
             .map_err(|e| format!("Invalid commerce WIT ABI: {e:#}"))?;
         Ok(())
     }
     pub fn new(source: &str) -> Result<Self, String> {
+        Self::new_with_abi(
+            source,
+            &std::env::var("COMPONENT_LEGACY_NAMESPACES").unwrap_or_default(),
+        )
+    }
+    fn new_with_abi(source: &str, configured: &str) -> Result<Self, String> {
         if source.len() > 32768 {
             return Err("Component source exceeds 32 KiB".into());
         }
@@ -103,7 +105,12 @@ impl Module {
         ) {
             return Err("Component exceeds table/memory budget".into());
         }
-        Ok(Self { engine, component })
+        let namespace = abi::namespace(&component, configured)?;
+        Ok(Self {
+            engine,
+            component,
+            namespace,
+        })
     }
     pub fn evaluate(&self, snapshot: Snapshot, hook: Kind, input: &str) -> Result<Outcome, String> {
         if snapshot.products.len() > 100
@@ -159,17 +166,10 @@ impl Module {
         store.limiter(|s| &mut s.limits);
         store.set_epoch_deadline(5);
         store.set_fuel(100000).map_err(|e| e.to_string())?;
-        let mut linker = Linker::new(&self.engine);
-        Extension::add_to_linker::<_, wasmtime::component::HasSelf<_>>(
-            &mut linker,
-            |h: &mut Host| h,
-        )
-        .map_err(|e| e.to_string())?;
-        let guest = Extension::instantiate(&mut store, &self.component, &linker)
-            .map_err(|e| e.to_string())?;
-        let result = guest
-            .vendune_commerce_hooks()
-            .call_evaluate(&mut store, hook, input)
+        let function = abi::function(&self.engine, &self.component, &self.namespace, &mut store)
+            .map_err(|e| format!("Invalid commerce WIT ABI: {e:#}"))?;
+        let (result,) = function
+            .call(&mut store, (hook, input.into()))
             .map_err(|e| format!("{e:#}"))?;
         if result.reason_code.len() > 100
             || !result
@@ -191,7 +191,7 @@ impl Module {
 #[cfg(test)]
 mod tests {
     use super::*;
-    fn snapshot(minor: i64) -> Snapshot {
+    pub(super) fn snapshot(minor: i64) -> Snapshot {
         Snapshot {
             cart: CartSnapshot {
                 items: vec![],

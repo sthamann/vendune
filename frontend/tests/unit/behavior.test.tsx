@@ -78,7 +78,7 @@ it("records consented route/cart/checkout signals; clears baselines across tenan
   rerender(<BehaviorAnalytics {...props} />);
   act(() =>
     window.dispatchEvent(
-      new CustomEvent("vendune:product-question", {
+      new CustomEvent("veyndo:product-question", {
         detail: { productId: "tee" },
       }),
     ),
@@ -105,7 +105,7 @@ it("question observations contain an ID but never question or answer text", () =
   state.api.mockClear();
   act(() =>
     window.dispatchEvent(
-      new CustomEvent("vendune:product-question", {
+      new CustomEvent("veyndo:product-question", {
         detail: { productId: "tee", question: "Private medical question" },
       }),
     ),

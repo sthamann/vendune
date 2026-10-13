@@ -49,7 +49,7 @@ def purchase(currency="EUR"):
  s=c['checkout'];s.update(paymentMethodId='example-payments-wallet',customerEmail='fixture@example.test',billingAddress={'name':'Fixture Buyer','firstName':'Fixture','lastName':'Buyer','street':'Fixture Street 1','postalCode':'12345','city':'Test','country':'DE'});call('/store-api/checkout/context',{'revision':c['revision'],'checkout':s},h,'PUT')
  return call('/store-api/checkout/order',{}, {**h,'Idempotency-Key':uuid.uuid4().hex}),h
 try:
- p=subprocess.Popen([str(ROOT/'target/debug/vendune')],cwd=ROOT,env=env,stdout=log,stderr=log)
+ p=subprocess.Popen([str(ROOT/'target/debug/veyndo')],cwd=ROOT,env=env,stdout=log,stderr=log)
  for _ in range(100):
   if p.poll()!=None:raise RuntimeError('See .run/generic-payments.log')
   try:call('/health');break

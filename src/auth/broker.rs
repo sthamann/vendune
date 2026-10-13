@@ -47,7 +47,7 @@ pub(crate) async fn assertion(a: &App, route: &str, v: &Value) -> Result<Value> 
     .map_err(|_| bad("Invalid identity payload"))?;
     let now = chrono::Utc::now().timestamp();
     if claims["iss"] != issuer
-        || claims["aud"] != "vendune-identity"
+        || claims["aud"] != "veyndo-identity"
         || claims["verified"] != true
         || !claims["exp"]
             .as_i64()

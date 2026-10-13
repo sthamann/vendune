@@ -6,7 +6,7 @@ semantic product graph. Open **Studio → Shop knowledge → Visitor behavior**.
 Choose a sales channel and a one-, seven- or thirty-day window. This is a native
 Rust feature with the same HTTP/MCP permissions as the rest of Studio.
 
-![Channel report with browser/device groups and real native order counts](assets/behavior/overview.png)
+![Current visitor insights in an isolated demo with no consented observations](assets/behavior/overview.png)
 
 *Isolated synthetic Nord Audience Lab: six admitted guest contexts, 24 observations
 and one simulated native order. These are demonstration observations, not public
@@ -144,7 +144,7 @@ is independent of the Google Analytics app and its opt-in tag/provider service.
 
 Optional `BEHAVIOR_GEO_SHARED_SECRET` is server-only, 32–256 bytes. A trusted proxy
 must strip client-supplied geography headers, authenticate its own requests with
-`x-vendune-geo-token`, and supply a validated ISO country as `x-vendune-geo-country`.
+`x-veyndo-geo-token`, and supply a validated ISO country as `x-veyndo-geo-country`.
 It must resolve geography before proxying; VEYNDO does not install a GeoIP provider
 or infer visitor location from the shipping address. Never expose this secret in a
 browser bundle. Invalid tokens or unassigned country codes remain unknown. This

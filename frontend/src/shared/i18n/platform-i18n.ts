@@ -2,7 +2,7 @@
 import { useLocale } from "./i18n";
 const en = {
   shopSlugExample: "my-shop",
-  title: "Vendune Platform",
+  title: "Veyndo Platform",
   subtitle: "Every shop. One clear view.",
   overview: "Overview",
   shops: "Shops",
@@ -75,7 +75,7 @@ const en = {
 };
 const de: typeof en = {
   shopSlugExample: "mein-shop",
-  title: "Vendune Plattform",
+  title: "Veyndo Plattform",
   subtitle: "Alle Shops. Ein klarer Überblick.",
   overview: "Übersicht",
   shops: "Shops",
@@ -148,7 +148,7 @@ const de: typeof en = {
 };
 const fr: typeof en = {
   shopSlugExample: "ma-boutique",
-  title: "Plateforme Vendune",
+  title: "Plateforme Veyndo",
   subtitle: "Toutes les boutiques. Une vue claire.",
   overview: "Vue d’ensemble",
   shops: "Boutiques",
@@ -220,7 +220,7 @@ const fr: typeof en = {
 };
 const es: typeof en = {
   shopSlugExample: "mi-tienda",
-  title: "Plataforma Vendune",
+  title: "Plataforma Veyndo",
   subtitle: "Todas las tiendas. Una vista clara.",
   overview: "Resumen",
   shops: "Tiendas",

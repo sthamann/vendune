@@ -77,8 +77,7 @@ retains the database. [Setup and troubleshooting](docs/quickstart.md).
 
 ## See it in action
 
-Fresh VEYNDO captures come from the rebrand branch and use an isolated synthetic
-shop. Hosted applications are being migrated. Payments are simulated;
+Fresh VEYNDO captures use an isolated synthetic shop. Payments are simulated;
 recordings are edited for readability and are not latency measurements.
 
 [![Nord Atelier storefront](docs/assets/showcase/storefront.webp)](docs/features.md#storefront-and-shopping)

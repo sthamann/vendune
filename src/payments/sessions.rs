@@ -99,7 +99,11 @@ pub(crate) async fn origin_conn(
     {
         return Err(bad("Checkout parent must be an origin"));
     }
-    if reqwest::Url::parse(&core).is_ok_and(|c| c.origin() == u.origin()) {
+    let suffix = env::var("SHOP_DOMAIN_SUFFIX").unwrap_or_default();
+    let legacy = env::var("LEGACY_DOMAINS").unwrap_or_default();
+    if reqwest::Url::parse(&core)
+        .is_ok_and(|c| crate::shop_domains::same_origin_family(&u, &c, &suffix, &legacy))
+    {
         return Ok(normalized);
     }
     if u.scheme() == "https"
@@ -107,10 +111,10 @@ pub(crate) async fn origin_conn(
         && let Ok(suffix) = env::var("SHOP_DOMAIN_SUFFIX")
     {
         let host = u.host_str().unwrap_or("");
-        if host == format!("{t}.{suffix}") {
-            return Ok(normalized);
-        }
-        if let Some(alias) = host.strip_suffix(&format!(".{suffix}")) {
+        if let Some(alias) = crate::shop_domains::configured_alias(host, &suffix, &legacy) {
+            if alias == t {
+                return Ok(normalized);
+            }
             let owned: bool = sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM hosted_frontends WHERE tenant=$1 AND channel=$2 AND alias=$3)").bind(t).bind(channel).bind(alias).fetch_one(conn).await?;
             if owned {
                 return Ok(normalized);

@@ -59,10 +59,10 @@ pub(crate) fn role_allowed(actor: &str, target: &str) -> bool {
 pub(crate) fn bootstrap_matches(candidate: &str, expected: &str) -> bool {
     use hmac::{Hmac, Mac};
     use sha2::Sha256;
-    let mut saved = Hmac::<Sha256>::new_from_slice(b"vendune-bootstrap-comparison").unwrap();
+    let mut saved = Hmac::<Sha256>::new_from_slice(b"veyndo-bootstrap-comparison").unwrap();
     saved.update(expected.as_bytes());
     let authenticator = saved.finalize().into_bytes();
-    let mut supplied = Hmac::<Sha256>::new_from_slice(b"vendune-bootstrap-comparison").unwrap();
+    let mut supplied = Hmac::<Sha256>::new_from_slice(b"veyndo-bootstrap-comparison").unwrap();
     supplied.update(candidate.as_bytes());
     !expected.is_empty() && supplied.verify_slice(&authenticator).is_ok()
 }

@@ -5,7 +5,7 @@ import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { expect, it } from "vitest";
 it("round-trips tuples and rejects incomplete or incompatible edits before writing", () => {
-  const root = mkdtempSync(join(tmpdir(), "vendune-catalog-"));
+  const root = mkdtempSync(join(tmpdir(), "veyndo-catalog-"));
   const file = join(root, "sample-i18n.ts");
   const original =
     'export const words = { greeting: ["Hello {name}", "Hallo {name}", "Bonjour {name}", "Hola {name}"] } as const;';

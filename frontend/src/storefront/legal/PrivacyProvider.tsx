@@ -34,7 +34,7 @@ export default function PrivacyProvider({
 }) {
   const { l } = useLegalText();
   const scope = consentScope(),
-    key = `vendune-consent:${scope}`;
+    key = `veyndo-consent:${scope}`;
   const [policy, setPolicy] = useState<LegalPolicy>(),
     [open, setOpen] = useState(false),
     [detail, setDetail] = useState(false),
@@ -90,13 +90,13 @@ export default function PrivacyProvider({
       };
     window.addEventListener("focus", focus);
     window.addEventListener("storage", focus);
-    window.addEventListener("vendune:privacy-open", show);
+    window.addEventListener("veyndo:privacy-open", show);
     return () => {
       active = false;
       window.clearInterval(interval);
       window.removeEventListener("focus", focus);
       window.removeEventListener("storage", focus);
-      window.removeEventListener("vendune:privacy-open", show);
+      window.removeEventListener("veyndo:privacy-open", show);
       publishConsent(undefined, scope);
     };
   }, [scope, token]);

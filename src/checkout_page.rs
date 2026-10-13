@@ -15,10 +15,10 @@ pub(crate) async fn page(
             .get("parentOrigin")
             .ok_or(bad("Checkout parent required"))?;
         let url = reqwest::Url::parse(origin).map_err(|_| bad("Invalid checkout parent"))?;
-        let suffix = env::var("SHOP_DOMAIN_SUFFIX").unwrap_or_else(|_| "vendune.ai".into());
+        let suffix = env::var("SHOP_DOMAIN_SUFFIX").unwrap_or_else(|_| "veyndo.ai".into());
         let host = url.host_str().ok_or(bad("Invalid checkout parent"))?;
-        let alias = host
-            .strip_suffix(&format!(".{suffix}"))
+        let legacy = env::var("LEGACY_DOMAINS").unwrap_or_default();
+        let alias = crate::shop_domains::configured_alias(host, &suffix, &legacy)
             .ok_or(bad("Checkout parent unavailable"))?;
         validate_tenant(alias)?;
         if url.scheme() != "https"

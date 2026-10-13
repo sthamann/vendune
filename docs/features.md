@@ -524,7 +524,7 @@ A sandbox clones catalog/translations/categories, settings/company, experience s
 
 ### Separate operator console and shop directory
 
-The public service hub at **admin.vendune.ai** links merchant and platform entry points. A platform grant is separate from merchant ownership and the bootstrap token. Operators see a bounded searchable shop directory, staging separately, per-shop team/business/channel/app information and 7/30/90-day statistics. Access is checked on every operator request; platform access does not automatically authorize every merchant Studio.
+The public service hub at **admin.veyndo.ai** links merchant and platform entry points. A platform grant is separate from merchant ownership and the bootstrap token. Operators see a bounded searchable shop directory, staging separately, per-shop team/business/channel/app information and 7/30/90-day statistics. Access is checked on every operator request; platform access does not automatically authorize every merchant Studio.
 
 Metrics distinguish recorded gross order value, simulation and confirmed captures by currency. Captures are not net revenue after refunds/fees. Stored lifetime HTTP requests are not visitors. Daily buckets use the database/UTC calendar. [Metric definitions](platform.md).
 
@@ -532,7 +532,7 @@ Metrics distinguish recorded gross order value, simulation and confirmed capture
 
 ### Shop creation, addresses and inherited AI
 
-Create an empty/sample shop with an optional existing owner. No shared-password demo customers are created by operator provisioning. Payments start simulated. With configured wildcard routing, shops use `https://SHOP_ID.vendune.ai`; old public query links retain product/channel/language context during upgrade. Studio/private stages keep their authenticated origin. DNS/certificates, arbitrary custom domains, billing and island migration are separate operator work.
+Create an empty/sample shop with an optional existing owner. No shared-password demo customers are created by operator provisioning. Payments start simulated. With configured wildcard routing, shops use `https://SHOP_ID.veyndo.ai`; old public query links retain product/channel/language context during upgrade. Studio/private stages keep their authenticated origin. DNS/certificates, arbitrary custom domains, billing and island migration are separate operator work.
 
 Global provider configuration has an enabled/default **Ollama/OpenAI/Anthropic** choice, provider models/endpoints and independent image capability/model. Shops inherit it or have an explicit override. Provider keys are write-only and encrypted with the runtime key; they are not returned to the browser. A configured status reports saved configuration, not provider health or a completed inference call. Disabling a provider denies use; there is no silent fallback. [AI and address controls](platform.md).
 
@@ -560,7 +560,7 @@ Infrastructure probes PostgreSQL version/size/connections, Qdrant readiness, Rus
 
 Browser shopping, merchant HTTP and protocol adapters call shared operations. MCP publishes typed shopping/knowledge/merchant/app tools filtered by current rights; direct invocation is independently authorized. The stdio bridge forwards to the running Core rather than implementing another calculator. The native HTTP MCP subset uses stateless JSON responses and no SSE subscription. UCP's documented checkout adapter shares carts, quotes and order behavior.
 
-The selected `ai.vendune.app.shopping.b2b_negotiation` extension adds native RFQs,
+The selected `ai.veyndo.app.shopping.b2b_negotiation` extension adds native RFQs,
 buyer counterproposals, merchant offers, original-cart acceptance, current purchasing
 constraints and separate approval requests to that checkout. Its profile negotiates
 software compatibility, never company authority; prices, budget, stock, final order

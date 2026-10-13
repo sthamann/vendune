@@ -15,7 +15,7 @@ pub(crate) fn cookie(h: &impl crate::request_context::HeaderReader) -> Option<St
     header(h, "cookie")?
         .split(';')
         .map(str::trim)
-        .find_map(|pair| pair.strip_prefix("vendune_preview=").map(str::to_owned))
+        .find_map(|pair| pair.strip_prefix("veyndo_preview=").map(str::to_owned))
 }
 fn token(s: &str) -> bool {
     s.len() == 64 && s.bytes().all(|c| c.is_ascii_hexdigit())
@@ -150,7 +150,7 @@ async fn redeem(
     };
     response.headers_mut().insert(
         "set-cookie",
-        format!("vendune_preview={grant}; Path=/; HttpOnly; SameSite=Lax; Max-Age=900{secure}")
+        format!("veyndo_preview={grant}; Path=/; HttpOnly; SameSite=Lax; Max-Age=900{secure}")
             .parse()
             .unwrap(),
     );
@@ -167,7 +167,7 @@ async fn end() -> Response {
     let mut response = StatusCode::NO_CONTENT.into_response();
     response.headers_mut().insert(
         "set-cookie",
-        "vendune_preview=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0"
+        "veyndo_preview=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0"
             .parse()
             .unwrap(),
     );

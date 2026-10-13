@@ -92,8 +92,8 @@ ordinary tenant actions use tenant scope. The gateway key is therefore server-on
 ### Private hosted networking
 
 For Northflank, keep connector port 8797 private and configure the core with
-`APP_SERVICE_PRIVATE_ORIGINS=http://vendune-connectors:8797`. Each operator-owned
-`APP_SERVICES` entry then uses `http://vendune-connectors:8797/APP_ID` and the shared
+`APP_SERVICE_PRIVATE_ORIGINS=http://veyndo-connectors:8797`. Each operator-owned
+`APP_SERVICES` entry then uses `http://veyndo-connectors:8797/APP_ID` and the shared
 gateway token. The allowance matches the exact origin, including its port; it does
 not permit arbitrary HTTP endpoints, URL credentials, query strings or fragments.
 The shared HTTP client disables redirects. HTTPS remains the default outside this

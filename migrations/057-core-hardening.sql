@@ -25,7 +25,7 @@ CREATE POLICY core_tenant_scope ON resource_leases
 CREATE FUNCTION notify_work_ready() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
  IF TG_OP='INSERT' OR coalesce(to_jsonb(NEW)->>'state',to_jsonb(NEW)->>'status')='queued' OR TG_TABLE_NAME='outbox' AND to_jsonb(NEW)->>'delivered_at' IS NULL THEN
-  PERFORM pg_notify('vendune_work_ready',TG_TABLE_NAME);
+  PERFORM pg_notify('veyndo_work_ready',TG_TABLE_NAME);
  END IF;
  RETURN NEW;
 END $$;

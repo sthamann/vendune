@@ -5,7 +5,7 @@ catalogue data, merchant-managed sources, curated graph connections, order-deriv
 associations and explicit merchant approvals. It shows actual persisted data;
 an empty shop does not receive fabricated questions, support tickets or learning.
 
-![Knowledge overview](screenshots/vendune-knowledge-overview.png)
+![Knowledge overview](screenshots/veyndo-knowledge-overview.png)
 
 ## Five connected views
 
@@ -32,7 +32,7 @@ an empty shop does not receive fabricated questions, support tickets or learning
   performs lexical retrieval only: no embedding or LLM call and no write. Live
   product answers and the merchant planner may additionally use indexed vectors.
 
-![Product knowledge and evidence](screenshots/vendune-knowledge-product.png)
+![Product knowledge and evidence](screenshots/veyndo-knowledge-product.png)
 
 ## Try the complete source path
 
@@ -58,7 +58,7 @@ an empty shop does not receive fabricated questions, support tickets or learning
    selectively release the `document:<id>` unit. Metadata, language chunks and hashes
    move together. A newer live revision still blocks a conflicting release.
 
-![Source editor with inherited language](screenshots/vendune-knowledge-source.png)
+![Source editor with inherited language](screenshots/veyndo-knowledge-source.png)
 
 The screenshots use a synthetic private App Studio Lab source, never manufacturer
 guidance or live customer records. It remains outside the live shop.

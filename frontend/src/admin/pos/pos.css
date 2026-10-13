@@ -1,5 +1,5 @@
-/* POS layout, product cards and touch checkout, using shared Vendune tokens. */
-/* Scoped, touch-first register layout; Vendune tokens support light/dark and reduced motion. */
+/* POS layout, product cards and touch checkout, using shared Veyndo tokens. */
+/* Scoped, touch-first register layout; Veyndo tokens support light/dark and reduced motion. */
 .pos-workspace {
   max-width: 1720px !important;
   --pos-line: var(--border, #dce4ef);

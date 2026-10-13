@@ -2,7 +2,7 @@
 
 Payment proposals are welcome, but adding a method name does not implement a
 payment provider. This guide records the integration requirements discussed in
-[issue #9](https://github.com/sthamann/vendune/issues/9). These are contribution
+[issue #9](https://github.com/sthamann/veyndo/issues/9). These are contribution
 requirements, **not a claim that the current app host implements them all**.
 
 ## Current boundary

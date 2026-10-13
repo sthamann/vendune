@@ -1,4 +1,4 @@
-package vendune:commerce@1.0.0;
+package veyndo:commerce@1.0.0;
 
 interface context {
     record money { minor: s64, currency: string, scale: u8 }

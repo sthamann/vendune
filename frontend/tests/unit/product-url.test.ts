@@ -43,14 +43,14 @@ afterEach(() => vi.unstubAllGlobals());
 it("returns a shared checkout shopper to the owned original shop with channel/language intact", () => {
   const assign = vi.fn();
   vi.stubGlobal("location", {
-    href: "https://app.vendune.ai/checkout?shop=merchant-shop&channel=world&language=de-DE#order-confirmed",
+    href: "https://app.veyndo.ai/checkout?shop=merchant-shop&channel=world&language=de-DE#order-confirmed",
     search: "?shop=merchant-shop&channel=world&language=de-DE",
     assign,
   });
   const push = vi.spyOn(history, "pushState");
   returnToCollection();
   expect(assign).toHaveBeenCalledWith(
-    "https://merchant-shop.vendune.ai/?channel=world&language=de-DE#",
+    "https://merchant-shop.veyndo.ai/?channel=world&language=de-DE#",
   );
   expect(push).not.toHaveBeenCalled();
   push.mockRestore();

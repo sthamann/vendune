@@ -22,7 +22,7 @@ See [setup, document profiles and explicit limits](../../../docs/edi.md).
 - `APP_EDI_TENANTS`: JSON object keyed by exact native tenant ID, with `coreUrl` (fixed origin ending `/`) and `callbackToken` (approved app callback token). Example shape only:
 
 ```json
-{"your-tenant":{"coreUrl":"https://app.vendune.ai/","callbackToken":"SERVER_SECRET_PLACEHOLDER"}}
+{"your-tenant":{"coreUrl":"https://app.veyndo.ai/","callbackToken":"SERVER_SECRET_PLACEHOLDER"}}
 ```
 
 Register the endpoint and gateway token through the existing server-side

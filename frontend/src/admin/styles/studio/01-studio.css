@@ -1,18 +1,18 @@
 /* studio: studio styles. Source order is preserved by the entry stylesheet. */
-/* Vendune Studio: scoped design tokens, no storefront styles in admin flows. */
+/* Veyndo Studio: scoped design tokens, no storefront styles in admin flows. */
 .studio {
-  --bg: #f5f8fc;
+  --bg: #f5f3ec;
   --surface: #ffffff;
-  --panel: #f1f5fb;
-  --hover: #e8f0ff;
-  --border: #dbe4f0;
-  --muted: #5e7089;
-  --text: #152843;
-  --accent: #1768eb;
+  --panel: #eeeee6;
+  --hover: #eaf2cc;
+  --border: #dedfd5;
+  --muted: #657063;
+  --text: #171b18;
+  --accent: #536817;
   --accent-text: #ffffff;
   --positive: #087f70;
   --warning: #956300;
-  --shadow: 0 18px 70px #163d7012;
+  --shadow: 0 18px 70px #171b1812;
   background: var(--bg);
   color: var(--text);
   font-family: Inter, "DM Sans", system-ui, sans-serif;
@@ -24,15 +24,15 @@
   color-scheme: light;
 }
 .studio[data-theme="dark"] {
-  --bg: #17253b;
-  --surface: #1f314c;
-  --panel: #263c5d;
-  --hover: #2e4970;
-  --border: #405879;
-  --muted: #b2c3dc;
-  --text: #eff5ff;
-  --accent: #7ab1ff;
-  --accent-text: #102d55;
+  --bg: #171b18;
+  --surface: #222922;
+  --panel: #293129;
+  --hover: #39452b;
+  --border: #485344;
+  --muted: #b8c2b0;
+  --text: #f5f3ec;
+  --accent: #d2f34a;
+  --accent-text: #171b18;
   --positive: #79d6c4;
   --warning: #ecc68d;
   --shadow: 0 18px 70px #0003;

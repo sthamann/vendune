@@ -1,6 +1,6 @@
 //! Shop locale resolution, translated catalog hydration and non-mutating merchant quote.
 use super::*;
-use vendune::context::{Language, language_chain};
+use veyndo::context::{Language, language_chain};
 
 pub(super) async fn language_context(a: &App, h: &RequestContext) -> Result<(String, Vec<String>)> {
     let (settings, _) = commerce::config(a, &tenant(h)?).await?;
@@ -29,7 +29,7 @@ pub(super) async fn language_context(a: &App, h: &RequestContext) -> Result<(Str
             .id
             .clone();
         let current = selected.id.clone();
-        chain.retain(|id| id != vendune::context::SYSTEM_LANGUAGE || id == &current);
+        chain.retain(|id| id != veyndo::context::SYSTEM_LANGUAGE || id == &current);
         if !chain.contains(&main) {
             chain.push(main);
         }
