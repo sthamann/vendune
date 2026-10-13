@@ -35,7 +35,11 @@ export default function AutomationView({
     let active = true;
     request("/store-api/context")
       .then((v) => {
-        if (active) setLanguages(v);
+        if (active)
+          setLanguages({
+            mainLocale: v.mainLocale,
+            locales: v.availableLocales,
+          });
       })
       .catch((e) => {
         if (active) setError(e.message);

@@ -53,7 +53,7 @@ function api(path: string) {
       mainLocale: "en-GB",
       locales: ["en-GB"],
     },
-    "/store-api/context": { mainLocale: "en-GB", locales: ["en-GB"] },
+    "/store-api/context": { mainLocale: "en-GB", availableLocales: ["en-GB"] },
     "/api/workspace/members": { members: [], invitations: [] },
     "/store-api/countries": {
       countries: [],
