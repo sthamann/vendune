@@ -5,11 +5,11 @@ pub(super) fn configured() -> bool {
 }
 pub(super) fn country(h: &RequestContext) -> Option<String> {
     let secret = runtime_config::get().behavior_geo_secret.as_deref()?;
-    let supplied = header(h, "x-sellama-geo-token")?;
+    let supplied = header(h, "x-veyndo-geo-token")?;
     if hash(supplied) != hash(secret) {
         return None;
     }
-    let country = header(h, "x-sellama-geo-country")?;
+    let country = header(h, "x-veyndo-geo-country")?;
     // Reuse the bundled world catalogue rather than accepting invented country codes.
     static WORLD: std::sync::OnceLock<Vec<crate::commerce::Country>> = std::sync::OnceLock::new();
     WORLD

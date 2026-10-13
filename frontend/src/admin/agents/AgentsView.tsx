@@ -3,8 +3,7 @@ import { useState } from "react";
 import { useLocale } from "../../shared/i18n/i18n";
 import Icon from "../../shared/ui/Icon";
 import type { Overview } from "../shell/studio-types";
-const guide =
-  "https://github.com/sthamann/sellama/blob/main/docs/connectors.md";
+const guide = "https://github.com/sthamann/veyndo/blob/main/docs/connectors.md";
 export function AgentsView({
   data,
   onStorefront,

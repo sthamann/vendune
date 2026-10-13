@@ -10,7 +10,7 @@ export const es: Dictionary = {
     "Acceso de lectura: un editor o administrador debe aprobar este cambio.",
   users: "Equipo y acceso",
   commerce: "Ventas y entrega",
-  studio: "Sellama Studio",
+  studio: "Veyndo Studio",
   overview: "La tienda hoy",
   assistant: "Asistente",
   knowledge: "Inteligencia de tienda",

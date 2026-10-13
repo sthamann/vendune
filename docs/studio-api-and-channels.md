@@ -4,7 +4,7 @@
 
 The browser renders React interfaces. Prices, tax, inventory, orders, permissions,
 app actions and knowledge writes run in the Rust server. Both the local bundled
-frontend and `https://app.sellama.ai/` use relative, same-origin API requests; the
+frontend and `https://app.veyndo.ai/` use relative, same-origin API requests; the
 prepared Vercel deployment forwards the same paths to the Rust origin.
 
 ```text

@@ -37,10 +37,10 @@ env={**os.environ,'BIND_ADDR':f'127.0.0.1:{test_port}','OPENAI_API_KEY':'local-w
 from urllib.parse import urlsplit,urlunsplit
 fixture_db='commerce_docs_'+uuid.uuid4().hex[:12]
 db=urlsplit(env['DATABASE_URL']);db_user=db.username or 'commerce'
-container=os.getenv('TEST_DB_CONTAINER','sellama-postgres-1')
+container=os.getenv('TEST_DB_CONTAINER','veyndo-postgres-1')
 subprocess.run(psql(container,db_user,'postgres','-c',f'CREATE DATABASE "{fixture_db}"'),check=True)
 env['DATABASE_URL']=urlunsplit((db.scheme,db.netloc,'/'+fixture_db,db.query,db.fragment))
-log=(root/'.run/developer-documents.log').open('w');proc=subprocess.Popen([str(root/'target/debug/sellama')],cwd=root,env=env,stdout=log,stderr=log)
+log=(root/'.run/developer-documents.log').open('w');proc=subprocess.Popen([str(root/'target/debug/veyndo')],cwd=root,env=env,stdout=log,stderr=log)
 base=f'http://127.0.0.1:{test_port}';checks=[]
 def call(path,body=None,session=None,tenant=None,expected=200,method=None,locale='de-DE',raw=None,contenttype=None):
  h={'Content-Type':contenttype or 'application/json','x-commerce-locale':locale}

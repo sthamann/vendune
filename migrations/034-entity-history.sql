@@ -40,7 +40,7 @@ BEGIN
  IF TG_WHEN='BEFORE' THEN
   s:=entity_history_snapshot(kind,t,k);
   INSERT INTO entity_history(tenant,entity,entity_id,transaction_id,actor,source,reason,before_state)
-  VALUES(t,kind,k,txid_current(),nullif(current_setting('sellama.actor',true),''),coalesce(nullif(current_setting('sellama.source',true),''),'system'),nullif(current_setting('sellama.reason',true),''),s)
+  VALUES(t,kind,k,txid_current(),nullif(current_setting('veyndo.actor',true),''),coalesce(nullif(current_setting('veyndo.source',true),''),'system'),nullif(current_setting('veyndo.reason',true),''),s)
   ON CONFLICT DO NOTHING;
  ELSE
   s:=entity_history_snapshot(kind,t,k);

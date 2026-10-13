@@ -1,5 +1,5 @@
 //! Exact, operator-configured WIT namespace compatibility with the same bounded host.
-use super::sellama::commerce::context::Host as ContextHost;
+use super::veyndo::commerce::context::Host as ContextHost;
 use super::{Extension, Host, Kind, Outcome};
 use wasmtime::component::{Component, Linker, TypedFunc};
 use wasmtime::{Engine, Store, StoreContextMut};
@@ -21,7 +21,7 @@ pub(super) fn namespace(component: &Component, configured: &str) -> Result<Strin
     {
         return Err("Invalid configured component namespace".into());
     }
-    for value in std::iter::once("sellama").chain(previous) {
+    for value in std::iter::once("veyndo").chain(previous) {
         if component
             .get_export_index(None, format!("{value}:commerce/hooks@1.0.0"))
             .is_some()
@@ -39,7 +39,7 @@ pub(super) fn function(
 ) -> wasmtime::Result<TypedFunc<(Kind, String), (Outcome,)>> {
     let mut linker = Linker::new(engine);
     Extension::add_to_linker::<_, wasmtime::component::HasSelf<_>>(&mut linker, |h: &mut Host| h)?;
-    if namespace != "sellama" {
+    if namespace != "veyndo" {
         let mut context = linker.instance(&format!("{namespace}:commerce/context@1.0.0"))?;
         context.func_wrap("cart", |mut cx: StoreContextMut<'_, Host>, (): ()| {
             Ok((ContextHost::cart(cx.data_mut())?,))
@@ -73,7 +73,7 @@ mod tests {
     #[test]
     fn configured_older_components_keep_snapshots_money_and_resource_guards() {
         let source = include_str!("../../extensions/sdk/wit/snapshot-price.component.wat")
-            .replace("sellama:commerce", "legacy:commerce");
+            .replace("veyndo:commerce", "legacy:commerce");
         assert!(Module::new_with_abi(&source, "").is_err());
         let module = Module::new_with_abi(&source, "legacy").unwrap();
         module.validate_interface().unwrap();

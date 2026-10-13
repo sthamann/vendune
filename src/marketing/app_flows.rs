@@ -121,7 +121,7 @@ pub(crate) async fn execute_app_flow(
 }
 
 fn eligible(action: &apps::Action) -> Result<()> {
-    if !sellama::verified_kernel::app_flow_admissible(
+    if !veyndo::verified_kernel::app_flow_admissible(
         action.flow_allowed,
         action.read_only,
         action.public,

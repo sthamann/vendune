@@ -2,10 +2,10 @@
 import { useLocale } from "./i18n";
 export const experienceUIWords = {
   copilot: [
-    "Ask Sellama",
-    "Frag Sellama",
-    "Demander à Sellama",
-    "Pregunta a Sellama",
+    "Ask Veyndo",
+    "Frag Veyndo",
+    "Demander à Veyndo",
+    "Pregunta a Veyndo",
   ],
   platformModel: [
     "Platform default",

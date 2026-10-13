@@ -292,7 +292,7 @@ with tempfile.TemporaryDirectory(prefix="commerce-connectors-") as folder:
     }
     log = open(ROOT / ".run/connected-apps-test.log", "w")
     backend = subprocess.Popen(
-        [str(ROOT / "target/debug/sellama")],
+        [str(ROOT / "target/debug/veyndo")],
         cwd=ROOT,
         env={
             **os.environ,

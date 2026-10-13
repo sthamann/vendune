@@ -1,4 +1,4 @@
-# Sellama Studio interface
+# Veyndo Studio interface
 
 The 2026-10-05 repair fixes the actual first-entry settings failure: layout rules
 were in the lazy Customers stylesheet. Settings and the app catalog now import

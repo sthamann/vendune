@@ -193,7 +193,7 @@ async fn conversation(
     };
     let mut c = BufReader::new(stream);
     expect(reply(&mut c).await?.0, 220)?;
-    let (code, mut ehlo) = command(&mut c, "EHLO sellama").await?;
+    let (code, mut ehlo) = command(&mut c, "EHLO veyndo").await?;
     expect(code, 250)?;
     if s.smtp_security == Security::Starttls {
         checked(
@@ -203,7 +203,7 @@ async fn conversation(
         expect(command(&mut c, "STARTTLS").await?.0, 220)?;
         checked(c.buffer().is_empty(), "Unexpected plaintext after STARTTLS")?;
         c = BufReader::new(tls(c.into_inner(), &s.smtp_host).await?);
-        let (code, capabilities) = command(&mut c, "EHLO sellama").await?;
+        let (code, capabilities) = command(&mut c, "EHLO veyndo").await?;
         expect(code, 250)?;
         ehlo = capabilities;
     }

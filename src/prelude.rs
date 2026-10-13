@@ -7,17 +7,17 @@ pub(crate) use axum::{
     response::{IntoResponse, Response},
     routing::{get, post},
 };
-pub(crate) use sellama::scoped_pool::ScopedPool as PgPool;
-pub(crate) use sellama::{
-    inference::{Choice, Inference},
-    knowledge,
-    pricing::{PriceInput, calculate, math_round},
-    sandbox::Sandbox,
-    verified_kernel,
-};
 pub(crate) use serde::{Deserialize, Serialize};
 pub(crate) use serde_json::{Value, json};
 pub(crate) use sha2::{Digest, Sha256};
 pub(crate) use sqlx::{Row, postgres::PgPoolOptions};
 pub(crate) use std::{collections::HashMap, env, sync::Arc};
 pub(crate) use uuid::Uuid;
+pub(crate) use veyndo::scoped_pool::ScopedPool as PgPool;
+pub(crate) use veyndo::{
+    inference::{Choice, Inference},
+    knowledge,
+    pricing::{PriceInput, calculate, math_round},
+    sandbox::Sandbox,
+    verified_kernel,
+};

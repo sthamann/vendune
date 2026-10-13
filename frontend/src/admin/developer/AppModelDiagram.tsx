@@ -24,7 +24,7 @@ export default function AppModelDiagram({
             onDragOver={(ev) => {
               if (
                 ev.dataTransfer.types.includes(
-                  "application/vnd.sellama.relation",
+                  "application/vnd.veyndo.relation",
                 )
               )
                 ev.preventDefault();
@@ -33,7 +33,7 @@ export default function AppModelDiagram({
               ev.preventDefault();
               try {
                 const source = JSON.parse(
-                  ev.dataTransfer.getData("application/vnd.sellama.relation"),
+                  ev.dataTransfer.getData("application/vnd.veyndo.relation"),
                 );
                 onChange({
                   ...manifest,
@@ -67,7 +67,7 @@ export default function AppModelDiagram({
                 }
                 onDragStart={(ev) =>
                   ev.dataTransfer.setData(
-                    "application/vnd.sellama.relation",
+                    "application/vnd.veyndo.relation",
                     JSON.stringify({ entity: e.name, field: f.name }),
                   )
                 }

@@ -17,12 +17,12 @@ fn main() {
                 })
             };
             let result = match v["kind"].as_str().unwrap_or("numeric") {
-                "string" => sellama::rule_comparison::string(
+                "string" => veyndo::rule_comparison::string(
                     v["item"].as_str(),
                     v["rule"].as_str().unwrap_or(""),
                     op,
                 ),
-                "stringArray" => sellama::rule_comparison::string_array(
+                "stringArray" => veyndo::rule_comparison::string_array(
                     v["item"].as_str(),
                     &v["rule"]
                         .as_array()
@@ -32,12 +32,12 @@ fn main() {
                         .collect::<Vec<_>>(),
                     op,
                 ),
-                "uuids" => sellama::rule_comparison::uuids(
+                "uuids" => veyndo::rule_comparison::uuids(
                     strings(&v["item"]).as_deref(),
                     strings(&v["rule"]).as_deref(),
                     op,
                 ),
-                _ => sellama::rule_comparison::numeric(v["item"].as_f64(), v["rule"].as_f64(), op),
+                _ => veyndo::rule_comparison::numeric(v["item"].as_f64(), v["rule"].as_f64(), op),
             };
             match result {
                 Ok(b) => json!(b),

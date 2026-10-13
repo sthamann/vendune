@@ -33,7 +33,7 @@ check('browser MCP admits configured origins and rejects foreign, path, null and
 assert len(owner['workspaces'])==1
 workspace=owner['workspaces'][0]
 assert {k:workspace[k] for k in ['id','name','role']}=={'id':owner['workspace'],'name':'Team Demo','role':'owner'}
-assert workspace['urls']['storefrontUrl']==f"https://{owner['workspace']}.sellama.ai/" if os.getenv('SHOP_DOMAIN_SUFFIX')=='sellama.ai' else '?shop='+owner['workspace'] in workspace['urls']['storefrontUrl']
+assert workspace['urls']['storefrontUrl']==f"https://{owner['workspace']}.veyndo.ai/" if os.getenv('SHOP_DOMAIN_SUFFIX')=='veyndo.ai' else '?shop='+owner['workspace'] in workspace['urls']['storefrontUrl']
 assert 'password_hash' not in json.dumps(owner); check('personal owner registration and scoped workspace discovery')
 req('/api/auth/login',{'email':owner['user']['email'],'password':'wrong'},expected=401)
 req('/api/auth/login',{'email':'nonexistent-'+suffix+'@example.test','password':password},expected=401)
@@ -97,7 +97,7 @@ req('/api/merchant/commerce',{'revision':config['revision'],'data':config['data'
 # Expiration is exercised against the actual DB predicate, not a mocked clock.
 expired=req('/api/workspace/invitations',{'email':'expired-'+suffix+'@example.test','role':'viewer'},oh)
 assert all(c in '0123456789abcdef' for c in expired['id'])
-subprocess.run(psql(os.getenv('DB_CONTAINER','sellama-postgres-1'),'commerce',os.getenv('TEST_DATABASE','commerce'),'-c',"UPDATE user_invites SET expires_at=now()-interval '1 second' WHERE id='"+expired['id']+"'"),check=True,capture_output=True)
+subprocess.run(psql(os.getenv('DB_CONTAINER','veyndo-postgres-1'),'commerce',os.getenv('TEST_DATABASE','commerce'),'-c',"UPDATE user_invites SET expires_at=now()-interval '1 second' WHERE id='"+expired['id']+"'"),check=True,capture_output=True)
 req('/api/auth/accept',{'name':'Expired','password':password,'invitationToken':expired['token']},expected=404)
 check('expired invitation cannot create a membership')
 coowner=invite(owner,'owner','coowner')

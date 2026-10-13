@@ -151,7 +151,7 @@ pub(crate) async fn seed_demo(a: &App, setup: &PgPool) {
 }
 
 /// Every required schema must match, including domain schemas introduced after bounded reads.
-pub(crate) async fn ready(db: &sellama::scoped_pool::ScopedPool) {
+pub(crate) async fn ready(db: &veyndo::scoped_pool::ScopedPool) {
     for (version, source) in sources() {
         let current: Option<String> =
             sqlx::query_scalar("SELECT checksum FROM public.commerce_migrations WHERE version=$1")

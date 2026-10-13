@@ -5,7 +5,7 @@ There are two distinct connections. Both use the same commerce capabilities.
 ## Models inside the merchant chat
 
 Operators can configure encrypted global provider settings and shop overrides
-in **Sellama Platform → AI providers**; ordinary shops inherit that selection.
+in **Veyndo Platform → AI providers**; ordinary shops inherit that selection.
 Configured flags are not provider-health checks. See [provider inheritance](platform.md#central-ai-inherited-by-all-shops).
 
 For a local environment-based setup, set credentials in the private, ignored
@@ -44,9 +44,9 @@ the absolute checkout path. Preserve existing entries in your config.
 ```json
 {
   "mcpServers": {
-    "sellama": {
+    "veyndo": {
       "command": "python3",
-      "args": ["/absolute/path/sellama/scripts/mcp_stdio.py"],
+      "args": ["/absolute/path/veyndo/scripts/mcp_stdio.py"],
       "env": {
         "COMMERCE_URL": "http://127.0.0.1:8787",
         "COMMERCE_TENANT": "atelier"

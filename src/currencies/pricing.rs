@@ -1,6 +1,6 @@
 //! Exact rational minor-unit FX conversion at the isolated legacy calculator boundary; fixed prices are explicit decimal strings.
 use super::*;
-use sellama::money::{Currency, Money};
+use veyndo::money::{Currency, Money};
 pub(crate) fn amount(value: f64, code: &str, precision: u8) -> Result<Money> {
     let minor = (value * 10_f64.powi(precision as i32)).round();
     if !value.is_finite() || value < 0. || !minor.is_finite() || minor >= 9_223_372_036_854_775_808.

@@ -504,8 +504,8 @@
     },
     "extensions/apps/edi/service/export.rs": {
       "status": "unproved",
-      "sha256": "5d7522d6442296878b38de2fcc63f84c386589a3c11ec27566b9fb9803d2afcb",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "1d6bb96b939730f390fa77c1b16cfdf12d94e5003c6646ec21259200a2dd3984",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "extensions/apps/edi/service/export_tests.rs": {
       "status": "unproved",
@@ -539,8 +539,8 @@
     },
     "extensions/apps/email/src/smtp.rs": {
       "status": "unproved",
-      "sha256": "f83aab528392639fdee7451939f73d365e084b5f26a0a609ada57fac5081dd1a",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "c08344d1b415a938b8ec779ca646cb2a5607f98a06c79dfb93e4c07fd6266b6e",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "extensions/apps/email/src/templates.rs": {
       "status": "unproved",
@@ -554,8 +554,8 @@
     },
     "extensions/apps/erp-handoff/service/delivery.rs": {
       "status": "unproved",
-      "sha256": "213fb0d7e4ff3af445b9c9d018c83d8eca7062a19392205d54db90437289726a",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "f035f79e231fa78b7fc21b3c4974dfe80ae20641875b1ec30d23c2bd995e0237",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "extensions/apps/erp-handoff/service/events.rs": {
       "status": "unproved",
@@ -659,8 +659,8 @@
     },
     "extensions/apps/marketplaces/service/transport.rs": {
       "status": "unproved",
-      "sha256": "7bc8ac76af68144e25360eeecae0bfb11efbac92b2dccb3721ccf25468c8f540",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "526a93fb242b4db514af6d88bd123766517a9125fbdbe3ee34d0e655e51c2180",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "extensions/apps/paypal/src/adapter.rs": {
       "status": "unproved",
@@ -754,8 +754,8 @@
     },
     "extensions/services/connectors/src/server.rs": {
       "status": "unproved",
-      "sha256": "eb6a1a3a2afd5d6105014351500c574f65c1763ca2fd11a7bfccfdeaeb8333f0",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "cdebf78782103deee8883ab5bf6256bcb9c44a14b69420ffce16e5e8a399ee29",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "extensions/services/connectors/src/store.rs": {
       "status": "unproved",
@@ -829,8 +829,8 @@
     },
     "src/apps/approval.rs": {
       "status": "reviewed-binding",
-      "sha256": "cd85c7603645c385a76c2b9e8195f72551a394604bd7ce0255b59f3b68d823eb",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "cb469f7290eafc68e1e7b368414aaf41afaa21651d1ab09841e1d62c869a16fb",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/apps/asset_surfaces.rs": {
       "status": "unproved",
@@ -844,8 +844,8 @@
     },
     "src/apps/commerce_hooks.rs": {
       "status": "unproved",
-      "sha256": "f7ca7492ba6d53bdb0caf7218f8a203eb7130c1aa0dad8f9fd774dc859302e25",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "331b9ae4fdf75cd548061cfc1bb519e1d9a8757976a9340a28a251313427d126",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/apps/compatibility.rs": {
       "status": "unproved",
@@ -879,8 +879,8 @@
     },
     "src/apps/distribution.rs": {
       "status": "unproved",
-      "sha256": "fb1df6dd3af1ca3c713d21f7d6a5a85306ccbf2ba65690020c046d5d36119991",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "16b9f3dad97a0a6a9aa5b279c4507837cd4a5f889894b11dc914d3098a35e9cf",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/apps/editor_contract.rs": {
       "status": "reviewed-binding",
@@ -894,13 +894,13 @@
     },
     "src/apps/egress.rs": {
       "status": "unproved",
-      "sha256": "08042188a159351f9f4bb4a9943b581e3f59856ea259ca61f2463cb0809ca197",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "e7d422407527ecf7fc498599e5baf30f46cf5c8f048419de8d5e27f24c6fe0cb",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/apps/event_contract.rs": {
       "status": "unproved",
-      "sha256": "6ff84d2651493f02da70967b92a18696a907e74ecd03bb55ec7c99f7e1dae98d",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "401051b04662e93ed33a755ea175efb053b9f8e823115f76ebc6e01ddfc40b91",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/apps/event_projection.rs": {
       "status": "unproved",
@@ -924,8 +924,8 @@
     },
     "src/apps/field_values.rs": {
       "status": "unproved",
-      "sha256": "0f143f0b27ecca7fb1b0806fd489f70a73d8fcda9727cb4125e28212d49cbb70",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "b837132287e4dc24f25926059827b3c2c16569d3bacb67dca35701c334e04b6e",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/apps/form_layout.rs": {
       "status": "unproved",
@@ -1049,8 +1049,8 @@
     },
     "src/apps/secrets.rs": {
       "status": "unproved",
-      "sha256": "940dbbe450a1894fe9f1fdedd3442919057386e619e45c983717a732b66b71d7",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "a4720ab6457cc9e1e0e7867930a616ccd6ca76b9df16bd6a2a0b3d082b36d2ea",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/apps/service_limits.rs": {
       "status": "unproved",
@@ -1059,8 +1059,8 @@
     },
     "src/apps/service_policy.rs": {
       "status": "reviewed-binding",
-      "sha256": "8fcadb4c5fa27e1830811060929827032ca72ab477547593b09b3d00ea8916cc",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "daf47ae008a478ecef5cbc69e3518722aef84e73f3736b20a635b7e42bf0b0f7",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/apps/storage.rs": {
       "status": "unproved",
@@ -1164,13 +1164,13 @@
     },
     "src/auth/abuse.rs": {
       "status": "unproved",
-      "sha256": "f102b10827cef9eb80a6bab83cf8495c75ff54ffef4f8ecd62e29148504b3aa0",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "8d213dd5ba677065a21d14d20c3be7cc8b4f4bd9846cf5ba28178af0a9003c38",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/auth/broker.rs": {
       "status": "unproved",
-      "sha256": "4141ec0baa4181c1fae738eab2f935db7e1731d39cb4e460fab2b6286952d828",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "a89710279be6c122362743f9a58c5d10965465e3ff7f2cb8cbc73e72332293ca",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/auth/broker_credentials.rs": {
       "status": "unproved",
@@ -1184,8 +1184,8 @@
     },
     "src/auth/credentials.rs": {
       "status": "unproved",
-      "sha256": "54997d3abb30c066fe72e1cbcdf290f0c90e1722ffbb078109d68ab58593f33f",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "36a24c34e95f437e81e79d1057305e9f3e313a05309433d5798010003836d2e8",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/auth/dto.rs": {
       "status": "unproved",
@@ -1219,8 +1219,8 @@
     },
     "src/auth/middleware.rs": {
       "status": "reviewed-binding",
-      "sha256": "2078c8efc9d48ca3eda19cbb0fcb086d45abed7a8b69044e5f8a9bee0d340f9a",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "f153894f71be2043aa5b7beecdc604ac9d4eda23643088ffa6611f6c95245f22",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/auth/mod.rs": {
       "status": "unproved",
@@ -1384,43 +1384,43 @@
     },
     "src/bin/automation_rules.rs": {
       "status": "unproved",
-      "sha256": "35b99a123c1ed8a4a495f62996b548a01b0d0c8306f64f5aa508161563ceac6e",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "d8b5949109d473ee0b11f292acb27176c4d3c4835840c9ed1a8923f9de450d1a",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/bin/connectors.rs": {
       "status": "unproved",
-      "sha256": "4bce92b966ac7a2f0112a8e0c7f4390a8eb195fdcc6a2214e913f9a420e0f974",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "e2fe2d9c1340263da167dc53d624356c84bc4c98f940c76fc6b910c0eff4ff5b",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/bin/context.rs": {
       "status": "unproved",
-      "sha256": "8d509fb078fd968cf4fa86d8cee9c74a64ef7a74eb9d008251b5566ef515563d",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "8da620f6fad47f6e730022d5d0e16cbb6084be86666e8f8428e76eb2d718471d",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/bin/delivery.rs": {
       "status": "unproved",
-      "sha256": "3d538148f3f73870db9d03fcbbaf4885879f75c3900e118f45d516dd49da69e3",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "711c899b0c472251b5c6b1221706b9985a0105c7dcf62b56b5649ac3e3deb719",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/bin/money_boundary.rs": {
       "status": "unproved",
-      "sha256": "96d922ec5169d345273ec1bc3c557b6fdda9a314317f1391f0e1312746a0ca93",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "7c192eb3212242dd834976ccb1a9350c05beeab40815d57527b98f25b7ab139e",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/bin/price.rs": {
       "status": "unproved",
-      "sha256": "d59a48e4ef134fd2078584e71737df785df6fc5c5ce147893e28267aebfb1f4b",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "77a7816e6241fd8459eb3a529c88e34748162688959f92552674525fc857fc2a",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/bin/rules.rs": {
       "status": "unproved",
-      "sha256": "d661b3b55a43d1b00417c4138440921d374ce15f69ff47f5d9cc54b314cbbfb0",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "d8538263efd3bdc98431ec9f622ab4cf104588c231ac819d1b012411a73fc45a",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/bin/verified_kernel/dispatch.rs": {
       "status": "unproved",
-      "sha256": "3dc606b402fca0cb8bb1cdd191a0cd85cac36ec5cbed5f0bc0af5d3c3247cf37",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "c583bb1820badca78f2103126310329d3c92cbad7331ac9dc8a8de3e5cef4d24",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/bin/verified_kernel.rs": {
       "status": "conformance-driver",
@@ -1429,13 +1429,13 @@
     },
     "src/bootstrap.rs": {
       "status": "unproved",
-      "sha256": "10751211db0b237c1c249186409538878327e5947012d45799f7dc763b0e2b19",
-      "review": "Sellama identity review: exact crate/config/schema namespace replacements and six allowlisted historical SQL hashes; explicit Qdrant alias migration validates all names/vector shapes/conflicts before atomic additive aliases, preserves physical points and alias-aware tenant deletion, exercised by registered real managed-search HTTP suite; configured WIT 1.0 compatibility links only existing cart/product/record host calls, preserves snapshot/money/fuel/epoch limits, four real component tests pass; crypto sealing keys and persisted credential formats unchanged."
+      "sha256": "d03239d94348fd65fe402bf40d9693ec313779cb4a898b770f56b7b32b165692",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/brand_redirect.rs": {
       "status": "unproved",
-      "sha256": "19d0019735d43a3678cebb600488f71158746bac71e1b6ea2b8199d1f700bd66",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "d1d3ad27c90cd6381c7a38e1df64bcff47248e61e93b68af3f899bb4181497e3",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
@@ -1464,8 +1464,8 @@
     },
     "src/cart_price.rs": {
       "status": "unproved",
-      "sha256": "f09e97300cc8970ce47ff46f5ecab8e291a8a83872dada5e6bd35e76195944dd",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "c0a75328b18a3f13cab0b959f6fa4748c3674a2c3d0d3d81dd9a0e513bce1732",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/cart_routes.rs": {
       "status": "unproved",
@@ -1479,8 +1479,8 @@
     },
     "src/catalog_model.rs": {
       "status": "unproved",
-      "sha256": "283f7e07adbcad6b213650a65fab8b97f2bdb352cf1aecd8f17fa6c5b9b6a2f1",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "412e533f04483f94f2a3fcf5f1eae05935c9ea2fd83af8d4248b0a38e6717cf5",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/catalog_page.rs": {
       "status": "unproved",
@@ -1519,8 +1519,8 @@
     },
     "src/channel_metrics.rs": {
       "status": "unproved",
-      "sha256": "15d42538fba3dfb4a41978f82f4b62ae716a468ef74cf9c774e83ce3f7d7564e",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "d83b944d836e96d1bf54ec61ca334a23958414ca0db1dcff463791dc20b7fc78",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/chat_lease.rs": {
       "status": "unproved",
@@ -1534,8 +1534,8 @@
     },
     "src/checkout_page.rs": {
       "status": "unproved",
-      "sha256": "211252d6d7e764965dd7ce56031ec941c80b5e09bd94505ba47582a440105132",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "752f4e54fe7952750578465cf2cad3c459a68ffd77f55800d75106a89045a372",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/checkout_products.rs": {
       "status": "unproved",
@@ -1564,8 +1564,8 @@
     },
     "src/cognition/behavior/geography.rs": {
       "status": "unproved",
-      "sha256": "66e4f185fcc13db3cc59d71a3a3a8b293456d6bfa560cfbfcd52f5697a8e096e",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "e9fca2feda1d631840993be52ad43d8ebb55b5cda9174ba003a186c8521ffbb1",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/cognition/behavior/input.rs": {
       "status": "unproved",
@@ -1669,23 +1669,23 @@
     },
     "src/cognition/signed.rs": {
       "status": "unproved",
-      "sha256": "fa6e1bfa1ec7a7e865a19896d882fbf98abbbea1e1a8bdb9b4701549a518c45e",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "8a1be9771ddb16aeb95e9a39f49d4595616e5282a1615b988497faed0df96de6",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/cognition/stream.rs": {
       "status": "unproved",
-      "sha256": "b974d0ce9ce1f801b28e3322f12999893fe3410c8b409ac9775e28066f3a5512",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "7656dfa5f61eac91d4ef1b7f6ea498365eeb011829e07be88fa2a34ba8d3af6e",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/cognition/tools.rs": {
       "status": "unproved",
-      "sha256": "0dd6b269250aeaa53392e511c82086be51d4bbce478822ade3e21903e3968a67",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "820b72d4ef9841fc99d67334d03be4ae4a18101583a019295ebb2e30cadb61fe",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/commerce/app_adjustments.rs": {
       "status": "unproved",
-      "sha256": "e5e68254dd8bbdcf02a84fe33036e0c18b76ff050154786f5d83d785ccdf405d",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "d763e63158601f96418c62bc3ef36793f76f99f4241bc3506e162a8e083ef3a4",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/commerce/catalog.rs": {
       "status": "unproved",
@@ -1714,8 +1714,8 @@
     },
     "src/commerce/delivery.rs": {
       "status": "unproved",
-      "sha256": "9791bc3ed511a4d374bac9de8ba602810753c4f751b9e971292223f44ed2720e",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "a549ece084081d51760edddb49f85fb13c4113ba452faecb3720c4e282150e20",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/commerce/detail.rs": {
       "status": "unproved",
@@ -1769,8 +1769,8 @@
     },
     "src/commerce/mod.rs": {
       "status": "unproved",
-      "sha256": "784e02d6bd96c00830133e3613a4f0a0661ad904ff762f52cf4cbbd390151557",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "caf8ad3ad07e12bebe6571a82d1eabc3f4b62146615e041d7cc452d3b0333efe",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/commerce/order_fields.rs": {
       "status": "unproved",
@@ -1809,8 +1809,8 @@
     },
     "src/commerce/product_fields.rs": {
       "status": "unproved",
-      "sha256": "c3b4371a13cc3e7bdb35a57e58f3b163024eeb101e7f930adbff356923dfa00e",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "b89be531d237a67c1d96e08fbfbb9c71688516d75ed3ef760a082e0c94803b48",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/commerce/product_languages.rs": {
       "status": "unproved",
@@ -1894,18 +1894,18 @@
     },
     "src/component_runtime/abi.rs": {
       "status": "unproved",
-      "sha256": "45df198bd7260874bb2275daf578c45a752058a06c88820605e2a35b2c8a9a4f",
-      "review": "Reviewed final Sellama identity and historical-checksum allowlist; Qdrant migration is additive and prevalidates physical collection shapes/alias collisions, preserves point IDs and tenant deletion; WIT compatibility preserves original bounded Host methods and exact version/types, actual component tests pass; final clippy fixes remove only redundant borrows. Full 42 library and 169 commerce unit tests, strict clippy and build pass. Real managed-search suite runs in CI; no claim of live production migration yet."
+      "sha256": "af2d00a6ecd266ed0b09034e15322c5c1a5d758a04aca7c5ad7eb1b69a9cba03",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/component_runtime.rs": {
       "status": "unproved",
-      "sha256": "d85e83fd99a4e99ed57ce947bd69b316826a747f5e74b71c9a2c502e6b36a3e0",
-      "review": "Sellama identity review: exact crate/config/schema namespace replacements and six allowlisted historical SQL hashes; explicit Qdrant alias migration validates all names/vector shapes/conflicts before atomic additive aliases, preserves physical points and alias-aware tenant deletion, exercised by registered real managed-search HTTP suite; configured WIT 1.0 compatibility links only existing cart/product/record host calls, preserves snapshot/money/fuel/epoch limits, four real component tests pass; crypto sealing keys and persisted credential formats unchanged."
+      "sha256": "7fde158e83c2ac06d27fa23d785e97b0e7d98ca4a44f747a5a77ba4c28c65e46",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/concierge.rs": {
       "status": "unproved",
-      "sha256": "696f6cdfccc4ced8842ed83afe85ed4a01db11099fbcf543e499e7ccfaeb39fe",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "4a09a690b25d5c78e0ff3d7e708802d17ca6e6085e1f3beccbb144668f6e60ff",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/context.rs": {
       "status": "unproved",
@@ -1919,8 +1919,8 @@
     },
     "src/currencies/jobs.rs": {
       "status": "unproved",
-      "sha256": "4c9083dfdbc857f629941d7b45fa0765aaf899f1648ad99532cab27f05ab08a9",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "98a5834734123480ade1c3d4aec21a68f688ed080a9a9b68405735d69f1e9f33",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/currencies/mod.rs": {
       "status": "unproved",
@@ -1934,8 +1934,8 @@
     },
     "src/currencies/pricing.rs": {
       "status": "unproved",
-      "sha256": "681ca16cbeb4cb180a6909a4e266f540af3598678af21b7407057e8b9142b063",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "ba369ee9bf03ee59233d7883979b59cad1b410cf3cce3b5e5210c015e60f3b7f",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/currencies/rates.rs": {
       "status": "unproved",
@@ -2089,8 +2089,8 @@
     },
     "src/history/mod.rs": {
       "status": "unproved",
-      "sha256": "7602f68d907eeba768f3d6fd41326342fcc7fede7629d7ccd0eadac261ae37c4",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "67fda3f8b51af25f5770d60b7e6c26c87fd16b95f094b49724a36498250acb8b",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/history/product.rs": {
       "status": "unproved",
@@ -2119,8 +2119,8 @@
     },
     "src/inference/protocol.rs": {
       "status": "unproved",
-      "sha256": "583237c3d41fedcab6a16031d2fcaf9dabe780cf234e4ff9cd0532fa2161a43f",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "d81c2653d383299212245ace76a492fc252b1b52a26263f1d0ca4762374de686",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/inference/schema.rs": {
       "status": "unproved",
@@ -2169,18 +2169,18 @@
     },
     "src/knowledge/vector_namespace.rs": {
       "status": "unproved",
-      "sha256": "3e95d134994e1fded345b9e72e796396998e191e75e5ba04cb4d729744d51aad",
-      "review": "Sellama identity review: exact crate/config/schema namespace replacements and six allowlisted historical SQL hashes; explicit Qdrant alias migration validates all names/vector shapes/conflicts before atomic additive aliases, preserves physical points and alias-aware tenant deletion, exercised by registered real managed-search HTTP suite; configured WIT 1.0 compatibility links only existing cart/product/record host calls, preserves snapshot/money/fuel/epoch limits, four real component tests pass; crypto sealing keys and persisted credential formats unchanged."
+      "sha256": "5035941a273c2dfd377e9b1ce066248387e385155dcb728ce943e7964c1eff5d",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/knowledge/vectors.rs": {
       "status": "unproved",
-      "sha256": "33048cd45aead032cb51145e92b829ece0b5f13a867b59be0991118d68145a2d",
-      "review": "Sellama identity review: exact crate/config/schema namespace replacements and six allowlisted historical SQL hashes; explicit Qdrant alias migration validates all names/vector shapes/conflicts before atomic additive aliases, preserves physical points and alias-aware tenant deletion, exercised by registered real managed-search HTTP suite; configured WIT 1.0 compatibility links only existing cart/product/record host calls, preserves snapshot/money/fuel/epoch limits, four real component tests pass; crypto sealing keys and persisted credential formats unchanged."
+      "sha256": "830743305547c5408ba87a90fe34f35978d335dc7f4ce18d4c919ea7661c8bed",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/knowledge.rs": {
       "status": "unproved",
       "sha256": "52805a36bd625ceb62b0459ec7c0fcf632fda4fac6a79d4e46b5f430bdc23c9f",
-      "review": "Sellama identity review: exact crate/config/schema namespace replacements and six allowlisted historical SQL hashes; explicit Qdrant alias migration validates all names/vector shapes/conflicts before atomic additive aliases, preserves physical points and alias-aware tenant deletion, exercised by registered real managed-search HTTP suite; configured WIT 1.0 compatibility links only existing cart/product/record host calls, preserves snapshot/money/fuel/epoch limits, four real component tests pass; crypto sealing keys and persisted credential formats unchanged."
+      "review": "Veyndo identity review: exact crate/config/schema namespace replacements and six allowlisted historical SQL hashes; explicit Qdrant alias migration validates all names/vector shapes/conflicts before atomic additive aliases, preserves physical points and alias-aware tenant deletion, exercised by registered real managed-search HTTP suite; configured WIT 1.0 compatibility links only existing cart/product/record host calls, preserves snapshot/money/fuel/epoch limits, four real component tests pass; crypto sealing keys and persisted credential formats unchanged."
     },
     "src/legal/capabilities.rs": {
       "status": "unproved",
@@ -2224,23 +2224,23 @@
     },
     "src/localization.rs": {
       "status": "unproved",
-      "sha256": "ae61dfa1296f94121cf5ab442f2e9560ced588a1be6bd146d1af7876f1bd985d",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "829907c4e937808bfb280683a1982a408dcc1a48ddcd98fd1d03bf9d30833f5d",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/main.rs": {
       "status": "unproved",
       "sha256": "2f4079fb50daa91ce439e726b4fd166b0ed359eae631a828fae6eb45f3955294",
-      "review": "Reviewed the coordinated Sellama crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "review": "Reviewed the coordinated Veyndo crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/marketing/app_flows.rs": {
       "status": "reviewed-binding",
-      "sha256": "2e8edc37fd0fd6d30be36426f13f37f91d0ce319cf00072a64aca458d30a193c",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "6bcf56db8d93a81e120b567af14be470f5f2e29de67ac0920b2583b0116ddd88",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/catalog.rs": {
       "status": "unproved",
-      "sha256": "39fd05f93ebedf4e859b2f7632097d7736adadc04400a391cbf484ba9f4094f5",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "4531da75b7d996b6c8e606e614446180909056170f3f6a6b4219416bdf972969",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/channel_access.rs": {
       "status": "reviewed-binding",
@@ -2254,8 +2254,8 @@
     },
     "src/marketing/channel_preview.rs": {
       "status": "unproved",
-      "sha256": "c08fa6182f3bf5d7854702be0ef8614aa7e3cb66b3164697b1f0a7f8ddf7c2a4",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "513fc2514e2c980671de604e8366aae3ad453889d0033cc4fefe7e3669311a60",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/channels.rs": {
       "status": "unproved",
@@ -2299,8 +2299,8 @@
     },
     "src/marketing/flow_mutations.rs": {
       "status": "unproved",
-      "sha256": "e2fa14b7890959b17222e4ce39fd8dc6097412e7ce01f5a20d2e32632b9d2c75",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "6e2bfb684705347813594154f9415454727b1d491263e2e0f4e4ae4b464c80a8",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/flow_policy.rs": {
       "status": "unproved",
@@ -2349,8 +2349,8 @@
     },
     "src/marketing/pipeline.rs": {
       "status": "reviewed-binding",
-      "sha256": "515df8d74d698616510314e19b402e7823dd1132b47e9f6bfb5cca4b2f6460ca",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "40356c839e7326cf00e416ffca98cb5f50829114a2886013e05f34ee554841a6",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/pipeline_runtime.rs": {
       "status": "unproved",
@@ -2364,8 +2364,8 @@
     },
     "src/marketing/promotions.rs": {
       "status": "unproved",
-      "sha256": "1389580722092f32161aa5e6d33b0a22be3f8ba721fac9c0f947cc593dfcfa9f",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "6751020d28aaf9afda742be4e795f5f825eab8d2e52f5320de54f2ffa84d1757",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/routes.rs": {
       "status": "unproved",
@@ -2374,13 +2374,13 @@
     },
     "src/marketing/rule_fields.rs": {
       "status": "unproved",
-      "sha256": "c19cf327f04f51c50aab3bcdd678a98dbfe99493e3d849ff858c135e27b6c070",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "cbde49185e1cc471f60665b168d4cde0f57c675c7405a82c626f21b867c1b753",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/rule_match.rs": {
       "status": "reviewed-binding",
-      "sha256": "cabb8c1ce117360657e6517366abbb0b53ccd8620b81e3accfd6e5ed83cbbe8f",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "3f142ee1283d62461cb2e5728f7cc60a9cb9c71f08bb5eb20e9cba39c3389834",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/rule_snapshot.rs": {
       "status": "unproved",
@@ -2389,13 +2389,13 @@
     },
     "src/marketing/rule_tests.rs": {
       "status": "unproved",
-      "sha256": "2121a52806af8eb5299cde059c77bb02160b302de7f625c17fa37c3ab1b1b83b",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "d1ca508b8a1d82cb539a7bdd2e1b9955b7a8616a4288d6412e88de2657eb85c4",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/marketing/rules.rs": {
       "status": "unproved",
-      "sha256": "190256a474361d56780818c7c13c92d7b7123b6d87531677d0b20ac2356f6462",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "80f1e23235bb4140c79fd089867ed566b00ff0a7b1dd942dcc16e55b48b2867e",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/mcp/transport.rs": {
       "status": "unproved",
@@ -2409,18 +2409,18 @@
     },
     "src/mcp.rs": {
       "status": "unproved",
-      "sha256": "f87538f4dc286f35a9961b4bb0367edc3e7151b874a977d406709df03fa7b236",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "19ac9e4a4297bb361e0041389191a01a9c83cc59a5fb0ba7a313e076fc23f183",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/migrations/identity_checksums.rs": {
       "status": "unproved",
-      "sha256": "928b73ada6f0135dfc9bd2ebccff7225b1615446e97c22c0450d1bc46c2d4227",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "5fc5c7491c427f461539445c60ac31e15eac11d145dd26a193f5c540d665ca53",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "288046563b2488f39a2a74876b43ca2855919af81de1b0b113ecfa3a524f60b7",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "a4d36e43224eabfb30f469b290f510fff676d7bf682a6eb62127ceca24b743fa",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -2429,8 +2429,8 @@
     },
     "src/migrations.rs": {
       "status": "unproved",
-      "sha256": "1945e346bee09a612f7fea7e9a0ff23958ee078986712af2b470379eb9ea7f41",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "2704c01778beae7811f04f4a0f2585fd3b7afc39de386cfc4d1ad9e0cbebe7bf",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/money.rs": {
       "status": "reviewed-binding",
@@ -2534,8 +2534,8 @@
     },
     "src/outbox/control.rs": {
       "status": "unproved",
-      "sha256": "8604cbe0e9f7ebcc7f26e1c87bc5ba2d6bb786f50532f8d06e60fc6b5a6beb92",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "b7e2877f1dee2f09525aadfa1704c1a6c40f81e0edb613b1b181e7add3fb6f00",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/outbox/retention.rs": {
       "status": "unproved",
@@ -2579,8 +2579,8 @@
     },
     "src/payments/provider.rs": {
       "status": "unproved",
-      "sha256": "725664f575c84d25454415a0dc6c860f43c83b5fb860dfa7bba6e018f0fda38b",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "5acd3be105ab58bf2491f1421c1ce54c8628952198f930fd7b6cb932e5215682",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/payments/provider_configuration.rs": {
       "status": "unproved",
@@ -2609,8 +2609,8 @@
     },
     "src/payments/return_urls.rs": {
       "status": "unproved",
-      "sha256": "5fbc617b9561ea8512534e904c6675d55327a1858e06e0b7c24ccfeac0696f2e",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "e215a6d144f463baebac6b5ec3a538df8a4c2ee4b0f7b2a20e3ac848409fa554",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/payments/routes.rs": {
       "status": "unproved",
@@ -2644,8 +2644,8 @@
     },
     "src/performance/admission.rs": {
       "status": "unproved",
-      "sha256": "a749fae47e5e76b78cca27fba55800a61361c05887f4e95dadf998e5afb04b31",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "c13f1290e265a28a9fb702aaf5552afe7fbd2b74b48b17577e3c20a514074665",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/performance/cache.rs": {
       "status": "unproved",
@@ -2654,8 +2654,8 @@
     },
     "src/performance/cluster_lease.rs": {
       "status": "unproved",
-      "sha256": "376689f365c7315da834fb005a7bda933dba1b004b61346a0b4198ad517a02de",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "bf0661f440cbfb08a7846e28ed30623d8819bc98f8a58537e94f70b37604666c",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/performance/delivery.rs": {
       "status": "unproved",
@@ -2664,8 +2664,8 @@
     },
     "src/performance/invalidation.rs": {
       "status": "unproved",
-      "sha256": "029fefdcdc45c1109b2e3bf092735153e9bac5e589889ed7c30c76640c46e529",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "98eae1609057be698b6608ffd1a5c19183aad77b133ccabe42e6af6349894af2",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/performance/languages.rs": {
       "status": "unproved",
@@ -2684,8 +2684,8 @@
     },
     "src/performance/row_security.rs": {
       "status": "unproved",
-      "sha256": "8e031e415acde93f1d9a696353616e415ee188c9ff7f5b4b669a3586b1b89eaf",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "29d1a2134e09e8c40bcdff2e1fe55f7024061f8914cb54293eb116c8dc60778e",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/performance/settings.rs": {
       "status": "unproved",
@@ -2694,13 +2694,13 @@
     },
     "src/planner.rs": {
       "status": "unproved",
-      "sha256": "eaf9408c33f6be02573d7b98e3c10963f41d52eb75c84754e9cf9fa990d997a7",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "52bad84c89198ec28bb1824d176fc6eca51a634145f92235b206e87975ae7268",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/platform/ai.rs": {
       "status": "reviewed-binding",
-      "sha256": "45292e2e824694ca9c30406f2a73d15fe25abb2e2cea910b17f08251bed62d03",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "de04d181f674e1f734766ecfa067399a4726672964db10e441441f77fb14133a",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/platform/auth.rs": {
       "status": "reviewed-binding",
@@ -2799,8 +2799,8 @@
     },
     "src/prelude.rs": {
       "status": "unproved",
-      "sha256": "d9040d699bbf7ca076eb94066117315db3e0c9efa918329092f8537a565b04bb",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "50c1c63729b2a9467d5fa5a0bb94d732020d42576061df8c2378e78fcb6dd3dd",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/pricing.rs": {
       "status": "unproved",
@@ -2830,7 +2830,7 @@
     "src/routes.rs": {
       "status": "unproved",
       "sha256": "9903c5cde96594a68bf6966a7f0213f5980fe866db066b9d6147130ac17b5def",
-      "review": "Reviewed the coordinated Sellama crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "review": "Reviewed the coordinated Veyndo crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",
@@ -2839,8 +2839,8 @@
     },
     "src/runtime_config.rs": {
       "status": "unproved",
-      "sha256": "9ff5958f350320538c44fdec83d85cdbed150dc021a62b91bb3046b5316fbea4",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "81197386813fdcd82fcae0d66b88ec76115dafe8d70016c0ed50d7aad0eb8ff3",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/sandbox.rs": {
       "status": "reviewed-binding",
@@ -2884,8 +2884,8 @@
     },
     "src/shop_domains/frontend_transport.rs": {
       "status": "unproved",
-      "sha256": "fae7ff043a91e186671792437058a53028e69a2688cd248541a1a6a8d81acc29",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "ff6b95f4fb578a57833d2e047255b419a9625c0e63919198befa98b16294fb8a",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/shop_domains/frontends.rs": {
       "status": "unproved",
@@ -2894,8 +2894,8 @@
     },
     "src/shop_domains.rs": {
       "status": "unproved",
-      "sha256": "5dac33366a6344fec02a9621d4c0b3f222d4dd46095cdad1ef92749e4ca20f81",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "62267ca90d10f05c129ec93475828a70194721794df06b61f8a5b4c89dfa731a",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/staging/access.rs": {
       "status": "unproved",
@@ -2964,8 +2964,8 @@
     },
     "src/studio.rs": {
       "status": "unproved",
-      "sha256": "b7aaa4a14fdccc8b3e959c0a5c3ea10e4f8545649daed22cac2d0ec68f3fceb0",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "aef3da6e45bbf204f09694d51811437eb73b67cc3c7bd00c1167d7ecb2dc72c7",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/tenant_scope.rs": {
       "status": "unproved",
@@ -3014,13 +3014,13 @@
     },
     "src/ucp/negotiation.rs": {
       "status": "unproved",
-      "sha256": "41aa840d1593700976eb348b2b53f92e34464369e498afdcda500bf79871e7a2",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "a2493903c6d08cc9bde0353b2725431d2c3f57f8f83f518e08b7df43b8324881",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/ucp/profile.rs": {
       "status": "unproved",
-      "sha256": "54f6d6f30804ca1e46b907bd0447900962e9236760f183a871bac3db695beaed",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "37559f6293524d7568217ec08429ac596f8ab4fd34714c3c102c6de01220aae0",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/verified_kernel.rs": {
       "status": "extracted-policy",
@@ -3029,31 +3029,31 @@
     },
     "src/work_signal.rs": {
       "status": "unproved",
-      "sha256": "572f39360241cdf1b0950942d0dca6d2e766b793cd3a052a54821d349c7afd22",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "640ed67b901e03ae0246705e805324355fb5b67fd40f074739d227d70f748a06",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "src/workers.rs": {
       "status": "unproved",
-      "sha256": "e891b1783c43300ccd99129d61aa8c77eb4f5108a7840e94e7d7ebb42cc435ee",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "703ac634f63578e31dfd886000c6c6deb761ed285544eaac68dffc10b6be8168",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     }
   },
   "inputs": {
     ".github/workflows/verify.yml": {
-      "sha256": "8fa5e165ece5fd1809839931ece3099c0f781807c2139c91dd05f1ca6d67e941",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "ca81e6fc0d28c9372cebc8a98068c883216e5512b76515f3f92964e7dbb230c3",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "Cargo.lock": {
-      "sha256": "d52b3dc95e76bbae58fed27bfb76e05403be98f0530501d5c42dbc592fa64a7b",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "1e14a3bdec4ea5daeee8e23d2668df7b3fcbc494166c90bd6cc0e9d83f44299e",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "Cargo.toml": {
-      "sha256": "048a7e199aee2f1e205ed54e4213bd9b9bbbe42c17d86b0ce9594f18d76b6f97",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "5a9df8a23673fae08f6fc94eb65bc7473ac330434c0a453481fd0bd39861b5aa",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "deploy/Dockerfile": {
-      "sha256": "f013b07a5b99789b8acb19ee2a2e0f7fb7f7b6e561821fb5e2503dfa59e93eaa",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "100168e9587c23009b01ab65775056e5e49abf90ee3b7dca0fdfe05133154e25",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "fixtures/app-studio-schema.json": {
       "sha256": "e644a609345a94bcf23ad9e1dd94948526e0fac2345f80f2fb7211c4e043be9e",
@@ -3084,12 +3084,12 @@
       "review": "Reviewed international configuration, destination tax predicates and native bindings; targeted PostgreSQL international/catalog cases plus Rust tests pass. Translation fixtures verify restart, provider rejection, tenant permissions and revision conflicts. Config/product/apply share row locks. Additive schema 028 and versioned MIT geography reviewed; surrounding SQL/provider behavior remains unproved."
     },
     "frontend/package-lock.json": {
-      "sha256": "8bea207b2236ee5a3a68c11236ebd18edc5f30003c63a6303e3340cfebdf8ad9",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "1b0c696279d2aa3bd23577f2371552c39f9bfae6e1c2b0f5b1664e159be364bd",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "frontend/package.json": {
-      "sha256": "95ff66608dd8946a07713c3b2d00848b3ea07761386dbb5b45d99d7fc87779c2",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "a1b0adef2ac1e2368708147f222aab56f5b659d51536f5b167e5d54fd021122a",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "frontend/scripts/precompress.mjs": {
       "sha256": "dbe91d7985386628933dfb734bd5555ba4e8b97502d1f644b26488434cfc195c",
@@ -3244,12 +3244,12 @@
       "review": "Reviewed managed-install variants and append-only legacy vector/relation conversion, SQL knowledge/app visibility joins, durable Qdrant queue with tenant/model/digest hydration and deletion, hostname scope before authentication, personal-only bootstrap and SIGTERM entry routing; verified fresh ordinary PostgreSQL operator/shop creation, real Qdrant isolation/deletion/outage retry, public document scope, legacy count/vector/checksum preservation and negative ledger drift. These SQL/network/hosting adapters remain unproved; verified kernel unchanged."
     },
     "migrations/034-entity-history.sql": {
-      "sha256": "64216b1b49cd5078a57a03a5a82de6ef68a5c3563f3b5e91fcf56eef05d47820",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "94aaea299c5b5b57bdc092e9aa2a93431095af6efa65a81d127d574b1dd93f5d",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "migrations/035-history-finalization.sql": {
-      "sha256": "a98327e1a4d5a89266d559a93e2e92f90ba18188196f89407ababd47fcb0dbb5",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "995a59c91250e6961fece0f8c22da599f71f1b8509e12a72508c74969a45ad96",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "migrations/036-app-assistants.sql": {
       "sha256": "46130e80715648ba78b63e297c39f84eec37ec25e56d45c8ee4c0429dbdf48d8",
@@ -3292,8 +3292,8 @@
       "review": "Reviewed all changed Rust, append-only schemas, build/extraction and Lean inputs: lease hooks bind new/reused connections and reset on release; strict runtime rejects owner/bypass/TRUNCATE and preserves app-schema ownership; two-replica non-owner PostgreSQL tests deny forged foreign writes, enforce operator quotas and parent-stage daily usage, release persisted allocation quantities once despite corrupted snapshots, and distinguish commit from rollback invalidation. Money retains legacy EUR rounding with explicit scale and original Shopware differential; receipt-backed state admission is monotonic with late capture/refund. Async SQL/provider code remains unproved. Rust 113 tests, staging/app/automation/settings and strict checkout/CRM/tenant regressions passed; 274 frontend tests and production build passed."
     },
     "migrations/046-cache-invalidation.sql": {
-      "sha256": "be29ec68e295aa33ee9f5c16b41037dc2d7750654c7a1a10f84f2ad0efaab81a",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "9898bcc7d1243aaeee68db08047134bf8bbfa3bb4d2e1ae3975ad43621d3daa5",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "migrations/047-order-reservations.sql": {
       "sha256": "704c12521e6d19df1fd0651ed17c518539ed06ce4a76319aab32a820dfb4b483",
@@ -3332,12 +3332,12 @@
       "review": "Reviewed tenant-scoped hosted app association, transactional immutable Storyfront installation and one-time validated migration 055; dependency deactivation shares config/app locks; private renderer excluded. PostgreSQL regressions cover foreign references and cold restart. SQL/network adapters remain unproved."
     },
     "migrations/056-http-response-diagnostics.sql": {
-      "sha256": "e66f965dd57e49371c26da394681f39d6ae8b3ab54e809ae286616f0513065ec",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "adbb0d430bfd1a3a3360cfe58055f0b35fab5591245466b27c5b7d995bcc79fc",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "migrations/057-core-hardening.sql": {
-      "sha256": "4aae1b2844ecc237ae01beffaa0cd13afa62252c48f29940094d6ca6ca3357e1",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "7e0defad9a7f5f9dee73d3a3a8ee5caf0a530d0771de5a7fa0ccfb95c55fc009",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "migrations/058-tenant-app-schemas.sql": {
       "sha256": "52df74abe24e9cbe9ecb548d26c830d6e27d790f9b9d6ff3d8c0e3ba1e6312e9",
@@ -3436,16 +3436,16 @@
       "review": "Reviewed nullable product/customer reference retirement and cart/channel analytics cascade; existing financial dependency guards remain authoritative. Behavior SQL, proxy and browser adapters remain unproved."
     },
     "migrations/082-workspace-roles.sql": {
-      "sha256": "c93a4200e102439707e4150ac5449196c7ec669ff8feaeff2f420bf94e04e98e",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "320ee262d9e79ae90d1735afe6b74024a0664dbda2b6719a2e28e0192a3bf005",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "migrations/083-customer-lookup.sql": {
       "sha256": "e40e1d3541ffe68b2cbaeb2453a6749f3352df51494404a3541dcb56206007ec",
       "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
-    "migrations/090-sellama-identity.sql": {
-      "sha256": "0d94599dfec3e77e9cba98827d2eb5c83cfc985ebf513bb0d1040abae4f9fd8a",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+    "migrations/090-veyndo-identity.sql": {
+      "sha256": "b29354f29fd5e5aa966e78d6b46ede19f00a9c8f189331936682275eb6f14e84",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "proof/Commerce/Claims.lean": {
       "sha256": "9ffc4b92e9fb2c3d7b91f6c3ab8e0f1a3d4a5821d5b9c656e74b1b8c3607f0bc",
@@ -3492,8 +3492,8 @@
       "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
     },
     "scripts/formal/runners.py": {
-      "sha256": "244df194f6d277411c901e047bf47dda75af8b484f13732a4424c5dd167e8652",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "c73bda913fb0c1949c25ad7589e5d156c05f7e0a89f39ca7be8b8e40ebd5f565",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "scripts/formal.py": {
       "sha256": "0d152edcec333aa5facf70830240473e6533970c86ff020ab10b734cd05743fd",
@@ -3580,8 +3580,8 @@
       "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
     },
     "src/ucp/b2b-negotiation.json": {
-      "sha256": "2cf2fa59be96ea0e292775b4e5ea458d0c75cacdab8b736f0d60eb111a40f511",
-      "review": "Reviewed Sellama identity-only crate/WIT/runtime prefixes, explicit SQL source-hash pairs retain unchanged pre-rename ledger bytes; three Rust formatter changes have no behavioral effect. Brand assets and generic redirect owner remain separate from proved pure decisions."
+      "sha256": "80049231fb689a5a8a105ff73046ec0a5b97caa480e0a5029e8688ad7dfacba7",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     }
   }
 }

@@ -2603,46 +2603,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "sellama"
-version = "0.5.0"
-dependencies = [
- "aes-gcm",
- "argon2",
- "async-stream",
- "axum",
- "base64 0.22.1",
- "chrono",
- "chrono-tz",
- "cron",
- "futures-util",
- "hmac 0.12.1",
- "image",
- "json-patch",
- "lettre",
- "libc",
- "pdf-extract",
- "regex",
- "reqwest",
- "ring",
- "roxmltree",
- "rustls-pemfile",
- "scraper",
- "semver",
- "serde",
- "serde_json",
- "sha2 0.10.9",
- "sqlx",
- "tokio",
- "tokio-rustls",
- "tower-http",
- "tracing-subscriber",
- "uuid",
- "wasmtime",
- "wat",
- "webpki-roots",
-]
-
-[[package]]
 name = "semver"
 version = "1.0.28"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3491,6 +3451,46 @@ name = "version_check"
 version = "0.9.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
+
+[[package]]
+name = "veyndo"
+version = "0.5.0"
+dependencies = [
+ "aes-gcm",
+ "argon2",
+ "async-stream",
+ "axum",
+ "base64 0.22.1",
+ "chrono",
+ "chrono-tz",
+ "cron",
+ "futures-util",
+ "hmac 0.12.1",
+ "image",
+ "json-patch",
+ "lettre",
+ "libc",
+ "pdf-extract",
+ "regex",
+ "reqwest",
+ "ring",
+ "roxmltree",
+ "rustls-pemfile",
+ "scraper",
+ "semver",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "sqlx",
+ "tokio",
+ "tokio-rustls",
+ "tower-http",
+ "tracing-subscriber",
+ "uuid",
+ "wasmtime",
+ "wat",
+ "webpki-roots",
+]
 
 [[package]]
 name = "want"

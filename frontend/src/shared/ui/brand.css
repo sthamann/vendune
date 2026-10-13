@@ -1,5 +1,5 @@
 /** Shared vector brand sizing and typography for Studio and the operator console. */
-.sellama-brand {
+.veyndo-brand {
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
@@ -7,19 +7,19 @@
   min-width: 0;
   max-width: 100%;
 }
-.sellama-mark {
+.veyndo-mark {
   width: 38px;
   height: 38px;
   flex-shrink: 0;
   object-fit: contain;
 }
-.sellama-wordmark {
+.veyndo-wordmark {
   font-size: 23px;
   font-weight: 700;
   letter-spacing: -1px;
   line-height: 1.2;
 }
-.sellama-wordmark small {
+.veyndo-wordmark small {
   display: block;
   font-size: 10px;
   font-weight: 500;
@@ -28,17 +28,17 @@
   margin-top: 3px;
   color: var(--muted, #65738a);
 }
-.platform-brand .sellama-mark {
+.platform-brand .veyndo-mark {
   width: 44px;
   height: 44px;
 }
 
-.sellama-logo-pair {
+.veyndo-logo-pair {
   display: block;
   min-width: 0;
   max-width: 100%;
 }
-.sellama-logo {
+.veyndo-logo {
   display: block;
   width: 140px;
   max-width: 100%;
@@ -46,13 +46,13 @@
   object-fit: contain;
   object-position: left center;
 }
-.sellama-logo--dark {
+.veyndo-logo--dark {
   display: none;
 }
-[data-theme="dark"] .sellama-logo--light {
+[data-theme="dark"] .veyndo-logo--light {
   display: none;
 }
-[data-theme="dark"] .sellama-logo--dark {
+[data-theme="dark"] .veyndo-logo--dark {
   display: block;
 }
 .studio-brand {

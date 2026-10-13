@@ -49,12 +49,12 @@ export default function EmbeddedPayment({
         event.origin !== new URL(session.uiUrl).origin ||
         event.source !== frame.current?.contentWindow ||
         event.data?.nonce !== session.nonce ||
-        !["sellama.payment.changed", "sellama.payment.redirect"].includes(
+        !["veyndo.payment.changed", "veyndo.payment.redirect"].includes(
           event.data?.type,
         )
       )
         return;
-      if (event.data.type === "sellama.payment.redirect") {
+      if (event.data.type === "veyndo.payment.redirect") {
         if (approvalUrl && event.data.url === approvalUrl)
           window.location.assign(approvalUrl);
       } else changed.current();
@@ -76,7 +76,7 @@ export default function EmbeddedPayment({
           onLoad={() =>
             frame.current?.contentWindow?.postMessage(
               {
-                type: "sellama.payment.init",
+                type: "veyndo.payment.init",
                 sessionToken: session.sessionToken,
                 nonce: session.nonce,
               },

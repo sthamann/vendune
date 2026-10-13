@@ -75,7 +75,7 @@ export const en: Record<Key, string> = {
   discovery: "Discover",
   collection: "Collection",
   business: "Business account",
-  studio: "Sellama Studio",
+  studio: "Veyndo Studio",
   bag: "Bag",
   hero: "Good objects. For your everyday.",
   intro:
@@ -189,7 +189,7 @@ export const en: Record<Key, string> = {
   freeFrom: "Free from",
   invalidOption: "This combination is unavailable.",
   pricing: "Price for your account",
-  ask: "Ask Sellama",
+  ask: "Ask Veyndo",
   wish: "What are you looking for? A cosy reading corner under €300 …",
   thinking: "Finding suitable products …",
   adapted: "Sorted by your interests",

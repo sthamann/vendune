@@ -1,6 +1,6 @@
 # Email delivery: SMTP, Resend and SendGrid
 
-Install **Email Delivery** in **Sellama Studio → Apps**, open its detail page,
+Install **Email Delivery** in **Veyndo Studio → Apps**, open its detail page,
 and choose SMTP, Resend or SendGrid. The workspace and order-confirmation templates
 support English, German, French and Spanish. Gmail remains a separate read-only
 support-mail import app. Email Delivery is a new transactional service; it is not
@@ -76,13 +76,13 @@ separate configuration and deployment boundaries:
   tenant's sender and transport through the authenticated app gateway. Experience's
   SMTP settings do not implicitly configure every shop's order notifications.
 
-As of 2026-10-07, `mail.sellama.ai` is authenticated at Brevo and its sender
-`Sellama <hello@mail.sellama.ai>` is verified. The existing `sellama-experience`
+As of 2026-10-07, `mail.veyndo.ai` is authenticated at Brevo and its sender
+`Veyndo <hello@mail.veyndo.ai>` is verified. The existing `veyndo-experience`
 Northflank service has its SMTP configuration in a runtime secret file and has
 been restarted. A single signup-code request through the public Experience page
 was confirmed `Sent` and `Delivered` by Brevo at 08:43 CEST that day. Inbox
 placement and completed onboarding were not part of that email-only check.
-The independent `sellama-connectors` Rust service is also deployed on Northflank
+The independent `veyndo-connectors` Rust service is also deployed on Northflank
 with a private port, a restricted PostgreSQL role and forced tenant RLS on its six
 connector tables. Its health endpoint and rejection of unauthenticated calls were
 checked in the hosting network. Brevo credentials are encrypted in the test shop's

@@ -201,7 +201,7 @@ describe("Checkout and declarations", () => {
     await waitFor(() =>
       expect(screen.getByRole("link")).toHaveAttribute(
         "download",
-        "sellama-receipt.txt",
+        "veyndo-receipt.txt",
       ),
     );
     expect(fetcher).toHaveBeenCalledOnce();

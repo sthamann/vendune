@@ -24,7 +24,7 @@ impl Condition {
                 rule.checked_at(c, q, depth + 1)
             }
             Self::Source { name, config } => {
-                sellama::automation_rules::evaluate(name, config, &q["ruleFacts"]).map_err(bad)
+                veyndo::automation_rules::evaluate(name, config, &q["ruleFacts"]).map_err(bad)
             }
             Self::And { children } | Self::Or { children } => {
                 let values = children
@@ -155,7 +155,7 @@ impl Condition {
                     return operator == "!=";
                 }
                 let matched = wildcard(c.data.email.as_deref().unwrap_or(""), email);
-                sellama::verified_kernel::rule_boolean_comparison(
+                veyndo::verified_kernel::rule_boolean_comparison(
                     matched,
                     false,
                     operator == "=",
@@ -163,7 +163,7 @@ impl Condition {
                     false,
                 )
             }
-            Self::LoggedIn { is_logged_in } => sellama::verified_kernel::rule_authenticated(
+            Self::LoggedIn { is_logged_in } => veyndo::verified_kernel::rule_authenticated(
                 c.data.customer_id.is_some(),
                 *is_logged_in,
             ),
@@ -187,10 +187,10 @@ impl Condition {
     }
 }
 fn numeric(a: f64, b: f64, op: &str) -> bool {
-    sellama::rule_comparison::numeric(Some(a), Some(b), op).unwrap_or(false)
+    veyndo::rule_comparison::numeric(Some(a), Some(b), op).unwrap_or(false)
 }
 fn set_matches(actual: &[String], rule: &[String], operator: &str) -> bool {
-    sellama::rule_comparison::uuids(
+    veyndo::rule_comparison::uuids(
         Some(&actual.iter().cloned().map(Some).collect::<Vec<_>>()),
         Some(&rule.iter().cloned().map(Some).collect::<Vec<_>>()),
         operator,

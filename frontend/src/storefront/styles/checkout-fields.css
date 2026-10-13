@@ -1,17 +1,17 @@
 /** Checkout-owned form layout, independent of previously mounted account/admin stylesheets. */
-.sellama-checkout .customer-address-fields {
+.veyndo-checkout .customer-address-fields {
   min-width: 0;
   margin: 0;
   padding: 0;
   border: 0;
 }
-.sellama-checkout .customer-field-grid {
+.veyndo-checkout .customer-field-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px 16px;
 }
-.sellama-checkout .customer-field-grid label,
-.sellama-checkout .checkout-identity label {
+.veyndo-checkout .customer-field-grid label,
+.veyndo-checkout .checkout-identity label {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -20,14 +20,14 @@
   font-weight: 500;
   line-height: 1.5;
 }
-.sellama-checkout .customer-field-grid input,
-.sellama-checkout .customer-field-grid select {
+.veyndo-checkout .customer-field-grid input,
+.veyndo-checkout .customer-field-grid select {
   width: 100%;
 }
-.sellama-checkout .customer-field-grid input {
+.veyndo-checkout .customer-field-grid input {
   padding: 14px 16px;
 }
-.sellama-checkout .customer-address-fields summary {
+.veyndo-checkout .customer-address-fields summary {
   display: flex;
   align-items: center;
   min-height: 48px;
@@ -36,22 +36,22 @@
   color: var(--blue);
   margin-block: 12px;
 }
-.sellama-checkout .customer-checkbox {
+.veyndo-checkout .customer-checkbox {
   cursor: pointer;
   line-height: 1.5;
 }
-.sellama-checkout .customer-checkbox input {
+.veyndo-checkout .customer-checkbox input {
   min-width: 20px;
   width: 20px;
   min-height: 20px;
   height: 20px;
   accent-color: var(--blue);
 }
-.sellama-checkout input:user-invalid {
+.veyndo-checkout input:user-invalid {
   border-color: #a43830;
   outline-color: #f3d4cf;
 }
-.sellama-checkout .checkout-security {
+.veyndo-checkout .checkout-security {
   text-transform: uppercase;
   letter-spacing: 1.5px;
   font-size: 11px !important;
@@ -128,11 +128,11 @@
   min-height: 52px;
 }
 @media (max-width: 580px) {
-  .sellama-checkout .customer-field-grid {
+  .veyndo-checkout .customer-field-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
-  .sellama-checkout .customer-field-grid label {
+  .veyndo-checkout .customer-field-grid label {
     font-size: 14px;
   }
   .checkout-progress {
@@ -148,7 +148,7 @@
   }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .sellama-checkout[open] {
+  .veyndo-checkout[open] {
     animation: checkout-enter 240ms ease-out;
   }
   .checkout-method {

@@ -1,6 +1,6 @@
 # SaaS operator console
 
-Open [admin.sellama.ai](https://admin.sellama.ai/) for the service directory, then choose **Platform operator**. Locally, open `/#platform`. This is a separate,
+Open [admin.veyndo.ai](https://admin.veyndo.ai/) for the service directory, then choose **Platform operator**. Locally, open `/#platform`. This is a separate,
 multilingual control plane for the platform operator, with a light blue workspace,
 shop directory, statistics, shop creation and a bounded activity log. Its personal
 session is independent of the merchant studio's browser session.
@@ -67,8 +67,8 @@ an empty shop or sample catalogue. Neither choice creates demo customers or know
 customer passwords. Settings, membership and audit commit in one transaction.
 The shop uses simulated payments until explicitly configured for a provider.
 
-On a configured public host, the directory opens `https://ID.sellama.ai/` and
-`https://app.sellama.ai/?shop=ID#merchant`. Legacy shared-origin storefront
+On a configured public host, the directory opens `https://ID.veyndo.ai/` and
+`https://app.veyndo.ai/?shop=ID#merchant`. Legacy shared-origin storefront
 bookmarks redirect to the shop subdomain and retain product/channel/locale context.
 Studio/login and private sandbox URLs stay on their original authenticated origin.
 One frontend serves many shops and selected sales channels. The configured `SHOP_DOMAIN_SUFFIX` can bind

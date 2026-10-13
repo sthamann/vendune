@@ -17,7 +17,7 @@ Every feature folder has a README and every source file has a responsibility com
 
 ## Connected AI interaction
 
-Studio exposes contextual **Ask Sellama** beside the current workspace, using the existing scoped conversation and reviewable proposals while keeping editors mounted. The standard storefront exposes catalogue-grounded discovery and a separate customer-account workspace. See [the interaction architecture and verification boundaries](../docs/ui-experience.md).
+Studio exposes contextual **Ask Veyndo** beside the current workspace, using the existing scoped conversation and reviewable proposals while keeping editors mounted. The standard storefront exposes catalogue-grounded discovery and a separate customer-account workspace. See [the interaction architecture and verification boundaries](../docs/ui-experience.md).
 
 ## State and boundaries
 

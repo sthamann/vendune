@@ -14,8 +14,8 @@ PY
 fi
 set -a; source .env; set +a
 export QDRANT_URL="${QDRANT_URL:-http://127.0.0.1:${QDRANT_PORT:-16333}}"
-project="${COMPOSE_PROJECT_NAME:-sellama}"
-# Reuse an existing pre-Sellama database volume unless a project was explicitly selected.
+project="${COMPOSE_PROJECT_NAME:-veyndo}"
+# Reuse an existing pre-Veyndo database volume unless a project was explicitly selected.
 if [ -z "${COMPOSE_PROJECT_NAME:-}" ] && [ -n "$(docker ps -a --filter label=com.docker.compose.project=rust-ai-commerce --filter label=com.docker.compose.service=postgres --format '{{.ID}}')" ]; then
   project="rust-ai-commerce"
 fi
@@ -23,8 +23,8 @@ fi
 # Recreating that database with the standard image would remove extension libraries.
 docker compose -p "$project" up -d --no-recreate --wait postgres qdrant
 (cd frontend && npm ci && npm run build)
-cargo build --locked --bin sellama
-BOOTSTRAP_MODE=migrate SEED_DEMO=false target/debug/sellama
+cargo build --locked --bin veyndo
+BOOTSTRAP_MODE=migrate SEED_DEMO=false target/debug/veyndo
 if [ "${CONNECTED_APPS:-0}" = "1" ]; then
   python3 scripts/connectors.py start
 fi
@@ -38,4 +38,4 @@ services=json.loads(os.getenv('APP_SERVICES','{}'));services.update(json.loads(p
 PYMERGE
 )"
 fi
-exec target/debug/sellama
+exec target/debug/veyndo

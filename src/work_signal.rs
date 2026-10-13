@@ -33,11 +33,11 @@ impl Wakeup {
 }
 pub(crate) fn start(db_url: Arc<String>) {
     let sender = SIGNAL.get_or_init(|| broadcast::channel(64).0).clone();
-    sellama::tenant_scope::spawn(async move {
+    veyndo::tenant_scope::spawn(async move {
         loop {
             let result = async {
                 let mut listener = sqlx::postgres::PgListener::connect(&db_url).await?;
-                listener.listen("sellama_work_ready").await?;
+                listener.listen("veyndo_work_ready").await?;
                 // Drain preexisting jobs on startup/reconnection, before relying on commit hints.
                 let _ = sender.send(());
                 loop {

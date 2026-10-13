@@ -52,7 +52,7 @@ def verify(req, sql, owner, other, seed, empty, oh, h, check, base):
             probe.bind(('127.0.0.1',0));replica_port=probe.getsockname()[1]
         with tempfile.TemporaryFile() as log:
             root=pathlib.Path(__file__).resolve().parents[1]
-            replica=subprocess.Popen([str(root/'target/debug/sellama')],cwd=root,env={**os.environ,'BIND_ADDR':f'127.0.0.1:{replica_port}'},stdout=log,stderr=log)
+            replica=subprocess.Popen([str(root/'target/debug/veyndo')],cwd=root,env={**os.environ,'BIND_ADDR':f'127.0.0.1:{replica_port}'},stdout=log,stderr=log)
             try:
                 for _ in range(100):
                     try:
@@ -108,10 +108,10 @@ def verify(req, sql, owner, other, seed, empty, oh, h, check, base):
             with urllib.request.urlopen(r) as response:status=response.status
         except urllib.error.HTTPError as e:status=e.code
         assert status==expected,(host,path,status)
-    host('/health','admin.sellama.ai');host('/','admin.sellama.ai')
-    host('/health',seed+'.sellama.ai')
-    host('/health',seed+'.sellama.ai',400,{'x-tenant':other['workspace']})
-    host('/health','unknown-'+seed+'.sellama.ai',404)
+    host('/health','admin.veyndo.ai');host('/','admin.veyndo.ai')
+    host('/health',seed+'.veyndo.ai')
+    host('/health',seed+'.veyndo.ai',400,{'x-tenant':other['workspace']})
+    host('/health','unknown-'+seed+'.veyndo.ai',404)
     for id in ['admin','app','api','www','mail','platform','invalid-']:
         req('/api/platform/shops',{'id':id,'name':'Reserved'},oh,400)
     check('admin service host and real tenant subdomains resolve; conflicting/unknown tenant hosts and reserved/dangling IDs rejected')

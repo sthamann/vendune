@@ -44,7 +44,7 @@ export default function ProductQuestion({ productId }: { productId: string }) {
             if (current === generation.current) {
               setAnswer(result);
               window.dispatchEvent(
-                new CustomEvent("sellama:product-question", {
+                new CustomEvent("veyndo:product-question", {
                   detail: { productId },
                 }),
               );

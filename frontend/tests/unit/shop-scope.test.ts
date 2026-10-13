@@ -9,25 +9,25 @@ it("upgrades the storefront and preserves product, language and tracking context
   expect(
     canonicalShopURL(
       new URL(
-        "https://app.sellama.ai/?shop=release-check-20261006&lang=de-DE#product/lamp",
+        "https://app.veyndo.ai/?shop=release-check-20261006&lang=de-DE#product/lamp",
       ),
     ),
-  ).toBe("https://release-check-20261006.sellama.ai/?lang=de-DE#product/lamp");
+  ).toBe("https://release-check-20261006.veyndo.ai/?lang=de-DE#product/lamp");
 });
 it.each(["#merchant", "#login", "#platform", "#studio-content"])(
   "keeps protected %s on shared login origin",
   (hash) => {
     expect(
-      canonicalShopURL(new URL(`https://app.sellama.ai/?shop=my-shop${hash}`)),
+      canonicalShopURL(new URL(`https://app.veyndo.ai/?shop=my-shop${hash}`)),
     ).toBeUndefined();
   },
 );
 it.each([
-  "https://app.sellama.ai/?shop=my-shop&sandbox=1",
-  "https://app.sellama.ai/?shop=my-shop&studio=developers#merchant",
+  "https://app.veyndo.ai/?shop=my-shop&sandbox=1",
+  "https://app.veyndo.ai/?shop=my-shop&studio=developers#merchant",
   "http://127.0.0.1:8787/?shop=my-shop",
-  "https://my-shop.sellama.ai/",
-  "https://admin.sellama.ai/",
+  "https://my-shop.veyndo.ai/",
+  "https://admin.veyndo.ai/",
 ])("does not move %s", (url) =>
   expect(canonicalShopURL(new URL(url))).toBeUndefined(),
 );
@@ -52,10 +52,10 @@ it("drops stale Studio context on a legacy product bookmark", () => {
   expect(
     canonicalShopURL(
       new URL(
-        "https://app.sellama.ai/?shop=sth-test&studio=productData#product/chair",
+        "https://app.veyndo.ai/?shop=sth-test&studio=productData#product/chair",
       ),
     ),
-  ).toBe("https://sth-test.sellama.ai/#product/chair");
+  ).toBe("https://sth-test.veyndo.ai/#product/chair");
 });
 it("reserves the experience service hostname", () =>
   expect(validShopId("experience")).toBe(false));
@@ -64,7 +64,7 @@ it("canonicalizes clean product routes with stale Studio context", () =>
   expect(
     canonicalShopURL(
       new URL(
-        "https://app.sellama.ai/products/chair?shop=sth-test&studio=productData",
+        "https://app.veyndo.ai/products/chair?shop=sth-test&studio=productData",
       ),
     ),
-  ).toBe("https://sth-test.sellama.ai/products/chair"));
+  ).toBe("https://sth-test.veyndo.ai/products/chair"));

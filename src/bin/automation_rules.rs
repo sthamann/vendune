@@ -11,7 +11,7 @@ fn main() {
             cases
                 .iter()
                 .map(|c| {
-                    match sellama::automation_rules::evaluate(
+                    match veyndo::automation_rules::evaluate(
                         c["name"].as_str().unwrap(),
                         &c["config"],
                         &c["facts"],

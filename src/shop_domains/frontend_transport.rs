@@ -150,11 +150,11 @@ mod tests {
         let cookie = "shopper_sid=s-123; Path=/; HttpOnly; Secure; SameSite=Lax";
         assert!(allowed_response_cookie(cookie, &names));
         assert!(!allowed_response_cookie(
-            &format!("{cookie}; Domain=.sellama.ai"),
+            &format!("{cookie}; Domain=.veyndo.ai"),
             &names
         ));
         assert!(!allowed_response_cookie(
-            &format!("{cookie}; Domain = .sellama.ai"),
+            &format!("{cookie}; Domain = .veyndo.ai"),
             &names
         ));
         assert!(!allowed_response_cookie(

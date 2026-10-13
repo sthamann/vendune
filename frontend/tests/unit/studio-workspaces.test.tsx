@@ -121,7 +121,7 @@ it("navigates every merchant workspace without duplicating registry requests", a
     ).toBe(true),
   );
   const navigation = screen.getByRole("navigation", {
-    name: "Sellama Studio",
+    name: "Veyndo Studio",
   });
   const user = userEvent.setup();
   const buttons = within(navigation).getAllByRole("button");
@@ -187,7 +187,7 @@ it("opens a blocking login overlay on the current workspace after product authen
     wrapper: LocaleProvider,
   });
   const navigation = await screen.findByRole("navigation", {
-    name: "Sellama Studio",
+    name: "Veyndo Studio",
   });
   const user = userEvent.setup();
   await within(navigation).findByRole("button", {
@@ -228,7 +228,7 @@ it("keeps the same chat input mounted and returns to it after the overlay login"
   render(<Merchant onChanged={async () => {}} onExit={() => {}} />, {
     wrapper: LocaleProvider,
   });
-  await screen.findByRole("navigation", { name: "Sellama Studio" });
+  await screen.findByRole("navigation", { name: "Veyndo Studio" });
   const user = userEvent.setup();
   await waitFor(() =>
     expect(document.querySelector(".studio-composer textarea")).not.toBeNull(),
@@ -278,7 +278,7 @@ it("adapts navigation and data loading to current grants rather than the role la
     wrapper: LocaleProvider,
   });
   await screen.findByRole("button", { name: "Products" });
-  const nav = screen.getByRole("navigation", { name: "Sellama Studio" });
+  const nav = screen.getByRole("navigation", { name: "Veyndo Studio" });
   expect(within(nav).getAllByRole("button")).toHaveLength(1);
   expect(
     fetcher.mock.calls.some(([p]) =>

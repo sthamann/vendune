@@ -42,10 +42,10 @@ def verify(server, tenant, merchant):
     assert headers['Cache-Control'] == 'no-store' and 'accept-encoding' in headers['Vary'].lower()
     data, headers, _ = wire(base, '/api/auth/session', {'x-tenant': tenant, **merchant, 'Accept-Encoding': 'gzip,br'})
     assert headers.get('Content-Encoding') is None and json.loads(data)['user']
-    data, headers, _ = wire(base, '/', {'Host': tenant+'.sellama.ai', 'Accept-Encoding': 'gzip,br'})
+    data, headers, _ = wire(base, '/', {'Host': tenant+'.veyndo.ai', 'Accept-Encoding': 'gzip,br'})
     assert headers.get('Content-Encoding') is None and b'id="root"' in data
     offset = log.stat().st_size
-    wire(base, '/store-api/product', {'x-tenant': tenant, 'Host': tenant+'.sellama.ai'}, {})
+    wire(base, '/store-api/product', {'x-tenant': tenant, 'Host': tenant+'.veyndo.ai'}, {})
     lines = log.read_bytes()[offset:].decode()
     assert 'WITH mount AS' in lines and 'SELECT tenant,channel FROM hosted_frontends WHERE alias' not in lines
     assert 'SELECT data,revision FROM sales_channels WHERE tenant' not in lines
@@ -58,7 +58,7 @@ def compare(server, tenant, merchant):
     asset = next(ROOT.joinpath('frontend/dist/assets').glob('index-*.js'))
     scenarios = [
         ('asset', '/assets/'+asset.name, None, {}),
-        ('host-catalog', '/store-api/product', {}, {'Host':tenant+'.sellama.ai'}),
+        ('host-catalog', '/store-api/product', {}, {'Host':tenant+'.veyndo.ai'}),
         ('dashboard', '/api/merchant/overview', None, merchant),
     ]
     reports = {}

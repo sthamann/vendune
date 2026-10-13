@@ -29,7 +29,7 @@ fn mapped(name: &str, from: &str) -> Option<(String, usize)> {
     if !(1..=65536).contains(&dimensions) || dimensions.to_string() != parts[3] {
         return None;
     }
-    Some((format!("sellama_{suffix}"), dimensions))
+    Some((format!("veyndo_{suffix}"), dimensions))
 }
 async fn collections() -> Result<BTreeSet<String>, String> {
     let data = request(Method::GET, "/collections", None).await?;
@@ -73,7 +73,7 @@ pub async fn migrate_configured() -> Result<usize, String> {
     if from.is_empty() {
         return Ok(0);
     }
-    if !namespace(&from) || from == "sellama" {
+    if !namespace(&from) || from == "veyndo" {
         return Err("Invalid prior Qdrant namespace".into());
     }
     let existing = collections().await?;
@@ -129,7 +129,7 @@ pub(super) async fn names(kind: &str) -> Result<BTreeSet<String>, String> {
     let mut result = collections().await?;
     result.extend(aliases().await?.into_keys());
     result.retain(|name| {
-        name.starts_with(&format!("sellama_{kind}_")) && mapped(name, "sellama").is_some()
+        name.starts_with(&format!("veyndo_{kind}_")) && mapped(name, "veyndo").is_some()
     });
     Ok(result)
 }
@@ -141,7 +141,7 @@ mod tests {
         let valid = "legacy_product_v2_0123456789abcdef_768";
         assert_eq!(
             mapped(valid, "legacy"),
-            Some(("sellama_product_v2_0123456789abcdef_768".into(), 768))
+            Some(("veyndo_product_v2_0123456789abcdef_768".into(), 768))
         );
         for value in [
             "../legacy",

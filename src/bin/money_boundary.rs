@@ -1,6 +1,6 @@
 //! Batch transport for comparing the actual legacy-to-integer checkout boundary against original Shopware totals.
-use sellama::money::Money;
 use std::io::{self, Read};
+use veyndo::money::Money;
 fn main() {
     let mut input = String::new();
     io::stdin().read_to_string(&mut input).unwrap();

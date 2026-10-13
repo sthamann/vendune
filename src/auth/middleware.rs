@@ -22,8 +22,8 @@ pub(crate) fn permit(h: &RequestContext, kind: &str) -> Result<()> {
 }
 pub(crate) async fn authenticate(state: State<App>, request: Request, next: Next) -> Response {
     // Identity lookup is trusted; the admitted business request gets a narrower context below.
-    sellama::tenant_scope::scoped(
-        sellama::tenant_scope::Scope::System,
+    veyndo::tenant_scope::scoped(
+        veyndo::tenant_scope::Scope::System,
         authenticate_scoped(state, request, next),
     )
     .await
@@ -175,17 +175,17 @@ async fn authenticate_scoped(State(a): State<App>, mut request: Request, next: N
         || path.starts_with("/api/workspace/")
     {
         // Provisioning, identity and staging require cross-workspace reads, after their existing grants.
-        sellama::tenant_scope::Scope::System
+        veyndo::tenant_scope::Scope::System
     } else {
         match tenant(&h) {
-            Ok(t) => sellama::tenant_scope::Scope::Tenant(t),
+            Ok(t) => veyndo::tenant_scope::Scope::Tenant(t),
             Err(e) => return e.into_response(),
         }
     };
     *request.headers_mut() = h.transport().clone();
     request.extensions_mut().insert(h);
     let mut response =
-        sellama::tenant_scope::scoped(scope, super::abuse::run(&a, request, next)).await;
+        veyndo::tenant_scope::scoped(scope, super::abuse::run(&a, request, next)).await;
     if private_response {
         response
             .headers_mut()

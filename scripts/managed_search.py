@@ -38,7 +38,7 @@ fixture=ThreadingHTTPServer(('127.0.0.1',0),Embed)
 threading.Thread(target=fixture.serve_forever,daemon=True).start()
 with socket.socket() as probe:
     probe.bind(('127.0.0.1',0)); port=probe.getsockname()[1]
-env={**os.environ,'BIND_ADDR':f'127.0.0.1:{port}','SHOP_DOMAIN_SUFFIX':'sellama.ai','OLLAMA_URL':f'http://127.0.0.1:{fixture.server_port}','EMBEDDING_MODEL':'synthetic-managed-contract-'+uuid.uuid4().hex[:8],'QDRANT_URL':f'http://127.0.0.1:{fixture.server_port}','RERANKER_URL':f'http://127.0.0.1:{fixture.server_port}'}
+env={**os.environ,'BIND_ADDR':f'127.0.0.1:{port}','SHOP_DOMAIN_SUFFIX':'veyndo.ai','OLLAMA_URL':f'http://127.0.0.1:{fixture.server_port}','EMBEDDING_MODEL':'synthetic-managed-contract-'+uuid.uuid4().hex[:8],'QDRANT_URL':f'http://127.0.0.1:{fixture.server_port}','RERANKER_URL':f'http://127.0.0.1:{fixture.server_port}'}
 base=f'http://127.0.0.1:{port}'; token=os.environ['MERCHANT_TOKEN']
 def qdrant(path,body=None,method=None):
     req=urllib.request.Request(qdrant_url+path,data=None if body is None else json.dumps(body).encode(),method=method,headers={'Content-Type':'application/json'})
@@ -67,7 +67,7 @@ process=None
 old_namespace='legacy-'+uuid.uuid4().hex[:8]
 suffix='product_v2_'+hashlib.sha256(env['EMBEDDING_MODEL'].encode()).hexdigest()[:16]+'_384'
 old_collection=old_namespace+'_'+suffix
-canonical_collection='sellama_'+suffix
+canonical_collection='veyndo_'+suffix
 conflict_collection='identity-conflict-'+uuid.uuid4().hex[:8]
 try:
     shape={'vectors':{'text':{'size':384,'distance':'Cosine'}}}
@@ -75,7 +75,7 @@ try:
     sentinel=str(uuid.uuid4())
     qdrant('/collections/'+old_collection+'/points?wait=true',{'points':[{'id':sentinel,'vector':{'text':[1.0]+[0.0]*383},'payload':{'tenant':'identity-fixture','object_id':'retained-before-rename'}}]},'PUT')
     def migrate_namespace(success=True):
-        job=subprocess.run([str(root/'target/debug/sellama')],cwd=root,env={**env,'BOOTSTRAP_MODE':'migrate','QDRANT_NAMESPACE_MIGRATE_FROM':old_namespace},stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,timeout=60)
+        job=subprocess.run([str(root/'target/debug/veyndo')],cwd=root,env={**env,'BOOTSTRAP_MODE':'migrate','QDRANT_NAMESPACE_MIGRATE_FROM':old_namespace},stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,timeout=60)
         assert (job.returncode==0)==success,('Unexpected migration job result',job.returncode)
         return job.stdout
     migrate_namespace()
@@ -89,7 +89,7 @@ try:
     assert qdrant('/collections/'+old_collection+'/points/'+sentinel)['id']==sentinel
     qdrant('/collections/aliases',{'actions':[{'delete_alias':{'alias_name':canonical_collection}},{'create_alias':{'alias_name':canonical_collection,'collection_name':old_collection}}]})
     print('PASS real migration job preserves existing Qdrant point IDs, reuses physical collections, retries idempotently and rejects alias collisions without changing data')
-    process=subprocess.Popen([str(root/'target/debug/sellama')],cwd=root,env=env,stdout=log,stderr=log)
+    process=subprocess.Popen([str(root/'target/debug/veyndo')],cwd=root,env=env,stdout=log,stderr=log)
     for _ in range(100):
         if process.poll() is not None: raise RuntimeError('Managed search app failed; see .run/managed-search.log')
         try: call('/health');break
@@ -98,7 +98,7 @@ try:
     assert sql("SELECT udt_name FROM information_schema.columns WHERE table_name='semantic_products' AND column_name='embedding'")=='_float4'
     print('PASS ordinary PostgreSQL has no AGE/vector dependency')
     # Existing sources must rebuild automatically when the configured model changes.
-    name='sellama_product_v2_'+hashlib.sha256(env['EMBEDDING_MODEL'].encode()).hexdigest()[:16]+'_384'
+    name='veyndo_product_v2_'+hashlib.sha256(env['EMBEDDING_MODEL'].encode()).hexdigest()[:16]+'_384'
     for _ in range(200):
         if sql("SELECT (SELECT count(*) FROM vector_index_queue WHERE tenant IN ('atelier','workshop'))+(SELECT count(*) FROM embedding_jobs WHERE tenant IN ('atelier','workshop'))")=='0' and sql("SELECT count(*) FROM embedding_generations WHERE tenant IN ('atelier','workshop') AND phase='complete'")=='2':break
         time.sleep(.1)
@@ -134,9 +134,9 @@ try:
     result=qdrant('/collections/'+name+'/points/query',{'query':[1.0]+[0.0]*383,'using':'text','filter':{'must':[{'key':'tenant','match':{'value':'workshop'}}]},'limit':100,'with_payload':True})
     assert len(result['points'])==int(sql("SELECT count(*) FROM products WHERE tenant='workshop'")) and all(p['payload']['tenant']=='workshop' for p in result['points'])
     print('PASS real Qdrant persists tenant/model-scoped vectors and Core hydrates current commerce rows')
-    call('/store-api/product',{},'atelier','workshop.sellama.ai',400)
-    call('/store-api/product',{},'missing','missing.sellama.ai',404)
-    assert len(call('/store-api/product',{},'workshop','workshop.sellama.ai')['elements'])==6
+    call('/store-api/product',{},'atelier','workshop.veyndo.ai',400)
+    call('/store-api/product',{},'missing','missing.veyndo.ai',404)
+    assert len(call('/store-api/product',{},'workshop','workshop.veyndo.ai')['elements'])==6
     print('PASS shop hostname rejects unknown shops and conflicting tenant headers')
     state['outage']=True
     sql("DELETE FROM semantic_products WHERE tenant='workshop' AND product_id='lamp'")
@@ -179,7 +179,7 @@ try:
     print('PASS 150 products index automatically in bounded batches; source changes re-embed, commerce-only changes do not')
     process.terminate();process.wait(timeout=15)
     env['EMBEDDING_MODEL']+='-changed'
-    process=subprocess.Popen([str(root/'target/debug/sellama')],cwd=root,env=env,stdout=log,stderr=log)
+    process=subprocess.Popen([str(root/'target/debug/veyndo')],cwd=root,env=env,stdout=log,stderr=log)
     for _ in range(400):
         if process.poll() is not None: raise RuntimeError('Model-change restart failed')
         if sql("SELECT count(*) FROM semantic_products WHERE tenant='workshop' AND product_id LIKE 'batch-%' AND embedding_model='"+env['EMBEDDING_MODEL']+"'")=='150' and sql("SELECT count(*) FROM embedding_generations WHERE tenant IN ('atelier','workshop') AND phase='complete' AND model='"+env['EMBEDDING_MODEL']+"'")=='2' and sql("SELECT count(*) FROM embedding_jobs WHERE tenant IN ('atelier','workshop')")=='0':break

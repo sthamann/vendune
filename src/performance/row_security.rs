@@ -1,8 +1,8 @@
 //! Bind each borrowed PostgreSQL connection to task scope, and reject unsafe strict-runtime roles.
-use sellama::scoped_pool::ScopedPool as PgPool;
-use sellama::tenant_scope::{Scope, current};
 use sqlx::PgConnection;
 use std::env;
+use veyndo::scoped_pool::ScopedPool as PgPool;
+use veyndo::tenant_scope::{Scope, current};
 
 pub(super) async fn bind(conn: &mut PgConnection) -> std::result::Result<(), sqlx::Error> {
     let (tenant, system) = match current() {

@@ -41,8 +41,8 @@ CREATE TRIGGER history_before BEFORE INSERT OR UPDATE OR DELETE ON workspace_rol
 CREATE TRIGGER history_after AFTER INSERT OR UPDATE OR DELETE ON workspace_roles FOR EACH ROW EXECUTE FUNCTION capture_entity_history('role','id');
 
 DO $fn$ BEGIN
- IF EXISTS(SELECT 1 FROM pg_roles WHERE rolname='sellama_runtime') THEN
-  GRANT SELECT,INSERT,UPDATE,DELETE,REFERENCES ON workspace_roles TO sellama_runtime;
-  GRANT SELECT ON membership_grants TO sellama_runtime;
+ IF EXISTS(SELECT 1 FROM pg_roles WHERE rolname='veyndo_runtime') THEN
+  GRANT SELECT,INSERT,UPDATE,DELETE,REFERENCES ON workspace_roles TO veyndo_runtime;
+  GRANT SELECT ON membership_grants TO veyndo_runtime;
  END IF;
 END $fn$;

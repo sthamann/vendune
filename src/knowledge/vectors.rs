@@ -4,7 +4,7 @@ use sha2::{Digest, Sha256};
 use std::time::Duration;
 fn collection(kind: &str, model: &str, dimensions: usize) -> String {
     format!(
-        "sellama_{kind}_v2_{}_{dimensions}",
+        "veyndo_{kind}_v2_{}_{dimensions}",
         hex(model).get(..16).unwrap()
     )
 }

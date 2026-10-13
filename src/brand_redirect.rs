@@ -61,23 +61,23 @@ mod tests {
     #[test]
     fn redirects_only_admitted_domains_without_losing_routing_or_query() {
         for (host, expected) in [
-            ("previous.test", "https://sellama.ai/path?q=a%2Fb&x=1"),
+            ("previous.test", "https://veyndo.ai/path?q=a%2Fb&x=1"),
             (
                 "Shop.previous.test:443",
-                "https://shop.sellama.ai/path?q=a%2Fb&x=1",
+                "https://shop.veyndo.ai/path?q=a%2Fb&x=1",
             ),
             (
                 "start.previous.test.",
-                "https://start.sellama.ai/path?q=a%2Fb&x=1",
+                "https://start.veyndo.ai/path?q=a%2Fb&x=1",
             ),
         ] {
             assert_eq!(
-                destination(host, "/path?q=a%2Fb&x=1", "sellama.ai", "previous.test").as_deref(),
+                destination(host, "/path?q=a%2Fb&x=1", "veyndo.ai", "previous.test").as_deref(),
                 Some(expected)
             );
         }
         for host in [
-            "sellama.ai",
+            "veyndo.ai",
             "unrelated.test",
             "evilprevious.test",
             "previous.test.evil.test",
@@ -85,7 +85,7 @@ mod tests {
             "previous.test/path",
         ] {
             assert!(
-                destination(host, "/", "sellama.ai", "previous.test").is_none(),
+                destination(host, "/", "veyndo.ai", "previous.test").is_none(),
                 "unexpected redirect for {host}"
             );
         }

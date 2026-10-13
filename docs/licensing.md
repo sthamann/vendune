@@ -1,6 +1,6 @@
-# Sellama licensing
+# Veyndo licensing
 
-Sellama is **source available** under the [Sellama Sustainable Use License 1.0](../LICENSE).
+Veyndo is **source available** under the [Veyndo Sustainable Use License 1.0](../LICENSE).
 The license follows n8n's sustainable-use approach, with explicit commerce-specific
 permissions and restrictions. It is a modified license, not n8n's unmodified SUL,
 MIT, or an OSI-approved open-source license. The LICENSE text governs; this page
@@ -31,7 +31,7 @@ still use of the software.
 
 MIT allows commercial use and redistribution. Copyleft licenses such as AGPL
 can require sharing source under specified conditions, but do not prohibit a
-commercial competitor from offering hosting. Sellama's chosen restriction is
+commercial competitor from offering hosting. Veyndo's chosen restriction is
 on commercial platform use itself, so it is described as source available.
 
 ## The license change is prospective
@@ -39,7 +39,7 @@ on commercial platform use itself, so it is described as source available.
 The repository moved from MIT to these terms on **5 October 2026**. Copies and
 versions already distributed under MIT retain their MIT permissions. This change
 does not retrospectively withdraw them or prohibit an existing MIT fork from
-using the code it already received. New Sellama changes distributed only under
+using the code it already received. New Veyndo changes distributed only under
 the new license cannot simply be imported into that fork under MIT.
 
 Third-party code, dependencies, model weights and geography datasets retain their

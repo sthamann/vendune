@@ -4,8 +4,8 @@
 import json, os, pathlib, subprocess, time, urllib.request, urllib.error, urllib.parse, uuid
 
 root = pathlib.Path(__file__).resolve().parents[1]
-tag = os.getenv("COMMERCE_TEST_IMAGE", "sellama:platform")
-db_container = os.getenv("DB_CONTAINER", "sellama-postgres-1")
+tag = os.getenv("COMMERCE_TEST_IMAGE", "veyndo:platform")
+db_container = os.getenv("DB_CONTAINER", "veyndo-postgres-1")
 name = "host_image_" + uuid.uuid4().hex[:12]
 container = "rac-image-test-" + uuid.uuid4().hex[:10]
 envfile = root / ".run" / ("image-" + name + ".env")
@@ -88,7 +88,7 @@ try:
             "--env-file",
             str(envfile),
             tag,
-            "/app/sellama",
+            "/app/veyndo",
             "--bootstrap-operator",
         ]
     )

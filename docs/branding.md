@@ -1,32 +1,32 @@
-# Sellama identity and compatibility
+# Veyndo identity and compatibility
 
-**Product:** Sellama. **Merchant workspace:** Sellama Studio.
-**Operator console:** Sellama Platform.
-**Canonical repository:** https://github.com/sthamann/sellama.
-**Documentation:** https://sthamann.github.io/sellama/docs/.
+**Product:** Veyndo. **Merchant workspace:** Veyndo Studio.
+**Operator console:** Veyndo Platform.
+**Canonical repository:** https://github.com/sthamann/veyndo.
+**Documentation:** https://sthamann.github.io/veyndo/docs/.
 
-The Sellama identity combines an outlined wordmark with a compact S exchange
-symbol. Two interlocking ribbons express the interaction between buyer and
-merchant; one mint terminal adds a restrained agent motif. The palette is
-charcoal `#172120`, warm white `#F5F4EF` and mint `#82E4BC`. The S mark is used
+The VEYNDO identity uses the approved Living V symbol and custom outlined
+geometric lettering. Two offset solid elements form one directed V, expressing
+connected intelligence turning understanding into action. The palette is
+graphite `#171B18`, warm white `#F5F3EC` and lime `#D2F34A`. The V mark is used
 for favicons and compact surfaces. UI and site favicons use identical copies checked by
 `scripts/branding.py`; wordmarks have light and dark variants.
-[Mark](brand/sellama-mark.svg), [wordmark](brand/sellama-logo.svg),
-[dark wordmark](brand/sellama-logo-dark.svg). `shared/ui/Brand.tsx` owns the UI
+[Mark](brand/veyndo-mark.svg), [wordmark](brand/veyndo-logo.svg),
+[dark wordmark](brand/veyndo-logo-dark.svg). `shared/ui/Brand.tsx` owns the UI
 identity and places the Studio label below the wordmark within the available
 width. Tenant-owned company logos and merchant shop names are independent.
 
-The [repository header](brand/sellama-readme.svg) uses the same vector identity
-and the positioning “Commerce built around intelligence.” README product
+The [repository header](brand/veyndo-readme.svg) uses the same vector identity
+and the approved subtitle “Commerce that thinks and acts.” README product
 images are unedited captures of the actual prototype.
 
 ## Package and deployment naming
 
-The Rust crate and HTTP binary are `sellama`; Rust imports use `sellama::`.
-The frontend package is `sellama-experience`. The application image uses `sellama`; fresh local database/search containers use
-standard PostgreSQL and Qdrant images. The legacy `sellama-db` image is retained
-for existing AGE/pgvector conversions. Fresh local installations use Compose project `sellama` and
-container `sellama-postgres-1`. Start and worker commands, differential runners,
+The Rust crate and HTTP binary are `veyndo`; Rust imports use `veyndo::`.
+The frontend package is `veyndo-experience`. The application image uses `veyndo`; fresh local database/search containers use
+standard PostgreSQL and Qdrant images. The legacy `veyndo-db` image is retained
+for existing AGE/pgvector conversions. Fresh local installations use Compose project `veyndo` and
+container `veyndo-postgres-1`. Start and worker commands, differential runners,
 MCP examples, deployment files and CI use these names consistently.
 
 Existing checkouts can stay in their original folder. `scripts/dev.sh` detects
@@ -48,7 +48,7 @@ never delete its database volume to perform a rename.
   receive the explicit identity-only update requested for this rename. The
   migration runner accepts only the documented exact old/new SHA-256 pairs in
   `src/migrations/identity_checksums.rs`; an unreviewed byte change still fails.
-  Additive migration `090-sellama-identity` updates the active trigger contracts
+  Additive migration `090-veyndo-identity` updates the active trigger contracts
   and renames the diagnostic function while retaining its grants and behavior.
   No orders, customer records, IDs or audit history are rewritten.
 - Existing Qdrant projections are preserved through additive collection aliases.
@@ -63,7 +63,7 @@ never delete its database volume to perform a rename.
   so customer/merchant deletion still removes the appropriate tenant's points.
   The existing real PostgreSQL/Qdrant managed-search suite checks this migration
   through the compiled setup job and the normal search/deletion paths.
-- The current WIT package is `sellama:commerce@1.0.0`. Existing immutable
+- The current WIT package is `veyndo:commerce@1.0.0`. Existing immutable
   component packages can retain their approved source and digests: configure
   their actual previous namespace in `COMPONENT_LEGACY_NAMESPACES` during
   cutover. Only explicitly listed v1 namespaces are admitted. They reach the

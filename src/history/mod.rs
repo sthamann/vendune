@@ -29,7 +29,7 @@ pub(crate) async fn context(
     h: &RequestContext,
     source: &str,
 ) -> Result<()> {
-    sqlx::query("SELECT set_config('sellama.actor',$1,true),set_config('sellama.source',$2,true),set_config('sellama.reason',$3,true)")
+    sqlx::query("SELECT set_config('veyndo.actor',$1,true),set_config('veyndo.source',$2,true),set_config('veyndo.reason',$3,true)")
  .bind(header(h,"x-rac-user").unwrap_or(""))
  .bind(source).bind(header(h,"x-rac-history-reason").unwrap_or(""))
  .execute(conn).await?;
@@ -37,7 +37,7 @@ pub(crate) async fn context(
 }
 pub(crate) async fn customer_context(conn: &mut sqlx::PgConnection, email: &str) -> Result<()> {
     sqlx::query(
-        "SELECT set_config('sellama.actor',$1,true),set_config('sellama.source','customer',true)",
+        "SELECT set_config('veyndo.actor',$1,true),set_config('veyndo.source','customer',true)",
     )
     .bind(format!("customer:{email}"))
     .execute(conn)

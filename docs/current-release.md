@@ -17,7 +17,7 @@ hosted/browser acceptance entries retain their original dates and image evidence
 
 Local Chrome acceptance edited a unit cost center and observed its actor/revision history, selected a buyer unit/PO, added two native SKUs and requested approval. Reopening preserves the actual unit and PO. At 390 × 844 the account and document widths are both 390px, with no horizontal content overflow. EN/DE/FR/ES catalogs and a fifth content language are checked.
 
-The B2B implementation is merged in [PR #93](https://github.com/sthamann/sellama/pull/93) (`6beb771`). Both complete GitHub verification runs on `3776717` passed. Northflank's `lean-oranges-8265` image uses that byte-identical source tree; its migration job succeeded before the Core deployment reached Running, 1/1. A hosted Chrome check saved and reopened a synthetic company and purchasing unit with EUR budget `100000`, approval threshold `25000`, cost center and a required PO. A digit-led generated reference exposed a UI creation defect: the API correctly rejected it, and the shared reference generator and both editor request paths now have a regression. The public capture below used explicit valid references. Existing POS order `RAC-138a9e02` and invoice `INV-00000001` remained accessible after the deployment. No new EDI cloud service, partner transport or real payment was created.
+The B2B implementation is merged in [PR #93](https://github.com/sthamann/veyndo/pull/93) (`6beb771`). Both complete GitHub verification runs on `3776717` passed. Northflank's `lean-oranges-8265` image uses that byte-identical source tree; its migration job succeeded before the Core deployment reached Running, 1/1. A hosted Chrome check saved and reopened a synthetic company and purchasing unit with EUR budget `100000`, approval threshold `25000`, cost center and a required PO. A digit-led generated reference exposed a UI creation defect: the API correctly rejected it, and the shared reference generator and both editor request paths now have a regression. The public capture below used explicit valid references. Existing POS order `RAC-138a9e02` and invoice `INV-00000001` remained accessible after the deployment. No new EDI cloud service, partner transport or real payment was created.
 
 ![Hosted company policies persisted after reloading Studio](assets/showcase/b2b-public-unit-20261012.png)
 
@@ -45,7 +45,7 @@ browser check reproduced the old HTTP-reference 400, then accepted the normalize
 HTTPS reference and reached the original Storyfront brand editor. This check used
 the standard demo catalog, made no new images and did not publish or charge an order.
 
-Public App Studio acceptance in a fresh `start.sellama.ai` sample shop created
+Public App Studio acceptance in a fresh `start.veyndo.ai` sample shop created
 `advisor_mv4xhvzp`, installed it privately, released its package and separately
 selected one product record for Live. Its public Bag product page displayed the
 saved advice. Version 0.1.1 changed the app name; restoring the old package as
@@ -60,7 +60,7 @@ it validates the existing lifecycle and checkout, not every new guard in product
 
 ![Public simulated checkout following app upgrade and restoration](assets/showcase/app-lifecycle-checkout-20261012.png)
 
-The follow-up Core is merged in [PR #90](https://github.com/sthamann/sellama/pull/90)
+The follow-up Core is merged in [PR #90](https://github.com/sthamann/veyndo/pull/90)
 (`6823f6f`). Both complete GitHub verification runs on `cdd0724` passed. The deployed
 `eminent-middle-497` image uses `cdd0724`; its complete source tree is byte-identical
 to the squash merge. Northflank confirms Running, one instance, on the existing
@@ -121,8 +121,8 @@ configured by this release. [Guide and exact boundaries](marketplaces.md).
 
 ### Checkout continuity
 
-[PR #82](https://github.com/sthamann/sellama/pull/82) adds the existing native
-Sellama checkout as an embedded surface inside the original Storyfront experience.
+[PR #82](https://github.com/sthamann/veyndo/pull/82) adds the existing native
+Veyndo checkout as an embedded surface inside the original Storyfront experience.
 The same calculation, legal review, delivery, payment and immutable order owners
 serve both checkout surfaces. Only the registered shop/channel origin may embed
 the checkout; foreign origins and non-default HTTPS ports are rejected.
@@ -133,7 +133,7 @@ own Bag. Later additions remain in the Bag; repeated completion messages cannot
 consume them twice. Canceling checkout retains the Bag. A saved completion receipt
 can be retried after reload when confirmation was temporarily unavailable.
 
-[PR #83](https://github.com/sthamann/sellama/pull/83) also routes the native
+[PR #83](https://github.com/sthamann/veyndo/pull/83) also routes the native
 checkout's close button and Escape cancellation back to its registered parent.
 This prevents an empty outer dialog after closing only the inner checkout.
 Composition regressions exercise both paths and ordinary top-level checkout;
@@ -192,11 +192,11 @@ multi-chapter scene naming its three products and correct 24.90 EUR Tote price.
 The native Bag opens with item counts, removal and total; a 390px check measured
 390px document width.
 
-[PR #79](https://github.com/sthamann/sellama/pull/79) fixes hosted original public
+[PR #79](https://github.com/sthamann/veyndo/pull/79) fixes hosted original public
 API routing with current tenant/channel/preview admission. Private PR #42 removes
 intermittent module activation failure by sharing only still-running admission
 checks, immediately forgetting completed checks. No stale authorization cache or
-quota bypass is introduced. [PR #80](https://github.com/sthamann/sellama/pull/80)
+quota bypass is introduced. [PR #80](https://github.com/sthamann/veyndo/pull/80)
 keeps the native checkout transfer on the shared `/checkout` route. Its merged
 Core `b995b5a` is deployed as `dependent-floor-9352`; the new pod passed its health
 check. The actual original Bag transferred two canonical Canvas Totes into the
@@ -206,7 +206,7 @@ The receipt confirms simulated authorization; no money was charged. The return
 button exposed a separate SPA-navigation defect, repaired with canonical hosted
 navigation while preserving local SPA behavior and channel/language scope.
 
-![Original Storyfront Studio in the Sellama frame](assets/showcase/native-public-studio-20261009.png)
+![Original Storyfront Studio in the Veyndo frame](assets/showcase/native-public-studio-20261009.png)
 
 ![Actual original German product-answer scene](assets/showcase/native-public-ai-scene-20261009.png)
 
@@ -219,9 +219,9 @@ renderer shops only switch after completing original Go live.
 
 ## Connected intelligence release
 
-Merged [PR #73](https://github.com/sthamann/sellama/pull/73),
-[PR #74](https://github.com/sthamann/sellama/pull/74) and
-[PR #75](https://github.com/sthamann/sellama/pull/75) connect automatic bounded
+Merged [PR #73](https://github.com/sthamann/veyndo/pull/73),
+[PR #74](https://github.com/sthamann/veyndo/pull/74) and
+[PR #75](https://github.com/sthamann/veyndo/pull/75) connect automatic bounded
 indexing/model rebuilds, lexical/dense retrieval with optional reranking,
 authorized read-agent rounds, reviewed source claims, signed public facts,
 price guardrails/daily autonomy budgets, controlled layout experiments,
@@ -230,7 +230,7 @@ The current embedded-checkout CI passes **187 Rust unit tests and 393 frontend
 tests in 66 files**, all registered database/browser-contract suites and the
 formal/differential gates. Whole-source CI line coverage is **90.56% Rust /
 63.34% frontend**; this remains partial coverage, not a whole-system guarantee.
-[Complete verified checkout source run](https://github.com/sthamann/sellama/actions/runs/37907948163).
+[Complete verified checkout source run](https://github.com/sthamann/veyndo/actions/runs/37907948163).
 [Architecture, configuration, evidence and incomplete audit items](cognitive-commerce.md).
 
 Product answers and buyer advice recheck their admitted native product/source
@@ -251,11 +251,11 @@ The eighteen-point core review is addressed in [the hardening guide](core-harden
 
 | Capability | Merchant workflow | Implementation / evidence |
 | --- | --- | --- |
-| Storyfront installed with Experience | Apps → Storyfront; Storyfronts; channel Domains & experiences | Mount and package installation commit together; migration 055 repairs older mounts. [PR #67](https://github.com/sthamann/sellama/pull/67), [ownership](channel-management.md#storyfront-app-ownership-for-experience-shops) |
-| Editable channels and frontend connections | Sales channels → Manage channel → Basics / Domains & experiences | Rename, translate, assign/disconnect addresses, pause/resume or switch public/private; personal previews remain read-only. [PR #65](https://github.com/sthamann/sellama/pull/65), [admission](channel-management.md) |
-| Guest buyers visible to merchants | Customers → guest buyer → linked orders and checkout addresses | Derived contact from immutable order snapshots, not a newly authenticated account. Entering an email cannot claim another person's orders. [PR #66](https://github.com/sthamann/sellama/pull/66), [customer ownership](merchant-operations.md) |
-| Personal merchant enrollment | Welcome-access link → choose/confirm password → normal Studio session | Scanner-safe access page; canonical account checks, session revocation and one-use handoff. [PR #63](https://github.com/sthamann/sellama/pull/63), [identity contract](experience-integration.md#merchant-password-enrollment-and-email-link-recovery) |
-| Existing experiences discovered | Storyfronts → Edit experience / Open shop | Tenant-bound mount registry, safe operator editor template, no generated duplicate. [PR #64](https://github.com/sthamann/sellama/pull/64), [discovery](experience-integration.md#discover-and-edit-existing-experiences) |
+| Storyfront installed with Experience | Apps → Storyfront; Storyfronts; channel Domains & experiences | Mount and package installation commit together; migration 055 repairs older mounts. [PR #67](https://github.com/sthamann/veyndo/pull/67), [ownership](channel-management.md#storyfront-app-ownership-for-experience-shops) |
+| Editable channels and frontend connections | Sales channels → Manage channel → Basics / Domains & experiences | Rename, translate, assign/disconnect addresses, pause/resume or switch public/private; personal previews remain read-only. [PR #65](https://github.com/sthamann/veyndo/pull/65), [admission](channel-management.md) |
+| Guest buyers visible to merchants | Customers → guest buyer → linked orders and checkout addresses | Derived contact from immutable order snapshots, not a newly authenticated account. Entering an email cannot claim another person's orders. [PR #66](https://github.com/sthamann/veyndo/pull/66), [customer ownership](merchant-operations.md) |
+| Personal merchant enrollment | Welcome-access link → choose/confirm password → normal Studio session | Scanner-safe access page; canonical account checks, session revocation and one-use handoff. [PR #63](https://github.com/sthamann/veyndo/pull/63), [identity contract](experience-integration.md#merchant-password-enrollment-and-email-link-recovery) |
+| Existing experiences discovered | Storyfronts → Edit experience / Open shop | Tenant-bound mount registry, safe operator editor template, no generated duplicate. [PR #64](https://github.com/sthamann/veyndo/pull/64), [discovery](experience-integration.md#discover-and-edit-existing-experiences) |
 
 The main `default` storefront cannot be deleted or changed to headless; it **can** be
 paused or made private. Additional channel deletion checks current orders, customers,

@@ -2,7 +2,7 @@
 
 **Current status:** the operator console and deployment package are implemented
 and tested locally. The managed Rust Studio and `/health` are reachable at
-`https://app.sellama.ai/` (checked 2026-10-06). The root `sellama.ai` currently fails
+`https://app.veyndo.ai/` (checked 2026-10-06). The root `veyndo.ai` currently fails
 TLS hostname negotiation. Public Vercel commerce deployment and production checkout
 remain unverified; see [managed hosting](managed-hosting.md) for the active topology.
 GitHub Pages hosts documentation, not the Rust commerce service.
@@ -76,7 +76,7 @@ python3 scripts/hosting_check.py --origin https://YOUR-BACKEND-DOMAIN
 python3 scripts/prepare_vercel.py --backend https://YOUR-BACKEND-DOMAIN
 ```
 
-Create the dedicated `sellama` Vercel project from this GitHub repository.
+Create the dedicated `veyndo` Vercel project from this GitHub repository.
 Select `frontend` as root, Vite, `npm run build`, and `dist`. **Enable including
 source files outside the root directory**: the frontend imports the shared
 `extensions/sdk/analytics` module. This is also covered by the corrected Docker
@@ -109,7 +109,7 @@ DNS/certificate provisioning for arbitrary merchant domains remains unimplemente
 ## Local release checks
 
 ```sh
-docker build -f deploy/Dockerfile -t sellama:platform .
+docker build -f deploy/Dockerfile -t veyndo:platform .
 # With the existing local Compose PostgreSQL container and private DATABASE_URL:
 python3 scripts/hosting_container.py
 ```
@@ -129,9 +129,9 @@ The Northflank topology, cost model and migration boundaries are in [managed-hos
 
 ## Central provider secrets and shop domains
 
-With wildcard DNS/TLS and `SHOP_DOMAIN_SUFFIX=sellama.ai`, new shops use
-`SHOP.sellama.ai`; `admin.sellama.ai` is the public service directory. Set
-`COMMERCE_PUBLIC_ORIGIN=https://app.sellama.ai` for the shared merchant Studio.
+With wildcard DNS/TLS and `SHOP_DOMAIN_SUFFIX=veyndo.ai`, new shops use
+`SHOP.veyndo.ai`; `admin.veyndo.ai` is the public service directory. Set
+`COMMERCE_PUBLIC_ORIGIN=https://app.veyndo.ai` for the shared merchant Studio.
 Provision `PLATFORM_SECRET_KEY` as a persistent runtime-only 64-character random
 hex key before saving provider API keys in the operator console. All replicas and
 AI workers need the same key; back it up separately. Do not rotate it without
@@ -144,8 +144,8 @@ The generic trusted broker, one-use Studio handoff and hosted frontend mount are
 
 ### Storefront product addresses
 
-Public storefronts use `https://SHOP.sellama.ai/`. The shared Studio deliberately remains at
-`https://app.sellama.ai/?shop=SHOP#merchant` so merchant login stays on its original domain.
+Public storefronts use `https://SHOP.veyndo.ai/`. The shared Studio deliberately remains at
+`https://app.veyndo.ai/?shop=SHOP#merchant` so merchant login stays on its original domain.
 Legacy product bookmarks discard stale `studio` parameters and move to the shop domain.
 Product links use `/products/SKU/LOCALIZED-SLUG` (or `/products/SKU` without a slug),
 with the selected content language and sales channel retained. SKU identity prevents two

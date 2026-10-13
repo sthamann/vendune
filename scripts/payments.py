@@ -8,7 +8,7 @@ class Handler(BaseHTTPRequestHandler):
     def log_message(self,*args):pass
     def answer(self,code,v):self.send_response(code);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(json.dumps(v).encode())
     def do_GET(self):
-        bn=self.headers.get('PayPal-Partner-Attribution-Id');assert bn=='Sellama_Fixture_Only';bn_seen.append(bn)
+        bn=self.headers.get('PayPal-Partner-Attribution-Id');assert bn=='Veyndo_Fixture_Only';bn_seen.append(bn)
         id=self.path.rsplit('/',1)[-1]
         if self.path.startswith('/v2/payments/refunds/'):
             value=pending_refunds[id];value['status']='COMPLETED';return self.answer(200,value)
@@ -18,7 +18,7 @@ class Handler(BaseHTTPRequestHandler):
         body=self.rfile.read(int(self.headers.get('Content-Length',0)))
         if self.path=='/v1/oauth2/token':return self.answer(200,{'access_token':'fixture-access'})
         if self.headers.get('Authorization')!='Bearer fixture-access':return self.answer(401,{})
-        bn=self.headers.get('PayPal-Partner-Attribution-Id');assert bn=='Sellama_Fixture_Only';bn_seen.append(bn)
+        bn=self.headers.get('PayPal-Partner-Attribution-Id');assert bn=='Veyndo_Fixture_Only';bn_seen.append(bn)
         v=json.loads(body or b'{}');key=self.headers.get('PayPal-Request-Id');path=self.path
         if path=='/v1/notifications/verify-webhook-signature':return self.answer(200,{'verification_status':'SUCCESS' if v['transmission_sig']=='fixture-valid' else 'FAILURE'})
         with gate:
@@ -40,7 +40,7 @@ class Handler(BaseHTTPRequestHandler):
             else:return self.answer(404,{})
             keys[(path,key)]=value;self.answer(200,value)
 server=ThreadingHTTPServer(('127.0.0.1',0),Handler);threading.Thread(target=server.serve_forever,daemon=True).start()
-port=server.server_address[1];base='http://127.0.0.1:8794';accounts={t:{'clientId':'fixture-'+t,'clientSecret':'fixture-secret','webhookId':'fixture-webhook','bnCode':'Sellama_Fixture_Only'} for t in ['atelier','workshop']}
+port=server.server_address[1];base='http://127.0.0.1:8794';accounts={t:{'clientId':'fixture-'+t,'clientSecret':'fixture-secret','webhookId':'fixture-webhook','bnCode':'Veyndo_Fixture_Only'} for t in ['atelier','workshop']}
 env={**os.environ,'BIND_ADDR':'127.0.0.1:8794','PAYPAL_SANDBOX_BASE_URL':f'http://127.0.0.1:{port}','PAYPAL_SANDBOX_ACCOUNTS':json.dumps(accounts)}
 log=open(ROOT/'.run/payments-contract.log','w');process=None
 def call(path,body=None,h=None,method=None,expected=200):
@@ -52,7 +52,7 @@ def call(path,body=None,h=None,method=None,expected=200):
     assert code==expected,(path,code,v,expected);return v
 def start():
     global process
-    process=subprocess.Popen([str(ROOT/'target/debug/sellama')],cwd=ROOT,env=env,stdout=log,stderr=log)
+    process=subprocess.Popen([str(ROOT/'target/debug/veyndo')],cwd=ROOT,env=env,stdout=log,stderr=log)
     for _ in range(60):
         if process.poll() is not None:raise RuntimeError('Payment test app failed; inspect .run/payments-contract.log')
         try:call('/health');return

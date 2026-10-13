@@ -11,7 +11,7 @@ Files and their individual responsibilities are listed in [the generated source 
 - [`storyfront-i18n.ts`](storyfront-i18n.ts): Matching English, German, French and Spanish management messages.
 - [`storyfronts.css`](storyfronts.css): Responsive connection cards using shared Studio theme tokens.
 
-`HOSTED_FRONTEND_EDITOR_URL=https://experience.sellama.ai/design/{alias}` links each hosted mount to its existing authenticated editor. It is operator configuration, never a merchant-controlled destination or an access token. See [Experience integration](../../../../docs/experience-integration.md) for ownership and deployment details.
+`HOSTED_FRONTEND_EDITOR_URL=https://experience.veyndo.ai/design/{alias}` links each hosted mount to its existing authenticated editor. It is operator configuration, never a merchant-controlled destination or an access token. See [Experience integration](../../../../docs/experience-integration.md) for ownership and deployment details.
 
 ## Verification
 

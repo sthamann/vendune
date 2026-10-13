@@ -4,10 +4,10 @@ use wasmtime::component::Component;
 use wasmtime::{Engine, Store, StoreLimits, StoreLimitsBuilder};
 mod abi;
 wasmtime::component::bindgen!({path:"extensions/sdk/wit",world:"extension",imports:{default:trappable}});
-pub use self::sellama::commerce::context::{
+pub use self::veyndo::commerce::context::{
     AppRecord, CartItem, CartSnapshot, Money, ProductSnapshot,
 };
-pub use exports::sellama::commerce::hooks::{Kind, Outcome};
+pub use exports::veyndo::commerce::hooks::{Kind, Outcome};
 #[derive(Clone)]
 pub struct Snapshot {
     pub cart: CartSnapshot,
@@ -28,7 +28,7 @@ impl Host {
         Ok(())
     }
 }
-impl self::sellama::commerce::context::Host for Host {
+impl self::veyndo::commerce::context::Host for Host {
     fn cart(&mut self) -> wasmtime::Result<CartSnapshot> {
         self.charge()?;
         Ok(self.snapshot.cart.clone())

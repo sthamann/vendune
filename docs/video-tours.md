@@ -1,6 +1,6 @@
 # New feature video tours
 
-**Recorded 13 October 2026.** Three 1080p tours with English burned-in captions, optional WebVTT and no audio. [Watch the chapter player](https://sthamann.github.io/sellama/index.html#demo). The German/English [team briefing](https://team.sellama.ai/#tours) includes these films alongside the original Experience and SaaS tours.
+**Recorded 13 October 2026.** Three 1080p tours with English burned-in captions, optional WebVTT and no audio. [Watch the chapter player](https://sthamann.github.io/veyndo/index.html#demo). The German/English [team briefing](https://team.veyndo.ai/#tours) includes these films alongside the original Experience and SaaS tours.
 
 ## Capture boundary
 
@@ -23,7 +23,7 @@ Cash is recorded in an isolated demo. B2B policies and EDI permissions are shown
 
 ### Transcript
 
-Connected commerce: a guided tour of the connected Sellama prototype.
+Connected commerce: a guided tour of the connected Veyndo prototype.
 Cashier focus keeps products and the current sale together. Complete a cash sale and generate its receipt.
 The same sale appears in order management, with payment, fulfillment, documents and history.
 Configure company buying with a cost center, budget, approval threshold and employee permissions.
@@ -47,7 +47,7 @@ No paid model call is made. The Flow canvas branch is an unsaved edit; execution
 
 ### Transcript
 
-Build and automate: a guided tour of the connected Sellama prototype.
+Build and automate: a guided tour of the connected Veyndo prototype.
 Start from a working app pattern. Add controls, undo, switch merchant and shopper views, then inspect its data model.
 Choose a real product in the sandbox, enter care advice and save it through the app’s actual data contract.
 Inspect the cashier event flow and add a branch on its canvas. Completed executions show the earlier sale’s note.
@@ -71,7 +71,7 @@ Marketplace credentials are not connected. Visitor observations and orders are s
 
 ### Transcript
 
-Connected intelligence: a guided tour of the connected Sellama prototype.
+Connected intelligence: a guided tour of the connected Veyndo prototype.
 Override a marketplace title, description, images or mapped fields without replacing the original catalog product.
 Explore browser, screen and referral groups alongside product views, cart additions and native order counts.
 The graph connects observed products to their existing shop knowledge. Inspect a consented guest journey for its evidence.

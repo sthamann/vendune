@@ -209,7 +209,7 @@ these do not establish a live merchant's ERP credentials or provider settlement.
 
 ### Repeatable public lifecycle acceptance
 
-A fresh sample shop created through `start.sellama.ai` was used for package
+A fresh sample shop created through `start.veyndo.ai` was used for package
 creation, staging installation, selected package/data releases, public product
 advice, edit/upgrade, restoration through a new immutable revision, recoverable
 archive/restore and simulated checkout. The dated [release evidence](current-release.md)

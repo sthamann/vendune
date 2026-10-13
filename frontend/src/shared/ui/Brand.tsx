@@ -1,31 +1,31 @@
-/** Shared Sellama identity; product branding is independent of tenant-owned company logos and session keys. */
+/** Shared Veyndo identity; product branding is independent of tenant-owned company logos and session keys. */
 import "./brand.css";
 export const BRAND = Object.freeze({
-  name: "Sellama",
+  name: "VEYNDO",
   studio: "Studio",
-  repository: "https://github.com/sthamann/sellama",
-  mark: "/brand/sellama-mark.svg",
-  logo: "/brand/sellama-logo.svg",
-  logoDark: "/brand/sellama-logo-dark.svg",
+  repository: "https://github.com/sthamann/veyndo",
+  mark: "/brand/veyndo-mark.svg",
+  logo: "/brand/veyndo-logo.svg",
+  logoDark: "/brand/veyndo-logo-dark.svg",
 });
 export default function Brand({ markOnly = false }: { markOnly?: boolean }) {
   return markOnly ? (
-    <img className="sellama-mark" src={BRAND.mark} alt={BRAND.name} />
+    <img className="veyndo-mark" src={BRAND.mark} alt={BRAND.name} />
   ) : (
-    <span className="sellama-brand">
-      <span className="sellama-logo-pair" role="img" aria-label={BRAND.name}>
+    <span className="veyndo-brand">
+      <span className="veyndo-logo-pair" role="img" aria-label={BRAND.name}>
         <img
-          className="sellama-logo sellama-logo--light"
+          className="veyndo-logo veyndo-logo--light"
           src={BRAND.logo}
           alt=""
         />
         <img
-          className="sellama-logo sellama-logo--dark"
+          className="veyndo-logo veyndo-logo--dark"
           src={BRAND.logoDark}
           alt=""
         />
       </span>
-      <span className="sellama-wordmark">
+      <span className="veyndo-wordmark">
         <small>{BRAND.studio}</small>
       </span>
     </span>

@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Start standard PostgreSQL and Qdrant
-        run: DB_PASSWORD=ci-only-password docker compose -p sellama up -d --wait postgres qdrant
+        run: DB_PASSWORD=ci-only-password docker compose -p veyndo up -d --wait postgres qdrant
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
       - uses: actions/setup-node@v4
@@ -72,7 +72,7 @@ jobs:
       - run: python3 scripts/differential.py && python3 scripts/context_differential.py && python3 scripts/delivery_differential.py && python3 scripts/rule_differential.py && python3 scripts/automation_registry.py && python3 scripts/automation_differential.py
       - name: Real database and local provider integration (single suite registry)
         run: |
-          COVERAGE_PROCESS_START="$PWD/scripts/testing/.coveragerc" PYTHONPATH="$PWD/scripts/testing" python3 scripts/verify_integration.py --existing-database --container sellama-postgres-1
+          COVERAGE_PROCESS_START="$PWD/scripts/testing/.coveragerc" PYTHONPATH="$PWD/scripts/testing" python3 scripts/verify_integration.py --existing-database --container veyndo-postgres-1
       - name: Coverage reports and regression gates
         run: |
           mkdir -p artifacts/coverage

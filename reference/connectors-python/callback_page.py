@@ -5,27 +5,27 @@ from html import escape
 MESSAGES = {
     "en": (
         "Account connected",
-        "Return to Sellama Studio and refresh the app.",
+        "Return to Veyndo Studio and refresh the app.",
         "Connection failed",
-        "Authorization failed or expired. Start again in Sellama Studio.",
+        "Authorization failed or expired. Start again in Veyndo Studio.",
     ),
     "de": (
         "Konto verbunden",
-        "Kehre ins Sellama Studio zurück und aktualisiere die App.",
+        "Kehre ins Veyndo Studio zurück und aktualisiere die App.",
         "Verbindung fehlgeschlagen",
-        "Die Freigabe ist fehlgeschlagen oder abgelaufen. Starte erneut im Sellama Studio.",
+        "Die Freigabe ist fehlgeschlagen oder abgelaufen. Starte erneut im Veyndo Studio.",
     ),
     "fr": (
         "Compte connecté",
-        "Revenez dans Sellama Studio et actualisez l’application.",
+        "Revenez dans Veyndo Studio et actualisez l’application.",
         "Échec de connexion",
-        "L’autorisation a échoué ou expiré. Recommencez dans Sellama Studio.",
+        "L’autorisation a échoué ou expiré. Recommencez dans Veyndo Studio.",
     ),
     "es": (
         "Cuenta conectada",
-        "Vuelve a Sellama Studio y actualiza la app.",
+        "Vuelve a Veyndo Studio y actualiza la app.",
         "Conexión fallida",
-        "La autorización falló o caducó. Vuelve a empezar en Sellama Studio.",
+        "La autorización falló o caducó. Vuelve a empezar en Veyndo Studio.",
     ),
 }
 
@@ -36,4 +36,4 @@ def render(accept_language, success):
         language = "en"
     text = MESSAGES[language]
     title, message = text[:2] if success else text[2:]
-    return f"""<!doctype html><html lang="{language}"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(title)}</title><style>body{{font:17px system-ui;background:#edf3ff;color:#172e51;margin:0;display:grid;min-height:100vh;place-items:center}}main{{max-width:480px;background:white;padding:48px;border:1px solid #d8e4f6;border-radius:24px;box-shadow:0 12px 50px #243c6010}}small{{color:#387bff}}h1{{font-size:30px}}p{{line-height:1.6}}</style><main><small>Sellama Studio</small><h1>{escape(title)}</h1><p>{escape(message)}</p></main></html>""".encode()
+    return f"""<!doctype html><html lang="{language}"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(title)}</title><style>body{{font:17px system-ui;background:#edf3ff;color:#172e51;margin:0;display:grid;min-height:100vh;place-items:center}}main{{max-width:480px;background:white;padding:48px;border:1px solid #d8e4f6;border-radius:24px;box-shadow:0 12px 50px #243c6010}}small{{color:#387bff}}h1{{font-size:30px}}p{{line-height:1.6}}</style><main><small>Veyndo Studio</small><h1>{escape(title)}</h1><p>{escape(message)}</p></main></html>""".encode()
