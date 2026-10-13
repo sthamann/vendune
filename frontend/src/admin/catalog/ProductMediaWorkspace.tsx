@@ -32,9 +32,12 @@ export default function ProductMediaWorkspace({
     [showUrl, setShowUrl] = useState(false);
   const current = useRef(draft);
   current.current = draft;
+  const writable = useRef(canWrite);
+  writable.current = canWrite;
   const media = draft.commerce.media as GalleryImage[],
     image = media.find((m) => m.id === selected) ?? media[0];
   const change = (media: GalleryImage[]) =>
+    writable.current &&
     onChange({
       ...current.current,
       commerce: { ...current.current.commerce, media },
@@ -74,7 +77,7 @@ export default function ProductMediaWorkspace({
         ) : (
           <p>{w("uploadHint")}</p>
         ))}
-      {showUrl && (
+      {canWrite && showUrl && (
         <div className="media-url-entry">
           <label>
             {w("url")}
@@ -229,7 +232,7 @@ export default function ProductMediaWorkspace({
           disabled={busy || unsaved || media.length >= 20}
         />
       )}
-      {removing && image && (
+      {canWrite && removing && image && (
         <ConfirmDialog
           title={w("deleteTitle")}
           onCancel={() => setRemoving(false)}
