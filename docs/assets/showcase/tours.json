@@ -4,76 +4,74 @@
     "connected-commerce": {
       "id": "connected-commerce",
       "title": "Connected commerce",
-      "durationSeconds": 70,
+      "durationSeconds": 38.333333,
       "chapters": [
         {
-          "start": 5,
-          "title": "Cashier"
+          "start": 0,
+          "title": "VEYNDO"
         },
         {
-          "start": 25,
-          "title": "One Order System"
+          "start": 4,
+          "title": "Connected commerce"
         },
         {
-          "start": 35,
-          "title": "Business Buying"
-        },
-        {
-          "start": 53,
-          "title": "Independent Apps"
+          "start": 34,
+          "title": "People in control"
         }
       ],
-      "sourceCommit": "c6b3c3c1a6050c36e5a64de900b873f856ab733e",
+      "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
       "capturedAt": "2026-10-13",
       "language": "en",
       "audio": false,
       "captions": "Burned in and WebVTT",
       "width": 1920,
       "height": 1080,
-      "description": "Complete a native cash sale, issue its shared receipt, inspect the order and configure business buying.",
-      "boundary": "Cash is recorded in an isolated demo. B2B policies and EDI permissions are shown; no fiscal device certification or external EDI delivery is claimed.",
-      "source": "Actual local merged Vendune UI, isolated synthetic shop; chapter trims preserve action order.",
-      "sha256": "c0d3ecd5c7a998b04077b47d5a364c337cb2ce7605a46e29cd226502a9ce61c7",
-      "bytes": 5288803,
+      "description": "One catalogue. Shared orders. Controlled business purchasing.",
+      "boundary": "Actual UI screencast. A cash sale was recorded only in an isolated synthetic shop; no fiscal-device or external EDI delivery is demonstrated.",
+      "source": "Actual VEYNDO rebrand branch, isolated synthetic shop; waits/holds edited for readability, not latency evidence.",
+      "sha256": "bbc6c63cf3adf7b01993c035c2fdadf1d35d0ca1c37854be60c87cbae5ab7e4c",
+      "bytes": 1791002,
       "codec": "h264",
-      "fps": 30
+      "fps": 30,
+      "brand": "VEYNDO",
+      "caption": "One catalogue. Shared orders. Controlled business purchasing.",
+      "project": "connected-commerce"
     },
     "build-and-automate": {
       "id": "build-and-automate",
       "title": "Build and automate",
-      "durationSeconds": 76,
+      "durationSeconds": 29.0,
       "chapters": [
         {
-          "start": 5,
-          "title": "Visual Design"
+          "start": 0,
+          "title": "VEYNDO"
+        },
+        {
+          "start": 4,
+          "title": "Build and automate"
         },
         {
           "start": 25,
-          "title": "Working Preview"
-        },
-        {
-          "start": 41,
-          "title": "Event Flows"
-        },
-        {
-          "start": 57,
-          "title": "Selective Release"
+          "title": "People in control"
         }
       ],
-      "sourceCommit": "c6b3c3c1a6050c36e5a64de900b873f856ab733e",
+      "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
       "capturedAt": "2026-10-13",
       "language": "en",
       "audio": false,
       "captions": "Burned in and WebVTT",
       "width": 1920,
       "height": 1080,
-      "description": "Design an app visually, save a product-bound record in its working preview and publish just the app package from staging.",
-      "boundary": "No paid model call is made. The Flow canvas branch is an unsaved edit; execution history shows the already saved POS note flow.",
-      "source": "Actual local merged Vendune UI, isolated synthetic shop; chapter trims preserve action order.",
-      "sha256": "986dd8f546817ee48feb1c0e20b45c4c619e432103c567ac6f4a1910bec767a0",
-      "bytes": 5994456,
+      "description": "Typed apps. Visible workflows. Deliberate releases.",
+      "boundary": "Editorial sequence of fresh actual UI stills. An app draft version, an unsaved Flow edit and a selected product release are shown as distinct operations.",
+      "source": "Actual VEYNDO rebrand branch, isolated synthetic shop; waits/holds edited for readability, not latency evidence.",
+      "sha256": "7fe8ce372034246f73d17c6a960e23762846bcfef6b95cb69b8cc64bae09e155",
+      "bytes": 874377,
       "codec": "h264",
-      "fps": 30
+      "fps": 30,
+      "brand": "VEYNDO",
+      "caption": "Typed apps. Visible workflows. Deliberate releases.",
+      "project": "build-and-automate"
     },
     "connected-intelligence": {
       "id": "connected-intelligence",
@@ -86,7 +84,7 @@
         },
         {
           "start": 4,
-          "title": "Knowledge and boundaries"
+          "title": "Connected intelligence"
         },
         {
           "start": 46,
@@ -100,13 +98,16 @@
       "captions": "Burned in and WebVTT",
       "width": 1920,
       "height": 1080,
-      "description": "Explore connected knowledge, a reviewed demonstration source and explicit limits for bounded price autonomy.",
-      "boundary": "Synthetic demonstration source and shop. Price autonomy stays disabled. No model training, continuous autonomous optimization or external assistant account is claimed.",
-      "source": "Actual local VEYNDO UI from a verified rebrand branch, isolated synthetic shop; no claim of merged or production deployment.",
+      "description": "Connected knowledge. Reviewed sources. Explicit limits.",
+      "boundary": "Actual UI screencast of reviewed synthetic knowledge and explicit autonomy limits. No continuous business optimization or model training is demonstrated.",
+      "source": "Actual VEYNDO rebrand branch, isolated synthetic shop; waits/holds edited for readability, not latency evidence.",
       "sha256": "6c3cdbbb6c34c701964c88a33ec8f8ea0a3059dfb353620d2c6d8243df79e904",
       "bytes": 1481543,
       "codec": "h264",
-      "fps": 30
+      "fps": 30,
+      "brand": "VEYNDO",
+      "caption": "Connected knowledge. Reviewed sources. Explicit limits.",
+      "project": "connected-intelligence"
     }
   }
 }

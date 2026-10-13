@@ -1,14 +1,24 @@
 {
-  "capturedAt": "2026-10-06",
-  "freshCaptureSource": "84d4f1bc45811f3ac0b1e8646f44b147b9771dec",
+  "capturedAt": "2026-10-13",
+  "freshCaptureSource": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
   "clips": {
     "checkout": {
-      "durationSeconds": 27.833333,
-      "width": 1440,
-      "height": 1000,
-      "bytes": 755436,
-      "sha256": "b1e0cbf1d66531cbc0744cb0861edb1924fd7b1d8e9b901cd3864af850dfb2e4",
-      "source": "84d4f1b; checkout-sku.webm [154,166] + checkout-order.webm in capture order; idle removed; no speed changes"
+      "durationSeconds": 24.9,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 853029,
+      "sha256": "dfe1d4a682215ff9f55a1d13880cc26f67d1555399cba7698d35ec992b274e19",
+      "source": "Actual VEYNDO rebrand branch, isolated synthetic shop; waits/holds edited for readability, not latency evidence.",
+      "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+      "capturedAt": "2026-10-13",
+      "brand": "VEYNDO",
+      "audio": false,
+      "language": "en",
+      "codec": "h264",
+      "fps": 30,
+      "boundary": "Actual UI screencast with synthetic contact/address data and simulated authorization; no real payment.",
+      "caption": "Choose a variant. Review the order. Keep the experience connected.",
+      "project": "checkout"
     },
     "app-studio": {
       "durationSeconds": 44.6,
@@ -16,107 +26,157 @@
       "height": 1080,
       "bytes": 1715590,
       "sha256": "f352787280835fa95b7fd09c97f13d3852b992760f3c646868a5c0a38c85abb9",
-      "source": "Actual VEYNDO UI, isolated synthetic shop, core 5b2ebb5; static waits shortened; approved Living V identity. No live payment or paid inference."
+      "source": "Actual VEYNDO rebrand branch, isolated synthetic shop; waits/holds edited for readability, not latency evidence.",
+      "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+      "capturedAt": "2026-10-13",
+      "brand": "VEYNDO",
+      "audio": false,
+      "language": "en",
+      "codec": "h264",
+      "fps": 30,
+      "boundary": "Actual UI screencast. The saved immutable app version is a draft, not a published package.",
+      "caption": "Design it. Test it privately. Save a version.",
+      "project": "app-studio"
     },
     "knowledge": {
-      "durationSeconds": 6.0,
-      "width": 1024,
-      "height": 576,
-      "bytes": 158147,
-      "sha256": "e468a914cf0f9227e12ea8a1eeda6f0bc034b1c3bf893e21ef664f636f0275c2",
-      "source": "036b36a; ../feature-tour/knowledge-publication.gif; H.264 transcode; source presentation holds retained"
+      "durationSeconds": 50.4,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 1481543,
+      "sha256": "6c3cdbbb6c34c701964c88a33ec8f8ea0a3059dfb353620d2c6d8243df79e904",
+      "source": "Actual VEYNDO rebrand branch, isolated synthetic shop; waits/holds edited for readability, not latency evidence.",
+      "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+      "capturedAt": "2026-10-13",
+      "brand": "VEYNDO",
+      "audio": false,
+      "language": "en",
+      "codec": "h264",
+      "fps": 30,
+      "boundary": "Actual UI screencast of a reviewed synthetic source. Price autonomy remains disabled; no model training is demonstrated.",
+      "caption": "Connected knowledge. Reviewed sources. Explicit limits.",
+      "project": "connected-intelligence"
     },
     "flows": {
-      "durationSeconds": 8.5,
-      "width": 1024,
-      "height": 576,
-      "bytes": 256729,
-      "sha256": "db76a73b4f6a4a5614ec38965437efb0c3424d788e0dbd1eb97ea927b4bd2595",
-      "source": "036b36a; ../feature-tour/flow-canvas.gif; H.264 transcode; source presentation holds retained"
+      "durationSeconds": 24.3,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 882185,
+      "sha256": "d3e0a303596273867f57d415c2c02ba32467d59e356d02da88d150f751b86acf",
+      "source": "Actual VEYNDO rebrand branch, isolated synthetic shop; waits/holds edited for readability, not latency evidence.",
+      "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+      "capturedAt": "2026-10-13",
+      "brand": "VEYNDO",
+      "audio": false,
+      "language": "en",
+      "codec": "h264",
+      "fps": 30,
+      "boundary": "Actual UI screencast. The edited branch is not saved; execution history belongs to existing saved flows.",
+      "caption": "Inspect execution traces. Design a reviewable flow. Publish deliberately.",
+      "project": "flows"
     },
     "release": {
-      "durationSeconds": 5.5,
-      "width": 1024,
-      "height": 576,
-      "bytes": 85057,
-      "sha256": "4991e1e9fae58e1de0fb7cee5cf05a41d05d18583d775c3414ecb51339b9c56c",
-      "source": "036b36a; ../feature-tour/selective-release.gif; H.264 transcode; source presentation holds retained"
+      "durationSeconds": 20.0,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 483308,
+      "sha256": "b0f03e3224d763b0593f478072a4c7029fc2368019cdb696ba9f24deb5a052b3",
+      "source": "Actual VEYNDO rebrand branch, isolated synthetic shop; waits/holds edited for readability, not latency evidence.",
+      "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+      "capturedAt": "2026-10-13",
+      "brand": "VEYNDO",
+      "audio": false,
+      "language": "en",
+      "codec": "h264",
+      "fps": 30,
+      "boundary": "Editorial sequence of fresh actual UI stills. A selected product change was published in the synthetic shop; this does not show an app-package release.",
+      "caption": "Private changes. Explicit review. Selected publication.",
+      "project": "release"
     },
     "translations": {
-      "durationSeconds": 5.375,
-      "width": 1024,
-      "height": 576,
-      "bytes": 78940,
-      "sha256": "f2aeac422099e0e830b5f1dfcc2fa8cab4c6b56716b431986495a9bf138a25d7",
-      "source": "036b36a; ../feature-tour/product-languages.gif; H.264 transcode; source presentation holds retained"
+      "durationSeconds": 17.6,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 506490,
+      "sha256": "11730a161f67c6579810db0ab40195ea1f2a3057fba255216b3d34d9edc877aa",
+      "source": "Actual VEYNDO rebrand branch, isolated synthetic shop; waits/holds edited for readability, not latency evidence.",
+      "sourceCommit": "5b2ebb5067be27b143f3dfadf28c2f42141ae2a0",
+      "capturedAt": "2026-10-13",
+      "brand": "VEYNDO",
+      "audio": false,
+      "language": "en",
+      "codec": "h264",
+      "fps": 30,
+      "boundary": "Actual UI screencast of existing English/German/French content. No translation-provider job was invoked.",
+      "caption": "One catalogue. Separate content languages. Explicit inheritance.",
+      "project": "translations"
     }
   },
   "screenshots": {
     "flows-gallery.webp": {
-      "width": 1024,
-      "height": 576,
-      "sha256": "7799d9b6e339fd154d2956c7483921ec7870bede536593d93955b07015b02003",
-      "source": "036b36a; feature-tour/flow-canvas.gif frame 10; unretouched WebP transcode"
+      "width": 1440,
+      "height": 900,
+      "sha256": "8dd24083aec9d420820275cf5247c97f7f6798d2437898e8438c9381675fdc64",
+      "source": "Fresh actual VEYNDO UI, isolated synthetic shop, core 5b2ebb5, 13 October 2026."
     },
     "checkout-complete.webp": {
-      "width": 1440,
-      "height": 1000,
-      "sha256": "650c1719850b47950a67ec17d90fbfb6caf406f28c2a266daf66e7a16bf06a92",
-      "source": "84d4f1b actual UI"
+      "width": 1425,
+      "height": 891,
+      "sha256": "f495c4cc6623d81e47e5e7f4a6f779519027df04f85ffbba322354b9e924b2d5",
+      "source": "Fresh actual VEYNDO UI, isolated synthetic shop, core 5b2ebb5, 13 October 2026."
     },
     "knowledge.webp": {
-      "width": 1024,
-      "height": 576,
-      "sha256": "f5003d393769c31ad20fbceba3da60fac886a82c79dfa98f2d1a6c1bfafdd1ed",
-      "source": "feature-tour; see README.md"
+      "width": 1440,
+      "height": 900,
+      "sha256": "e7ab19ea022b4c8d8099e2a9b88af1d868692a5a2df39b18c78517bb3b6004e3",
+      "source": "Fresh actual VEYNDO UI, isolated synthetic shop, core 5b2ebb5, 13 October 2026."
     },
     "release.webp": {
-      "width": 1024,
-      "height": 576,
-      "sha256": "7ed45b547c5dc9d4846dcbf20d11241442d2114cb410ebea434502a401407c23",
-      "source": "feature-tour; see README.md"
+      "width": 1440,
+      "height": 900,
+      "sha256": "7d1773ca706488f1b12f584e2e348f784e61f773745e56efcce2104d32d00129",
+      "source": "Fresh actual VEYNDO UI, isolated synthetic shop, core 5b2ebb5, 13 October 2026."
     },
     "app-studio-gallery.webp": {
-      "width": 1280,
-      "height": 720,
-      "sha256": "6e60067bbc00224caff3b599d5a5ec835593ad7056494d4117090f93f3a41b02",
-      "source": "feature-tour; see README.md"
+      "width": 1440,
+      "height": 900,
+      "sha256": "d7a1fb76e8309995426b368f8714c5b66c466fb5d1a645622e5d1becf5330752",
+      "source": "Fresh actual VEYNDO UI, isolated synthetic shop, core 5b2ebb5, 13 October 2026."
     },
     "flows.webp": {
-      "width": 1024,
-      "height": 576,
-      "sha256": "7799d9b6e339fd154d2956c7483921ec7870bede536593d93955b07015b02003",
-      "source": "036b36a; feature-tour/flow-canvas.gif frame 10; unretouched WebP transcode"
+      "width": 1440,
+      "height": 900,
+      "sha256": "fee2145825f95f1d65645844f2cdda971d512ef6a77a4cb57c2480fca55828b6",
+      "source": "Fresh actual VEYNDO UI, isolated synthetic shop, core 5b2ebb5, 13 October 2026."
     },
     "checkout.webp": {
-      "width": 1440,
-      "height": 1000,
-      "sha256": "4fba1ecdcdcce6f3a48a45aa4238a21dd8edcaf881ef0c27eced718df2c74176",
-      "source": "84d4f1b actual UI"
+      "width": 1425,
+      "height": 891,
+      "sha256": "f495c4cc6623d81e47e5e7f4a6f779519027df04f85ffbba322354b9e924b2d5",
+      "source": "Fresh actual VEYNDO UI, isolated synthetic shop, core 5b2ebb5, 13 October 2026."
     },
     "translations.webp": {
-      "width": 1024,
-      "height": 576,
-      "sha256": "c9994f8b42679a14a3dba515f7577da33470f25f9aceb38594ec60de029fde2f",
-      "source": "feature-tour; see README.md"
+      "width": 1440,
+      "height": 900,
+      "sha256": "b4bd6aa2ee0ef89df8ba80f55201786426c718db5dbd3ddcc84cc746def37c16",
+      "source": "Fresh actual VEYNDO UI, isolated synthetic shop, core 5b2ebb5, 13 October 2026."
     },
     "knowledge-gallery.webp": {
-      "width": 1024,
-      "height": 576,
-      "sha256": "74fad595355eeeeefa367e4da6b7e20b1b5cac40e3150c81fd312bd7e1f5c44a",
-      "source": "feature-tour; see README.md"
+      "width": 1440,
+      "height": 900,
+      "sha256": "e7ab19ea022b4c8d8099e2a9b88af1d868692a5a2df39b18c78517bb3b6004e3",
+      "source": "Fresh actual VEYNDO UI, isolated synthetic shop, core 5b2ebb5, 13 October 2026."
     },
     "app-studio.webp": {
       "width": 1440,
       "height": 900,
       "sha256": "72542a94ceee50e4ca6d73844b7e369914042213c7c4848942e765b6f09b2113",
-      "source": "Actual isolated VEYNDO rebrand branch, core 5b2ebb5, 13 October 2026."
+      "source": "Fresh actual VEYNDO UI, isolated synthetic shop, core 5b2ebb5, 13 October 2026."
     },
     "storefront.webp": {
       "width": 1425,
       "height": 891,
       "sha256": "58ee8d28d797531637ea5abdd3cbeac9b761f1daba20dc0699b1363283212f2d",
-      "source": "Actual isolated VEYNDO rebrand branch, core 5b2ebb5, 13 October 2026."
+      "source": "Fresh actual VEYNDO UI, isolated synthetic shop, core 5b2ebb5, 13 October 2026."
     },
     "product-detail.webp": {
       "width": 1440,
