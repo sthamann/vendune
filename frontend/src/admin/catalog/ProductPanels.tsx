@@ -22,7 +22,9 @@ export default function ProductPanels({
   lang,
   categories,
   onChange,
+  canWrite = true,
 }: {
+  canWrite?: boolean;
   request: RequestFn;
   tab: string;
   draft: ProductDraft;
@@ -67,7 +69,12 @@ export default function ProductPanels({
         <h2>
           {c("rich")} · {lang.toUpperCase()}
         </h2>
-        <ProductRich draft={d} lang={lang} onChange={onChange} />
+        <ProductRich
+          canWrite={canWrite}
+          draft={d}
+          lang={lang}
+          onChange={onChange}
+        />
         <div className="catalog-form-grid">
           {(["manufacturer", "manufacturerNumber", "ean"] as const).map((k) => (
             <label key={k}>

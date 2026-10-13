@@ -10,7 +10,9 @@ export default function ProductEditorExtras({
   request,
   change,
   selectedApp,
+  canWrite = true,
 }: {
+  canWrite?: boolean;
   id: string;
   tab: string;
   draft: ProductDraft;
@@ -22,16 +24,18 @@ export default function ProductEditorExtras({
     <>
       {" "}
       {tab === "prices" && (
-        <TaxClassSelect
-          request={request}
-          value={draft.extra.taxClassId ?? ""}
-          onChange={(taxClassId) =>
-            change({
-              ...draft,
-              extra: { ...draft.extra, taxClassId: taxClassId || null },
-            })
-          }
-        />
+        <fieldset className="catalog-permission-fields" disabled={!canWrite}>
+          <TaxClassSelect
+            request={request}
+            value={draft.extra.taxClassId ?? ""}
+            onChange={(taxClassId) =>
+              change({
+                ...draft,
+                extra: { ...draft.extra, taxClassId: taxClassId || null },
+              })
+            }
+          />
+        </fieldset>
       )}
       {id && tab === "general" && (
         <AppSurfaceSlot

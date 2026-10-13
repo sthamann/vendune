@@ -13,7 +13,9 @@ export default function ProductVariants({
   onOpen,
   onChange,
   dirty = false,
+  canWrite = true,
 }: {
+  canWrite?: boolean;
   draft: ProductDraft;
   request: RequestFn;
   onOpen: (id: string) => void;
@@ -65,12 +67,14 @@ export default function ProductVariants({
           {v("parent")}
         </button>
         <h3>{c("options")}</h3>
-        <PairFields
-          value={draft.catalog.options}
-          onChange={(options) =>
-            onChange({ ...draft, catalog: { ...draft.catalog, options } })
-          }
-        />
+        <fieldset className="catalog-permission-fields" disabled={!canWrite}>
+          <PairFields
+            value={draft.catalog.options}
+            onChange={(options) =>
+              onChange({ ...draft, catalog: { ...draft.catalog, options } })
+            }
+          />
+        </fieldset>
       </>
     );
   return (
@@ -121,13 +125,15 @@ export default function ProductVariants({
         </button>
       )}
       {error && <p role="alert">{error}</p>}
-      <fieldset disabled={dirty || busy}>
-        <VariantGenerator
-          parent={draft}
-          request={request}
-          onCreated={async () => setReload((n) => n + 1)}
-        />
-      </fieldset>
+      {canWrite && (
+        <fieldset disabled={dirty || busy}>
+          <VariantGenerator
+            parent={draft}
+            request={request}
+            onCreated={async () => setReload((n) => n + 1)}
+          />
+        </fieldset>
+      )}
     </>
   );
 }

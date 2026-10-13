@@ -15,7 +15,9 @@ export default function ProductMediaWorkspace({
   request,
   onChange,
   unsaved = false,
+  canWrite = true,
 }: {
+  canWrite?: boolean;
   draft: ProductDraft;
   request: RequestFn;
   onChange: (draft: ProductDraft) => void;
@@ -54,23 +56,24 @@ export default function ProductMediaWorkspace({
           type="button"
           className="studio-secondary"
           onClick={() => setShowUrl((v) => !v)}
-          disabled={busy || media.length >= 20}
+          disabled={!canWrite || busy || media.length >= 20}
         >
           {w("addUrl")}
         </button>
       </header>
-      {draft.id ? (
-        <MediaDropzone
-          id={draft.id}
-          mainLocale={mainLocale}
-          count={media.length}
-          request={request}
-          onImages={append}
-          onBusy={setBusy}
-        />
-      ) : (
-        <p>{w("uploadHint")}</p>
-      )}
+      {canWrite &&
+        (draft.id ? (
+          <MediaDropzone
+            id={draft.id}
+            mainLocale={mainLocale}
+            count={media.length}
+            request={request}
+            onImages={append}
+            onBusy={setBusy}
+          />
+        ) : (
+          <p>{w("uploadHint")}</p>
+        ))}
       {showUrl && (
         <div className="media-url-entry">
           <label>
@@ -141,77 +144,82 @@ export default function ProductMediaWorkspace({
                 src={image.url}
                 alt={mediaAlt(image, language, mainLocale)}
               />
-              <LocalizedField
-                label={w("alt")}
-                maxLength={100}
-                value={image.alt ?? { [mainLocale]: image.view }}
-                onChange={(alt) =>
-                  change(
-                    media.map((m) => (m.id === image.id ? { ...m, alt } : m)),
-                  )
-                }
-              />
-              <label>
-                {w("url")}
-                <input
-                  value={image.url}
-                  onChange={(e) =>
+              <fieldset
+                className="catalog-permission-fields"
+                disabled={!canWrite}
+              >
+                <LocalizedField
+                  label={w("alt")}
+                  maxLength={100}
+                  value={image.alt ?? { [mainLocale]: image.view }}
+                  onChange={(alt) =>
                     change(
-                      media.map((m) =>
-                        m.id === image.id ? { ...m, url: e.target.value } : m,
-                      ),
+                      media.map((m) => (m.id === image.id ? { ...m, alt } : m)),
                     )
                   }
                 />
-              </label>
-              <div className="media-actions">
-                <button
-                  type="button"
-                  className="studio-secondary"
-                  disabled={media[0].id === image.id || busy}
-                  onClick={() =>
-                    change(moveImage(media, media.indexOf(image), 0))
-                  }
-                >
-                  {w("makeCover")}
-                </button>
-                {([-1, 1] as const).map((delta) => (
-                  <button
-                    type="button"
-                    className="studio-secondary"
-                    key={delta}
-                    disabled={
-                      busy ||
-                      media.indexOf(image) + delta < 0 ||
-                      media.indexOf(image) + delta >= media.length
-                    }
-                    onClick={() =>
+                <label>
+                  {w("url")}
+                  <input
+                    value={image.url}
+                    onChange={(e) =>
                       change(
-                        moveImage(
-                          media,
-                          media.indexOf(image),
-                          media.indexOf(image) + delta,
+                        media.map((m) =>
+                          m.id === image.id ? { ...m, url: e.target.value } : m,
                         ),
                       )
                     }
+                  />
+                </label>
+                <div className="media-actions">
+                  <button
+                    type="button"
+                    className="studio-secondary"
+                    disabled={media[0].id === image.id || busy}
+                    onClick={() =>
+                      change(moveImage(media, media.indexOf(image), 0))
+                    }
                   >
-                    {w(delta < 0 ? "previous" : "next")}
+                    {w("makeCover")}
                   </button>
-                ))}
-                <button
-                  type="button"
-                  className="studio-secondary"
-                  disabled={busy}
-                  onClick={() => setRemoving(true)}
-                >
-                  {w("confirm")}
-                </button>
-              </div>
+                  {([-1, 1] as const).map((delta) => (
+                    <button
+                      type="button"
+                      className="studio-secondary"
+                      key={delta}
+                      disabled={
+                        busy ||
+                        media.indexOf(image) + delta < 0 ||
+                        media.indexOf(image) + delta >= media.length
+                      }
+                      onClick={() =>
+                        change(
+                          moveImage(
+                            media,
+                            media.indexOf(image),
+                            media.indexOf(image) + delta,
+                          ),
+                        )
+                      }
+                    >
+                      {w(delta < 0 ? "previous" : "next")}
+                    </button>
+                  ))}
+                  <button
+                    type="button"
+                    className="studio-secondary"
+                    disabled={busy}
+                    onClick={() => setRemoving(true)}
+                  >
+                    {w("confirm")}
+                  </button>
+                </div>
+              </fieldset>
             </aside>
           )}
         </div>
       )}
-      {draft.id && (
+      {draft.id && canWrite && (
         <AiImageStudio
           productId={draft.id}
           revision={draft.revision}

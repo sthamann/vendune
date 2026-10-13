@@ -183,6 +183,7 @@ export default function StudioRoutes() {
   ) : tab === "productData" ? (
     connected ? (
       <ProductDataView
+        canWrite={access.includes("catalog.write")}
         request={request}
         onEntity={openEntity}
         initialId={

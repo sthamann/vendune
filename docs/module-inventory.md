@@ -523,6 +523,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/catalog/ProductCurrencyPrices.tsx](../frontend/src/admin/catalog/ProductCurrencyPrices.tsx) | Exact per-currency decimals live in the same revisioned product draft, including variants. |
 | [frontend/src/admin/catalog/ProductDataView.tsx](../frontend/src/admin/catalog/ProductDataView.tsx) | Central catalog workspace: server-filtered cursor list, product details and hierarchical categories. |
 | [frontend/src/admin/catalog/ProductEditor.tsx](../frontend/src/admin/catalog/ProductEditor.tsx) | Revision-aware product aggregate editor: one save, translation tabs and product-scoped linked capabilities. |
+| [frontend/src/admin/catalog/ProductEditorActions.tsx](../frontend/src/admin/catalog/ProductEditorActions.tsx) | Product mutation actions share the workspace write grant; read-only users can still inspect all product tabs. |
 | [frontend/src/admin/catalog/ProductEditorExtras.tsx](../frontend/src/admin/catalog/ProductEditorExtras.tsx) | Price-tax selection and permission-filtered extension slots attached to the product editor. |
 | [frontend/src/admin/catalog/ProductEditorNav.tsx](../frontend/src/admin/catalog/ProductEditorNav.tsx) | Core product tabs and installed app submenus share one accessible navigation. |
 | [frontend/src/admin/catalog/ProductLocalizedContent.tsx](../frontend/src/admin/catalog/ProductLocalizedContent.tsx) | Consistent main-language inheritance for product rich documents, specification groups and individual SEO fields. |

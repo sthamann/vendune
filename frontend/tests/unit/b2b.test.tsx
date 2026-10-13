@@ -225,12 +225,12 @@ it("restores the actual unit and PO while its parent mutation wrapper is busy", 
     { wrapper },
   );
   await screen.findByRole("option", { name: "Firma · Einkauf" });
-  await waitFor(() =>
-    expect(screen.getByLabelText("Purchasing unit")).toHaveValue("it"),
-  );
-  expect(screen.getByLabelText("Purchase-order reference")).toHaveValue(
-    "PO-REOPEN-7",
-  );
+  await waitFor(() => {
+    expect(screen.getByLabelText("Purchasing unit")).toHaveValue("it");
+    expect(screen.getByLabelText("Purchase-order reference")).toHaveValue(
+      "PO-REOPEN-7",
+    );
+  });
   expect(mutation).not.toHaveBeenCalled();
   expect(api).toHaveBeenCalledWith("/store-api/b2b/contexts", {}, "synthetic");
 });

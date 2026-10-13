@@ -15,9 +15,11 @@ export default function LocalizedField({
   maxLength,
   required = false,
   error,
+  disabled = false,
   externalFallback,
   externalLabel,
 }: {
+  disabled?: boolean;
   label: string;
   value: LocalizedText;
   onChange: (map: LocalizedText) => void;
@@ -40,6 +42,7 @@ export default function LocalizedField({
   const set = (text: string) => onChange({ ...value, [key]: text });
   const props = {
     id,
+    disabled,
     "aria-invalid": !!error,
     "aria-describedby": error ? `${id}-error` : undefined,
     value: value[key] ?? "",
@@ -56,6 +59,7 @@ export default function LocalizedField({
         {(!main || externalFallback !== undefined) && (
           <button
             type="button"
+            disabled={disabled}
             className="intl-inherit"
             aria-pressed={inherited}
             onClick={() => {

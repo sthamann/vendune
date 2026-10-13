@@ -13,8 +13,10 @@ export default function ProductDataView({
   initialId,
   onEntityBack,
   onEntity,
+  canWrite = true,
 }: {
   request: RequestFn;
+  canWrite?: boolean;
   initialId?: string;
   onEntityBack?: () => void;
   onEntity?: OpenEntity;
@@ -91,6 +93,7 @@ export default function ProductDataView({
         id={id}
         request={request}
         categories={categories}
+        canWrite={canWrite}
         onBack={() => {
           setReload((v) => v + 1);
           if (onEntityBack) {
@@ -112,7 +115,7 @@ export default function ProductDataView({
           <h1>{c("products")}</h1>
           <p>{c("intro")}</p>
         </div>
-        {view === "products" && (
+        {view === "products" && canWrite && (
           <button className="studio-primary" onClick={() => setId("")}>
             + {c("newProduct")}
           </button>
@@ -138,6 +141,7 @@ export default function ProductDataView({
         <CategoriesWorkspace
           request={request}
           categories={categories}
+          canWrite={canWrite}
           onRefresh={() => setReload((v) => v + 1)}
         />
       ) : (
@@ -263,9 +267,11 @@ export default function ProductDataView({
             {!products.length && !loading && !error && (
               <div className="catalog-empty">
                 <h2>{c("empty")}</h2>
-                <button className="studio-primary" onClick={() => setId("")}>
-                  {c("newProduct")}
-                </button>
+                {canWrite && (
+                  <button className="studio-primary" onClick={() => setId("")}>
+                    {c("newProduct")}
+                  </button>
+                )}
               </div>
             )}
             {loading && <p role="status">{c("loading")}</p>}

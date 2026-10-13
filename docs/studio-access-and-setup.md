@@ -109,6 +109,10 @@ read/write and PII scopes. The searchable picker is debounced and returns at mos
 20 registered customers through indexed tenant-scoped SQL, with no passwords or
 addresses. Guest purchases are not registered employee identities.
 
+Catalog readers can search products, open details and inspect descriptions without
+being offered product/category creation, uploads or active save controls. Installed
+app slots retain their own granted capabilities; they do not inherit catalog writes.
+
 ## Owners and verification
 
 | Responsibility | Source |
