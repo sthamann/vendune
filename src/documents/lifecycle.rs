@@ -24,7 +24,7 @@ pub(crate) async fn edit(
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
-    auth::permit(&h, "catalog")?;
+    auth::permit(&h, "knowledge.write")?;
     let data = content::validate(&a, &t, &v).await?;
     let rev = v["revision"].as_i64().ok_or(bad("Revision required"))?;
     let mut tx = a.db.begin().await?;
@@ -82,7 +82,7 @@ pub(crate) async fn lifecycle(
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
-    auth::permit(&h, "catalog")?;
+    auth::permit(&h, "knowledge.write")?;
     if v["approve"] != true {
         return Err(bad("Explicit decision required"));
     }

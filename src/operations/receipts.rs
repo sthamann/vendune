@@ -32,6 +32,7 @@ pub(super) async fn list(
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "documents.read")?;
+    auth::permit(&h, "customers.pii")?;
     let rows=sqlx::query("SELECT id,kind,number,locale,created_at::text AS created FROM order_receipts WHERE tenant=$1 AND order_id=$2 ORDER BY created_at DESC LIMIT 100").bind(t).bind(id).fetch_all(&a.db).await?;
     Ok(Json(
         json!({"elements":rows.iter().map(|r|json!({"id":r.get::<String,_>("id"),"kind":r.get::<String,_>("kind"),"number":r.get::<String,_>("number"),"locale":r.get::<String,_>("locale"),"createdAt":r.get::<String,_>("created"),"pdfPath":format!("/api/merchant/receipts/{}/pdf",r.get::<String,_>("id"))})).collect::<Vec<_>>() }),
@@ -45,6 +46,7 @@ pub(super) async fn create(
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "documents.create")?;
+    auth::permit(&h, "customers.pii")?;
     let key = v["requestKey"]
         .as_str()
         .or_else(|| header(&h, "idempotency-key"))
@@ -144,6 +146,7 @@ pub(super) async fn pdf(
 ) -> Result<Response> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "documents.read")?;
+    auth::permit(&h, "customers.pii")?;
     let v: Value =
         sqlx::query_scalar("SELECT snapshot FROM order_receipts WHERE tenant=$1 AND id=$2")
             .bind(t)

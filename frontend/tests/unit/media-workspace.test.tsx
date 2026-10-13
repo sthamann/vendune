@@ -11,6 +11,41 @@ import { newDraft } from "../../src/admin/catalog/catalog-model";
 import { moveImage, validImages } from "../../src/admin/catalog/media-model";
 import { PreviewPanel } from "../../src/admin/preview/PreviewPanel";
 import MethodRemoval from "../../src/admin/settings/MethodRemoval";
+it("closes pending media mutations when write access is revoked while preserving gallery reads", async () => {
+  const draft = newDraft();
+  draft.commerce.media = [
+    { id: "a", url: "/media/a.png", view: "Front" },
+    { id: "b", url: "/media/b.png", view: "Back" },
+  ];
+  const onChange = vi.fn();
+  const view = (canWrite: boolean) => (
+    <LocaleProvider>
+      <ContentLanguage locales={["en-GB"]} mainLocale="en-GB">
+        <ProductMediaWorkspace
+          draft={draft}
+          request={vi.fn()}
+          onChange={onChange}
+          canWrite={canWrite}
+        />
+      </ContentLanguage>
+    </LocaleProvider>
+  );
+  const { rerender } = render(view(true));
+  const user = userEvent.setup();
+  await user.click(screen.getByRole("button", { name: "Add image by URL" }));
+  expect(screen.getAllByLabelText("Image URL")).toHaveLength(2);
+  rerender(view(false));
+  expect(screen.getAllByLabelText("Image URL")).toHaveLength(1);
+  expect(screen.getByLabelText("Image URL")).toBeDisabled();
+  rerender(view(true));
+  await user.click(screen.getByRole("button", { name: "Remove" }));
+  expect(screen.getByRole("dialog")).toBeVisible();
+  rerender(view(false));
+  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  await user.click(screen.getByRole("button", { name: "Back" }));
+  expect(screen.getByLabelText("Image URL")).toHaveValue("/media/b.png");
+  expect(onChange).not.toHaveBeenCalled();
+});
 it("sets a cover, edits one alt language and cancels/removes through a focused shared dialog", async () => {
   let last = {
     ...newDraft(),

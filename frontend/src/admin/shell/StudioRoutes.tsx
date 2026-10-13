@@ -45,6 +45,8 @@ const OverviewView = lazy(() =>
   })),
 );
 
+import { canOpenStudio } from "./permissions";
+import { usePermissionText } from "../team/permission-i18n";
 import { useStudio } from "./StudioContext";
 
 export default function StudioRoutes() {
@@ -87,12 +89,13 @@ export default function StudioRoutes() {
     x,
   } = useStudio();
   const { locale } = useLocale();
+  const pt = usePermissionText();
   const sandboxRequest = useCallback(
     (id: string) => createStudioRequest(token, id, locale),
     [token, locale],
   );
   // Keep the conversation draft mounted through session recovery; data workspaces wait for their new scope.
-  if (!connected && auth.active && (appSurface || tab !== "assistant"))
+  if (!connected && auth.active)
     return (
       <div
         className="studio-empty"
@@ -107,6 +110,13 @@ export default function StudioRoutes() {
             {t("refresh")}
           </button>
         )}
+      </div>
+    );
+  if (!appSurface && !canOpenStudio(tab, access))
+    return (
+      <div className="studio-empty" role="alert">
+        <Icon name="lock" size={32} />
+        <p>{pt("noAccess")}</p>
       </div>
     );
   return appSurface ? (
@@ -142,6 +152,12 @@ export default function StudioRoutes() {
       key={environment || workspace}
       request={request}
       rights={access}
+      onSettings={() => {
+        const url = new URL(location.href);
+        url.searchParams.set("settings", "b2b");
+        history.replaceState(null, "", url);
+        selectTab("commerce");
+      }}
     />
   ) : tab === "pos" ? (
     <POSWorkspace
@@ -167,6 +183,7 @@ export default function StudioRoutes() {
   ) : tab === "productData" ? (
     connected ? (
       <ProductDataView
+        canWrite={access.includes("catalog.write")}
         request={request}
         onEntity={openEntity}
         initialId={
@@ -194,6 +211,7 @@ export default function StudioRoutes() {
       request={liveRequest}
       environments={environments}
       role={role}
+      rights={access}
     />
   ) : tab === "environments" ? (
     <EnvironmentManager
@@ -202,6 +220,7 @@ export default function StudioRoutes() {
       onRefresh={refreshEnvironments}
       role={role}
       onSelect={setEnvironment}
+      rights={access}
     />
   ) : tab === "users" ? (
     <>
@@ -243,6 +262,7 @@ export default function StudioRoutes() {
         request={request}
         token={token}
         role={role}
+        rights={access}
       />
     ) : tab === "commerce" ? (
       <SettingsWorkspace
@@ -251,6 +271,7 @@ export default function StudioRoutes() {
         onConnections={() => setSettings(true)}
         onTeam={() => selectTab("users")}
         onAutomation={() => selectTab("automation")}
+        onB2B={() => selectTab("b2b")}
       />
     ) : tab === "overview" ? (
       <OverviewView

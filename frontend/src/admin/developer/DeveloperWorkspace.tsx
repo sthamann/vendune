@@ -10,23 +10,38 @@ export default function DeveloperWorkspace(
   props: ComponentProps<typeof DeveloperView> & { workspace: string },
 ) {
   const t = useApiText(),
-    [tab, setTab] = useState<"studio" | "console">("studio");
+    [tab, setTab] = useState<"studio" | "console">(
+      props.rights && !props.rights.includes("developer.read")
+        ? "console"
+        : "studio",
+    );
+  const [homeRevision, setHomeRevision] = useState(0);
+  const tabs = (
+    props.rights && !props.rights.includes("developer.read")
+      ? ["console"]
+      : ["studio", "console"]
+  ) as ("studio" | "console")[];
   return (
     <>
       <nav className="developer-workspace-tabs workbench-row">
-        {(["studio", "console"] as const).map((k) => (
+        {tabs.map((k) => (
           <button
             key={k}
             className={tab === k ? "studio-primary" : "studio-secondary"}
             aria-pressed={tab === k}
-            onClick={() => setTab(k)}
+            onClick={() => {
+              setTab(k);
+              if (k === "studio") setHomeRevision((v) => v + 1);
+            }}
           >
             {t(k)}
           </button>
         ))}
       </nav>
       <div hidden={tab !== "studio"}>
-        <DeveloperView {...props} />
+        {tabs.includes("studio") && (
+          <DeveloperView {...props} homeRevision={homeRevision} />
+        )}
       </div>
       {tab === "console" && (
         <div className="studio-page api-console">

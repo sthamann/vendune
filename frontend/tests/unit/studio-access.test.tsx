@@ -9,7 +9,7 @@ import {
 import { expect, it, vi } from "vitest";
 import { useStudioController } from "../../src/admin/shell/useStudioController";
 import { LocaleProvider } from "../../src/shared/i18n/i18n";
-import { session, overview, providers } from "./fixtures";
+import { ownerRights, session, overview, providers } from "./fixtures";
 import { reportMerchantSessionFailure } from "../../src/shared/api/merchant-session";
 import PersonalAccountForm from "../../src/admin/team/PersonalAccountForm";
 
@@ -41,7 +41,7 @@ function network() {
           ? overview
           : String(path) === "/api/agent/providers"
             ? providers
-            : { permissions: [], environments: [], conversations: [] },
+            : { permissions: ownerRights, environments: [], conversations: [] },
   }));
   vi.stubGlobal("fetch", fetcher);
   return fetcher;

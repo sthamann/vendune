@@ -102,6 +102,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/auth/permissions.rs](../src/auth/permissions.rs) | Fine-grained workspace overrides. Owners retain control; delegates cannot grant rights they lack. |
 | [src/auth/provision.rs](../src/auth/provision.rs) | Reusable synthetic shop provisioning for initial signup and additional shops owned by the same merchant. |
 | [src/auth/registration.rs](../src/auth/registration.rs) | Create an isolated merchant workspace from synthetic template data. |
+| [src/auth/roles.rs](../src/auth/roles.rs) | Tenant-owned roles: current grants, revisioned edits, dependency-checked removal and shared history. |
 | [src/auth/route_policy.rs](../src/auth/route_policy.rs) | Rights are registered beside each API method. Missing registrations always deny access. |
 | [src/auth/sessions.rs](../src/auth/sessions.rs) | Login/logout and personal workspace discovery. Only hashed opaque tokens persist. |
 | [src/automation_rules/comparison.rs](../src/automation_rules/comparison.rs) | Original comparison primitives plus literal wildcard/zip operators; no regex or executable expressions. |
@@ -119,6 +120,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/b2b/lists.rs](../src/b2b/lists.rs) | Reusable private/shared procurement lists; applying them reuses native cart admission and pricing. |
 | [src/b2b/mod.rs](../src/b2b/mod.rs) | Native modular company procurement; protocol-specific EDI adapters remain in their app packages. |
 | [src/b2b/model.rs](../src/b2b/model.rs) | Bounded typed native company, purchasing-unit and employee policies. Money is currency-bound minor units. |
+| [src/b2b/onboarding.rs](../src/b2b/onboarding.rs) | Atomic company setup delegates to the same company/unit/member writers; foreign customers roll back the whole setup. |
 | [src/b2b/orders.rs](../src/b2b/orders.rs) | Explicit unit-wide order permission reuses the customer-safe order projection; no email-based ownership. |
 | [src/b2b/organization.rs](../src/b2b/organization.rs) | Merchant-managed firms, unit hierarchies, employee grants and tenant-bound catalogs with optimistic revisions. |
 | [src/b2b/purchase.rs](../src/b2b/purchase.rs) | Serializes unit spending and binds an approved purchase to the authoritative native checkout quote. |
@@ -126,6 +128,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/b2b/quote_contract.rs](../src/b2b/quote_contract.rs) | Accepted offer prices feed the existing currency/tax calculator; checkout consumes the offer atomically. |
 | [src/b2b/quotes.rs](../src/b2b/quotes.rs) | RFQ lifecycle binds merchant offers to a specific company buyer, cart, currency, expiry and revision. |
 | [src/b2b/requisition.rs](../src/b2b/requisition.rs) | Explicit integration permission imports requisitions into native lists; it never impersonates checkout buyers. |
+| [src/b2b/settings.rs](../src/b2b/settings.rs) | B2B feature switches live in shared commerce settings; disabling never relaxes existing financial policy. |
 | [src/b2b/staging.rs](../src/b2b/staging.rs) | Clone and publish purchasing configuration only; employees, orders, approvals and spending remain live-only. |
 | [src/bin/automation_rules.rs](../src/bin/automation_rules.rs) | JSON batch transport for comparisons with original Shopware rule classes; not a production authority endpoint. |
 | [src/bin/connectors.rs](../src/bin/connectors.rs) | Independent Rust standard-app service; no provider code executes in commerce request workers. |
@@ -330,6 +333,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/mcp/transport.rs](../src/mcp/transport.rs) | MCP visibility and shared read-scope memoization, independent of internal planning tools. |
 | [src/mcp/visibility.rs](../src/mcp/visibility.rs) | MCP discovery applies current merchant permissions through the same capability owners as invocation. |
 | [src/mcp.rs](../src/mcp.rs) | Typed MCP schemas and JSON-RPC transport. |
+| [src/migrations/recent_schema.rs](../src/migrations/recent_schema.rs) | Later additive migrations retain the same ordered ledger and checksum contract. |
 | [src/migrations/schema.rs](../src/migrations/schema.rs) | Append-only ordered migration source catalogue; deployed checksums are never rewritten. |
 | [src/migrations.rs](../src/migrations.rs) | Versioned setup is separate from serving; no catalog-wide startup repair. |
 | [src/money.rs](../src/money.rs) | Exact signed minor-unit amounts with explicit currency scale; legacy Shopware float pricing stays isolated. |
@@ -338,6 +342,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/operations/company_logo.rs](../src/operations/company_logo.rs) | Tenant-owned logo uploads: bounded decoding, metadata stripping, immutable PNG storage and linked public delivery. |
 | [src/operations/company_model.rs](../src/operations/company_model.rs) | Company profile admission, sparse channel inheritance and structured-address print projection. |
 | [src/operations/company_public.rs](../src/operations/company_public.rs) | Explicit public legal/brand projection; bank account, domestic tax ID and unlinked uploads remain private. |
+| [src/operations/customer_lookup.rs](../src/operations/customer_lookup.rs) | Fast customer-only lookup for native identity bindings: tenant-scoped, indexed and bounded; no guest-order union. |
 | [src/operations/customers.rs](../src/operations/customers.rs) | Tenant-scoped paged CRM and revision-checked merchant changes; credentials never leave storage. |
 | [src/operations/guest_customers.rs](../src/operations/guest_customers.rs) | Merchant-only guest contact projection; order snapshots never create account authority. |
 | [src/operations/master_data.rs](../src/operations/master_data.rs) | Revisioned tenant company basis and sparse channel overrides, serialized with receipt issuance. |
@@ -346,6 +351,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/operations/receipt_pdf.rs](../src/operations/receipt_pdf.rs) | Minimal paginated PDF serializer with WinAnsi Helvetica; snapshot retains complete Unicode originals. |
 | [src/operations/receipt_text.rs](../src/operations/receipt_text.rs) | Four-language document labels and authoritative snapshot-to-print projection. |
 | [src/operations/receipts.rs](../src/operations/receipts.rs) | Idempotent immutable invoices/delivery notes with transactional per-shop number ranges. |
+| [src/operations/redacted_reads.rs](../src/operations/redacted_reads.rs) | Explicit non-PII domain read views for separately scoped app callbacks; never elevate an identity. |
 | [src/operations/routes.rs](../src/operations/routes.rs) | HTTP/MCP rights for merchant CRM, fulfillment and company settings. |
 | [src/operations/workflow.rs](../src/operations/workflow.rs) | Revision-bound workflow configuration used by installed apps and selective sandbox releases. |
 | [src/order_checkout.rs](../src/order_checkout.rs) | Atomic checkout, stock locks, extension policy and idempotency. |
@@ -499,11 +505,14 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/automation/pipeline-types.ts](../frontend/src/admin/automation/pipeline-types.ts) | Stable graph data mirrors the Rust pipeline contract, with explicit true/false edges and persistent node identifiers. |
 | [frontend/src/admin/automation/source-rules.ts](../frontend/src/admin/automation/source-rules.ts) | Convert source condition nodes for the graphical editor without losing original payload fields. |
 | [frontend/src/admin/b2b/B2BWorkspace.tsx](../frontend/src/admin/b2b/B2BWorkspace.tsx) | Tenant-scoped company workspace; canonical API operations are also exposed through MCP. |
+| [frontend/src/admin/b2b/CompanyCreate.tsx](../frontend/src/admin/b2b/CompanyCreate.tsx) | Guided company creation is one atomic native API command; the main-language name is always visible. |
+| [frontend/src/admin/b2b/CustomerPicker.tsx](../frontend/src/admin/b2b/CustomerPicker.tsx) | Debounced, bounded native customer search with cancellation fencing and explicit selection. |
 | [frontend/src/admin/b2b/Members.tsx](../frontend/src/admin/b2b/Members.tsx) | Grants reference actual customer identities, never email guesses; pauses retain historical purchases. |
 | [frontend/src/admin/b2b/Quotes.tsx](../frontend/src/admin/b2b/Quotes.tsx) | Native RFQ inbox and merchant offers use the same versioned contract as buyer API/MCP operations. |
 | [frontend/src/admin/b2b/UnitCatalog.tsx](../frontend/src/admin/b2b/UnitCatalog.tsx) | Search the canonical merchant catalog; unit permissions persist through the native revision-bound catalog API. |
 | [frontend/src/admin/b2b/UnitEditor.tsx](../frontend/src/admin/b2b/UnitEditor.tsx) | Purchasing unit policies, hierarchy, catalogs and customer grants share current revision checks. |
 | [frontend/src/admin/b2b/UnitMethods.tsx](../frontend/src/admin/b2b/UnitMethods.tsx) | Unit allowlists reference the existing translated shipping/payment owner; empty means inherited availability. |
+| [frontend/src/admin/b2b/experience-i18n.ts](../frontend/src/admin/b2b/experience-i18n.ts) | Guided company purchasing and shared settings copy in all bundled interface languages. |
 | [frontend/src/admin/b2b/reference.ts](../frontend/src/admin/b2b/reference.ts) | Native organization IDs require a lowercase letter first and at most 32 characters. |
 | [frontend/src/admin/catalog/AiImageStudio.tsx](../frontend/src/admin/catalog/AiImageStudio.tsx) | Optional image-provider jobs create private previews; applying a reviewed image is explicit and revision checked. |
 | [frontend/src/admin/catalog/CategoriesWorkspace.tsx](../frontend/src/admin/catalog/CategoriesWorkspace.tsx) | Localized category tree editor; parent moves and revisions are validated in the API. |
@@ -514,6 +523,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/catalog/ProductCurrencyPrices.tsx](../frontend/src/admin/catalog/ProductCurrencyPrices.tsx) | Exact per-currency decimals live in the same revisioned product draft, including variants. |
 | [frontend/src/admin/catalog/ProductDataView.tsx](../frontend/src/admin/catalog/ProductDataView.tsx) | Central catalog workspace: server-filtered cursor list, product details and hierarchical categories. |
 | [frontend/src/admin/catalog/ProductEditor.tsx](../frontend/src/admin/catalog/ProductEditor.tsx) | Revision-aware product aggregate editor: one save, translation tabs and product-scoped linked capabilities. |
+| [frontend/src/admin/catalog/ProductEditorActions.tsx](../frontend/src/admin/catalog/ProductEditorActions.tsx) | Product mutation actions share the workspace write grant; read-only users can still inspect all product tabs. |
 | [frontend/src/admin/catalog/ProductEditorExtras.tsx](../frontend/src/admin/catalog/ProductEditorExtras.tsx) | Price-tax selection and permission-filtered extension slots attached to the product editor. |
 | [frontend/src/admin/catalog/ProductEditorNav.tsx](../frontend/src/admin/catalog/ProductEditorNav.tsx) | Core product tabs and installed app submenus share one accessible navigation. |
 | [frontend/src/admin/catalog/ProductLocalizedContent.tsx](../frontend/src/admin/catalog/ProductLocalizedContent.tsx) | Consistent main-language inheritance for product rich documents, specification groups and individual SEO fields. |
@@ -652,6 +662,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/pos/useRegisterViewport.ts](../frontend/src/admin/pos/useRegisterViewport.ts) | Size the register pane from its actual header position, including translated toolbars and tablet wraps. |
 | [frontend/src/admin/preview/PreviewDialog.tsx](../frontend/src/admin/preview/PreviewDialog.tsx) | PreviewDialog keeps merchant interaction separate from workspace orchestration. |
 | [frontend/src/admin/preview/PreviewPanel.tsx](../frontend/src/admin/preview/PreviewPanel.tsx) | PreviewPanel renders verified shop state and typed user actions. |
+| [frontend/src/admin/settings/B2BSettings.tsx](../frontend/src/admin/settings/B2BSettings.tsx) | B2B controls edit the shared revisioned settings aggregate; no separate policy store or checkout engine. |
 | [frontend/src/admin/settings/CommerceSettings.tsx](../frontend/src/admin/settings/CommerceSettings.tsx) | One revisioned international settings aggregate: drafts survive navigation between countries, taxes, methods and languages. |
 | [frontend/src/admin/settings/CompanyField.tsx](../frontend/src/admin/settings/CompanyField.tsx) | One factual field with visible channel inheritance, an explicit reset and searchable geographic selection. |
 | [frontend/src/admin/settings/CompanyLogo.tsx](../frontend/src/admin/settings/CompanyLogo.tsx) | Private logo preview and bounded upload; attaching/removing is a draft change until the profile is saved. |
@@ -681,12 +692,14 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/shell/StudioSidebar.tsx](../frontend/src/admin/shell/StudioSidebar.tsx) | StudioSidebar: focused Studio view; state and commands come from the session-scoped controller. |
 | [frontend/src/admin/shell/StudioSignIn.tsx](../frontend/src/admin/shell/StudioSignIn.tsx) | Dedicated login page and blocking reauthentication dialog preserve mounted private editors. |
 | [frontend/src/admin/shell/navigation.ts](../frontend/src/admin/shell/navigation.ts) | Typed built-in Studio navigation and locale-specific labels. |
+| [frontend/src/admin/shell/permissions.ts](../frontend/src/admin/shell/permissions.ts) | Presentation admission mirrors named server rights. API/domain checks remain authoritative. |
 | [frontend/src/admin/shell/requests.ts](../frontend/src/admin/shell/requests.ts) | Authenticated Studio transport; staging changes only the tenant, never the principal. |
 | [frontend/src/admin/shell/studio-types.ts](../frontend/src/admin/shell/studio-types.ts) | studio types: Studio layout, session/workspace controller, authenticated transport and lazy workspace navigation. |
 | [frontend/src/admin/shell/useEntityNavigation.ts](../frontend/src/admin/shell/useEntityNavigation.ts) | Linked entity navigation keeps native editors, browser deep links and back paths in the same tenant scope. |
 | [frontend/src/admin/shell/useServerHealth.ts](../frontend/src/admin/shell/useServerHealth.ts) | Public server health is independent of the personal Studio session. |
 | [frontend/src/admin/shell/useStudioAccess.ts](../frontend/src/admin/shell/useStudioAccess.ts) | Central Studio identity boundary: initial login, expiry suspension and same-account resume. |
 | [frontend/src/admin/shell/useStudioController.ts](../frontend/src/admin/shell/useStudioController.ts) | Studio session/controller: authentication context, tenant/staging state and chat commands. |
+| [frontend/src/admin/shell/useStudioPermissions.ts](../frontend/src/admin/shell/useStudioPermissions.ts) | Recheck current server grants; discard previously loaded views when a live role changes. |
 | [frontend/src/admin/shell/useStudioSession.ts](../frontend/src/admin/shell/useStudioSession.ts) | Revalidate visible Studio sessions and route authenticated failures to the active controller. |
 | [frontend/src/admin/styles/api-console.css](../frontend/src/admin/styles/api-console.css) | Responsive developer key management and bounded API explorer using Studio theme tokens. |
 | [frontend/src/admin/styles/app-artwork.css](../frontend/src/admin/styles/app-artwork.css) | Category cover and app icon artwork, with local deterministic fallbacks. |
@@ -702,6 +715,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/app-studio.css](../frontend/src/admin/styles/app-studio.css) | App Studio: restrained light canvas, compact control density and responsive palette/inspector workspaces. |
 | [frontend/src/admin/styles/automation-lifecycle.css](../frontend/src/admin/styles/automation-lifecycle.css) | Configuration workspace: readable definitions, clear selection and contextual actions. |
 | [frontend/src/admin/styles/automation.css](../frontend/src/admin/styles/automation.css) | Actual graph nodes and original rule forms use the Studio theme and independent responsive columns. |
+| [frontend/src/admin/styles/b2b-settings.css](../frontend/src/admin/styles/b2b-settings.css) | Revisioned B2B settings cards, accessible switches and responsive spacing. |
 | [frontend/src/admin/styles/behavior.css](../frontend/src/admin/styles/behavior.css) | Consent-bound insights use the existing Studio tokens and a responsive, inspectable visual hierarchy. |
 | [frontend/src/admin/styles/catalog-editor.css](../frontend/src/admin/styles/catalog-editor.css) | Visual editor and category workspace responsive styles. |
 | [frontend/src/admin/styles/catalog.css](../frontend/src/admin/styles/catalog.css) | Light, precise catalog workspace with accessible tables, focused detail panels and visual authoring. |
@@ -731,12 +745,17 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/studio/10-studio-mobile-preview-button.css](../frontend/src/admin/styles/studio/10-studio-mobile-preview-button.css) | studio: studio-mobile-preview-button styles. Source order is preserved by the entry stylesheet. |
 | [frontend/src/admin/styles/studio-sign-in.css](../frontend/src/admin/styles/studio-sign-in.css) | Dedicated access surface: responsive Vendune login and native modal reauthentication. |
 | [frontend/src/admin/styles/studio.css](../frontend/src/admin/styles/studio.css) | Ordered studio stylesheet entry; domain rules live in the adjacent folder. |
+| [frontend/src/admin/styles/team-roles.css](../frontend/src/admin/styles/team-roles.css) | Native team roles and readable scopes share Studio surfaces and responsive form rhythm. |
 | [frontend/src/admin/styles/variants.css](../frontend/src/admin/styles/variants.css) | Variant family and review table share the catalog's responsive theme and focus treatment. |
 | [frontend/src/admin/styles/workspace-copilot.css](../frontend/src/admin/styles/workspace-copilot.css) | Contextual assistant drawer inherits Studio tokens and contains the existing conversation on all viewport sizes. |
 | [frontend/src/admin/styles/workspace-polish.css](../frontend/src/admin/styles/workspace-polish.css) | Consistent Studio density, readable hierarchy and independently scrollable navigation across workspaces. |
 | [frontend/src/admin/team/AccessManager.tsx](../frontend/src/admin/team/AccessManager.tsx) | Fine-grained team overrides, revocable invitations and personal session inventory. |
+| [frontend/src/admin/team/PermissionPicker.tsx](../frontend/src/admin/team/PermissionPicker.tsx) | One readable, searchable permission selector; technical IDs always remain visible beside the label. |
 | [frontend/src/admin/team/PersonalAccountForm.tsx](../frontend/src/admin/team/PersonalAccountForm.tsx) | PersonalAccountForm: focused account-form view with explicit typed inputs and callbacks. |
+| [frontend/src/admin/team/RolesManager.tsx](../frontend/src/admin/team/RolesManager.tsx) | Tenant role editor uses the canonical roles API, shared translation editor, audit and dependency confirmation. |
 | [frontend/src/admin/team/UsersManager.tsx](../frontend/src/admin/team/UsersManager.tsx) | Users Manager: Personal accounts, memberships, roles, invitations and scoped developer access.. |
+| [frontend/src/admin/team/permission-i18n.ts](../frontend/src/admin/team/permission-i18n.ts) | Role interface vocabulary uses the shared permission label catalogue. |
+| [frontend/src/admin/team/permission-labels.ts](../frontend/src/admin/team/permission-labels.ts) | Shared readable labels and exact permission identifiers for Studio, app actions and API keys. |
 | [frontend/src/application/ApplicationRouter.tsx](../frontend/src/application/ApplicationRouter.tsx) | Select independent lazy applications; contain failed imports and reset boundaries on navigation. |
 | [frontend/src/main.tsx](../frontend/src/main.tsx) | Browser bootstrap only; application selection and error recovery live in application/. |
 | [frontend/src/platform/AdminHub.tsx](../frontend/src/platform/AdminHub.tsx) | Public service directory. Links select a login surface without granting operator or merchant permissions. |
@@ -1202,6 +1221,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/plugin_ownership.py](../scripts/testing/plugin_ownership.py) | Keep app implementation in its package; preserve shared runtimes and exact safety boundaries. |
 | [scripts/testing/pooler.py](../scripts/testing/pooler.py) | Owned real PgBouncer fixture: one backend, transaction pooling, never a forced privileged user. |
 | [scripts/testing/provider_fleet.py](../scripts/testing/provider_fleet.py) | Configure one encrypted synthetic provider for all test workers, then restore the isolated control-plane row. |
+| [scripts/testing/role_races.py](../scripts/testing/role_races.py) | Force real HTTP delegation to wait behind the same PostgreSQL lifecycle lock as role edits. |
 | [scripts/testing/runtime.py](../scripts/testing/runtime.py) | Owned synthetic server lifetime, child checks and loopback readiness for verification. |
 | [scripts/testing/sitecustomize.py](../scripts/testing/sitecustomize.py) | Opt-in subprocess instrumentation for synthetic verification; never loaded by production. |
 | [scripts/testing/source_inventory.py](../scripts/testing/source_inventory.py) | Generate/check exact production and verification module inventory; listings are not coverage. |
@@ -1210,3 +1230,4 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/translations.py](../scripts/translations.py) | Durable translation jobs against a local provider fixture, real SQL, native MCP and a cold restart; no paid calls. |
 | [scripts/users.py](../scripts/users.py) | Real multi-user, workspace isolation and role/revocation regression tests. |
 | [scripts/verify_integration.py](../scripts/verify_integration.py) | Single integration suite registry, isolated DB by default; never alters an existing shop. |
+| [scripts/workspace_roles.py](../scripts/workspace_roles.py) | Real HTTP/PostgreSQL role edits, current session/key/worker grants and native B2B setup regressions. |

@@ -216,11 +216,9 @@ pub(crate) async fn flow_once(a: &App) -> Result<bool> {
     let instruction =
         super::flow_text::effective(&json!(f.instruction), &f.locale, &settings.main_locale)
             .to_string();
-    let authorized = if f.actor.as_deref() == Some("bootstrap") {
-        true
-    } else {
-        sqlx::query_scalar::<_,bool>("SELECT EXISTS(SELECT 1 FROM memberships WHERE tenant=COALESCE((SELECT live_tenant FROM shop_environments WHERE tenant=$1),$1) AND user_id=$2 AND active AND (role='owner' OR (permissions='null'::jsonb AND role='admin') OR (permissions ? 'settings.write' AND ($3='note' OR $3='pipeline' OR $3='app_action' AND permissions ? 'apps.manage' OR $3='ai_proposal' AND permissions ? 'catalog.write' AND permissions ? 'knowledge.read'))))").bind(&t).bind(&f.actor).bind(&f.action).fetch_one(&a.db).await?
-    };
+    let authorized = super::flow_access::headers(a, &t, f.actor.as_deref())
+        .await
+        .is_ok();
     let result: Result<Value> = if !authorized {
         Err(Error(
             StatusCode::FORBIDDEN,

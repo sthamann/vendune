@@ -10,6 +10,7 @@
     "platform_setup",
     "platform",
     "users",
+    "workspace_roles",
     "providers",
     "apps",
     "checkout_handoff",

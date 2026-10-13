@@ -10,6 +10,7 @@ pub(super) async fn apply(
 ) -> Result<Json<Value>> {
     let data = state["data"].clone();
     match entity {
+ "role"=>Ok(Json(auth::roles::invoke(&a,&h,"team.role.save",&json!({"id":id,"revision":revision,"data":data})).await?)),
  "b2bCompany" | "b2bUnit" => {
   // Replay configuration only. Current employees/catalog, quotes and budget allocations are never rewound.
   let mut args=json!({"id":id,"revision":revision,"data":data});

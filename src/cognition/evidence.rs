@@ -27,7 +27,7 @@ pub(crate) async fn claims(a: &App, t: &str, id: &str, public: bool) -> Result<V
 }
 pub(crate) async fn propose(a: &App, h: &RequestContext, v: &Value) -> Result<Value> {
     let t = merchant(a, h)?;
-    auth::permit(h, "catalog.write")?;
+    auth::permit(h, "knowledge.write")?;
     let mut tx = a.db.begin().await?;
     let result = propose_in(a, &mut tx, &t, h, v).await?;
     tx.commit().await?;
@@ -98,7 +98,7 @@ fn confidence(v: &Value) -> Result<f64> {
 }
 pub(crate) async fn decide(a: &App, h: &RequestContext, v: &Value) -> Result<Value> {
     let t = merchant(a, h)?;
-    auth::permit(h, "catalog.write")?;
+    auth::permit(h, "knowledge.write")?;
     if v["approve"] != true {
         return Err(bad("Explicit approve=true required"));
     }

@@ -4,17 +4,17 @@ pub(crate) fn router() -> Router<App> {
     Router::new()
         .secure_route(
             "/api/automation/catalog",
-            &[("GET", "settings.read")],
+            &[("GET", "automation.read")],
             get(catalog),
         )
         .secure_route(
             "/api/automation/import-condition",
-            &[("POST", "settings.read")],
+            &[("POST", "automation.read")],
             post(import),
         )
 }
 pub(super) async fn catalog(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {
-    auth::permit(&h, "settings.read")?;
+    auth::permit(&h, "automation.read")?;
     let t = merchant(&a, &h)?;
     let rows =
         sqlx::query("SELECT id,manifest FROM app_packages WHERE tenant=$1 AND active ORDER BY id")
@@ -35,7 +35,7 @@ pub(super) async fn catalog(State(a): State<App>, h: RequestContext) -> Result<J
     Ok(Json(result))
 }
 pub(super) async fn import(h: RequestContext, Json(v): Json<Value>) -> Result<Json<Value>> {
-    auth::permit(&h, "settings.write")?;
+    auth::permit(&h, "automation.manage")?;
     let normalized = normalize(&v, 0)?;
     let c: rules::Condition = serde_json::from_value(normalized.clone())
         .map_err(|_| bad("Unsupported Shopware condition"))?;

@@ -15,7 +15,9 @@ export default function TranslationFields({
   nameOnly = false,
   language,
   onLanguageChange,
+  disabled = false,
 }: {
+  disabled?: boolean;
   value: TextMap;
   onChange: (value: TextMap) => void;
   locales: string[];
@@ -35,6 +37,7 @@ export default function TranslationFields({
       ).map((field) => (
         <LocalizedField
           key={field}
+          disabled={disabled}
           label={i(field)}
           required={field === "name"}
           multiline={field === "description"}

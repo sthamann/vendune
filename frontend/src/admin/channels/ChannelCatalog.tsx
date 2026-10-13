@@ -15,6 +15,8 @@ export default function ChannelCatalog({
   setSelected,
   patch,
   request,
+  languageError,
+  productError,
 }: {
   draft: Channel;
   languages: string[];
@@ -24,13 +26,18 @@ export default function ChannelCatalog({
   setSelected: (v: boolean) => void;
   patch: (v: Partial<Channel["data"]>) => void;
   request: RequestFn;
+  languageError?: string;
+  productError?: string;
 }) {
   const t = useChannelText(),
     { locale } = useLocale();
   return (
     <>
       <h3>{t("languages")}</h3>
-      <div className="workbench-row">
+      <div
+        className={`workbench-row ${languageError ? "field-invalid" : ""}`}
+        aria-invalid={!!languageError}
+      >
         {languages.map((language) => (
           <button
             type="button"
@@ -56,6 +63,7 @@ export default function ChannelCatalog({
           </button>
         ))}
       </div>
+      {languageError && <small role="alert">{languageError}</small>}
       <label>
         {t("root")}
         <select
@@ -98,6 +106,11 @@ export default function ChannelCatalog({
           </button>
         ))}
       </div>
+      {productError && (
+        <small role="alert" className="field-invalid">
+          {productError}
+        </small>
+      )}
       {selected && (
         <ChannelProducts
           request={request}

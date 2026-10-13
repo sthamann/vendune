@@ -35,7 +35,7 @@ it("opens the persisted main channel for editing and pausing while protecting de
       : path === "/api/merchant/commerce"
         ? { data: { mainLocale: "en-GB", locales: ["en-GB"] } }
         : path === "/api/auth/access"
-          ? { permissions: ["settings.write"] }
+          ? { permissions: ["settings.write", "automation.manage"] }
           : { elements: [] },
   );
   render(
@@ -57,7 +57,7 @@ it("opens the persisted main channel for editing and pausing while protecting de
     screen.queryByRole("button", { name: "Delete" }),
   ).not.toBeInTheDocument();
 });
-it("opens existing rules immediately and honors granular settings.write for custom roles", async () => {
+it("opens existing rules immediately and honors granular automation.manage for custom roles", async () => {
   const user = userEvent.setup();
   const request = vi.fn(async (path: string) =>
     path === "/api/automation"
@@ -69,9 +69,9 @@ it("opens existing rules immediately and honors granular settings.write for cust
           jobs: [],
         }
       : path === "/api/auth/access"
-        ? { permissions: ["settings.write"] }
-        : path === "/api/merchant/commerce"
-          ? { data: { mainLocale: "en-GB", locales: ["en-GB"] } }
+        ? { permissions: ["settings.write", "automation.manage"] }
+        : path === "/store-api/context"
+          ? { mainLocale: "en-GB", locales: ["en-GB"] }
           : path === "/api/automation/catalog"
             ? {
                 conditions: ["alwaysValid"],

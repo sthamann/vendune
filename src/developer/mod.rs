@@ -11,7 +11,14 @@ mod routes;
 pub(crate) use routes::router;
 
 pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -> Result<Value> {
-    auth::permit(h, "users")?;
+    auth::permit(
+        h,
+        if name == "developer.builds" {
+            "developer.read"
+        } else {
+            "developer.manage"
+        },
+    )?;
     Ok(match name {
         "developer.archive" => archive::set(a, h, v).await?,
         "developer.builds" => routes::list(State(a.clone()), h.clone()).await?.0,

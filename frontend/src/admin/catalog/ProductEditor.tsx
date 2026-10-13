@@ -1,4 +1,5 @@
 /** Revision-aware product aggregate editor: one save, translation tabs and product-scoped linked capabilities. */
+import ProductEditorActions from "./ProductEditorActions";
 import ProductCompliance from "../legal/ProductCompliance";
 import { useLegalText } from "../../shared/i18n/legal-i18n";
 import { useCrmText } from "../../shared/i18n/crm-i18n";
@@ -29,7 +30,9 @@ export default function ProductEditor({
   categories,
   onBack,
   onCreated,
+  canWrite = true,
 }: {
+  canWrite?: boolean;
   id: string;
   request: RequestFn;
   categories: Category[];
@@ -132,10 +135,12 @@ export default function ProductEditor({
     return () => window.removeEventListener("beforeunload", handler);
   }, [dirty]);
   const change = (d: ProductDraft) => {
+    if (!canWrite) return;
     setDraft(d);
     setSaved(false);
   };
   const save = async () => {
+    if (!canWrite) return;
     setBusy(true);
     setError("");
     try {
@@ -252,34 +257,16 @@ export default function ProductEditor({
                       : ""}
               </span>
             </div>
-            <div className="catalog-editor-actions">
-              <label className="checkbox-label">
-                <input
-                  type="checkbox"
-                  checked={draft.catalog.active}
-                  onChange={(e) =>
-                    change({
-                      ...draft,
-                      catalog: { ...draft.catalog, active: e.target.checked },
-                    })
-                  }
-                />
-                {c("active")}
-              </label>
-              <button
-                className="studio-primary"
-                disabled={
-                  busy ||
-                  editorPending ||
-                  (!dirty && !!id) ||
-                  !draft.catalog.productNumber ||
-                  !Object.values(draft.translations).some((t) => t.name?.trim())
-                }
-                onClick={save}
-              >
-                {c(busy ? "saving" : "save")}
-              </button>
-            </div>
+            <ProductEditorActions
+              draft={draft}
+              id={id}
+              canWrite={canWrite}
+              busy={busy}
+              editorPending={editorPending}
+              dirty={dirty}
+              change={change}
+              save={save}
+            />
           </div>
           {error && (
             <p role="alert" className="catalog-error">
@@ -306,69 +293,82 @@ export default function ProductEditor({
                     : c(tab as Parameters<typeof c>[0])}
                 </h2>
               )}
-              {selectedApp ? (
-                <AppSurfaceView
-                  selected={selectedApp}
-                  context={{ productId: id }}
-                />
-              ) : tab === "compliance" ? (
-                <ProductCompliance draft={draft} onChange={change} />
-              ) : tab === "media" ? (
-                <ProductMediaWorkspace
-                  unsaved={JSON.stringify(draft) !== baseline}
-                  draft={draft}
-                  request={request}
-                  onChange={change}
-                />
-              ) : tab === "attachments" ? (
-                id ? (
-                  <ProductAssets id={id} request={request} />
-                ) : (
-                  <p>{c("createFirst")}</p>
-                )
-              ) : tab === "reviews" ? (
-                id ? (
-                  <ReviewModeration productId={id} request={request} />
-                ) : (
-                  <p>{c("createFirst")}</p>
-                )
-              ) : tab === "variants" ? (
-                id ? (
-                  <ProductVariants
+              <fieldset
+                className="catalog-permission-fields"
+                disabled={
+                  !canWrite &&
+                  !selectedApp &&
+                  !["media", "variants"].includes(tab)
+                }
+              >
+                {selectedApp ? (
+                  <AppSurfaceView
+                    selected={selectedApp}
+                    context={{ productId: id }}
+                  />
+                ) : tab === "compliance" ? (
+                  <ProductCompliance draft={draft} onChange={change} />
+                ) : tab === "media" ? (
+                  <ProductMediaWorkspace
+                    canWrite={canWrite}
+                    unsaved={JSON.stringify(draft) !== baseline}
                     draft={draft}
-                    dirty={dirty}
-                    onChange={change}
                     request={request}
-                    onOpen={(child) =>
-                      dirty ? setError(c("unsaved")) : onCreated(child)
+                    onChange={change}
+                  />
+                ) : tab === "attachments" ? (
+                  id ? (
+                    <ProductAssets id={id} request={request} />
+                  ) : (
+                    <p>{c("createFirst")}</p>
+                  )
+                ) : tab === "reviews" ? (
+                  id ? (
+                    <ReviewModeration productId={id} request={request} />
+                  ) : (
+                    <p>{c("createFirst")}</p>
+                  )
+                ) : tab === "variants" ? (
+                  id ? (
+                    <ProductVariants
+                      canWrite={canWrite}
+                      draft={draft}
+                      dirty={dirty}
+                      onChange={change}
+                      request={request}
+                      onOpen={(child) =>
+                        dirty ? setError(c("unsaved")) : onCreated(child)
+                      }
+                    />
+                  ) : (
+                    <p>{c("createFirst")}</p>
+                  )
+                ) : tab === "related" ? (
+                  <RelatedProducts
+                    request={request}
+                    id={id}
+                    value={draft.extra.crossSelling}
+                    onChange={(crossSelling) =>
+                      change({
+                        ...draft,
+                        extra: { ...draft.extra, crossSelling },
+                      })
                     }
                   />
                 ) : (
-                  <p>{c("createFirst")}</p>
-                )
-              ) : tab === "related" ? (
-                <RelatedProducts
-                  request={request}
-                  id={id}
-                  value={draft.extra.crossSelling}
-                  onChange={(crossSelling) =>
-                    change({
-                      ...draft,
-                      extra: { ...draft.extra, crossSelling },
-                    })
-                  }
-                />
-              ) : (
-                <ProductPanels
-                  request={request}
-                  tab={tab}
-                  draft={draft}
-                  lang={safeLang}
-                  categories={categories}
-                  onChange={change}
-                />
-              )}
+                  <ProductPanels
+                    canWrite={canWrite}
+                    request={request}
+                    tab={tab}
+                    draft={draft}
+                    lang={safeLang}
+                    categories={categories}
+                    onChange={change}
+                  />
+                )}
+              </fieldset>
               <ProductEditorExtras
+                canWrite={canWrite}
                 id={id}
                 tab={tab}
                 draft={draft}

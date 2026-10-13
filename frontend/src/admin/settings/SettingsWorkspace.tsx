@@ -1,4 +1,6 @@
 /** Independent settings workspace: grouped navigation, explicit dirty-draft guards and native API forms. */
+import B2BSettings from "./B2BSettings";
+import { useB2BExperienceText } from "../b2b/experience-i18n";
 import { useCurrencyText } from "../../shared/i18n/currency-i18n";
 import { useCrmText } from "../../shared/i18n/crm-i18n";
 import LegalSettings from "../legal/LegalSettings";
@@ -16,6 +18,7 @@ import { useInternationalText } from "../../shared/i18n/international-i18n";
 import CommerceSettings from "./CommerceSettings";
 import MasterDataSettings from "./MasterDataSettings";
 type Area =
+  | "b2b"
   | "masterData"
   | "taxes"
   | "countries"
@@ -31,13 +34,16 @@ export default function SettingsWorkspace({
   onConnections,
   onTeam,
   onAutomation,
+  onB2B,
 }: {
   request: RequestFn;
   rights: string[];
   onConnections: () => void;
   onTeam: () => void;
   onAutomation: () => void;
+  onB2B?: () => void;
 }) {
+  const b = useB2BExperienceText();
   const { c } = useCustomerText(),
     { s, t } = useShopText(),
     { w } = useWorkbenchText(),
@@ -47,9 +53,11 @@ export default function SettingsWorkspace({
   const { r } = useCrmText();
   const { l } = useLegalText();
   const [area, setArea] = useState<Area>(() =>
-    new URLSearchParams(location.search).get("settings") === "languages"
-      ? "languages"
-      : "masterData",
+    new URLSearchParams(location.search).get("settings") === "b2b"
+      ? "b2b"
+      : new URLSearchParams(location.search).get("settings") === "languages"
+        ? "languages"
+        : "masterData",
   );
   const [dirty, setDirty] = useState(false);
   const [pending, setPending] = useState<(() => void) | null>(null);
@@ -58,6 +66,12 @@ export default function SettingsWorkspace({
     else action();
   };
   const entries: { id: Area; label: string; hint: string; icon: IconName }[] = [
+    {
+      id: "b2b",
+      label: b("settings"),
+      hint: b("settingsHint"),
+      icon: "building",
+    },
     { id: "currencies", label: ct("title"), hint: ct("hint"), icon: "globe" },
     {
       id: "masterData",
@@ -143,8 +157,12 @@ export default function SettingsWorkspace({
               onClick={() => {
                 if (area !== item.id) {
                   if (
-                    !["masterData", "customerGroups", "legal"].includes(area) &&
-                    !["masterData", "customerGroups", "legal"].includes(item.id)
+                    !["masterData", "customerGroups", "legal", "b2b"].includes(
+                      area,
+                    ) &&
+                    !["masterData", "customerGroups", "legal", "b2b"].includes(
+                      item.id,
+                    )
                   )
                     setArea(item.id);
                   else navigate(() => setArea(item.id));
@@ -161,36 +179,48 @@ export default function SettingsWorkspace({
           <span className="settings-nav-label">{u("connectedAreas")}</span>
           {[
             {
+              right: "automation.read",
               label: w("automation"),
               hint: u("automationHint"),
               icon: "graph" as const,
               action: onAutomation,
             },
             {
+              right: "team.manage",
               label: t("users"),
               hint: u("teamHint"),
               icon: "people" as const,
               action: onTeam,
             },
             {
+              right: "ai.manage",
               label: c("providerConnections"),
               hint: u("aiHint"),
               icon: "spark" as const,
               action: onConnections,
             },
-          ].map((item) => (
-            <button key={item.label} onClick={() => navigate(item.action)}>
-              <Icon name={item.icon} size={19} />
-              <span>
-                <strong>{item.label}</strong>
-                <small>{item.hint}</small>
-              </span>
-              <Icon name="arrow" size={14} />
-            </button>
-          ))}
+          ]
+            .filter((item) => rights.includes(item.right))
+            .map((item) => (
+              <button key={item.label} onClick={() => navigate(item.action)}>
+                <Icon name={item.icon} size={19} />
+                <span>
+                  <strong>{item.label}</strong>
+                  <small>{item.hint}</small>
+                </span>
+                <Icon name="arrow" size={14} />
+              </button>
+            ))}
         </nav>
         <div className="settings-body">
-          {area === "masterData" ? (
+          {area === "b2b" ? (
+            <B2BSettings
+              request={request}
+              canWrite={rights.includes("settings.write")}
+              onDirty={setDirty}
+              onCompanies={rights.includes("b2b.read") ? onB2B : undefined}
+            />
+          ) : area === "masterData" ? (
             <MasterDataSettings
               request={request}
               canWrite={rights.includes("settings.write")}

@@ -19,14 +19,14 @@ pub(crate) fn router() -> Router<App> {
     Router::new()
         .secure_route(
             "/api/knowledge/documents",
-            &[("GET", "knowledge.read"), ("POST", "catalog.write")],
+            &[("GET", "knowledge.read"), ("POST", "knowledge.write")],
             get(list)
                 .post(ingest)
                 .layer(axum::extract::DefaultBodyLimit::max(256 * 1024)),
         )
         .secure_route(
             "/api/knowledge/documents/upload",
-            &[("POST", "catalog.write")],
+            &[("POST", "knowledge.write")],
             post(upload).layer(axum::extract::DefaultBodyLimit::max(2 * 1024 * 1024)),
         )
         .secure_route(
@@ -48,8 +48,8 @@ pub(crate) fn router() -> Router<App> {
             "/api/knowledge/documents/{id}",
             &[
                 ("GET", "knowledge.read"),
-                ("PUT", "catalog.write"),
-                ("PATCH", "catalog.write"),
+                ("PUT", "knowledge.write"),
+                ("PATCH", "knowledge.write"),
             ],
             get(lifecycle::detail)
                 .put(publish)
@@ -58,12 +58,12 @@ pub(crate) fn router() -> Router<App> {
         )
         .secure_route(
             "/api/knowledge/documents/{id}/lifecycle",
-            &[("POST", "catalog.write")],
+            &[("POST", "knowledge.write")],
             post(lifecycle::lifecycle),
         )
         .secure_route(
             "/api/knowledge/documents/{id}/index",
-            &[("POST", "catalog.write")],
+            &[("POST", "knowledge.write")],
             post(index),
         )
         .route("/store-api/product/{id}/questions", post(question))

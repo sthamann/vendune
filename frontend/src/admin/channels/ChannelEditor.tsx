@@ -49,6 +49,8 @@ export default function ChannelEditor({
   const [draft, setDraft] = useState(initial),
     [baseline, setBaseline] = useState(JSON.stringify(initial)),
     [step, setStep] = useState(0),
+    [language, setLanguage] = useState(initial.revision ? locale : mainLocale),
+    [attempted, setAttempted] = useState(false),
     [selected, setSelected] = useState(initial.data.productIds.length > 0),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false),
@@ -66,12 +68,39 @@ export default function ChannelEditor({
   const dirty = JSON.stringify(draft) !== baseline || scopeDirty;
   const patch = (v: Partial<Channel["data"]>) => {
     setNotice(false);
+    setError("");
     setDraft({ ...draft, data: { ...draft.data, ...v } });
   };
-  const valid =
-    !!contentText(draft.data.name, mainLocale, mainLocale).trim() &&
-    draft.data.locales.length > 0 &&
-    (!selected || draft.data.productIds.length > 0);
+  const missing = {
+    name: !contentText(draft.data.name, mainLocale, mainLocale).trim(),
+    country: draft.data.kind === "pos" && !draft.data.pos?.country,
+    languages: !draft.data.locales.length,
+    products: selected && !draft.data.productIds.length,
+  };
+  const valid = !Object.values(missing).some(Boolean);
+  const validate = (part: number) => {
+    setAttempted(true);
+    const field =
+      part === 0
+        ? missing.name
+          ? "nameRequired"
+          : missing.country
+            ? "countryRequired"
+            : null
+        : missing.languages
+          ? "languagesRequired"
+          : missing.products
+            ? "productsRequired"
+            : null;
+    if (field) {
+      setError(t(field));
+      if (field === "nameRequired") setLanguage(mainLocale);
+      return false;
+    }
+    setAttempted(false);
+    setError("");
+    return true;
+  };
   const save = async (next = draft) => {
     setBusy(true);
     setError("");
@@ -93,7 +122,12 @@ export default function ChannelEditor({
     }
   };
   return (
-    <ContentLanguage locales={languages} mainLocale={mainLocale}>
+    <ContentLanguage
+      locales={languages}
+      mainLocale={mainLocale}
+      language={language}
+      onLanguageChange={setLanguage}
+    >
       <section className="studio-card channel-editor">
         <header className="channel-editor-heading">
           <button
@@ -219,6 +253,9 @@ export default function ChannelEditor({
                       patch({ name: name as Record<string, string> })
                     }
                     required
+                    error={
+                      attempted && missing.name ? t("nameRequired") : undefined
+                    }
                     maxLength={100}
                   />
                   <ChannelType
@@ -226,6 +263,11 @@ export default function ChannelEditor({
                     draft={draft}
                     patch={patch}
                     countries={countries}
+                    countryError={
+                      attempted && missing.country
+                        ? t("countryRequired")
+                        : undefined
+                    }
                   />
                 </>
               )}
@@ -240,6 +282,16 @@ export default function ChannelEditor({
                     setSelected={setSelected}
                     patch={patch}
                     request={request}
+                    languageError={
+                      attempted && missing.languages
+                        ? t("languagesRequired")
+                        : undefined
+                    }
+                    productError={
+                      attempted && missing.products
+                        ? t("productsRequired")
+                        : undefined
+                    }
                   />
                 </>
               )}
@@ -274,19 +326,7 @@ export default function ChannelEditor({
                     type="button"
                     className="studio-primary"
                     onClick={() => {
-                      if (
-                        (step === 0 &&
-                          !contentText(
-                            draft.data.name,
-                            mainLocale,
-                            mainLocale,
-                          ).trim()) ||
-                        (step === 1 && !valid)
-                      ) {
-                        setError(t("invalid"));
-                        return;
-                      }
-                      setError("");
+                      if (!validate(step)) return;
                       setStep(step + 1);
                     }}
                   >
@@ -297,7 +337,9 @@ export default function ChannelEditor({
                     type="button"
                     className="studio-primary"
                     disabled={!valid || (!dirty && draft.revision > 0)}
-                    onClick={() => void save()}
+                    onClick={() => {
+                      if (validate(0) && validate(1)) void save();
+                    }}
                   >
                     {t(draft.revision ? "save" : "new")}
                   </button>

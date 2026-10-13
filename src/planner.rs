@@ -10,6 +10,7 @@ pub(crate) async fn plan_with(
     locale: &str,
     authority: &RequestContext,
 ) -> Result<Value> {
+    agent::assistant_access(authority)?;
     if instruction.is_empty() || instruction.len() > 4000 {
         return Err(bad("Instruction must contain 1..4000 characters"));
     }

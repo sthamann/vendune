@@ -29,7 +29,9 @@ export default function CategoriesWorkspace({
   request,
   categories,
   onRefresh,
+  canWrite = true,
 }: {
+  canWrite?: boolean;
   request: RequestFn;
   categories: Category[];
   onRefresh: () => void;
@@ -72,44 +74,46 @@ export default function CategoriesWorkspace({
       <section className="studio-card catalog-category-tree">
         <div className="catalog-heading">
           <h2>{c("categories")}</h2>
-          <button
-            className="studio-secondary"
-            onClick={() =>
-              edit({
-                id: "",
-                revision: 0,
-                parentId: categories.some((c) => c.id === "catalog-root")
-                  ? "catalog-root"
-                  : null,
-                position: 0,
-                data: {
-                  active: false,
-                  visible: true,
-                  type: "page",
-                  translations: Object.fromEntries(
-                    locales.map((locale) => {
-                      const l =
-                        locales.filter(
-                          (v) => v.split("-")[0] === locale.split("-")[0],
-                        ).length === 1
-                          ? locale.split("-")[0]
-                          : locale;
-                      return [
-                        l,
-                        {
-                          name: l === mainKey ? "" : null,
-                          description: null,
-                          slug: null,
-                        },
-                      ];
-                    }),
-                  ),
-                },
-              })
-            }
-          >
-            + {c("newCategory")}
-          </button>
+          {canWrite && (
+            <button
+              className="studio-secondary"
+              onClick={() =>
+                edit({
+                  id: "",
+                  revision: 0,
+                  parentId: categories.some((c) => c.id === "catalog-root")
+                    ? "catalog-root"
+                    : null,
+                  position: 0,
+                  data: {
+                    active: false,
+                    visible: true,
+                    type: "page",
+                    translations: Object.fromEntries(
+                      locales.map((locale) => {
+                        const l =
+                          locales.filter(
+                            (v) => v.split("-")[0] === locale.split("-")[0],
+                          ).length === 1
+                            ? locale.split("-")[0]
+                            : locale;
+                        return [
+                          l,
+                          {
+                            name: l === mainKey ? "" : null,
+                            description: null,
+                            slug: null,
+                          },
+                        ];
+                      }),
+                    ),
+                  },
+                })
+              }
+            >
+              + {c("newCategory")}
+            </button>
+          )}
         </div>
         {orderedCategories(categories).map(({ category, depth }) => (
           <button
@@ -133,6 +137,7 @@ export default function CategoriesWorkspace({
               {selected.id ? name(selected, langLocale) : c("newCategory")}
             </h2>
             <TranslationFields
+              disabled={!canWrite}
               value={selected.data.translations}
               mainLocale={mainLocale}
               locales={locales}
@@ -156,193 +161,200 @@ export default function CategoriesWorkspace({
                 })
               }
             />
-            <div className="catalog-form-grid">
-              <label>
-                {c("parent")}
-                <select
-                  value={selected.parentId ?? ""}
-                  onChange={(e) =>
-                    edit({ ...selected, parentId: e.target.value || null })
-                  }
-                >
-                  <option value="">{c("root")}</option>
-                  {orderedCategories(categories)
-                    .filter(({ category }) => category.id !== selected.id)
-                    .map(({ category, depth }) => (
-                      <option key={category.id} value={category.id}>
-                        {"—".repeat(depth)} {name(category, langLocale)}
+            <fieldset
+              className="catalog-permission-fields"
+              disabled={!canWrite}
+            >
+              <div className="catalog-form-grid">
+                <label>
+                  {c("parent")}
+                  <select
+                    value={selected.parentId ?? ""}
+                    onChange={(e) =>
+                      edit({ ...selected, parentId: e.target.value || null })
+                    }
+                  >
+                    <option value="">{c("root")}</option>
+                    {orderedCategories(categories)
+                      .filter(({ category }) => category.id !== selected.id)
+                      .map(({ category, depth }) => (
+                        <option key={category.id} value={category.id}>
+                          {"—".repeat(depth)} {name(category, langLocale)}
+                        </option>
+                      ))}
+                  </select>
+                </label>
+                <label>
+                  {c("position")}
+                  <input
+                    type="number"
+                    value={selected.position}
+                    onChange={(e) =>
+                      edit({ ...selected, position: Number(e.target.value) })
+                    }
+                  />
+                </label>
+                <label>
+                  {c("type")}
+                  <select
+                    value={selected.data.type}
+                    onChange={(e) =>
+                      edit({
+                        ...selected,
+                        data: {
+                          ...selected.data,
+                          type: e.target.value,
+                          graphQuery:
+                            e.target.value === "page"
+                              ? selected.data.graphQuery
+                              : null,
+                        },
+                      })
+                    }
+                  >
+                    {["page", "folder", "link"].map((t) => (
+                      <option key={t} value={t}>
+                        {c(
+                          t === "folder"
+                            ? "structuring"
+                            : (t as "page" | "link"),
+                        )}
                       </option>
                     ))}
-                </select>
-              </label>
-              <label>
-                {c("position")}
-                <input
-                  type="number"
-                  value={selected.position}
-                  onChange={(e) =>
-                    edit({ ...selected, position: Number(e.target.value) })
-                  }
-                />
-              </label>
-              <label>
-                {c("type")}
-                <select
-                  value={selected.data.type}
-                  onChange={(e) =>
-                    edit({
-                      ...selected,
-                      data: {
-                        ...selected.data,
-                        type: e.target.value,
-                        graphQuery:
-                          e.target.value === "page"
-                            ? selected.data.graphQuery
-                            : null,
-                      },
-                    })
-                  }
-                >
-                  {["page", "folder", "link"].map((t) => (
-                    <option key={t} value={t}>
-                      {c(
-                        t === "folder" ? "structuring" : (t as "page" | "link"),
-                      )}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              {selected.data.type === "link" && (
+                  </select>
+                </label>
+                {selected.data.type === "link" && (
+                  <label>
+                    {c("url")}
+                    <input
+                      value={selected.data.url ?? ""}
+                      onChange={(e) =>
+                        edit({
+                          ...selected,
+                          data: { ...selected.data, url: e.target.value },
+                        })
+                      }
+                    />
+                  </label>
+                )}
                 <label>
-                  {c("url")}
+                  {c("slug")}
                   <input
-                    value={selected.data.url ?? ""}
+                    value={tr.slug ?? ""}
+                    placeholder={
+                      lang !== mainKey && tr.slug == null
+                        ? (selected.data.translations[mainKey]?.slug ?? "")
+                        : undefined
+                    }
+                    maxLength={200}
                     onChange={(e) =>
                       edit({
                         ...selected,
-                        data: { ...selected.data, url: e.target.value },
+                        data: {
+                          ...selected.data,
+                          translations: {
+                            ...selected.data.translations,
+                            [lang]: { ...tr, slug: e.target.value },
+                          },
+                        },
                       })
                     }
                   />
                 </label>
-              )}
-              <label>
-                {c("slug")}
-                <input
-                  value={tr.slug ?? ""}
-                  placeholder={
-                    lang !== mainKey && tr.slug == null
-                      ? (selected.data.translations[mainKey]?.slug ?? "")
-                      : undefined
-                  }
-                  maxLength={200}
-                  onChange={(e) =>
-                    edit({
-                      ...selected,
-                      data: {
-                        ...selected.data,
-                        translations: {
-                          ...selected.data.translations,
-                          [lang]: { ...tr, slug: e.target.value },
-                        },
-                      },
-                    })
-                  }
-                />
-              </label>
-            </div>
-            <div className="catalog-flags">
-              <label className="checkbox-label">
-                <input
-                  type="checkbox"
-                  checked={selected.data.displayNestedProducts !== false}
-                  onChange={(e) =>
-                    edit({
-                      ...selected,
-                      data: {
-                        ...selected.data,
-                        displayNestedProducts: e.target.checked,
-                      },
-                    })
-                  }
-                />
-                {c("nested")}
-              </label>
-              {(["active", "visible"] as const).map((k) => (
-                <label className="checkbox-label" key={k}>
+              </div>
+              <div className="catalog-flags">
+                <label className="checkbox-label">
                   <input
                     type="checkbox"
-                    checked={selected.data[k]}
+                    checked={selected.data.displayNestedProducts !== false}
                     onChange={(e) =>
                       edit({
                         ...selected,
-                        data: { ...selected.data, [k]: e.target.checked },
+                        data: {
+                          ...selected.data,
+                          displayNestedProducts: e.target.checked,
+                        },
                       })
                     }
                   />
-                  {c(k)}
+                  {c("nested")}
                 </label>
-              ))}
-            </div>
-            {selected.data.type === "page" && (
-              <ContentLanguage
-                locales={locales}
-                mainLocale={mainLocale}
-                language={langLocale}
-                onLanguageChange={setLanguage}
-              >
-                <CategoryFactQuery
-                  value={selected.data.graphQuery}
-                  onChange={(graphQuery) =>
-                    edit({
-                      ...selected,
-                      data: { ...selected.data, graphQuery },
-                    })
-                  }
-                />
-              </ContentLanguage>
-            )}
-            {error && <p role="alert">{error}</p>}
-            {saved && <p role="status">{c("saved")}</p>}
-            <button
-              className="studio-primary"
-              disabled={
-                busy || !selected.data.translations[mainKey]?.name?.trim()
-              }
-              onClick={async () => {
-                setBusy(true);
-                setError("");
-                try {
-                  const translations = { ...selected.data.translations };
-                  const v = await request(
-                    selected.id
-                      ? `/api/merchant/categories/${selected.id}`
-                      : "/api/merchant/categories",
-                    {
-                      revision: selected.id ? selected.revision : null,
-                      parentId: selected.parentId,
-                      position: selected.position,
-                      data: { ...selected.data, translations },
-                    },
-                    selected.id ? "PUT" : "POST",
-                  );
-                  setSelected({
-                    ...selected,
-                    id: v.id,
-                    revision: v.revision,
-                    data: { ...selected.data, translations },
-                  });
-                  setSaved(true);
-                  onRefresh();
-                } catch (e) {
-                  setError((e as Error).message);
-                } finally {
-                  setBusy(false);
+                {(["active", "visible"] as const).map((k) => (
+                  <label className="checkbox-label" key={k}>
+                    <input
+                      type="checkbox"
+                      checked={selected.data[k]}
+                      onChange={(e) =>
+                        edit({
+                          ...selected,
+                          data: { ...selected.data, [k]: e.target.checked },
+                        })
+                      }
+                    />
+                    {c(k)}
+                  </label>
+                ))}
+              </div>
+              {selected.data.type === "page" && (
+                <ContentLanguage
+                  locales={locales}
+                  mainLocale={mainLocale}
+                  language={langLocale}
+                  onLanguageChange={setLanguage}
+                >
+                  <CategoryFactQuery
+                    value={selected.data.graphQuery}
+                    onChange={(graphQuery) =>
+                      edit({
+                        ...selected,
+                        data: { ...selected.data, graphQuery },
+                      })
+                    }
+                  />
+                </ContentLanguage>
+              )}
+              {error && <p role="alert">{error}</p>}
+              {saved && <p role="status">{c("saved")}</p>}
+              <button
+                className="studio-primary"
+                disabled={
+                  busy || !selected.data.translations[mainKey]?.name?.trim()
                 }
-              }}
-            >
-              {c(busy ? "saving" : "saveCategory")}
-            </button>
+                onClick={async () => {
+                  setBusy(true);
+                  setError("");
+                  try {
+                    const translations = { ...selected.data.translations };
+                    const v = await request(
+                      selected.id
+                        ? `/api/merchant/categories/${selected.id}`
+                        : "/api/merchant/categories",
+                      {
+                        revision: selected.id ? selected.revision : null,
+                        parentId: selected.parentId,
+                        position: selected.position,
+                        data: { ...selected.data, translations },
+                      },
+                      selected.id ? "PUT" : "POST",
+                    );
+                    setSelected({
+                      ...selected,
+                      id: v.id,
+                      revision: v.revision,
+                      data: { ...selected.data, translations },
+                    });
+                    setSaved(true);
+                    onRefresh();
+                  } catch (e) {
+                    setError((e as Error).message);
+                  } finally {
+                    setBusy(false);
+                  }
+                }}
+              >
+                {c(busy ? "saving" : "saveCategory")}
+              </button>
+            </fieldset>
             {selected.id && (
               <EntityHistory
                 request={request}

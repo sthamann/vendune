@@ -7,6 +7,7 @@ pub(super) async fn list(
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "orders.read")?;
+    auth::permit(&h, "customers.pii")?;
     let n = c.validate()?;
     let rows=sqlx::query("SELECT o.data #- '{cart,token}' AS data,o.created_at::text AS created,coalesce(o.data->'orderCustomer'->>'email',c.data->>'email') AS email FROM orders o JOIN carts c ON c.id=o.cart_id WHERE o.tenant=$1 AND ($2='' OR (o.created_at,o.id)<(SELECT created_at,id FROM orders WHERE tenant=$1 AND id=$2)) AND ($3='' OR strpos(lower(o.data->>'orderNumber'||' '||coalesce(o.data->'orderCustomer'->>'email',c.data->>'email','')),lower($3))>0) AND ($4='' OR o.data->>'state'=$4) ORDER BY o.created_at DESC,o.id DESC LIMIT $5").bind(t).bind(c.after).bind(c.query).bind(c.state).bind(n+1).fetch_all(&a.db).await?;
     let more = rows.len() > n as usize;
@@ -33,6 +34,7 @@ pub(super) async fn detail(
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "orders.read")?;
+    auth::permit(&h, "customers.pii")?;
     let r=sqlx::query("SELECT o.data #- '{cart,token}' AS data,o.created_at::text AS created,coalesce(o.data->'orderCustomer'->>'email',c.data->>'email') AS email FROM orders o JOIN carts c ON c.id=o.cart_id WHERE o.tenant=$1 AND o.id=$2").bind(&t).bind(&id).fetch_optional(&a.db).await?.ok_or(Error(StatusCode::NOT_FOUND,"Order not found".into()))?;
     let mut v: Value = r.get("data");
     commerce::order_fields(&mut v);
@@ -52,6 +54,7 @@ pub(super) async fn note(
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "orders.write")?;
+    auth::permit(&h, "customers.pii")?;
     let text = v["text"]
         .as_str()
         .filter(|s| !s.trim().is_empty() && s.len() <= 4000)

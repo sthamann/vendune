@@ -59,7 +59,7 @@ pub(crate) async fn index(
     Path(id): Path<String>,
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
-    auth::permit(&h, "catalog")?;
+    auth::permit(&h, "knowledge.write")?;
     let exists: bool = sqlx::query_scalar(
         "SELECT EXISTS(SELECT 1 FROM knowledge_documents WHERE tenant=$1 AND id=$2)",
     )

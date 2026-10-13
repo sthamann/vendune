@@ -26,13 +26,13 @@ it("creates a company and unit with native-valid IDs from a digit-led UUID", asy
         shipping: [],
         payments: [],
       };
-    if (path.endsWith("/company.save") || path.endsWith("/unit.save")) {
+    if (path.endsWith("/company.create") || path.endsWith("/unit.save")) {
       // Match apps::identifier instead of a permissive fake API.
       if (!/^[a-z][a-z0-9_]{0,31}$/.test(body.id))
         throw new Error("Valid company/unit ID required");
-      if (path.endsWith("/company.save"))
+      if (path.endsWith("/company.create"))
         company = { ...body, revision: 1, units: [], members: [] };
-      return { revision: 1 };
+      return { id: body.id, revision: 1 };
     }
     if (path.endsWith("/company")) return company;
     return { elements: [] };
@@ -45,10 +45,12 @@ it("creates a company and unit with native-valid IDs from a digit-led UUID", asy
   );
   await user.click(screen.getByRole("button", { name: "New company" }));
   await user.type(screen.getByLabelText("Name"), "Nord Business");
-  await user.click(screen.getByRole("button", { name: "Save changes" }));
+  await user.click(
+    screen.getAllByRole("button", { name: "New company" }).at(-1)!,
+  );
   await screen.findByRole("button", { name: "New purchasing unit" });
   expect(request).toHaveBeenCalledWith(
-    "/api/b2b/company.save",
+    "/api/b2b/company.create",
     expect.objectContaining({
       id: "b7405da42f5c449938b4876dd6a4e2a5",
       data: expect.objectContaining({ name: { "en-GB": "Nord Business" } }),

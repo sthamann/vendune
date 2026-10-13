@@ -119,6 +119,8 @@ impl CheckoutSelection {
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub(crate) struct Settings {
     #[serde(default)]
+    pub b2b: crate::b2b::Config,
+    #[serde(default)]
     pub ai_policy: crate::cognition::guardrails::Config,
     #[serde(default)]
     pub legal: crate::legal::Config,

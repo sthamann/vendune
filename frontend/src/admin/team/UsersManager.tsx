@@ -1,4 +1,7 @@
 /** Users Manager: Personal accounts, memberships, roles, invitations and scoped developer access.. */
+import type { WorkspaceRole } from "./RolesManager";
+import { contentText } from "../../shared/i18n/content-language";
+import { usePermissionText } from "./permission-i18n";
 import { BRAND } from "../../shared/ui/Brand";
 import { useCallback, useEffect, useState } from "react";
 import { shopApi } from "../../shared/api/shop-api";
@@ -32,6 +35,16 @@ export default function UsersManager({
   onLogout: () => void;
 }) {
   const { s, locale } = useShopText();
+  const pt = usePermissionText();
+  const [roleDefinitions, setRoleDefinitions] = useState<WorkspaceRole[]>([]),
+    [main, setMain] = useState("en-GB"),
+    [grants, setGrants] = useState<string[]>([]);
+  const roleName = (id: string) =>
+    contentText(
+      roleDefinitions.find((r) => r.id === id)?.data.name ?? {},
+      locale,
+      main,
+    ) || s(id);
   const [mode, setMode] = useState("login");
   const [session, setSession] = useState<Session>();
   const [members, setMembers] = useState<Member[]>([]);
@@ -39,7 +52,7 @@ export default function UsersManager({
   const [busy, setBusy] = useState(false);
   const [invitation, setInvitation] = useState("");
   const role = session?.workspaces.find((w) => w.id === workspace)?.role;
-  const canManage = role === "owner" || role === "admin";
+  const canManage = grants.includes("team.manage");
   const refresh = useCallback(async () => {
     if (!token) return;
     const data = await shopApi<Session>(
@@ -50,8 +63,24 @@ export default function UsersManager({
       token,
     );
     setSession(data);
-    const role = data.workspaces.find((w) => w.id === workspace)?.role;
-    if (role === "owner" || role === "admin")
+    const access = await shopApi<any>(
+      "/api/auth/access",
+      undefined,
+      undefined,
+      undefined,
+      token,
+    );
+    setGrants(access.permissions);
+    if (access.permissions.includes("team.manage")) {
+      const definitions = await shopApi<any>(
+        "/api/workspace/roles",
+        undefined,
+        undefined,
+        undefined,
+        token,
+      );
+      setRoleDefinitions(definitions.elements);
+      setMain(definitions.mainLocale);
       setMembers(
         (
           await shopApi<{ members: Member[] }>(
@@ -63,7 +92,10 @@ export default function UsersManager({
           )
         ).members,
       );
-    else setMembers([]);
+    } else {
+      setMembers([]);
+      setRoleDefinitions([]);
+    }
   }, [token, workspace, locale]);
   useEffect(() => {
     if (!token) {
@@ -209,7 +241,7 @@ export default function UsersManager({
               >
                 {session.workspaces.map((w) => (
                   <option key={w.id} value={w.id}>
-                    {w.name} · {s(w.role)}
+                    {w.name} · {roleName(w.role)}
                   </option>
                 ))}
               </select>
@@ -244,16 +276,17 @@ export default function UsersManager({
                   <label>
                     {s("role")}
                     <select name="role" defaultValue="viewer">
-                      {[
-                        "viewer",
-                        "editor",
-                        "admin",
-                        ...(role === "owner" ? ["owner"] : []),
-                      ].map((r) => (
-                        <option key={r} value={r}>
-                          {s(r)}
-                        </option>
-                      ))}
+                      {roleDefinitions
+                        .filter(
+                          (r) =>
+                            r.data.active &&
+                            (r.id !== "owner" || role === "owner"),
+                        )
+                        .map(({ id: r }) => (
+                          <option key={r} value={r}>
+                            {roleName(r)} ({r})
+                          </option>
+                        ))}
                     </select>
                   </label>
                   <button className="studio-primary" disabled={busy}>
@@ -276,6 +309,7 @@ export default function UsersManager({
               </section>
               <section className="commerce-card">
                 <h2>{s("members")}</h2>
+                <p>{pt("roleHint")}</p>
                 {members.map((m) => (
                   <div className="member-row" key={m.id}>
                     <div>
@@ -302,18 +336,20 @@ export default function UsersManager({
                         });
                       }}
                     >
-                      {[
-                        "viewer",
-                        "editor",
-                        "admin",
-                        ...(role === "owner" || m.role === "owner"
-                          ? ["owner"]
-                          : []),
-                      ].map((r) => (
-                        <option value={r} key={r}>
-                          {s(r)}
-                        </option>
-                      ))}
+                      {roleDefinitions
+                        .filter(
+                          (r) =>
+                            (r.data.active &&
+                              (r.id !== "owner" ||
+                                role === "owner" ||
+                                m.role === "owner")) ||
+                            r.id === m.role,
+                        )
+                        .map(({ id: r }) => (
+                          <option value={r} key={r}>
+                            {roleName(r)} ({r})
+                          </option>
+                        ))}
                     </select>
                     <button
                       className="studio-secondary"

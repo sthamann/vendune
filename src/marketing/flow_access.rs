@@ -15,7 +15,7 @@ pub(crate) async fn headers(a: &App, t: &str, actor: Option<&str>) -> Result<Req
     if actor == "bootstrap" {
         h.insert("x-rac-role", "owner".parse().unwrap());
     } else {
-        let r=sqlx::query("SELECT role,permissions FROM memberships WHERE tenant=COALESCE((SELECT live_tenant FROM shop_environments WHERE tenant=$1),$1) AND user_id=$2 AND active").bind(t).bind(actor).fetch_optional(&a.db).await?.ok_or(Error(StatusCode::FORBIDDEN,"Flow owner lost access".into()))?;
+        let r=sqlx::query("SELECT role,permissions FROM membership_grants WHERE tenant=COALESCE((SELECT live_tenant FROM shop_environments WHERE tenant=$1),$1) AND user_id=$2 AND active").bind(t).bind(actor).fetch_optional(&a.db).await?.ok_or(Error(StatusCode::FORBIDDEN,"Flow owner lost access".into()))?;
         h.insert(
             "x-rac-role",
             r.get::<String, _>("role")
@@ -33,6 +33,6 @@ pub(crate) async fn headers(a: &App, t: &str, actor: Option<&str>) -> Result<Req
             );
         }
     }
-    auth::permit(&h, "settings.write")?;
+    auth::permit(&h, "automation.manage")?;
     Ok(h)
 }

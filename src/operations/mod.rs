@@ -4,6 +4,7 @@ mod addresses;
 mod company_logo;
 mod company_model;
 mod company_public;
+mod customer_lookup;
 mod customers;
 mod guest_customers;
 pub(crate) use customers::restore_customer;
@@ -11,6 +12,8 @@ pub(crate) use master_data::save as restore_company;
 mod master_data;
 pub(crate) use master_data::{lock as lock_company, validate_release as validate_company_release};
 mod orders;
+mod redacted_reads;
+pub(crate) use redacted_reads::redacted_read;
 mod receipt_pdf;
 mod receipt_text;
 pub(crate) use receipt_text::lines as receipt_lines;
@@ -48,7 +51,7 @@ pub(crate) fn permission(name: &str) -> Option<&'static str> {
         "merchant.company.save" => "settings.write",
         "merchant.workflow" => "orders.read",
         "merchant.workflow.save" => "settings.write",
-        "merchant.customers" | "merchant.customer" => "customers.read",
+        "merchant.customer.lookup" | "merchant.customers" | "merchant.customer" => "customers.read",
         "merchant.customer.save"
         | "merchant.customer.address.save"
         | "merchant.customer.address.delete" => "customers.write",
@@ -71,12 +74,29 @@ pub(crate) fn permission(name: &str) -> Option<&'static str> {
         _ => return None,
     })
 }
+pub(crate) fn requires_pii(name: &str) -> bool {
+    name.starts_with("merchant.customer.")
+        || matches!(
+            name,
+            "merchant.customers"
+                | "merchant.customer"
+                | "merchant.orders"
+                | "merchant.order"
+                | "merchant.order.transition"
+                | "merchant.order.note"
+                | "merchant.receipts"
+                | "merchant.receipt.create"
+        )
+}
 pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -> Result<Value> {
     merchant(a, h)?;
     auth::permit(
         h,
         permission(name).ok_or(bad("Unknown merchant operation"))?,
     )?;
+    if requires_pii(name) {
+        auth::permit(h, "customers.pii")?;
+    }
     let id = || {
         v["id"]
             .as_str()
@@ -85,6 +105,14 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
     };
     let criteria = || serde_json::from_value(v.clone()).map_err(|_| bad("Invalid search criteria"));
     let Json(result) = match name {
+        "merchant.customer.lookup" => {
+            customer_lookup::lookup(
+                State(a.clone()),
+                h.clone(),
+                axum::extract::Query(criteria()?),
+            )
+            .await?
+        }
         "merchant.customer.addresses" => {
             addresses::list(State(a.clone()), h.clone(), Path(id()?)).await?
         }

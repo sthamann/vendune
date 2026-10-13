@@ -3,7 +3,7 @@ use super::*;
 pub(super) fn router() -> Router<App> {
     Router::new().secure_route(
         "/api/developer/preview",
-        &[("POST", "apps.manage")],
+        &[("POST", "developer.manage")],
         post(run),
     )
 }

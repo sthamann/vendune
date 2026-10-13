@@ -14,6 +14,13 @@ pub(crate) async fn access(
     unit: &str,
     customer: &str,
 ) -> Result<Access> {
+    let config: Value =
+        sqlx::query_scalar("SELECT data FROM commerce_settings WHERE tenant=$1 FOR SHARE")
+            .bind(t)
+            .fetch_one(&mut *conn)
+            .await?;
+    let features = commerce::decode_config(config)?.b2b;
+    features.admit("select")?;
     let r=sqlx::query("SELECT u.company_id,u.data AS unit,u.revision AS ur,c.data AS company,c.revision AS cr,m.data AS member,m.revision AS mr FROM b2b_units u JOIN b2b_companies c ON c.tenant=u.tenant AND c.id=u.company_id JOIN b2b_members m ON m.tenant=u.tenant AND m.unit_id=u.id WHERE u.tenant=$1 AND u.id=$2 AND m.customer_id=$3 FOR SHARE OF u,c,m")
         .bind(t).bind(unit).bind(customer).fetch_optional(conn).await?.ok_or(Error(StatusCode::FORBIDDEN,"Company unit membership required".into()))?;
     let company: Company =
@@ -58,6 +65,13 @@ pub(crate) async fn guard_conn(
     }
     let policy = access(conn, &c.tenant, &context.unit_id, &customer).await?;
     require(&policy, "buy")?;
+    if context.quote_id.is_some() {
+        let raw: Value = sqlx::query_scalar("SELECT data FROM commerce_settings WHERE tenant=$1")
+            .bind(&c.tenant)
+            .fetch_one(&mut *conn)
+            .await?;
+        commerce::decode_config(raw)?.b2b.admit("quote.accept")?;
+    }
     catalog_guard(conn, c, &policy).await?;
     Ok(Some(policy))
 }

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import type { RequestFn } from "../../shell/studio-types";
 import ConfirmDialog from "../../../shared/ui/ConfirmDialog";
-import { useOperationsText } from "../../../shared/i18n/operations-i18n";
+import { usePermissionText } from "../../team/permission-i18n";
 import { useApiText } from "./api-i18n";
 type Key = {
   id: string;
@@ -12,7 +12,7 @@ type Key = {
 };
 export default function IntegrationKeys({ request }: { request: RequestFn }) {
   const t = useApiText();
-  const { o } = useOperationsText();
+  const pt = usePermissionText();
   const [keys, setKeys] = useState<Key[]>([]),
     [access, setAccess] = useState<string[]>([]),
     [name, setName] = useState(""),
@@ -114,7 +114,7 @@ export default function IntegrationKeys({ request }: { request: RequestFn }) {
                     }
                   />
                   <span>
-                    {o(p)}
+                    {pt(p)}
                     <small>
                       <code>{p}</code>
                     </small>

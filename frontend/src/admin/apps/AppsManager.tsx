@@ -17,10 +17,12 @@ import type { RequestFn } from "../shell/studio-types";
 export default function AppsManager({
   request,
   role,
+  rights,
 }: {
   request: RequestFn;
   token: string;
   role: string;
+  rights?: string[];
 }) {
   const { a, locale, money } = useAppText();
   const { c } = useCustomerText();
@@ -92,7 +94,9 @@ export default function AppsManager({
       setBusy(false);
     }
   };
-  const manage = ["owner", "admin"].includes(role);
+  const manage = rights
+    ? rights.includes("apps.manage")
+    : ["owner", "admin"].includes(role);
   return (
     <div className="studio-page app-workspace">
       {!selected && (

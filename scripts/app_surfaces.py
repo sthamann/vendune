@@ -93,7 +93,7 @@ def run():
         save_action = next(a for a in m["actions"] if a["name"] == "save_entry")
         save_action.update(permission="orders.write", mcp=False)
         m["entities"].append({"name":"private_notes","label":m["name"],"publicRead":False,"fields":[{"name":"text","label":m["name"],"kind":"string","required":True}]})
-        for name,handler,scope in [("list_notes","list","orders.read"),("save_notes","save","orders.write")]:
+        for name,handler,scope in [("list_notes","list","customers.pii"),("save_notes","save","orders.write")]:
             note_action = copy.deepcopy(next(a for a in m["actions"] if a["handler"] == handler))
             note_action.update(name=name, description="Private scoped notes", entity="private_notes", public=False, permission=scope, mcp=False)
             m["actions"].append(note_action)
@@ -198,7 +198,7 @@ def run():
             passed("Actual model wire receives only selected bounded app context; approval updates a record beyond the first page")
             call(f"/api/apps/{app_id}/actions/save_notes", {"id":"private","fields":{"text":"ONLY-ORDER-READ-SENTINEL"}}, h)
             owner_plan = call("/api/agent/plan", {"instruction":"Update zz-last only", "inference":{"provider":"openai","model":"local-fixture"}}, h)
-            key = call("/api/workspace/integrations", {"name":"Restricted planner","permissions":["catalog.read","catalog.write","knowledge.read"],"expiresInDays":1}, h)
+            key = call("/api/workspace/integrations", {"name":"Restricted planner","permissions":["catalog.read","catalog.write","knowledge.read","assistant.use","orders.read"],"expiresInDays":1}, h)
             restricted = {"x-tenant":u["workspace"],"Authorization":"Bearer "+key["key"]}
             call("/api/agent/tasks/"+owner_plan["taskId"]+"/apply", {"approve":True}, restricted, expected=403)
             call("/api/agent/plan", {"instruction":"Update zz-last only","inference":{"provider":"openai","model":"local-fixture"}}, restricted, expected=403)

@@ -6,6 +6,7 @@ import Brand, { BRAND } from "../../shared/ui/Brand";
 import "../styles/operations.css";
 import "../styles/studio.css";
 
+import { canOpenStudio } from "./permissions";
 import { useStudio } from "./StudioContext";
 import type { Tab } from "./navigation";
 import { useStudioText } from "../../shared/i18n/studio-ui-i18n";
@@ -57,7 +58,11 @@ export default function StudioSidebar() {
       <a className="studio-brand" href="#merchant" aria-label={t("studio")}>
         <Brand />
       </a>
-      <button className="workspace-switch" onClick={() => selectTab("users")}>
+      <button
+        disabled={!canOpenStudio("users", access)}
+        className="workspace-switch"
+        onClick={() => selectTab("users")}
+      >
         <span className="shop-monogram">
           {workspaceName.slice(0, 1).toUpperCase()}
         </span>
@@ -69,52 +74,42 @@ export default function StudioSidebar() {
       </button>
       <button
         className="studio-primary new-conversation"
-        disabled={busy}
+        disabled={busy || !canOpenStudio("assistant", access)}
         onClick={newChat}
       >
         <Icon name="plus" size={18} />
         {t("newChat")}
       </button>
       <nav aria-label={t("studio")}>
-        {groups.map((group) => (
-          <div className="sidebar-nav-group" key={group.label}>
-            <span className="sidebar-group-label">{group.label}</span>
-            {group.tabs
-              .map((id) => nav.find((n) => n.id === id)!)
-              .filter((n) =>
-                n.id === "b2b"
-                  ? access.includes("b2b.read")
-                  : n.id === "pos"
-                    ? access.includes("pos.use")
-                    : n.id === "customers"
-                      ? access.includes("customers.read")
-                      : n.id === "orders"
-                        ? access.includes("orders.read")
-                        : n.id === "productData"
-                          ? access.includes("catalog.write")
-                          : true,
-              )
-              .map((n) => (
-                <button
-                  key={n.id}
-                  aria-current={
-                    !appSurface && tab === n.id ? "page" : undefined
-                  }
-                  className={!appSurface && tab === n.id ? "active" : ""}
-                  onClick={() => {
-                    selectTab(n.id);
-                    setMenu(false);
-                  }}
-                >
-                  <Icon name={n.icon} />
-                  <span>{tabLabel(n.id)}</span>
-                  {n.id === "overview" && data?.summary.ordersToday ? (
-                    <b>{data.summary.ordersToday}</b>
-                  ) : null}
-                </button>
-              ))}
-          </div>
-        ))}
+        {groups
+          .filter((group) => group.tabs.some((id) => canOpenStudio(id, access)))
+          .map((group) => (
+            <div className="sidebar-nav-group" key={group.label}>
+              <span className="sidebar-group-label">{group.label}</span>
+              {group.tabs
+                .map((id) => nav.find((n) => n.id === id)!)
+                .filter((n) => canOpenStudio(n.id, access))
+                .map((n) => (
+                  <button
+                    key={n.id}
+                    aria-current={
+                      !appSurface && tab === n.id ? "page" : undefined
+                    }
+                    className={!appSurface && tab === n.id ? "active" : ""}
+                    onClick={() => {
+                      selectTab(n.id);
+                      setMenu(false);
+                    }}
+                  >
+                    <Icon name={n.icon} />
+                    <span>{tabLabel(n.id)}</span>
+                    {n.id === "overview" && data?.summary.ordersToday ? (
+                      <b>{data.summary.ordersToday}</b>
+                    ) : null}
+                  </button>
+                ))}
+            </div>
+          ))}
         <AdminAppNavigation
           selected={appSurface}
           onSelect={(s) => {
@@ -123,25 +118,27 @@ export default function StudioSidebar() {
           }}
         />
       </nav>
-      <div className="sidebar-conversations">
-        <span className="section-label">{t("conversations")}</span>
-        {conversations.length ? (
-          conversations.map((c) => (
-            <button
-              key={c.id}
-              disabled={busy || !connected}
-              title={c.title}
-              className={id === c.id ? "selected" : ""}
-              onClick={() => run(() => load(c.id))}
-            >
-              <Icon name="chat" size={15} />
-              <span>{c.title}</span>
-            </button>
-          ))
-        ) : (
-          <p>{t("conversationEmpty")}</p>
-        )}
-      </div>
+      {access.includes("assistant.use") && (
+        <div className="sidebar-conversations">
+          <span className="section-label">{t("conversations")}</span>
+          {conversations.length ? (
+            conversations.map((c) => (
+              <button
+                key={c.id}
+                disabled={busy || !connected}
+                title={c.title}
+                className={id === c.id ? "selected" : ""}
+                onClick={() => run(() => load(c.id))}
+              >
+                <Icon name="chat" size={15} />
+                <span>{c.title}</span>
+              </button>
+            ))
+          ) : (
+            <p>{t("conversationEmpty")}</p>
+          )}
+        </div>
+      )}
       <div className="sidebar-bottom">
         <button onClick={onExit}>
           <Icon name="arrow" />

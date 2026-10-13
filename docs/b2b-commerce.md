@@ -1,5 +1,7 @@
 # Modular B2B commerce
 
+**Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).
+
 Vendune supports company purchasing on the same catalog, currency calculation,
 cart, inventory transaction, payment-provider contract, order and document owners
 used by B2C and POS. A company is inside one merchant tenant. A sales channel is a
@@ -25,7 +27,7 @@ shared selling context; an unrelated SaaS merchant remains a separate tenant.
 ### Try it
 
 1. Sign in to Studio with `b2b.manage`, `customers.write` and the necessary PII/catalog rights. Open **B2B → New company** and enter the name in the shop's main language.
-2. Create a purchasing unit. Choose its currency, cost center and optional budget/approval threshold. Amount inputs explicitly use minor units: `100000` is EUR 1,000.00, not EUR 100,000.
+2. The guided create dialog creates the first purchasing unit atomically, with an optional existing customer. Open that unit, or add another purchasing unit. Choose its currency, cost center and optional budget/approval threshold. Amount inputs explicitly use minor units: `100000` is EUR 1,000.00, not EUR 100,000.
 3. Assign two existing customers: a buyer and a different approver. Keep independent rights explicit. Pause access instead of deleting historical identities.
 4. Sign in as the buyer in the storefront. Open **Account → Company purchasing**, select the unit and enter a purchase-order reference. Add products, use SKU lines or a saved list.
 5. Optionally request an offer; the merchant negotiates it in the quote inbox. For purchase approval, open the native checkout and first review addresses, delivery, payment and total. Then use **Request purchase approval** inside checkout. A different approver reviews the unit inbox and confirms the exact current quote.

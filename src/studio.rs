@@ -55,18 +55,53 @@ pub(super) async fn merchant_overview(
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     let (locale, chain) = language_context(&a, &h).await?;
-    let (facts, page, graph) = tokio::try_join!(
-        facts::load(&a, &t),
-        product_page(&a, &t, &chain, &criteria),
-        async { Ok::<_, Error>(knowledge::graph(&a.db, &t).await?) }
-    )?;
+    let commerce_read = auth::allowed(&h, "overview.read") || auth::allowed(&h, "orders.read");
+    let mut facts = if commerce_read {
+        facts::load(&a, &t).await?
+    } else {
+        json!({"summary":{"orders":0,"ordersToday":0,"pendingPlans":0,"appliedPlans":0,"revenue":null,"revenueByCurrency":[]},"orders":[],"timeline":[],"activity":[],"channels":[],"learningTimeline":[],"variants":[],"indexedProducts":0,"lastIndexed":null})
+    };
+    if !auth::allowed(&h, "knowledge.read") {
+        facts["learningTimeline"] = json!([]);
+        facts["variants"] = json!([]);
+    }
+    if !auth::allowed(&h, "assistant.use") {
+        facts["summary"]["pendingPlans"] = json!(0);
+        facts["summary"]["appliedPlans"] = json!(0);
+        if let Some(activity) = facts["activity"].as_array_mut() {
+            activity.retain(|e| e["kind"] == "order");
+        }
+    }
+    let (ps, pagination) = if auth::allowed(&h, "catalog.read") {
+        let page = product_page(&a, &t, &chain, &criteria).await?;
+        (
+            json!(page.products),
+            json!({"nextCursor":page.next_cursor,"hasMore":page.next_cursor.is_some(),"limit":page.limit}),
+        )
+    } else {
+        (
+            json!([]),
+            json!({"nextCursor":null,"hasMore":false,"limit":0}),
+        )
+    };
+    let graph = if auth::allowed(&h, "knowledge.read") {
+        knowledge::graph(&a.db, &t).await?
+    } else {
+        json!({"nodes":[],"edges":[]})
+    };
     let (settings, _) = commerce::config(&a, &t).await?;
-    let ps = &page.products;
-    let providers = a.inference.public_providers().await.map_err(bad)?;
+    let providers = if auth::allowed(&h, "assistant.use")
+        || auth::allowed(&h, "developer.read")
+        || auth::allowed(&h, "ai.manage")
+    {
+        a.inference.public_providers().await.map_err(bad)?
+    } else {
+        json!({"providers":[]})
+    };
     Ok(Json(json!({
-        "locale":locale,"tenant":t,"productCurrency":settings.currencies.pricing_currency,"dataMode":"synthetic-demo","products":ps,"productsPagination":{"nextCursor":page.next_cursor,"hasMore":page.next_cursor.is_some(),"limit":page.limit},
-        "summary":facts["summary"],"orders":facts["orders"],"timeline":facts["timeline"],
-        "knowledge":{"graph":graph,"indexedProducts":facts["indexedProducts"],"lastIndexed":facts["lastIndexed"],"provenance":"curated-demo","modelWeightsLearn":false},
+        "locale":locale,"tenant":t,"productCurrency":settings.currencies.pricing_currency,"dataMode":"synthetic-demo","products":ps,"productsPagination":pagination,
+        "summary":facts["summary"],"orders":if auth::allowed(&h,"orders.read") {facts["orders"].clone()} else {json!([])},"timeline":facts["timeline"],
+        "knowledge":{"graph":graph,"indexedProducts":if auth::allowed(&h,"knowledge.read") {facts["indexedProducts"].clone()} else {json!(0)},"lastIndexed":if auth::allowed(&h,"knowledge.read") {facts["lastIndexed"].clone()} else {Value::Null},"provenance":"curated-demo","modelWeightsLearn":false},
         "learning":{"timeline":facts["learningTimeline"],"variants":facts["variants"],"method":"epsilon-greedy with smoothed purchase rate","reward":"simulated order","causalUpliftProven":false},
         "activity":facts["activity"],"channels":facts["channels"],
         "connections":{"providers":providers["providers"],"chatgptAccountLinked":false,"claudeAccountLinked":false,"localMCPConfig":{"mcpServers":{"vendune":{"command":"python3","args":[env::current_dir().unwrap().join("scripts/mcp_stdio.py").to_string_lossy()],"env":{"COMMERCE_URL":"http://127.0.0.1:8787","COMMERCE_TENANT":t}}}},"localMCP":true,"ucpCheckout":true,"remoteOAuth":false},

@@ -39,7 +39,7 @@ pub(crate) async fn redeem(State(a): State<App>, Json(v): Json<Value>) -> Result
     let user: String = row.get("user_id");
     let tenant: String = row.get("tenant");
     let active: bool = sqlx::query_scalar(
-        "SELECT EXISTS(SELECT 1 FROM memberships m JOIN merchant_users u ON u.id=m.user_id WHERE m.user_id=$1 AND m.tenant=$2 AND m.active AND u.password_initialized)",
+        "SELECT EXISTS(SELECT 1 FROM membership_grants m JOIN merchant_users u ON u.id=m.user_id WHERE m.user_id=$1 AND m.tenant=$2 AND m.active AND u.password_initialized)",
     )
     .bind(&user)
     .bind(&tenant)

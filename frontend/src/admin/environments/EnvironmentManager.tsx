@@ -15,12 +15,14 @@ export default function EnvironmentManager({
   environments,
   onRefresh,
   role,
+  rights,
   onSelect,
 }: {
   request: RequestFn;
   environments: Environment[];
   onRefresh: () => Promise<void>;
   role: string;
+  rights?: string[];
   onSelect: (id: string) => void;
 }) {
   const { w, date } = useWorkbenchText();
@@ -39,7 +41,9 @@ export default function EnvironmentManager({
       createdAt: string;
     }[]
   >([]);
-  const manage = ["owner", "admin"].includes(role);
+  const manage = rights
+    ? rights.includes("environments.manage")
+    : ["owner", "admin"].includes(role);
   const load = async () => {
     const data = await request("/api/environments");
     setHistory(data.releases);

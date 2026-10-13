@@ -129,13 +129,13 @@ pub(crate) async fn exchange(State(a): State<App>, Json(v): Json<Value>) -> Resu
     let mut sandbox = None;
     let mut seeded = false;
     if exists {
-        let owned:bool=sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM memberships WHERE tenant=$1 AND user_id=$2 AND role='owner' AND active)").bind(shop).bind(&user).fetch_one(&mut *tx).await?;
+        let owned:bool=sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM membership_grants WHERE tenant=$1 AND user_id=$2 AND role='owner' AND active)").bind(shop).bind(&user).fetch_one(&mut *tx).await?;
         if !owned {
             return Err(conflict("Shop address already exists"));
         }
     } else {
         let count: i64 = sqlx::query_scalar(
-            "SELECT count(*) FROM memberships WHERE user_id=$1 AND role='owner' AND active",
+            "SELECT count(*) FROM membership_grants WHERE user_id=$1 AND role='owner' AND active",
         )
         .bind(&user)
         .fetch_one(&mut *tx)

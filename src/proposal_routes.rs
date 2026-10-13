@@ -6,6 +6,7 @@ pub(crate) async fn agent_plan(
     h: RequestContext,
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
+    agent::assistant_access(&h)?;
     let t = merchant(&a, &h)?;
     auth::permit(&h, "knowledge.read")?;
     Ok(Json(
@@ -27,6 +28,7 @@ pub(crate) async fn agent_apply(
     Path(id): Path<String>,
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
+    agent::assistant_access(&h)?;
     let t = merchant(&a, &h)?;
     if v["approve"] != true {
         return Err(bad("Explicit approve=true required"));
@@ -34,6 +36,7 @@ pub(crate) async fn agent_apply(
     Ok(Json(apply(&a, &t, &id, &h).await?))
 }
 pub(crate) async fn tasks(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {
+    agent::assistant_access(&h)?;
     let t = merchant(&a, &h)?;
     let rs = sqlx::query(
         "SELECT id,proposal,applied FROM tasks WHERE tenant=$1 ORDER BY created_at DESC LIMIT 30",

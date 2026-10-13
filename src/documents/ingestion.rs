@@ -7,7 +7,7 @@ pub(crate) async fn ingest(
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
     merchant(&a, &h)?;
-    auth::permit(&h, "catalog")?;
+    auth::permit(&h, "knowledge.write")?;
     Ok(Json(save(&a, &h, &tenant(&h)?, &v, "api").await?))
 }
 pub(crate) async fn upload(
@@ -16,7 +16,7 @@ pub(crate) async fn upload(
     mut form: Multipart,
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
-    auth::permit(&h, "catalog")?;
+    auth::permit(&h, "knowledge.write")?;
     let mut v = json!({});
     let mut file = None;
     let mut names = std::collections::HashSet::new();
@@ -117,7 +117,7 @@ pub(crate) async fn publish(
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
-    auth::permit(&h, "catalog")?;
+    auth::permit(&h, "knowledge.write")?;
     let visibility = v["visibility"]
         .as_str()
         .filter(|v| ["private", "public"].contains(v))

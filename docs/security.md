@@ -1,5 +1,7 @@
 # Prototype trust boundaries
 
+**Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).
+
 Localhost-only application/database bindings are the defaults. This is a
 working SaaS workspace foundation for synthetic data, not a hardened public
 hosting service. Do not expose this development setup directly to the Internet.

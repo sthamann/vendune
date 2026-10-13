@@ -3,6 +3,9 @@ use super::*;
 pub(crate) fn authorize_flow(h: &RequestContext, f: &flows::Flow) -> Result<()> {
     fn action(h: &RequestContext, name: &str) -> Result<()> {
         auth::permit(h, flow_actions::permission(name))?;
+        if name == "ai_proposal" {
+            agent::assistant_access(h)?;
+        }
         if matches!(name, "ai_proposal" | "knowledge.extract") {
             auth::permit(h, "knowledge.read")?;
         }

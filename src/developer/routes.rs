@@ -4,51 +4,51 @@ pub(crate) fn router() -> Router<App> {
     Router::new()
         .merge(drafts::router())
         .merge(preview::router())
-        .secure_route("/api/developer", &[("GET", "apps.manage")], get(list))
+        .secure_route("/api/developer", &[("GET", "developer.read")], get(list))
         .secure_route(
             "/api/developer/schema",
-            &[("GET", "apps.manage")],
+            &[("GET", "developer.read")],
             get(schema),
         )
         .secure_route(
             "/api/developer/generate",
-            &[("POST", "apps.manage")],
+            &[("POST", "developer.manage")],
             post(generate),
         )
         .secure_route(
             "/api/developer/import",
-            &[("POST", "apps.manage")],
+            &[("POST", "developer.manage")],
             post(import),
         )
         .secure_route(
             "/api/developer/builds/{id}/stage",
-            &[("POST", "apps.manage")],
+            &[("POST", "developer.manage")],
             post(stage),
         )
         .secure_route(
             "/api/developer/task",
-            &[("POST", "apps.manage")],
+            &[("POST", "developer.manage")],
             post(task),
         )
         .secure_route(
             "/api/developer/apps/{id}",
-            &[("DELETE", "apps.manage")],
+            &[("DELETE", "developer.manage")],
             axum::routing::delete(archive::remove),
         )
         .secure_route(
             "/api/developer/apps/{id}/restore",
-            &[("POST", "apps.manage")],
+            &[("POST", "developer.manage")],
             post(archive::restore),
         )
 }
 async fn schema(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {
-    auth::permit(&h, "users")?;
+    auth::permit(&h, "developer.read")?;
     let t = staging::live(&a, &h).await?;
     let (settings, _) = commerce::config(&a, &t).await?;
     Ok(Json(generation::schema_for(&settings.locales)))
 }
 pub(crate) async fn list(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {
-    auth::permit(&h, "users")?;
+    auth::permit(&h, "developer.read")?;
     let t = staging::live(&a, &h).await?;
     let (settings, _) = commerce::config(&a, &t).await?;
     let rows=sqlx::query("SELECT id,environment,app,version,digest,manifest,summary,state,provider,model,created_at FROM developer_builds WHERE tenant=$1 AND archived=false ORDER BY created_at DESC LIMIT 100").bind(&t).fetch_all(&a.db).await?;
@@ -62,7 +62,7 @@ async fn generate(
     h: RequestContext,
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
-    auth::permit(&h, "users")?;
+    auth::permit(&h, "developer.manage")?;
     let t = staging::live(&a, &h).await?;
     Ok(Json(generation::generate(&a, &t, &h, &v).await?))
 }
@@ -99,7 +99,7 @@ pub(crate) async fn import(
     h: RequestContext,
     Json(mut v): Json<Value>,
 ) -> Result<Json<Value>> {
-    auth::permit(&h, "users")?;
+    auth::permit(&h, "developer.manage")?;
     let t = staging::live(&a, &h).await?;
     actions(&mut v["manifest"])?;
     Ok(Json(
@@ -112,7 +112,7 @@ pub(crate) async fn stage(
     Path(id): Path<String>,
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
-    auth::permit(&h, "users")?;
+    auth::permit(&h, "developer.manage")?;
     let t = staging::live(&a, &h).await?;
     if v["approve"] != true {
         return Err(bad("Approve the reviewed build first"));
@@ -141,7 +141,7 @@ pub(crate) async fn task(
     h: RequestContext,
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
-    auth::permit(&h, "users")?;
+    auth::permit(&h, "developer.manage")?;
     let t = staging::live(&a, &h).await?;
     let env = v["environment"]
         .as_str()

@@ -45,14 +45,21 @@ export default function DeveloperView({
   sandboxRequest,
   onRefresh,
   onFlows,
+  rights,
+  homeRevision,
 }: {
   request: RequestFn;
   environments: Environment[];
   role: string;
+  rights?: string[];
+  homeRevision?: number;
   sandboxRequest: (environment: string) => RequestFn;
   onRefresh: () => Promise<void>;
   onFlows: () => void;
 }) {
+  useEffect(() => {
+    if (homeRevision) setAssistant(true);
+  }, [homeRevision]);
   const pendingDraft = useRef<(() => void) | null>(null);
   const { t } = useAssistantText();
   const [assistant, setAssistant] = useState(true),
@@ -89,7 +96,9 @@ export default function DeveloperView({
     if (studio.draftStorage.restored) setAssistant(false);
   }, [studio.draftStorage.restored]);
   const view = m.views?.find((v) => v.id === viewId) ?? m.views?.[0];
-  const manage = ["owner", "admin"].includes(role);
+  const manage = rights
+    ? rights.includes("developer.manage")
+    : ["owner", "admin"].includes(role);
   const canPreview = immediate.active && !!immediate.result;
   const openForEditing = (build: Parameters<typeof studio.editVersion>[0]) => {
     setAssistant(false);
@@ -109,7 +118,12 @@ export default function DeveloperView({
     <div className="studio-page app-studio">
       <AppStudioIntro
         disabled={!manage || studio.busy}
-        onNew={() => setAssistant(true)}
+        onNew={() => {
+          setAssistant(true);
+          setPreview(false);
+          immediate.close();
+        }}
+        overview={!assistant}
       />
       {assistant && (
         <ContentLanguage

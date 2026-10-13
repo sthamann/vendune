@@ -349,3 +349,19 @@ coverage build previously overflowed its worker stack on `pos.cart` despite smal
 future-state sizes and passing local default-stack tests. Test actual HTTP/MCP
 operations in debug/coverage builds; raising production worker stacks or a future-
 size-only assertion is not a repair. Domain rights and native owners stay unchanged.
+
+## Tenant role and Studio admission ownership
+
+Reusable roles belong to `workspace_roles` and `src/auth/roles.rs`; `membership_grants`
+is the active current-role projection consumed by sessions, keys, callbacks and workers.
+Only reserved owner authority is special. Do not reintroduce static role arrays for
+access decisions or a second role/key store. Team delegation and invitation acceptance
+use the tenant lifecycle lock, then rehydrate the actor and target grants; retained
+explicit overrides also require delegation checks. New domains need named scopes in
+`auth::SCOPES`, localized shared permission labels, native HTTP/MCP/action guards,
+Studio presentation admission, history/staging policies and real denied-access tests.
+Use an additive migration to evolve existing default definitions; never rewrite a
+deployed seed migration. Generic app/AI Flow results are not safe merely because a
+user can read automation status. Preserve cleaned summaries for limited readers.
+B2B switches live in shared versioned commerce settings; channel inheritance may not
+relax that global policy. See `docs/studio-access-and-setup.md` for the current owners.

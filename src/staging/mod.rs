@@ -16,17 +16,20 @@ pub(crate) fn router() -> Router<App> {
     Router::new()
         .secure_route(
             "/api/environments",
-            &[("GET", "settings.read"), ("POST", "settings.write")],
+            &[
+                ("GET", "environments.read"),
+                ("POST", "environments.manage"),
+            ],
             get(list).post(clone::create),
         )
         .secure_route(
             "/api/environments/{id}/diff",
-            &[("GET", "settings.read")],
+            &[("GET", "environments.read")],
             get(diff),
         )
         .secure_route(
             "/api/environments/{id}/release",
-            &[("POST", "settings.write")],
+            &[("POST", "environments.manage")],
             post(release),
         )
 }
@@ -86,9 +89,7 @@ async fn diff(
     let actual = snapshot(&mut tx, &t).await?;
     let mut changes = vec![];
     for (key, value) in current.as_object().unwrap() {
-        if key.starts_with("b2b-")
-            && (auth::permit(&h, "b2b.read").is_err() || auth::permit(&h, "customers.pii").is_err())
-        {
+        if !access::can_read(&h, key) {
             continue;
         }
         if base["stage"].get(key) != Some(value) {

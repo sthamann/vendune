@@ -16,6 +16,9 @@ pub(crate) fn invoke<'a>(
     name: &'a str,
     v: &'a Value,
 ) -> CapabilityFuture<'a> {
+    if name.starts_with("team.role") {
+        return Box::pin(auth::roles::invoke(a, h, name, v));
+    }
     if name.starts_with("b2b.") {
         // Keep only the selected domain's suspended state on the heap.
         return Box::pin(b2b::invoke(a, h, name, v));

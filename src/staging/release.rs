@@ -18,7 +18,7 @@ pub(crate) async fn release(
     Path(id): Path<String>,
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
-    auth::permit(&h, "users")?;
+    auth::permit(&h, "environments.manage")?;
     let t = live(&a, &h).await?;
     owned(&a, &t, &id).await?;
     let req: Release = serde_json::from_value(v).map_err(|_| bad("Invalid release"))?;

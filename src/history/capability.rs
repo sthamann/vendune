@@ -13,7 +13,7 @@ pub(crate) fn schema(name: &str) -> Option<Value> {
     {
         return None;
     }
-    let mut props = json!({"entity":{"type":"string","enum":["product","category","customer","order","settings","company","companyChannel","checkoutChannel","rule","flow","promotion","channel","source","b2bCompany","b2bUnit","b2bQuote","b2bList","b2bApproval"]},"id":{"type":"string","minLength":1,"maxLength":254}});
+    let mut props = json!({"entity":{"type":"string","enum":["role","product","category","customer","order","settings","company","companyChannel","checkoutChannel","rule","flow","promotion","channel","source","b2bCompany","b2bUnit","b2bQuote","b2bList","b2bApproval"]},"id":{"type":"string","minLength":1,"maxLength":254}});
     let mut required = vec!["entity", "id"];
     if name == "merchant.history" {
         props["before"] = json!({"type":"integer"});
@@ -37,9 +37,20 @@ pub(crate) fn visible(h: &RequestContext, name: &str) -> bool {
             || auth::permit(h, "settings.read").is_ok();
     }
     let scopes = if name == "merchant.history.restore" {
-        vec!["catalog.write", "customers.write", "settings.write"]
+        vec![
+            "catalog.write",
+            "customers.write",
+            "settings.write",
+            "team.manage",
+            "channels.manage",
+            "automation.manage",
+            "knowledge.write",
+        ]
     } else {
         vec![
+            "team.manage",
+            "channels.read",
+            "automation.read",
             "catalog.read",
             "customers.read",
             "settings.read",

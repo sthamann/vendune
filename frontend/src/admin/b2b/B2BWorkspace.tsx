@@ -1,4 +1,6 @@
 /** Tenant-scoped company workspace; canonical API operations are also exposed through MCP. */
+import CompanyCreate from "./CompanyCreate";
+import { useB2BExperienceText } from "./experience-i18n";
 import { useEffect, useState } from "react";
 import type { RequestFn } from "../../shared/api/types";
 import { ContentLanguage } from "../../shared/i18n/ContentLanguage";
@@ -13,15 +15,23 @@ import type { Company, CompanyDetail } from "../../shared/b2b/types";
 import EntityHistory from "../../shared/history/EntityHistory";
 import Quotes from "./Quotes";
 import UnitEditor from "./UnitEditor";
-import { organizationReference } from "./reference";
 import "../../shared/b2b/b2b.css";
 export default function B2BWorkspace({
   request,
   rights,
+  onSettings,
 }: {
   request: RequestFn;
   rights?: string[];
+  onSettings?: () => void;
 }) {
+  const x = useB2BExperienceText();
+  const [feature, setFeature] = useState<
+      Parameters<ReturnType<typeof useB2BExperienceText>>[0] | ""
+    >(""),
+    [creating, setCreating] = useState(false),
+    [tab, setTab] = useState<"companies" | "quotes">("companies"),
+    [query, setQuery] = useState("");
   const t = useB2BText(),
     { locale } = useLocale();
   const [companies, setCompanies] = useState<Company[]>([]),
@@ -74,14 +84,6 @@ export default function B2BWorkspace({
     await open(draft.id);
     setSaved(t("saved"));
   };
-  const fresh = () => {
-    setDetail(undefined);
-    setDraft({
-      id: organizationReference(),
-      revision: 0,
-      data: { name: {}, active: true, vatId: "" },
-    });
-  };
   return (
     <div className="studio-page b2b-workspace">
       <header className="b2b-heading">
@@ -96,7 +98,7 @@ export default function B2BWorkspace({
         <button
           className="studio-primary"
           disabled={busy || !canManage || !canPII}
-          onClick={fresh}
+          onClick={() => setCreating(true)}
         >
           <Icon name="plus" />
           {t("newCompany")}
@@ -112,144 +114,255 @@ export default function B2BWorkspace({
           {saved}
         </div>
       )}
-      {canManage && canPII && (
+      {creating && config && (
+        <CompanyCreate
+          request={request}
+          locales={config.locales}
+          mainLocale={config.mainLocale}
+          canLink={
+            canManage &&
+            canPII &&
+            (!rights ||
+              (rights.includes("customers.read") &&
+                rights.includes("customers.write")))
+          }
+          onCancel={() => setCreating(false)}
+          onCreated={async (id) => {
+            await load();
+            await open(id);
+            setCreating(false);
+          }}
+        />
+      )}
+      {!draft && (
+        <>
+          <div className="b2b-feature-grid">
+            {(
+              [
+                "companies",
+                "members",
+                "budgets",
+                "quotes",
+                "lists",
+                "quickOrder",
+                "edi",
+                "catalogs",
+              ] as const
+            ).map((key) => (
+              <button
+                className="b2b-feature-card"
+                key={key}
+                onClick={() => {
+                  setFeature(key);
+                  setTab(key === "quotes" ? "quotes" : "companies");
+                }}
+              >
+                <Icon
+                  name={
+                    key === "quotes"
+                      ? "chat"
+                      : key === "members"
+                        ? "people"
+                        : key === "budgets"
+                          ? "card"
+                          : key === "edi"
+                            ? "code"
+                            : key === "catalogs"
+                              ? "lock"
+                              : "layers"
+                  }
+                />
+                <strong>{x(key)}</strong>
+                <small>
+                  {key === "companies" ? t("hint") : x(`${key}Hint`)}
+                </small>
+              </button>
+            ))}
+          </div>
+          {feature && feature !== "quotes" && (
+            <aside className="studio-card b2b-feature-guide" role="status">
+              <h2>{x(feature)}</h2>
+              <p>{x("moduleEntry")}</p>
+            </aside>
+          )}
+          <nav className="workbench-row">
+            <button
+              aria-pressed={tab === "companies"}
+              onClick={() => setTab("companies")}
+            >
+              {x("companies")} ({companies.length})
+            </button>
+            {canManage && canPII && config?.features?.quotes !== false && (
+              <button
+                aria-pressed={tab === "quotes"}
+                onClick={() => setTab("quotes")}
+              >
+                {x("quotes")}
+              </button>
+            )}
+            {onSettings && rights?.includes("settings.read") && (
+              <button onClick={onSettings}>{x("openSettings")} ↗</button>
+            )}
+          </nav>
+        </>
+      )}
+      {tab === "quotes" && canManage && canPII && (
         <Quotes request={request} busy={busy} run={run} />
       )}
-      {!draft ? (
-        <div className="b2b-company-grid">
-          {companies.map((c) => (
-            <button
-              className="b2b-company-card"
-              disabled={!canPII}
-              key={c.id}
-              onClick={() => void run(() => open(c.id))}
-            >
-              <div className="b2b-company-icon">
-                <Icon name="people" size={30} />
-              </div>
-              <strong>
-                {contentText(c.data.name, locale, config?.mainLocale)}
-              </strong>
-              <small>{c.data.vatId || c.id}</small>
-              <span>
-                <i className={c.data.active ? "b2b-dot" : "b2b-dot paused"} />
-                {t(c.data.active ? "active" : "pause")}
-                <Icon name="arrow" />
-              </span>
-            </button>
-          ))}
-          {!companies.length && (
-            <section className="b2b-empty">
-              <Icon name="people" size={46} />
-              <p>{t("noCompany")}</p>
-            </section>
-          )}
-        </div>
-      ) : (
-        config && (
-          <ContentLanguage
-            locales={config.locales}
-            mainLocale={config.mainLocale}
-          >
-            <section className="b2b-panel">
-              <div className="b2b-toolbar">
+      {tab === "companies" &&
+        (!draft ? (
+          <div className="b2b-company-grid">
+            <label className="b2b-company-search">
+              {x("search")}
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+            </label>
+            {companies
+              .filter((c) =>
+                `${contentText(c.data.name, locale, config?.mainLocale)} ${c.data.vatId} ${c.id}`
+                  .toLocaleLowerCase()
+                  .includes(query.toLocaleLowerCase()),
+              )
+              .map((c) => (
                 <button
-                  onClick={() => {
-                    setDraft(undefined);
-                    setDetail(undefined);
-                  }}
+                  className="b2b-company-card"
+                  disabled={!canPII}
+                  key={c.id}
+                  onClick={() => void run(() => open(c.id))}
                 >
-                  <Icon name="arrow" />
-                  {t("back")}
+                  <div className="b2b-company-icon">
+                    <Icon name="people" size={30} />
+                  </div>
+                  <strong>
+                    {contentText(c.data.name, locale, config?.mainLocale)}
+                  </strong>
+                  <small>{c.data.vatId || c.id}</small>
+                  <span>
+                    <i
+                      className={c.data.active ? "b2b-dot" : "b2b-dot paused"}
+                    />
+                    {t(c.data.active ? "active" : "pause")}
+                    <Icon name="arrow" />
+                  </span>
                 </button>
-                <ContentLanguagePicker />
-              </div>
-              <h2>{t("company")}</h2>
-              <div className="b2b-fields">
-                <label>
-                  {t("identifier")}
-                  <input
-                    value={draft.id}
-                    disabled={draft.revision > 0 || busy}
-                    onChange={(e) => setDraft({ ...draft, id: e.target.value })}
+              ))}
+            {!companies.length && (
+              <section className="b2b-empty">
+                <Icon name="people" size={46} />
+                <p>{t("noCompany")}</p>
+              </section>
+            )}
+          </div>
+        ) : (
+          config && (
+            <ContentLanguage
+              locales={config.locales}
+              mainLocale={config.mainLocale}
+            >
+              <section className="b2b-panel">
+                <div className="b2b-toolbar">
+                  <button
+                    onClick={() => {
+                      setDraft(undefined);
+                      setDetail(undefined);
+                    }}
+                  >
+                    <Icon name="arrow" />
+                    {t("back")}
+                  </button>
+                  <ContentLanguagePicker />
+                </div>
+                <h2>{t("company")}</h2>
+                <div className="b2b-fields">
+                  <label>
+                    {t("identifier")}
+                    <input
+                      value={draft.id}
+                      disabled={draft.revision > 0 || busy}
+                      onChange={(e) =>
+                        setDraft({ ...draft, id: e.target.value })
+                      }
+                    />
+                  </label>
+                  <LocalizedField
+                    label={t("name")}
+                    value={draft.data.name}
+                    onChange={(name) =>
+                      setDraft({ ...draft, data: { ...draft.data, name } })
+                    }
+                    required
                   />
-                </label>
-                <LocalizedField
-                  label={t("name")}
-                  value={draft.data.name}
-                  onChange={(name) =>
-                    setDraft({ ...draft, data: { ...draft.data, name } })
-                  }
-                  required
+                  <label>
+                    {t("vat")}
+                    <input
+                      value={draft.data.vatId}
+                      onChange={(e) =>
+                        setDraft({
+                          ...draft,
+                          data: { ...draft.data, vatId: e.target.value },
+                        })
+                      }
+                    />
+                  </label>
+                  <label className="b2b-toggle">
+                    <input
+                      type="checkbox"
+                      checked={draft.data.active}
+                      onChange={(e) =>
+                        setDraft({
+                          ...draft,
+                          data: { ...draft.data, active: e.target.checked },
+                        })
+                      }
+                    />
+                    {t("active")}
+                  </label>
+                </div>
+                <button
+                  className="studio-primary"
+                  disabled={busy || !canManage}
+                  onClick={() => void run(save)}
+                >
+                  {t("save")}
+                </button>
+              </section>
+              {detail && (
+                <UnitEditor
+                  request={request}
+                  company={detail}
+                  config={config}
+                  busy={busy || !canManage}
+                  run={run}
+                  refresh={() => open(detail.id)}
                 />
-                <label>
-                  {t("vat")}
-                  <input
-                    value={draft.data.vatId}
-                    onChange={(e) =>
-                      setDraft({
-                        ...draft,
-                        data: { ...draft.data, vatId: e.target.value },
-                      })
-                    }
-                  />
-                </label>
-                <label className="b2b-toggle">
-                  <input
-                    type="checkbox"
-                    checked={draft.data.active}
-                    onChange={(e) =>
-                      setDraft({
-                        ...draft,
-                        data: { ...draft.data, active: e.target.checked },
-                      })
-                    }
-                  />
-                  {t("active")}
-                </label>
-              </div>
-              <button
-                className="studio-primary"
-                disabled={busy || !canManage}
-                onClick={() => void run(save)}
-              >
-                {t("save")}
-              </button>
-            </section>
-            {detail && (
-              <UnitEditor
-                request={request}
-                company={detail}
-                config={config}
-                busy={busy || !canManage}
-                run={run}
-                refresh={() => open(detail.id)}
-              />
-            )}
-            {draft.revision > 0 && (
-              <EntityHistory
-                request={request}
-                entity="b2bCompany"
-                id={draft.id}
-                revision={draft.revision}
-                dirty={
-                  JSON.stringify(draft.data) !== JSON.stringify(detail?.data)
-                }
-                onRestored={async () => {
-                  await open(draft.id);
-                  await load();
-                }}
-              />
-            )}
-            {draft.revision > 0 && (
-              <AppSurfaceSlot
-                location="admin.b2b.company"
-                context={{ companyId: draft.id }}
-              />
-            )}
-          </ContentLanguage>
-        )
-      )}
+              )}
+              {draft.revision > 0 && (
+                <EntityHistory
+                  request={request}
+                  entity="b2bCompany"
+                  id={draft.id}
+                  revision={draft.revision}
+                  dirty={
+                    JSON.stringify(draft.data) !== JSON.stringify(detail?.data)
+                  }
+                  onRestored={async () => {
+                    await open(draft.id);
+                    await load();
+                  }}
+                />
+              )}
+              {draft.revision > 0 && (
+                <AppSurfaceSlot
+                  location="admin.b2b.company"
+                  context={{ companyId: draft.id }}
+                />
+              )}
+            </ContentLanguage>
+          )
+        ))}
     </div>
   );
 }

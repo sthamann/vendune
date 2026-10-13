@@ -12,6 +12,7 @@ GRANT USAGE,CREATE ON SCHEMA public TO vendune_runtime;
 SELECT format('GRANT SELECT,INSERT,UPDATE,DELETE,REFERENCES ON public.%I TO vendune_runtime',tablename) FROM pg_tables WHERE schemaname='public' AND tablename NOT LIKE 'connector_%' \gexec
 SELECT format('REVOKE ALL ON public.%I FROM vendune_runtime',tablename) FROM pg_tables WHERE schemaname='public' AND tablename LIKE 'connector_%' \gexec
 ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE ALL ON TABLES FROM vendune_runtime;
+GRANT SELECT ON public.membership_grants TO vendune_runtime;
 GRANT USAGE,SELECT ON ALL SEQUENCES IN SCHEMA public TO vendune_runtime;
 
 

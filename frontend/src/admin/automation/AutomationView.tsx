@@ -19,7 +19,6 @@ import ProposalCard from "../assistant/ProposalCard";
 import type { Message, RequestFn } from "../shell/studio-types";
 export default function AutomationView({
   request,
-  role,
   onChannels,
 }: {
   request: RequestFn;
@@ -34,9 +33,9 @@ export default function AutomationView({
   } | null>(null);
   useEffect(() => {
     let active = true;
-    request("/api/merchant/commerce")
+    request("/store-api/context")
       .then((v) => {
-        if (active) setLanguages(v.data);
+        if (active) setLanguages(v);
       })
       .catch((e) => {
         if (active) setError(e.message);
@@ -97,7 +96,7 @@ export default function AutomationView({
   const [manage, setManage] = useState(false);
   useEffect(() => {
     request("/api/auth/access")
-      .then((v) => setManage(v.permissions.includes("settings.write")))
+      .then((v) => setManage(v.permissions.includes("automation.manage")))
       .catch(() => setManage(false));
   }, [request]);
   const choose = (r: Config, k: Kind = kind) => {
@@ -375,7 +374,7 @@ export default function AutomationView({
                       },
                     } as Message
                   }
-                  canApply={role !== "viewer"}
+                  canApply={manage}
                   busy={busy}
                   onApply={() =>
                     void run(async () => {

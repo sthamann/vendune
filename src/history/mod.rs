@@ -46,14 +46,18 @@ pub(crate) async fn customer_context(conn: &mut sqlx::PgConnection, email: &str)
 }
 pub(super) fn rights(entity: &str) -> Result<(&'static str, Option<&'static str>)> {
     Ok(match entity {
+        "role" => ("team.manage", Some("team.manage")),
         "product" | "category" => ("catalog.read", Some("catalog.write")),
-        "source" => ("knowledge.read", Some("catalog.write")),
+        "source" => ("knowledge.read", Some("knowledge.write")),
         "customer" => ("customers.read", Some("customers.write")),
         "order" => ("orders.read", None),
         "b2bCompany" | "b2bUnit" => ("b2b.read", Some("b2b.manage")),
         "b2bQuote" | "b2bList" | "b2bApproval" => ("b2b.read", None),
-        "settings" | "checkoutChannel" | "company" | "companyChannel" | "rule" | "flow"
-        | "promotion" | "channel" => ("settings.read", Some("settings.write")),
+        "channel" => ("channels.read", Some("channels.manage")),
+        "rule" | "flow" | "promotion" => ("automation.read", Some("automation.manage")),
+        "settings" | "checkoutChannel" | "company" | "companyChannel" => {
+            ("settings.read", Some("settings.write"))
+        }
         _ => return Err(bad("Unsupported history entity")),
     })
 }

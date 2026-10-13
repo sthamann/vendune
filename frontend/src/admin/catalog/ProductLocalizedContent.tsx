@@ -1,4 +1,5 @@
 /** Consistent main-language inheritance for product rich documents, specification groups and individual SEO fields. */
+import RichDescription from "../../shared/content/RichDescription";
 import { ContentLanguage } from "../../shared/i18n/ContentLanguage";
 import LocalizedField from "../../shared/i18n/LocalizedField";
 import { lazy, Suspense, useState } from "react";
@@ -10,6 +11,7 @@ import { useInternationalText } from "../../shared/i18n/international-i18n";
 import type { ProductDraft } from "./catalog-model";
 import "../styles/international.css";
 type Props = {
+  canWrite?: boolean;
   draft: ProductDraft;
   lang: string;
   onChange: (d: ProductDraft) => void;
@@ -18,7 +20,12 @@ function source(d: ProductDraft) {
   const main = d.mainLocale ?? "en-GB";
   return d.translations[main] ? main : main.split("-")[0];
 }
-export function ProductRich({ draft: d, lang, onChange }: Props) {
+export function ProductRich({
+  draft: d,
+  lang,
+  onChange,
+  canWrite = true,
+}: Props) {
   const [reset, setReset] = useState(0);
   const { i } = useInternationalText();
   const buffer = useEditorBuffer();
@@ -27,6 +34,23 @@ export function ProductRich({ draft: d, lang, onChange }: Props) {
     inherited = lang !== main && map[lang] == null;
   const set = (value: any) =>
     onChange({ ...d, extra: { ...d.extra, richDescription: value } });
+  if (!canWrite)
+    return (
+      <RichDescription
+        blocks={
+          map[lang] ??
+          map[main] ?? [
+            {
+              type: "paragraph",
+              text:
+                d.translations[lang]?.description ??
+                d.translations[main]?.description ??
+                "",
+            },
+          ]
+        }
+      />
+    );
   return (
     <div>
       {lang !== main && (

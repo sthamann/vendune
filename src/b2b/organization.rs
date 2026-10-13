@@ -183,25 +183,30 @@ pub(super) async fn member(a: &App, h: &RequestContext, v: &Value) -> Result<Val
     let t = merchant(a, h)?;
     auth::permit(h, "b2b.manage")?;
     auth::permit(h, "customers.write")?;
+    let mut tx = a.db.begin().await?;
+    history::context(&mut tx, h, "b2b.membership").await?;
+    let result = member_tx(&mut tx, &t, v).await?;
+    tx.commit().await?;
+    Ok(result)
+}
+pub(super) async fn member_tx(conn: &mut sqlx::PgConnection, t: &str, v: &Value) -> Result<Value> {
     let unit = v["unitId"].as_str().ok_or(bad("Unit required"))?;
     let customer = v["customerId"].as_str().ok_or(bad("Customer required"))?;
     let expected = v["revision"].as_i64().ok_or(bad("Revision required"))?;
     let member: Member =
         serde_json::from_value(v["data"].clone()).map_err(|_| bad("Invalid employee policy"))?;
     member.validate()?;
-    let mut tx = a.db.begin().await?;
-    history::context(&mut tx, h, "b2b.membership").await?;
     let found: Option<String> =
         sqlx::query_scalar("SELECT id FROM b2b_units WHERE tenant=$1 AND id=$2 FOR UPDATE")
-            .bind(&t)
+            .bind(t)
             .bind(unit)
-            .fetch_optional(&mut *tx)
+            .fetch_optional(&mut *conn)
             .await?;
     let exists: bool =
         sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM customers WHERE tenant=$1 AND id=$2)")
-            .bind(&t)
+            .bind(t)
             .bind(customer)
-            .fetch_one(&mut *tx)
+            .fetch_one(&mut *conn)
             .await?;
     if found.is_none() || !exists {
         return Err(Error(
@@ -209,19 +214,18 @@ pub(super) async fn member(a: &App, h: &RequestContext, v: &Value) -> Result<Val
             "Unit or customer not found".into(),
         ));
     }
-    let current:Option<i64>=sqlx::query_scalar("SELECT revision FROM b2b_members WHERE tenant=$1 AND unit_id=$2 AND customer_id=$3 FOR UPDATE").bind(&t).bind(unit).bind(customer).fetch_optional(&mut *tx).await?;
+    let current:Option<i64>=sqlx::query_scalar("SELECT revision FROM b2b_members WHERE tenant=$1 AND unit_id=$2 AND customer_id=$3 FOR UPDATE").bind(t).bind(unit).bind(customer).fetch_optional(&mut *conn).await?;
     if current.unwrap_or(0) != expected {
         return Err(conflict("Employee grant changed; reload before saving"));
     }
-    sqlx::query("INSERT INTO b2b_members(tenant,unit_id,customer_id,data) VALUES($1,$2,$3,$4) ON CONFLICT(tenant,unit_id,customer_id) DO UPDATE SET data=excluded.data,revision=b2b_members.revision+1").bind(&t).bind(unit).bind(customer).bind(json!(member)).execute(&mut *tx).await?;
+    sqlx::query("INSERT INTO b2b_members(tenant,unit_id,customer_id,data) VALUES($1,$2,$3,$4) ON CONFLICT(tenant,unit_id,customer_id) DO UPDATE SET data=excluded.data,revision=b2b_members.revision+1").bind(t).bind(unit).bind(customer).bind(json!(member)).execute(&mut *conn).await?;
     event(
-        &mut tx,
-        &t,
+        conn,
+        t,
         "b2b.employee_changed",
         json!({"unitId":unit,"customerId":customer,"revision":expected+1}),
     )
     .await?;
-    tx.commit().await?;
     Ok(json!({"revision":expected+1}))
 }
 pub(super) async fn event(

@@ -1,5 +1,22 @@
 # Testing, coverage and maintenance contracts
 
+**Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).
+
+## Studio setup and access verification — 13 October 2026
+
+The isolated local run passes **477 frontend tests in 85 files**, plus **232 Rust
+unit tests** across the library, core and bundled service binaries. The frontend
+V8 report includes the declared host and trusted app source scope: **64.04% lines,
+62.73% statements, 56.93% branches and 51.34% functions**. These are measured local
+values, not 100% coverage or confirmation of public deployment.
+
+Real PostgreSQL/HTTP checks cover channel creation, role changes and concurrent
+delegation, current key/callback grants, PII denial, tenant isolation, native
+B2B/UCP setup and feature switches. Browser checks use synthetic accounts and
+confirm POS/marketplace creation, preserved App Studio drafts, company/customer
+linking, B2B settings and read-only product navigation. The complete documentation
+build checks **203 pages, all 196 Markdown sources and 4,983 local links/assets**.
+
 ## Connected feature audit — 12 October 2026
 
 [Integration map and repaired boundaries](feature-integration.md). Real isolated

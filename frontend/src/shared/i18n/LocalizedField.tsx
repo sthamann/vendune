@@ -14,15 +14,19 @@ export default function LocalizedField({
   multiline = false,
   maxLength,
   required = false,
+  error,
+  disabled = false,
   externalFallback,
   externalLabel,
 }: {
+  disabled?: boolean;
   label: string;
   value: LocalizedText;
   onChange: (map: LocalizedText) => void;
   multiline?: boolean;
   maxLength?: number;
   required?: boolean;
+  error?: string;
   externalFallback?: string;
   externalLabel?: string;
 }) {
@@ -38,6 +42,9 @@ export default function LocalizedField({
   const set = (text: string) => onChange({ ...value, [key]: text });
   const props = {
     id,
+    disabled,
+    "aria-invalid": !!error,
+    "aria-describedby": error ? `${id}-error` : undefined,
     value: value[key] ?? "",
     placeholder: inherited ? fallback : undefined,
     maxLength,
@@ -46,12 +53,13 @@ export default function LocalizedField({
       set(e.target.value),
   };
   return (
-    <div className="intl-translated-field">
+    <div className={`intl-translated-field ${error ? "field-invalid" : ""}`}>
       <div className="intl-field-heading">
         <label htmlFor={id}>{label}</label>
         {(!main || externalFallback !== undefined) && (
           <button
             type="button"
+            disabled={disabled}
             className="intl-inherit"
             aria-pressed={inherited}
             onClick={() => {
@@ -82,6 +90,11 @@ export default function LocalizedField({
         )}
       </div>
       {multiline ? <textarea {...props} rows={3} /> : <input {...props} />}
+      {error && (
+        <small id={`${id}-error`} role="alert">
+          {error}
+        </small>
+      )}
     </div>
   );
 }

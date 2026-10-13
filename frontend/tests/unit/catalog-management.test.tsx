@@ -195,3 +195,79 @@ it("orders category parents before children independent of server row order", ()
     ["b", 1],
   ]);
 });
+it("keeps read-only catalog navigation without offering creation or mutable product content", async () => {
+  const user = userEvent.setup();
+  const d = newDraft();
+  d.id = "p1";
+  d.catalog.productNumber = "OAK-1";
+  d.translations.en.name = "Oak chair";
+  d.extra.richDescription = {
+    en: [{ type: "paragraph", text: "Readable **craftsmanship**" }],
+  };
+  d.commerce.media = [
+    { id: "front", url: "/front.png", view: "Front" },
+    { id: "back", url: "/back.png", view: "Back" },
+  ];
+  const category = {
+    id: "cat",
+    revision: 1,
+    parentId: null,
+    position: 0,
+    data: {
+      active: true,
+      visible: true,
+      type: "page",
+      translations: { en: { name: "Furniture" }, de: { name: "Möbel" } },
+    },
+  };
+  const request = vi.fn(async (path: string) =>
+    path === "/api/merchant/products/p1"
+      ? d
+      : path === "/api/merchant/categories"
+        ? { elements: [category] }
+        : {
+            elements: path.includes("products?")
+              ? [{ ...row, options: { color: "Blue" } }]
+              : [],
+          },
+  );
+  const { container } = render(
+    <LocaleProvider>
+      <ProductDataView request={request} canWrite={false} />
+    </LocaleProvider>,
+  );
+  await user.click(await screen.findByRole("button", { name: /Oak chair/ }));
+  expect(await screen.findByLabelText("Name")).toBeDisabled();
+  expect(screen.getByRole("button", { name: "Save product" })).toBeDisabled();
+  expect(
+    screen.queryByRole("button", { name: /New product/ }),
+  ).not.toBeInTheDocument();
+  expect(container.querySelector("[contenteditable=true]")).toBeNull();
+  expect(screen.getByText("craftsmanship")).toBeVisible();
+  await user.click(screen.getByRole("tab", { name: "Prices & stock" }));
+  expect(screen.getByLabelText("Price")).toBeDisabled();
+  await user.click(screen.getByRole("tab", { name: "Media" }));
+  expect(container.querySelector("input[type=file]")).toBeNull();
+  await user.click(screen.getByRole("button", { name: /^Back$/ }));
+  expect(screen.getByLabelText("Image URL")).toHaveValue("/back.png");
+  expect(screen.getByLabelText("Image URL")).toBeDisabled();
+  await user.click(screen.getByRole("tab", { name: "Variants" }));
+  expect(
+    await screen.findByRole("button", { name: /color: Blue/ }),
+  ).toBeEnabled();
+  expect(
+    screen.queryByRole("button", { name: "Generate combinations" }),
+  ).not.toBeInTheDocument();
+  await user.click(screen.getByRole("button", { name: /^← Back$/ }));
+  await user.click(screen.getByRole("tab", { name: "Categories" }));
+  expect(
+    screen.queryByRole("button", { name: /New category/ }),
+  ).not.toBeInTheDocument();
+  await user.click(screen.getByRole("button", { name: /▱ Furniture/ }));
+  await user.selectOptions(screen.getByLabelText("Content language"), "de-DE");
+  expect(screen.getByLabelText("Name")).toHaveValue("Möbel");
+  expect(screen.getByLabelText("Name")).toBeDisabled();
+  expect(request.mock.calls.every((args: any[]) => args.length === 1)).toBe(
+    true,
+  );
+});

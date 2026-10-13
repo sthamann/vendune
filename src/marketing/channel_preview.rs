@@ -5,7 +5,7 @@ pub(crate) fn router() -> Router<App> {
     Router::new()
         .secure_route(
             "/api/automation/channels/{id}/preview",
-            &[("POST", "settings.read")],
+            &[("POST", "channels.read")],
             post(create),
         )
         .route("/channel-preview/{ticket}", get(redeem))
@@ -58,7 +58,7 @@ pub(crate) async fn valid(
                 .map_err(|_| bad("Invalid permissions"))?,
         );
     }
-    Ok(auth::permit(&identity, "settings.read").is_ok())
+    Ok(auth::permit(&identity, "channels.read").is_ok())
 }
 async fn create(
     State(a): State<App>,
@@ -66,7 +66,7 @@ async fn create(
     Path(id): Path<String>,
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
-    auth::permit(&h, "settings.read")?;
+    auth::permit(&h, "channels.read")?;
     let t = merchant(&a, &h)?;
     let credential = header(&h, "authorization")
         .and_then(|s| s.strip_prefix("Bearer "))

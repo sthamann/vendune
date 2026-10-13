@@ -73,7 +73,7 @@ pub(crate) async fn execute_app_flow(
         h.insert("x-rac-role", "owner".parse().unwrap());
     } else {
         let row = sqlx::query(
-            "SELECT role,permissions FROM memberships WHERE tenant=$1 AND user_id=$2 AND active",
+            "SELECT role,permissions FROM membership_grants WHERE tenant=$1 AND user_id=$2 AND active",
         )
         .bind(t)
         .bind(&f.actor)
@@ -99,7 +99,7 @@ pub(crate) async fn execute_app_flow(
             );
         }
     }
-    auth::permit(&h, "settings.write")?;
+    auth::permit(&h, "automation.manage")?;
     auth::permit(&h, "apps.manage")?;
     let m = apps::package(a, t, &target.app, true).await?;
     let act = m

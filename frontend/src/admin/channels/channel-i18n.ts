@@ -1,6 +1,30 @@
 /** Sales-channel onboarding and inherited settings vocabulary in all interface languages. */
 import { useLocale } from "../../shared/i18n/i18n";
 const words = {
+  nameRequired: [
+    "Enter a channel name in the shop’s main language.",
+    "Gib einen Kanalnamen in der Hauptsprache des Shops ein.",
+    "Saisis un nom dans la langue principale de la boutique.",
+    "Introduce un nombre en el idioma principal de la tienda.",
+  ],
+  countryRequired: [
+    "Choose the register’s country.",
+    "Wähle das Land des Kassenstandorts.",
+    "Choisis le pays de la caisse.",
+    "Selecciona el país de la caja.",
+  ],
+  languagesRequired: [
+    "Choose at least one shop language.",
+    "Wähle mindestens eine Shop-Sprache.",
+    "Choisis au moins une langue.",
+    "Selecciona al menos un idioma.",
+  ],
+  productsRequired: [
+    "Choose products or use the whole catalogue.",
+    "Wähle Produkte oder den gesamten Katalog.",
+    "Choisis des produits ou tout le catalogue.",
+    "Selecciona productos o todo el catálogo.",
+  ],
   marketplace: ["Marketplace", "Marktplatz", "Marketplace", "Marketplace"],
   marketplaceHint: [
     "Amazon, eBay and other marketplaces. Shared stock and native order import through the Marketplace app.",

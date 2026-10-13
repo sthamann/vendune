@@ -11,6 +11,22 @@ pub(crate) static CAPABILITIES: std::sync::LazyLock<Vec<(&'static str, &'static 
     });
 const COGNITIVE: &[(&str, &str)] = &[
     (
+        "merchant.customer.lookup",
+        "Search existing customers by name, email or number",
+    ),
+    (
+        "b2b.company.create",
+        "Create a company with a first purchasing unit",
+    ),
+    (
+        "b2b.settings.save",
+        "Configure native company purchasing features",
+    ),
+    ("team.roles", "Read current tenant role definitions"),
+    ("team.role.save", "Revise tenant role grants"),
+    ("team.role.dependencies", "Inspect role dependencies"),
+    ("team.role.delete", "Remove an unused custom role"),
+    (
         "knowledge.behavior",
         "Read consent-bound traffic, browser, destination and product knowledge projections",
     ),

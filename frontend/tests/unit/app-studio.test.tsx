@@ -240,3 +240,18 @@ it("offers explicit edit/delete controls, confirms recoverable removal and resto
   await user.click(screen.getByRole("button", { name: /^Restore:/ }));
   expect(await screen.findByRole("button", { name: /^Delete:/ })).toBeVisible();
 });
+
+it("returns from the designer to the overview without removing the draft", async () => {
+  setup();
+  const user = userEvent.setup();
+  await screen.findByRole("button", { name: "Save new version" });
+  const appName = screen.getByLabelText("App name") as HTMLInputElement;
+  await user.clear(appName);
+  await user.type(appName, "Retained app draft");
+  await user.click(screen.getByRole("button", { name: "Back to overview" }));
+  expect(
+    screen.getByRole("button", { name: "Close assistant" }),
+  ).toBeInTheDocument();
+  await user.click(screen.getByRole("button", { name: "Close assistant" }));
+  expect(screen.getByLabelText("App name")).toHaveValue("Retained app draft");
+});

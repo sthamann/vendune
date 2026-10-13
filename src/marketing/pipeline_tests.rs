@@ -54,7 +54,7 @@ fn upstream_aliases_and_download_revoke_are_explicit() {
     }
     assert_eq!(
         flow_actions::permission("knowledge.extract"),
-        "catalog.write"
+        "knowledge.write"
     );
     assert!(metadata::validate_metadata("products", &json!({"price":0})).is_err());
     assert!(metadata::validate_metadata("products", &json!({"width":-1})).is_err());

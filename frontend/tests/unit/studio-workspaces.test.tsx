@@ -5,21 +5,22 @@ import { expect, it, vi } from "vitest";
 import { reportMerchantSessionFailure } from "../../src/shared/api/merchant-session";
 import Merchant from "../../src/admin/shell/Merchant";
 import { LocaleProvider } from "../../src/shared/i18n/i18n";
-import { overview, providers, session } from "./fixtures";
-const rights = [
-  "customers.read",
-  "customers.write",
-  "orders.read",
-  "orders.write",
-  "catalog.write",
-  "settings.write",
-  "apps.manage",
-  "users.manage",
-  "automation.write",
-];
+import { ownerRights, overview, providers, session } from "./fixtures";
+const rights = ownerRights;
 function api(path: string) {
   const pathname = path.split("?")[0];
   const replies: Record<string, unknown> = {
+    "/api/pos/channels": { channels: [], mainLocale: "en-GB" },
+    "/api/b2b/companies": { companies: [] },
+    "/api/b2b/quotes": { quotes: [] },
+    "/api/b2b/configuration": {
+      mainLocale: "en-GB",
+      locales: ["en-GB"],
+      features: { enabled: true },
+      currencies: { defaultCurrency: "EUR" },
+      shipping: [],
+      payments: [],
+    },
     "/health": {},
     "/api/auth/access": { permissions: rights, available: rights },
     "/api/environments": { environments: [], releases: [] },
@@ -47,6 +48,12 @@ function api(path: string) {
       locales: ["en-GB", "de-DE", "es-ES", "fr-FR"],
       mainLocale: "en-GB",
     },
+    "/api/workspace/roles": {
+      elements: [],
+      mainLocale: "en-GB",
+      locales: ["en-GB"],
+    },
+    "/store-api/context": { mainLocale: "en-GB", locales: ["en-GB"] },
     "/api/workspace/members": { members: [], invitations: [] },
     "/store-api/countries": {
       countries: [],
@@ -118,7 +125,7 @@ it("navigates every merchant workspace without duplicating registry requests", a
   });
   const user = userEvent.setup();
   const buttons = within(navigation).getAllByRole("button");
-  expect(buttons.length).toBe(15);
+  expect(buttons.length).toBe(17);
   for (const button of buttons) {
     await user.click(button);
     await waitFor(() => expect(button).toHaveAttribute("aria-current", "page"));
@@ -133,7 +140,7 @@ it("navigates every merchant workspace without duplicating registry requests", a
     fetcher.mock.calls.filter(([path]) => path === "/api/apps/surfaces"),
   ).toHaveLength(1);
   expect(screen.queryByRole("alert")).not.toBeInTheDocument();
-  // Fifteen lazy workspace transitions share this test budget. Each waitFor
+  // Seventeen lazy workspace transitions share this test budget. Each waitFor
   // retains its short deadline; instrumented shared CI needs more than 5s total.
 }, 20_000);
 it("keeps merchant credentials absent when signed out and shows a login path", async () => {
@@ -223,6 +230,9 @@ it("keeps the same chat input mounted and returns to it after the overlay login"
   });
   await screen.findByRole("navigation", { name: "Vendune Studio" });
   const user = userEvent.setup();
+  await waitFor(() =>
+    expect(document.querySelector(".studio-composer textarea")).not.toBeNull(),
+  );
   const input = document.querySelector<HTMLTextAreaElement>(
     ".studio-composer textarea",
   )!;
@@ -250,4 +260,41 @@ it("keeps the same chat input mounted and returns to it after the overlay login"
   expect(input).toHaveValue("Unsubmitted private draft");
   expect(document.querySelector(".studio")).not.toHaveAttribute("inert");
   expect(sessionStorage.getItem("rac-user-token")).toBe("ui-resume-new");
+});
+
+it("adapts navigation and data loading to current grants rather than the role label", async () => {
+  sessionStorage.setItem("rac-user-token", "unit-token");
+  let granted = ["catalog.read"];
+  const fetcher = vi.fn(async (path: string) => ({
+    ok: true,
+    status: 200,
+    json: async () =>
+      path === "/api/auth/access"
+        ? { permissions: granted, available: rights }
+        : api(path),
+  }));
+  vi.stubGlobal("fetch", fetcher);
+  render(<Merchant onChanged={async () => {}} onExit={() => {}} />, {
+    wrapper: LocaleProvider,
+  });
+  await screen.findByRole("button", { name: "Products" });
+  const nav = screen.getByRole("navigation", { name: "Vendune Studio" });
+  expect(within(nav).getAllByRole("button")).toHaveLength(1);
+  expect(
+    fetcher.mock.calls.some(([p]) =>
+      [
+        "/api/agent/conversations",
+        "/api/merchant/orders",
+        "/api/developer",
+      ].includes(p),
+    ),
+  ).toBe(false);
+  granted = ["settings.read"];
+  act(() => window.dispatchEvent(new Event("focus")));
+  await waitFor(() =>
+    expect(within(nav).queryByRole("button", { name: "Products" })).toBeNull(),
+  );
+  expect(
+    within(nav).getByRole("button", { name: "Settings" }),
+  ).toBeInTheDocument();
 });

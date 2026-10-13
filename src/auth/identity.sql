@@ -7,7 +7,7 @@ WITH credential AS (
   WHERE i.digest=$1 AND i.expires_at>now() AND (i.app_id IS NULL OR (p.active AND p.digest=i.package_digest))
  ) c ORDER BY priority LIMIT 1
 ), members AS (
- SELECT tenant,role,permissions FROM memberships WHERE user_id=(SELECT user_id FROM credential) AND active
+ SELECT tenant,role,permissions FROM membership_grants WHERE user_id=(SELECT user_id FROM credential) AND active
 ), chosen AS (
  SELECT coalesce($2,CASE WHEN EXISTS(SELECT 1 FROM members WHERE tenant=c.default_tenant) THEN c.default_tenant ELSE (SELECT min(tenant) FROM members) END) AS tenant FROM credential c
 ), scope AS (

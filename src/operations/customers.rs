@@ -7,6 +7,7 @@ pub(super) async fn list(
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "customers.read")?;
+    auth::permit(&h, "customers.pii")?;
     let n = c.validate()?;
     let rows = sqlx::query_scalar::<_, Value>(include_str!("customer_directory.sql"))
         .bind(t)
@@ -32,6 +33,7 @@ pub(super) async fn detail(
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "customers.read")?;
+    auth::permit(&h, "customers.pii")?;
     let r = sqlx::query(
         "SELECT *,created_at::text AS created FROM customers WHERE tenant=$1 AND email=$2",
     )
@@ -97,6 +99,7 @@ async fn save_domain(
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "customers.write")?;
+    auth::permit(&h, "customers.pii")?;
     let e: Edit = serde_json::from_value(v).map_err(|_| bad("Invalid customer update"))?;
     if e.company.as_ref().is_some_and(|s| s.len() > 200)
         || e.profile.to_string().len() > 4000
