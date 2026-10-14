@@ -1,6 +1,32 @@
 /** Sales-channel onboarding and inherited settings vocabulary in all interface languages. */
 import { useLocale } from "../../shared/i18n/i18n";
 const words = {
+  createdHint: [
+    "Your channel is saved. Configure its connections and inherited settings when you’re ready.",
+    "Dein Kanal ist gespeichert. Richte jetzt seine Verbindungen und geerbten Einstellungen ein.",
+    "Votre canal est enregistré. Configurez ses connexions et réglages hérités.",
+    "Tu canal está guardado. Configura sus conexiones y ajustes heredados.",
+  ],
+  createCatalogHint: [
+    "Choose the languages and products available in this channel.",
+    "Wähle die Sprachen und Produkte, die in diesem Kanal verfügbar sind.",
+    "Choisissez les langues et produits de ce canal.",
+    "Elige los idiomas y productos disponibles en este canal.",
+  ],
+  createReviewHint: [
+    "Review your choices. Connections and channel-specific settings can be added after creation.",
+    "Prüfe deine Auswahl. Verbindungen und kanalspezifische Einstellungen ergänzt du nach dem Anlegen.",
+    "Vérifiez vos choix. Ajoutez ensuite les connexions et réglages du canal.",
+    "Revisa tus opciones. Después podrás añadir conexiones y ajustes del canal.",
+  ],
+
+  createHint: [
+    "Choose where you want to sell. We’ll guide you through the rest.",
+    "Wähle, wo du verkaufen möchtest. Wir führen dich durch den Rest.",
+    "Choisissez où vendre. Nous vous guidons pour la suite.",
+    "Elige dónde vender. Te guiaremos en los siguientes pasos.",
+  ],
+
   nameRequired: [
     "Enter a channel name in the shop’s main language.",
     "Gib einen Kanalnamen in der Hauptsprache des Shops ein.",

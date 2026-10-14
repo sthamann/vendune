@@ -61,29 +61,38 @@ export default function ChannelType({
                 patch({ kind, pos: kind === "pos" ? config : undefined })
               }
             >
-              <Icon
-                name={
-                  kind === "marketplace"
-                    ? "layers"
-                    : kind === "pos"
-                      ? "register"
-                      : kind === "headless"
-                        ? "code"
-                        : "globe"
-                }
-              />
-              <strong>{t(kind)}</strong>
-              <p>
-                {t(
-                  kind === "marketplace"
-                    ? "marketplaceHint"
-                    : kind === "pos"
-                      ? "posHint"
-                      : kind === "storefront"
-                        ? "storefrontHint"
-                        : "headlessHint",
-                )}
-              </p>
+              <span className="channel-kind-icon">
+                <Icon
+                  name={
+                    kind === "marketplace"
+                      ? "layers"
+                      : kind === "pos"
+                        ? "register"
+                        : kind === "headless"
+                          ? "code"
+                          : "globe"
+                  }
+                />
+              </span>
+              <span className="channel-kind-copy">
+                <strong>{t(kind)}</strong>
+                <p>
+                  {t(
+                    kind === "marketplace"
+                      ? "marketplaceHint"
+                      : kind === "pos"
+                        ? "posHint"
+                        : kind === "storefront"
+                          ? "storefrontHint"
+                          : "headlessHint",
+                  )}
+                </p>
+              </span>
+              {draft.data.kind === kind && (
+                <span className="channel-kind-selected">
+                  <Icon name="check" size={18} />
+                </span>
+              )}
             </button>
           ),
         )}

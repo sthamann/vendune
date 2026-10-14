@@ -200,7 +200,11 @@ export default function StudioRoutes() {
       </div>
     )
   ) : tab === "storyfronts" ? (
-    <StoryfrontView request={request} role={role} />
+    <StoryfrontView
+      request={request}
+      workspace={environment || workspace}
+      rights={access}
+    />
   ) : tab === "developers" ? (
     <DeveloperView
       key={workspace}

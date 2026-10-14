@@ -30,7 +30,9 @@ export default function AppsManager({
   const [installing, setInstalling] = useState("");
   const [mainLocale, setMainLocale] = useState("en-GB");
   const [loading, setLoading] = useState(true);
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState(
+    () => new URLSearchParams(location.search).get("app") ?? "",
+  );
   const [detailTab, setDetailTab] = useState("appDetails");
   const [packages, setPackages] = useState<Package[]>([]);
   const [error, setError] = useState("");
@@ -68,6 +70,14 @@ export default function AppsManager({
       .then((v) => {
         if (active) {
           setPackages(v.packages);
+          if (selected && !v.packages.some((p: Package) => p.id === selected)) {
+            setSelected("");
+            if (
+              v.builtIns?.includes(selected) &&
+              rights?.includes("apps.manage")
+            )
+              setInstalling(selected);
+          }
           setMainLocale(v.mainLocale ?? "en-GB");
         }
       })
@@ -139,6 +149,10 @@ export default function AppsManager({
             className="studio-secondary app-back"
             onClick={() => {
               setSelected("");
+              const url = new URL(location.href);
+              url.searchParams.delete("app");
+              url.searchParams.delete("channel");
+              history.replaceState(null, "", url);
               setResult(undefined);
             }}
           >

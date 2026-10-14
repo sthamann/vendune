@@ -572,9 +572,12 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/channels/ChannelCatalog.tsx](../frontend/src/admin/channels/ChannelCatalog.tsx) | Catalog/language controls share the channel schema and content-language fallback. |
 | [frontend/src/admin/channels/ChannelConnections.tsx](../frontend/src/admin/channels/ChannelConnections.tsx) | Uses the existing tenant-owned frontend registry, not a parallel domain or Experience store. |
 | [frontend/src/admin/channels/ChannelEditor.tsx](../frontend/src/admin/channels/ChannelEditor.tsx) | Guided channel creation/editing reuses the native revisioned API and shared content-language inheritance. |
+| [frontend/src/admin/channels/ChannelLaunch.tsx](../frontend/src/admin/channels/ChannelLaunch.tsx) | Successful native channel creation ends in a clear next action; no provider is connected implicitly. |
 | [frontend/src/admin/channels/ChannelProducts.tsx](../frontend/src/admin/channels/ChannelProducts.tsx) | Search-based channel product assignment, preserving selected IDs across server-filtered result pages. |
+| [frontend/src/admin/channels/ChannelReview.tsx](../frontend/src/admin/channels/ChannelReview.tsx) | A readable summary of the exact native channel draft before its revisioned save. |
 | [frontend/src/admin/channels/ChannelSettings.tsx](../frontend/src/admin/channels/ChannelSettings.tsx) | Channel settings embed existing revision-aware identity and checkout editors with the channel selected. |
 | [frontend/src/admin/channels/ChannelType.tsx](../frontend/src/admin/channels/ChannelType.tsx) | Channel kind and POS presentation editor use the existing channel/content-language contract. |
+| [frontend/src/admin/channels/ChannelVisibility.tsx](../frontend/src/admin/channels/ChannelVisibility.tsx) | Public/private audience settings only apply to storefront and headless channel entry points. |
 | [frontend/src/admin/channels/SalesChannelsWorkspace.tsx](../frontend/src/admin/channels/SalesChannelsWorkspace.tsx) | Discover and create channels separately from rules; shared settings and independent SaaS shops remain explicit. |
 | [frontend/src/admin/channels/channel-i18n.ts](../frontend/src/admin/channels/channel-i18n.ts) | Sales-channel onboarding and inherited settings vocabulary in all interface languages. |
 | [frontend/src/admin/channels/channel-model.ts](../frontend/src/admin/channels/channel-model.ts) | Existing sales-channel contract and safe storefront URLs; independent tenants remain a separate concept. |
@@ -819,6 +822,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/api/shop-api.ts](../frontend/src/shared/api/shop-api.ts) | shop api: Typed commerce contracts, merchant/store transports and binary download helper. |
 | [frontend/src/shared/api/shop-scope.ts](../frontend/src/shared/api/shop-scope.ts) | Canonical shop hosts; Studio identity remains on the shared origin. Reserved service hosts never become tenant IDs. |
 | [frontend/src/shared/api/types.ts](../frontend/src/shared/api/types.ts) | Common JSON/multipart request contract for app surfaces and merchant operations. |
+| [frontend/src/shared/api/vite-env.d.ts](../frontend/src/shared/api/vite-env.d.ts) | Typed public build configuration; browser-visible values never contain server credentials. |
 | [frontend/src/shared/apps/AppFrame.tsx](../frontend/src/shared/apps/AppFrame.tsx) | Opaque-origin app UI. Its SDK can invoke only this app's declared, server-authorized actions. |
 | [frontend/src/shared/apps/AppSlot.tsx](../frontend/src/shared/apps/AppSlot.tsx) | Generic registered product configuration slot. App packages own labels, input names and business rules. |
 | [frontend/src/shared/apps/AppSurfaces.tsx](../frontend/src/shared/apps/AppSurfaces.tsx) | One registry read per workspace; app bundles load only when their surface is mounted. |
@@ -1094,12 +1098,14 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/marketplaces/studio/ConnectionEditor.tsx](../extensions/apps/marketplaces/studio/ConnectionEditor.tsx) | Guided seller connection editor reuses native channel and record revisions. Secrets remain server-only. |
 | [extensions/apps/marketplaces/studio/MarketplaceOffers.tsx](../extensions/apps/marketplaces/studio/MarketplaceOffers.tsx) | Connection and offer cards with explicit prepare/submit controls and channel-specific preview. |
 | [extensions/apps/marketplaces/studio/MarketplacePanel.tsx](../extensions/apps/marketplaces/studio/MarketplacePanel.tsx) | App-owned marketplace workspace uses generated entity actions, native job queue and commerce callbacks. |
+| [extensions/apps/marketplaces/studio/MarketplaceWorkspace.tsx](../extensions/apps/marketplaces/studio/MarketplaceWorkspace.tsx) | Channel-scoped entry to the existing app-owned seller UI; installation uses native reviewed consent. |
 | [extensions/apps/marketplaces/studio/OfferEditor.tsx](../extensions/apps/marketplaces/studio/OfferEditor.tsx) | Channel-specific offer overrides and explicit data-only attribute mappings. No copied catalog or provider secrets. |
 | [extensions/apps/marketplaces/studio/OrderAddress.tsx](../extensions/apps/marketplaces/studio/OrderAddress.tsx) | Marketplace review addresses remain source snapshots; no separate customer directory. |
 | [extensions/apps/marketplaces/studio/OrderReview.tsx](../extensions/apps/marketplaces/studio/OrderReview.tsx) | Source-derived review uses visible addresses, SKU matches and exact amounts; no invented products or taxes. |
 | [extensions/apps/marketplaces/studio/marketplace-i18n.ts](../extensions/apps/marketplaces/studio/marketplace-i18n.ts) | Marketplace app vocabulary; UI language is independent of inherited content language. |
 | [extensions/apps/marketplaces/studio/marketplace-model.ts](../extensions/apps/marketplaces/studio/marketplace-model.ts) | Native app records and provider policy metadata. IDs never change tenant scope. |
 | [extensions/apps/marketplaces/studio/marketplace-order-i18n.ts](../extensions/apps/marketplaces/studio/marketplace-order-i18n.ts) | Source-order review vocabulary in all supported interface languages. |
+| [extensions/apps/marketplaces/studio/marketplace-setup-i18n.ts](../extensions/apps/marketplaces/studio/marketplace-setup-i18n.ts) | Guided seller setup copy; credentials remain service-side and installation does not imply a live seller connection. |
 | [extensions/apps/marketplaces/studio/marketplaces.css](../extensions/apps/marketplaces/studio/marketplaces.css) | App-owned responsive workspace uses Veyndo surface tokens; no global selectors or provider scripts. |
 | [extensions/apps/marketplaces/tests/integration.py](../extensions/apps/marketplaces/tests/integration.py) | Installed Marketplace app -> independent Rust service -> fixture seller APIs -> native PostgreSQL order effects. No external credentials or requests. |
 | [extensions/apps/paypal/src/adapter.rs](../extensions/apps/paypal/src/adapter.rs) | Legacy PayPal admission/account wiring belongs to the PayPal package, not a second pricing owner. |
@@ -1114,7 +1120,9 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/slack/src/actions.rs](../extensions/apps/slack/src/actions.rs) | App-owned connector capabilities and provider settings; shared host supplies tenant-bound storage. |
 | [extensions/apps/slack/src/provider.rs](../extensions/apps/slack/src/provider.rs) | Slack notification execution belongs to the Slack app, admitted by the connector host. |
 | [extensions/apps/storyfront/studio/StoryfrontConnections.tsx](../extensions/apps/storyfront/studio/StoryfrontConnections.tsx) | Shared passive navigation from Apps and Storyfronts to the same authorized original editor. |
+| [extensions/apps/storyfront/studio/StoryfrontCreate.tsx](../extensions/apps/storyfront/studio/StoryfrontCreate.tsx) | Self-service entry retains the current tenant and an eligible native storefront channel; no installation on a read. |
 | [extensions/apps/storyfront/studio/StoryfrontView.tsx](../extensions/apps/storyfront/studio/StoryfrontView.tsx) | Discover the actual tenant-bound hosted frontends; keep the optional legacy app connector separate. |
+| [extensions/apps/storyfront/studio/storyfront-create.ts](../extensions/apps/storyfront/studio/storyfront-create.ts) | Only public workspace/channel identifiers cross to the configured Experience entry; never tokens or customer data. |
 | [extensions/apps/storyfront/studio/storyfront-i18n.ts](../extensions/apps/storyfront/studio/storyfront-i18n.ts) | Four-language navigation copy; mounted frontends are connections, not proof of publication. |
 | [extensions/apps/storyfront/studio/storyfront-model.ts](../extensions/apps/storyfront/studio/storyfront-model.ts) | Passive operator URLs contain no browser credential; the destination editor authorizes its own owner. |
 | [extensions/apps/storyfront/studio/storyfronts.css](../extensions/apps/storyfront/studio/storyfronts.css) | Tenant-bound Experience cards share Studio tokens and keep long hostnames inside mobile columns. |

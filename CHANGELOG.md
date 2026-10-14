@@ -1,5 +1,17 @@
 # Changelog
 
+## Channel and Storyfront setup — 15 October 2026
+
+- Type-first responsive channel cards, relevant visibility fields, inline validation,
+  readable review and an explicit post-save next step; shared localized content fields.
+- Marketplace Studio opens inside the current workspace, uses native app consent and
+  preselects the originating channel. Installed-app deep links no longer open the library.
+- Storyfront self-service connects an existing Core shop/channel through the private
+  Experience service and original Studio; current rights, enabled languages, revisions,
+  durable retries and publication admission remain explicit. No duplicate commerce shop.
+- Illustrated setup guide and local browser/HTTP/queue regression boundaries documented.
+
+
 ## 14 October 2026 — coherent settings and native Admin creation
 
 - Group and search shop settings by foundations, markets/pricing, checkout/fulfillment and customers/business; keep domain-specific shortcuts permission-aware.

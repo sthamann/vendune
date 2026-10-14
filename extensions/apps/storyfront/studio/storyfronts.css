@@ -80,3 +80,43 @@
     width: 100%;
   }
 }
+
+.storyfront-create {
+  display: grid;
+  grid-template-columns: 60px minmax(0, 1fr);
+  gap: 22px;
+  margin: 20px 0;
+}
+.storyfront-create-icon {
+  display: grid;
+  place-items: center;
+  height: 60px;
+  border-radius: 18px;
+  color: var(--accent);
+  background: var(--hover);
+}
+.storyfront-create h2 {
+  margin: 0 0 10px;
+}
+.storyfront-create p {
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 65ch;
+}
+.storyfront-create label {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0;
+  max-width: 480px;
+}
+.storyfront-create a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+@media (max-width: 600px) {
+  .storyfront-create {
+    grid-template-columns: 1fr;
+  }
+}
