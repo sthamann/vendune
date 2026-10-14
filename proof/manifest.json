@@ -488,6 +488,26 @@
         "auth_factor_exact",
         "auth_factor_required_denied"
       ]
+    },
+    "delivery_split_admissible": {
+      "bindings": [
+        "src/commerce/delivery_split.rs",
+        "src/commerce/order_workflow.rs"
+      ],
+      "theorems": [
+        "delivery_split_exact",
+        "delivery_split_closed_denied",
+        "delivery_split_all_denied"
+      ]
+    },
+    "carrier_booking_admissible": {
+      "bindings": [
+        "src/operations/delivery_booking.rs"
+      ],
+      "theorems": [
+        "carrier_booking_exact",
+        "carrier_booking_occupied_denied"
+      ]
     }
   },
   "sources": {
@@ -823,8 +843,8 @@
     },
     "src/accounts/orders.rs": {
       "status": "unproved",
-      "sha256": "e22b1aa100720a7f3b3845cf6c275d924cff447404cd413b64a07ae7c351c310",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "7739704c7dcf0456fb665be0d5e81e9de73254a2885f9c07571aa2749fa7f8d9",
+      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
     },
     "src/accounts/profile.rs": {
       "status": "unproved",
@@ -839,7 +859,7 @@
     "src/apps/approval.rs": {
       "status": "reviewed-binding",
       "sha256": "cb469f7290eafc68e1e7b368414aaf41afaa21651d1ab09841e1d62c869a16fb",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "review": "Review provider-neutral split quantities, original app-bound PDF acknowledgement, native booking intent, aggregate storage and current Flow/job disclosure; provider effects remain unproved"
     },
     "src/apps/asset_surfaces.rs": {
       "status": "unproved",
@@ -868,8 +888,13 @@
     },
     "src/apps/core_callbacks.rs": {
       "status": "unproved",
-      "sha256": "0a3b5aaf73c31aa24281c0493b121ef7c98d5c84d91e1952ba3f1f907a962ce8",
-      "review": "Reviewed tenant role, PII and B2B admission changes with independent reviewer; fixed stale owner/invitation races tested against PostgreSQL. App callbacks preserve existing safe projections without elevating identities; separate PII consent required for full reads, foreign IDs rejected and retained guest/group fields regression tested. SQL/async/UI remain outside proof boundary; verified commerce kernel unchanged."
+      "sha256": "a849bff72c8fc2beda1941c54b537f21e4b6f879f0d488dff598b929fb246506",
+      "review": "Review 2026-10-14: bounded modular fulfillment predicates; native carrier intent freezes allocation/dispatch across unknown effects and cross-provider calls, confirmed rejection releases its own intent, exact PDFs acknowledge the original intent. Reviewed split/machine binding, tenant/package/CAS/quota checks and local paid-effect negative fixtures; SQL, crypto and carrier protocols remain unproved."
+    },
+    "src/apps/core_documents.rs": {
+      "status": "unproved",
+      "sha256": "63c675c9ce253d5f084c4b2fb885603a9d835654f167515f1d18c51ee2b2f81d",
+      "review": "Review 2026-10-14: bounded modular fulfillment predicates; native carrier intent freezes allocation/dispatch across unknown effects and cross-provider calls, confirmed rejection releases its own intent, exact PDFs acknowledge the original intent. Reviewed split/machine binding, tenant/package/CAS/quota checks and local paid-effect negative fixtures; SQL, crypto and carrier protocols remain unproved."
     },
     "src/apps/core_exchange.rs": {
       "status": "unproved",
@@ -878,13 +903,13 @@
     },
     "src/apps/credentials.rs": {
       "status": "reviewed-binding",
-      "sha256": "8b765211c3deb7dc054887c1f49864a01475c12b17e3120ee8d7a6564c902334",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "sha256": "169ece39f79db70cbdd50e0fbe68b70d90fae1ef16092da7dcacc836b4c6cac1",
+      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
     },
     "src/apps/data.rs": {
       "status": "unproved",
-      "sha256": "d36731e3e94e4dd30e113299dc75bcdffe0153079e3b7686a248e52e7c1209df",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "sha256": "a03d7c8fef6446a2d02f0d781a12f53c573b9bf2a0458c5f174373c316c732b2",
+      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
     },
     "src/apps/distribution.rs": {
       "status": "unproved",
@@ -913,8 +938,8 @@
     },
     "src/apps/event_projection.rs": {
       "status": "unproved",
-      "sha256": "98bb7854f9cf3f127f7dbb83227a31f8ad24725c8040a31621081c58fc20ad62",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "2f4914e0ee341ee766e305ee3cd6d9193ca3feadeccb619189603a4f3336a5b0",
+      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
     },
     "src/apps/events.rs": {
       "status": "unproved",
@@ -963,8 +988,8 @@
     },
     "src/apps/jobs.rs": {
       "status": "unproved",
-      "sha256": "2a6831e2572dc27c9de937d8dfdc7a8f3e1472b74f6546066034e16d77f56b02",
-      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
+      "sha256": "228fdd960012b6456e9e7b51608cb5ae96b962cf9fed1dbe0f21d3cbc2c317f1",
+      "review": "Review provider-neutral split quantities, original app-bound PDF acknowledgement, native booking intent, aggregate storage and current Flow/job disclosure; provider effects remain unproved"
     },
     "src/apps/manifest.rs": {
       "status": "unproved",
@@ -973,13 +998,13 @@
     },
     "src/apps/manifest_validation.rs": {
       "status": "unproved",
-      "sha256": "9e1e4f9e0dbfc7a9111babd3a887b4e22a2ef8cb92c62f80d6efd4e7e99adeeb",
-      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
+      "sha256": "143e7d553b675e55681912f79a02aced3119458b0d030bad5cc4e4ea5d769e86",
+      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "bbe88317deef374f78b61a9a2c4ca6db2f54d21d718fc121a23b3b0d8d12c086",
-      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+      "sha256": "fa62763a074bbd20cda82641123be03bbf01aad9fe155a37064a26909221276e",
+      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
@@ -1005,6 +1030,11 @@
       "status": "unproved",
       "sha256": "f12cdb3e2e1941ce20e77325f068c40d36603d6b175d097ef7df9d1337de2768",
       "review": "Review native app ontology metadata: derive selected graph fields/typed references only from current authorized native list rows; preserve RLS/action grants, package serialization, revision guards and existing extracted predicates. Projection and SQL/transport remain unproved."
+    },
+    "src/apps/package_fence.rs": {
+      "status": "unproved",
+      "sha256": "642447c0c987a8ab20b541743615fe5c9feb1b9ef5cd91f54be95553a6d036f0",
+      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
     },
     "src/apps/planning.rs": {
       "status": "unproved",
@@ -1033,8 +1063,8 @@
     },
     "src/apps/routes.rs": {
       "status": "unproved",
-      "sha256": "03a2e3f857bd02a384a59843294608e90f5a14dd523f73df22cf63e4c02bc6ef",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "e2f8c741acc958785b4206015812a960b8ef5b8d129570aef0d7657770bc4fb2",
+      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
     },
     "src/apps/runtime.rs": {
       "status": "unproved",
@@ -1073,8 +1103,8 @@
     },
     "src/apps/storage.rs": {
       "status": "unproved",
-      "sha256": "b2619abffc946eeb9a92ca5cf5e651946d52bdfb6c66040450f93ea709ba376b",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "61735a4125aa1077262918e5365c643f4a4a07d8478b56d99b6d7d754fadefef",
+      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
     },
     "src/apps/surface_grants.rs": {
       "status": "reviewed-binding",
@@ -1458,8 +1488,8 @@
     },
     "src/bin/verified_kernel/dispatch.rs": {
       "status": "unproved",
-      "sha256": "9159a70a2a0164db1a5adc03713163cd066d7f0acac0fc9167b84aae0a1d00e6",
-      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+      "sha256": "0cd07b22465c7f059880a00398e74c2c99c0413a24f1dc5ad7edf42bba17a199",
+      "review": "Review 2026-10-14: modular fulfillment predicates and native carrier intent admission; same-reference CAS, occupied package denial, allocation/dispatch fence until confirmed no-effect release or original PDF acknowledgement. Local SQL/provider/restart/privacy and cross-provider denial fixtures checked; external effects and surrounding runtime remain unproved."
     },
     "src/bin/verified_kernel.rs": {
       "status": "conformance-driver",
@@ -1483,8 +1513,8 @@
     },
     "src/capabilities/core_catalog.rs": {
       "status": "unproved",
-      "sha256": "b697bf253943b3db33a1e1edb0a6bc706bc02b78f7faec22d75b548bb9082921",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "67bcdcf60488925af59c6e9ca82f3020e992b4d075255e83826456b9f3121fff",
+      "review": "Reviewed generic package-subset allocation, immutable fiscal/stock snapshots, shared replay/audit/cart/outbox owner and HTTP/MCP/current PII rights; malformed/foreign/stale/concurrent replays and real customer/Flow effects verified. Added exact open/nonterminal strict-subset guard; SQL provider integration remains unproved."
     },
     "src/capabilities.rs": {
       "status": "unproved",
@@ -1756,6 +1786,11 @@
       "sha256": "a549ece084081d51760edddb49f85fb13c4113ba452faecb3720c4e282150e20",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
+    "src/commerce/delivery_split.rs": {
+      "status": "reviewed-binding",
+      "sha256": "b887741b43f021a0c76de8ab0858a917b271e415a109db5209aec5a085ad5af5",
+      "review": "Review 2026-10-14: bounded modular fulfillment predicates; native carrier intent freezes allocation/dispatch across unknown effects and cross-provider calls, confirmed rejection releases its own intent, exact PDFs acknowledge the original intent. Reviewed split/machine binding, tenant/package/CAS/quota checks and local paid-effect negative fixtures; SQL, crypto and carrier protocols remain unproved."
+    },
     "src/commerce/detail.rs": {
       "status": "unproved",
       "sha256": "082facaaed836fe4508ed7d105d7f13c94466d74d15c3db28555a644b75e7a8f",
@@ -1773,8 +1808,8 @@
     },
     "src/commerce/fulfillment.rs": {
       "status": "reviewed-binding",
-      "sha256": "23a1518667e7eed8ac94100ef903ce0044b99e5bac4af81e701278fd44d06f64",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "5c1642730a0c0737dd6783e7e05f63371da19a379ee53b57dcdb9efd919c47d2",
+      "review": "Review 2026-10-14: bounded modular fulfillment predicates; native carrier intent freezes allocation/dispatch across unknown effects and cross-provider calls, confirmed rejection releases its own intent, exact PDFs acknowledge the original intent. Reviewed split/machine binding, tenant/package/CAS/quota checks and local paid-effect negative fixtures; SQL, crypto and carrier protocols remain unproved."
     },
     "src/commerce/geography.rs": {
       "status": "unproved",
@@ -1808,8 +1843,8 @@
     },
     "src/commerce/mod.rs": {
       "status": "unproved",
-      "sha256": "caf8ad3ad07e12bebe6571a82d1eabc3f4b62146615e041d7cc452d3b0333efe",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "48cdb1a2e90df496107bc6e7beef6fd05da3156a79ddf1aa9fabf2e1a0fb116e",
+      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
     },
     "src/commerce/order_fields.rs": {
       "status": "unproved",
@@ -1821,10 +1856,15 @@
       "sha256": "30fa6822c640177210057abfc13b1e82ee67e300123ba1d7c4dce5077f82ed0e",
       "review": "Initial extraction of 13 production policies; surrounding Rust explicitly unproved; existing HTTP regression suites retained"
     },
+    "src/commerce/order_mutation.rs": {
+      "status": "unproved",
+      "sha256": "f8acbbd81dfac312c3b33b30e982b9f0d902360545278e79cb4ed24d3b90d80a",
+      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
+    },
     "src/commerce/order_workflow.rs": {
       "status": "reviewed-binding",
-      "sha256": "01e41a73b686dbf04498ca1f3260e67c8196b7578794d649341a4df27a887848",
-      "review": "Reviewed provider manifest/dispatch, scoped accounts and iframe origins, callback identity/HMAC, exact receipt allocation, serial refund limits, job fencing, app/MCP/Flow authority and schema containment. Real HTTP/PG payment_providers, native payments, tenant_isolation, app_studio, automation and composed private adapter tests passed. Added production reservation release policy with exact/negative Lean claims and two mutations; surrounding async/provider modules remain unproved."
+      "sha256": "2e22811cb0ec831a0382cbf238ed653cb6da848fed2a2b6127f95da4e0c22691",
+      "review": "Review 2026-10-14: bounded modular fulfillment predicates; native carrier intent freezes allocation/dispatch across unknown effects and cross-provider calls, confirmed rejection releases its own intent, exact PDFs acknowledge the original intent. Reviewed split/machine binding, tenant/package/CAS/quota checks and local paid-effect negative fixtures; SQL, crypto and carrier protocols remain unproved."
     },
     "src/commerce/product_admin.rs": {
       "status": "unproved",
@@ -2273,8 +2313,8 @@
     },
     "src/marketing/app_flows.rs": {
       "status": "reviewed-binding",
-      "sha256": "6bcf56db8d93a81e120b567af14be470f5f2e29de67ac0920b2583b0116ddd88",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "69604bddc4ded3c08db24a292b840e06e7752745a8e1931cd967a24d2e0f7c16",
+      "review": "Review provider-neutral split quantities, original app-bound PDF acknowledgement, native booking intent, aggregate storage and current Flow/job disclosure; provider effects remain unproved"
     },
     "src/marketing/catalog.rs": {
       "status": "unproved",
@@ -2353,8 +2393,8 @@
     },
     "src/marketing/flows.rs": {
       "status": "unproved",
-      "sha256": "8e3c98e0d6093cdc83598e1a1ddfa508f28c441b6db47775db15f6bc366ff4e8",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "c58a2ded0a5ecc191b00c941bc286bf8f6a4b003b185bd0240fbf1574f246f70",
+      "review": "Review 2026-10-14: bounded modular fulfillment predicates; native carrier intent freezes allocation/dispatch across unknown effects and cross-provider calls, confirmed rejection releases its own intent, exact PDFs acknowledge the original intent. Reviewed split/machine binding, tenant/package/CAS/quota checks and local paid-effect negative fixtures; SQL, crypto and carrier protocols remain unproved."
     },
     "src/marketing/gateway.rs": {
       "status": "unproved",
@@ -2448,8 +2488,8 @@
     },
     "src/mcp.rs": {
       "status": "unproved",
-      "sha256": "19ac9e4a4297bb361e0041389191a01a9c83cc59a5fb0ba7a313e076fc23f183",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "7220be4c7da484bce12b809a2715fcaa936aac241f6748862af3b637fd40cfeb",
+      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
     },
     "src/migrations/identity_checksums.rs": {
       "status": "unproved",
@@ -2458,8 +2498,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "881dd03d710299e66199f411539461ec4fbb10658205d81e1761fff8708fcd89",
-      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+      "sha256": "3de5f3e3fb996c4276440b09989e73c21d2dcf480f925d2d58510884df23040a",
+      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -2511,6 +2551,11 @@
       "sha256": "fff0b7cfd41cef55720fc4f80fe4258affb21e1803719c7df1cc9aaf235bf69b",
       "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
+    "src/operations/delivery_booking.rs": {
+      "status": "reviewed-binding",
+      "sha256": "3e053bcde7a7e65d60ef66a226a0c7c94daf029f102666371b21e40fa2d3dd65",
+      "review": "Review provider-neutral split quantities, original app-bound PDF acknowledgement, native booking intent, aggregate storage and current Flow/job disclosure; provider effects remain unproved"
+    },
     "src/operations/guest_customers.rs": {
       "status": "unproved",
       "sha256": "bd869ddd890c92e4a4be70d44b8451e3d54b3b1c6a7ae455bb438562e5770aca",
@@ -2523,8 +2568,13 @@
     },
     "src/operations/mod.rs": {
       "status": "unproved",
-      "sha256": "b9ea68eb0ce988585773782504ea65fafcc6e38633285a4b9075b8c7232a9f39",
-      "review": "Reviewed tenant role, PII and B2B admission changes with independent reviewer; fixed stale owner/invitation races tested against PostgreSQL. App callbacks preserve existing safe projections without elevating identities; separate PII consent required for full reads, foreign IDs rejected and retained guest/group fields regression tested. SQL/async/UI remain outside proof boundary; verified commerce kernel unchanged."
+      "sha256": "422bf330c736a66753f45c1f5c0940481b088da755c10bd8f110cbf599c1b62d",
+      "review": "Review 2026-10-14: bounded modular fulfillment predicates; native carrier intent freezes allocation/dispatch across unknown effects and cross-provider calls, confirmed rejection releases its own intent, exact PDFs acknowledge the original intent. Reviewed split/machine binding, tenant/package/CAS/quota checks and local paid-effect negative fixtures; SQL, crypto and carrier protocols remain unproved."
+    },
+    "src/operations/order_documents.rs": {
+      "status": "unproved",
+      "sha256": "f720a09f7e1d6ac4f9be13108fbbe0f47f35dfe849c5e83b73f28a44e416b5db",
+      "review": "Review provider-neutral split quantities, original app-bound PDF acknowledgement, native booking intent, aggregate storage and current Flow/job disclosure; provider effects remain unproved"
     },
     "src/operations/orders.rs": {
       "status": "unproved",
@@ -2538,13 +2588,13 @@
     },
     "src/operations/receipt_text.rs": {
       "status": "unproved",
-      "sha256": "91cc945a84e037fc0db3347efc8c8dbbae950f3659cbe7dec5380abc02d12dbd",
-      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+      "sha256": "074368b0c64f149c3800472613073412e54e7831ad31b3fda6aadf0141d006d9",
+      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
     },
     "src/operations/receipts.rs": {
       "status": "unproved",
-      "sha256": "a3c405932642bd24739f555d5a6ce36de1be2be32f8fb6a85f2009e77124e00e",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "b4ed32b3cc52a979598c2c3dda940d9f04605514a0251d17ef071ff72426acd4",
+      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
     },
     "src/operations/redacted_reads.rs": {
       "status": "unproved",
@@ -2553,8 +2603,8 @@
     },
     "src/operations/routes.rs": {
       "status": "unproved",
-      "sha256": "4694bd2ef464416bd6a049842c6b721ac635786867f98faadd27b4e2bd6422ac",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "120b7927efe60259b40e4f9ef1f73c6b31fe4dd46696ba0912144097a381091e",
+      "review": "Reviewed generic package-subset allocation, immutable fiscal/stock snapshots, shared replay/audit/cart/outbox owner and HTTP/MCP/current PII rights; malformed/foreign/stale/concurrent replays and real customer/Flow effects verified. Added exact open/nonterminal strict-subset guard; SQL provider integration remains unproved."
     },
     "src/operations/workflow.rs": {
       "status": "unproved",
@@ -3061,10 +3111,15 @@
       "sha256": "37559f6293524d7568217ec08429ac596f8ab4fd34714c3c102c6de01220aae0",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
+    "src/verified_kernel/fulfillment.rs": {
+      "status": "extracted-policy",
+      "sha256": "9231ccb47eb2fdf5da67eba64c917aa57e2748f21cfe645c1c394b83e8814180",
+      "review": "Review 2026-10-14: modular fulfillment predicates and native carrier intent admission; same-reference CAS, occupied package denial, allocation/dispatch fence until confirmed no-effect release or original PDF acknowledgement. Local SQL/provider/restart/privacy and cross-provider denial fixtures checked; external effects and surrounding runtime remain unproved."
+    },
     "src/verified_kernel.rs": {
       "status": "extracted-policy",
-      "sha256": "0292150ced3fcf99104f61bd1ec1281b726db159cc9a6e66c155b04733332c3a",
-      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+      "sha256": "7be557e2c782cbea14db5ae9dc420d74a9c85b0512443d7b6a93673ad8eab904",
+      "review": "Review 2026-10-14: bounded modular fulfillment predicates; native carrier intent freezes allocation/dispatch across unknown effects and cross-provider calls, confirmed rejection releases its own intent, exact PDFs acknowledge the original intent. Reviewed split/machine binding, tenant/package/CAS/quota checks and local paid-effect negative fixtures; SQL, crypto and carrier protocols remain unproved."
     },
     "src/work_signal.rs": {
       "status": "unproved",
@@ -3088,7 +3143,7 @@
     },
     "Cargo.toml": {
       "sha256": "5a9df8a23673fae08f6fc94eb65bc7473ac330434c0a453481fd0bd39861b5aa",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "review": "Review provider-neutral split quantities, original app-bound PDF acknowledgement, native booking intent, aggregate storage and current Flow/job disclosure; provider effects remain unproved"
     },
     "deploy/Dockerfile": {
       "sha256": "100168e9587c23009b01ab65775056e5e49abf90ee3b7dca0fdfe05133154e25",
@@ -3490,9 +3545,13 @@
       "sha256": "dde0626c1d32b9fb140e392c4731f186b01fdfe531175dc57c3f8ca371758240",
       "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
+    "migrations/092-order-document-artifacts.sql": {
+      "sha256": "a76060db64130da8a5492088bc6e44207e3376633ac7e789fbbd8a4be8927ee5",
+      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
+    },
     "proof/Commerce/Claims.lean": {
-      "sha256": "d3d9b8741cfd6dd8aef4939a8fe27ceda428d146ec210eaf5b1ac34ab10bd5d0",
-      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+      "sha256": "2a5a4a756f1d6701c3ad52153efcce113ab36aaa4d31dacf3dbda1c5c205b7d1",
+      "review": "Review 2026-10-14: modular fulfillment predicates and native carrier intent admission; same-reference CAS, occupied package denial, allocation/dispatch fence until confirmed no-effect release or original PDF acknowledgement. Local SQL/provider/restart/privacy and cross-provider denial fixtures checked; external effects and surrounding runtime remain unproved."
     },
     "proof/lakefile.toml": {
       "sha256": "1cda05bac02223024b93388cf858edad4719c46f8d37a826a73a6a6e15d79432",
@@ -3523,24 +3582,24 @@
       "review": "Reviewed marketplace money guard consumers and exact properties, cap-neighbour comparison cases, native stock binding and local regressions; external protocols and tax law remain tested unproved boundaries"
     },
     "scripts/formal/extract.py": {
-      "sha256": "0c699db4e15c044ca265d4f656466702994be891faddc1325ab9fb5a6073caab",
-      "review": "Reviewed policy integration and unchanged module inventory; added proof/CI integrity locks and tested terminal API regression"
+      "sha256": "f07d8d2336ba36028c7efaec1accc83cd268ccac1e95b70f57a0d26f315af963",
+      "review": "Review provider-neutral split quantities, original app-bound PDF acknowledgement, native booking intent, aggregate storage and current Flow/job disclosure; provider effects remain unproved"
     },
     "scripts/formal/mutations.py": {
-      "sha256": "5b6780a315201a080a472361d371b26031cd8c5dbd96cd8233d2b3111b5b50e3",
-      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+      "sha256": "2e18357d7935f7f6eebc003ec823b8948273ce7c609774f51d41292c4105b9dd",
+      "review": "Review 2026-10-14: modular fulfillment predicates and native carrier intent admission; same-reference CAS, occupied package denial, allocation/dispatch fence until confirmed no-effect release or original PDF acknowledgement. Local SQL/provider/restart/privacy and cross-provider denial fixtures checked; external effects and surrounding runtime remain unproved."
     },
     "scripts/formal/registry.py": {
-      "sha256": "76fe686dccf1a4c3b625983909e8f5251cd076d9bb75a4c407cd1f2e917e2a05",
-      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+      "sha256": "c9c7b670df8a2ddb9f1c8f7c7359eba31c770a37531e3268126886dec0f6c02f",
+      "review": "Review provider-neutral split quantities, original app-bound PDF acknowledgement, native booking intent, aggregate storage and current Flow/job disclosure; provider effects remain unproved"
     },
     "scripts/formal/runners.py": {
       "sha256": "c73bda913fb0c1949c25ad7589e5d156c05f7e0a89f39ca7be8b8e40ebd5f565",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "scripts/formal.py": {
-      "sha256": "0d152edcec333aa5facf70830240473e6533970c86ff020ab10b734cd05743fd",
-      "review": "Native POS cash admission, shared currency/coupon forwarding and private cart consumer guards reviewed. Original coupon owner extracted and tenant-scoped; provider confirmation rejoins POS outbox once. Generated conformance dispatcher moved to a small dedicated module without policy duplication."
+      "sha256": "07b07a348c37b9cbda4b67987c5f229df5fb8071bacf51ce899f58d47195b2c1",
+      "review": "Review 2026-10-14: bounded modular fulfillment predicates; native carrier intent freezes allocation/dispatch across unknown effects and cross-provider calls, confirmed rejection releases its own intent, exact PDFs acknowledge the original intent. Reviewed split/machine binding, tenant/package/CAS/quota checks and local paid-effect negative fixtures; SQL, crypto and carrier protocols remain unproved."
     },
     "src/auth/identity.sql": {
       "sha256": "d30de8019090f4ae166e656aaa5daf19d51f7b7efa9ebc0702127c997723c1fe",

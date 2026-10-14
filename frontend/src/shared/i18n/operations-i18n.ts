@@ -142,6 +142,24 @@ export const operationWords = {
     "Confirmez la livraison avant de terminer.",
     "Confirma la entrega antes de completar.",
   ],
+  carrierBooking: [
+    "Reconcile the carrier booking first",
+    "Versandbuchung zuerst abgleichen",
+    "Rapprocher la réservation transporteur",
+    "Conciliar primero la reserva de envío",
+  ],
+  "delivery.booking_reserved": [
+    "Package reserved for carrier booking",
+    "Paket für Versandbuchung reserviert",
+    "Colis réservé pour transporteur",
+    "Paquete reservado para envío",
+  ],
+  "delivery.booking_released": [
+    "Rejected carrier booking released",
+    "Abgelehnte Versandbuchung freigegeben",
+    "Réservation refusée libérée",
+    "Reserva rechazada liberada",
+  ],
   providerConfirmation: [
     "The payment provider must confirm this status.",
     "Diesen Status muss der Zahlungsanbieter bestätigen.",
@@ -339,6 +357,18 @@ export const operationWords = {
   ],
   documents: ["Documents", "Belege", "Documents", "Documentos"],
   invoice: ["Invoice", "Rechnung", "Facture", "Factura"],
+  shipping_label: [
+    "Shipping label",
+    "Versandlabel",
+    "Étiquette d’expédition",
+    "Etiqueta de envío",
+  ],
+  return_label: [
+    "Return label",
+    "Retourenlabel",
+    "Étiquette de retour",
+    "Etiqueta de devolución",
+  ],
   delivery_note: [
     "Delivery note",
     "Lieferschein",

@@ -60,9 +60,16 @@ pub(super) async fn create(
     if !["en", "de", "fr", "es"].contains(&locale) {
         return Err(bad("Unsupported receipt locale"));
     }
+    // Preserve existing whole-order retry identities across deployment. Package
+    // selection is additive and must never alias a historical whole-order note.
+    let reference = if v.get("deliveryIndex").is_some() {
+        json!({"reference":v["referenceId"],"deliveryIndex":v["deliveryIndex"]})
+    } else {
+        v["referenceId"].clone()
+    };
     let fingerprint = hash(&format!(
         "{id}:{kind}:{locale}:{}:{}",
-        v["revision"], v["referenceId"]
+        v["revision"], reference
     ));
     let mut tx = a.db.begin().await?;
     sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,0))")
@@ -89,6 +96,24 @@ pub(super) async fn create(
     if order["revision"] != v["revision"] {
         return Err(conflict("Order revision changed"));
     }
+    let package = if let Some(index) = v.get("deliveryIndex") {
+        if kind != "delivery_note" {
+            return Err(bad("Only delivery notes select a package"));
+        }
+        let index = index
+            .as_u64()
+            .and_then(|n| usize::try_from(n).ok())
+            .ok_or(bad("Invalid delivery note package"))?;
+        Some(
+            order["deliveries"]
+                .as_array()
+                .and_then(|v| v.get(index))
+                .ok_or(bad("Delivery note package unavailable"))?
+                .clone(),
+        )
+    } else {
+        None
+    };
     let seller = master_data::seller(
         &mut tx,
         &t,
@@ -123,17 +148,26 @@ pub(super) async fn create(
     };
     let number = format!("{prefix}-{number:08}");
     let receipt = uid();
-    let snapshot = json!({"number":number,"kind":kind,"locale":locale,"seller":if let Some(ref original)=reference{original["seller"].clone()}else{seller},"order":if let Some(ref original)=reference{original["order"].clone()}else{order.clone()},"issuedAt":sqlx::query_scalar::<_,String>("SELECT now()::text").fetch_one(&mut *tx).await?,"referenceId":v["referenceId"],"referenceNumber":reference.map(|s|s["number"].clone())});
+    let mut snapshot = json!({"number":number,"kind":kind,"locale":locale,"seller":if let Some(ref original)=reference{original["seller"].clone()}else{seller},"order":if let Some(ref original)=reference{original["order"].clone()}else{order.clone()},"issuedAt":sqlx::query_scalar::<_,String>("SELECT now()::text").fetch_one(&mut *tx).await?,"referenceId":v["referenceId"],"referenceNumber":reference.map(|s|s["number"].clone())});
+    if let Some(package) = package {
+        snapshot["deliveryIndex"] = v["deliveryIndex"].clone();
+        snapshot["delivery"] = package;
+    }
     sqlx::query("INSERT INTO order_receipts(id,tenant,order_id,kind,number,locale,snapshot,request_key,fingerprint) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)").bind(&receipt).bind(&t).bind(&id).bind(kind).bind(&number).bind(locale).bind(snapshot).bind(key).bind(fingerprint).execute(&mut *tx).await?;
     sqlx::query(
         "INSERT INTO order_activity(tenant,order_id,actor,kind,data) VALUES($1,$2,$3,'receipt',$4)",
     )
-    .bind(t)
-    .bind(id)
+    .bind(&t)
+    .bind(&id)
     .bind(header(&h, "x-rac-user").unwrap())
     .bind(json!({"id":receipt,"number":number,"kind":kind}))
     .execute(&mut *tx)
     .await?;
+    sqlx::query("INSERT INTO outbox(tenant,kind,data) VALUES($1,'document.created',$2)")
+        .bind(&t)
+        .bind(json!({"orderId":id,"documentId":receipt,"kind":kind}))
+        .execute(&mut *tx)
+        .await?;
     tx.commit().await?;
     Ok(Json(
         json!({"id":receipt,"number":number,"pdfPath":format!("/api/merchant/receipts/{receipt}/pdf")}),
@@ -147,14 +181,16 @@ pub(super) async fn pdf(
     let t = merchant(&a, &h)?;
     auth::permit(&h, "documents.read")?;
     auth::permit(&h, "customers.pii")?;
-    let v: Value =
-        sqlx::query_scalar("SELECT snapshot FROM order_receipts WHERE tenant=$1 AND id=$2")
-            .bind(t)
-            .bind(id)
-            .fetch_optional(&a.db)
-            .await?
-            .ok_or(Error(StatusCode::NOT_FOUND, "Receipt not found".into()))?;
-    Ok(receipt_response(&v))
+    let r = sqlx::query("SELECT snapshot,content FROM order_receipts WHERE tenant=$1 AND id=$2")
+        .bind(t)
+        .bind(id)
+        .fetch_optional(&a.db)
+        .await?
+        .ok_or(Error(StatusCode::NOT_FOUND, "Receipt not found".into()))?;
+    Ok(super::document_response(
+        &r.get("snapshot"),
+        r.get("content"),
+    ))
 }
 pub(crate) fn receipt_response(v: &Value) -> Response {
     (

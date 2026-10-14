@@ -159,4 +159,10 @@ def external_paid_total_admissible (paid : Bool) (calculated : Nat) (declared : 
 def auth_factor_admissible (required : Bool) (verified : Bool) : Bool :=
   ((!required) || verified)
 
+def delivery_split_admissible (is_open : Bool) (terminal : Bool) (available : Nat) (moving : Nat) : Bool :=
+  (((is_open && (!terminal)) && (decide (moving > 0))) && (decide (moving < available)))
+
+def carrier_booking_admissible (is_open : Bool) (closed : Bool) (labelled : Bool) (occupied : Bool) (same : Bool) : Bool :=
+  (((is_open && (!closed)) && (!labelled)) && ((!occupied) || same))
+
 end CommerceKernel

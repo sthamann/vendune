@@ -72,10 +72,18 @@ pub(crate) fn workflow(o: &Value, m: &OrderMachine, revision: i64) -> Value {
                 _ => None,
             };
             if let Some(next) = next {
-                let reason = guard(o, m, "delivery", next);
+                let reason = if !d["booking"].is_null() {
+                    Some("carrierBooking")
+                } else {
+                    guard(o, m, "delivery", next)
+                };
                 actions.push(json!({"id":format!("delivery_{index}_{next}"),"kind":"delivery","from":d["state"],"state":next,"deliveryIndex":index,"enabled":reason.is_none(),"reason":reason}));
             }
         }
     }
-    json!({"revision":revision,"states":m.states,"actions":actions})
+    let splits = o["deliveries"].as_array().map(|ds| ds.iter().enumerate().map(|(index,d)| {
+        let quantity = d["positions"].as_array().map(|ps| ps.iter().filter_map(|p| p["quantity"].as_u64()).sum::<u64>()).unwrap_or(0);
+        json!({"deliveryIndex":index,"enabled":verified_kernel::delivery_split_admissible(d["state"]=="open",guard(o,m,"delivery","shipped").is_some(),quantity,1) && d["label"].is_null() && d["booking"].is_null() && ds.len()<30})
+    }).collect::<Vec<_>>()).unwrap_or_default();
+    json!({"revision":revision,"states":m.states,"actions":actions,"shipmentSplits":splits})
 }

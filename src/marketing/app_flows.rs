@@ -22,7 +22,14 @@ pub(super) fn validate_manifest_flow(
         &target.arguments,
         "schema-check",
         "schema-check",
-        &json!({}),
+        &if ["order.", "delivery.", "document.", "payment.", "pos."]
+            .iter()
+            .any(|prefix| f.event.starts_with(prefix))
+        {
+            json!({"orderId":"00000000000000000000000000000000"})
+        } else {
+            json!({})
+        },
         &f.event,
     );
     apps::validate_input(&act.input_schema, &args)
@@ -37,6 +44,14 @@ fn arguments(
 ) -> Value {
     let mut args = base.clone();
     let props = &action.input_schema["properties"];
+    // Native order-bound events supply their canonical ID; explicit non-empty
+    // merchant arguments remain unchanged. No string interpolation or AI identity.
+    if props.get("orderId").is_some()
+        && args["orderId"].as_str().is_none_or(str::is_empty)
+        && let Some(id) = event["orderId"].as_str().filter(|id| !id.is_empty())
+    {
+        args["orderId"] = json!(id);
+    }
     if props.get("kind").is_some() {
         args["kind"] = json!(kind);
     }
@@ -63,42 +78,13 @@ pub(crate) async fn execute_app_flow(
         .app_action
         .as_ref()
         .ok_or(bad("Flow app action required"))?;
-    let mut h = RequestContext::new();
+    let mut h = super::flow_access::headers(a, t, f.actor.as_deref()).await?;
     h.insert(
-        "x-tenant",
-        t.parse().map_err(|_| bad("Invalid flow tenant"))?,
+        "idempotency-key",
+        format!("flow-{id}")
+            .parse()
+            .map_err(|_| bad("Invalid flow job identity"))?,
     );
-    h.insert("x-rac-tenant", t.parse().unwrap());
-    if f.actor.as_deref() == Some("bootstrap") {
-        h.insert("x-rac-role", "owner".parse().unwrap());
-    } else {
-        let row = sqlx::query(
-            "SELECT role,permissions FROM membership_grants WHERE tenant=$1 AND user_id=$2 AND active",
-        )
-        .bind(t)
-        .bind(&f.actor)
-        .fetch_optional(&a.db)
-        .await?
-        .ok_or(Error(
-            StatusCode::FORBIDDEN,
-            "Flow owner lost access".into(),
-        ))?;
-        let role: String = row.get("role");
-        h.insert(
-            "x-rac-role",
-            role.parse().map_err(|_| bad("Invalid flow role"))?,
-        );
-        let permissions: Value = row.get("permissions");
-        if !permissions.is_null() {
-            h.insert(
-                "x-rac-permissions",
-                permissions
-                    .to_string()
-                    .parse()
-                    .map_err(|_| bad("Invalid flow permissions"))?,
-            );
-        }
-    }
     auth::permit(&h, "automation.manage")?;
     auth::permit(&h, "apps.manage")?;
     let m = apps::package(a, t, &target.app, true).await?;

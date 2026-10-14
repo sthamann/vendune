@@ -1,14 +1,14 @@
 # Lean-checked commerce contracts
 
-The current source declares **51 extracted policies used in production Rust paths**
-and **110 named properties**. This is **not a certificate that the entire commerce
-core is correct or bug-free**. The review inventory contains 486 Rust modules: one
-extracted policy module, 50 reviewed binding modules, one comparison driver and
-434 unproved modules. Binding review is not a proof of those modules. The
-[manifest](../proof/manifest.json) and per-revision CI artifact are authoritative.
-The local marketplace revision compares **155,347 compiled Rust/Lean cases without
-mismatches**. Local verification is distinct from the historical published report
-below; the complete required CI and mutation suite must pass before landing.
+The current source declares **54 extracted policies used in production Rust paths**
+and **117 named properties**. This is **not a certificate that the entire commerce
+core is correct or bug-free**. The reviewed inventory contains **524 Rust modules**:
+two extracted policy modules, 53 reviewed binding modules, one comparison driver
+and 468 unproved modules. Binding review is not proof of the surrounding modules.
+The [manifest](../proof/manifest.json) and per-revision CI artifact are authoritative.
+The local 14 October fulfillment revision compares **156,657 compiled Rust/Lean cases
+without mismatches**. Local verification remains distinct from the historical
+published report below; required CI and mutation tests must pass before landing.
 
 The [published verification report](formal-verification.json) is copied from the
 completed [merged-Core CI run 37868239729](https://github.com/sthamann/veyndo/actions/runs/37868239729),
@@ -21,7 +21,7 @@ extend its proof scope. [Release acceptance and measured gaps](release-acceptanc
 ```text
 HTTP / MCP / storefront
         ↓
-Production Rust operations → src/verified_kernel.rs
+Production Rust operations → src/verified_kernel.rs and verified_kernel/fulfillment.rs
                                       ↓ closed typed extraction
                               Commerce/Generated.lean
                                       ↓
@@ -34,7 +34,7 @@ Production Rust operations → src/verified_kernel.rs
 
 The application calls the Rust functions directly. There is no separate
 handwritten Lean implementation of their behavior. `scripts/formal/extract.py`
-accepts only `bool`/`u64` arguments/results, literals, comparisons, Boolean
+loads the exact reviewed module registration, then accepts only `bool`/`u64` arguments/results, literals, comparisons, Boolean
 operators, `min` and `saturating_sub`. It rejects unsupported syntax instead of
 silently approximating it. Lean `Nat` subtraction saturates at zero, matching
 `u64::saturating_sub`; this subset cannot overflow through addition/multiplication
@@ -329,3 +329,14 @@ and a positive lower bound. Nine named properties include exact acceptance and
 negative cases. This proves those predicates, not price cost/tax input correctness,
 source entailment, signature implementation, SQL locking or statistical assumptions.
 [Connected implementation and open audit scope](cognitive-commerce.md).
+
+## Partial packages and carrier intent admission — 14 October 2026
+
+The app-independent fulfillment leaf contains strict positive-subset allocation
+and open/nonterminal/unlabelled package intent admission. An occupied parcel admits
+only its identical current intent. Native reserve/release, split and dispatch checks
+keep unknown carrier effects fenced; an original document acknowledges that intent.
+Explicit boolean properties, compiled conformance and mutants exercise these pure
+bindings. Transaction locks, allocation-digest construction, app/provider honesty,
+PDF storage, OAuth, cancellation and external charges remain tested or open
+boundaries, never whole-system mathematical claims. [Shipping workflow](shipping-workflows.md).

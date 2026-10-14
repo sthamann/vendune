@@ -1,5 +1,6 @@
 """Explicit full-source inventory and reviewed adapter locks, not proof coverage claims."""
 import hashlib,json,re
+from extract import kernel_source,KERNEL_FILES
 STATUSES={'unproved','extracted-policy','reviewed-binding','conformance-driver'}
 
 def digest(path):return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -21,7 +22,7 @@ def check(root,manifest):
     if set(dependencies)!=set(manifest.get('inputs',{})):raise ValueError('Unclassified schema/build/proof input')
     for name,path in dependencies.items():
         if manifest['inputs'][name]['sha256']!=digest(path):raise ValueError('Schema/build/proof input needs explicit review: '+name)
-    kernel=(root/'src/verified_kernel.rs').read_text()
+    kernel=kernel_source(root)
     for fn,row in manifest['policies'].items():
         if not re.search(r'pub fn '+re.escape(fn)+r'\(',kernel):raise ValueError('Policy removed: '+fn)
         for binding in row['bindings']:
@@ -41,7 +42,7 @@ def record(root,manifest,reason):
     binding_files={b for row in manifest['policies'].values()for b in row['bindings']}
     old=manifest.get('sources',{});rows={}
     for name,path in current_sources(root).items():
-        status='extracted-policy'if name=='src/verified_kernel.rs'else'reviewed-binding'if name in binding_files else'conformance-driver'if name=='src/bin/verified_kernel.rs'else'unproved'
+        status='extracted-policy'if name in KERNEL_FILES else'reviewed-binding'if name in binding_files else'conformance-driver'if name=='src/bin/verified_kernel.rs'else'unproved'
         rows[name]={'status':status,'sha256':digest(path),'review':reason if old.get(name,{}).get('sha256')!=digest(path) else old[name]['review']}
     manifest['sources']=rows
     prior=manifest.get('inputs',{})

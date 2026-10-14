@@ -2,6 +2,7 @@
 import { useCustomerText } from "../../shared/i18n/customer-i18n";
 
 import { useCallback, useEffect, useState } from "react";
+import { useShipmentText } from "../../shared/i18n/shipment-i18n";
 import { useOperationsText } from "../../shared/i18n/operations-i18n";
 import type { RequestFn } from "../shell/studio-types";
 export default function ReceiptPanel({
@@ -16,6 +17,8 @@ export default function ReceiptPanel({
   download: (p: string) => Promise<void>;
 }) {
   const { o, locale } = useOperationsText();
+  const shipmentText = useShipmentText();
+  const [deliveryIndex, setDeliveryIndex] = useState(0);
   const { c } = useCustomerText();
   const [ready, setReady] = useState(false);
   const [receipts, setReceipts] = useState<any[]>([]),
@@ -63,6 +66,9 @@ export default function ReceiptPanel({
                   kind,
                   locale: locale.slice(0, 2),
                   requestKey: crypto.randomUUID(),
+                  ...(kind === "delivery_note" && order.deliveries.length
+                    ? { deliveryIndex }
+                    : {}),
                   ...(kind === "cancellation"
                     ? { referenceId: reference }
                     : {}),
@@ -80,6 +86,21 @@ export default function ReceiptPanel({
                 ))}
               </select>
             </label>
+            {kind === "delivery_note" && order.deliveries.length > 0 && (
+              <label>
+                {shipmentText("package")}
+                <select
+                  value={deliveryIndex}
+                  onChange={(e) => setDeliveryIndex(Number(e.target.value))}
+                >
+                  {order.deliveries.map((_: unknown, index: number) => (
+                    <option key={index} value={index}>
+                      {shipmentText("package")} {index + 1}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
             {kind === "cancellation" && (
               <label>
                 {o("reference")}

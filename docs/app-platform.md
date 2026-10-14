@@ -73,6 +73,9 @@ membership removal invalidates access. They cannot call ordinary merchant endpoi
 |---|---|
 | `products.read`, `products.write` | Existing product content/read/save operations; native revisions and catalogue rights |
 | `orders.read`, `customers.read` | Bounded projections of owned core objects |
+| `orders.read` + `customers.pii` | `delivery_snapshot`: current native package/address and allocation digest |
+| `deliveries.write` + `documents.create` + `customers.pii` | `delivery_reserve`/`delivery_release`: freeze an own open package before a carrier effect; only the original app intent may acknowledge/release it |
+| `deliveries.write` + `documents.create` + `customers.pii` | Bounded multipart `document_upload`: existing private order receipts, package allocation CAS/fence, tracking, immutable PDFs and app storage quota |
 | `customers.pii` | Separate consent plus current actor permission before personal fields are returned |
 | `assets.read`, `assets.write` | Existing asset metadata/private content and validated contextual multipart upload |
 | `jobs.write` | Claim/progress/completion of this app's admitted jobs |
@@ -205,3 +208,16 @@ graph store, or provide global graph traversal. See the [care knowledge example]
 and real two-tenant API/MCP suite `scripts/app_ontology.py`.
 
 [All-app folder ownership and runtime boundaries](plugin-ownership.md).
+
+## Provider-neutral shipping example
+
+The [shipping assistant package](../extensions/apps/assistant-examples/shipping.json)
+declares native jobs and delivery/document consent. No carrier service is bundled.
+A provider's protocol, private configuration, booking receipts, UI and tests belong
+to its app package. Reuse native jobs and order-document callbacks; do not create a
+second authoritative fulfillment or work queue.
+`GET /api/apps/APP/jobs/JOB` admits the original actor or an app manager with current
+action rights/digest; it omits input and leases and reveals results only after
+success. Manager job lists also hide messages/results when current action rights or
+package binding no longer permit them. Private jobs and fulfillment records cannot
+be staged or released. See [partial shipments and failure recovery](shipping-workflows.md).

@@ -85,7 +85,7 @@ pub(super) async fn detail(
         .await?
         .pop()
         .ok_or(Error(StatusCode::NOT_FOUND, "Order not found".into()))?;
-    let rows = sqlx::query("SELECT id,kind,number,locale,created_at::text AS created FROM order_receipts WHERE tenant=$1 AND order_id=$2 ORDER BY created_at DESC LIMIT 100")
+    let rows = sqlx::query("SELECT id,kind,number,locale,created_at::text AS created FROM order_receipts WHERE tenant=$1 AND order_id=$2 AND customer_visible ORDER BY created_at DESC LIMIT 100")
         .bind(&t).bind(&id).fetch_all(&a.db).await?;
     v["receipts"] = json!(rows.iter().map(|r| json!({"id":r.get::<String,_>("id"), "kind":r.get::<String,_>("kind"), "number":r.get::<String,_>("number"), "locale":r.get::<String,_>("locale"), "createdAt":r.get::<String,_>("created"), "pdfPath":format!("/store-api/account/orders/{id}/receipts/{}/pdf", r.get::<String,_>("id"))})).collect::<Vec<_>>());
     let (machine, _) = commerce::machine(&a.db, &t).await?;
@@ -107,16 +107,13 @@ pub(super) async fn receipt(
     if owned(&a, &t, &email, Some(&order), None).await?.is_empty() {
         return Err(Error(StatusCode::NOT_FOUND, "Order not found".into()));
     }
-    let snapshot: Value = sqlx::query_scalar(
-        "SELECT snapshot FROM order_receipts WHERE tenant=$1 AND order_id=$2 AND id=$3",
-    )
-    .bind(t)
-    .bind(order)
-    .bind(id)
-    .fetch_optional(&a.db)
-    .await?
-    .ok_or(Error(StatusCode::NOT_FOUND, "Receipt not found".into()))?;
-    Ok(crate::operations::receipt_response(&snapshot))
+    let r=sqlx::query("SELECT snapshot,content FROM order_receipts WHERE tenant=$1 AND order_id=$2 AND id=$3 AND customer_visible")
+        .bind(t).bind(order).bind(id).fetch_optional(&a.db).await?
+        .ok_or(Error(StatusCode::NOT_FOUND,"Receipt not found".into()))?;
+    Ok(crate::operations::document_response(
+        &r.get("snapshot"),
+        r.get("content"),
+    ))
 }
 #[cfg(test)]
 mod tests {

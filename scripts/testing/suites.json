@@ -24,6 +24,7 @@
     "staging",
     "marketing_accounts",
     "merchant_operations",
+    "shipment_workflows",
     "customer_accounts",
     "developer_documents",
     "automation",
@@ -76,7 +77,8 @@
     "app_generation",
     "erp_handoff",
     "edi",
-    "marketplaces"
+    "marketplaces",
+    "shipping_contract"
   ],
   "browser_contracts": [
     "analytics",

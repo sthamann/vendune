@@ -580,3 +580,13 @@ outbox events record secret-free security changes. Registered `account_security`
 and `identity_broker` suites exercise native effects and restart. The private
 Experience owner implements email recovery/forms and rechecks current native proof;
 [exact setup and boundaries](account-security.md).
+
+## Provider-neutral fulfillment additions — 14 October 2026
+
+| Owner | Responsibility and executable checks |
+| --- | --- |
+| `src/commerce/{delivery_split,order_mutation}.rs` | Native quantity-conserving package split, current grants/CAS/replay and one shared order/cart/audit/outbox transaction; `shipment_workflows.py` exercises real HTTP/MCP and concurrent requests. |
+| `src/operations/{delivery_booking,order_documents}.rs`, `src/apps/{core_documents,package_fence}.rs`, migration 092 | Native package intent and immutable private PDF admission with the existing receipt/RLS/quota owner; original app/key acknowledgement, unknown-effect fences and customer-only return documents. |
+| `src/apps/jobs.rs`, `src/marketing/app_flows.rs` | Current actor/action/digest admission for job results, minimized list projections and stable Flow-to-job identity; `shipping_contract.py` drives a real local service, restart and rights revocation. |
+| `extensions/apps/assistant-examples/shipping.json`, `admin/developer/assistant-model.ts` | One carrier-neutral job/callback declaration for coding and visual assistants. No carrier protocol or deployable provider is shipped. |
+| `src/verified_kernel/fulfillment.rs` | Extracted strict-subset and carrier-intent decisions, Lean statements, compiled conformance and negative mutations; surrounding SQL/network effects remain tested rather than proved. |

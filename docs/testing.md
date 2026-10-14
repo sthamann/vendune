@@ -2,6 +2,33 @@
 
 **Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).
 
+## Fulfillment, carrier app and identity verification — 14 October 2026
+
+The local fulfillment run passes **483 frontend tests in 87 files** and **242 Rust
+unit tests** across the native library/core and independent service binaries.
+Measured frontend coverage is **64.12% lines, 62.84% statements, 56.89% branches
+and 51.56% functions**. These figures are dated local measurements, not 100% coverage.
+
+Real PostgreSQL/HTTP/MCP suites cover package quantity/price/stock conservation,
+concurrent replay, current rights, customer projection, one Flow effect, selected
+package delivery-note PDFs, immutable private carrier documents, quota recount and
+atomic saturation denial. A carrier-neutral test-only service drives actual native
+jobs, PDF/tracking, confirmed-no-effect release and unknown-effect allocation/dispatch
+fences across a native restart. A real split event drives a current-actor idempotent
+Flow job and attaches one original label. A shipping clerk cannot read another
+actor's job and loses private results immediately on permission removal. No live
+carrier, email or paid booking is used. Source ownership, route rights, inventory and localization checks
+pass; [shipping setup and limitations](shipping-workflows.md).
+The rendered documentation checks **207 pages**, all **200 Markdown sources** and
+**4,919 local links/assets**. Manual Chrome acceptance confirms one click produces
+two native packages with conserved order value and a package-specific delivery-note selector.
+
+Native merchant/operator MFA, verified-email recovery and scoped handoffs were
+landed separately; their source/HTTP/browser checks are recorded in
+[account security](account-security.md). The combined local formal check covers
+54 extracted policies and 156,657 compiled Rust/Lean cases with no mismatches;
+SQL, provider effects and the rest of the runtime remain unproved.
+
 ## Studio setup and access verification — 13 October 2026
 
 The isolated local run passes **477 frontend tests in 85 files**, plus **232 Rust

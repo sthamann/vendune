@@ -1,10 +1,18 @@
 """Prove the verification gate rejects representative broken policies and stale/disconnected source bindings."""
 import copy,json,os,pathlib,re,subprocess,tempfile
-from extract import Parser,generated
+from extract import Parser,generated,kernel_source
 from registry import check
 from axioms import source_check,dependency_check
 
 MUTANTS=[
+ ("carrier_booking_admissible","is_open &&","true &&"),
+ ("carrier_booking_admissible","!closed &&","true &&"),
+ ("carrier_booking_admissible","!labelled &&","true &&"),
+ ("carrier_booking_admissible","!occupied || same","true"),
+ ("delivery_split_admissible","is_open &&","true &&"),
+ ("delivery_split_admissible","!terminal &&","true &&"),
+ ("delivery_split_admissible","moving > 0","true"),
+ ("delivery_split_admissible","moving < available","true"),
  ("auth_factor_admissible", "!required || verified", "true"),
  ("external_amount_admissible", "gross <= 1000000000000", "true"),
  ("external_amount_admissible", "tax <= gross", "true"),
@@ -110,7 +118,7 @@ def mutated(source,name,old,new):
     return source[:match.start(2)]+body.replace(old,new,1)+source[match.end(2):]
 
 def proof_failures(root):
-    source=(root/'src/verified_kernel.rs').read_text();claims=root/'proof/Commerce/Claims.lean'
+    source=kernel_source(root);claims=root/'proof/Commerce/Claims.lean'
     toolchain=(root/'proof/lean-toolchain').read_text().strip()
     with tempfile.TemporaryDirectory(prefix='commerce-proof-mutations-')as temp:
         path=pathlib.Path(temp);(path/'Commerce').mkdir();env={**os.environ,'LEAN_PATH':str(path)}

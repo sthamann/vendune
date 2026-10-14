@@ -1,5 +1,24 @@
 # Changelog
 
+## Partial packages and provider-neutral shipping apps — 14 October 2026
+
+- Split open physical packages through one native HTTP/MCP operation with current
+  rights, tenant scope, order revision, stable replay and a shared fulfillment guard.
+  Conserve line quantities, immutable price/taxes and stock; order completion waits
+  for all packages. Delivery notes print only the selected package.
+- Reuse private order receipts for immutable carrier PDFs, aggregate app quotas,
+  customer-owned return downloads, tracking, activity and document/split Flow events.
+- Freeze native package intent before an external effect. Unknown outcomes block
+  allocation, dispatch and cross-provider substitution across process restart.
+- Add specific delivery/document callback consent and own-job status reads without
+  leaking inputs or leases. Manager lists redact results after action-right loss.
+- Connect order-bound Flow actions to current personal identity and stable job keys;
+  update the shipping App Studio assistant/example to this same generic contract.
+- Keep provider protocols, credentials and UI in their app packages. This release
+  deliberately ships no carrier adapter. Local fixtures verify the actual native
+  job/PDF/tracking/Flow path without paid bookings or external credentials.
+  [Usage, ownership, configuration and limits](docs/shipping-workflows.md).
+
 ## Personal account security — 14 October 2026
 
 - Add native authenticator enrollment, expiring bounded challenges, replay-safe TOTP,

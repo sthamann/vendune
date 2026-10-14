@@ -28,6 +28,8 @@ import Commerce.Claims
 #print axioms CommerceKernel.b2b_self_approval_denied
 #print axioms CommerceKernel.cancellation_exact
 #print axioms CommerceKernel.cancellation_safe
+#print axioms CommerceKernel.carrier_booking_exact
+#print axioms CommerceKernel.carrier_booking_occupied_denied
 #print axioms CommerceKernel.channel_access_exact
 #print axioms CommerceKernel.channel_paused_requires_preview
 #print axioms CommerceKernel.channel_preview_no_mutation
@@ -45,6 +47,9 @@ import Commerce.Claims
 #print axioms CommerceKernel.currency_scale_overflow_denied
 #print axioms CommerceKernel.customer_group_net_exact
 #print axioms CommerceKernel.customer_group_unknown_denied
+#print axioms CommerceKernel.delivery_split_all_denied
+#print axioms CommerceKernel.delivery_split_closed_denied
+#print axioms CommerceKernel.delivery_split_exact
 #print axioms CommerceKernel.destination_tax_exact
 #print axioms CommerceKernel.discount_bounded
 #print axioms CommerceKernel.discount_conservation
