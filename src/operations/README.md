@@ -20,3 +20,13 @@ The [source inventory](../../docs/module-inventory.md) is checked in CI. [The be
 Company profiles live in `company_model.rs` (admission/inheritance), `master_data.rs` (transactional scopes), `company_logo.rs` (immutable validated bytes) and `company_public.rs` (explicit public projection). `receipts.rs` consumes the same channel resolver. See [company settings](../../docs/company-settings.md).
 
 Customer saves accept configured group IDs under the checkout-settings lock, revoke sessions and expose immutable order identity. Validated customer history restoration preserves current identity/login/purchase metadata. See [entity history](../../docs/entity-history.md).
+
+## Grid reads and model plans
+
+`list_criteria.rs` owns bounded order/customer filters and allowlisted sort fields;
+`order_list.rs` binds values and stable tenant-local cursors. The default customer
+email path preserves branch limits; additional sorts share the native contact union.
+`grid_schema.rs` owns supported HTTP/MCP/model field metadata and admission.
+`grid_plan.rs` uses central inference/leases and emits read-only suggestions with
+current assistant/domain/PII admission. No model SQL or alternate ledger is accepted.
+See [the grid contract](../../docs/agentic-grids.md).

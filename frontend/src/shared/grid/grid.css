@@ -1,0 +1,299 @@
+/** Reusable grid table, result feedback and responsive presentation. */
+@import "./grid-controls.css";
+.agent-grid-scroll {
+  overflow-x: auto;
+  border-top: 1px solid var(--grid-line);
+  max-width: 100%;
+  position: relative;
+  border-radius: 0 0 14px 14px;
+}
+.agent-grid-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.agent-grid-table th {
+  text-align: left;
+  background: var(--bg, #f5f8fc);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  font-weight: 600;
+  color: var(--muted, #5e738b);
+  border-bottom: 1px solid var(--grid-line);
+  height: 46px;
+  padding: 0 20px;
+  cursor: grab;
+}
+.agent-grid-table th button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  font: inherit;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  padding: 0;
+  min-height: 44px;
+  width: 100%;
+  cursor: pointer;
+}
+.agent-grid-table td {
+  height: 74px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--grid-line);
+  background: var(--surface, #fff);
+  transition: background 0.16s ease;
+}
+.agent-grid-table tbody tr:hover td {
+  background: var(--accent-soft, #f0f7ff);
+}
+.agent-grid-table tr:last-child td {
+  border-bottom: 0;
+}
+.agent-grid-table th:first-child,
+.agent-grid-table td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+.agent-grid-table .is-end {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.agent-grid-table .is-end button {
+  justify-content: flex-end;
+}
+.agent-grid-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+}
+.agent-grid-link > span {
+  display: grid;
+  gap: 4px;
+}
+.agent-grid-link strong {
+  font-size: 13px;
+}
+.agent-grid-link small {
+  font-size: 11px;
+  color: var(--muted, #5e738b);
+}
+.agent-grid-avatar {
+  width: 34px;
+  height: 34px;
+  display: grid !important;
+  place-items: center;
+  border-radius: 11px;
+  color: var(--accent, #0874be);
+  background: var(--accent-soft, #e8f4ff);
+  font-size: 11px;
+  font-weight: 700;
+}
+.agent-grid-link img {
+  width: 42px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 9px;
+}
+.agent-grid-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  background: var(--bg, #f2f5fa);
+  border: 1px solid var(--grid-line);
+  padding: 5px 9px;
+  border-radius: 7px;
+}
+.agent-grid-tag::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent, #189eff);
+}
+.agent-grid-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--grid-line);
+  font-size: 12px;
+  color: var(--muted, #5e738b);
+}
+.agent-grid-footer > div {
+  display: flex;
+  gap: 8px;
+}
+.agent-grid-footer button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  min-height: 40px;
+  border: 1px solid var(--grid-line);
+  border-radius: 9px;
+  color: inherit;
+  background: transparent;
+}
+.agent-grid-empty,
+.agent-grid-loading {
+  padding: 48px 20px;
+  text-align: center;
+  color: var(--muted, #5e738b);
+}
+.agent-grid-empty svg {
+  color: var(--accent, #189eff);
+}
+.agent-grid-empty h3 {
+  color: var(--text, #1a2c3e);
+  margin: 14px 0 8px;
+}
+.agent-grid-error {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 20px;
+  color: var(--danger, #bd3547);
+}
+.agent-grid-assistant {
+  position: relative;
+}
+.agent-grid-agent-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  width: min(560px, calc(100vw - 48px));
+  z-index: 25;
+  background: var(--surface, #fff);
+  border: 1px solid var(--grid-line);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 18px 54px rgb(20 40 70 / 16%);
+}
+.agent-grid-agent-panel form {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.agent-grid-agent-panel label {
+  display: grid;
+  gap: 8px;
+  flex: 1 1 280px;
+  font-size: 12px;
+}
+.agent-grid-agent-panel input {
+  width: 100%;
+  min-height: 44px;
+  margin: 0 !important;
+}
+.agent-grid-agent-panel p {
+  font-size: 12px;
+}
+.agent-grid-plan {
+  border-top: 1px solid var(--grid-line);
+  margin-top: 18px;
+  padding-top: 16px;
+}
+.agent-grid-plan .agent-grid-chips {
+  padding: 14px 0;
+}
+.agent-grid-plan button {
+  margin-right: 8px;
+}
+.agent-grid-shimmer {
+  display: block;
+  margin: 0 auto 14px;
+  width: 120px;
+  height: 5px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-soft, #edf6ff),
+    var(--accent, #189eff),
+    var(--accent-soft, #edf6ff)
+  );
+  background-size: 200% 100%;
+  animation: grid-shimmer 1.5s linear infinite;
+}
+.agent-grid.is-compact td {
+  height: 50px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+.agent-grid :focus-visible {
+  outline: 2px solid var(--accent, #189eff);
+  outline-offset: 3px;
+}
+@keyframes grid-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+@media (max-width: 680px) {
+  .agent-grid-toolbar {
+    padding: 14px;
+    gap: 12px;
+  }
+  .agent-grid-search {
+    flex-basis: 100%;
+  }
+  .agent-grid-tools {
+    width: 100%;
+  }
+  .agent-grid-table th,
+  .agent-grid-table td {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .agent-grid-agent-panel {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    top: 20vh;
+    width: auto;
+    max-height: 65vh;
+    overflow: auto;
+  }
+  .agent-grid-footer {
+    flex-wrap: wrap;
+    padding: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .agent-grid-shimmer {
+    animation: none;
+  }
+  .agent-grid-table td {
+    transition: none;
+  }
+}
+
+.grid-secondary {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted, #607182);
+  font-size: 11px;
+}
+
+.agent-grid-open {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--grid-line);
+  border-radius: 10px;
+  color: var(--accent);
+  background: var(--surface);
+}

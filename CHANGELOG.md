@@ -9,6 +9,16 @@
 - Add real HTTP/MCP/PostgreSQL regressions and an audit separating connected
   foundations from incomplete history, Storyfront, AI and release scope.
 - Correct outdated group, event, scope, SKU/SEO and shipping documentation.
+## Shared agentic Studio grids — 14 October 2026
+
+- Replace fixed order/product/customer lists with one configurable grid: draggable
+  and keyboard-orderable columns, visibility, density, server search/filter/sort
+  and stable cursor pages. Preserve criteria through native detail navigation.
+- Add reviewed natural-language filter planning via the central model and the same
+  HTTP/MCP contract, with current domain/PII rights and replica-wide admission.
+- Reuse the visual shell in declarative app tables, preserving native write forms.
+- Add real isolated Store API/PostgreSQL/model wire regressions and translated controls.
+
 
 ## Shopware-blue Veyndo identity — 14 October 2026
 

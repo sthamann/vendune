@@ -40,13 +40,12 @@ it("searches and filters through the server instead of hiding the current page",
     await screen.findByRole("button", { name: /Oak chair/ }),
   ).toBeVisible();
   await user.type(screen.getByRole("searchbox"), "absent");
-  expect(
-    await screen.findByText("No products match these filters."),
-  ).toBeVisible();
+  expect(await screen.findByText("No matching results")).toBeVisible();
   expect(request).toHaveBeenCalledWith(
     expect.stringContaining("search=absent"),
   );
-  await user.selectOptions(screen.getByLabelText("Status"), "inactive");
+  await user.click(screen.getByRole("button", { name: /^Filters/ }));
+  await user.selectOptions(screen.getByLabelText("Status"), "false");
   await waitFor(() =>
     expect(request).toHaveBeenCalledWith(
       expect.stringContaining("active=false"),

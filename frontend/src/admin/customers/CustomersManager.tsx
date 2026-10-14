@@ -1,12 +1,14 @@
 /** CRM list and editable customer profile with linked order history. */
+import type { GridCriteria } from "../../shared/grid/types";
 import { AppSurfaceSlot } from "../../shared/apps/AppSurfaces";
+import CustomerDirectory from "./CustomerDirectory";
 import GuestContact from "./GuestContact";
 import AddressBook from "../../shared/customer/AddressBook";
 import CustomerFields from "../../shared/customer/CustomerFields";
 import { useCustomerText } from "../../shared/i18n/customer-i18n";
 import "../../shared/styles/customers.css";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EntityHistory from "../../shared/history/EntityHistory";
 import { useCrmText } from "../../shared/i18n/crm-i18n";
 import ConfirmDialog from "../../shared/ui/ConfirmDialog";
@@ -25,6 +27,8 @@ export default function CustomersManager({
   onEntity?: OpenEntity;
   onEntityBack?: () => void;
 }) {
+  const [gridCursor, setGridCursor] = useState("");
+  const [gridCriteria, setGridCriteria] = useState<GridCriteria>({});
   const { o } = useOperationsText();
   const { c } = useCustomerText();
   const { r, locale } = useCrmText();
@@ -33,10 +37,7 @@ export default function CustomersManager({
     [baseline, setBaseline] = useState(""),
     [pending, setPending] = useState<(() => void) | null>(null);
   const [countries, setCountries] = useState<string[]>(["DE"]);
-  const [rows, setRows] = useState<any[]>([]),
-    [query, setQuery] = useState(""),
-    [cursor, setCursor] = useState<string>(),
-    [customer, setCustomer] = useState<any>(),
+  const [customer, setCustomer] = useState<any>(),
     [canEdit, setCanEdit] = useState(false),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false);
@@ -53,21 +54,10 @@ export default function CustomersManager({
     if (dirty) setPending(() => action);
     else action();
   };
-  const load = useCallback(
-    async (after = "") => {
-      const v = await request(
-        `/api/merchant/customers?query=${encodeURIComponent(query)}&after=${encodeURIComponent(after)}`,
-      );
-      setRows((prev) => (after ? [...prev, ...v.elements] : v.elements));
-      setCursor(v.nextCursor);
-    },
-    [request, query],
-  );
   useEffect(() => {
     request("/store-api/checkout/options")
       .then((v) => setCountries(v.countries))
       .catch((e) => setError(e.message));
-    void load().catch((e) => setError(e.message));
     request("/api/merchant/customer-groups")
       .then((v) => {
         setGroups(v.elements);
@@ -77,7 +67,7 @@ export default function CustomersManager({
     request("/api/auth/access")
       .then((v) => setCanEdit(v.permissions.includes("customers.write")))
       .catch((e) => setError(e.message));
-  }, [load, request]);
+  }, [request]);
   const detail = async (email: string) => {
     try {
       const next = await request(
@@ -124,7 +114,6 @@ export default function CustomersManager({
                 if (onEntityBack) onEntityBack();
                 else {
                   setCustomer(undefined);
-                  void load();
                 }
               });
             }}
@@ -273,31 +262,20 @@ export default function CustomersManager({
           </section>
         </>
       ) : (
-        <section className="studio-card">
-          <label>
-            {o("search")}
-            <input value={query} onChange={(e) => setQuery(e.target.value)} />
-          </label>
-          {rows.map((c) => (
-            <button
-              className="operation-row"
-              key={c.email}
-              onClick={() =>
-                onEntity ? onEntity("customers", c.email) : void detail(c.email)
-              }
-            >
-              <strong>{c.profile.name || c.email}</strong>
-              <span>{c.email}</span>
-              <span>{c.guest ? r("guest") : groupName(c.customerGroup)}</span>
-            </button>
-          ))}
-          {!rows.length && <p>{o("empty")}</p>}
-          {cursor && (
-            <button className="studio-secondary" onClick={() => load(cursor)}>
-              {o("more")}
-            </button>
-          )}
-        </section>
+        <CustomerDirectory
+          queryState={{
+            criteria: gridCriteria,
+            onCriteria: setGridCriteria,
+            cursor: gridCursor,
+            onCursor: setGridCursor,
+          }}
+          request={request}
+          groups={groups}
+          groupName={groupName}
+          onOpen={(email) =>
+            onEntity ? onEntity("customers", email) : void detail(email)
+          }
+        />
       )}
       {pending && (
         <ConfirmDialog

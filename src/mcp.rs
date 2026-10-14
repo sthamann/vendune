@@ -29,6 +29,9 @@ pub(crate) fn tool_schema(name: &str) -> Value {
         return schema;
     }
     let props = match name {
+        "merchant.grid.plan" => {
+            json!({"entity":{"type":"string","enum":["orders","products","customers"]},"instruction":{"type":"string","minLength":1,"maxLength":2000},"locale":{"type":"string","maxLength":35}})
+        }
         "merchant.delivery.split" => {
             json!({"id":{"type":"string"},"revision":{"type":"integer","minimum":1},"deliveryIndex":{"type":"integer","minimum":0},"requestKey":{"type":"string","minLength":8,"maxLength":128},"positions":{"type":"array","minItems":1,"maxItems":100,"items":{"type":"object","required":["id","quantity"],"additionalProperties":false,"properties":{"id":{"type":"string"},"quantity":{"type":"integer","minimum":1}}}}})
         }
@@ -67,7 +70,10 @@ pub(crate) fn tool_schema(name: &str) -> Value {
             json!({"id":{"type":"string"},"productId":{"type":"string"}})
         }
         "merchant.products" => {
-            json!({"search":{"type":"string","maxLength":200},"after":{"type":"string"},"limit":{"type":"integer","minimum":1,"maximum":100},"active":{"type":"boolean"},"categoryId":{"type":"string"},"parentId":{"type":"string"},"lowStock":{"type":"boolean"}})
+            let mut p = operations::grid_fields("products").unwrap();
+            p["after"] = json!({"type":"string"});
+            p["limit"] = json!({"type":"integer","minimum":1,"maximum":100});
+            p
         }
         "merchant.categories" => json!({}),
         "merchant.product.create" => json!({"product":{"type":"object"}}),
@@ -97,7 +103,15 @@ pub(crate) fn tool_schema(name: &str) -> Value {
             json!({"id":{"type":"string"},"digest":{"type":"string"},"public":{"type":"boolean"}})
         }
         "merchant.customers" | "merchant.orders" => {
-            json!({"query":{"type":"string"},"after":{"type":"string"},"state":{"type":"string"},"limit":{"type":"integer","minimum":1,"maximum":100}})
+            let mut p = operations::grid_fields(if name == "merchant.orders" {
+                "orders"
+            } else {
+                "customers"
+            })
+            .unwrap();
+            p["after"] = json!({"type":"string"});
+            p["limit"] = json!({"type":"integer","minimum":1,"maximum":100});
+            p
         }
         "merchant.customer" | "merchant.order" | "merchant.receipts" => {
             json!({"id":{"type":"string"}})
@@ -191,6 +205,7 @@ pub(crate) fn tool_schema(name: &str) -> Value {
         "catalog.detail" => vec!["productId"],
         "checkout.select" => vec!["revision", "checkout"],
         "checkout.complete" => vec!["idempotency_key"],
+        "merchant.grid.plan" => vec!["entity", "instruction", "locale"],
         "merchant.plan" => vec!["instruction"],
         "merchant.apply" => vec!["task_id", "approve"],
         _ => vec![],

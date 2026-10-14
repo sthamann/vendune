@@ -4,7 +4,10 @@ pub(super) async fn get(State(a): State<App>, h: RequestContext) -> Result<Json<
     let t = merchant(&a, &h)?;
     auth::permit(&h, "orders.read")?;
     let (m, r) = commerce::machine(&a.db, &t).await?;
-    Ok(Json(json!({"data":m,"revision":r})))
+    let (settings, _) = commerce::config(&a, &t).await?;
+    Ok(Json(
+        json!({"data":m,"revision":r,"mainLocale":settings.main_locale}),
+    ))
 }
 pub(super) async fn save(
     State(a): State<App>,

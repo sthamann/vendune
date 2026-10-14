@@ -35,6 +35,7 @@ continuous autonomous business optimization remains a development goal.
 | **Agents** | Expose authorized HTTP/MCP actions and scoped UCP checkout paths using the same ownership and revision checks. |
 | **Experiences** | Build storefronts and connected experiences for human shoppers while keeping machine access tied to authoritative commerce data. |
 | **Apps & automation** | Design typed apps visually or with coding agents, test real records privately and run durable event-driven Flows. |
+| **Agentic grids** | Search, filter and sort orders/products/customers, arrange columns and review natural-language filter suggestions through the same native APIs. [Guide](docs/agentic-grids.md). |
 | **Control** | Use team permissions, private sandboxes, selected releases, version history and central model settings. |
 
 [![The VEYNDO Studio with its approved Living V identity](docs/assets/veyndo-studio-en.jpg)](docs/ui-experience.md)

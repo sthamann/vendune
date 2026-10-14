@@ -70,6 +70,39 @@ pub(crate) struct ProductCriteria {
     category_id: Option<String>,
     parent_id: Option<String>,
     low_stock: Option<bool>,
+    #[serde(default)]
+    sort: String,
+    #[serde(default)]
+    direction: String,
+}
+impl ProductCriteria {
+    pub(crate) fn validate(&self) -> Result<i64> {
+        let n = self.limit.unwrap_or(25);
+        if !(1..=100).contains(&n)
+            || self.search.as_ref().is_some_and(|s| s.len() > 200)
+            || [&self.after, &self.category_id, &self.parent_id]
+                .iter()
+                .any(|s| s.as_ref().is_some_and(|v| v.len() > 100))
+        {
+            return Err(bad("Invalid product filters"));
+        }
+        self.order()?;
+        Ok(n)
+    }
+    fn order(&self) -> Result<(&'static str, &'static str)> {
+        let sort = match self.sort.as_str() {
+            "" | "id" => "p.id",
+            "name" => "lower(coalesce(grid_tr.name,p.name))",
+            "number" => "coalesce(p.product_number,'')",
+            "price" => "p.price",
+            "stock" => "p.stock",
+            _ => return Err(bad("Unsupported product sort")),
+        };
+        Ok((
+            sort,
+            super::super::operations::list_direction(&self.direction, "ASC")?,
+        ))
+    }
 }
 pub(crate) fn product_admin_router() -> Router<App> {
     Router::new().secure_route(
@@ -85,13 +118,9 @@ pub(crate) async fn list_products(
 ) -> Result<Json<Value>> {
     auth::permit(&h, "catalog.read")?;
     let t = merchant(&a, &h)?;
-    let limit = c.limit.unwrap_or(25);
-    if !(1..=100).contains(&limit)
-        || c.search.as_ref().is_some_and(|s| s.len() > 200)
-        || c.after.as_ref().is_some_and(|s| s.len() > 100)
-    {
-        return Err(bad("Invalid product filters"));
-    }
+    let limit = c.validate()?;
+    let (sort, direction) = c.order()?;
+    let (_, chain) = language_context(&a, &h).await?;
     let pattern = c.search.map(|s| {
         format!(
             "%{}%",
@@ -100,18 +129,49 @@ pub(crate) async fn list_products(
                 .replace('_', "\\_")
         )
     });
-    let rows = sqlx::query(include_str!("product_admin.sql"))
-        .bind(&t)
-        .bind(c.after.unwrap_or_default())
-        .bind(c.active)
-        .bind(pattern)
-        .bind(c.category_id)
-        .bind(c.parent_id)
-        .bind(c.low_stock.unwrap_or(false))
-        .bind(limit + 1)
-        .fetch_all(&a.db)
-        .await?;
-    let (_, chain) = language_context(&a, &h).await?;
+    let mut q = sqlx::QueryBuilder::<sqlx::Postgres>::new(
+        "SELECT p.*, (SELECT count(*) FROM products c WHERE c.tenant=p.tenant AND c.parent_id=p.id) AS variant_count, ARRAY(SELECT pc.category_id FROM product_categories pc WHERE pc.tenant=p.tenant AND pc.product_id=p.id ORDER BY pc.category_id) AS category_ids FROM products p",
+    );
+    if c.sort == "name" {
+        grid_name_join(&mut q, &chain);
+    }
+    q.push(" WHERE p.tenant=").push_bind(t.clone());
+    if let Some(after) = c.after.filter(|v| !v.is_empty()) {
+        q.push(format!(
+            " AND ({sort},p.id) {} (SELECT {sort},p.id FROM products p",
+            if direction == "ASC" { ">" } else { "<" }
+        ));
+        if c.sort == "name" {
+            grid_name_join(&mut q, &chain);
+        }
+        q.push(" WHERE p.tenant=")
+            .push_bind(t.clone())
+            .push(" AND p.id=")
+            .push_bind(after)
+            .push(")");
+    }
+    if let Some(active) = c.active {
+        q.push(" AND p.active=").push_bind(active);
+    }
+    if let Some(pattern) = pattern {
+        q.push(" AND (lower(p.name) LIKE lower(").push_bind(pattern.clone()).push(") OR lower(p.product_number) LIKE lower(").push_bind(pattern.clone()).push(") OR EXISTS(SELECT 1 FROM product_translations tr WHERE tr.tenant=p.tenant AND tr.product_id=p.id AND lower(coalesce(tr.name,'')) LIKE lower(").push_bind(pattern).push(")))");
+    }
+    if let Some(category) = c.category_id {
+        q.push(" AND EXISTS(SELECT 1 FROM product_categories pc WHERE pc.tenant=p.tenant AND pc.product_id=p.id AND pc.category_id=").push_bind(category).push(")");
+    }
+    if let Some(parent) = c.parent_id {
+        q.push(" AND p.parent_id=").push_bind(parent);
+    } else {
+        q.push(" AND p.parent_id IS NULL");
+    }
+    if c.low_stock == Some(true) {
+        q.push(" AND p.stock<=5");
+    }
+    q.push(format!(
+        " ORDER BY {sort} {direction},p.id {direction} LIMIT "
+    ))
+    .push_bind(limit + 1);
+    let rows = q.build().fetch_all(&a.db).await?;
     let translated = localize_products(
         &a,
         &t,
@@ -133,4 +193,9 @@ pub(crate) async fn list_products(
     Ok(Json(
         json!({"elements":elements,"hasMore":has_more,"nextCursor":cursor,"limit":limit}),
     ))
+}
+
+/// Only localized-name sorting needs this bounded native translation lookup; other sorts keep their direct path.
+fn grid_name_join(q: &mut sqlx::QueryBuilder<sqlx::Postgres>, chain: &[String]) {
+    q.push(" LEFT JOIN LATERAL (SELECT name FROM product_translations tr WHERE tr.tenant=p.tenant AND tr.product_id=p.id AND tr.language_id=ANY(").push_bind(chain.to_vec()).push(") AND tr.name IS NOT NULL ORDER BY array_position(").push_bind(chain.to_vec()).push(",tr.language_id) LIMIT 1) grid_tr ON true");
 }

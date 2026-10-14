@@ -56,14 +56,15 @@ pub(crate) async fn list(State(a): State<App>, h: RequestContext) -> Result<Json
     let t = merchant(&a, &h)?;
     let rows =
         sqlx::query("SELECT * FROM categories WHERE tenant=$1 ORDER BY position,id LIMIT 2001")
-            .bind(t)
+            .bind(&t)
             .fetch_all(&a.db)
             .await?;
     if rows.len() > 2000 {
         return Err(bad("Category tree exceeds interactive limit"));
     }
+    let (settings, _) = commerce::config(&a, &t).await?;
     Ok(Json(
-        json!({"elements":rows.iter().map(|r|json!({"id":r.get::<String,_>("id"),"parentId":r.get::<Option<String>,_>("parent_id"),"position":r.get::<i32,_>("position"),"revision":r.get::<i64,_>("revision"),"data":r.get::<Value,_>("data")})).collect::<Vec<_>>()}),
+        json!({"mainLocale":settings.main_locale,"elements":rows.iter().map(|r|json!({"id":r.get::<String,_>("id"),"parentId":r.get::<Option<String>,_>("parent_id"),"position":r.get::<i32,_>("position"),"revision":r.get::<i64,_>("revision"),"data":r.get::<Value,_>("data")})).collect::<Vec<_>>()}),
     ))
 }
 pub(crate) async fn create(

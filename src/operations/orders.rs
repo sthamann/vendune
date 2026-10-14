@@ -9,7 +9,7 @@ pub(super) async fn list(
     auth::permit(&h, "orders.read")?;
     auth::permit(&h, "customers.pii")?;
     let n = c.validate()?;
-    let rows=sqlx::query("SELECT o.data #- '{cart,token}' AS data,o.created_at::text AS created,coalesce(o.data->'orderCustomer'->>'email',c.data->>'email') AS email FROM orders o JOIN carts c ON c.id=o.cart_id WHERE o.tenant=$1 AND ($2='' OR (o.created_at,o.id)<(SELECT created_at,id FROM orders WHERE tenant=$1 AND id=$2)) AND ($3='' OR strpos(lower(o.data->>'orderNumber'||' '||coalesce(o.data->'orderCustomer'->>'email',c.data->>'email','')),lower($3))>0) AND ($4='' OR o.data->>'state'=$4) ORDER BY o.created_at DESC,o.id DESC LIMIT $5").bind(t).bind(c.after).bind(c.query).bind(c.state).bind(n+1).fetch_all(&a.db).await?;
+    let rows = order_list::rows(&a, &t, &c, n).await?;
     let more = rows.len() > n as usize;
     let elements = rows
         .iter()

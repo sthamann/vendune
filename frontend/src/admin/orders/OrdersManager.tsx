@@ -1,8 +1,9 @@
-/** Order operations UI. All changes call the same domain endpoints exposed through MCP. */
+/** Order operations and native detail navigation; the shared grid owns only list presentation. */
+import type { GridCriteria } from "../../shared/grid/types";
 import { AppSurfaceSlot } from "../../shared/apps/AppSurfaces";
-
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { downloadFile } from "../../shared/api/download";
+import OrderDirectory from "./OrderDirectory";
 import { useOperationsText } from "../../shared/i18n/operations-i18n";
 import type { RequestFn } from "../shell/studio-types";
 import type { OpenEntity } from "../shell/useEntityNavigation";
@@ -20,35 +21,27 @@ export default function OrdersManager({
   onEntity?: OpenEntity;
   onEntityBack?: () => void;
 }) {
-  const { o, locale } = useOperationsText();
-  const [rows, setRows] = useState<any[]>([]),
-    [query, setQuery] = useState(""),
-    [cursor, setCursor] = useState<string>(),
-    [selected, setSelected] = useState<string>(),
-    [error, setError] = useState(""),
-    [rights, setRights] = useState<string[]>([]);
+  const [gridCursor, setGridCursor] = useState("");
+  const [gridCriteria, setGridCriteria] = useState<GridCriteria>({});
+  const { o } = useOperationsText();
+  const [selected, setSelected] = useState<string>(),
+    [rights, setRights] = useState<string[]>([]),
+    [error, setError] = useState("");
   useEffect(() => setSelected(initialId), [initialId]);
-  const load = useCallback(
-    async (after = "") => {
-      try {
-        const v = await request(
-          `/api/merchant/orders?query=${encodeURIComponent(query)}&after=${encodeURIComponent(after)}`,
-        );
-        setRows((prev) => (after ? [...prev, ...v.elements] : v.elements));
-        setCursor(v.nextCursor);
-        setError("");
-      } catch (e) {
-        setError((e as Error).message);
-      }
-    },
-    [request, query],
-  );
   useEffect(() => {
-    void load();
+    let current = true;
+    setRights([]);
     request("/api/auth/access")
-      .then((v) => setRights(v.permissions))
-      .catch((e) => setError(e.message));
-  }, [load, request]);
+      .then((v) => {
+        if (current) setRights(v.permissions);
+      })
+      .catch((e) => {
+        if (current) setError(e.message);
+      });
+    return () => {
+      current = false;
+    };
+  }, [request]);
   return (
     <div className="studio-page workbench operations">
       <div className="page-intro">
@@ -72,51 +65,24 @@ export default function OrdersManager({
             rights={rights}
             onCustomer={(email) => onEntity?.("customers", email)}
             onProduct={(id) => onEntity?.("productData", id)}
-            onBack={() => {
-              if (onEntityBack) {
-                onEntityBack();
-                return;
-              }
-              setSelected(undefined);
-              void load();
-            }}
+            onBack={() =>
+              onEntityBack ? onEntityBack() : setSelected(undefined)
+            }
             download={(path) => downloadFile(path, headers)}
           />
         </>
       ) : (
-        <section className="studio-card">
-          <label>
-            {o("search")}
-            <input value={query} onChange={(e) => setQuery(e.target.value)} />
-          </label>
-          <div className="operations-table">
-            {rows.map((row) => (
-              <button
-                className="operation-row"
-                key={row.id}
-                onClick={() =>
-                  onEntity ? onEntity("orders", row.id) : setSelected(row.id)
-                }
-              >
-                <strong>{row.orderNumber}</strong>
-                <span>{row.customerEmail ?? "—"}</span>
-                <span className="operation-status">{o(row.state)}</span>
-                <strong>
-                  {new Intl.NumberFormat(locale, {
-                    style: "currency",
-                    currency: row.cart.price.currency ?? "EUR",
-                  }).format(row.cart.price.totalPrice)}
-                </strong>
-              </button>
-            ))}
-          </div>
-          {!rows.length && <p>{o("empty")}</p>}
-          {cursor && (
-            <button className="studio-secondary" onClick={() => load(cursor)}>
-              {o("more")}
-            </button>
-          )}
-        </section>
+        <OrderDirectory
+          queryState={{
+            criteria: gridCriteria,
+            onCriteria: setGridCriteria,
+            cursor: gridCursor,
+            onCursor: setGridCursor,
+          }}
+          request={request}
+          rights={rights}
+          onOpen={(id) => (onEntity ? onEntity("orders", id) : setSelected(id))}
+        />
       )}
     </div>
   );

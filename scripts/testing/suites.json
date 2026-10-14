@@ -78,7 +78,8 @@
     "erp_handoff",
     "edi",
     "marketplaces",
-    "shipping_contract"
+    "shipping_contract",
+    "grid_directory"
   ],
   "browser_contracts": [
     "analytics",

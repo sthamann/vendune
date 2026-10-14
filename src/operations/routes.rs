@@ -3,6 +3,11 @@ use super::*;
 pub(crate) fn router() -> Router<App> {
     Router::new()
         .secure_route(
+            "/api/merchant/grid/plan",
+            &[("POST", "assistant.use")],
+            post(grid_plan::plan),
+        )
+        .secure_route(
             "/api/merchant/customers/lookup",
             &[("GET", "customers.read")],
             get(customer_lookup::lookup),
