@@ -5,6 +5,8 @@
 - Replace the lime logo/favicon/README artwork with #189EFF and share one blue UI palette.
 - Apply readable blue actions and cool neutral light/dark themes across Studio, customer account, storefront and operator console; remove duplicated Studio palette overrides.
 - Keep canonical vector copies synchronized and document the central token owner.
+- Make the order workflow card use those theme tokens too, preserving readable
+  status, cancellation and action text in dark Studio.
 
 ## Partial packages and provider-neutral shipping apps — 14 October 2026
 
