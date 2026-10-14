@@ -64,6 +64,7 @@
         "es": "Del descubrimiento al checkout sobre la misma base de comercio."
       },
       "sources": [
+        "docs/admin-workflows.md",
         "docs/ui-experience.md",
         "docs/fashion-demo.md",
         "docs/experience-integration.md",
