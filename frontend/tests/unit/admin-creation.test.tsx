@@ -115,6 +115,7 @@ it("creates a customer with one reviewed billing/shipping default and no passwor
     ["Last name", "Buyer"],
   ])
     await user.type(screen.getAllByLabelText(label)[0], value);
+  await user.type(screen.getAllByLabelText("Company")[0], "ACME Test");
   for (const [label, value] of [
     ["Street and house number", "Test Street 1"],
     ["Postal code", "10115"],
@@ -132,6 +133,7 @@ it("creates a customer with one reviewed billing/shipping default and no passwor
       shippingAddress: null,
       customerGroup: "consumer",
       billingAddress: expect.objectContaining({
+        company: "ACME Test",
         country: "DE",
         name: "New Buyer",
       }),

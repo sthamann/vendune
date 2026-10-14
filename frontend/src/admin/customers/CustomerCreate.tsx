@@ -50,7 +50,10 @@ export default function CustomerCreate({
               name: next.name,
               firstName: next.firstName,
               lastName: next.lastName,
-              company: old.company || next.company,
+              company:
+                !old.company || old.company === profile.company
+                  ? next.company
+                  : old.company,
             }
           : old,
       );

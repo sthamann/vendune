@@ -1,12 +1,12 @@
 # Lean-checked commerce contracts
 
-The current source declares **54 extracted policies used in production Rust paths**
-and **117 named properties**. This is **not a certificate that the entire commerce
-core is correct or bug-free**. The reviewed inventory contains **524 Rust modules**:
-two extracted policy modules, 53 reviewed binding modules, one comparison driver
-and 468 unproved modules. Binding review is not proof of the surrounding modules.
+The current source declares **55 extracted policies used in production Rust paths**
+and **119 named properties**. This is **not a certificate that the entire commerce
+core is correct or bug-free**. The reviewed inventory contains **532 Rust modules**:
+two extracted policy modules, 54 reviewed binding modules, one comparison driver
+and 475 unproved modules. Binding review is not proof of the surrounding modules.
 The [manifest](../proof/manifest.json) and per-revision CI artifact are authoritative.
-The local 14 October fulfillment revision compares **156,657 compiled Rust/Lean cases
+The local 14 October Admin-creation revision compares **156,665 compiled Rust/Lean cases
 without mismatches**. Local verification remains distinct from the historical
 published report below; required CI and mutation tests must pass before landing.
 
@@ -62,6 +62,7 @@ they do not prove the translator correct for every program.
 | `manual_payment_admissible` | Manual payment cannot confirm an external provider; it requires a pending payment and nonterminal order | `src/commerce/fulfillment.rs` |
 | `download_admissible` | Blocked orders grant no download; admitted downloads require payment or explicit simulated authorization | `src/assets/download.rs` |
 | `checkout_review_admissible` | Exact revision and amount equality plus confirmed methods are required when a client supplies the review headers | `src/order_checkout.rs` |
+| `admin_payment_admissible` | Admin orders admit only manual or simulated payment; ordinary buyer checkout retains its provider path | `src/operations/manual_order_admission.rs`, `src/order_checkout.rs` |
 | `checkout_contact_admissible` | Financial checkout requires email and billing data; simulated checkout has an explicit exception | `src/order_checkout.rs` |
 | `receipt_admissible` | Accepted provider receipts match amount and currency and confirm the outcome | `src/payments/receipt_guard.rs` |
 | `platform_admissible` | Operator access requires a personal identity, active grant and account | `src/platform/auth.rs` |
@@ -340,3 +341,13 @@ Explicit boolean properties, compiled conformance and mutants exercise these pur
 bindings. Transaction locks, allocation-digest construction, app/provider honesty,
 PDF storage, OAuth, cancellation and external charges remain tested or open
 boundaries, never whole-system mathematical claims. [Shipping workflow](shipping-workflows.md).
+
+## Reviewed Admin order payment admission — 14 October 2026
+
+The final native checkout quote is checked by `admin_payment_admissible` before
+entering any external payment-provider branch. Two extracted properties establish
+exact acceptance and denial of external payment modes for an Admin order. The
+actor-private cart adapter, current compound permissions, settings/channel/customer
+lock order and immutable purchase bindings remain reviewed/tested Rust/SQL boundaries.
+They are not mathematical consequences of this Boolean policy. The real isolated
+HTTP regressions and browser walkthrough are described in [Admin workflows](admin-workflows.md).
