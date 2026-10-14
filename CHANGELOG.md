@@ -1,5 +1,14 @@
 # Changelog
 
+## 14 October 2026 — hosted AI/source catalogue onboarding
+
+The separately deployed hosted SaaS wizard now offers a reviewed initial AI or
+URL-imported catalogue alongside empty and sample shops. Shared preview/approval,
+translation, native import and optional media jobs keep commerce data in Rust;
+ordinary creation does not initialize Storyfront. Document limits, ownership,
+retry checkpoints, explicit native money/stock and actual fixture proof boundaries.
+
+
 ## AI-first website and connected handbook — 14 October 2026
 
 - Add seven ordered handbook paths, chapter/outline navigation and ranked search over every published Markdown source.

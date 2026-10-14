@@ -131,3 +131,56 @@ for lifecycle, dependency protection and migration verification.
 Returning from a shared hosted checkout receipt navigates to the canonical shop
 subdomain, retaining its channel and content language. Local shops keep their SPA
 navigation. The checkout itself stays on `/checkout` through payment and receipt.
+
+## Ordinary SaaS shops with reviewed AI or imported products
+
+The hosted [standard shop wizard](https://start.veyndo.ai/start) offers three starts:
+**empty**, **fixed sample catalogue**, or **with AI products**. The third option has
+two sources, both reviewed before native shop creation:
+
+1. **Describe products** — supply a description and 1–12 products. The inherited
+   model creates fictional proposals with sample EUR prices. Accept the preview,
+   then edit product names, descriptions, prices, stocks and taxes.
+2. **From a shop URL** — choose a maximum of 1–12 entries and enter public HTTPS
+   shop/product URLs. The existing bounded capture pipeline reads supported
+   structured product data and displays its original facts/media. Supply your own
+   EUR prices, taxes and inventory, and approve reuse before accepting.
+
+The count includes product groups/variants. Capture follows at most eight pages
+from up to six entry URLs and may return fewer products when evidence is missing.
+This is a reviewed initial catalogue, not a full crawler or automatic migration
+of every source shop, customer, stock or order. Source USD prices and observed
+foreign availability do not become operational EUR prices or local inventory.
+
+Both ordinary and Experience onboarding share previews, owned snapshot/asset
+approval, editable product cards, translation and the native product/media APIs.
+**Ordinary SaaS creation does not initialize Storyfront or create an Experience.**
+Products belong to the same Rust catalogue used by Studio, Store API, MCP and
+checkout. Native product versioning, permissions and sandbox/release operations
+continue to apply after import; there is no separate AI catalogue database.
+
+After explicit creation, the existing leased worker provisions the owner shop,
+imports approved products and queues the existing welcome access mail. Stable
+native product IDs, cached translations and completed-import checkpoints make
+retry resumable. Optional AI images are off by default and use Core media jobs
+with persisted enqueue intent; configured provider credits apply. Import progress,
+worker heartbeat and safe localized failure categories are shown in the wizard.
+No API/provider credentials are exposed to browser requests.
+
+The browser submits accepted merchant facts and owned snapshot/key references;
+the server loads original source metadata from encrypted owner-held snapshots.
+Requests remain bounded to twelve products and 200,000 bytes. A native creation
+fingerprint rejects changed catalogue facts under an existing idempotency key.
+Changing preview inputs invalidates acceptance; switching accounts clears private
+approvals. Empty and fixed-sample shops do not require AI to create.
+
+**Verification, 14 October 2026:** the real native wizard, job worker and Rust Core
+were exercised locally with a synthetic verified account and a local model fixture.
+Three reviewed products reached PostgreSQL and the standard storefront; an edited
+name and EUR price were preserved. A second browser run captured two entries from
+the public Commodore example and imported the family/edition with 16 gallery media
+references; explicit local EUR prices and stocks were preserved. Source images were
+materialized through native tenant-owned media APIs; videos remain external opt-in. Automated coverage additionally checks bounded
+source counts, foreign snapshot denial, changed-request conflicts and resume after
+an interrupted second import. The actual hosted option is browser checked after
+release. These tests do not certify a paid image provider or external email delivery.
