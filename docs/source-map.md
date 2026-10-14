@@ -569,3 +569,14 @@ and delegates publication to the same organization/catalog transactional writers
 and consent disclosure consume that same policy. Shared history exposes B2B
 configuration over HTTP/MCP without financial rewind. No second settings, audit
 or analytics ledger is introduced. [Integration map and limits](feature-integration.md).
+
+## Personal account security
+
+`auth/{totp,mfa,sessions,handoff,broker_session,broker_recovery,broker_credentials,routes}.rs`
+own personal factor evidence, verified identity assertions, credential revisions
+and session/continuation admission. Migration 091 adds forced system-only identity
+state. The merchant/operator UI lives in `frontend/src/shared/auth/`. Existing
+outbox events record secret-free security changes. Registered `account_security`
+and `identity_broker` suites exercise native effects and restart. The private
+Experience owner implements email recovery/forms and rechecks current native proof;
+[exact setup and boundaries](account-security.md).

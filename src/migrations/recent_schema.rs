@@ -176,4 +176,8 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         "090-veyndo-identity",
         include_str!("../../migrations/090-veyndo-identity.sql"),
     ),
+    (
+        "091-account-security",
+        include_str!("../../migrations/091-account-security.sql"),
+    ),
 ];

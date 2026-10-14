@@ -90,6 +90,8 @@ This lists every checked-in source module in these roots, including files with n
 | [src/auth/broker.rs](../src/auth/broker.rs) | Optional trusted identity exchange: signatures bind route, audience, expiry and one-use nonce. |
 | [src/auth/broker_credentials.rs](../src/auth/broker_credentials.rs) | Explicit password setup/recovery or existing-password verification from a trusted, verified-email broker. |
 | [src/auth/broker_inference.rs](../src/auth/broker_inference.rs) | Trusted server-to-server inference inherits operator settings without disclosing any provider credentials. |
+| [src/auth/broker_recovery.rs](../src/auth/broker_recovery.rs) | Verified-mail recovery discovers only the canonical account's active memberships; it never provisions a shop. |
+| [src/auth/broker_session.rs](../src/auth/broker_session.rs) | A freshly verified external identity may request its existing personal session; MFA remains mandatory. |
 | [src/auth/credentials.rs](../src/auth/credentials.rs) | Argon2 password operations run off the asynchronous request executor. |
 | [src/auth/dto.rs](../src/auth/dto.rs) | Stable typed authentication envelopes; field validation remains in the shared credential owner. |
 | [src/auth/handoff.rs](../src/auth/handoff.rs) | One-time personal-session handoff to the Studio; no passwords or bearer tokens in links. |
@@ -97,14 +99,18 @@ This lists every checked-in source module in these roots, including files with n
 | [src/auth/integrations.rs](../src/auth/integrations.rs) | Expiring API/MCP keys are bounded to one workspace and intersect their creator's current membership. |
 | [src/auth/invitations.rs](../src/auth/invitations.rs) | Single-use, expiring invitations. Acceptance verifies an existing account password. |
 | [src/auth/members.rs](../src/auth/members.rs) | Workspace member visibility and immediately effective role/revocation changes. |
+| [src/auth/mfa.rs](../src/auth/mfa.rs) | Personal MFA enrollment and one-use sign-in challenges share the native session and encryption owners. |
 | [src/auth/middleware.rs](../src/auth/middleware.rs) | Resolve sessions from PostgreSQL on every request: role changes/revocation work across replicas. |
 | [src/auth/mod.rs](../src/auth/mod.rs) | Personal merchant accounts, tenant memberships, scoped sessions and role enforcement. |
 | [src/auth/permissions.rs](../src/auth/permissions.rs) | Fine-grained workspace overrides. Owners retain control; delegates cannot grant rights they lack. |
 | [src/auth/provision.rs](../src/auth/provision.rs) | Reusable synthetic shop provisioning for initial signup and additional shops owned by the same merchant. |
+| [src/auth/recovery_entry.rs](../src/auth/recovery_entry.rs) | Publish only the operator-configured verified identity recovery entry; browsers cannot choose a broker. |
 | [src/auth/registration.rs](../src/auth/registration.rs) | Create an isolated merchant workspace from synthetic template data. |
 | [src/auth/roles.rs](../src/auth/roles.rs) | Tenant-owned roles: current grants, revisioned edits, dependency-checked removal and shared history. |
 | [src/auth/route_policy.rs](../src/auth/route_policy.rs) | Rights are registered beside each API method. Missing registrations always deny access. |
+| [src/auth/routes.rs](../src/auth/routes.rs) | Identity, recovery and personal-security routes share canonical authentication admission. |
 | [src/auth/sessions.rs](../src/auth/sessions.rs) | Login/logout and personal workspace discovery. Only hashed opaque tokens persist. |
+| [src/auth/totp.rs](../src/auth/totp.rs) | RFC 6238 authenticator codes, bounded clock drift and constant-time comparison. |
 | [src/automation_rules/comparison.rs](../src/automation_rules/comparison.rs) | Original comparison primitives plus literal wildcard/zip operators; no regex or executable expressions. |
 | [src/automation_rules/containers.rs](../src/automation_rules/containers.rs) | Source line wrappers, quantified goods and all-line containers retain one selected line scope. |
 | [src/automation_rules/evaluation.rs](../src/automation_rules/evaluation.rs) | Evaluate native rule scopes from authoritative JSON facts with precise line/container selection. |
@@ -778,6 +784,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/platform/styles/platform/02-platform-shop-stats-span.css](../frontend/src/platform/styles/platform/02-platform-shop-stats-span.css) | platform: platform-shop-stats-span styles. Source order is preserved by the entry stylesheet. |
 | [frontend/src/platform/styles/platform/03-control.css](../frontend/src/platform/styles/platform/03-control.css) | Service hub and operational editors share the same accessible light workspace. |
 | [frontend/src/platform/styles/platform.css](../frontend/src/platform/styles/platform.css) | Ordered platform stylesheet entry; domain rules live in the adjacent folder. |
+| [frontend/src/shared/api/account-types.ts](../frontend/src/shared/api/account-types.ts) | Native personal account response shared by merchant and platform authentication. |
 | [frontend/src/shared/api/agent-stream.ts](../frontend/src/shared/api/agent-stream.ts) | Decode bounded UTF-8 SSE chat frames; only a completed native result reaches the existing Studio state owner. |
 | [frontend/src/shared/api/customer-session.ts](../frontend/src/shared/api/customer-session.ts) | Read only the current customer's tenant-scoped session at request time; never use merchant identity. |
 | [frontend/src/shared/api/download.ts](../frontend/src/shared/api/download.ts) | Authenticated binary download, never placing session credentials in a URL. |
@@ -804,6 +811,9 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/apps/native/record-workflow.ts](../frontend/src/shared/apps/native/record-workflow.ts) | Pure form projections of an app-owned workflow; the server remains authoritative. |
 | [frontend/src/shared/apps/native/types.ts](../frontend/src/shared/apps/native/types.ts) | The versioned Manifest is the shared intermediate representation for visual and agent edits. |
 | [frontend/src/shared/apps/useSurfaceGateway.ts](../frontend/src/shared/apps/useSurfaceGateway.ts) | Bind native and isolated UI actions to the same short-lived server grant; credentials stay in the host. |
+| [frontend/src/shared/auth/AccountSecurity.tsx](../frontend/src/shared/auth/AccountSecurity.tsx) | Personal MFA settings use native revision checks and never become staged shop content. |
+| [frontend/src/shared/auth/AuthenticationChallenge.tsx](../frontend/src/shared/auth/AuthenticationChallenge.tsx) | A pending second factor never enters merchant or operator session storage. |
+| [frontend/src/shared/auth/RecoveryLink.tsx](../frontend/src/shared/auth/RecoveryLink.tsx) | Recovery uses the trusted server-selected identity entry, preserving the current editor in its original tab. |
 | [frontend/src/shared/b2b/b2b.css](../frontend/src/shared/b2b/b2b.css) | Shared responsive B2B workspaces: quiet surfaces, separated labels, connected entity cards. |
 | [frontend/src/shared/b2b/quote-types.ts](../frontend/src/shared/b2b/quote-types.ts) | Canonical procurement quote wire contract shared by buyer and merchant clients. |
 | [frontend/src/shared/b2b/types.ts](../frontend/src/shared/b2b/types.ts) | Native B2B wire types shared by the company editor and customer purchasing portal. |
@@ -887,6 +897,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/platform-i18n.ts](../frontend/src/shared/i18n/platform-i18n.ts) | Operator console translations. Every visible control has an explicit translation in all supported locales. |
 | [frontend/src/shared/i18n/preference-i18n.ts](../frontend/src/shared/i18n/preference-i18n.ts) | Consent-bound private shopping-memory controls use typed interface text, separate from merchant product facts. |
 | [frontend/src/shared/i18n/product-legal-i18n.ts](../frontend/src/shared/i18n/product-legal-i18n.ts) | Product safety and sector facts in EN/DE/FR/ES; values follow the shared content-language inheritance. |
+| [frontend/src/shared/i18n/security-i18n.ts](../frontend/src/shared/i18n/security-i18n.ts) | Account-security vocabulary is shared by merchant and operator authentication. |
 | [frontend/src/shared/i18n/shop-i18n.ts](../frontend/src/shared/i18n/shop-i18n.ts) | Shared shop text hook; dictionaries live in focused locale files. |
 | [frontend/src/shared/i18n/studio-ui-i18n.ts](../frontend/src/shared/i18n/studio-ui-i18n.ts) | Studio navigation and settings guidance in all four supported interface languages. |
 | [frontend/src/shared/i18n/workbench-i18n.ts](../frontend/src/shared/i18n/workbench-i18n.ts) | Complete four-language vocabulary for environments, developer tools and knowledge ingestion. |
@@ -1098,6 +1109,7 @@ This lists every checked-in source module in these roots, including files with n
 
 | Module | Responsibility |
 |---|---|
+| [scripts/account_security.py](../scripts/account_security.py) | Native personal MFA acceptance through HTTP/PostgreSQL; synthetic accounts only, no external services. |
 | [scripts/api_catalogue.py](../scripts/api_catalogue.py) | Generate a drift-checked static HTTP route catalogue from the compiled Rust router declarations. |
 | [scripts/app_assets.py](../scripts/app_assets.py) | Actual native scoped file upload, callback read, product/digest/key fences and public-file policy. |
 | [scripts/app_assistants.py](../scripts/app_assistants.py) | Real assistant packages: editor context, rights, MCP opt-out, cron, signed webhooks, flows and local service fixtures. |

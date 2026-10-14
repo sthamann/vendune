@@ -5,6 +5,7 @@ from registry import check
 from axioms import source_check,dependency_check
 
 MUTANTS=[
+ ("auth_factor_admissible", "!required || verified", "true"),
  ("external_amount_admissible", "gross <= 1000000000000", "true"),
  ("external_amount_admissible", "tax <= gross", "true"),
  ("external_amount_admissible", "rate <= 100000", "true"),

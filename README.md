@@ -155,6 +155,10 @@ External calls stay outside database transactions.
 
 [Architecture](docs/architecture.md) · [Source map](docs/source-map.md) · [Security](docs/security.md) · [Tenant isolation](docs/tenant-isolation.md).
 
+Personal merchant and operator accounts share optional authenticator protection,
+one-use recovery codes and revision-checked password recovery through the existing
+verified identity service. [Account setup, source owners and test boundaries](docs/account-security.md).
+
 Verification includes Rust/frontend checks, real PostgreSQL integration, selected
 original-PHP comparisons and Lean/mutation checks for named pure policies. These
 checks have bounded scope; they do not establish full-system production maturity.

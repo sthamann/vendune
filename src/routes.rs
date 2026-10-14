@@ -2,7 +2,7 @@
 use crate::*;
 pub(crate) fn router(a: App) -> Router {
     Router::new()
-        .merge(auth::roles::router())
+        .merge(auth::entry_router())
         .route("/products/{id}", get(storefront_pages::product_page))
         .route(
             "/products/{id}/{slug}",
@@ -10,32 +10,6 @@ pub(crate) fn router(a: App) -> Router {
         )
         .merge(platform::router())
         .merge(shop_domains::frontends::router())
-        .secure_route(
-            "/api/identity/exchange",
-            &[("POST", "public")],
-            post(auth::broker::exchange),
-        )
-        .secure_route(
-            "/api/identity/credentials",
-            &[("POST", "public")],
-            post(auth::broker_credentials::credentials),
-        )
-        .secure_route(
-            "/api/identity/inference",
-            &[("POST", "public")],
-            post(auth::broker_inference::generate)
-                .layer(axum::extract::DefaultBodyLimit::max(8_200_000)),
-        )
-        .secure_route(
-            "/api/auth/handoff",
-            &[("POST", "read")],
-            post(auth::handoff::create),
-        )
-        .secure_route(
-            "/api/auth/redeem",
-            &[("POST", "public")],
-            post(auth::handoff::redeem),
-        )
         .merge(currencies::router())
         .merge(translations::router())
         .merge(apps::app_router())

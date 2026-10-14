@@ -8,6 +8,11 @@ import {
   type Operator,
 } from "./platform-api";
 import PlatformLanguage from "./PlatformLanguage";
+import RecoveryLink from "../shared/auth/RecoveryLink";
+import AuthenticationChallenge, {
+  isMfaChallenge,
+  type MfaChallenge,
+} from "../shared/auth/AuthenticationChallenge";
 export default function PlatformSignIn({
   loading,
   error,
@@ -18,6 +23,7 @@ export default function PlatformSignIn({
   onAuthenticated: (token: string) => void;
 }) {
   const t = usePlatformText();
+  const [challenge, setChallenge] = useState<MfaChallenge>();
   const [email, setEmail] = useState(""),
     [password, setPassword] = useState(""),
     [busy, setBusy] = useState(false),
@@ -28,10 +34,19 @@ export default function PlatformSignIn({
     setFailure("");
     let issued = "";
     try {
-      const s = await request<{ token: string }>("", "/api/auth/login", {
-        email,
-        password,
-      });
+      const s = await request<{ token: string } | MfaChallenge>(
+        "",
+        "/api/auth/login",
+        {
+          email,
+          password,
+        },
+      );
+      if (isMfaChallenge(s)) {
+        setChallenge(s);
+        setPassword("");
+        return;
+      }
       issued = s.token;
       await request<Operator>(issued, "/api/platform/session");
       setPassword("");
@@ -61,37 +76,50 @@ export default function PlatformSignIn({
       <section className="platform-panel">
         <PlatformLanguage />
         <h2>{t("signin")}</h2>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            void login();
-          }}
-        >
-          <label>
-            {t("email")}
-            <input
-              type="email"
-              required
-              autoComplete="username"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </label>
-          <label>
-            {t("password")}
-            <input
-              type="password"
-              required
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          {(failure || error) && <p role="alert">{failure || error}</p>}
-          <button className="platform-primary" disabled={busy || loading}>
-            {busy || loading ? t("loading") : t("login")}
-          </button>
-        </form>
+        {challenge ? (
+          <AuthenticationChallenge
+            challenge={challenge}
+            onCancel={() => setChallenge(undefined)}
+            onSession={async (s) => {
+              if (!s.token) return;
+              await request<Operator>(s.token, "/api/platform/session");
+              onAuthenticated(s.token);
+            }}
+          />
+        ) : (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              void login();
+            }}
+          >
+            <label>
+              {t("email")}
+              <input
+                type="email"
+                required
+                autoComplete="username"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </label>
+            <label>
+              {t("password")}
+              <input
+                type="password"
+                required
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </label>
+            {(failure || error) && <p role="alert">{failure || error}</p>}
+            <button className="platform-primary" disabled={busy || loading}>
+              {busy || loading ? t("loading") : t("login")}
+            </button>
+            <RecoveryLink />
+          </form>
+        )}
       </section>
     </div>
   );

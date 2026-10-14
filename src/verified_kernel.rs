@@ -301,3 +301,8 @@ pub fn external_amount_admissible(gross: u64, tax: u64, rate: u64) -> bool {
 pub fn external_paid_total_admissible(paid: bool, calculated: u64, declared: u64) -> bool {
     paid && calculated > 0 && calculated == declared
 }
+
+/// Factor evidence is supplied only by the native verified-code or live personal-session handoff owners.
+pub fn auth_factor_admissible(required: bool, verified: bool) -> bool {
+    !required || verified
+}

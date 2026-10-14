@@ -7,6 +7,7 @@ import { useShopText } from "../../shared/i18n/shop-i18n";
 import { useConnectedText } from "../../shared/i18n/connected-i18n";
 import { locales } from "../../shared/i18n/i18n";
 import PersonalAccountForm from "../team/PersonalAccountForm";
+import AuthenticationChallenge from "../../shared/auth/AuthenticationChallenge";
 import type { useStudioAccess } from "./useStudioAccess";
 import "../styles/studio-sign-in.css";
 export default function StudioSignIn({
@@ -83,14 +84,22 @@ export default function StudioSignIn({
           ))}
         </div>
       )}
-      <PersonalAccountForm
-        mode={overlay ? "login" : mode}
-        run={run}
-        onSession={auth.accept}
-        s={s}
-        busy={busy || auth.checking}
-        email={overlay ? auth.identity?.user.email : undefined}
-      />
+      {auth.challenge ? (
+        <AuthenticationChallenge
+          challenge={auth.challenge}
+          onSession={auth.accept}
+          onCancel={auth.cancelChallenge}
+        />
+      ) : (
+        <PersonalAccountForm
+          mode={overlay ? "login" : mode}
+          run={run}
+          onSession={auth.accept}
+          s={s}
+          busy={busy || auth.checking}
+          email={overlay ? auth.identity?.user.email : undefined}
+        />
+      )}
       {(error || auth.error) && (
         <p role="alert" className="commerce-error">
           {error || auth.error}

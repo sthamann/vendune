@@ -187,7 +187,7 @@
   {
     "path": "/api/auth/handoff",
     "method": "POST",
-    "source": "src/routes.rs"
+    "source": "src/auth/routes.rs"
   },
   {
     "path": "/api/auth/login",
@@ -200,9 +200,39 @@
     "source": "src/routes.rs"
   },
   {
+    "path": "/api/auth/mfa",
+    "method": "GET",
+    "source": "src/auth/mfa.rs"
+  },
+  {
+    "path": "/api/auth/mfa/confirm",
+    "method": "POST",
+    "source": "src/auth/mfa.rs"
+  },
+  {
+    "path": "/api/auth/mfa/disable",
+    "method": "POST",
+    "source": "src/auth/mfa.rs"
+  },
+  {
+    "path": "/api/auth/mfa/enroll",
+    "method": "POST",
+    "source": "src/auth/mfa.rs"
+  },
+  {
+    "path": "/api/auth/mfa/verify",
+    "method": "POST",
+    "source": "src/auth/mfa.rs"
+  },
+  {
+    "path": "/api/auth/recovery",
+    "method": "GET",
+    "source": "src/auth/routes.rs"
+  },
+  {
     "path": "/api/auth/redeem",
     "method": "POST",
-    "source": "src/routes.rs"
+    "source": "src/auth/routes.rs"
   },
   {
     "path": "/api/auth/register",
@@ -402,17 +432,27 @@
   {
     "path": "/api/identity/credentials",
     "method": "POST",
-    "source": "src/routes.rs"
+    "source": "src/auth/routes.rs"
   },
   {
     "path": "/api/identity/exchange",
     "method": "POST",
-    "source": "src/routes.rs"
+    "source": "src/auth/routes.rs"
   },
   {
     "path": "/api/identity/inference",
     "method": "POST",
-    "source": "src/routes.rs"
+    "source": "src/auth/routes.rs"
+  },
+  {
+    "path": "/api/identity/recovery",
+    "method": "POST",
+    "source": "src/auth/routes.rs"
+  },
+  {
+    "path": "/api/identity/session",
+    "method": "POST",
+    "source": "src/auth/routes.rs"
   },
   {
     "path": "/api/intelligence",

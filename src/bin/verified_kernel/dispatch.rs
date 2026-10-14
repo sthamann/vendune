@@ -247,6 +247,10 @@ pub(super) fn eval(j: &Value) -> Result<Value, String> {
             n("calculated")?,
             n("declared")?
         ))),
+        Some("auth_factor_admissible") => Ok(json!(auth_factor_admissible(
+            b("required")?,
+            b("verified")?
+        ))),
         _ => Err("Unknown policy".into()),
     }
 }

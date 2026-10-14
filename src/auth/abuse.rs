@@ -57,6 +57,10 @@ pub(super) async fn run(a: &App, request: Request, next: Next) -> Response {
     let guarded = matches!(
         path.as_str(),
         "/api/auth/login"
+            | "/api/auth/mfa/verify"
+            | "/api/auth/mfa/enroll"
+            | "/api/auth/mfa/confirm"
+            | "/api/auth/mfa/disable"
             | "/api/auth/register"
             | "/api/auth/accept"
             | "/api/auth/redeem"
