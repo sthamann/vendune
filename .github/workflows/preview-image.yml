@@ -1,0 +1,93 @@
+name: Publish tested local preview image
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  image:
+    runs-on: ubuntu-24.04
+    concurrency:
+      group: public-preview-image
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: deploy/Dockerfile
+          load: true
+          tags: veyndo-preview:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          labels: |
+            org.opencontainers.image.source=https://github.com/sthamann/veyndo
+            org.opencontainers.image.revision=${{ github.sha }}
+      - name: Start the actual packaged local tour and verify HTTP readiness
+        env:
+          VEYNDO_IMAGE: veyndo-preview:test
+          TRY_PORT: 8788
+        run: |
+          ./scripts/try.sh
+          curl --fail --retry 12 --retry-delay 5 --retry-connrefused http://127.0.0.1:8788/health
+          curl --fail http://127.0.0.1:8788/ > /tmp/veyndo-preview.html
+          grep -q 'root' /tmp/veyndo-preview.html
+      - name: Exercise personal signup and a private sandbox in the packaged runtime
+        run: |
+          python3 - <<'PYTEST'
+          import json, secrets, urllib.request, uuid, pathlib
+          base = 'http://127.0.0.1:8788'
+          def call(path, body=None, session=None, tenant=None):
+              headers = {'Content-Type': 'application/json'}
+              if session:
+                  headers.update({'Authorization': 'Bearer '+session['token'], 'x-tenant': tenant or session['workspace']})
+              request = urllib.request.Request(base+path, data=json.dumps(body).encode() if body is not None else None, headers=headers)
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  return json.load(response)
+          suffix = uuid.uuid4().hex[:12]
+          session = call('/api/auth/register', {'name':'Preview tester', 'email':suffix+'@example.test', 'password':secrets.token_urlsafe(32), 'workspaceId':'preview-'+suffix, 'workspaceName':'Synthetic preview'})
+          stage = call('/api/environments', {'name':'Private first round'}, session)['id']
+          assert stage != session['workspace']
+          assert call('/store-api/product', {}, session, stage)['elements']
+          assert call('/api/environments/'+stage+'/diff', session=session)['changes'] == []
+          state = pathlib.Path('.run/preview-session.json')
+          state.write_text(json.dumps(session)); state.chmod(0o600)
+          print('PASS packaged personal signup, seeded products and private sandbox baseline')
+          PYTEST
+          docker compose --env-file .run/try.env -p veyndo-try -f compose.try.yaml restart commerce
+          curl --fail --retry 12 --retry-delay 5 --retry-connrefused http://127.0.0.1:8788/health
+          python3 - <<'PYTEST'
+          import json, urllib.request, pathlib
+          session = json.loads(pathlib.Path('.run/preview-session.json').read_text())
+          request = urllib.request.Request('http://127.0.0.1:8788/api/auth/session', headers={'Authorization':'Bearer '+session['token'], 'x-tenant':session['workspace']})
+          with urllib.request.urlopen(request, timeout=30) as response:
+              assert response.status == 200
+          print('PASS personal session retained after packaged runtime restart')
+          PYTEST
+      - name: Preserve diagnostics
+        if: failure()
+        run: docker compose --env-file .run/try.env -p veyndo-try -f compose.try.yaml logs --no-color
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish the smoke-tested image with an immutable source tag
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          docker tag veyndo-preview:test ghcr.io/sthamann/veyndo:sha-$SOURCE_SHA
+          docker push ghcr.io/sthamann/veyndo:sha-$SOURCE_SHA
+          main_sha=$(git ls-remote https://github.com/sthamann/veyndo.git refs/heads/main | cut -f1)
+          if [ "$main_sha" = "$SOURCE_SHA" ]; then
+            docker tag veyndo-preview:test ghcr.io/sthamann/veyndo:preview
+            docker push ghcr.io/sthamann/veyndo:preview
+          fi
+          echo "Published source $SOURCE_SHA; Linux amd64. Use the sha tag to pin an installation." >> "$GITHUB_STEP_SUMMARY"

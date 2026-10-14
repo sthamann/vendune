@@ -1,5 +1,14 @@
 # Changelog
 
+## First visitor and contributor entry — 14 October 2026
+
+- Add one connected first tour, an agent workshop and a scoped public roadmap.
+- Add an isolated loopback-only container tour without a local Rust/Node toolchain.
+- Publish the existing Rust image from protected main after the required PR verification and an actual container/HTTP smoke check; preserve immutable source tags.
+- Make actual recordings and first contribution tasks visible from the README and docs homepage.
+- Add first-tour feedback and a private local GitHub traffic snapshot tool.
+
+
 ## Repeated cross-component audit and history discovery — 14 October 2026
 
 - Align advertised MCP history tools with the native entity read/write/PII

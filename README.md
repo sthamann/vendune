@@ -13,7 +13,7 @@
 [![Working prototype](https://img.shields.io/badge/status-working_prototype-171B18)](#current-boundaries)
 [![Sustainable Use License](https://img.shields.io/badge/license-Sustainable_Use-60751C)](LICENSE)
 
-[Get started](#get-started) · [Watch the tours](#see-it-in-action) · [Feature guide](docs/features.md) · [Architecture](docs/production-architecture.md) · [Documentation](https://sthamann.github.io/veyndo/docs/)
+[Try one complete round](docs/first-tour.md) · [Watch the tours](#see-it-in-action) · [First contributions](docs/early-contributors.md) · [Feature guide](docs/features.md) · [Architecture](docs/production-architecture.md) · [Documentation](https://sthamann.github.io/veyndo/docs/)
 
 </div>
 
@@ -25,6 +25,21 @@ execute.
 
 Self-hostable and source-available. A working prototype with explicit boundaries;
 continuous autonomous business optimization remains a development goal.
+
+## Try one useful thing
+
+**Change a product in a private sandbox, inspect the difference and publish only
+what you approve.** The live catalog, native permissions and release review stay connected.
+Start with [one complete local round](docs/first-tour.md), then
+[connect an agent](docs/agent-workshop.md) or [build an app](docs/app-studio.md).
+
+[![Actual Veyndo App Studio preview](docs/assets/showcase/app-studio.webp)](https://sthamann.github.io/veyndo/docs/assets/showcase/build-and-automate.mp4)
+
+[Watch the 29-second actual-UI recording](https://sthamann.github.io/veyndo/docs/assets/showcase/build-and-automate.mp4)
+· Synthetic shop · Edited recording · Simulated payments
+
+Have a question or an example? [Join the discussion](https://github.com/sthamann/veyndo/discussions).
+If this direction is useful to you, star the repository to bookmark it and help other builders discover it.
 
 ## One connected business
 
@@ -42,7 +57,18 @@ continuous autonomous business optimization remains a development goal.
 
 ## Get started
 
-**Rust stable 1.96+ · Node.js 22+ · Docker Compose · Python 3**
+****Container tour:** Git + Docker Compose + OpenSSL; no Rust/Node build or model download.
+
+```sh
+git clone https://github.com/sthamann/veyndo.git
+cd veyndo
+./scripts/try.sh
+```
+
+Open `http://127.0.0.1:8788/`. The image is Linux amd64; see
+[availability, exact version pins and the complete walkthrough](docs/first-tour.md).
+
+**Build and develop from source:** Rust stable 1.96+ · Node.js 22+ · Docker Compose · Python 3**
 
 ```sh
 git clone https://github.com/sthamann/veyndo.git
