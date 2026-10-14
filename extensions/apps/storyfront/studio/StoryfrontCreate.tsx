@@ -19,20 +19,29 @@ export default function StoryfrontCreate({
   const t = useStoryfrontText(),
     { locale } = useLocale();
   const [channels, setChannels] = useState<Channel[]>([]),
+    [mainLocale, setMainLocale] = useState(""),
     [channel, setChannel] = useState(""),
     [error, setError] = useState("");
-  const allowed = ["apps.manage", "channels.manage", "settings.write"].every(
-    (p) => rights.includes(p),
-  );
+  const allowed = [
+    "apps.manage",
+    "channels.manage",
+    "settings.write",
+    "settings.read",
+    "catalog.read",
+  ].every((p) => rights.includes(p));
   useEffect(() => {
     let active = true;
     setChannels([]);
     setChannel("");
     setError("");
     if (!allowed) return;
-    void request("/api/automation")
-      .then((v) => {
+    void Promise.all([
+      request("/api/automation"),
+      request("/api/merchant/commerce"),
+    ])
+      .then(([v, settings]) => {
         if (active) {
+          setMainLocale(settings.data.mainLocale);
           const eligible = v.channels.filter(
             (c: Channel) =>
               c.data.kind === "storefront" &&
@@ -73,7 +82,7 @@ export default function StoryfrontCreate({
               >
                 {channels.map((c) => (
                   <option key={c.id} value={c.id}>
-                    {contentText(c.data.name, locale, locale) || c.id}
+                    {contentText(c.data.name, locale, mainLocale) || c.id}
                   </option>
                 ))}
               </select>
