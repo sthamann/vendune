@@ -56,8 +56,14 @@ pub(crate) fn validate(entity: &str, v: &Value) -> Result<Value> {
     }
     let fields = fields(entity)?;
     let object = v.as_object().ok_or(bad("Invalid grid criteria"))?;
+    let mut normalized = serde_json::Map::new();
     for (key, value) in object {
         let field = fields.get(key).ok_or(bad("Unsupported grid filter"))?;
+        // Strict provider schemas represent omitted optional fields as null.
+        // Check the key first: an unknown identity field must never be erased.
+        if value.is_null() {
+            continue;
+        }
         if field["type"] == "boolean" {
             if !value.is_boolean() {
                 return Err(bad("Invalid boolean grid filter"));
@@ -73,18 +79,20 @@ pub(crate) fn validate(entity: &str, v: &Value) -> Result<Value> {
                 return Err(bad("Invalid grid filter value"));
             }
         }
+        normalized.insert(key.clone(), value.clone());
     }
+    let normalized = Value::Object(normalized);
     if entity == "products" {
-        let c: commerce::ProductCriteria =
-            serde_json::from_value(v.clone()).map_err(|_| bad("Invalid product filters"))?;
+        let c: commerce::ProductCriteria = serde_json::from_value(normalized.clone())
+            .map_err(|_| bad("Invalid product filters"))?;
         c.validate()?;
     } else {
         let c: super::Criteria =
-            serde_json::from_value(v.clone()).map_err(|_| bad("Invalid list filters"))?;
+            serde_json::from_value(normalized.clone()).map_err(|_| bad("Invalid list filters"))?;
         c.validate()?;
         c.sort_for(entity)?;
     }
-    Ok(v.clone())
+    Ok(normalized)
 }
 #[cfg(test)]
 mod tests {
@@ -110,6 +118,15 @@ mod tests {
         assert!(validate("customers", &json!({"guest":true})).is_ok());
         assert!(validate("products", &json!({"active":true,"lowStock":true})).is_ok());
         assert!(validate("products", &json!({"lowStock":false})).is_err());
+        assert_eq!(
+            validate(
+                "orders",
+                &json!({"customer":"Alex", "state":null, "sort":null})
+            )
+            .unwrap(),
+            json!({"customer":"Alex"})
+        );
+        assert!(validate("orders", &json!({"tenant":null})).is_err());
         assert!(validate("customers", &json!({"state":"placed"})).is_err());
         assert!(validate("orders", &json!({"from":"not-a-date"})).is_err());
     }

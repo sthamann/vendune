@@ -28,6 +28,11 @@ shell. This does not establish arbitrary app full-text/model support or live-mod
 semantic quality. The existing **54-policy / 156,657-case** formal gate passes with
 zero mismatches and **155** rejected mutations; the grid's SQL, async code and UI
 are reviewed/tested adapters, not new whole-system proofs.
+The additional strict-provider counterexample initially failed on unused null
+fields. Real HTTP/MCP OpenAI Responses fixtures now pass after central configuration
+and a native restart: only recognized optional nulls disappear, false stays a
+filter, null identity keys fail closed, and empty supported plans are rejected.
+These checks use a synthetic loopback key, not an external model account.
 The rendered site checks **211 pages**, all **204 Markdown sources** and **5,032
 local links/assets**, including the illustrated guide and capture provenance.
 

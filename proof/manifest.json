@@ -2563,8 +2563,8 @@
     },
     "src/operations/grid_schema.rs": {
       "status": "unproved",
-      "sha256": "a9026e093a3134ddff4f3533b8a6a45b8cf1e699ae4af61da60b2109649d58f6",
-      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
+      "sha256": "3dd6b7791fca816b498e94ff1bb905f0b8a5b0a74699ff5f32b1b00d68b26d66",
+      "review": "Reviewed native grid criteria and tenant cursors, translated sorting and read-only central-provider planning under current domain/PII grants. Strict OpenAI optional nulls are normalized only after allowlisted-key checks; unknown null identity fields and empty supported plans fail closed, explicit false is preserved. Real PostgreSQL HTTP/MCP provider and restart fixtures pass. Existing extracted financial policies are unchanged; SQL/model semantics/async/UI remain unproved adapters."
     },
     "src/operations/guest_customers.rs": {
       "status": "unproved",

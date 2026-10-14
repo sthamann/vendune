@@ -13,11 +13,18 @@ class Model(BaseHTTPRequestHandler):
   else:
    seen.append(value)
    if state.get('reject'):self.send_response(503);self.end_headers();return
-   result={'message':{'content':json.dumps(state['result'])},'done_reason':'stop'}
+   if self.path=='/v1/responses':
+    shape=value['text']['format'];assert shape['strict'] is True
+    criteria=shape['schema']['properties']['criteria']
+    assert set(criteria['required'])==set(criteria['properties'])
+    output=copy.deepcopy(state['result'])
+    output['criteria']={**{key:None for key in criteria['properties']},**output['criteria']}
+    result={'status':'completed','output':[{'content':[{'type':'output_text','text':json.dumps(output)}]}]}
+   else:result={'message':{'content':json.dumps(state['result'])},'done_reason':'stop'}
   self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(json.dumps(result).encode())
 model=ThreadingHTTPServer(('127.0.0.1',0),Model);threading.Thread(target=model.serve_forever,daemon=True).start()
 url=urllib.parse.urlsplit(os.environ['DATABASE_URL']);suffix=uuid.uuid4().hex[:10];database='grid_contract_'+suffix;user=url.username or 'commerce'
-def sql(statement):subprocess.run(psql(os.getenv('DB_CONTAINER','veyndo-postgres-1'),user,'postgres','-v','ON_ERROR_STOP=1'),input=statement,text=True,check=True,stdout=subprocess.DEVNULL)
+def sql(statement,target='postgres'):subprocess.run(psql(os.getenv('DB_CONTAINER','veyndo-postgres-1'),user,target,'-v','ON_ERROR_STOP=1'),input=statement,text=True,check=True,stdout=subprocess.DEVNULL)
 sql(f'CREATE DATABASE "{database}"')
 with socket.socket() as s:s.bind(('127.0.0.1',0));port=s.getsockname()[1]
 base=f'http://127.0.0.1:{port}';env={**os.environ,'DATABASE_URL':urllib.parse.urlunsplit(url._replace(path='/'+database)),'BIND_ADDR':f'127.0.0.1:{port}','OLLAMA_URL':f'http://127.0.0.1:{model.server_port}','OPENAI_API_KEY':'','ANTHROPIC_API_KEY':'','PROCESS_ROLE':'all'}
@@ -88,6 +95,24 @@ try:
  call('/api/merchant/grid/plan',payload,h={**ch,'x-tenant':foreign['workspace']},expected=403)
  stage=call('/api/environments',{'name':'Grid private preview'})['id'];assert not call('/api/merchant/orders',h={**headers,'x-tenant':stage})['elements']
  print('PASS current native domain/PII rights, foreign tenant/cursors and private environments cannot expose live order rows')
+ # Strict OpenAI Responses wire fills unused optional criteria with null. Reuse
+ # central platform configuration and restart the native owner, never real keys.
+ stop(process);process=None
+ env.update({'OPENAI_API_KEY':'grid-fixture-only','OPENAI_BASE_URL':f'http://127.0.0.1:{model.server_port}/v1','OPENAI_PROTOCOL':'responses'})
+ sql(f'''UPDATE platform_ai SET data=jsonb_set(jsonb_set(data,'{{defaultProvider}}','"openai"'::jsonb),'{{providers,openai,endpoint}}',to_jsonb('http://127.0.0.1:{model.server_port}/v1'::text))''',database)
+ process=serve(env,base,log)
+ state['result']={'supported':True,'criteria':{'customer':'Alex Example'}}
+ plan=call('/api/merchant/grid/plan',payload);assert plan['provider']=='openai' and plan['criteria']=={'customer':'Alex Example'}
+ assert mcp('merchant.grid.plan',payload)['structuredContent']['criteria']==plan['criteria']
+ assert 'orderNumber' not in json.dumps(seen[-1]) and 'Synthetic-grid' not in json.dumps(seen[-1])
+ state['result']={'supported':True,'criteria':{'active':False}}
+ assert call('/api/merchant/grid/plan',{**payload,'entity':'customers'})['criteria']=={'active':False}
+ state['result']={'supported':True,'criteria':{'tenant':None}};call('/api/merchant/grid/plan',payload,expected=400)
+ state['result']={'supported':True,'criteria':{}};call('/api/merchant/grid/plan',payload,expected=400)
+ state['result']={'supported':False,'criteria':{}};assert not call('/api/merchant/grid/plan',payload)['supported']
+ state['reject']=True;call('/api/merchant/grid/plan',payload,expected=502);state['reject']=False
+ assert len(call('/api/merchant/orders')['elements'])==2
+ print('PASS strict OpenAI wire and native restart normalize only optional known nulls, preserve false, reject null identity, and retain manual reads after failure')
  if os.getenv('GRID_REVIEW_HOLD'):
   state['result']={'supported':True,'criteria':{'customer':'Alex Example'}}
   path=ROOT/'artifacts/grid-review-private.json'

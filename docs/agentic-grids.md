@@ -47,6 +47,12 @@ The model returns typed filter suggestions. Studio shows them for review and
 be reported instead of silently dropped. Invalid fields/types/dates/sort keys are
 rejected. Provider failure leaves manual search/filtering available.
 
+OpenAI's strict wire format represents unused optional fields as `null`. The
+native grid validator normalizes only known optional fields before validation;
+unknown identity fields remain rejected even when null. Explicit `false` values
+(such as inactive customers) remain real filters. The central provider adapter
+and ordinary HTTP/MCP owner are shared across this path.
+
 ![A read-only customer filter is reviewed before applying it to the order list](assets/agentic-grid/ai-preview-en.png)
 
 These are real browser captures using synthetic records and a loopback model
@@ -123,6 +129,11 @@ It verifies global filter/sort paging, schema/output rejection, provider failure
 current domain/PII rights, foreign tenants/cursors and empty operational staging.
 It sends no paid model, live payment or real customer data. Provider fixtures verify
 wire/admission behavior, not the semantic quality of a particular live model.
+
+The same suite also switches central platform configuration to a loopback OpenAI
+Responses fixture, restarts the native owner and checks strict nullable fields,
+HTTP/MCP agreement, explicit false values, unknown null identities, empty
+supported plans, unsupported requests and provider failures.
 
 Frontend regressions cover sorting, filters, keyboard ordering, drag headers, layout
 persistence, explicit AI review, unknown-field rejection, permission presentation,

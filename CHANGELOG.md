@@ -9,6 +9,9 @@
   HTTP/MCP contract, with current domain/PII rights and replica-wide admission.
 - Reuse the visual shell in declarative app tables, preserving native write forms.
 - Add real isolated Store API/PostgreSQL/model wire regressions and translated controls.
+- Support strict OpenAI nullable optional fields through the same validated planner;
+  preserve false-valued filters and reject unknown null identity fields. Verify
+  real HTTP/MCP provider response handling across a native restart.
 - Add illustrated usage/ownership documentation, touch-safe popovers, false-valued
   filter chips and an always-accessible details action when the main column is hidden.
 
