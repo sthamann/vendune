@@ -12,7 +12,7 @@ mod coupons;
 pub(crate) use coupons::coupons;
 mod gateway;
 mod jobs;
-pub(crate) use gateway::invoke;
+pub(crate) use gateway::{capability_visible, invoke};
 mod metadata;
 pub(crate) use metadata::validate_metadata;
 mod customer_facts;

@@ -366,6 +366,15 @@ user can read automation status. Preserve cleaned summaries for limited readers.
 B2B switches live in shared versioned commerce settings; channel inheritance may not
 relax that global policy. See `docs/studio-access-and-setup.md` for the current owners.
 
+Read [the system consistency audit](docs/system-consistency-audit.md) when adding
+cross-domain entry points. Knowledge-source `document:*` diff/release units require
+`knowledge.read`/`knowledge.write`, never catalog rights. MCP discovery must use
+the owning operation's scopes; unrelated read grants must not gate write-only
+operations, and channel grants must not advertise rule tools. Classify every new
+persisted entity's CAS revision, retained history, restore and staging policy
+explicitly; a revision counter alone is not full content versioning. Keep live
+financial and operational effects excluded from configuration rollback.
+
 ## Provider-neutral shipping ownership
 
 Carrier-specific protocols, address conversion, credentials, booking receipts and UI

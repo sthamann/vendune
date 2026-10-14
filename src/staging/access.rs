@@ -3,7 +3,8 @@ use super::*;
 pub(super) fn permit(h: &RequestContext, keys: &[String]) -> Result<()> {
     for key in keys {
         let scope = match key.split(':').next().unwrap_or("") {
-            "product" | "category" | "asset" | "document" => "catalog.write",
+            "product" | "category" | "asset" => "catalog.write",
+            "document" => "knowledge.write",
             "app" | "appdata" => "apps.manage",
             "b2b-company" | "b2b-unit" => "b2b.manage",
             "channel" => "channels.manage",
@@ -27,7 +28,8 @@ pub(super) fn permit(h: &RequestContext, keys: &[String]) -> Result<()> {
 /// Staging diffs contain actual records, so each domain read right is mandatory.
 pub(super) fn can_read(h: &RequestContext, key: &str) -> bool {
     let scope = match key.split(':').next().unwrap_or("") {
-        "product" | "category" | "asset" | "document" => "catalog.read",
+        "product" | "category" | "asset" => "catalog.read",
+        "document" => "knowledge.read",
         "app" => "apps.read",
         "appdata" => "apps.manage",
         "b2b-company" | "b2b-unit" => "b2b.read",

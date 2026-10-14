@@ -9,7 +9,7 @@ pub(crate) fn router() -> Router<App> {
         )
         .secure_route(
             "/api/automation/import-condition",
-            &[("POST", "automation.read")],
+            &[("POST", "automation.manage")],
             post(import),
         )
 }

@@ -28,13 +28,7 @@ pub(super) fn visible(a: &App, h: &RequestContext, name: &str) -> bool {
         return merchant(a, h).is_ok() && auth::permit(h, permission).is_ok();
     }
     if n.starts_with("automation.") {
-        return merchant(a, h).is_ok()
-            && (auth::allowed(h, "automation.read") || auth::allowed(h, "channels.read"))
-            && (!matches!(
-                *n,
-                "automation.save" | "automation.import" | "automation.delete"
-            ) || (auth::allowed(h, "automation.manage")
-                || auth::allowed(h, "channels.manage")));
+        return merchant(a, h).is_ok() && marketing::capability_visible(h, n);
     }
     if *n == "knowledge.autonomy.apply" {
         return auth::allowed(h, "knowledge.read")

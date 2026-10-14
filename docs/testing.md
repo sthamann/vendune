@@ -2,6 +2,19 @@
 
 **Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).
 
+## System consistency audit — 14 October 2026
+
+[Full findings and boundaries](system-consistency-audit.md). Thirteen selected
+isolated HTTP/PostgreSQL/provider suites passed before new counterexamples
+exposed knowledge-source stage rights and HTTP/MCP automation admission defects.
+The repaired paths passed seven affected suites plus new narrow-role regressions
+in `testing/consistency_boundaries.py`. Existing tests alone had missed those
+cross-boundary cases. All **242 Rust tests**, format/all-target Clippy, exact
+source/route inventory and existing **54-policy / 156,657-case** formal gates pass;
+the mutation gate rejects **155** broken policies. Private Experience's complete
+check passes **230 tests**. No new coverage percentage or whole-system guarantee
+is inferred; no live provider or paid AI call was made.
+
 ## Fulfillment, carrier app and identity verification — 14 October 2026
 
 The local fulfillment run passes **483 frontend tests in 87 files** and **242 Rust
