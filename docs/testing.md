@@ -59,6 +59,13 @@ the new denied-access cases. The regenerated site validates 211 pages, all 204
 Markdown sources and 5,036 local links/assets. The previous pass's evidence remains
 dated below.
 
+The anonymous public probe passed health/unauthorized-operator checks but failed
+on a non-JSON registration response. `hosting_check.py` now reports a useful
+bounded failure instead of crashing or counting a gateway denial as a verified
+API gate. Tooling tests cover expected JSON, non-JSON denials, wrong status/shape
+and oversized responses. This negative is retained; it is not a completed
+public onboarding or authenticated end-to-end test.
+
 [Full findings and boundaries](system-consistency-audit.md). Thirteen selected
 isolated HTTP/PostgreSQL/provider suites passed before new counterexamples
 exposed knowledge-source stage rights and HTTP/MCP automation admission defects.

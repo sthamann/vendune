@@ -149,6 +149,16 @@ not probe Qdrant or every provider, and its fixed `payment: simulated` field is
 not per-shop provider readiness. Inspect the existing authorized provider/index
 status owners for those facts.
 
+The fresh public anonymous probe reached `/health` (200) and the unauthorized
+platform overview (401), but empty registration returned a non-JSON 403. Adding
+an untrusted Origin to an empty body instead reached a plain-text 422 JSON
+deserializer rejection. These responses do not establish browser-Origin
+admission or authenticated onboarding. The original hosting checker crashed
+while parsing the denial. It now produces a bounded explicit failure without
+printing response bodies or treating an edge/framework denial as success; local
+tooling regressions preserve that failed verdict. Full public acceptance remains
+unverified by this probe.
+
 No real customer dataset, paid inference, external mail, payment or seller API was
 used. This is not a fresh public end-to-end test of all hosted shops. PR 109's
 repair was verified running on the hosted Core. The newer history-discovery repair

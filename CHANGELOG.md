@@ -13,6 +13,9 @@
   suite checks, private Experience's 230-test check and explicit open boundaries.
 - Correct the documented integration registry to 85 suites; distinguish provider
   fixtures, build warnings, selected proofs and source tests from hosted acceptance.
+- Give the anonymous hosting verifier bounded diagnostics for non-JSON/wrong-status
+  replies. Preserve failure rather than claiming an edge denial proves native
+  application admission; add actual failure-preservation tooling regressions.
 
 ## Shared agentic Studio grids — 14 October 2026
 
