@@ -48,11 +48,20 @@ it does not map every original Shopware UUID or DAL association.
 Customer requests use `x-tenant` and `x-customer-token`. Cart requests additionally
 use the capability `sw-context-token`; address-ID selection needs both the owning
 customer session and its authenticated cart. **Entering an email grants no
-customer identity.** New guest orders cannot be exposed to a registered account
-simply because that account has the same email. Legacy pre-snapshot orders retain
-the earlier email-based history path; migrate legacy ownership deliberately
-before production import. Completed cart capabilities remain valid for their
+customer identity.** Account orders, PDFs and downloads require the immutable
+customer ID recorded at purchase, through `accounts::ORDER_ACCOUNT_SCOPE`.
+Matching email alone does not assign either new or historical guest orders.
+Legacy pre-snapshot records remain unassigned to accounts; there is no automatic
+claim/backfill from an unverified contact email. Qualified CRM staff still see
+them, and paid guest files retain exact original cart-token admission.
+Completed cart capabilities remain valid for their
 payment handoff; logout invalidates open carts, not existing provider operations.
+
+Review identity follows the same principle: a purchase badge needs the original
+cart or recorded account ID, never typed contact email. Cart/account review
+namespaces stay separate; customer review-count rules consume actual account
+submissions. Migration 093 removes old email-derived badges without rewriting
+approved text/ratings or fabricating historical identities.
 
 The storefront collects email and billing address for every checkout, with a
 separate delivery address when wanted. Financial/manual methods require those

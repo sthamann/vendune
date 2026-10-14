@@ -54,7 +54,40 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:orders=list(po
 o=orders[0];assert len({v['id'] for v in orders})==1 and o['payment']['state']=='pending' and o['payment']['provider']=='manual' and not o['payment']['realMoneyCharged']
 assert all(o['deliveries'][0]['shippingLocation']['address'][k]==v for k,v in address.items()) and o['deliveries'][0]['shippingLocation']['address']['country']=='FR' and o['orderCustomer']['email']==guest_email and o['deliveries'][0]['deliveryDate']['basis']=='calendar-days';check('concurrent manual-payment checkout snapshots address, method and delivery dates exactly once')
 assert detail('mug-sage-350',h)['product']['stock']==sku_stock-6 and detail('mug',h)['product']['stock']==base_stock;check('only the selected SKU stock is decremented')
-r2=req('/store-api/product/mug-sage-350/reviews',{'author':'HTTP Demo','rating':5,'title':'Verified demo order','content':'Synthetic purchase already completed.'},h);assert r2['verifiedPurchase'];check('verified review requires an actual order belonging to customer context')
+spoof,spoof_h=cart()
+spoof=select(spoof,spoof_h,customerEmail=guest_email)
+spoof_review=req('/store-api/product/mug-sage-350/reviews',{'author':'Unverified guest','rating':3,'title':'Email is not purchase proof','content':'A different cart only typed the buyer contact email.'},spoof_h)
+assert not spoof_review['verifiedPurchase'], 'A claimed guest email forged verified-purchase authority'
+r2=req('/store-api/product/mug-sage-350/reviews',{'author':'HTTP Demo','rating':5,'title':'Verified demo order','content':'Synthetic purchase already completed.'},h);assert r2['verifiedPurchase'];check('verified review needs original cart/account proof; a typed guest email cannot forge or reserve the buyer review identity')
+review_account=req('/store-api/account/register',{'email':guest_email,'name':'New review account','password':'Synthetic-review-account-2026!'})
+review_auth={**public,'x-customer-token':review_account['customerToken']}
+review_cart=req('/store-api/checkout/cart',{},review_auth)
+review_auth['sw-context-token']=review_cart['token']
+condition={'type':'shopwareCondition','name':'numberOfReviews','config':{'operator':'>=','count':1}}
+rpc={'jsonrpc':'2.0','id':1,'method':'tools/call','params':{'name':'automation.preview','arguments':{'condition':condition}}}
+assert not req('/mcp',rpc,{**merchant,**review_auth})['result']['structuredContent']['matched']
+own_review=req('/store-api/product/mug-sage-350/reviews',{'author':'Authenticated account','rating':4,'title':'Own account review','content':'A real account submission is a separate reviewer identity.'},review_auth)
+assert not own_review['verifiedPurchase']
+assert req('/mcp',rpc,{**merchant,**review_auth})['result']['structuredContent']['matched']
+check('native review-count rules exclude claimed-email guest reviews and consume actual stable-account submissions')
+if os.getenv('TEST_DATABASE'):
+    from testing.database import psql
+    import subprocess
+    from urllib.parse import urlsplit
+    database=os.environ['TEST_DATABASE']
+    assert urlsplit(os.environ['DATABASE_URL']).path[1:]==database
+    legacy_review='legacy-review-'+suffix
+    upgrade=f"""BEGIN; SET LOCAL rac.system='on';
+    INSERT INTO product_reviews(id,tenant,product_id,session,author,rating,title,content,verified,approved)
+      VALUES('{legacy_review}','{workspace['workspace']}','mug','{guest_email}','Historical guest',4,'Legacy title','Legacy content',true,true);
+    DELETE FROM commerce_migrations WHERE version='093-review-identity'; COMMIT;"""
+    pg=psql(os.environ['TEST_DB_CONTAINER'],'commerce',database,'-v','ON_ERROR_STOP=1','-At')
+    subprocess.run(pg,input=upgrade,text=True,check=True,stdout=subprocess.DEVNULL)
+    boot=subprocess.run([str(pathlib.Path(__file__).resolve().parents[1]/'target/debug/veyndo')],env={**os.environ,'BOOTSTRAP_MODE':'migrate','SEED_DEMO':'false'},capture_output=True,text=True,timeout=30)
+    assert boot.returncode==0,(boot.stdout,boot.stderr)
+    persisted=subprocess.check_output(pg,input=f"SELECT verified::text||'|'||approved::text||'|'||title||'|'||content FROM product_reviews WHERE id='{legacy_review}';",text=True).strip()
+    assert persisted=='false|true|Legacy title|Legacy content',persisted
+    check('native upgrade withdraws historical email-derived badges without rewriting review text, rating or moderation')
 req('/api/merchant/orders/'+o['id']+'/transition',{'revision':1,'kind':'delivery','state':'delivered'},merchant,expected=409)
 req('/api/merchant/orders/'+o['id']+'/transition',{'revision':1,'kind':'payment','state':'paid'},expected=401)
 o=req('/api/merchant/orders/'+o['id']+'/transition',{'revision':1,'kind':'payment','state':'paid'},merchant)

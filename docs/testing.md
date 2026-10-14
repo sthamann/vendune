@@ -46,6 +46,22 @@ claim. Native workflow/group metadata are now explicit navigation fixtures.
 
 ## System consistency audit — 14 October 2026
 
+The subsequent legacy-ownership case exposed a separate real admission defect:
+a new account could see an old email-only guest order. The new regression models
+the historical persisted shape only in the disposable database. The corrected
+native account/download owners share one immutable customer-ID SQL predicate;
+existing digital/PDF tests additionally verify denied claimant access, preserved
+original guest-cart capability and admitted CRM/merchant access. Unbound old
+records are not silently assigned or financially rewritten. SQL execution remains
+outside the selected Lean proofs.
+
+The identity-class follow-up also reproduces a forged verified-purchase badge
+through typed guest email. The corrected review producer and native `numberOfReviews`
+rule consumer are tested together: guest-email inheritance is excluded, actual
+account submission is counted, and the real original cart can still review its
+purchase. All nine affected native suites pass. A separate native migration-only
+upgrade confirms 093 withdraws the old badge while retaining approval/text/rating.
+
 [Second pass and full component matrix](system-consistency-audit.md#component-status-at-the-second-pass):
 **49 registered native HTTP/PostgreSQL/provider suites** pass at `b4fb561`, followed
 by a reproduced history-discovery counterexample and its targeted repair. MCP now
