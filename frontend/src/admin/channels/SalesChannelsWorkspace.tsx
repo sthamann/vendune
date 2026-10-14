@@ -8,6 +8,7 @@ import { useChannelText } from "./channel-i18n";
 import Icon from "../../shared/ui/Icon";
 import { freshChannel, type Channel } from "./channel-model";
 import ChannelEditor from "./ChannelEditor";
+import MarketplaceWorkspace from "../../../../extensions/apps/marketplaces/studio/MarketplaceWorkspace";
 import "../styles/sales-channels.css";
 export default function SalesChannelsWorkspace({
   request,
@@ -29,10 +30,13 @@ export default function SalesChannelsWorkspace({
     }>(),
     [categories, setCategories] = useState<Category[]>([]),
     [manage, setManage] = useState(false),
+    [rights, setRights] = useState<string[]>([]),
+    [marketplace, setMarketplace] = useState(false),
     [error, setError] = useState("");
   useEffect(() => {
     let active = true;
     setSelected(null);
+    setMarketplace(false);
     setManage(false);
     setError("");
     Promise.all([
@@ -44,6 +48,7 @@ export default function SalesChannelsWorkspace({
       .then(([a, c, k, p]) => {
         if (active) {
           setChannels(a.channels);
+          setRights(p.permissions);
           setSettings(c.data);
           setCategories(k.elements);
           setManage(
@@ -59,8 +64,21 @@ export default function SalesChannelsWorkspace({
       active = false;
     };
   }, [request, workspace]);
-  const save = (channel: Channel) =>
+  const save = (channel: Channel) => {
     setChannels((old) => [...old.filter((c) => c.id !== channel.id), channel]);
+    setSelected(channel);
+  };
+  if (marketplace && selected && settings)
+    return (
+      <MarketplaceWorkspace
+        request={request}
+        channel={selected.id}
+        name={contentText(selected.data.name, locale, settings.mainLocale)}
+        mainLocale={settings.mainLocale}
+        rights={rights}
+        onBack={() => setMarketplace(false)}
+      />
+    );
   return (
     <div className="studio-page sales-channel-workspace">
       <div className="page-intro">
@@ -89,9 +107,11 @@ export default function SalesChannelsWorkspace({
           canWrite={manage}
           onBack={() => setSelected(null)}
           onSaved={save}
+          onMarketplace={() => setMarketplace(true)}
           onDeleted={() => {
             setChannels((old) => old.filter((c) => c.id !== selected.id));
             setSelected(null);
+            setMarketplace(false);
           }}
         />
       ) : (

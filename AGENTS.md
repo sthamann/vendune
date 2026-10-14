@@ -439,3 +439,16 @@ records stay in their tenant and never become configuration release units.
 Studio/API/MCP share `creation_schema.rs`; the shared customer picker and modular
 creation/review components must not introduce alternate pricing, stores or checkout.
 Run `admin_creation`, CRM/accounts/review/POS regressions and responsive browser flows.
+
+## Channel-to-app setup ownership
+
+Channel creation reuses the native revisioned owner. In-place marketplace setup
+belongs to `extensions/apps/marketplaces/studio/MarketplaceWorkspace`; reuse the
+existing consent, package activation and MarketplacePanel with its channel context.
+Do not link channel actions to an unselected app library or clone provider forms.
+`extensions/apps/storyfront/studio/StoryfrontCreate` opens the existing private
+Experience self-service entry with public identifiers only. The private service
+owns current Core admission, its durable creation job and original Storyfront import;
+never build a public renderer, second catalogue or new identity broker for this link.
+The ordinary SaaS/channel path must not install Storyfront until explicitly connected.
+See `docs/channel-setup.md` for ownership, setup and evidence boundaries.

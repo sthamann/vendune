@@ -12,12 +12,16 @@ import StoryfrontConnections from "./StoryfrontConnections";
 import { useStoryfrontText } from "./storyfront-i18n";
 import { type FrontendConnection } from "./storyfront-model";
 import "./storyfronts.css";
+import StoryfrontCreate from "./StoryfrontCreate";
 export default function StoryfrontView({
   request,
-  role,
+  workspace,
+  rights = [],
 }: {
   request: RequestFn;
-  role: string;
+  role?: string;
+  workspace?: string;
+  rights?: string[];
 }) {
   const { w } = useWorkbenchText();
   const surface = useAppSurfaces().find(
@@ -88,6 +92,13 @@ export default function StoryfrontView({
           {text("refresh")}
         </button>
       </div>
+      {!loading && error !== "load" && workspace && (
+        <StoryfrontCreate
+          request={request}
+          workspace={workspace}
+          rights={rights}
+        />
+      )}
       {loading ? (
         <p role="status">{text("loading")}</p>
       ) : (
@@ -98,7 +109,7 @@ export default function StoryfrontView({
               <StoryfrontConnections frontends={frontends} />
             </>
           )}
-          {!frontends.length && (
+          {!frontends.length && (!workspace || (app?.active && surface)) && (
             <section className="studio-card">
               {app?.active && surface ? (
                 <AppSurfaceView selected={surface} />
@@ -106,12 +117,12 @@ export default function StoryfrontView({
                 error !== "load" && (
                   <>
                     <p>
-                      {app?.active ? text("setupMissing") : w("storyMissing")}
+                      {app?.active ? text("setupMissing") : text("installHint")}
                     </p>
                     {!app?.active && (
                       <button
                         className="studio-primary"
-                        disabled={busy || !["owner", "admin"].includes(role)}
+                        disabled={busy || !rights.includes("apps.manage")}
                         onClick={async () => {
                           if (!app) {
                             setInstalling(true);

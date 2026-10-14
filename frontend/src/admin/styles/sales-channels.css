@@ -175,3 +175,167 @@
   display: grid;
   gap: 10px;
 }
+
+/* Goal cards keep the icon, copy and selected state distinct at every viewport. */
+.channel-kind {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 20px;
+  align-items: start;
+  gap: 16px;
+  position: relative;
+  transition:
+    border-color 180ms,
+    box-shadow 180ms;
+}
+.channel-kind-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--panel);
+  color: var(--accent);
+}
+.channel-kind-copy {
+  display: grid;
+  gap: 8px;
+}
+.channel-kind-copy strong {
+  font-size: 1.08rem;
+  line-height: 1.4;
+}
+.channel-kind-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.channel-kind-selected {
+  color: var(--accent);
+}
+.channel-kind:hover:not(:disabled) {
+  border-color: var(--accent);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.channel-kind:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+.channel-kind:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.channel-editor .channel-steps {
+  margin: 0 0 22px;
+  counter-reset: steps;
+}
+.channel-steps li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  font-size: 0.9rem;
+}
+.channel-steps li > span {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+}
+.channel-steps li[aria-current] > span {
+  color: white;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.channel-editor-heading > .content-language-picker {
+  flex: 0 1 360px;
+}
+.channel-editor .channel-status-hint {
+  max-width: 65ch;
+}
+.channel-editor .channel-visibility {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--panel);
+}
+.channel-editor .channel-review {
+  display: grid;
+  gap: 8px;
+}
+.channel-editor .channel-review p {
+  margin: 0;
+  line-height: 1.6;
+}
+@media (max-width: 700px) {
+  .channel-kind {
+    padding: 18px;
+    gap: 12px;
+    grid-template-columns: 42px minmax(0, 1fr) 18px;
+  }
+  .channel-kind-icon {
+    width: 42px;
+    height: 42px;
+  }
+  .channel-editor .channel-steps {
+    gap: 6px;
+  }
+  .channel-editor .channel-steps li {
+    padding: 10px 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .channel-kind {
+    transition: none;
+  }
+}
+
+/* Studio's generic button reset must not flatten the channel choice cards. */
+.studio .channel-kind {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  color: var(--text);
+}
+.studio .channel-kind[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--hover);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+.studio .channel-kind:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+.channel-editor-heading > .intl-language-switcher {
+  flex: 0 1 360px;
+  padding: 12px 14px;
+  gap: 8px;
+  box-shadow: none;
+}
+.channel-editor-heading .intl-language-switcher label {
+  width: 100%;
+}
+.channel-editor-heading .intl-language-switcher small {
+  font-size: 0.75rem;
+}
+.channel-launch {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+  padding: clamp(24px, 4vw, 48px);
+}
+.channel-launch h2,
+.channel-launch p {
+  margin: 0;
+}
+.channel-launch p {
+  max-width: 60ch;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.channel-launch [role="status"] {
+  color: var(--accent);
+  font-weight: 700;
+}

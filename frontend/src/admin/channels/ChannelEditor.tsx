@@ -1,4 +1,6 @@
 /** Guided channel creation/editing reuses the native revisioned API and shared content-language inheritance. */
+import ChannelReview from "./ChannelReview";
+import ChannelLaunch from "./ChannelLaunch";
 import ChannelActions from "./ChannelActions";
 import ChannelConnections from "./ChannelConnections";
 import ChannelCatalog from "./ChannelCatalog";
@@ -15,7 +17,7 @@ import { contentText } from "../../shared/i18n/content-language";
 import { useLocale } from "../../shared/i18n/i18n";
 import ConfirmDialog from "../../shared/ui/ConfirmDialog";
 import EntityHistory from "../../shared/history/EntityHistory";
-
+import ChannelVisibility from "./ChannelVisibility";
 import ChannelType from "./ChannelType";
 import ChannelSettings from "./ChannelSettings";
 export default function ChannelEditor({
@@ -30,6 +32,7 @@ export default function ChannelEditor({
   onBack,
   onSaved,
   onDeleted,
+  onMarketplace,
 }: {
   initial: Channel;
   request: RequestFn;
@@ -42,10 +45,12 @@ export default function ChannelEditor({
   onBack: () => void;
   onSaved: (channel: Channel) => void;
   onDeleted?: () => void;
+  onMarketplace?: () => void;
 }) {
   const life = useLifecycleText();
   const t = useChannelText(),
     { locale } = useLocale();
+  const [wasNew] = useState(initial.revision === 0);
   const [draft, setDraft] = useState(initial),
     [baseline, setBaseline] = useState(JSON.stringify(initial)),
     [step, setStep] = useState(0),
@@ -93,7 +98,7 @@ export default function ChannelEditor({
             ? "productsRequired"
             : null;
     if (field) {
-      setError(t(field));
+      setError("");
       if (field === "nameRequired") setLanguage(mainLocale);
       return false;
     }
@@ -121,6 +126,15 @@ export default function ChannelEditor({
       setBusy(false);
     }
   };
+  if (wasNew && draft.revision > 0 && notice)
+    return (
+      <ChannelLaunch
+        channel={draft}
+        mainLocale={mainLocale}
+        onEdit={() => setNotice(false)}
+        onMarketplace={onMarketplace}
+      />
+    );
   return (
     <ContentLanguage
       locales={languages}
@@ -141,7 +155,7 @@ export default function ChannelEditor({
             <h2>
               {contentText(draft.data.name, locale, mainLocale) || t("new")}
             </h2>
-            <code>{draft.id}</code>
+            {draft.revision > 0 && <code>{draft.id}</code>}
           </div>
           <ContentLanguagePicker />
         </header>
@@ -190,6 +204,7 @@ export default function ChannelEditor({
               disabled={!canWrite || dirty || busy}
               onToggle={() => setConfirm("active")}
               onDeleted={onDeleted ?? onBack}
+              onMarketplace={onMarketplace}
             />
           </nav>
         )}
@@ -213,7 +228,7 @@ export default function ChannelEditor({
               <ol className="channel-steps">
                 {(["basics", "catalog", "review"] as const).map((k, i) => (
                   <li key={k} aria-current={step === i ? "step" : undefined}>
-                    {i + 1}. {t(k)}
+                    <span>{i + 1}</span> {t(k)}
                   </li>
                 ))}
               </ol>
@@ -224,28 +239,31 @@ export default function ChannelEditor({
                   ? "readOnly"
                   : draft.revision && !dirty
                     ? "unchanged"
-                    : "editHint",
+                    : draft.revision
+                      ? "editHint"
+                      : (
+                          [
+                            "createHint",
+                            "createCatalogHint",
+                            "createReviewHint",
+                          ] as const
+                        )[step],
               )}
             </p>
             <fieldset disabled={!canWrite || busy}>
-              <label className="channel-visibility">
-                {t("visibility")}
-                <select
-                  aria-label={t("visibility")}
-                  value={draft.data.visibility ?? "public"}
-                  onChange={(e) =>
-                    patch({
-                      visibility: e.target.value as "public" | "private",
-                    })
-                  }
-                >
-                  <option value="public">{t("public")}</option>
-                  <option value="private">{t("private")}</option>
-                </select>
-                <span>{t("visibilityHint")}</span>
-              </label>
               {(draft.revision > 0 || step === 0) && (
                 <>
+                  <ChannelType
+                    request={request}
+                    draft={draft}
+                    patch={patch}
+                    countries={countries}
+                    countryError={
+                      attempted && missing.country
+                        ? t("countryRequired")
+                        : undefined
+                    }
+                  />
                   <LocalizedField
                     label={t("name")}
                     value={draft.data.name}
@@ -258,19 +276,12 @@ export default function ChannelEditor({
                     }
                     maxLength={100}
                   />
-                  <ChannelType
-                    request={request}
-                    draft={draft}
-                    patch={patch}
-                    countries={countries}
-                    countryError={
-                      attempted && missing.country
-                        ? t("countryRequired")
-                        : undefined
-                    }
-                  />
                 </>
               )}
+              {(draft.revision > 0 || step === 0) &&
+                !["pos", "marketplace"].includes(draft.data.kind) && (
+                  <ChannelVisibility draft={draft} patch={patch} />
+                )}
               {(draft.revision > 0 || step === 1) && (
                 <>
                   <ChannelCatalog
@@ -296,20 +307,7 @@ export default function ChannelEditor({
                 </>
               )}
               {!draft.revision && step === 2 && (
-                <div className="channel-review">
-                  <strong>
-                    {contentText(draft.data.name, locale, mainLocale)}
-                  </strong>
-                  <p>
-                    {t(draft.data.kind)} · {draft.data.locales.join(" · ")}
-                  </p>
-                  <p>
-                    {draft.data.productIds.length
-                      ? `${t("selected")}: ${draft.data.productIds.length}`
-                      : t("all")}
-                  </p>
-                  <p>{t("scopeHint")}</p>
-                </div>
+                <ChannelReview draft={draft} mainLocale={mainLocale} />
               )}
               <footer className="workbench-row">
                 {!draft.revision && step > 0 && (

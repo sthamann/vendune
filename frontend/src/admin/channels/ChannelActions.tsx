@@ -12,6 +12,7 @@ export default function ChannelActions({
   disabled,
   onToggle,
   onDeleted,
+  onMarketplace,
 }: {
   draft: Channel;
   request: RequestFn;
@@ -19,6 +20,7 @@ export default function ChannelActions({
   disabled: boolean;
   onToggle: () => void;
   onDeleted: () => void;
+  onMarketplace?: () => void;
 }) {
   const t = useChannelText(),
     [busy, setBusy] = useState(false),
@@ -50,12 +52,20 @@ export default function ChannelActions({
   return (
     <>
       {draft.data.kind === "marketplace" && (
-        <a
+        <button
+          type="button"
           className="studio-secondary"
-          href={`/?shop=${encodeURIComponent(workspace)}&studio=apps&app=marketplaces#merchant`}
+          disabled={disabled || busy}
+          onClick={() =>
+            onMarketplace
+              ? onMarketplace()
+              : location.assign(
+                  `/?shop=${encodeURIComponent(workspace)}&studio=apps&app=marketplaces&channel=${encodeURIComponent(draft.id)}#merchant`,
+                )
+          }
         >
-          {t("marketplaceManage")} ↗
-        </a>
+          {t("marketplaceManage")}
+        </button>
       )}
       {draft.data.kind === "pos" && draft.data.active && (
         <a className="studio-secondary" href={posUrl(workspace, draft.id)}>

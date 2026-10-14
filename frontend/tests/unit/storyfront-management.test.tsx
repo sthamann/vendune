@@ -18,7 +18,7 @@ const mounted = {
 function view(request: any) {
   return (
     <LocaleProvider>
-      <StoryfrontView request={request} role="owner" />
+      <StoryfrontView request={request} role="owner" rights={["apps.manage"]} />
     </LocaleProvider>
   );
 }
@@ -280,7 +280,11 @@ it("reviews permissions before install and refreshes the shared surface registry
   render(
     <LocaleProvider>
       <AppSurfaceProvider request={request} scopeKey="test-shop">
-        <StoryfrontView request={request} role="owner" />
+        <StoryfrontView
+          request={request}
+          role="owner"
+          rights={["apps.manage"]}
+        />
       </AppSurfaceProvider>
     </LocaleProvider>,
   );

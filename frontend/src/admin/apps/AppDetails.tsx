@@ -173,6 +173,9 @@ export default function AppDetails({
             request={request}
             manage={manage}
             mainLocale={mainLocale}
+            channel={
+              new URLSearchParams(location.search).get("channel") ?? undefined
+            }
           />
         )}
         {detailTab === "appDetails" && p.active && p.id === "email" && (

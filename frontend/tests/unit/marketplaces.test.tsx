@@ -115,6 +115,7 @@ it("uses channel currency scale zero and enables the non-English main and fifth 
     minor: 1200,
     currency: { code: "JPY", scale: 0 },
   });
+  expect(save.mock.calls[0][0]).not.toHaveProperty("channel_id");
   expect(screen.getByRole("option", { name: /Italian/ })).toBeInTheDocument();
   expect(screen.getByRole("option", { name: /Japanese/ })).toBeInTheDocument();
   expect(fields(freshOffer(connection)).description).toBeNull();

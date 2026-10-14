@@ -95,6 +95,10 @@ billing/shipping addresses, build an order from the native catalogue and approve
 exact quote before placing it. The same Rust checkout owns prices, stock and events.
 [Follow the illustrated Admin walkthrough](docs/admin-workflows.md).
 
+Create sales channels with a guided type-first setup, enter Marketplace Studio in
+that channel’s context, or connect an existing shop to the original Storyfront.
+[Illustrated channel and experience walkthrough](docs/channel-setup.md).
+
 ## Get started
 
 **Hosted SaaS:** [create a normal shop](https://start.veyndo.ai/start) empty, with

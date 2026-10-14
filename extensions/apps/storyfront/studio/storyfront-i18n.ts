@@ -1,6 +1,37 @@
 /** Four-language navigation copy; mounted frontends are connections, not proof of publication. */
 import { useLocale } from "../../../../frontend/src/shared/i18n/i18n";
 export const storyfrontWords = {
+  create: [
+    "Create an experience",
+    "Experience erstellen",
+    "Créer une expérience",
+    "Crear una experiencia",
+  ],
+  createHint: [
+    "Use this shop’s products and checkout. Describe the look you want, then continue in the original Storyfront editor.",
+    "Nutze Produkte und Checkout dieses Shops. Beschreibe den gewünschten Look und bearbeite anschließend alles im originalen Storyfront-Editor.",
+    "Utilisez les produits et le paiement de cette boutique. Décrivez le style puis continuez dans l’éditeur Storyfront original.",
+    "Usa los productos y checkout de esta tienda. Describe el estilo y continúa en el editor original de Storyfront.",
+  ],
+  createRights: [
+    "Creation requires app management, channel management and settings write permissions.",
+    "Zum Erstellen brauchst du App-Verwaltung, Kanal-Verwaltung und Schreibrechte für Einstellungen.",
+    "La création nécessite la gestion des apps, des canaux et des réglages.",
+    "Crear requiere gestionar apps, canales y ajustes.",
+  ],
+  createUnavailable: [
+    "Self-service hosting is not configured on this installation. Existing connected editors remain available.",
+    "Für diese Installation ist das Self-Service-Hosting noch nicht konfiguriert. Bereits verbundene Editoren bleiben verfügbar.",
+    "L’hébergement en libre-service n’est pas configuré. Les éditeurs connectés restent accessibles.",
+    "El alojamiento de autoservicio no está configurado. Los editores conectados siguen disponibles.",
+  ],
+  installHint: [
+    "For a hosted experience, use the guided creation above. An independent Storyfront service can also be connected through the app.",
+    "Für eine gehostete Experience nutze die geführte Erstellung oben. Ein unabhängiger Storyfront-Dienst kann zusätzlich über die App verbunden werden.",
+    "Utilisez la création guidée ci-dessus pour une expérience hébergée. Un service indépendant peut aussi être connecté par l’app.",
+    "Usa la creación guiada para una experiencia alojada. También puedes conectar un servicio independiente mediante la app.",
+  ],
+
   setupMissing: [
     "Storyfront is installed, but its workspace is not available yet. The operator must configure the Storyfront service for this shop. Installing the app alone does not create an experience.",
     "Storyfront ist installiert, aber der Arbeitsbereich ist noch nicht verfügbar. Der Betreiber muss den Storyfront-Dienst für diesen Shop konfigurieren. Die App-Installation allein erstellt keine Experience.",
