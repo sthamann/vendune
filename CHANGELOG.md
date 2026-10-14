@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased — EDI identity and hosted RLS evidence
+
+- EDI exports fingerprint the actual serialized document and native source identifiers; operational notes no longer change an identical export's identity. The regression uses the existing native order-note API, and the implementation stays app-owned.
+- The repeated consistency audit records that hosted Core `540e066` has no mandatory RLS switch or separate runtime credential. Strict local RLS tests do not certify that hosting configuration; provisioning awaits its specific hosting confirmation.
+
 ## First visitor and contributor entry — 14 October 2026
 
 - Add one connected first tour, an agent workshop and a scoped public roadmap.

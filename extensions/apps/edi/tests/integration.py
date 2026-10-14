@@ -83,7 +83,11 @@ try:
    args={'partnerId':fmt,'format':fmt,'kind':kind,'orderId':order['id'],**({'receiptId':r['id']}if r else{})}
    e=call(core_url,'/api/apps/edi/actions/export_document',args,h);assert e['document'] and not e['networkCertified']
    if kind=='invoice':assert receipt['number'] in e['document']
-   assert e==call(core_url,'/api/apps/edi/actions/export_document',args,h)
+   if kind=='order_response':
+    current=call(core_url,'/api/merchant/orders/'+order['id'],h=h)
+    call(core_url,'/api/merchant/orders/'+order['id']+'/notes',{'revision':current['revision'],'text':'Operational note must not alter EDI document identity'},h)
+   repeated=call(core_url,'/api/apps/edi/actions/export_document',args,h)
+   assert e==repeated,(fmt,kind,{k:(e.get(k),repeated.get(k)) for k in e.keys()|repeated.keys() if e.get(k)!=repeated.get(k)})
  call(core_url,'/api/apps/edi/core/receipt_snapshot',{'id':order['id'],'receiptId':receipt['id']},{**kh,'x-tenant':foreign['x-tenant']},403)
  call(core_url,'/api/apps/edi/core/receipt_snapshot',{'id':'wrong-order','receiptId':receipt['id']},kh,404)
  no_pii=call(core_url,'/api/apps/edi/credentials',{'digest':call(core_url,'/api/apps/edi/credentials',h=h)['digest'],'approve':True,'permissions':['orders.read','documents.read'],'expiresInDays':1},h)

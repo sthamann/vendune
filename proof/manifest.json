@@ -533,8 +533,8 @@
     },
     "extensions/apps/edi/service/export.rs": {
       "status": "unproved",
-      "sha256": "1d6bb96b939730f390fa77c1b16cfdf12d94e5003c6646ec21259200a2dd3984",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "ec7d7bea3f89152112cae17d47f788158e93134b0ffbaed83effa080f456846d",
+      "review": "Reviewed app-owned EDI document identity: source hash binds the actual rendered document and explicit native source IDs, excluding mutable order activity/workflow. Deterministic real HTTP/PG counterexample adds an operational note; native receipts, partner authorization, cancellation and amount guards retained. This exporter remains unproved by Lean."
     },
     "extensions/apps/edi/service/export_tests.rs": {
       "status": "unproved",
