@@ -359,10 +359,14 @@ This lists every checked-in source module in these roots, including files with n
 | [src/operations/customer_lookup.rs](../src/operations/customer_lookup.rs) | Fast customer-only lookup for native identity bindings: tenant-scoped, indexed and bounded; no guest-order union. |
 | [src/operations/customers.rs](../src/operations/customers.rs) | Tenant-scoped paged CRM and revision-checked merchant changes; credentials never leave storage. |
 | [src/operations/delivery_booking.rs](../src/operations/delivery_booking.rs) | Provider-neutral package admission freezes allocation before a paid carrier effect; approved apps reconcile only their own intent. |
+| [src/operations/grid_plan.rs](../src/operations/grid_plan.rs) | Read-only filter planning through the central provider and fleet leases; execution remains native list APIs. |
+| [src/operations/grid_schema.rs](../src/operations/grid_schema.rs) | One allowlisted list-filter schema for model plans and MCP; no model-supplied SQL or tenant identity. |
 | [src/operations/guest_customers.rs](../src/operations/guest_customers.rs) | Merchant-only guest contact projection; order snapshots never create account authority. |
+| [src/operations/list_criteria.rs](../src/operations/list_criteria.rs) | Bounded native order/customer filter and sort contracts, reused by HTTP, MCP and reviewed grid plans. |
 | [src/operations/master_data.rs](../src/operations/master_data.rs) | Revisioned tenant company basis and sparse channel overrides, serialized with receipt issuance. |
 | [src/operations/mod.rs](../src/operations/mod.rs) | Merchant CRM and fulfillment APIs, shared verbatim with MCP operations capabilities. |
 | [src/operations/order_documents.rs](../src/operations/order_documents.rs) | Immutable private carrier documents belong to the existing order receipt store, never product assets. |
+| [src/operations/order_list.rs](../src/operations/order_list.rs) | Parameter-bound global order filters and stable tuple cursors; query text never becomes SQL. |
 | [src/operations/orders.rs](../src/operations/orders.rs) | Bounded order search, token-redacted detail and append-only operational notes. |
 | [src/operations/receipt_pdf.rs](../src/operations/receipt_pdf.rs) | Minimal paginated PDF serializer with WinAnsi Helvetica; snapshot retains complete Unicode originals. |
 | [src/operations/receipt_text.rs](../src/operations/receipt_text.rs) | Four-language document labels and authoritative snapshot-to-print projection. |
@@ -533,13 +537,14 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/b2b/experience-i18n.ts](../frontend/src/admin/b2b/experience-i18n.ts) | Guided company purchasing and shared settings copy in all bundled interface languages. |
 | [frontend/src/admin/b2b/reference.ts](../frontend/src/admin/b2b/reference.ts) | Native organization IDs require a lowercase letter first and at most 32 characters. |
 | [frontend/src/admin/catalog/AiImageStudio.tsx](../frontend/src/admin/catalog/AiImageStudio.tsx) | Optional image-provider jobs create private previews; applying a reviewed image is explicit and revision checked. |
+| [frontend/src/admin/catalog/CatalogDirectory.tsx](../frontend/src/admin/catalog/CatalogDirectory.tsx) | Product columns and native catalog criteria over the shared grid; media/price/content stay domain-owned. |
 | [frontend/src/admin/catalog/CategoriesWorkspace.tsx](../frontend/src/admin/catalog/CategoriesWorkspace.tsx) | Localized category tree editor; parent moves and revisions are validated in the API. |
 | [frontend/src/admin/catalog/CategoryFactQuery.tsx](../frontend/src/admin/catalog/CategoryFactQuery.tsx) | One saved predicate on current public evidence; reuses category CAS and the editor's selected content language. |
 | [frontend/src/admin/catalog/MediaDropzone.tsx](../frontend/src/admin/catalog/MediaDropzone.tsx) | Accessible multi-file upload with drag/drop, visible progress and the same validated asset API as attachments. |
 | [frontend/src/admin/catalog/PairFields.tsx](../frontend/src/admin/catalog/PairFields.tsx) | Accessible key/value rows for product properties, specifications and variant options. |
 | [frontend/src/admin/catalog/ProductAssets.tsx](../frontend/src/admin/catalog/ProductAssets.tsx) | Bounded upload and explicit digest-bound publication of attachments and paid files. |
 | [frontend/src/admin/catalog/ProductCurrencyPrices.tsx](../frontend/src/admin/catalog/ProductCurrencyPrices.tsx) | Exact per-currency decimals live in the same revisioned product draft, including variants. |
-| [frontend/src/admin/catalog/ProductDataView.tsx](../frontend/src/admin/catalog/ProductDataView.tsx) | Central catalog workspace: server-filtered cursor list, product details and hierarchical categories. |
+| [frontend/src/admin/catalog/ProductDataView.tsx](../frontend/src/admin/catalog/ProductDataView.tsx) | Central catalog workspace uses shared server-paged grids, existing product editing and hierarchical categories. |
 | [frontend/src/admin/catalog/ProductEditor.tsx](../frontend/src/admin/catalog/ProductEditor.tsx) | Revision-aware product aggregate editor: one save, translation tabs and product-scoped linked capabilities. |
 | [frontend/src/admin/catalog/ProductEditorActions.tsx](../frontend/src/admin/catalog/ProductEditorActions.tsx) | Product mutation actions share the workspace write grant; read-only users can still inspect all product tabs. |
 | [frontend/src/admin/catalog/ProductEditorExtras.tsx](../frontend/src/admin/catalog/ProductEditorExtras.tsx) | Price-tax selection and permission-filtered extension slots attached to the product editor. |
@@ -570,6 +575,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/channels/channel-i18n.ts](../frontend/src/admin/channels/channel-i18n.ts) | Sales-channel onboarding and inherited settings vocabulary in all interface languages. |
 | [frontend/src/admin/channels/channel-model.ts](../frontend/src/admin/channels/channel-model.ts) | Existing sales-channel contract and safe storefront URLs; independent tenants remain a separate concept. |
 | [frontend/src/admin/channels/connection-i18n.ts](../frontend/src/admin/channels/connection-i18n.ts) | Domain lifecycle copy in every supported Studio language. |
+| [frontend/src/admin/customers/CustomerDirectory.tsx](../frontend/src/admin/customers/CustomerDirectory.tsx) | Registered and guest contacts share native directory filters and permission-aware grid controls. |
 | [frontend/src/admin/customers/CustomersManager.tsx](../frontend/src/admin/customers/CustomersManager.tsx) | CRM list and editable customer profile with linked order history. |
 | [frontend/src/admin/customers/GuestContact.tsx](../frontend/src/admin/customers/GuestContact.tsx) | Read-only checkout snapshots distinguish guest contacts from authenticated customer accounts. |
 | [frontend/src/admin/dashboard/OverviewView.tsx](../frontend/src/admin/dashboard/OverviewView.tsx) | OverviewView renders verified shop state and typed user actions. |
@@ -652,9 +658,10 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/legal/LegalSettings.tsx](../frontend/src/admin/legal/LegalSettings.tsx) | Central revisioned legal workspace, inherited channel settings, source-backed sector guidance and request review. |
 | [frontend/src/admin/legal/ProductCompliance.tsx](../frontend/src/admin/legal/ProductCompliance.tsx) | Product-owned multilingual regulatory facts; collected evidence never claims automatic product certification. |
 | [frontend/src/admin/orders/OrderDetail.tsx](../frontend/src/admin/orders/OrderDetail.tsx) | Order workspace: server actions, exact-once commands, provider progress and visible event history. |
+| [frontend/src/admin/orders/OrderDirectory.tsx](../frontend/src/admin/orders/OrderDirectory.tsx) | Native server-paged order directory supplies the reusable grid with fulfillment columns and current rights. |
 | [frontend/src/admin/orders/OrderPaymentDelivery.tsx](../frontend/src/admin/orders/OrderPaymentDelivery.tsx) | Payment jobs are observed until confirmation. Delivery actions share the server state machine. |
 | [frontend/src/admin/orders/OrderWorkflow.tsx](../frontend/src/admin/orders/OrderWorkflow.tsx) | Server-owned transitions: one source for permitted actions, labels and business guards. |
-| [frontend/src/admin/orders/OrdersManager.tsx](../frontend/src/admin/orders/OrdersManager.tsx) | Order operations UI. All changes call the same domain endpoints exposed through MCP. |
+| [frontend/src/admin/orders/OrdersManager.tsx](../frontend/src/admin/orders/OrdersManager.tsx) | Order operations and native detail navigation; the shared grid owns only list presentation. |
 | [frontend/src/admin/orders/ReceiptPanel.tsx](../frontend/src/admin/orders/ReceiptPanel.tsx) | Seller configuration and version-bound receipt creation/download. |
 | [frontend/src/admin/orders/ShipmentSplit.tsx](../frontend/src/admin/orders/ShipmentSplit.tsx) | Explicit subset editor uses server admission, parent command fencing and immutable order quantities. |
 | [frontend/src/admin/orders/shipments.css](../frontend/src/admin/orders/shipments.css) | Package allocation stays compact on desktop and touch-friendly on narrow order workspaces. |
@@ -848,6 +855,16 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/geography/geography-types.ts](../frontend/src/shared/geography/geography-types.ts) | World catalogue and tenant destination tax contracts; no inferred tax law. |
 | [frontend/src/shared/geography/geography.css](../frontend/src/shared/geography/geography.css) | Shared country and region search: Studio and checkout use the same accessible controls. |
 | [frontend/src/shared/geography/useCountryCatalogue.ts](../frontend/src/shared/geography/useCountryCatalogue.ts) | Request-scoped geography loading; stale requests cannot move country definitions across shops or sandboxes. |
+| [frontend/src/shared/grid/AgenticGrid.tsx](../frontend/src/shared/grid/AgenticGrid.tsx) | Shared domain-independent grid shell: server criteria, sortable/draggable columns, bounded pages and reviewed AI filters. |
+| [frontend/src/shared/grid/GridAgent.tsx](../frontend/src/shared/grid/GridAgent.tsx) | Read-only model planning over domain-owned criteria; explicit review precedes any list query. |
+| [frontend/src/shared/grid/GridColumns.tsx](../frontend/src/shared/grid/GridColumns.tsx) | Accessible column ordering/visibility controls provide keyboard and touch alternatives to drag headers. |
+| [frontend/src/shared/grid/grid-controls.css](../frontend/src/shared/grid/grid-controls.css) | Reusable blue Studio grid surfaces, restrained motion, contained overflow and light/dark tokens. |
+| [frontend/src/shared/grid/grid-i18n.ts](../frontend/src/shared/grid/grid-i18n.ts) | Typed four-language shared grid vocabulary; commerce content keeps its existing inheritance contract. |
+| [frontend/src/shared/grid/grid.css](../frontend/src/shared/grid/grid.css) | Reusable grid table, result feedback and responsive presentation. |
+| [frontend/src/shared/grid/preferences.ts](../frontend/src/shared/grid/preferences.ts) | Layout preferences contain column IDs only, scoped to current origin/shop/environment; never customer rows or search text. |
+| [frontend/src/shared/grid/types.ts](../frontend/src/shared/grid/types.ts) | Shared read-only grid contracts; domains own rows, permissions and server query semantics. |
+| [frontend/src/shared/grid/useGridAccess.ts](../frontend/src/shared/grid/useGridAccess.ts) | Current Studio rights only control presentation; each native list/model operation rechecks server authority. |
+| [frontend/src/shared/grid/useGridPage.ts](../frontend/src/shared/grid/useGridPage.ts) | Debounced server paging with generation fences: old searches and revoked reads never retain stale rows. |
 | [frontend/src/shared/history/EntityHistory.tsx](../frontend/src/shared/history/EntityHistory.tsx) | On-demand entity history, field comparisons and explicitly confirmed revision-checked restoration. |
 | [frontend/src/shared/history/history-model.ts](../frontend/src/shared/history/history-model.ts) | Bounded structural changes for database snapshots; no HTML from historical content is executed. |
 | [frontend/src/shared/history/history.css](../frontend/src/shared/history/history.css) | Shared history deliberately stays secondary to editing and loads only when opened. |
@@ -1184,6 +1201,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/formal/registry.py](../scripts/formal/registry.py) | Explicit full-source inventory and reviewed adapter locks, not proof coverage claims. |
 | [scripts/formal/runners.py](../scripts/formal/runners.py) | Generate conformance drivers from parsed policy signatures, never a second policy implementation. |
 | [scripts/formal.py](../scripts/formal.py) | Run extraction, Lean proofs/axiom audit, compiled conformance and complete source-inventory checks. |
+| [scripts/grid_directory.py](../scripts/grid_directory.py) | Real native directories and read-only model planning in an isolated PostgreSQL database and loopback provider. |
 | [scripts/hosting_check.py](../scripts/hosting_check.py) | Check a deployed experimental SaaS HTTPS origin without credentials or real orders. |
 | [scripts/hosting_container.py](../scripts/hosting_container.py) | Smoke-test the built deployment image against an isolated database on the local Compose network. |
 | [scripts/identity_broker.py](../scripts/identity_broker.py) | Synthetic broker signatures, durable replay prevention, scoped frontend routing and private Studio handoff; no provider calls. |

@@ -378,7 +378,7 @@ no model or external delivery provider. The exact current source inventory is
 
 | File/group | Responsibility | Regression evidence |
 |---|---|---|
-| `commerce/product_admin.rs`, `product_admin.sql`, `product_channels.rs`, `product_edit.rs`, `product_fields.rs` | Bounded merchant queries, product/variant creation, atomic revision saves, inventory/pricing and category/channel assignments | `catalog_management.py`, `commerce.py`, `merchant_operations.py`, frontend catalog-management tests |
+| `commerce/product_admin.rs`, `product_channels.rs`, `product_edit.rs`, `product_fields.rs` | Bounded merchant queries, product/variant creation, atomic revision saves, inventory/pricing and category/channel assignments | `catalog_management.py`, `commerce.py`, `merchant_operations.py`, frontend catalog-management tests |
 | `categories/{mod,admin,navigation}.rs`, `listing.sql`, migrations 026/027 | Tenant-safe translated tree, navigation roots, membership, nested product listings, indexed search | Rust validation tests; real category/cycle/visibility/locale/channel HTTP tests |
 | `assets/rich_document.rs`, shared `rich-document.tsx`, admin `RichEditor.tsx` | Safe structured WYSIWYG admission and storefront rendering | Rust unsafe-content negatives, actual React renderer tests, browser save/reload |
 | `admin/catalog/{ProductDataView,ProductEditor,ProductPanels,ProductMediaWorkspace,MediaDropzone,AiImageStudio,ProductVariants,RelatedProducts,CategoriesWorkspace}.tsx` | One list/create/detail workspace, gallery/SKU/category workflows | Strict build, architecture constraints, unit tests and real synthetic browser creation |
@@ -590,3 +590,15 @@ Experience owner implements email recovery/forms and rechecks current native pro
 | `src/apps/jobs.rs`, `src/marketing/app_flows.rs` | Current actor/action/digest admission for job results, minimized list projections and stable Flow-to-job identity; `shipping_contract.py` drives a real local service, restart and rights revocation. |
 | `extensions/apps/assistant-examples/shipping.json`, `admin/developer/assistant-model.ts` | One carrier-neutral job/callback declaration for coding and visual assistants. No carrier protocol or deployable provider is shipped. |
 | `src/verified_kernel/fulfillment.rs` | Extracted strict-subset and carrier-intent decisions, Lean statements, compiled conformance and negative mutations; surrounding SQL/network effects remain tested rather than proved. |
+
+## Shared agentic grids — 14 October 2026
+
+`frontend/src/shared/grid/` owns the generic shell, layout-only preferences, stale-read
+fences and explicit filter review. The order/catalog/customer directory adapters own
+columns and navigation; declarative `NativeDataBlock` tables reuse only presentation
+and retain their existing action/inline-form contracts.
+
+`operations/{list_criteria,order_list,grid_schema,grid_plan}.rs` and existing catalog/
+customer list owners supply native validated queries and central model planning.
+MCP shares the field schema and handlers. `grid_directory.py` runs actual isolated
+PostgreSQL/Store API/HTTP/MCP/model wire checks. [Guide and ownership boundaries](agentic-grids.md).

@@ -1,0 +1,234 @@
+/** Typed four-language shared grid vocabulary; commerce content keeps its existing inheritance contract. */
+import { useLocale } from "../i18n/i18n";
+const words = {
+  closeColumns: [
+    "Close columns",
+    "Spalten schließen",
+    "Fermer les colonnes",
+    "Cerrar columnas",
+  ],
+  countOne: [
+    "1 result on this page",
+    "1 Ergebnis auf dieser Seite",
+    "1 résultat sur cette page",
+    "1 resultado en esta página",
+  ],
+  readFailure: [
+    "This list could not be loaded. Retry or check your access.",
+    "Die Liste konnte nicht geladen werden. Versuche es erneut oder prüfe deine Zugriffsrechte.",
+    "La liste n’a pas pu être chargée. Réessayez ou vérifiez vos droits.",
+    "No se pudo cargar la lista. Reintenta o revisa tus permisos.",
+  ],
+  details: [
+    "Technical details",
+    "Technische Details",
+    "Détails techniques",
+    "Detalles técnicos",
+  ],
+  open: [
+    "Open details",
+    "Details öffnen",
+    "Ouvrir les détails",
+    "Abrir detalles",
+  ],
+  showColumn: [
+    "Show column",
+    "Spalte anzeigen",
+    "Afficher la colonne",
+    "Mostrar columna",
+  ],
+  active: ["Active", "Aktiv", "Actif", "Activo"],
+  inactive: ["Inactive", "Inaktiv", "Inactif", "Inactivo"],
+  failed: ["Failed", "Fehlgeschlagen", "Échec", "Fallido"],
+  returned: ["Returned", "Retourniert", "Retourné", "Devuelto"],
+  search: [
+    "Search this list",
+    "Diese Liste durchsuchen",
+    "Rechercher dans cette liste",
+    "Buscar en esta lista",
+  ],
+  filters: ["Filters", "Filter", "Filtres", "Filtros"],
+  columns: ["Columns", "Spalten", "Colonnes", "Columnas"],
+  customize: ["Make it yours", "Deine Ansicht", "Votre vue", "Tu vista"],
+  columnsHint: [
+    "Drag columns or use the arrows to arrange your view.",
+    "Ziehe Spalten oder nutze die Pfeile für deine Reihenfolge.",
+    "Déplacez les colonnes ou utilisez les flèches.",
+    "Arrastra columnas o usa las flechas para ordenarlas.",
+  ],
+  left: [
+    "Move left",
+    "Nach links",
+    "Déplacer à gauche",
+    "Mover a la izquierda",
+  ],
+  right: [
+    "Move right",
+    "Nach rechts",
+    "Déplacer à droite",
+    "Mover a la derecha",
+  ],
+  reset: [
+    "Reset view",
+    "Ansicht zurücksetzen",
+    "Réinitialiser la vue",
+    "Restablecer vista",
+  ],
+  clear: [
+    "Clear filters",
+    "Filter zurücksetzen",
+    "Effacer les filtres",
+    "Borrar filtros",
+  ],
+  all: ["All", "Alle", "Tous", "Todos"],
+  compact: [
+    "Compact rows",
+    "Kompakte Zeilen",
+    "Lignes compactes",
+    "Filas compactas",
+  ],
+  empty: [
+    "No matching results",
+    "Keine passenden Ergebnisse",
+    "Aucun résultat",
+    "Sin resultados",
+  ],
+  emptyHint: [
+    "Try another search or clear your filters.",
+    "Versuche eine andere Suche oder setze deine Filter zurück.",
+    "Modifiez la recherche ou effacez les filtres.",
+    "Prueba otra búsqueda o borra los filtros.",
+  ],
+  loading: [
+    "Loading results…",
+    "Ergebnisse werden geladen …",
+    "Chargement…",
+    "Cargando resultados…",
+  ],
+  refresh: ["Refresh", "Aktualisieren", "Actualiser", "Actualizar"],
+  first: ["First page", "Erste Seite", "Première page", "Primera página"],
+  next: ["Next page", "Nächste Seite", "Page suivante", "Página siguiente"],
+  count: [
+    "{count} results on this page",
+    "{count} Ergebnisse auf dieser Seite",
+    "{count} résultats sur cette page",
+    "{count} resultados en esta página",
+  ],
+  agent: [
+    "Ask your list",
+    "Frag deine Liste",
+    "Interroger la liste",
+    "Pregunta a tu lista",
+  ],
+  prompt: [
+    "Describe what you want to find",
+    "Beschreibe, was du finden möchtest",
+    "Décrivez votre recherche",
+    "Describe lo que quieres encontrar",
+  ],
+  exampleOrders: [
+    "Show orders from customer Alex",
+    "Zeige Bestellungen des Kunden Alex",
+    "Afficher les commandes du client Alex",
+    "Mostrar pedidos del cliente Alex",
+  ],
+  exampleProducts: [
+    "Show active products with low stock",
+    "Zeige aktive Produkte mit niedrigem Bestand",
+    "Afficher les produits actifs à stock faible",
+    "Mostrar productos activos con poco stock",
+  ],
+  exampleCustomers: [
+    "Find guest customers",
+    "Finde Kunden mit Gastbestellungen",
+    "Trouver les clients invités",
+    "Buscar clientes invitados",
+  ],
+  plan: [
+    "Create filters",
+    "Filter erstellen",
+    "Créer des filtres",
+    "Crear filtros",
+  ],
+  planning: [
+    "Understanding your request…",
+    "Deine Anfrage wird übersetzt …",
+    "Analyse de la demande…",
+    "Interpretando tu solicitud…",
+  ],
+  review: [
+    "Review your filters",
+    "Deine Filter prüfen",
+    "Vérifier les filtres",
+    "Revisar filtros",
+  ],
+  apply: [
+    "Apply filters",
+    "Filter anwenden",
+    "Appliquer les filtres",
+    "Aplicar filtros",
+  ],
+  cancel: ["Cancel", "Abbrechen", "Annuler", "Cancelar"],
+  agentHint: [
+    "AI suggests filters. You stay in control. No records are changed.",
+    "KI schlägt Filter vor. Du behältst die Kontrolle. Daten werden nicht verändert.",
+    "L’IA propose des filtres. Vous gardez le contrôle. Aucune donnée n’est modifiée.",
+    "La IA propone filtros. Tú decides. No se modifican datos.",
+  ],
+  agentFailure: [
+    "AI search is unavailable. Use the filters or try again.",
+    "Die KI-Suche ist nicht verfügbar. Nutze die Filter oder versuche es erneut.",
+    "Recherche IA indisponible. Utilisez les filtres ou réessayez.",
+    "Búsqueda IA no disponible. Usa los filtros o inténtalo de nuevo.",
+  ],
+  unsupported: [
+    "This request needs clarification. Try a more specific search.",
+    "Diese Anfrage braucht mehr Details. Beschreibe deine Suche genauer.",
+    "Précisez votre recherche.",
+    "La solicitud requiere más detalles. Especifica tu búsqueda.",
+  ],
+  ascending: ["Ascending", "Aufsteigend", "Croissant", "Ascendente"],
+  descending: ["Descending", "Absteigend", "Décroissant", "Descendente"],
+  sort: ["Sort", "Sortieren", "Trier", "Ordenar"],
+  customer: ["Customer", "Kunde", "Client", "Cliente"],
+  created: ["Created", "Erstellt", "Créé", "Creado"],
+  number: ["Number", "Nummer", "Numéro", "Número"],
+  email: ["Email", "E-Mail", "E-mail", "Correo"],
+  payment: ["Payment", "Zahlung", "Paiement", "Pago"],
+  delivery: ["Delivery", "Lieferung", "Livraison", "Envío"],
+  channel: [
+    "Sales channel",
+    "Verkaufskanal",
+    "Canal de vente",
+    "Canal de venta",
+  ],
+  from: ["From date", "Ab Datum", "Depuis", "Desde"],
+  to: ["Through date", "Bis Datum", "Jusqu’au", "Hasta"],
+  company: ["Company", "Firma", "Entreprise", "Empresa"],
+  guest: [
+    "Guest purchase",
+    "Gastbestellung",
+    "Achat invité",
+    "Compra de invitado",
+  ],
+  account: [
+    "Registered account",
+    "Registriertes Konto",
+    "Compte enregistré",
+    "Cuenta registrada",
+  ],
+} as const;
+export type GridWord = keyof typeof words;
+export function useGridText() {
+  const { locale } = useLocale();
+  const i =
+    ({ en: 0, de: 1, fr: 2, es: 3 } as const)[locale.slice(0, 2) as "en"] ?? 0;
+  return {
+    locale,
+    g: (key: GridWord, count?: number) =>
+      words[key === "count" && count === 1 ? "countOne" : key][i].replace(
+        "{count}",
+        String(count ?? ""),
+      ),
+  };
+}

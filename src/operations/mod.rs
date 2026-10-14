@@ -11,6 +11,7 @@ pub(crate) use customers::restore_customer;
 pub(crate) use master_data::save as restore_company;
 mod master_data;
 pub(crate) use master_data::{lock as lock_company, validate_release as validate_company_release};
+mod order_list;
 mod orders;
 mod redacted_reads;
 pub(crate) use redacted_reads::redacted_read;
@@ -27,30 +28,15 @@ mod routes;
 mod workflow;
 pub(crate) use routes::router;
 
-#[derive(Deserialize, Default)]
-pub(crate) struct Criteria {
-    #[serde(default)]
-    pub query: String,
-    #[serde(default)]
-    pub after: String,
-    pub limit: Option<i64>,
-    #[serde(default)]
-    pub state: String,
-}
-impl Criteria {
-    fn validate(&self) -> Result<i64> {
-        if self.query.len() > 200 || self.after.len() > 254 || self.state.len() > 40 {
-            return Err(bad("Invalid search criteria"));
-        }
-        let n = self.limit.unwrap_or(30);
-        if !(1..=100).contains(&n) {
-            return Err(bad("limit must be 1..100"));
-        }
-        Ok(n)
-    }
-}
+mod list_criteria;
+pub(crate) use list_criteria::{Criteria, direction as list_direction};
+mod grid_schema;
+pub(crate) use grid_schema::fields as grid_fields;
+mod grid_plan;
+pub(crate) use grid_plan::visible as grid_visible;
 pub(crate) fn permission(name: &str) -> Option<&'static str> {
     Some(match name {
+        "merchant.grid.plan" => "assistant.use",
         "merchant.company" => "settings.read",
         "merchant.company.save" => "settings.write",
         "merchant.workflow" => "orders.read",
@@ -112,6 +98,9 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
     };
     let criteria = || serde_json::from_value(v.clone()).map_err(|_| bad("Invalid search criteria"));
     let Json(result) = match name {
+        "merchant.grid.plan" => {
+            grid_plan::plan(State(a.clone()), h.clone(), Json(v.clone())).await?
+        }
         "merchant.customer.lookup" => {
             customer_lookup::lookup(
                 State(a.clone()),

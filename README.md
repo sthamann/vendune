@@ -35,6 +35,7 @@ continuous autonomous business optimization remains a development goal.
 | **Agents** | Expose authorized HTTP/MCP actions and scoped UCP checkout paths using the same ownership and revision checks. |
 | **Experiences** | Build storefronts and connected experiences for human shoppers while keeping machine access tied to authoritative commerce data. |
 | **Apps & automation** | Design typed apps visually or with coding agents, test real records privately and run durable event-driven Flows. |
+| **Agentic grids** | Search, filter and sort orders/products/customers, arrange columns and review natural-language filter suggestions through the same native APIs. [Guide](docs/agentic-grids.md). |
 | **Control** | Use team permissions, private sandboxes, selected releases, version history and central model settings. |
 
 [![The VEYNDO Studio with its approved Living V identity](docs/assets/veyndo-studio-en.jpg)](docs/ui-experience.md)
@@ -94,6 +95,13 @@ version. Saving a version and publishing it are separate actions.
 [Watch](docs/assets/showcase/app-studio.mp4) · [Build five useful apps](docs/app-tutorials/README.md).
 
 [![Actual App Studio and private preview](docs/assets/showcase/app-studio.webp)](docs/assets/showcase/app-studio.mp4)
+
+**Agentic grids:** search the full permitted order, product or customer directory,
+arrange your columns and review AI filter suggestions before applying them.
+The same native APIs and current access checks serve people and agents.
+[Illustrated guide](docs/agentic-grids.md).
+
+[![Actual shared order grid](docs/assets/agentic-grid/orders-en.png)](docs/agentic-grids.md)
 
 [Full feature tour](docs/features.md) · [Video transcripts and capture boundaries](docs/video-tours.md).
 

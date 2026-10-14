@@ -1,0 +1,201 @@
+/** Reusable blue Studio grid surfaces, restrained motion, contained overflow and light/dark tokens. */
+.agent-grid {
+  --grid-line: var(--border, #dce4ef);
+  background: var(--surface, #fff);
+  border: 1px solid var(--grid-line);
+  border-radius: 20px;
+  box-shadow: 0 8px 28px rgb(20 40 70 / 4%);
+  min-width: 0;
+  overflow: visible;
+  color: var(--text, #1a2c3e);
+}
+.agent-grid-toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+.agent-grid-search {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 260px;
+  background: var(--bg, #f5f8fc);
+  border: 1px solid var(--grid-line);
+  border-radius: 12px;
+  padding: 0 14px;
+  min-width: 0;
+}
+.agent-grid-search input {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 12px 0 !important;
+  margin: 0 !important;
+}
+.agent-grid-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.agent-grid-tools > button,
+.agent-grid-column-menu > summary,
+.agent-grid-ask {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 12px;
+  border: 1px solid var(--grid-line);
+  border-radius: 10px;
+  min-height: 44px;
+  background: var(--surface, #fff);
+  cursor: pointer;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 600;
+}
+.agent-grid-ask {
+  color: var(--accent, #0874be);
+  background: var(--accent-soft, #edf6ff);
+  border-color: var(--accent-soft, #d6ebff);
+}
+.agent-grid-count {
+  border-radius: 6px;
+  padding: 1px 5px;
+  color: var(--accent, #0874be);
+  background: var(--accent-soft, #edf6ff);
+}
+.agent-grid-column-menu {
+  position: relative;
+}
+.agent-grid-column-menu > summary {
+  list-style: none;
+}
+.agent-grid-column-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  width: min(330px, 80vw);
+  background: var(--surface, #fff);
+  border: 1px solid var(--grid-line);
+  padding: 18px;
+  border-radius: 16px;
+  z-index: 30;
+  box-shadow: 0 16px 48px rgb(20 40 70 / 15%);
+}
+.agent-grid-column-panel p {
+  font-size: 12px;
+  color: var(--muted, #5e738b);
+  margin: 8px 0 14px;
+}
+.agent-grid-column-option {
+  display: flex !important;
+  gap: 8px;
+  align-items: center;
+  padding: 5px 0;
+}
+.agent-grid-column-option label {
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  font-size: 13px;
+}
+.agent-grid-column-option input {
+  width: 16px !important;
+  min-height: 16px !important;
+  margin: 0 !important;
+}
+.agent-grid-column-option button {
+  min-width: 34px;
+  min-height: 34px;
+  padding: 6px;
+  border: 1px solid var(--grid-line);
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+}
+.agent-grid-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  padding: 0 20px 20px;
+}
+.agent-grid-filters label {
+  display: grid;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted, #5e738b);
+}
+.agent-grid-filters input,
+.agent-grid-filters select {
+  min-width: 0;
+  width: 100%;
+  margin: 0 !important;
+  min-height: 44px;
+  color: var(--text, #1a2c3e);
+}
+.agent-grid-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 20px 16px;
+}
+.agent-grid-chips button,
+.agent-grid-chips span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--grid-line);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: var(--text, #1a2c3e);
+  background: var(--bg, #f5f8fc);
+}
+@media (max-width: 680px) {
+  .agent-grid-column-panel {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    top: 20vh;
+    width: auto;
+    max-height: 65vh;
+    overflow: auto;
+  }
+  .agent-grid-column-option {
+    min-height: 44px;
+  }
+  .agent-grid-column-option button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+.agent-grid-popover-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.agent-grid-popover-heading button {
+  display: grid;
+  place-items: center;
+  min-width: 36px;
+  min-height: 36px;
+  border: 1px solid var(--grid-line);
+  border-radius: 9px;
+  background: var(--surface);
+  color: inherit;
+}

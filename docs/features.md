@@ -1,5 +1,9 @@
 # VEYNDO feature guide
 
+**Agentic grids:** shared order/product/customer directories, configurable columns,
+server filtering/sorting and reviewed natural-language criteria. Declarative app
+tables reuse the same visual shell. [How it works and precise scope](agentic-grids.md).
+
 **Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).
 
 **13 October integration audit:** shared current rights, configuration versions,

@@ -30,7 +30,13 @@ function api(path: string) {
     "/api/auth/session": session,
     "/api/apps/surfaces": { surfaces: [] },
     "/api/merchant/orders": { elements: [], nextCursor: null },
+    "/api/merchant/order-state-machine": {
+      data: { states: [] },
+      revision: 1,
+      mainLocale: "en-GB",
+    },
     "/api/merchant/customers": { elements: [], nextCursor: null },
+    "/api/merchant/customer-groups": { elements: [], mainLocale: "en-GB" },
     "/api/search/product": { elements: [] },
     "/api/merchant/products": { elements: [], nextCursor: null },
     "/api/merchant/categories": { elements: [] },
@@ -129,10 +135,13 @@ it("navigates every merchant workspace without duplicating registry requests", a
   for (const button of buttons) {
     await user.click(button);
     await waitFor(() => expect(button).toHaveAttribute("aria-current", "page"));
-    await waitFor(() =>
-      expect(
-        document.querySelector('.studio-content > [role="status"]'),
-      ).toBeNull(),
+    await waitFor(
+      () =>
+        expect(
+          document.querySelector('.studio-content > [role="status"]'),
+          `Workspace ${button.textContent?.trim()} must finish its lazy import`,
+        ).toBeNull(),
+      { timeout: 5000 },
     );
     expect(screen.getByRole("main").textContent?.trim()).not.toBe("");
   }
@@ -140,8 +149,9 @@ it("navigates every merchant workspace without duplicating registry requests", a
     fetcher.mock.calls.filter(([path]) => path === "/api/apps/surfaces"),
   ).toHaveLength(1);
   expect(screen.queryByRole("alert")).not.toBeInTheDocument();
-  // Seventeen lazy workspace transitions share this test budget. Each waitFor
-  // retains its short deadline; instrumented shared CI needs more than 5s total.
+  // Wait for the real ready condition, not a 1s cold-import assumption. The
+  // instrumented runner still has a bounded 5s per import and 20s total budget;
+  // this functional navigation test is not a latency benchmark.
 }, 20_000);
 it("keeps merchant credentials absent when signed out and shows a login path", async () => {
   const fetcher = vi.fn(async (path: string, _init?: RequestInit) => {

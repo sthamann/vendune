@@ -392,3 +392,19 @@ Label creation does not mark dispatch or decrement stock. Unknown paid effects m
 remain fenced across restarts; recovery retrieves only a known original document.
 Native app save callbacks require explicit stable IDs and revisions.
 See `docs/shipping-workflows.md` and `extensions/apps/assistant-examples/shipping.json`.
+
+## Shared grid ownership
+
+New Studio entity directories reuse `frontend/src/shared/grid/AgenticGrid` and native
+list APIs. Domain adapters provide explicit columns, validated server filter/sort keys
+and existing detail navigation. Do not implement browser-only global filtering, a
+second data/API owner, model SQL or a model-supplied principal. `grid_schema` owns
+HTTP/MCP/model criteria; `grid_plan` shares central inference and current domain/PII
+rights. Model suggestions require visible review before a native read. Layout storage
+contains column IDs/density only, never rows, credentials or PII search strings.
+Private stages use their existing request context; no operational records become
+release units. App table presentation may reuse the shell but cannot widen its
+installed action/filter/write contract. All controls ship EN/DE/FR/ES and support
+keyboard/touch ordering, reduced motion and contained responsive overflow.
+Run `grid_directory`, relevant native list/isolation suites and grid/app UI tests.
+See [agentic grids](docs/agentic-grids.md).

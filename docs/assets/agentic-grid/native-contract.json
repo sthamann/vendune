@@ -1,0 +1,126 @@
+{
+  "version": 2,
+  "title": "One native contract",
+  "description": "Optional AI planning and explicit review feed the existing authorized native list owner. Manual filters start at the native criteria read.",
+  "diagrams": [
+    {
+      "id": "grid-contract",
+      "title": "Shared grid: question to native rows",
+      "kind": "sequence",
+      "data": {
+        "participants": [
+          {
+            "id": "User",
+            "label": "Merchant"
+          },
+          {
+            "id": "Grid",
+            "label": "Shared grid"
+          },
+          {
+            "id": "Planner",
+            "label": "Rust planner"
+          },
+          {
+            "id": "Model",
+            "label": "Model provider"
+          },
+          {
+            "id": "API",
+            "label": "Native API"
+          },
+          {
+            "id": "DB",
+            "label": "Tenant database"
+          }
+        ],
+        "messages": [
+          {
+            "from": "User",
+            "to": "Grid",
+            "text": "Optional: ask your list",
+            "kind": "sync"
+          },
+          {
+            "from": "Grid",
+            "to": "Planner",
+            "text": "Question, entity, locale",
+            "kind": "sync"
+          },
+          {
+            "from": "Planner",
+            "to": "Planner",
+            "text": "Current assistant / domain / PII rights",
+            "kind": "sync"
+          },
+          {
+            "from": "Planner",
+            "to": "Model",
+            "text": "Bounded question + allowlisted schema",
+            "kind": "sync"
+          },
+          {
+            "from": "Model",
+            "to": "Planner",
+            "text": "Suggested criteria",
+            "kind": "reply"
+          },
+          {
+            "from": "Planner",
+            "to": "Planner",
+            "text": "Validate criteria; no SQL or identity",
+            "kind": "sync"
+          },
+          {
+            "from": "Planner",
+            "to": "Grid",
+            "text": "Read-only filter suggestion",
+            "kind": "reply"
+          },
+          {
+            "from": "Grid",
+            "to": "User",
+            "text": "Review the filters",
+            "kind": "reply"
+          },
+          {
+            "from": "User",
+            "to": "Grid",
+            "text": "Explicit Apply",
+            "kind": "sync"
+          },
+          {
+            "from": "Grid",
+            "to": "API",
+            "text": "Native criteria + cursor read",
+            "kind": "sync"
+          },
+          {
+            "from": "API",
+            "to": "API",
+            "text": "Current membership, rights and tenant",
+            "kind": "sync"
+          },
+          {
+            "from": "API",
+            "to": "DB",
+            "text": "Parameter-bound query and global sort",
+            "kind": "sync"
+          },
+          {
+            "from": "DB",
+            "to": "API",
+            "text": "Bounded permitted rows",
+            "kind": "reply"
+          },
+          {
+            "from": "API",
+            "to": "Grid",
+            "text": "Authorized native response",
+            "kind": "reply"
+          }
+        ]
+      }
+    }
+  ]
+}

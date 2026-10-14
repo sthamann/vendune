@@ -52,6 +52,9 @@ pub(super) fn visible(a: &App, h: &RequestContext, name: &str) -> bool {
                     | "knowledge.source.archive"
             ) || auth::permit(h, "knowledge.write").is_ok());
     }
+    if *n == "merchant.grid.plan" {
+        return merchant(a, h).is_ok() && operations::grid_visible(h);
+    }
     if let Some(permission) = operations::permission(n) {
         return merchant(a, h).is_ok()
             && auth::permit(h, permission).is_ok()

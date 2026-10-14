@@ -1,5 +1,5 @@
 /** One bounded keyset page per mounted data block; action requests remain tenant- and permission-scoped. */
-import { Fragment } from "react";
+import AgenticGrid from "../../grid/AgenticGrid";
 import { useEffect, useRef, useState } from "react";
 import type { RequestFn } from "../../api/types";
 import { useAppStudioText } from "../../i18n/app-studio-i18n";
@@ -142,7 +142,7 @@ export default function NativeDataBlock({
           {a("refresh")}
         </button>
       </div>
-      {error && <p role="alert">{error}</p>}
+      {error && block.kind !== "table" && <p role="alert">{error}</p>}
       {block.kind === "form" ? (
         !busy &&
         !error && (
@@ -161,63 +161,59 @@ export default function NativeDataBlock({
           />
         )
       ) : block.kind === "table" ? (
-        <div className="native-table-scroll">
-          <table>
-            <thead>
-              <tr>
-                {block.inlineEdit && <th>{a("edit")}</th>}
-                {visibleFields.map((f) => (
-                  <th key={f.name}>
-                    {contentText(f.label, locale, mainLocale) || f.name}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {records.map((r) => (
-                <Fragment key={r.id}>
-                  <tr>
-                    {block.inlineEdit && (
-                      <td>
-                        <button
-                          type="button"
-                          className="studio-secondary"
-                          disabled={busy || runtime?.busy}
-                          onClick={() =>
-                            setEditing(editing === r.id ? "" : r.id)
-                          }
-                        >
-                          {a(editing === r.id ? "cancel" : "edit")}
-                        </button>
-                      </td>
-                    )}
-                    {visibleFields.map((f) => (
-                      <td key={f.name}>{cell(r, f.name)}</td>
-                    ))}
-                  </tr>
-                  {block.inlineEdit && editing === r.id && (
-                    <tr>
-                      <td colSpan={visibleFields.length + 1}>
-                        <NativeRecordForm
-                          key={`${r.id}:${r.revision}`}
-                          entity={entity}
-                          records={[r]}
-                          boundFields={filter ?? {}}
-                          save={saveRecord}
-                          saved={() => {
-                            setEditing("");
-                            setEpoch((x) => x + 1);
-                            onSaved?.();
-                          }}
-                        />
-                      </td>
-                    </tr>
-                  )}
-                </Fragment>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <AgenticGrid
+          id={`app:${app}:${entity.name}:${block.id}`}
+          title={contentText(entity.label, locale, mainLocale)}
+          rows={records}
+          rowKey={(r) => r.id}
+          criteria={{}}
+          onCriteria={() => {}}
+          searchable={false}
+          loading={busy}
+          error={error}
+          columns={[
+            ...(block.inlineEdit
+              ? [
+                  {
+                    id: "__edit",
+                    label: a("edit"),
+                    render: (r: AppRecord) => (
+                      <button
+                        type="button"
+                        className="studio-secondary"
+                        disabled={busy || runtime?.busy}
+                        onClick={() => setEditing(editing === r.id ? "" : r.id)}
+                      >
+                        {a(editing === r.id ? "cancel" : "edit")}
+                      </button>
+                    ),
+                  },
+                ]
+              : []),
+            ...visibleFields.map((f) => ({
+              id: f.name,
+              label: contentText(f.label, locale, mainLocale) || f.name,
+              render: (r: AppRecord) => cell(r, f.name),
+            })),
+          ]}
+          expandedRow={(r) =>
+            block.inlineEdit &&
+            editing === r.id && (
+              <NativeRecordForm
+                key={`${r.id}:${r.revision}`}
+                entity={entity}
+                records={[r]}
+                boundFields={filter ?? {}}
+                save={saveRecord}
+                saved={() => {
+                  setEditing("");
+                  setEpoch((x) => x + 1);
+                  onSaved?.();
+                }}
+              />
+            )
+          }
+        />
       ) : block.kind !== "cards" ? (
         <NativeControl
           block={block}

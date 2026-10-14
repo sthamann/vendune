@@ -1508,8 +1508,8 @@
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
-      "sha256": "500abac112848f57dd7bcbeee412ecee7dc98a9e18e4cdd8573544ecb0af8a78",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "657b209dc70f94aeecb95716d3dcba5421826da6484bcbe778cc12057dfde39a",
+      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
     },
     "src/capabilities/core_catalog.rs": {
       "status": "unproved",
@@ -1563,8 +1563,8 @@
     },
     "src/categories/admin.rs": {
       "status": "unproved",
-      "sha256": "9e44667039f28ab790e85237b4a3257d3e07d2c90afdfe69d8f2133596c4b5e6",
-      "review": "Reviewed saved category fact schema, tenant-bound current-source SQL, partial candidate indexes and shared MCP planning quota. Native catalog tests cover review/privacy/revision withdrawal, locale inheritance, confidence, channels, foreign tenants, literal wildcard semantics, CAS and selective staging; provider tests use the centrally encrypted shared replica configuration and quota rejection before model invocation."
+      "sha256": "df060c39c465f88e6eba13a6132e08bc2fb9a3386d0c02e89d42a68dbae647bc",
+      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
     },
     "src/categories/graph_query.rs": {
       "status": "unproved",
@@ -1868,8 +1868,8 @@
     },
     "src/commerce/product_admin.rs": {
       "status": "unproved",
-      "sha256": "c56f0837458a0f4b7a026a377faa305a49d659da181a1d21f4088e7efd25d24d",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "d69aa06adc9c5792156b38a2e099a996baf3cd6e2f21673d94484541c22feaac",
+      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
     },
     "src/commerce/product_channels.rs": {
       "status": "unproved",
@@ -2483,13 +2483,13 @@
     },
     "src/mcp/visibility.rs": {
       "status": "unproved",
-      "sha256": "dfa9352b3ca9243dd23df65ba6dfea4b354375523682576edf72ef105b4777d4",
-      "review": "Review knowledge-source staging read/write admission against native knowledge scopes; automation import HTTP and MCP discovery now use the native per-operation scopes. Real denied-source, successful knowledge-only release, immutable history and write-only transport regressions pass. No pure decision or theorem is changed."
+      "sha256": "209af74043a09fb0e9ceb92bfb446d3a90aa985072840649f04bea417900070f",
+      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
     },
     "src/mcp.rs": {
       "status": "unproved",
-      "sha256": "7220be4c7da484bce12b809a2715fcaa936aac241f6748862af3b637fd40cfeb",
-      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
+      "sha256": "08afbb5f8b0d726b07dea64fdaddf4b95f801ba2df3197441949f31b18d38fc5",
+      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
     },
     "src/migrations/identity_checksums.rs": {
       "status": "unproved",
@@ -2548,18 +2548,33 @@
     },
     "src/operations/customers.rs": {
       "status": "unproved",
-      "sha256": "fff0b7cfd41cef55720fc4f80fe4258affb21e1803719c7df1cc9aaf235bf69b",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "447385c356f47a547ddc5bc25c541e601b7becd1f8e74064b487bf7d7de029a4",
+      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
     },
     "src/operations/delivery_booking.rs": {
       "status": "reviewed-binding",
       "sha256": "3e053bcde7a7e65d60ef66a226a0c7c94daf029f102666371b21e40fa2d3dd65",
       "review": "Review provider-neutral split quantities, original app-bound PDF acknowledgement, native booking intent, aggregate storage and current Flow/job disclosure; provider effects remain unproved"
     },
+    "src/operations/grid_plan.rs": {
+      "status": "unproved",
+      "sha256": "098a6aa154a984afa6ea583a76ee94a61900f007cdb77740adffc091658d1564",
+      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
+    },
+    "src/operations/grid_schema.rs": {
+      "status": "unproved",
+      "sha256": "16a8bd91058374321e133d4be2e25e69f788881c1b6536b3f963ba33ab1881ca",
+      "review": "Reviewed bounded native grids, tenant cursors and current domain/PII admission. Strict-provider optional nulls normalize only recognized fields; null identity fields, blank planned text and empty supported plans fail closed, while explicit false stays a filter. Actual HTTP/MCP OpenAI/Ollama wire and restart fixtures pass. Existing pure financial policies are unchanged; SQL/model semantics/async/UI remain unproved adapters."
+    },
     "src/operations/guest_customers.rs": {
       "status": "unproved",
       "sha256": "bd869ddd890c92e4a4be70d44b8451e3d54b3b1c6a7ae455bb438562e5770aca",
       "review": "Reviewed tenant-scoped guest CRM projection and indexed historical order reads; account enrollment, checkout ownership and authenticated order access are unchanged. Guest snapshots cannot be saved as account profiles; SQL and UI remain unproved adapters."
+    },
+    "src/operations/list_criteria.rs": {
+      "status": "unproved",
+      "sha256": "b9cd5a3dddfb22706acb7bb34bd1443f898bb0a0513e2197636f20572b143c38",
+      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
     },
     "src/operations/master_data.rs": {
       "status": "unproved",
@@ -2568,18 +2583,23 @@
     },
     "src/operations/mod.rs": {
       "status": "unproved",
-      "sha256": "422bf330c736a66753f45c1f5c0940481b088da755c10bd8f110cbf599c1b62d",
-      "review": "Review 2026-10-14: bounded modular fulfillment predicates; native carrier intent freezes allocation/dispatch across unknown effects and cross-provider calls, confirmed rejection releases its own intent, exact PDFs acknowledge the original intent. Reviewed split/machine binding, tenant/package/CAS/quota checks and local paid-effect negative fixtures; SQL, crypto and carrier protocols remain unproved."
+      "sha256": "82ceb1413b379f4933979d1746f7d39933e3eda7c29ab28584d835d1d78eb5e3",
+      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
     },
     "src/operations/order_documents.rs": {
       "status": "unproved",
       "sha256": "f720a09f7e1d6ac4f9be13108fbbe0f47f35dfe849c5e83b73f28a44e416b5db",
       "review": "Review provider-neutral split quantities, original app-bound PDF acknowledgement, native booking intent, aggregate storage and current Flow/job disclosure; provider effects remain unproved"
     },
+    "src/operations/order_list.rs": {
+      "status": "unproved",
+      "sha256": "abae6d304b0b8838d8e8c39cec0d068ebc37cb4c2fe9514cda43b83abc986e31",
+      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
+    },
     "src/operations/orders.rs": {
       "status": "unproved",
-      "sha256": "9c3ec21cb2edc5a1a8676a81ba979b4031d1d569d12865cd68aef25aaadadb1d",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "8ba4a7bdb3a4eb5d983d6da2e0bfd9868132a35662b6b401d72ab3acff0a5b8a",
+      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
     },
     "src/operations/receipt_pdf.rs": {
       "status": "unproved",
@@ -2603,13 +2623,13 @@
     },
     "src/operations/routes.rs": {
       "status": "unproved",
-      "sha256": "120b7927efe60259b40e4f9ef1f73c6b31fe4dd46696ba0912144097a381091e",
-      "review": "Reviewed generic package-subset allocation, immutable fiscal/stock snapshots, shared replay/audit/cart/outbox owner and HTTP/MCP/current PII rights; malformed/foreign/stale/concurrent replays and real customer/Flow effects verified. Added exact open/nonterminal strict-subset guard; SQL provider integration remains unproved."
+      "sha256": "0472246d3d59fe682fb470eb15215b0de348c86ea0452988af186f7a49ee945d",
+      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
     },
     "src/operations/workflow.rs": {
       "status": "unproved",
-      "sha256": "3d270c8213da1c5155892a54aa0922c4a3b64c4e7e7557a9fb39631b84c810c5",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "a248e7213f69b05a4046d444fb6d7acd71d100c4f2fdaaa97d95521c557b7a3e",
+      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
     },
     "src/order_checkout.rs": {
       "status": "reviewed-binding",
@@ -3641,10 +3661,6 @@
       "sha256": "c78d5349b9e81865d677f7cb6504f09fd6546f9eb1a2022463cd640ddb8a7029",
       "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
     },
-    "src/commerce/product_admin.sql": {
-      "sha256": "b86e4dbf6fce56fed689dce0fa7daa86d247426dacfa384c4b4071a335f350be",
-      "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
-    },
     "src/documents/search.sql": {
       "sha256": "0f1405cf3bbcb50a7e549de823c326ce4ca7ece23fdb1a31042b1b0da456d378",
       "review": "Review RLS-safe lexical hydration follow-up: parameterized current source reads only after lexical/semantic candidate selection; preserve native source hash/model/locale/publication/product checks, greedy final-position IDs and existing extracted policies. SQL and transport remain unproved."
@@ -3662,8 +3678,12 @@
       "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
     },
     "src/operations/customer_directory.sql": {
-      "sha256": "e44058956874c42b3ab1dc0e002f4b8b3c0dd8d8738eb07389f3ff57a54fba96",
-      "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
+      "sha256": "3a50ce695d1fc5be24b470e007994253c6f4e0e3c3e639c3122270b539cdcf15",
+      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
+    },
+    "src/operations/customer_directory_default.sql": {
+      "sha256": "83738c400b888597fce307a480a61dc4b7844a46181f45aca06f011d005ed6ab",
+      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
     },
     "src/outbox/retention.sql": {
       "sha256": "293cab148e5f9d16df33ac89699b709b82f822bf6be9f55ae1d6beb2ccb03c38",

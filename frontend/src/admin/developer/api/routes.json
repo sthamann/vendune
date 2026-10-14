@@ -680,6 +680,11 @@
     "source": "src/operations/routes.rs"
   },
   {
+    "path": "/api/merchant/grid/plan",
+    "method": "POST",
+    "source": "src/operations/routes.rs"
+  },
+  {
     "path": "/api/merchant/legal/requests",
     "method": "GET",
     "source": "src/legal/mod.rs"

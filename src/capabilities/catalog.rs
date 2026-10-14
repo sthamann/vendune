@@ -11,6 +11,10 @@ pub(crate) static CAPABILITIES: std::sync::LazyLock<Vec<(&'static str, &'static 
     });
 const COGNITIVE: &[(&str, &str)] = &[
     (
+        "merchant.grid.plan",
+        "Plan read-only native list filters; review criteria before applying",
+    ),
+    (
         "merchant.customer.lookup",
         "Search existing customers by name, email or number",
     ),

@@ -2,6 +2,48 @@
 
 **Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).
 
+## Agentic directory grids — 14 October 2026
+
+[Guide and actual browser captures](agentic-grids.md). The complete local frontend
+run passes **493 tests in 88 files**. V8 coverage measures **64.63% lines, 63.33%
+statements, 57.23% branches and 52.27% functions** across the declared host and
+trusted app scope. These are measured figures, not 100% coverage. All **243 Rust
+unit tests**, format/all-target Clippy, source/route inventory and four-language
+gates pass.
+
+Seven affected real PostgreSQL/HTTP/provider suites pass: `workspace_roles`,
+`merchant_operations`, `catalog_management`, `customer_accounts`, `grid_directory`,
+`tenant_isolation` and `read_performance`. Grid counterexamples check whole-directory
+filters and sorting, localized product-name order, tuple cursors, SQL-looking text,
+current role/PII denial, foreign tenants/cursors, empty operational staging,
+invalid model fields and provider failure. HTTP and MCP return the same native rows.
+Fixtures create customers/orders through native Store API, use isolated databases
+and a loopback model; no live payment, real customer or paid model call is made.
+
+Chrome acceptance verifies reviewed customer filtering, order detail/return with
+criteria retained, category/customer-group filters, persisted column ordering,
+explicit/keyboard popup close, dark appearance and a 390 × 844 viewport without
+page overflow. App table forms preserve existing actions and use the same layout
+shell. This does not establish arbitrary app full-text/model support or live-model
+semantic quality. The existing **54-policy / 156,657-case** formal gate passes with
+zero mismatches and **155** rejected mutations; the grid's SQL, async code and UI
+are reviewed/tested adapters, not new whole-system proofs.
+The additional strict-provider counterexample initially failed on unused null
+fields. Real HTTP/MCP OpenAI Responses fixtures now pass after central configuration
+and a native restart: only recognized optional nulls disappear, false stays a
+filter, null identity keys fail closed, and empty supported plans are rejected.
+These checks use a synthetic loopback key, not an external model account.
+The rendered site checks **211 pages**, all **204 Markdown sources** and **5,032
+local links/assets**, including the illustrated guide and capture provenance.
+
+The full PR run exposed a navigation-test cold-import timing assumption: its
+default one-second wait expired while the real lazy workspace was still loading.
+A temporary 1.4-second delay on the actual order-module import reproduces that
+failure. The corrected readiness wait passes the same delayed path, retains its
+content/request assertions and bounded budgets, and the diagnostic delay is removed
+from the committed test. This is functional readiness evidence, not a performance
+claim. Native workflow/group metadata are now explicit navigation fixtures.
+
 ## System consistency audit — 14 October 2026
 
 [Full findings and boundaries](system-consistency-audit.md). Thirteen selected
