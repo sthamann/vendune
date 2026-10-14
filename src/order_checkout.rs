@@ -25,6 +25,7 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
         .bind(lock_key)
         .execute(&mut *tx)
         .await?;
+    operations::lock_admin_checkout(&mut tx, &admitted).await?;
     let r = sqlx::query("SELECT * FROM carts WHERE tenant=$1 AND token=$2 FOR UPDATE")
         .bind(tenant(h)?)
         .bind(token(h)?)
@@ -56,6 +57,7 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
         }
         purchase["posTender"] = json!(h.pos.as_ref().and_then(|p| p.tender_minor));
     }
+    operations::admin_purchase(&c, &mut purchase);
     let fingerprint = hash(&format!("{}:{}", c.id, purchase));
     if let Some(r) = sqlx::query(
         "SELECT data,fingerprint,cart_id FROM orders WHERE tenant=$1 AND idempotency_key=$2",
@@ -108,10 +110,14 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
     }
     let mut ps =
         checkout_products::snapshot(&mut tx, &c, rows, &language_chain, &locale_chain).await?;
+    operations::admit_admin_products(&mut tx, &c).await?;
     b2b::contract_prices(&mut tx, &c, &mut ps).await?;
     // Configuration cannot change between this price calculation and order commit.
     let (config, settings_revision) =
         commerce::scoped_locked(&mut tx, &c.tenant, &c.data.sales_channel).await?;
+    if c.data.admin_actor.is_some() {
+        operations::check_admin_customer(&mut tx, &c).await?;
+    }
     let code = config.currencies.selected(&c.data.currency)?.code.clone();
     if let Some(requested) = header(h, "x-commerce-currency")
         && requested != code
@@ -214,6 +220,7 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
         u64::try_from(minor).map_err(|_| bad("Invalid company total"))?,
     )
     .await?;
+    operations::admit_admin_payment(&c, &q)?;
     let external = q["paymentMethod"]["mode"] == "app";
     if external && staging::parent_conn(&mut tx, &c.tenant).await?.is_some() {
         return Err(bad("External payments are disabled in private sandboxes"));
@@ -240,6 +247,7 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
     let id = uid();
     // Explicit simulated authorization: no external money is charged.
     let mut order = json!({"id":id,"orderNumber":format!("RAC-{}",&id[..8]),"cart":q,"state":"placed","channel":c.data.channel,"revision":1,"deliveries":q["deliveries"],"payment":{"method":q["paymentMethod"],"provider":if q["paymentMethod"]["mode"]=="simulated"{"simulated"}else{"manual"},"state":if q["paymentMethod"]["mode"]=="simulated"{"authorized"}else{"pending"},"realMoneyCharged":false},"customerGroup":c.data.group});
+    operations::admin_order(&c, &mut order);
     order["money"] = json!(money);
     order["currencyContext"] = q["currencyContext"].clone();
     order["legal"] = legal_snapshot;

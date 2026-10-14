@@ -28,6 +28,9 @@ pub(crate) fn tool_schema(name: &str) -> Value {
     if let Some(schema) = pos::schema(name) {
         return schema;
     }
+    if let Some(schema) = operations::creation_schema(name) {
+        return schema;
+    }
     let props = match name {
         "merchant.grid.plan" => {
             json!({"entity":{"type":"string","enum":["orders","products","customers"]},"instruction":{"type":"string","minLength":1,"maxLength":2000},"locale":{"type":"string","maxLength":35}})

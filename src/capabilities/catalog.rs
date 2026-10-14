@@ -5,6 +5,7 @@ pub(crate) static CAPABILITIES: std::sync::LazyLock<Vec<(&'static str, &'static 
     std::sync::LazyLock::new(|| {
         let mut all = core::CORE.to_vec();
         all.extend(COGNITIVE.iter().copied());
+        all.extend(crate::operations::CREATION_CAPABILITIES.iter().copied());
         all.extend(crate::pos::CAPABILITIES.iter().copied());
         all.extend(crate::b2b::CAPABILITIES.iter().copied());
         all

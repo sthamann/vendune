@@ -41,7 +41,10 @@ it("opens guest buyers, shows purchase addresses and links orders without accoun
       return {
         permissions: ["customers.read", "customers.write", "orders.read"],
       };
-    if (path === "/api/merchant/customer-groups")
+    if (
+      path === "/api/merchant/customer-groups" ||
+      path === "/api/merchant/customers/create-context"
+    )
       return { elements: [], mainLocale: "en-GB" };
     if (path === "/store-api/checkout/options") return { countries: ["DE"] };
     if (path.includes("?")) return { elements: [guest] };

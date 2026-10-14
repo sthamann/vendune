@@ -1,4 +1,5 @@
 /** Independent settings workspace: grouped navigation, explicit dirty-draft guards and native API forms. */
+import { useAdminCreationText } from "../../shared/i18n/admin-creation-i18n";
 import B2BSettings from "./B2BSettings";
 import { useB2BExperienceText } from "../b2b/experience-i18n";
 import { useCurrencyText } from "../../shared/i18n/currency-i18n";
@@ -35,6 +36,8 @@ export default function SettingsWorkspace({
   onTeam,
   onAutomation,
   onB2B,
+  onChannels,
+  onApps,
 }: {
   request: RequestFn;
   rights: string[];
@@ -42,7 +45,11 @@ export default function SettingsWorkspace({
   onTeam: () => void;
   onAutomation: () => void;
   onB2B?: () => void;
+  onChannels?: () => void;
+  onApps?: () => void;
 }) {
+  const { n } = useAdminCreationText();
+  const [query, setQuery] = useState("");
   const b = useB2BExperienceText();
   const { c } = useCustomerText(),
     { s, t } = useShopText(),
@@ -52,13 +59,23 @@ export default function SettingsWorkspace({
   const { c: ct } = useCurrencyText();
   const { r } = useCrmText();
   const { l } = useLegalText();
-  const [area, setArea] = useState<Area>(() =>
-    new URLSearchParams(location.search).get("settings") === "b2b"
-      ? "b2b"
-      : new URLSearchParams(location.search).get("settings") === "languages"
-        ? "languages"
-        : "masterData",
-  );
+  const [area, setArea] = useState<Area>(() => {
+    const requested = new URLSearchParams(location.search).get("settings");
+    return [
+      "b2b",
+      "masterData",
+      "taxes",
+      "countries",
+      "shipping",
+      "payment",
+      "languages",
+      "currencies",
+      "customerGroups",
+      "legal",
+    ].includes(requested ?? "")
+      ? (requested as Area)
+      : "masterData";
+  });
   const [dirty, setDirty] = useState(false);
   const [pending, setPending] = useState<(() => void) | null>(null);
   const navigate = (action: () => void) => {
@@ -117,6 +134,26 @@ export default function SettingsWorkspace({
     },
     { id: "legal", label: l("title"), hint: l("hint"), icon: "lock" },
   ];
+  const groups = [
+    { label: n("basics"), ids: ["masterData", "legal"] },
+    {
+      label: n("markets"),
+      ids: ["languages", "countries", "currencies", "taxes"],
+    },
+    { label: n("checkout"), ids: ["shipping", "payment"] },
+    { label: n("customers"), ids: ["customerGroups", "b2b"] },
+  ];
+  const selectArea = (next: Area) => {
+    if (area === next) return;
+    const independent = ["masterData", "customerGroups", "legal", "b2b"];
+    if (!independent.includes(area) && !independent.includes(next))
+      setArea(next);
+    else navigate(() => setArea(next));
+  };
+  const matches = (item: (typeof entries)[number]) =>
+    `${item.label} ${item.hint}`
+      .toLocaleLowerCase()
+      .includes(query.trim().toLocaleLowerCase());
   return (
     <div className="studio-page operations settings-workspace">
       <div className="page-intro">
@@ -149,35 +186,72 @@ export default function SettingsWorkspace({
       )}
       <div className="settings-layout">
         <nav className="settings-navigation" aria-label={c("settings")}>
-          <span className="settings-nav-label">{u("shopSettings")}</span>
-          {entries.map((item) => (
-            <button
-              key={item.id}
-              aria-current={area === item.id ? "page" : undefined}
-              onClick={() => {
-                if (area !== item.id) {
-                  if (
-                    !["masterData", "customerGroups", "legal", "b2b"].includes(
-                      area,
-                    ) &&
-                    !["masterData", "customerGroups", "legal", "b2b"].includes(
-                      item.id,
-                    )
-                  )
-                    setArea(item.id);
-                  else navigate(() => setArea(item.id));
-                }
-              }}
+          <label className="settings-search">
+            {n("searchSettings")}
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </label>
+          <label className="settings-mobile-picker">
+            {c("settings")}
+            <select
+              value={area}
+              onChange={(e) => selectArea(e.target.value as Area)}
             >
-              <Icon name={item.icon} size={19} />
-              <span>
-                <strong>{item.label}</strong>
-                <small>{item.hint}</small>
-              </span>
-            </button>
+              {groups.map((group) => (
+                <optgroup key={group.label} label={group.label}>
+                  {group.ids.map((id) => {
+                    const item = entries.find((entry) => entry.id === id)!;
+                    return (
+                      <option key={id} value={id}>
+                        {item.label}
+                      </option>
+                    );
+                  })}
+                </optgroup>
+              ))}
+            </select>
+          </label>
+          {groups.map((group) => (
+            <div className="settings-nav-group" key={group.label}>
+              <span className="settings-nav-label">{group.label}</span>
+              {group.ids
+                .map((id) => entries.find((item) => item.id === id)!)
+                .filter(matches)
+                .map((item) => (
+                  <button
+                    key={item.id}
+                    aria-current={area === item.id ? "page" : undefined}
+                    onClick={() => selectArea(item.id)}
+                  >
+                    <Icon name={item.icon} size={19} />
+                    <span>
+                      <strong>{item.label}</strong>
+                      <small>{item.hint}</small>
+                    </span>
+                  </button>
+                ))}
+            </div>
           ))}
+          {!entries.some(matches) && <p role="status">{n("noSettings")}</p>}
           <span className="settings-nav-label">{u("connectedAreas")}</span>
           {[
+            {
+              right: "channels.read",
+              label: w("channels"),
+              hint: n("channelsHint"),
+              icon: "globe" as const,
+              action: onChannels,
+            },
+            {
+              right: "apps.read",
+              label: n("apps"),
+              hint: n("appsHint"),
+              icon: "box" as const,
+              action: onApps,
+            },
             {
               right: "automation.read",
               label: w("automation"),
@@ -200,9 +274,9 @@ export default function SettingsWorkspace({
               action: onConnections,
             },
           ]
-            .filter((item) => rights.includes(item.right))
+            .filter((item) => rights.includes(item.right) && item.action)
             .map((item) => (
-              <button key={item.label} onClick={() => navigate(item.action)}>
+              <button key={item.label} onClick={() => navigate(item.action!)}>
                 <Icon name={item.icon} size={19} />
                 <span>
                   <strong>{item.label}</strong>
@@ -243,6 +317,7 @@ export default function SettingsWorkspace({
             <CommerceSettings
               request={request}
               area={area}
+              rights={rights}
               canWrite={rights.includes("settings.write")}
               onDirty={setDirty}
             />

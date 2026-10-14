@@ -251,6 +251,11 @@ pub(super) fn eval(j: &Value) -> Result<Value, String> {
             b("required")?,
             b("verified")?
         ))),
+        Some("admin_payment_admissible") => Ok(json!(admin_payment_admissible(
+            b("is_admin")?,
+            b("manual")?,
+            b("simulated")?
+        ))),
         Some("delivery_split_admissible") => Ok(json!(delivery_split_admissible(
             b("is_open")?,
             b("terminal")?,

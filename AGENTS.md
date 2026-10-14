@@ -420,3 +420,22 @@ installed action/filter/write contract. All controls ship EN/DE/FR/ES and suppor
 keyboard/touch ordering, reduced motion and contained responsive overflow.
 Run `grid_directory`, relevant native list/isolation suites and grid/app UI tests.
 See [agentic grids](docs/agentic-grids.md).
+
+## Native Admin creation ownership
+
+Customer creation belongs to `operations/customer_create.rs` and existing
+`accounts::Contact`/address persistence, history and outbox. A CRM-only profile
+has no issued storefront credential; never mint customer sessions for merchants
+or infer historical order ownership from email. Manual-order review/complete belongs
+to `operations/manual_orders.rs`; it uses actor-private native carts, current
+compound rights/PII, selected channel/language/currency and original checkout.
+Keep settings → channel → customer FOR UPDATE → cart lock ordering for this path.
+`manual_order_admission.rs` rechecks final native payment mode and channel/catalog
+admission under those locks; no real provider is called by manual orders. The small
+admin-payment decision is an extracted Lean policy; async SQL remains unproved.
+Direct token SQL paths (especially account logout and purchased downloads) must
+exclude private carts or reuse the shared admission. Operational customer/order
+records stay in their tenant and never become configuration release units.
+Studio/API/MCP share `creation_schema.rs`; the shared customer picker and modular
+creation/review components must not introduce alternate pricing, stores or checkout.
+Run `admin_creation`, CRM/accounts/review/POS regressions and responsive browser flows.

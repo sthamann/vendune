@@ -40,6 +40,7 @@ export default function CommerceSettings({
   canWrite,
   onDirty,
   initialChannel = "",
+  rights = [],
 }: {
   request: RequestFn;
   area:
@@ -47,6 +48,7 @@ export default function CommerceSettings({
   canWrite: boolean;
   onDirty?: (dirty: boolean) => void;
   initialChannel?: string;
+  rights?: string[];
 }) {
   const { c: ct } = useCurrencyText();
   const { i, locale } = useInternationalText();
@@ -179,7 +181,7 @@ export default function CommerceSettings({
                 ))}
             </select>
           </label>
-          <ContentLanguagePicker />
+          {area !== "currencies" && <ContentLanguagePicker />}
         </div>
         {channel && (
           <div className="intl-scope-note">
@@ -230,6 +232,8 @@ export default function CommerceSettings({
                 revision={state.value.revision}
                 dirty={state.dirty}
                 reload={state.reload}
+                canReadCatalogue={rights.includes("catalog.read")}
+                canWriteCatalogue={rights.includes("catalog.write")}
               />
             ) : area === "countries" ? (
               <CountriesSettings {...props} />

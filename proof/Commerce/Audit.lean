@@ -1,4 +1,6 @@
 import Commerce.Claims
+#print axioms CommerceKernel.admin_external_payment_denied
+#print axioms CommerceKernel.admin_payment_exact
 #print axioms CommerceKernel.ai_autonomy_disabled_denied
 #print axioms CommerceKernel.ai_autonomy_exact
 #print axioms CommerceKernel.ai_price_exact

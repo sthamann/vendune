@@ -508,6 +508,15 @@
         "carrier_booking_exact",
         "carrier_booking_occupied_denied"
       ]
+    },
+    "admin_payment_admissible": {
+      "bindings": [
+        "src/operations/manual_order_admission.rs"
+      ],
+      "theorems": [
+        "admin_payment_exact",
+        "admin_external_payment_denied"
+      ]
     }
   },
   "sources": {
@@ -833,8 +842,8 @@
     },
     "src/accounts/mod.rs": {
       "status": "unproved",
-      "sha256": "70237f514965f39a3749bbfda6c5b509776e177d37e91c470f5b4ac4b034510d",
-      "review": "Remove unverified legacy email ownership from account order history/receipts and paid downloads. One native immutable customer-ID SQL fragment uses static QueryBuilder text and bound values; original scoped cart bearer access is preserved. Legacy signup/order counterexample reproduced before repair, modern account and historical binary/PDF denied/positive paths passed; no extracted financial predicate changed."
+      "sha256": "9746209daf196b0cc8e057df8452b946e000b8ee4049c4014427c3ae035b29ae",
+      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
     },
     "src/accounts/order_snapshot.rs": {
       "status": "unproved",
@@ -1163,8 +1172,8 @@
     },
     "src/assets/download.rs": {
       "status": "reviewed-binding",
-      "sha256": "20c6e28b0115d6f094832c4008dc1f29d3bb414e9a16c1529159427c8db21c96",
-      "review": "Remove unverified legacy email ownership from account order history/receipts and paid downloads. One native immutable customer-ID SQL fragment uses static QueryBuilder text and bound values; original scoped cart bearer access is preserved. Legacy signup/order counterexample reproduced before repair, modern account and historical binary/PDF denied/positive paths passed; no extracted financial predicate changed."
+      "sha256": "c8f3f097e40c04b95d3eb5ab876b9f51e794e7016d697356b64e09353c17b32a",
+      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
     },
     "src/assets/image_jobs.rs": {
       "status": "unproved",
@@ -1488,8 +1497,8 @@
     },
     "src/bin/verified_kernel/dispatch.rs": {
       "status": "unproved",
-      "sha256": "0cd07b22465c7f059880a00398e74c2c99c0413a24f1dc5ad7edf42bba17a199",
-      "review": "Review 2026-10-14: modular fulfillment predicates and native carrier intent admission; same-reference CAS, occupied package denial, allocation/dispatch fence until confirmed no-effect release or original PDF acknowledgement. Local SQL/provider/restart/privacy and cross-provider denial fixtures checked; external effects and surrounding runtime remain unproved."
+      "sha256": "b5b74a896dd67302ebb6ced742877504c20970c185580f27eba4e0d2135740ee",
+      "review": "Native admin creation shares CRM addresses/history and checkout. Independent review repaired actor-token routes, final provider admission and settings-channel-customer-cart locks. Regression tests exercise state, permissions, replay and concurrent orders; SQL/HTTP adapters remain unproved."
     },
     "src/bin/verified_kernel.rs": {
       "status": "conformance-driver",
@@ -1508,13 +1517,13 @@
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
-      "sha256": "657b209dc70f94aeecb95716d3dcba5421826da6484bcbe778cc12057dfde39a",
-      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
+      "sha256": "eb95d17035a685cf237210ca319bf8850e6103e3552e38f922a94dec02ea101a",
+      "review": "Reviewed native admin customer/order ownership, compound permissions, actor-private cart and direct-token consumers, channel/settings/customer lock ordering, final extracted manual-payment admission, MCP schemas and local isolation/concurrency regressions; SQL and async effects remain outside Lean proof."
     },
     "src/capabilities/core_catalog.rs": {
       "status": "unproved",
       "sha256": "67bcdcf60488925af59c6e9ca82f3020e992b4d075255e83826456b9f3121fff",
-      "review": "Reviewed generic package-subset allocation, immutable fiscal/stock snapshots, shared replay/audit/cart/outbox owner and HTTP/MCP/current PII rights; malformed/foreign/stale/concurrent replays and real customer/Flow effects verified. Added exact open/nonterminal strict-subset guard; SQL provider integration remains unproved."
+      "review": "Reviewed native admin customer/order ownership, compound permissions, actor-private cart and direct-token consumers, channel/settings/customer lock ordering, final extracted manual-payment admission, MCP schemas and local isolation/concurrency regressions; SQL and async effects remain outside Lean proof."
     },
     "src/capabilities.rs": {
       "status": "unproved",
@@ -1523,8 +1532,8 @@
     },
     "src/cart_model.rs": {
       "status": "unproved",
-      "sha256": "7c13d8ec0aef64d8949a05d2dd7a440a9f33a69a19bb7ae6774a4bcbc0dacbe5",
-      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+      "sha256": "88ce85694719fbe6e5d4067b400ace9049dd7fbe3fd38fe7d8446a8bed6a3f5b",
+      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
     },
     "src/cart_mutation.rs": {
       "status": "unproved",
@@ -1543,8 +1552,8 @@
     },
     "src/cart_storage.rs": {
       "status": "unproved",
-      "sha256": "a0169444a53443284c7f29a2c377828462ea376471a90e4122af92777fa37fcb",
-      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+      "sha256": "88eed442d16e61c474c9f6aabfc07996a0837e3645f3399dc4a60497308c8072",
+      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
     },
     "src/catalog_model.rs": {
       "status": "unproved",
@@ -1558,8 +1567,8 @@
     },
     "src/catalog_routes.rs": {
       "status": "unproved",
-      "sha256": "84a30d1d60c505a56a242f777e740bab9bc466b6895c56097f6cbcaf73c83a98",
-      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+      "sha256": "cbe50a4b17af35ddffbc0612a90fa93de44d24686c3edc0c028f8c9dbdb9f35f",
+      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
     },
     "src/categories/admin.rs": {
       "status": "unproved",
@@ -1793,8 +1802,8 @@
     },
     "src/commerce/detail.rs": {
       "status": "unproved",
-      "sha256": "082facaaed836fe4508ed7d105d7f13c94466d74d15c3db28555a644b75e7a8f",
-      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+      "sha256": "d47d8059e7584d5daea76733a259fa5391a7959dd55c78808e3da063e3e106be",
+      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
     },
     "src/commerce/external_order_input.rs": {
       "status": "reviewed-binding",
@@ -2268,8 +2277,8 @@
     },
     "src/legal/checkout.rs": {
       "status": "reviewed-binding",
-      "sha256": "57af1a7f2460d8df9fc19b75fe8dfeb4872f42a24e8959e7996a59a45e4da90c",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "362eb0489acd45c9c3b8d214dd37e4750016db39e2049167fb891de4b37e1ce9",
+      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
     },
     "src/legal/consent.rs": {
       "status": "reviewed-binding",
@@ -2303,8 +2312,8 @@
     },
     "src/localization.rs": {
       "status": "unproved",
-      "sha256": "829907c4e937808bfb280683a1982a408dcc1a48ddcd98fd1d03bf9d30833f5d",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "77e94af95afb4c93183945fab6cec2b20f6d4779a11ed25a7b48b83d878163d0",
+      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
     },
     "src/main.rs": {
       "status": "unproved",
@@ -2483,13 +2492,13 @@
     },
     "src/mcp/visibility.rs": {
       "status": "unproved",
-      "sha256": "209af74043a09fb0e9ceb92bfb446d3a90aa985072840649f04bea417900070f",
-      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
+      "sha256": "67265372d9ea33e867ba0b25a7649bb58775fb7957a923d4e9fc025492b724a4",
+      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
     },
     "src/mcp.rs": {
       "status": "unproved",
-      "sha256": "08afbb5f8b0d726b07dea64fdaddf4b95f801ba2df3197441949f31b18d38fc5",
-      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
+      "sha256": "fb30e3e055de9ca13f585757e6be0c1c8072126dec8819886e4f028f2581ff6d",
+      "review": "Native admin creation shares CRM addresses/history and checkout. Independent review repaired actor-token routes, final provider admission and settings-channel-customer-cart locks. Regression tests exercise state, permissions, replay and concurrent orders; SQL/HTTP adapters remain unproved."
     },
     "src/migrations/identity_checksums.rs": {
       "status": "unproved",
@@ -2541,6 +2550,16 @@
       "sha256": "b2b80b505b3fb7f7007c6cd74825e0c46e01978a3faed14524bbfce687867f69",
       "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
     },
+    "src/operations/creation_schema.rs": {
+      "status": "unproved",
+      "sha256": "90b741c69c1fd659647899ce46fa5bbb56d6968d15465bd0e0f9d0635b456757",
+      "review": "Reviewed native admin customer/order ownership, compound permissions, actor-private cart and direct-token consumers, channel/settings/customer lock ordering, final extracted manual-payment admission, MCP schemas and local isolation/concurrency regressions; SQL and async effects remain outside Lean proof."
+    },
+    "src/operations/customer_create.rs": {
+      "status": "unproved",
+      "sha256": "c10051d032afac0fe2d6a2cb1a9923028d9ed5df136103e1874c0f7f1c000e77",
+      "review": "Reviewed native admin customer/order ownership, compound permissions, actor-private cart and direct-token consumers, channel/settings/customer lock ordering, final extracted manual-payment admission, MCP schemas and local isolation/concurrency regressions; SQL and async effects remain outside Lean proof."
+    },
     "src/operations/customer_lookup.rs": {
       "status": "unproved",
       "sha256": "ef89ce0432669cd388fab1536d40093942fdb2695e7311c0105d18f179e8fd0c",
@@ -2576,6 +2595,16 @@
       "sha256": "b9cd5a3dddfb22706acb7bb34bd1443f898bb0a0513e2197636f20572b143c38",
       "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
     },
+    "src/operations/manual_order_admission.rs": {
+      "status": "reviewed-binding",
+      "sha256": "084e82dc28ef02a992cbd48592fdfa70793c21580280f9030cf7208e9e12bc7d",
+      "review": "Native admin creation shares CRM addresses/history and checkout. Independent review repaired actor-token routes, final provider admission and settings-channel-customer-cart locks. Regression tests exercise state, permissions, replay and concurrent orders; SQL/HTTP adapters remain unproved."
+    },
+    "src/operations/manual_orders.rs": {
+      "status": "unproved",
+      "sha256": "21fea0fd3b4817f4f490332b850e91988b9a3bc77ab1632a4812d29bb2338816",
+      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
+    },
     "src/operations/master_data.rs": {
       "status": "unproved",
       "sha256": "988373c6046ac094de641a3fb10109b74fc4b67017b26c96be60568d0ac3e37b",
@@ -2583,8 +2612,8 @@
     },
     "src/operations/mod.rs": {
       "status": "unproved",
-      "sha256": "82ceb1413b379f4933979d1746f7d39933e3eda7c29ab28584d835d1d78eb5e3",
-      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
+      "sha256": "b3bbe9aae6eebf29eaa6e604b97e739f7b376e10678c1ea1cc2a1fa3d84a7bb5",
+      "review": "Reviewed native admin customer/order ownership, compound permissions, actor-private cart and direct-token consumers, channel/settings/customer lock ordering, final extracted manual-payment admission, MCP schemas and local isolation/concurrency regressions; SQL and async effects remain outside Lean proof."
     },
     "src/operations/order_documents.rs": {
       "status": "unproved",
@@ -2623,8 +2652,8 @@
     },
     "src/operations/routes.rs": {
       "status": "unproved",
-      "sha256": "0472246d3d59fe682fb470eb15215b0de348c86ea0452988af186f7a49ee945d",
-      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
+      "sha256": "4c07904dc4ae6c890a6f4ee671029c02896abc6d09315150ce9c10bdf2bc486b",
+      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
     },
     "src/operations/workflow.rs": {
       "status": "unproved",
@@ -2633,8 +2662,8 @@
     },
     "src/order_checkout.rs": {
       "status": "reviewed-binding",
-      "sha256": "96ff9a856319f234e5dbd2023e197b8835c1fe7b8a3f520cccabd2fd200f251c",
-      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+      "sha256": "ae02f06bbd78ad7b59e7a5f1e7b5721e4f010137831a7aaacce01b7e251d19e0",
+      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
     },
     "src/order_routes.rs": {
       "status": "unproved",
@@ -2888,8 +2917,8 @@
     },
     "src/pos/mod.rs": {
       "status": "unproved",
-      "sha256": "48fa9fdfcf8bb3bd08348882f444f272e25a590abc305e510e2509a6b4152ce0",
-      "review": "Reviewed POS identity revalidation and immediate PII revocation, transactional discount/customer events and shared Flow consumption; exact extracted adjustment admission guard; SQL adapters stay unproved with real regression coverage"
+      "sha256": "3bcf7b882017afc4dd336a25240966b54a30c68267bef16ce85dd176eced805d",
+      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
     },
     "src/pos/schema.rs": {
       "status": "unproved",
@@ -2933,8 +2962,8 @@
     },
     "src/request_context.rs": {
       "status": "unproved",
-      "sha256": "a7ae14aa320b74fe9d21730a21c98aedfbff5ade6bb0efd2c2ce1c4a60fdfc23",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "f8508daca2897cf09908f8424164e8aa02d02f5301a16dd5eb5a93af655fa7df",
+      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
     },
     "src/routes.rs": {
       "status": "unproved",
@@ -3138,8 +3167,8 @@
     },
     "src/verified_kernel.rs": {
       "status": "extracted-policy",
-      "sha256": "7be557e2c782cbea14db5ae9dc420d74a9c85b0512443d7b6a93673ad8eab904",
-      "review": "Review 2026-10-14: bounded modular fulfillment predicates; native carrier intent freezes allocation/dispatch across unknown effects and cross-provider calls, confirmed rejection releases its own intent, exact PDFs acknowledge the original intent. Reviewed split/machine binding, tenant/package/CAS/quota checks and local paid-effect negative fixtures; SQL, crypto and carrier protocols remain unproved."
+      "sha256": "d4730c0922702dbd4544eed2f3b6144076337053c7f18448624d22ab9c902f5a",
+      "review": "Native admin creation shares CRM addresses/history and checkout. Independent review repaired actor-token routes, final provider admission and settings-channel-customer-cart locks. Regression tests exercise state, permissions, replay and concurrent orders; SQL/HTTP adapters remain unproved."
     },
     "src/work_signal.rs": {
       "status": "unproved",
@@ -3574,8 +3603,8 @@
       "review": "Native customer identity audit: shared immutable account binding removes legacy email reads from orders/PDF/downloads; original cart capability is preserved. Review purchase and duplicate identity now use actual cart/account IDs; native customer review-count facts use the same canonical namespace. Additive 093 withdraws old email-derived purchase badges without assigning identities or editing text/rating/moderation. Static SQL and bound values remain; SQL/migration adapters are reviewed, not proved; extracted money/fulfillment predicates unchanged."
     },
     "proof/Commerce/Claims.lean": {
-      "sha256": "2a5a4a756f1d6701c3ad52153efcce113ab36aaa4d31dacf3dbda1c5c205b7d1",
-      "review": "Review 2026-10-14: modular fulfillment predicates and native carrier intent admission; same-reference CAS, occupied package denial, allocation/dispatch fence until confirmed no-effect release or original PDF acknowledgement. Local SQL/provider/restart/privacy and cross-provider denial fixtures checked; external effects and surrounding runtime remain unproved."
+      "sha256": "ef4b0438a9a5e13eaccac4d0b5024607e72cfb96301f03fd8308a99ddaaa5894",
+      "review": "Native admin creation shares CRM addresses/history and checkout. Independent review repaired actor-token routes, final provider admission and settings-channel-customer-cart locks. Regression tests exercise state, permissions, replay and concurrent orders; SQL/HTTP adapters remain unproved."
     },
     "proof/lakefile.toml": {
       "sha256": "1cda05bac02223024b93388cf858edad4719c46f8d37a826a73a6a6e15d79432",
@@ -3610,8 +3639,8 @@
       "review": "Review provider-neutral split quantities, original app-bound PDF acknowledgement, native booking intent, aggregate storage and current Flow/job disclosure; provider effects remain unproved"
     },
     "scripts/formal/mutations.py": {
-      "sha256": "2e18357d7935f7f6eebc003ec823b8948273ce7c609774f51d41292c4105b9dd",
-      "review": "Review 2026-10-14: modular fulfillment predicates and native carrier intent admission; same-reference CAS, occupied package denial, allocation/dispatch fence until confirmed no-effect release or original PDF acknowledgement. Local SQL/provider/restart/privacy and cross-provider denial fixtures checked; external effects and surrounding runtime remain unproved."
+      "sha256": "0c7df0cdb2704790825df7cedda6669523b5d5e63c00142e6a24be172c2403a5",
+      "review": "Native admin creation shares CRM addresses/history and checkout. Independent review repaired actor-token routes, final provider admission and settings-channel-customer-cart locks. Regression tests exercise state, permissions, replay and concurrent orders; SQL/HTTP adapters remain unproved."
     },
     "scripts/formal/registry.py": {
       "sha256": "c9c7b670df8a2ddb9f1c8f7c7359eba31c770a37531e3268126886dec0f6c02f",

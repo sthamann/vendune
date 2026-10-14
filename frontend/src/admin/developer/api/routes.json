@@ -645,6 +645,16 @@
     "source": "src/operations/routes.rs"
   },
   {
+    "path": "/api/merchant/customers",
+    "method": "POST",
+    "source": "src/operations/routes.rs"
+  },
+  {
+    "path": "/api/merchant/customers/create-context",
+    "method": "GET",
+    "source": "src/operations/routes.rs"
+  },
+  {
     "path": "/api/merchant/customers/lookup",
     "method": "GET",
     "source": "src/operations/routes.rs"
@@ -708,6 +718,11 @@
     "path": "/api/merchant/media/provider",
     "method": "GET",
     "source": "src/assets/mod.rs"
+  },
+  {
+    "path": "/api/merchant/order-drafts/{operation}",
+    "method": "POST",
+    "source": "src/operations/routes.rs"
   },
   {
     "path": "/api/merchant/order-state-machine",

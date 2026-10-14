@@ -159,6 +159,9 @@ def external_paid_total_admissible (paid : Bool) (calculated : Nat) (declared : 
 def auth_factor_admissible (required : Bool) (verified : Bool) : Bool :=
   ((!required) || verified)
 
+def admin_payment_admissible (is_admin : Bool) (manual : Bool) (simulated : Bool) : Bool :=
+  (((!is_admin) || manual) || simulated)
+
 def delivery_split_admissible (is_open : Bool) (terminal : Bool) (available : Nat) (moving : Nat) : Bool :=
   (((is_open && (!terminal)) && (decide (moving > 0))) && (decide (moving < available)))
 

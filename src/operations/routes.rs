@@ -8,6 +8,11 @@ pub(crate) fn router() -> Router<App> {
             post(grid_plan::plan),
         )
         .secure_route(
+            "/api/merchant/customers/create-context",
+            &[("GET", "customers.write")],
+            get(customer_create::context),
+        )
+        .secure_route(
             "/api/merchant/customers/lookup",
             &[("GET", "customers.read")],
             get(customer_lookup::lookup),
@@ -46,8 +51,8 @@ pub(crate) fn router() -> Router<App> {
         )
         .secure_route(
             "/api/merchant/customers",
-            &[("GET", "customers.read")],
-            get(customers::list),
+            &[("GET", "customers.read"), ("POST", "customers.write")],
+            get(customers::list).post(customer_create::create),
         )
         .secure_route(
             "/api/merchant/customers/{email}/addresses",
@@ -63,6 +68,11 @@ pub(crate) fn router() -> Router<App> {
             "/api/merchant/customers/{email}",
             &[("GET", "customers.read"), ("PUT", "customers.write")],
             get(customers::detail).put(customers::save),
+        )
+        .secure_route(
+            "/api/merchant/order-drafts/{operation}",
+            &[("POST", "orders.write")],
+            post(manual_orders::route),
         )
         .secure_route(
             "/api/merchant/orders",

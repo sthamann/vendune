@@ -1,6 +1,56 @@
 /** Localized request guidance across all transports; original diagnostics remain available to developer tools. */
 import { getLocale } from "./i18n";
 const messages: Record<string, readonly string[]> = {
+  "Customer already exists; select the existing customer": [
+    "This email already belongs to a customer. Select the existing customer instead.",
+    "Für diese E-Mail besteht bereits ein Kunde. Wähle den bestehenden Kunden aus.",
+    "Cette adresse correspond déjà à un client. Sélectionnez ce client.",
+    "Este correo ya pertenece a un cliente. Selecciona el cliente existente.",
+  ],
+  "Complete customer profile and billing address required": [
+    "Complete the customer details and billing address.",
+    "Vervollständige die Kundendaten und die Rechnungsadresse.",
+    "Complétez les coordonnées du client et l’adresse de facturation.",
+    "Completa los datos del cliente y la dirección de facturación.",
+  ],
+  "Address country unavailable": [
+    "Select a country enabled for this shop.",
+    "Wähle ein für diesen Shop freigegebenes Land.",
+    "Choisissez un pays activé pour cette boutique.",
+    "Elige un país habilitado para esta tienda.",
+  ],
+  "Buyer payment required for this provider": [
+    "This provider requires the buyer to pay. Select a configured manual payment method for an admin order.",
+    "Bei diesem Anbieter muss der Käufer selbst bezahlen. Wähle für die Admin-Bestellung eine eingerichtete manuelle Zahlungsart.",
+    "Ce prestataire exige un paiement par l’acheteur. Choisissez un mode de paiement manuel pour cette commande.",
+    "Este proveedor requiere que pague el comprador. Elige un método de pago manual para este pedido.",
+  ],
+  "Buyer payment required for this provider; review the configured manual payment again":
+    [
+      "The payment configuration changed. Review the order and select a manual payment method.",
+      "Die Zahlungskonfiguration wurde geändert. Prüfe die Bestellung erneut und wähle eine manuelle Zahlungsart.",
+      "La configuration du paiement a changé. Vérifiez la commande et choisissez un paiement manuel.",
+      "La configuración de pago cambió. Revisa el pedido y elige un pago manual.",
+    ],
+  "Product unavailable in sales channel; review the order again": [
+    "A product is no longer available in this channel. Edit and review the order again.",
+    "Ein Produkt ist in diesem Kanal nicht mehr verfügbar. Bearbeite und prüfe die Bestellung erneut.",
+    "Un produit n’est plus disponible sur ce canal. Modifiez et vérifiez la commande.",
+    "Un producto ya no está disponible en este canal. Edita y revisa el pedido.",
+  ],
+  "Order language unavailable": [
+    "Select a language enabled for this sales channel.",
+    "Wähle eine für diesen Verkaufskanal freigegebene Sprache.",
+    "Choisissez une langue activée pour ce canal de vente.",
+    "Elige un idioma habilitado para este canal de ventas.",
+  ],
+  "Customer unavailable": [
+    "The selected customer is unavailable. Select an active customer from this shop.",
+    "Der ausgewählte Kunde ist nicht verfügbar. Wähle einen aktiven Kunden aus diesem Shop.",
+    "Le client sélectionné est indisponible. Choisissez un client actif de cette boutique.",
+    "El cliente seleccionado no está disponible. Elige un cliente activo de esta tienda.",
+  ],
+
   "Advice sources changed during inference; ask again": [
     "Products or supporting information changed while the answer was being prepared. Please ask again.",
     "Produkte oder Belege wurden während der Antwort geändert. Bitte frage erneut.",

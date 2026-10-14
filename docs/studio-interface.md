@@ -1,5 +1,10 @@
 # VEYNDO Studio interface
 
+## 14 October 2026: settings navigation and native creation
+
+[The illustrated Admin workflow](admin-workflows.md) describes grouped/searchable settings, the corrected currency layout, CRM creation/default addresses and the native review → checkout order path, with actual permission/sandbox and payment boundaries.
+
+
 The 2026-10-05 repair fixes the actual first-entry settings failure: layout rules
 were in the lazy Customers stylesheet. Settings and the app catalog now import
 their own styles, while native field primitives load with the Studio shell.

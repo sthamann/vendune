@@ -54,7 +54,8 @@
     "pos",
     "b2b",
     "b2b_ucp",
-    "behavior_intelligence"
+    "behavior_intelligence",
+    "admin_creation"
   ],
   "providers": [
     "email_tests",

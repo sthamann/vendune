@@ -3,6 +3,8 @@ import type { GridCriteria } from "../../shared/grid/types";
 import { AppSurfaceSlot } from "../../shared/apps/AppSurfaces";
 import { useEffect, useState } from "react";
 import { downloadFile } from "../../shared/api/download";
+import OrderCreate from "./OrderCreate";
+import { useAdminCreationText } from "../../shared/i18n/admin-creation-i18n";
 import OrderDirectory from "./OrderDirectory";
 import { useOperationsText } from "../../shared/i18n/operations-i18n";
 import type { RequestFn } from "../shell/studio-types";
@@ -21,6 +23,8 @@ export default function OrdersManager({
   onEntity?: OpenEntity;
   onEntityBack?: () => void;
 }) {
+  const { n } = useAdminCreationText();
+  const [creating, setCreating] = useState(false);
   const [gridCursor, setGridCursor] = useState("");
   const [gridCriteria, setGridCriteria] = useState<GridCriteria>({});
   const { o } = useOperationsText();
@@ -47,9 +51,35 @@ export default function OrdersManager({
       <div className="page-intro">
         <h1>{o("orders")}</h1>
         <p>{o("ordersHint")}</p>
+        {!selected &&
+          !creating &&
+          [
+            "orders.write",
+            "customers.read",
+            "customers.pii",
+            "catalog.read",
+          ].every((right) => rights.includes(right)) && (
+            <button
+              className="studio-primary"
+              onClick={() => setCreating(true)}
+            >
+              {n("newOrder")}
+            </button>
+          )}
       </div>
       {error && <p role="alert">{error}</p>}
-      {selected ? (
+      {creating ? (
+        <OrderCreate
+          request={request}
+          rights={rights}
+          onBack={() => setCreating(false)}
+          onCreated={(id) => {
+            setCreating(false);
+            if (onEntity) onEntity("orders", id);
+            else setSelected(id);
+          }}
+        />
+      ) : selected ? (
         <>
           <AppSurfaceSlot
             location="admin.order"

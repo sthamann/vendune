@@ -350,3 +350,48 @@
     align-items: stretch;
   }
 }
+
+/* Scope context is a single calm toolbar, not a second floating card. */
+.studio .intl-scope-bar > .intl-language-switcher {
+  position: static;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+  min-width: 0;
+}
+.studio .intl-scope-bar > .intl-language-switcher label {
+  flex: 1;
+  min-width: 0;
+}
+.studio .intl-scope-bar > .intl-language-switcher small {
+  width: 100%;
+  padding: 0;
+}
+.studio .intl-panel .currency-settings {
+  padding: 28px;
+  display: grid;
+  gap: 22px;
+}
+.studio .intl-panel .currency-settings p,
+.studio .intl-panel .currency-settings h3 {
+  margin: 0;
+}
+.studio .intl-panel .currency-rate-cards {
+  margin: 0;
+}
+@media (max-width: 760px) {
+  .studio .intl-scope-bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    padding: 20px;
+  }
+  .studio .intl-panel .currency-settings {
+    padding: 20px;
+  }
+  .studio .intl-scope-bar > label {
+    min-width: 0;
+  }
+}

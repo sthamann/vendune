@@ -141,7 +141,10 @@ it("opens a related order directly and uses configured translated customer group
       return {
         permissions: ["customers.read", "customers.write", "orders.read"],
       };
-    if (path === "/api/merchant/customer-groups")
+    if (
+      path === "/api/merchant/customer-groups" ||
+      path === "/api/merchant/customers/create-context"
+    )
       return {
         elements: [
           {
@@ -151,6 +154,7 @@ it("opens a related order directly and uses configured translated customer group
           },
         ],
         mainLocale: "en-GB",
+        countries: ["DE"],
       };
     if (path === "/store-api/checkout/options") return { countries: ["DE"] };
     if (path.endsWith("/addresses"))

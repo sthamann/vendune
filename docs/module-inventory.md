@@ -356,6 +356,8 @@ This lists every checked-in source module in these roots, including files with n
 | [src/operations/company_logo.rs](../src/operations/company_logo.rs) | Tenant-owned logo uploads: bounded decoding, metadata stripping, immutable PNG storage and linked public delivery. |
 | [src/operations/company_model.rs](../src/operations/company_model.rs) | Company profile admission, sparse channel inheritance and structured-address print projection. |
 | [src/operations/company_public.rs](../src/operations/company_public.rs) | Explicit public legal/brand projection; bank account, domestic tax ID and unlinked uploads remain private. |
+| [src/operations/creation_schema.rs](../src/operations/creation_schema.rs) | Domain-owned MCP schemas for safe CRM creation choices and explicitly reviewed manual orders. |
+| [src/operations/customer_create.rs](../src/operations/customer_create.rs) | Admin CRM creation uses native contacts/address storage, history and outbox; it never issues customer credentials. |
 | [src/operations/customer_lookup.rs](../src/operations/customer_lookup.rs) | Fast customer-only lookup for native identity bindings: tenant-scoped, indexed and bounded; no guest-order union. |
 | [src/operations/customers.rs](../src/operations/customers.rs) | Tenant-scoped paged CRM and revision-checked merchant changes; credentials never leave storage. |
 | [src/operations/delivery_booking.rs](../src/operations/delivery_booking.rs) | Provider-neutral package admission freezes allocation before a paid carrier effect; approved apps reconcile only their own intent. |
@@ -363,6 +365,8 @@ This lists every checked-in source module in these roots, including files with n
 | [src/operations/grid_schema.rs](../src/operations/grid_schema.rs) | One allowlisted list-filter schema for model plans and MCP; no model-supplied SQL or tenant identity. |
 | [src/operations/guest_customers.rs](../src/operations/guest_customers.rs) | Merchant-only guest contact projection; order snapshots never create account authority. |
 | [src/operations/list_criteria.rs](../src/operations/list_criteria.rs) | Bounded native order/customer filter and sort contracts, reused by HTTP, MCP and reviewed grid plans. |
+| [src/operations/manual_order_admission.rs](../src/operations/manual_order_admission.rs) | Private admin-cart admission and locked final checkout guards; shared pricing and order effects stay native. |
+| [src/operations/manual_orders.rs](../src/operations/manual_orders.rs) | Actor-private manual-order quotes reuse native cart, legal, pricing, inventory and checkout; no second order ledger. |
 | [src/operations/master_data.rs](../src/operations/master_data.rs) | Revisioned tenant company basis and sparse channel overrides, serialized with receipt issuance. |
 | [src/operations/mod.rs](../src/operations/mod.rs) | Merchant CRM and fulfillment APIs, shared verbatim with MCP operations capabilities. |
 | [src/operations/order_documents.rs](../src/operations/order_documents.rs) | Immutable private carrier documents belong to the existing order receipt store, never product assets. |
@@ -528,7 +532,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/automation/useAutomationLanguages.ts](../frontend/src/admin/automation/useAutomationLanguages.ts) | Load the current shop's content-language context and ignore replies after the workspace changes. |
 | [frontend/src/admin/b2b/B2BWorkspace.tsx](../frontend/src/admin/b2b/B2BWorkspace.tsx) | Tenant-scoped company workspace; canonical API operations are also exposed through MCP. |
 | [frontend/src/admin/b2b/CompanyCreate.tsx](../frontend/src/admin/b2b/CompanyCreate.tsx) | Guided company creation is one atomic native API command; the main-language name is always visible. |
-| [frontend/src/admin/b2b/CustomerPicker.tsx](../frontend/src/admin/b2b/CustomerPicker.tsx) | Debounced, bounded native customer search with cancellation fencing and explicit selection. |
+| [frontend/src/admin/b2b/CustomerPicker.tsx](../frontend/src/admin/b2b/CustomerPicker.tsx) | B2B reuses the shared native customer picker; purchasing policy stays in its domain owner. |
 | [frontend/src/admin/b2b/Members.tsx](../frontend/src/admin/b2b/Members.tsx) | Grants reference actual customer identities, never email guesses; pauses retain historical purchases. |
 | [frontend/src/admin/b2b/Quotes.tsx](../frontend/src/admin/b2b/Quotes.tsx) | Native RFQ inbox and merchant offers use the same versioned contract as buyer API/MCP operations. |
 | [frontend/src/admin/b2b/UnitCatalog.tsx](../frontend/src/admin/b2b/UnitCatalog.tsx) | Search the canonical merchant catalog; unit permissions persist through the native revision-bound catalog API. |
@@ -575,6 +579,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/channels/channel-i18n.ts](../frontend/src/admin/channels/channel-i18n.ts) | Sales-channel onboarding and inherited settings vocabulary in all interface languages. |
 | [frontend/src/admin/channels/channel-model.ts](../frontend/src/admin/channels/channel-model.ts) | Existing sales-channel contract and safe storefront URLs; independent tenants remain a separate concept. |
 | [frontend/src/admin/channels/connection-i18n.ts](../frontend/src/admin/channels/connection-i18n.ts) | Domain lifecycle copy in every supported Studio language. |
+| [frontend/src/admin/customers/CustomerCreate.tsx](../frontend/src/admin/customers/CustomerCreate.tsx) | Native CRM creation with explicit address defaults, inline validation and unsaved-change recovery. |
 | [frontend/src/admin/customers/CustomerDirectory.tsx](../frontend/src/admin/customers/CustomerDirectory.tsx) | Registered and guest contacts share native directory filters and permission-aware grid controls. |
 | [frontend/src/admin/customers/CustomersManager.tsx](../frontend/src/admin/customers/CustomersManager.tsx) | CRM list and editable customer profile with linked order history. |
 | [frontend/src/admin/customers/GuestContact.tsx](../frontend/src/admin/customers/GuestContact.tsx) | Read-only checkout snapshots distinguish guest contacts from authenticated customer accounts. |
@@ -657,14 +662,18 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/legal/LegalServices.tsx](../frontend/src/admin/legal/LegalServices.tsx) | Purpose inventory and provider disclosures edited in the selected content language. |
 | [frontend/src/admin/legal/LegalSettings.tsx](../frontend/src/admin/legal/LegalSettings.tsx) | Central revisioned legal workspace, inherited channel settings, source-backed sector guidance and request review. |
 | [frontend/src/admin/legal/ProductCompliance.tsx](../frontend/src/admin/legal/ProductCompliance.tsx) | Product-owned multilingual regulatory facts; collected evidence never claims automatic product certification. |
+| [frontend/src/admin/orders/OrderCreate.tsx](../frontend/src/admin/orders/OrderCreate.tsx) | Manual orders remain actor-private drafts until explicit native quote review and idempotent completion. |
 | [frontend/src/admin/orders/OrderDetail.tsx](../frontend/src/admin/orders/OrderDetail.tsx) | Order workspace: server actions, exact-once commands, provider progress and visible event history. |
 | [frontend/src/admin/orders/OrderDirectory.tsx](../frontend/src/admin/orders/OrderDirectory.tsx) | Native server-paged order directory supplies the reusable grid with fulfillment columns and current rights. |
 | [frontend/src/admin/orders/OrderPaymentDelivery.tsx](../frontend/src/admin/orders/OrderPaymentDelivery.tsx) | Payment jobs are observed until confirmation. Delivery actions share the server state machine. |
+| [frontend/src/admin/orders/OrderProductPicker.tsx](../frontend/src/admin/orders/OrderProductPicker.tsx) | Bounded, debounced native product/SKU lookup; prices are only committed through the reviewed checkout quote. |
+| [frontend/src/admin/orders/OrderReview.tsx](../frontend/src/admin/orders/OrderReview.tsx) | Reviewed native quote and explicit customer-authorisation acknowledgements precede the idempotent order command. |
 | [frontend/src/admin/orders/OrderWorkflow.tsx](../frontend/src/admin/orders/OrderWorkflow.tsx) | Server-owned transitions: one source for permitted actions, labels and business guards. |
 | [frontend/src/admin/orders/OrdersManager.tsx](../frontend/src/admin/orders/OrdersManager.tsx) | Order operations and native detail navigation; the shared grid owns only list presentation. |
 | [frontend/src/admin/orders/ReceiptPanel.tsx](../frontend/src/admin/orders/ReceiptPanel.tsx) | Seller configuration and version-bound receipt creation/download. |
 | [frontend/src/admin/orders/ShipmentSplit.tsx](../frontend/src/admin/orders/ShipmentSplit.tsx) | Explicit subset editor uses server admission, parent command fencing and immutable order quantities. |
 | [frontend/src/admin/orders/shipments.css](../frontend/src/admin/orders/shipments.css) | Package allocation stays compact on desktop and touch-friendly on narrow order workspaces. |
+| [frontend/src/admin/orders/useOrderCreation.ts](../frontend/src/admin/orders/useOrderCreation.ts) | Draft controller loads admitted choices, fences async reads and keeps review state separate from the editable input. |
 | [frontend/src/admin/pos/POSWorkspace.tsx](../frontend/src/admin/pos/POSWorkspace.tsx) | Native Studio register; all reads and writes use authenticated, tenant-scoped shared commerce operations. |
 | [frontend/src/admin/pos/ReceiptPrinter.tsx](../frontend/src/admin/pos/ReceiptPrinter.tsx) | OS-installed receipt printers receive the issued immutable invoice projection; no USB access, credentials or duplicate ledger. |
 | [frontend/src/admin/pos/Register.tsx](../frontend/src/admin/pos/Register.tsx) | Register composition: persisted sale, catalog, customer and assistant tools share native transport. |
@@ -748,6 +757,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/catalog.css](../frontend/src/admin/styles/catalog.css) | Light, precise catalog workspace with accessible tables, focused detail panels and visual authoring. |
 | [frontend/src/admin/styles/commerce-manager.css](../frontend/src/admin/styles/commerce-manager.css) | commerce manager: Studio visual system and merchant operational layouts. |
 | [frontend/src/admin/styles/company-settings.css](../frontend/src/admin/styles/company-settings.css) | Company editor: structured addresses, visible scope inheritance and compact upload controls. |
+| [frontend/src/admin/styles/creation.css](../frontend/src/admin/styles/creation.css) | Shared native creation workspaces: readable fields, predictable actions and responsive review. |
 | [frontend/src/admin/styles/forms.css](../frontend/src/admin/styles/forms.css) | Studio-owned form primitives load at the composition root, independent of lazy workspace history. |
 | [frontend/src/admin/styles/international-details.css](../frontend/src/admin/styles/international-details.css) | Destination rates, translation jobs and responsive international workbench layout. |
 | [frontend/src/admin/styles/international.css](../frontend/src/admin/styles/international.css) | International commerce workbench: compact master/detail records, calm colour and clear field hierarchy. |
@@ -846,6 +856,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/customer/AddressCard.tsx](../frontend/src/shared/customer/AddressCard.tsx) | Human-readable address used in order snapshots and address books. |
 | [frontend/src/shared/customer/AddressFields.tsx](../frontend/src/shared/customer/AddressFields.tsx) | Structured accessible address editor; no hidden JSON or storefront-only duplicate model. |
 | [frontend/src/shared/customer/CustomerFields.tsx](../frontend/src/shared/customer/CustomerFields.tsx) | Contact fields mirror the account API while access, identity and pricing remain separate. |
+| [frontend/src/shared/customer/CustomerPicker.tsx](../frontend/src/shared/customer/CustomerPicker.tsx) | Debounced, bounded native customer search with cancellation fencing and explicit selection. |
 | [frontend/src/shared/customer/GoogleAddressSearch.tsx](../frontend/src/shared/customer/GoogleAddressSearch.tsx) | Opt-in Places widget fills editable address fields, rejects unsupported destinations and ignores stale replies. |
 | [frontend/src/shared/customer/customer-types.ts](../frontend/src/shared/customer/customer-types.ts) | Shared customer/address contracts; merchant and customer sessions use distinct request adapters. |
 | [frontend/src/shared/customer/google-address.ts](../frontend/src/shared/customer/google-address.ts) | Google Places adapter: lazy public browser key, bounded loader and international address mapping. |
@@ -872,6 +883,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/ContentLanguagePicker.tsx](../frontend/src/shared/i18n/ContentLanguagePicker.tsx) | Compact shared language switcher with explicit main-language context; selection never changes persisted content. |
 | [frontend/src/shared/i18n/LocalizedField.tsx](../frontend/src/shared/i18n/LocalizedField.tsx) | Single visible field for the editor's language, with main-language preview and explicit restore-to-inheritance. |
 | [frontend/src/shared/i18n/account-i18n.ts](../frontend/src/shared/i18n/account-i18n.ts) | Customer account vocabulary: one complete EN/DE/FR/ES contract for authentication and purchase care. |
+| [frontend/src/shared/i18n/admin-creation-i18n.ts](../frontend/src/shared/i18n/admin-creation-i18n.ts) | Shared settings navigation and native customer/manual-order creation vocabulary: EN/DE/FR/ES. |
 | [frontend/src/shared/i18n/app-access-i18n.ts](../frontend/src/shared/i18n/app-access-i18n.ts) | Explicit app callback consent and short-lived key management vocabulary. |
 | [frontend/src/shared/i18n/app-assistant-i18n.ts](../frontend/src/shared/i18n/app-assistant-i18n.ts) | App assistants and extension permissions use the same EN/DE/FR/ES vocabulary. |
 | [frontend/src/shared/i18n/app-building-i18n.ts](../frontend/src/shared/i18n/app-building-i18n.ts) | Shared translated app recipes and reviewed AI changes; no alternate app schema. |
@@ -1137,6 +1149,7 @@ This lists every checked-in source module in these roots, including files with n
 | Module | Responsibility |
 |---|---|
 | [scripts/account_security.py](../scripts/account_security.py) | Native personal MFA acceptance through HTTP/PostgreSQL; synthetic accounts only, no external services. |
+| [scripts/admin_creation.py](../scripts/admin_creation.py) | Native Admin customer/manual-order HTTP+MCP state, isolation, replay and private token regressions. No provider calls. |
 | [scripts/api_catalogue.py](../scripts/api_catalogue.py) | Generate a drift-checked static HTTP route catalogue from the compiled Rust router declarations. |
 | [scripts/app_assets.py](../scripts/app_assets.py) | Actual native scoped file upload, callback read, product/digest/key fences and public-file policy. |
 | [scripts/app_assistants.py](../scripts/app_assistants.py) | Real assistant packages: editor context, rights, MCP opt-out, cron, signed webhooks, flows and local service fixtures. |

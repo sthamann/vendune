@@ -272,6 +272,8 @@ export default function StudioRoutes() {
         onTeam={() => selectTab("users")}
         onAutomation={() => selectTab("automation")}
         onB2B={() => selectTab("b2b")}
+        onChannels={() => selectTab("channels")}
+        onApps={() => selectTab("apps")}
       />
     ) : tab === "overview" ? (
       <OverviewView
