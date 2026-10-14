@@ -7,6 +7,10 @@
 - Localize handbook interface and reading-path descriptions in English, German, French and Spanish; retain and label original English technical articles.
 - Refresh README screenshots from the actual blue Veyndo UI and explain the synthetic/local-model capture boundary.
 
+## Unreleased — EDI identity and hosted RLS evidence
+
+- EDI exports fingerprint the actual serialized document and native source identifiers; operational notes no longer change an identical export's identity. The regression uses the existing native order-note API, and the implementation stays app-owned.
+- The repeated consistency audit records that hosted Core `540e066` has no mandatory RLS switch or separate runtime credential. Strict local RLS tests do not certify that hosting configuration; provisioning awaits its specific hosting confirmation.
 
 ## First visitor and contributor entry — 14 October 2026
 
@@ -16,6 +20,20 @@
 - Make actual recordings and first contribution tasks visible from the README and docs homepage.
 - Add first-tour feedback and a private local GitHub traffic snapshot tool.
 
+## Historical customer ownership — 14 October 2026
+
+- Remove email-only account ownership for old guest orders. Account history,
+  issued PDFs and paid download consumers share the native immutable customer-ID
+  predicate; a newly registered email cannot claim historical guest purchases.
+- Preserve admitted CRM lookup and exact original cart-token paid downloads.
+  Do not guess legacy identities or rewrite old financial snapshots.
+- Add real failing-before/passing-after registration/order cases and actual
+  historical paid-file/PDF denial, guest-capability and merchant-access regressions
+  in the existing isolated suite registry. Keep SQL safety and partial proof limits.
+- Prevent a typed guest email from forging verified-purchase badges or reserving
+  another buyer's review identity. Review-count rules consume stable account
+  submissions; append-only migration 093 withdraws unverifiable historical
+  email-derived badges while retaining text, rating and moderation.
 
 ## Repeated cross-component audit and history discovery — 14 October 2026
 

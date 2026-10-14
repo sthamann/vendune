@@ -125,6 +125,20 @@ assert call('/store-api/account/orders',h={**public,'x-customer-token':new_accou
 assert len(call('/api/merchant/customers?query=guest%40example.test',h=mh)['elements'])==1
 assert not call('/api/merchant/customers/guest@example.test',h=mh)['guest']
 assert [o['id'] for o in call('/api/merchant/customers/guest@example.test',h=mh)['orders']]==[paid['id']]
+# Historical email-only snapshots must not become account ownership after signup.
+# Simulate the old persisted shape in this disposable fixture database only.
+if os.getenv('TEST_DATABASE'):
+    import subprocess
+    sql=f"""BEGIN; SET LOCAL rac.system='on';
+    UPDATE orders SET data=data-'orderCustomer' WHERE tenant='{t}' AND id='{paid['id']}';
+    UPDATE carts SET data=jsonb_set(data,'{{email}}','\"guest@example.test\"'::jsonb)
+      WHERE tenant='{t}' AND id=(SELECT cart_id FROM orders WHERE tenant='{t}' AND id='{paid['id']}'); COMMIT;"""
+    subprocess.run(psql(os.environ['TEST_DB_CONTAINER'],'commerce',os.environ['TEST_DATABASE'],'-v','ON_ERROR_STOP=1'),input=sql,text=True,check=True,stdout=subprocess.DEVNULL)
+    unbound={**public,'x-customer-token':new_account['customerToken']}
+    assert call('/store-api/account/orders',h=unbound)['elements']==[], 'Legacy email alone assigned a guest order to a newly registered account'
+    call('/store-api/account/orders/'+paid['id'],h=unbound,expected=404)
+    assert [o['id'] for o in call('/api/merchant/customers/guest@example.test',h=mh)['orders']]==[paid['id']]
+    passed('Legacy email-only guest snapshots stay visible to admitted CRM staff without granting new-account order ownership')
 page1=call('/api/merchant/customers?limit=1',h=mh)
 page2=call('/api/merchant/customers?limit=1&after='+page1['nextCursor'],h=mh)
 assert page1['elements'][0]['email']!=page2['elements'][0]['email']

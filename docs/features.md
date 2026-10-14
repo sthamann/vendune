@@ -101,6 +101,11 @@ Demo payment simulates authorization; bank transfer/invoice use manual states an
 
 Customer identities are separate from Studio users. Accounts support registration/sign-in, personal/contact fields, preferred payment method, an address book with independent billing/delivery defaults, password change, logout and own order history. A typed guest email does not authenticate an existing account or grant access to its previous orders.
 
+Historical orders without an immutable customer-ID binding remain unassigned to
+accounts, including after registration with a matching email. CRM lookup still
+requires current merchant/PII rights; paid guest downloads use the exact original
+cart proof. Email matching never grants old order/PDF/file ownership.
+
 Paid digital files become available through purchase entitlements. Orders pin immutable asset IDs; replacing or withdrawing a public file does not silently replace the purchased bytes. Full refunds revoke relevant access; partial refunds retain it. All-digital carts omit physical shipping; mixed carts calculate it for physical items. Recovery, verified email/email changes and complete account export/erasure remain additional work. [Customer and download contracts](merchant-operations.md).
 
 [Archived capture from the preceding release: Separate customer account with personal data and a saved address](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/feature-tour/customer-account.jpg)

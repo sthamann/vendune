@@ -116,6 +116,8 @@ for lang in ['en','fr','es']:assert not mcp('merchant.receipt.create',{'id':id,'
 assert not mcp('merchant.receipt.create',{'id':id,'revision':order['revision'],'kind':'cancellation','locale':'de','referenceId':receipt['id'],'requestKey':'cancel-'+suffix},h)['isError']
 assert req('/api/merchant/receipts/'+receipt['id']+'/pdf',h=h,binary=True)==pdf
 check('numbered four-language PDFs, concurrent idempotency, cancellation references and immutable originals')
+from testing.legacy_customer_ownership import check_legacy_customer
+check_legacy_customer(req, h, public, id, asset['id'], b'Purchased digital guide')
 profile=req('/api/merchant/customers/'+email,h=h);req('/api/merchant/customers/'+email,{'revision':profile['revision'],'profile':profile['profile'],'company':'Demo','customerGroup':'business','active':False},h,'PUT')
 req('/store-api/account/profile',h=customer,expected=401);req('/store-api/account/login',{'email':email,'password':password},ch,expected=401)
 req('/api/merchant/customers/'+email,{'revision':profile['revision'],'profile':{},'customerGroup':'consumer','active':True},h,'PUT',409)

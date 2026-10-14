@@ -46,6 +46,22 @@ claim. Native workflow/group metadata are now explicit navigation fixtures.
 
 ## System consistency audit — 14 October 2026
 
+The subsequent legacy-ownership case exposed a separate real admission defect:
+a new account could see an old email-only guest order. The new regression models
+the historical persisted shape only in the disposable database. The corrected
+native account/download owners share one immutable customer-ID SQL predicate;
+existing digital/PDF tests additionally verify denied claimant access, preserved
+original guest-cart capability and admitted CRM/merchant access. Unbound old
+records are not silently assigned or financially rewritten. SQL execution remains
+outside the selected Lean proofs.
+
+The identity-class follow-up also reproduces a forged verified-purchase badge
+through typed guest email. The corrected review producer and native `numberOfReviews`
+rule consumer are tested together: guest-email inheritance is excluded, actual
+account submission is counted, and the real original cart can still review its
+purchase. All nine affected native suites pass. A separate native migration-only
+upgrade confirms 093 withdraws the old badge while retaining approval/text/rating.
+
 [Second pass and full component matrix](system-consistency-audit.md#component-status-at-the-second-pass):
 **49 registered native HTTP/PostgreSQL/provider suites** pass at `b4fb561`, followed
 by a reproduced history-discovery counterexample and its targeted repair. MCP now
@@ -541,3 +557,18 @@ by a mocked successful semantic result. See [the security matrix](app-security.m
 ## App ownership checks
 
 Architecture, localization, translation export and frontend coverage include trusted app UI under `extensions/apps/`. The Rust source inventory and verification review ledger include app and service Rust modules. `scripts/testing/plugin_ownership.py` checks canonical package layout and has rejecting controls for leaked core files and escaping symlinks. Provider and checkout integration suites continue to test existing HTTP/MCP/Flow behavior after relocations. This is source ownership and regression coverage, not a proof that every trusted compatibility adapter executes in a sandbox. See [exact boundaries](plugin-ownership.md).
+
+### EDI export identity — repeated consistency audit, 14 October 2026
+
+A full CI run exposed an intermittent repeated-export `sourceHash` mismatch.
+The deterministic existing EDI suite now adds a native operational order note
+between exports. Before repair, only the source hash changes while the document
+is identical. After repair, the app fingerprints the actual serialized document
+and explicit native source IDs/format/kind; the complete response stays identical.
+Real EDI and native B2B suites, seven EDI Rust tests and targeted Clippy pass.
+The original failure is retained; no equality assertion was weakened.
+
+A separate read-only hosted check of Core `540e066` found the mandatory RLS switch
+unset and no separate runtime credential. This is an open hosting configuration
+issue, not evidence that local strict-RLS tests enable production protection.
+See the [complete status and prepared provisioning boundary](system-consistency-audit.md).

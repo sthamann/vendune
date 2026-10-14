@@ -31,9 +31,16 @@ pub(crate) async fn submit_review(
     {
         return Err(bad("Unknown product"));
     }
-    let verified:bool=sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM orders o JOIN carts c ON c.id=o.cart_id WHERE o.tenant=$1 AND (o.cart_id=$2 OR ($3::text IS NOT NULL AND c.data->>'email'=$3)) AND EXISTS(SELECT 1 FROM jsonb_array_elements(o.data->'cart'->'lineItems') i WHERE i->>'id'=$4))").bind(&c.tenant).bind(&c.id).bind(&c.data.email).bind(&id).fetch_one(&a.db).await?;
+    let verified:bool=sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM orders o WHERE o.tenant=$1 AND (o.cart_id=$2 OR ($3::text IS NOT NULL AND o.data->'orderCustomer'->>'customerId'=$3)) AND EXISTS(SELECT 1 FROM jsonb_array_elements(o.data->'cart'->'lineItems') i WHERE i->>'id'=$4))").bind(&c.tenant).bind(&c.id).bind(&c.data.customer_id).bind(&id).fetch_one(&a.db).await?;
+    // Guest contact text cannot claim a buyer identity or reserve that buyer's review.
+    let reviewer = c
+        .data
+        .customer_id
+        .as_ref()
+        .map(|id| format!("customer:{id}"))
+        .unwrap_or_else(|| format!("cart:{}", c.id));
     let review_id = uid();
-    let changed=sqlx::query("INSERT INTO product_reviews(id,tenant,product_id,session,author,rating,title,content,verified) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) ON CONFLICT(tenant,product_id,session) DO NOTHING").bind(&review_id).bind(&c.tenant).bind(&id).bind(c.data.email.as_deref().unwrap_or(&c.id)).bind(author).bind(rating as i32).bind(title).bind(content).bind(verified).execute(&a.db).await?;
+    let changed=sqlx::query("INSERT INTO product_reviews(id,tenant,product_id,session,author,rating,title,content,verified) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) ON CONFLICT(tenant,product_id,session) DO NOTHING").bind(&review_id).bind(&c.tenant).bind(&id).bind(reviewer).bind(author).bind(rating as i32).bind(title).bind(content).bind(verified).execute(&a.db).await?;
     if changed.rows_affected() == 0 {
         return Err(conflict("One review per product and customer context"));
     }

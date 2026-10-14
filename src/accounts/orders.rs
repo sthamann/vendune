@@ -9,8 +9,18 @@ async fn owned(
     id: Option<&str>,
     after: Option<&str>,
 ) -> Result<Vec<Value>> {
-    let rows = sqlx::query("SELECT o.data, o.created_at::text AS time FROM orders o JOIN carts c ON c.id=o.cart_id AND c.tenant=o.tenant WHERE o.tenant=$1 AND ($3::text IS NULL OR o.id=$3) AND ((o.data->'orderCustomer'->>'customerId')=(SELECT id FROM customers WHERE tenant=o.tenant AND email=$2) OR (NOT o.data ? 'orderCustomer' AND c.data->>'email'=$2)) AND ($4::text IS NULL OR (o.created_at,o.id)<(SELECT created_at,id FROM orders WHERE tenant=$1 AND id=$4)) ORDER BY o.created_at DESC,o.id DESC LIMIT 101")
-        .bind(t).bind(email).bind(id).bind(after).fetch_all(&a.db).await?;
+    let mut query = sqlx::QueryBuilder::<sqlx::Postgres>::new(
+        "SELECT o.data, o.created_at::text AS time FROM orders o JOIN carts c ON c.id=o.cart_id AND c.tenant=o.tenant WHERE o.tenant=$1 AND ($3::text IS NULL OR o.id=$3) AND ",
+    );
+    query.push(ORDER_ACCOUNT_SCOPE).push(" AND ($4::text IS NULL OR (o.created_at,o.id)<(SELECT created_at,id FROM orders WHERE tenant=$1 AND id=$4)) ORDER BY o.created_at DESC,o.id DESC LIMIT 101");
+    let rows = query
+        .build()
+        .bind(t)
+        .bind(email)
+        .bind(id)
+        .bind(after)
+        .fetch_all(&a.db)
+        .await?;
     Ok(rows
         .iter()
         .map(|r| project(&r.get("data"), &r.get::<String, _>("time")))

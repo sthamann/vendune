@@ -184,4 +184,8 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         "092-order-document-artifacts",
         include_str!("../../migrations/092-order-document-artifacts.sql"),
     ),
+    (
+        "093-review-identity",
+        include_str!("../../migrations/093-review-identity.sql"),
+    ),
 ];

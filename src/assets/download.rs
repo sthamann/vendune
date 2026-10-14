@@ -55,7 +55,13 @@ pub(super) async fn owned(State(a): State<App>, h: RequestContext) -> Result<Jso
     let (t, email) = accounts::identity(&a, &h).await?;
     let (settings, _) = commerce::config(&a, &t).await?;
     let locale = header(&h, "x-commerce-locale").unwrap_or(&settings.main_locale);
-    let rows=sqlx::query("SELECT a.id,a.title,a.filename,o.id AS order_id,o.data FROM order_downloads d JOIN product_assets a ON a.tenant=d.tenant AND a.id=d.asset_id JOIN orders o ON o.tenant=d.tenant AND o.id=d.order_id JOIN carts c ON c.id=o.cart_id WHERE d.tenant=$1 AND ((o.data->'orderCustomer'->>'customerId')=(SELECT id FROM customers WHERE tenant=o.tenant AND email=$2) OR (NOT o.data ? 'orderCustomer' AND c.data->>'email'=$2)) ORDER BY o.created_at DESC LIMIT 200").bind(t).bind(email).fetch_all(&a.db).await?;
+    let mut query = sqlx::QueryBuilder::<sqlx::Postgres>::new(
+        "SELECT a.id,a.title,a.filename,o.id AS order_id,o.data FROM order_downloads d JOIN product_assets a ON a.tenant=d.tenant AND a.id=d.asset_id JOIN orders o ON o.tenant=d.tenant AND o.id=d.order_id WHERE d.tenant=$1 AND ",
+    );
+    query
+        .push(accounts::ORDER_ACCOUNT_SCOPE)
+        .push(" ORDER BY o.created_at DESC LIMIT 200");
+    let rows = query.build().bind(t).bind(email).fetch_all(&a.db).await?;
     Ok(Json(
         json!({"elements":rows.iter().filter(|r|paid(&r.get::<Value,_>("data"))).map(|r|json!({"id":r.get::<String,_>("id"),"title":r.get::<Value,_>("title"),"name":commerce::translated_string(&r.get::<Value,_>("title"),locale,&settings.main_locale),"filename":r.get::<String,_>("filename"),"orderId":r.get::<String,_>("order_id")})).collect::<Vec<_>>()}),
     ))
@@ -72,7 +78,22 @@ pub(super) async fn file(
         None
     };
     let token = header(&h, "sw-context-token").unwrap_or("");
-    let r=sqlx::query("SELECT a.mime,a.filename,a.content,o.data FROM order_downloads d JOIN product_assets a ON a.tenant=d.tenant AND a.id=d.asset_id JOIN orders o ON o.tenant=d.tenant AND o.id=d.order_id JOIN carts c ON c.id=o.cart_id WHERE d.tenant=$1 AND d.order_id=$2 AND d.asset_id=$3 AND (($4::text IS NOT NULL AND ((o.data->'orderCustomer'->>'customerId')=(SELECT id FROM customers WHERE tenant=o.tenant AND email=$4) OR (NOT o.data ? 'orderCustomer' AND c.data->>'email'=$4))) OR (length($5)>0 AND c.token=$5))").bind(t).bind(order).bind(asset).bind(email).bind(token).fetch_optional(&a.db).await?.ok_or(Error(StatusCode::NOT_FOUND,"Download not found".into()))?;
+    let mut query = sqlx::QueryBuilder::<sqlx::Postgres>::new(
+        "SELECT a.mime,a.filename,a.content,o.data FROM order_downloads d JOIN product_assets a ON a.tenant=d.tenant AND a.id=d.asset_id JOIN orders o ON o.tenant=d.tenant AND o.id=d.order_id JOIN carts c ON c.id=o.cart_id AND c.tenant=o.tenant WHERE d.tenant=$1 AND d.order_id=$3 AND d.asset_id=$4 AND (($2::text IS NOT NULL AND ",
+    );
+    query
+        .push(accounts::ORDER_ACCOUNT_SCOPE)
+        .push(") OR (length($5)>0 AND c.token=$5))");
+    let r = query
+        .build()
+        .bind(t)
+        .bind(email)
+        .bind(order)
+        .bind(asset)
+        .bind(token)
+        .fetch_optional(&a.db)
+        .await?
+        .ok_or(Error(StatusCode::NOT_FOUND, "Download not found".into()))?;
     if !paid(&r.get::<Value, _>("data")) {
         return Err(Error(
             StatusCode::FORBIDDEN,

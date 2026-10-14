@@ -533,8 +533,8 @@
     },
     "extensions/apps/edi/service/export.rs": {
       "status": "unproved",
-      "sha256": "1d6bb96b939730f390fa77c1b16cfdf12d94e5003c6646ec21259200a2dd3984",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "ec7d7bea3f89152112cae17d47f788158e93134b0ffbaed83effa080f456846d",
+      "review": "Reviewed app-owned EDI document identity: source hash binds the actual rendered document and explicit native source IDs, excluding mutable order activity/workflow. Deterministic real HTTP/PG counterexample adds an operational note; native receipts, partner authorization, cancellation and amount guards retained. This exporter remains unproved by Lean."
     },
     "extensions/apps/edi/service/export_tests.rs": {
       "status": "unproved",
@@ -833,8 +833,8 @@
     },
     "src/accounts/mod.rs": {
       "status": "unproved",
-      "sha256": "40ac29a91a7bac8c63ec6a8db543c5060d877f55bc11dddb1b1af66f45b29148",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "70237f514965f39a3749bbfda6c5b509776e177d37e91c470f5b4ac4b034510d",
+      "review": "Remove unverified legacy email ownership from account order history/receipts and paid downloads. One native immutable customer-ID SQL fragment uses static QueryBuilder text and bound values; original scoped cart bearer access is preserved. Legacy signup/order counterexample reproduced before repair, modern account and historical binary/PDF denied/positive paths passed; no extracted financial predicate changed."
     },
     "src/accounts/order_snapshot.rs": {
       "status": "unproved",
@@ -843,8 +843,8 @@
     },
     "src/accounts/orders.rs": {
       "status": "unproved",
-      "sha256": "7739704c7dcf0456fb665be0d5e81e9de73254a2885f9c07571aa2749fa7f8d9",
-      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
+      "sha256": "1107f44dea07ef34c23ebdfc3c82af08ab7f04462917c297d2419506824bf2c4",
+      "review": "Remove unverified legacy email ownership from account order history/receipts and paid downloads. One native immutable customer-ID SQL fragment uses static QueryBuilder text and bound values; original scoped cart bearer access is preserved. Legacy signup/order counterexample reproduced before repair, modern account and historical binary/PDF denied/positive paths passed; no extracted financial predicate changed."
     },
     "src/accounts/profile.rs": {
       "status": "unproved",
@@ -1163,8 +1163,8 @@
     },
     "src/assets/download.rs": {
       "status": "reviewed-binding",
-      "sha256": "223415fc11c06371c999140af682bf70f3b7b246f49a0e136330091406423e87",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "20c6e28b0115d6f094832c4008dc1f29d3bb414e9a16c1529159427c8db21c96",
+      "review": "Remove unverified legacy email ownership from account order history/receipts and paid downloads. One native immutable customer-ID SQL fragment uses static QueryBuilder text and bound values; original scoped cart bearer access is preserved. Legacy signup/order counterexample reproduced before repair, modern account and historical binary/PDF denied/positive paths passed; no extracted financial predicate changed."
     },
     "src/assets/image_jobs.rs": {
       "status": "unproved",
@@ -1908,8 +1908,8 @@
     },
     "src/commerce/reviews.rs": {
       "status": "unproved",
-      "sha256": "a0aedb1a9f53cff303b494e6032fbb9a6cdc58de9c3a6aff4f0c4601a0bd7752",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "71c4709e72d66ad600311fa13efb7735f658708e90bd2b8a89666020e386684d",
+      "review": "Native customer identity audit: shared immutable account binding removes legacy email reads from orders/PDF/downloads; original cart capability is preserved. Review purchase and duplicate identity now use actual cart/account IDs; native customer review-count facts use the same canonical namespace. Additive 093 withdraws old email-derived purchase badges without assigning identities or editing text/rating/moderation. Static SQL and bound values remain; SQL/migration adapters are reviewed, not proved; extracted money/fulfillment predicates unchanged."
     },
     "src/commerce/selection.rs": {
       "status": "unproved",
@@ -2353,8 +2353,8 @@
     },
     "src/marketing/customer_facts.rs": {
       "status": "unproved",
-      "sha256": "6381eeee59989d6bf9e7c97f5f7f4a06dbd4b3e8d642d613a2f03da3350198a9",
-      "review": "Reviewed source-named native scopes and strict missing-fact propagation, tenant-owned private metadata and indexed frozen rule references, bounded acyclic flow graph admission, current actor rechecks, stable local effect receipts and uncertain external step handling, persistent cursors/delays and isolated per-flow projection failures. Additive migration 025 and chrono dependencies reviewed; 432 original PHP class comparisons and real branch/delay/state/tag/custom-field/invoice/replay/revocation regressions pass. Extracted exact XOR and thirty-day delay guards with negative mutations; SQL, async runtime and full rule interpreter remain unproved."
+      "sha256": "f750c3a29aa45eff41d3bfe37da4fd9461a0f4a294f8da42b9fc9bff7124626b",
+      "review": "Native customer identity audit: shared immutable account binding removes legacy email reads from orders/PDF/downloads; original cart capability is preserved. Review purchase and duplicate identity now use actual cart/account IDs; native customer review-count facts use the same canonical namespace. Additive 093 withdraws old email-derived purchase badges without assigning identities or editing text/rating/moderation. Static SQL and bound values remain; SQL/migration adapters are reviewed, not proved; extracted money/fulfillment predicates unchanged."
     },
     "src/marketing/dependencies.rs": {
       "status": "unproved",
@@ -2498,8 +2498,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "3de5f3e3fb996c4276440b09989e73c21d2dcf480f925d2d58510884df23040a",
-      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
+      "sha256": "e1eda9599d6d57d401f8155a4ef3bda6df46b22909e3e149c48b5493eb314f24",
+      "review": "Native customer identity audit: shared immutable account binding removes legacy email reads from orders/PDF/downloads; original cart capability is preserved. Review purchase and duplicate identity now use actual cart/account IDs; native customer review-count facts use the same canonical namespace. Additive 093 withdraws old email-derived purchase badges without assigning identities or editing text/rating/moderation. Static SQL and bound values remain; SQL/migration adapters are reviewed, not proved; extracted money/fulfillment predicates unchanged."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -3568,6 +3568,10 @@
     "migrations/092-order-document-artifacts.sql": {
       "sha256": "a76060db64130da8a5492088bc6e44207e3376633ac7e789fbbd8a4be8927ee5",
       "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
+    },
+    "migrations/093-review-identity.sql": {
+      "sha256": "aa71a8e30a78ad15b73b05ac0d21cb402e4a4be23459f72062e7cb43fd4c78e6",
+      "review": "Native customer identity audit: shared immutable account binding removes legacy email reads from orders/PDF/downloads; original cart capability is preserved. Review purchase and duplicate identity now use actual cart/account IDs; native customer review-count facts use the same canonical namespace. Additive 093 withdraws old email-derived purchase badges without assigning identities or editing text/rating/moderation. Static SQL and bound values remain; SQL/migration adapters are reviewed, not proved; extracted money/fulfillment predicates unchanged."
     },
     "proof/Commerce/Claims.lean": {
       "sha256": "2a5a4a756f1d6701c3ad52153efcce113ab36aaa4d31dacf3dbda1c5c205b7d1",
