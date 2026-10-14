@@ -97,8 +97,12 @@ button.operation-row:hover {
   display: grid;
   grid-template-columns: 1.3fr 1fr;
   gap: 32px;
-  border: 1px solid #c9ddf9 !important;
-  background: linear-gradient(110deg, #f0f7ff, #fff) !important;
+  border: 1px solid var(--border) !important;
+  background: linear-gradient(
+    110deg,
+    var(--accent-soft),
+    var(--surface)
+  ) !important;
 }
 .workflow-current h2 {
   display: flex;
@@ -108,15 +112,15 @@ button.operation-row:hover {
   margin: 14px 0;
 }
 .workflow-current p {
-  color: #61738b;
+  color: var(--muted);
   max-width: 490px;
   line-height: 1.6;
 }
 .status-orbit {
   width: 12px;
   height: 12px;
-  background: #3583ed;
-  border: 4px solid #d4e6ff;
+  background: var(--accent);
+  border: 4px solid var(--accent-soft);
   box-sizing: content-box;
   border-radius: 50%;
 }
