@@ -6,7 +6,7 @@
 
 # VEYNDO
 
-**Commerce that thinks and acts.**
+**Commerce, rebuilt for the AI era.**
 
 [![Verify](https://github.com/sthamann/veyndo/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/sthamann/veyndo/actions/workflows/verify.yml)
 [![Documentation](https://github.com/sthamann/veyndo/actions/workflows/pages.yml/badge.svg?branch=main)](https://sthamann.github.io/veyndo/docs/)
@@ -17,26 +17,42 @@
 
 </div>
 
-**An AI-first commerce foundation in Rust, built for people and agents.**
-VEYNDO connects business knowledge, commerce operations, typed apps and experiences.
-Agents work with the same products, prices, inventory and permissions that people
-use in Studio and the storefront. People decide what agents may read, propose and
-execute.
+**A new Rust commerce platform with AI woven into the business itself.**
+Veyndo brings products, business knowledge, merchant work, shopper advice, agents,
+automation and apps onto one connected foundation. Studio, HTTP, MCP and implemented
+UCP routes call the same native commerce operations. Products, prices, inventory,
+permissions and revisions stay authoritative in the Rust core.
 
-Self-hostable and source-available. A working prototype with explicit boundaries;
-continuous autonomous business optimization remains a development goal.
+**Our ambition: the most advanced publicly developed commerce platform for the AI era.**
+Built in public, self-hostable and adaptable under the [Sustainable Use License](LICENSE).
 
-## Try one useful thing
+## AI-first, all the way through
 
-**Change a product in a private sandbox, inspect the difference and publish only
-what you approve.** The live catalog, native permissions and release review stay connected.
-Start with [one complete local round](docs/first-tour.md), then
-[connect an agent](docs/agent-workshop.md) or [build an app](docs/app-studio.md).
+| What makes the platform different | How it works today |
+| --- | --- |
+| **Rust at the foundation** | Native commerce and standard connector services run in Rust, with PostgreSQL transactions, durable events and a shared business-operation registry. [Architecture](docs/production-architecture.md). |
+| **Knowledge inside commerce** | Products, documents, confirmed claims and selected app data provide connected context for merchant planning and shopper advice. Retrieval and source review feed the existing action path. [Connected intelligence](docs/cognitive-commerce.md). |
+| **Agents in the actual business** | Studio, HTTP and MCP use the same permitted operations; implemented UCP checkout and B2B negotiation adapters reuse native carts, quotes and orders. Connect Claude Desktop and authorized ChatGPT/Claude remote clients, or develop with Codex and Claude Code. [Connections](docs/connectors.md) · [UCP B2B](docs/b2b-ucp-negotiation.md). |
+| **Automation with business context** | Visual Flows connect order events, rules, delays, documents, AI proposals and installed app actions through durable execution. [Automation](docs/automation.md). |
+| **A new app model** | Apps bring typed data, native interfaces, actions, knowledge relationships and optional bounded Wasm hooks. Visual App Studio and coding agents edit one executable Manifest, with real private previews and immutable releases. [App Studio](docs/app-studio.md) · [App platform](docs/app-platform.md). |
+| **Toward autonomous commerce** | Reviewed proposals, explicit price corridors, margin rules, daily budgets and controlled layout experiments are implemented. Continuous agents working toward whole-business goals are the next horizon. [Current scope](docs/cognitive-commerce.md#audit-completion-tracker). |
+
+Use OpenAI, Anthropic or configured local models through shared inference settings.
+Commerce remains usable without a model. Hosted chat clients need their own secure
+connection and account-side setup; [connection requirements](docs/connectors.md)
+are explicit.
+
+## See the foundation in action
 
 [![Actual Veyndo App Studio preview](docs/assets/showcase/app-studio.webp)](https://sthamann.github.io/veyndo/docs/assets/showcase/build-and-automate.mp4)
 
 [Watch the 29-second actual-UI recording](https://sthamann.github.io/veyndo/docs/assets/showcase/build-and-automate.mp4)
 · Synthetic shop · Edited recording · Simulated payments
+
+**Try one complete round:** start your own synthetic shop, change a product in a
+private sandbox, inspect the difference and publish the selected change.
+[Start the local tour](docs/first-tour.md) · [Connect an agent](docs/agent-workshop.md)
+· [Build an app](docs/app-studio.md).
 
 Have a question or an example? [Join the discussion](https://github.com/sthamann/veyndo/discussions).
 If this direction is useful to you, star the repository to bookmark it and help other builders discover it.
@@ -57,7 +73,7 @@ If this direction is useful to you, star the repository to bookmark it and help 
 
 ## Get started
 
-****Container tour:** Git + Docker Compose + OpenSSL; no Rust/Node build or model download.
+**Container tour:** Git + Docker Compose + OpenSSL; no Rust/Node build or model download.
 
 ```sh
 git clone https://github.com/sthamann/veyndo.git
@@ -68,7 +84,7 @@ cd veyndo
 Open `http://127.0.0.1:8788/`. The image is Linux amd64; see
 [availability, exact version pins and the complete walkthrough](docs/first-tour.md).
 
-**Build and develop from source:** Rust stable 1.96+ · Node.js 22+ · Docker Compose · Python 3**
+**Build and develop from source:** Rust stable 1.96+ · Node.js 22+ · Docker Compose · Python 3
 
 ```sh
 git clone https://github.com/sthamann/veyndo.git
@@ -212,7 +228,7 @@ guest files retain their exact original cart capability.
 | Area | Current scope |
 | --- | --- |
 | **Autonomy** | Authorized actions, durable workflows and bounded controls. Continuous autonomous optimization of an entire business remains a development goal. |
-| **Production readiness** | Working prototype. Recovery/MFA, complete spend controls, relocation/failover and broader operational acceptance remain additional work. |
+| **Production readiness** | Working prototype. Complete spend controls, relocation/failover and broader operational acceptance remain additional work. |
 | **Payments & providers** | Simulated/manual payments, native PayPal and versioned payment-app contracts. Real provider outcomes require configured providers and separate acceptance. |
 | **Protocols & compatibility** | Selected native Shopware behavior and HTTP/MCP/UCP capabilities; complete plugin/DAL/CMS compatibility and full protocol conformance are outside this slice. |
 | **Apps & deployment** | Declarative packages and independent services, signatures and pinned UI bundles. Hostile-code containment and arbitrary source builds remain deployment responsibilities. |
