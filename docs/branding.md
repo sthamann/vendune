@@ -8,7 +8,7 @@
 The VEYNDO identity uses the approved Living V symbol and custom outlined
 geometric lettering. Two offset solid elements form one directed V, expressing
 connected intelligence turning understanding into action. The palette is
-graphite `#171B18`, warm white `#F5F3EC` and lime `#D2F34A`. The V mark is used
+graphite `#171B18`, warm white `#F5F3EC` and Shopware blue `#189EFF`. The V mark is used
 for favicons and compact surfaces. UI and site favicons use identical copies checked by
 `scripts/branding.py`; wordmarks have light and dark variants.
 [Mark](brand/veyndo-mark.svg), [wordmark](brand/veyndo-logo.svg),
@@ -79,3 +79,11 @@ never delete its database volume to perform a rename.
 identity, shared SVG assets, source ownership and the absence of stale platform
 branding in the current frontend, website and README. It does not assert a
 trademark clearance or production readiness.
+
+The central UI palette lives in `frontend/src/shared/ui/brand.css` and is loaded by
+the browser bootstrap. Use `--veyndo-blue` for the identity/focus and
+`--veyndo-blue-text` (#0B539B) for readable light-surface actions. Dark surfaces
+use #189EFF with #06325F button text. Studio density styles must inherit the palette
+rather than declaring another theme. SVG copies remain byte-identical.
+
+The selected primary is documented in [Shopware's official brand guide](https://assets.shopware.com/media/website/press_materials/brochure/SW_CD_Design_Manual.pdf).

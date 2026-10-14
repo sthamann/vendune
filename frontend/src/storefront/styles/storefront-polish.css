@@ -1,13 +1,13 @@
 /** Warm editorial surfaces and responsive navigation, catalogue and product pages. */
 .shop {
-  --blue: #244c42;
-  --ink: #202e2a;
-  --muted: #58665e;
-  --line: #dfe3dc;
-  --shop-surface: #f5f4ef;
-  --shop-soft: #edf2eb;
-  --shop-focus: #b4cbbd;
-  background: #fcfcf9;
+  --blue: var(--veyndo-blue-text);
+  --ink: #142432;
+  --muted: #607182;
+  --line: #d4e2ef;
+  --shop-surface: #f5f8fc;
+  --shop-soft: var(--veyndo-blue-soft);
+  --shop-focus: var(--veyndo-blue-hover);
+  background: #fbfdff;
   font-size: 16px;
   min-height: 100dvh;
 }
@@ -72,7 +72,7 @@
     box-shadow 180ms ease;
 }
 .shop-primary:hover {
-  box-shadow: 0 5px 18px #244c4226;
+  box-shadow: 0 5px 18px #0b539b26;
   transform: translateY(-2px);
 }
 .shop-primary:active,

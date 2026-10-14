@@ -12,7 +12,7 @@ body {
   margin: 0;
 }
 .shop {
-  --blue: #1768eb;
+  --blue: var(--veyndo-blue-text);
   --ink: #192b3c;
   --muted: #637587;
   --line: #dfe7ee;
@@ -140,10 +140,10 @@ body {
 .shop .shop-primary,
 .shop-bag .shop-primary {
   color: #fff;
-  background: #1768eb;
+  background: var(--veyndo-blue-text);
 }
 .shop-secondary {
-  color: #1768eb;
+  color: var(--veyndo-blue-text);
   background: #eaf2ff;
   border: 1px solid #c9ddff;
 }

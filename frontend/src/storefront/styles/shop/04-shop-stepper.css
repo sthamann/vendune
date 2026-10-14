@@ -92,10 +92,10 @@
   display: flex;
   gap: 12px;
   padding: 18px;
-  background: #eef8f2;
-  border: 1px solid #c5e7d3;
+  background: #eef4f8;
+  border: 1px solid #c5d9e7;
   border-radius: 7px;
-  color: #286243;
+  color: #284a62;
 }
 .order-confirmation strong {
   font-size: 13px;

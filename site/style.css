@@ -1,9 +1,9 @@
 :root {
   color-scheme: dark;
-  --paper: #171B18;
+  --paper: #101b2a;
   --ink: #F5F3EC;
   --muted: #a8afb9;
-  --accent: #D2F34A;
+  --accent: #189EFF;
   --line: #2c3139;
   --panel: #15191f;
   --soft: #1d242c;
@@ -31,7 +31,7 @@ a {
   text-underline-offset: 5px;
 }
 a:hover {
-  color: #e5ffab;
+  color: #b8e1ff;
 }
 a:focus-visible,
 summary:focus-visible,
@@ -142,7 +142,7 @@ video:focus-visible {
   height: 6px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 12px #d2fa6940;
+  box-shadow: 0 0 12px #69befa40;
 }
 h1 {
   font-size: clamp(43px, 5.45vw, 76px);
@@ -197,7 +197,7 @@ h1 span,
   border-color: var(--accent);
 }
 .button.primary:hover {
-  background: #e5ffab;
+  background: #b8e1ff;
 }
 .button.quiet {
   border-color: transparent;
@@ -211,10 +211,10 @@ h1 span,
 .hero-stage {
   position: relative;
   padding: 20px;
-  border: 1px solid #3b4436;
+  border: 1px solid #363e44;
   border-radius: 24px;
   background:
-    radial-gradient(ellipse at 50% 0, #d2fa6914, transparent 70%), #141a16;
+    radial-gradient(ellipse at 50% 0, #69befa14, transparent 70%), #14171a;
   box-shadow: 0 24px 90px #0007;
 }
 .stage-top {
@@ -270,7 +270,7 @@ h1 span,
   text-decoration: none;
 }
 .stage-play:hover {
-  background: #e5ffab;
+  background: #b8e1ff;
   color: var(--paper);
 }
 .stack-strip {
@@ -352,7 +352,7 @@ h3 {
 .duration {
   font-size: 10px;
   color: var(--accent);
-  border: 1px solid #d2fa6940;
+  border: 1px solid #69befa40;
   border-radius: 5px;
   padding: 2px 6px;
   white-space: nowrap;
@@ -441,7 +441,7 @@ h3 {
 }
 .core-visual {
   background:
-    radial-gradient(ellipse at center, #d2fa6912, transparent 70%), var(--panel);
+    radial-gradient(ellipse at center, #69befa12, transparent 70%), var(--panel);
   padding: 36px;
   border-radius: 18px;
   border: 1px solid var(--line);
@@ -476,7 +476,7 @@ h3 {
   position: absolute;
   height: 35px;
   left: 50%;
-  border-left: 1px solid #d2fa6960;
+  border-left: 1px solid #69befa60;
 }
 .core-node:before {
   top: -36px;
@@ -542,7 +542,7 @@ h3 {
   color: var(--muted);
 }
 .terminal-bar span:first-child {
-  color: #76816d;
+  color: #6d7981;
   letter-spacing: 5px;
   font-size: 9px;
 }

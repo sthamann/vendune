@@ -4,13 +4,6 @@ body:has(.studio) {
   overflow: hidden;
 }
 .studio {
-  --bg: #f5f3ec;
-  --panel: #eeeee6;
-  --hover: #eaf2cc;
-  --border: #dedfd5;
-  --text: #171b18;
-  --muted: #657063;
-  --accent: #536817;
   --danger: #b32942;
   font-family:
     Inter,
@@ -22,14 +15,6 @@ body:has(.studio) {
   grid-template-columns: 228px minmax(0, 1fr);
 }
 .studio[data-theme="dark"] {
-  --bg: #171b18;
-  --surface: #222922;
-  --panel: #293129;
-  --hover: #39452b;
-  --border: #485344;
-  --text: #f5f3ec;
-  --muted: #b8c2b0;
-  --accent: #d2f34a;
   --danger: #ffa0ae;
 }
 .studio .studio-sidebar {
@@ -45,7 +30,7 @@ body:has(.studio) {
   color: var(--accent-text);
   border: 0;
   border-radius: 11px;
-  box-shadow: 0 4px 14px #53681730;
+  box-shadow: 0 4px 14px #189eff30;
 }
 .studio .workspace-switch {
   border-radius: 10px;
@@ -157,7 +142,7 @@ body:has(.studio) {
   border-radius: 9px;
 }
 .studio :is(input, textarea, select):focus-visible {
-  box-shadow: 0 0 0 4px #53681712;
+  box-shadow: 0 0 0 4px #189eff12;
   outline-offset: 0;
 }
 .studio .operation-row {

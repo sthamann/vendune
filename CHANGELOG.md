@@ -1,5 +1,11 @@
 # Changelog
 
+## Shopware-blue Veyndo identity — 14 October 2026
+
+- Replace the lime logo/favicon/README artwork with #189EFF and share one blue UI palette.
+- Apply readable blue actions and cool neutral light/dark themes across Studio, customer account, storefront and operator console; remove duplicated Studio palette overrides.
+- Keep canonical vector copies synchronized and document the central token owner.
+
 ## Partial packages and provider-neutral shipping apps — 14 October 2026
 
 - Split open physical packages through one native HTTP/MCP operation with current

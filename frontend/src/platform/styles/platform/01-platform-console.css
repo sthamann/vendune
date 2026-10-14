@@ -45,12 +45,12 @@
   outline-offset: 3px;
 }
 .platform-console .platform-primary {
-  background: #1768eb;
+  background: var(--veyndo-blue-text);
   color: white;
-  border-color: #1768eb;
+  border-color: var(--veyndo-blue-text);
 }
 .platform-console .platform-primary:hover {
-  background: #1255c4;
+  background: var(--veyndo-blue-ink);
 }
 .platform-console aside {
   border-right: 1px solid var(--platform-line);
@@ -69,11 +69,11 @@
   width: 44px;
   height: 44px;
   border-radius: 15px;
-  background: linear-gradient(135deg, #1768eb, #48bdf4);
+  background: linear-gradient(135deg, var(--veyndo-blue-text), #48bdf4);
   font-weight: 800;
   font-size: 24px;
   color: white;
-  box-shadow: 0 6px 16px #1768eb25;
+  box-shadow: 0 6px 16px var(--veyndo-blue-text) 25;
 }
 .platform-console nav {
   display: grid;
@@ -257,7 +257,7 @@
   width: 48px;
   height: 48px;
   background: #eaf3ff;
-  color: #1768eb;
+  color: var(--veyndo-blue-text);
   border-radius: 14px;
   font-size: 20px;
   font-weight: 700;
