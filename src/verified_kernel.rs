@@ -1,4 +1,6 @@
 //! Closed, side-effect-free commerce policies extracted to Lean; keep within the checked bool/u64 grammar.
+mod fulfillment;
+pub use fulfillment::{carrier_booking_admissible, delivery_split_admissible};
 pub fn discount_cap(total: u64, requested: u64) -> u64 {
     total.min(requested)
 }

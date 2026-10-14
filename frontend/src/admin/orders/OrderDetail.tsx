@@ -10,6 +10,8 @@ import { useOperationsText } from "../../shared/i18n/operations-i18n";
 import type { RequestFn } from "../shell/studio-types";
 import OrderPaymentDelivery from "./OrderPaymentDelivery";
 import OrderWorkflow, { type OrderAction } from "./OrderWorkflow";
+import { useShipmentText } from "../../shared/i18n/shipment-i18n";
+import type { ShipmentPosition } from "./ShipmentSplit";
 import ReceiptPanel from "./ReceiptPanel";
 export default function OrderDetail({
   id,
@@ -30,6 +32,7 @@ export default function OrderDetail({
 }) {
   const { o, locale } = useOperationsText();
   const { r } = useCrmText();
+  const shipmentText = useShipmentText();
   const { c } = useCustomerText();
   const [order, setOrder] = useState<any>(),
     [error, setError] = useState(""),
@@ -264,6 +267,32 @@ export default function OrderDetail({
           busy={busy}
           rights={rights}
           onAction={transition}
+          onSplit={(index: number, positions: ShipmentPosition[]) =>
+            run(async () => {
+              const signature = JSON.stringify({
+                operation: "delivery.split",
+                id,
+                index,
+                positions,
+              });
+              if (retry.current?.signature !== signature)
+                retry.current = {
+                  signature,
+                  key: crypto.randomUUID(),
+                  body: {
+                    revision: order.revision,
+                    deliveryIndex: index,
+                    positions,
+                  },
+                };
+              const current = retry.current;
+              await request(`/api/merchant/orders/${id}/deliveries/split`, {
+                ...current.body,
+                requestKey: current.key,
+              });
+              retry.current = undefined;
+            })
+          }
           onPayment={payment}
           pendingJob={!!pendingJob}
           onCheck={() => void run(() => observe(pendingJob!))}
@@ -325,9 +354,11 @@ export default function OrderDetail({
                 <p>
                   {["note", "flow"].includes(event.kind)
                     ? event.data.text
-                    : event.kind === "receipt"
-                      ? `${o(event.data.kind)} ${event.data.number}`
-                      : `${o(event.data.kind)} → ${order.workflow.states.find((s: any) => s.id === event.data.state)?.label?.[locale.slice(0, 2)] ?? o(event.data.state)}`}
+                    : event.kind === "delivery.split"
+                      ? shipmentText("splitEvent")
+                      : event.kind === "receipt"
+                        ? `${o(event.data.kind)} ${event.data.number}`
+                        : `${o(event.data.kind)} → ${order.workflow.states.find((s: any) => s.id === event.data.state)?.label?.[locale.slice(0, 2)] ?? o(event.data.state)}`}
                 </p>
                 {event.kind === "flow" && (
                   <span className="operation-status">

@@ -29,6 +29,9 @@ pub(crate) fn tool_schema(name: &str) -> Value {
         return schema;
     }
     let props = match name {
+        "merchant.delivery.split" => {
+            json!({"id":{"type":"string"},"revision":{"type":"integer","minimum":1},"deliveryIndex":{"type":"integer","minimum":0},"requestKey":{"type":"string","minLength":8,"maxLength":128},"positions":{"type":"array","minItems":1,"maxItems":100,"items":{"type":"object","required":["id","quantity"],"additionalProperties":false,"properties":{"id":{"type":"string"},"quantity":{"type":"integer","minimum":1}}}}})
+        }
         "merchant.customer.lookup" => {
             json!({"query":{"type":"string","maxLength":200},"limit":{"type":"integer","minimum":1,"maximum":100},"after":{"type":"string"}})
         }
@@ -107,7 +110,7 @@ pub(crate) fn tool_schema(name: &str) -> Value {
             json!({"id":{"type":"string"},"revision":{"type":"integer"},"text":{"type":"string","maxLength":4000}})
         }
         "merchant.receipt.create" => {
-            json!({"id":{"type":"string"},"revision":{"type":"integer"},"kind":{"type":"string","enum":["invoice","delivery_note","cancellation"]},"locale":{"type":"string","enum":["en","de","fr","es"]},"requestKey":{"type":"string"},"referenceId":{"type":"string"}})
+            json!({"id":{"type":"string"},"revision":{"type":"integer"},"kind":{"type":"string","enum":["invoice","delivery_note","cancellation"]},"locale":{"type":"string","enum":["en","de","fr","es"]},"requestKey":{"type":"string"},"referenceId":{"type":"string"},"deliveryIndex":{"type":"integer","minimum":0}})
         }
         "merchant.payment.onboarding" => {
             json!({"id":{"type":"string"},"operation":{"type":"string","enum":["start","status","disconnect"]},"channel":{"type":"string"},"environment":{"type":"string","enum":["sandbox","live","contract-fixture"]},"country":{"type":"string"},"requestKey":{"type":"string"},"approve":{"type":"boolean"}})
@@ -147,6 +150,9 @@ pub(crate) fn tool_schema(name: &str) -> Value {
         _ => json!({}),
     };
     let required = match name {
+        "merchant.delivery.split" => {
+            vec!["id", "revision", "deliveryIndex", "positions", "requestKey"]
+        }
         "merchant.company.save" => vec!["revision", "data"],
         "merchant.commerce.save" => vec!["revision", "data"],
         "merchant.commerce.dependencies" => vec!["area", "methodId"],

@@ -251,6 +251,19 @@ pub(super) fn eval(j: &Value) -> Result<Value, String> {
             b("required")?,
             b("verified")?
         ))),
+        Some("delivery_split_admissible") => Ok(json!(delivery_split_admissible(
+            b("is_open")?,
+            b("terminal")?,
+            n("available")?,
+            n("moving")?
+        ))),
+        Some("carrier_booking_admissible") => Ok(json!(carrier_booking_admissible(
+            b("is_open")?,
+            b("closed")?,
+            b("labelled")?,
+            b("occupied")?,
+            b("same")?
+        ))),
         _ => Err("Unknown policy".into()),
     }
 }

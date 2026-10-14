@@ -11,6 +11,11 @@ Files and their individual responsibilities are listed in [the generated source 
 - [`OrderWorkflow.tsx`](OrderWorkflow.tsx): Server-owned transitions: one source for permitted actions, labels and business guards.
 - [`OrdersManager.tsx`](OrdersManager.tsx): Order operations UI. All changes call the same domain endpoints exposed through MCP.
 - [`ReceiptPanel.tsx`](ReceiptPanel.tsx): Seller configuration and version-bound receipt creation/download.
+- [`ShipmentSplit.tsx`](ShipmentSplit.tsx): Server-admitted package quantity editor with explicit subset validation and parent command fencing.
+- [`shipments.css`](shipments.css): Responsive package rows and quantity form using the Studio theme.
+
+See [shipping workflows](../../../../docs/shipping-workflows.md) for native API/MCP,
+event, fiscal-snapshot and direct-carrier boundaries.
 
 ## Verification
 

@@ -138,9 +138,20 @@ pub(crate) fn lines(v: &Value) -> Vec<String> {
     let sign = if cancellation { -1. } else { 1. };
     if let Some(items) = c["lineItems"].as_array() {
         for item in items {
+            let quantity = if v["kind"] == "delivery_note" && v.get("delivery").is_some() {
+                let Some(position) = v["delivery"]["positions"].as_array().and_then(|ps| {
+                    ps.iter()
+                        .find(|p| p["id"] == item["referencedId"] || p["id"] == item["id"])
+                }) else {
+                    continue;
+                };
+                position["quantity"].clone()
+            } else {
+                item["quantity"].clone()
+            };
             lines.push(format!(
                 "{} x {} [{}]",
-                item["quantity"],
+                quantity,
                 text(&item["label"]),
                 text(&item["referencedId"])
             ));

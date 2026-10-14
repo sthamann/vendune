@@ -196,6 +196,10 @@ pub(crate) const CORE: &[(&str, &str)] = &[
         "Revision-checked order payment or delivery transition",
     ),
     ("merchant.order.note", "Append an operational note"),
+    (
+        "merchant.delivery.split",
+        "Move a strict subset of open shipment quantities into another package with revision and requestKey",
+    ),
     ("merchant.receipts", "Read immutable order receipts"),
     (
         "merchant.receipt.create",

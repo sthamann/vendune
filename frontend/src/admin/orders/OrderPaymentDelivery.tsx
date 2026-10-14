@@ -5,6 +5,9 @@ import { useAccountText } from "../../shared/i18n/account-i18n";
 import { useState } from "react";
 import { useOperationsText } from "../../shared/i18n/operations-i18n";
 import { usePaymentProviderText } from "../../shared/i18n/payment-provider-i18n";
+import ShipmentSplit, { type ShipmentPosition } from "./ShipmentSplit";
+import { useShipmentText } from "../../shared/i18n/shipment-i18n";
+import "./shipments.css";
 import type { OrderAction } from "./OrderWorkflow";
 export default function OrderPaymentDelivery({
   order,
@@ -14,6 +17,7 @@ export default function OrderPaymentDelivery({
   onPayment,
   pendingJob,
   onCheck,
+  onSplit,
 }: {
   order: any;
   busy: boolean;
@@ -22,8 +26,10 @@ export default function OrderPaymentDelivery({
   onPayment: (operation: string, amount?: number) => Promise<boolean>;
   pendingJob: boolean;
   onCheck: () => void;
+  onSplit?: (index: number, positions: ShipmentPosition[]) => Promise<boolean>;
 }) {
   const { o } = useOperationsText();
+  const shipmentText = useShipmentText();
   const { a: accountText } = useAccountText();
   const [links, setLinks] = useState<Record<number, string>>({});
   const paymentText = usePaymentProviderText();
@@ -129,9 +135,45 @@ export default function OrderPaymentDelivery({
         order.deliveries.map((d: any, index: number) => (
           <div className="delivery-card" key={index}>
             <div className="section-heading">
-              <strong>{o(d.shippingMethod.name)}</strong>
+              <strong>
+                {shipmentText("package")} {index + 1} ·{" "}
+                {o(d.shippingMethod.name)}
+              </strong>
               <span className="operation-status">{o(d.state)}</span>
             </div>
+            <ul className="shipment-positions">
+              {(d.positions ?? []).map((p: ShipmentPosition) => (
+                <li key={p.id}>
+                  <span>
+                    {order.lineItems?.find(
+                      (item: any) =>
+                        item.referencedId === p.id || item.id === p.id,
+                    )?.label ?? p.id}
+                  </span>
+                  <strong>× {p.quantity}</strong>
+                </li>
+              ))}
+            </ul>
+            {onSplit &&
+              rights.includes("orders.write") &&
+              rights.includes("customers.pii") && (
+                <ShipmentSplit
+                  delivery={d}
+                  busy={busy}
+                  enabled={
+                    !!order.workflow?.shipmentSplits?.find(
+                      (s: any) => s.deliveryIndex === index,
+                    )?.enabled
+                  }
+                  labels={Object.fromEntries(
+                    (order.lineItems ?? []).map((item: any) => [
+                      item.referencedId ?? item.id,
+                      item.label,
+                    ]),
+                  )}
+                  onSplit={(positions) => onSplit(index, positions)}
+                />
+              )}
             {d.trackingCode && <p>{d.trackingCode}</p>}
             {d.trackingUrl?.startsWith("https://") &&
               safeRichUrl(d.trackingUrl) && (

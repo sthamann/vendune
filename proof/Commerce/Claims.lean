@@ -440,4 +440,23 @@ theorem auth_factor_exact (required verified : Bool) :
   cases required <;> cases verified <;> simp [auth_factor_admissible]
 theorem auth_factor_required_denied : auth_factor_admissible true false = false := by
   rfl
+/-- Exact package-subset admission; async allocation and carrier effects remain tested boundaries. -/
+theorem delivery_split_exact (is_open terminal : Bool) (available moving : Nat) :
+    delivery_split_admissible is_open terminal available moving = true ↔
+    is_open = true ∧ terminal = false ∧ 0 < moving ∧ moving < available := by
+  cases is_open <;> cases terminal <;> simp [delivery_split_admissible, and_assoc]
+theorem delivery_split_closed_denied (terminal : Bool) (available moving : Nat) :
+    delivery_split_admissible false terminal available moving = false := by
+  simp [delivery_split_admissible]
+theorem delivery_split_all_denied (is_open terminal : Bool) (available : Nat) :
+    delivery_split_admissible is_open terminal available available = false := by
+  simp [delivery_split_admissible]
+/-- Native package intent admission, not proof of a carrier protocol or external charge. -/
+theorem carrier_booking_exact (is_open closed labelled occupied same : Bool) :
+    carrier_booking_admissible is_open closed labelled occupied same = true ↔
+    is_open = true ∧ closed = false ∧ labelled = false ∧ (occupied = false ∨ same = true) := by
+  cases is_open <;> cases closed <;> cases labelled <;> cases occupied <;> cases same <;> simp [carrier_booking_admissible]
+theorem carrier_booking_occupied_denied (is_open closed labelled : Bool) :
+    carrier_booking_admissible is_open closed labelled true false = false := by
+  simp [carrier_booking_admissible]
 end CommerceKernel

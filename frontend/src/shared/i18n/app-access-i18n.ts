@@ -203,6 +203,18 @@ const words = {
     "Lire les documents de commande",
     "Leer documentos de pedidos",
   ],
+  "documents.create": [
+    "Create private order documents",
+    "Private Bestellbelege erstellen",
+    "Créer des documents de commande privés",
+    "Crear documentos privados de pedidos",
+  ],
+  "deliveries.write": [
+    "Attach carrier documents and tracking to packages",
+    "Versandbelege und Tracking an Paketen hinterlegen",
+    "Joindre documents transporteur et suivi aux colis",
+    "Adjuntar documentos y seguimiento a paquetes",
+  ],
   "jobs.read": [
     "Read this app’s background jobs",
     "Hintergrundaufträge dieser App lesen",
@@ -242,6 +254,8 @@ export type CallbackPermission =
   | "b2b.read"
   | "b2b.manage"
   | "documents.read"
+  | "documents.create"
+  | "deliveries.write"
   | "jobs.read"
   | "jobs.write"
   | "assets.read"

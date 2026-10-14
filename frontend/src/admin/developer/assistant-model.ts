@@ -218,6 +218,54 @@ export function assistedManifest(s: AssistantSetup): Manifest {
       },
     }));
   }
+  if (s.kind === "shipping") {
+    m.permissions = [
+      ...new Set([
+        ...m.permissions,
+        "orders.read",
+        "customers.pii",
+        "deliveries.write",
+        "documents.create",
+        "jobs.write",
+        "events:self",
+      ]),
+    ];
+    m.events = [`app.${m.id}.job_create_label`];
+    m.actions = [
+      {
+        name: "create_label",
+        description: "Create a carrier label through a fenced native job",
+        handler: "job",
+        public: false,
+        permission: "orders.write",
+        requiredPermissions: ["customers.pii", "documents.create"],
+        mcp: s.mcp,
+        flowAllowed: true,
+        inputSchema: {
+          type: "object",
+          properties: {
+            orderId: { type: "string" },
+            deliveryIndex: { type: "integer", minimum: 0 },
+            account: { type: "string" },
+            weightGrams: { type: "integer", minimum: 1 },
+            lengthMm: { type: "integer", minimum: 1 },
+            widthMm: { type: "integer", minimum: 1 },
+            heightMm: { type: "integer", minimum: 1 },
+          },
+          required: [
+            "orderId",
+            "deliveryIndex",
+            "account",
+            "weightGrams",
+            "lengthMm",
+            "widthMm",
+            "heightMm",
+          ],
+          additionalProperties: false,
+        },
+      },
+    ];
+  }
   if (s.kind === "scheduled" || s.kind === "webhook") {
     m.actions = [
       {
@@ -321,10 +369,10 @@ export function assistedManifest(s: AssistantSetup): Manifest {
       : a,
   );
   result.apiRoutes = result.actions
-    .filter((a) => a.handler === "list")
+    .filter((a) => a.handler === "list" || a.handler === "job")
     .map((a) => ({
       path: a.name,
-      method: "GET",
+      method: a.handler === "job" ? "POST" : "GET",
       scope: a.public ? "storefront" : "admin",
       action: a.name,
     }));

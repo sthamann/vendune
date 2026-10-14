@@ -1,6 +1,6 @@
 {
   "id": "example_shipping",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "coreApi": "1",
   "runtime": "service",
   "name": {
@@ -15,7 +15,12 @@
     "data.write",
     "admin.slot",
     "service.call",
-    "events:order.placed"
+    "orders.read",
+    "customers.pii",
+    "deliveries.write",
+    "documents.create",
+    "jobs.write",
+    "events:self"
   ],
   "entities": [
     {
@@ -143,6 +148,12 @@
       "method": "GET",
       "scope": "admin",
       "action": "list_entries"
+    },
+    {
+      "path": "create_label",
+      "action": "create_label",
+      "method": "POST",
+      "scope": "admin"
     }
   ],
   "intelligence": {
@@ -156,51 +167,9 @@
     "entities": []
   },
   "events": [
-    "order.placed"
+    "app.example_shipping.job_create_label"
   ],
   "actions": [
-    {
-      "name": "create_label",
-      "description": "create_label",
-      "handler": "service",
-      "public": false,
-      "permission": "orders.write",
-      "mcp": false,
-      "flowAllowed": true,
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "payload": {
-            "type": "object"
-          }
-        },
-        "required": [
-          "payload"
-        ],
-        "additionalProperties": false
-      }
-    },
-    {
-      "name": "track",
-      "description": "track",
-      "handler": "service",
-      "public": false,
-      "permission": "orders.write",
-      "mcp": false,
-      "flowAllowed": true,
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "payload": {
-            "type": "object"
-          }
-        },
-        "required": [
-          "payload"
-        ],
-        "additionalProperties": false
-      }
-    },
     {
       "name": "list_entries",
       "description": "List entries",
@@ -251,6 +220,62 @@
         "required": [
           "id",
           "fields"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "create_label",
+      "description": "Create a carrier label through a fenced native job",
+      "handler": "job",
+      "public": false,
+      "permission": "orders.write",
+      "requiredPermissions": [
+        "customers.pii",
+        "documents.create"
+      ],
+      "mcp": false,
+      "flowAllowed": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "deliveryIndex": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "account": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "weightGrams": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "lengthMm": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "widthMm": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "heightMm": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "orderId",
+          "deliveryIndex",
+          "account",
+          "weightGrams",
+          "lengthMm",
+          "widthMm",
+          "heightMm"
         ],
         "additionalProperties": false
       }

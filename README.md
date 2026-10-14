@@ -131,7 +131,7 @@ commerce owners through their respective interfaces.
 | Area | Guide |
 | --- | --- |
 | Products, variants, media, translated content, categories and domains | [Product management](docs/product-management.md) · [Channels](docs/channel-management.md) |
-| Customers, accounts, orders, fulfillment, invoices and downloads | [Merchant operations](docs/merchant-operations.md) |
+| Customers, accounts, orders, fulfillment, invoices and downloads | [Merchant operations](docs/merchant-operations.md) · [Partial packages and direct DHL](docs/shipping-workflows.md) |
 | Countries, destination taxes, shipping, payment and currencies | [International commerce](docs/international-commerce.md) · [Currencies](docs/currencies.md) |
 | Native POS with shared orders, stock and documents | [Point of sale](docs/pos.md) |
 | Business units, permissions, budgets, catalogs, quotes and approvals | [B2B commerce](docs/b2b-commerce.md) · [EDI](docs/edi.md) |

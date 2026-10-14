@@ -17,7 +17,11 @@ pub(crate) use redacted_reads::redacted_read;
 mod receipt_pdf;
 mod receipt_text;
 pub(crate) use receipt_text::lines as receipt_lines;
+mod delivery_booking;
+mod order_documents;
+pub(crate) use delivery_booking::booking_intent;
 mod receipts;
+pub(crate) use order_documents::{allocation_digest, document_response, import_document};
 pub(crate) use receipts::{receipt_response, receipt_snapshot};
 mod routes;
 mod workflow;
@@ -57,7 +61,9 @@ pub(crate) fn permission(name: &str) -> Option<&'static str> {
         | "merchant.customer.address.delete" => "customers.write",
         "merchant.customer.addresses" => "customers.read",
         "merchant.orders" | "merchant.order" => "orders.read",
-        "merchant.order.transition" | "merchant.order.note" => "orders.write",
+        "merchant.order.transition" | "merchant.order.note" | "merchant.delivery.split" => {
+            "orders.write"
+        }
         "merchant.receipts" => "documents.read",
         "merchant.receipt.create" => "documents.create",
         "merchant.payment" | "merchant.payment.onboarding" => "payments.manage",
@@ -84,6 +90,7 @@ pub(crate) fn requires_pii(name: &str) -> bool {
                 | "merchant.order"
                 | "merchant.order.transition"
                 | "merchant.order.note"
+                | "merchant.delivery.split"
                 | "merchant.receipts"
                 | "merchant.receipt.create"
         )
@@ -203,6 +210,10 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
             .await?
         }
         "merchant.order" => orders::detail(State(a.clone()), h.clone(), Path(id()?)).await?,
+        "merchant.delivery.split" => {
+            commerce::split_delivery(State(a.clone()), h.clone(), Path(id()?), Json(v.clone()))
+                .await?
+        }
         "merchant.customers" => {
             customers::list(
                 State(a.clone()),

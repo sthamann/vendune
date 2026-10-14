@@ -41,10 +41,28 @@ for (const kind of appKinds)
     expect(
       m.actions!.filter((a) => a.public).every((a) => a.handler === "list"),
     ).toBe(true);
-    if (["payment", "shipping", "integration", "event"].includes(kind)) {
+    if (["payment", "integration", "event"].includes(kind)) {
       expect(m.runtime).toBe("service");
       expect(m.actions!.some((a) => a.handler === "service")).toBe(true);
       expect(m.events).toEqual(["order.placed"]);
+    }
+    if (kind === "shipping") {
+      expect(m.runtime).toBe("service");
+      expect(m.events).toEqual(["app.test_app.job_create_label"]);
+      expect(m.permissions).toEqual(
+        expect.arrayContaining([
+          "deliveries.write",
+          "documents.create",
+          "customers.pii",
+          "jobs.write",
+        ]),
+      );
+      expect(m.actions!.find((a) => a.name === "create_label")).toMatchObject({
+        handler: "job",
+        permission: "orders.write",
+        requiredPermissions: ["customers.pii", "documents.create"],
+        flowAllowed: true,
+      });
     }
     if (kind === "scheduled")
       expect(m.schedules![0].cron).toBe("0 */15 * * * *");

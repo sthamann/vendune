@@ -6,7 +6,7 @@ review record, never a claim that unproved adapters became proved.
 """
 import argparse,json,pathlib,subprocess,sys
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parent/'formal'))
-from extract import Parser,generated
+from extract import Parser,generated,kernel_source
 from runners import lean_runner,rust_runner,rust_dispatch
 from registry import check,record
 from conformance import compare
@@ -42,7 +42,7 @@ def main():
     parser.add_argument('--generate',action='store_true');parser.add_argument('--record-review',metavar='REASON')
     parser.add_argument('--report',default='artifacts/formal-verification.json');args=parser.parse_args()
     manifest=json.loads((ROOT/'proof/manifest.json').read_text())
-    functions=Parser((ROOT/'src/verified_kernel.rs').read_text()).parse()
+    functions=Parser(kernel_source(ROOT)).parse()
     if {f.name for f in functions}!=set(manifest['policies']):raise ValueError('Policy inventory incomplete')
     files=artifacts(functions)
     names=sorted({n for v in manifest['policies'].values()for n in v['theorems']})

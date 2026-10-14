@@ -90,6 +90,11 @@
     "source": "src/apps/asset_surfaces.rs"
   },
   {
+    "path": "/api/apps/{id}/core/document_upload",
+    "method": "POST",
+    "source": "src/apps/core_documents.rs"
+  },
+  {
     "path": "/api/apps/{id}/core/{operation}",
     "method": "POST",
     "source": "src/apps/core_callbacks.rs"
@@ -136,6 +141,11 @@
   },
   {
     "path": "/api/apps/{id}/jobs",
+    "method": "GET",
+    "source": "src/apps/jobs.rs"
+  },
+  {
+    "path": "/api/apps/{id}/jobs/{job}",
     "method": "GET",
     "source": "src/apps/jobs.rs"
   },
@@ -712,6 +722,11 @@
   {
     "path": "/api/merchant/orders/{id}",
     "method": "GET",
+    "source": "src/operations/routes.rs"
+  },
+  {
+    "path": "/api/merchant/orders/{id}/deliveries/split",
+    "method": "POST",
     "source": "src/operations/routes.rs"
   },
   {

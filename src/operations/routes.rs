@@ -70,6 +70,11 @@ pub(crate) fn router() -> Router<App> {
             get(orders::detail),
         )
         .secure_route(
+            "/api/merchant/orders/{id}/deliveries/split",
+            &[("POST", "orders.write")],
+            post(commerce::split_delivery),
+        )
+        .secure_route(
             "/api/merchant/orders/{id}/notes",
             &[("POST", "orders.write")],
             post(orders::note),

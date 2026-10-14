@@ -32,6 +32,9 @@ mod review_moderation;
 pub(crate) use review_moderation::*;
 mod fulfillment;
 pub(crate) use fulfillment::*;
+mod delivery_split;
+pub(crate) mod order_mutation;
+pub(crate) use delivery_split::split_delivery;
 
 mod selection;
 pub(crate) use selection::*;

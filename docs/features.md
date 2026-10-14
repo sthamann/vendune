@@ -496,7 +496,7 @@ The personalization app uses its separate generic configuration/cart-contributio
 
 ### Personal membership and precise rights
 
-A personal identity can belong to multiple independent shops with owner/administrator/editor/viewer defaults and **15 fine scopes** for catalog, customers, orders, documents, payments, settings, team, apps and knowledge. Invitations, memberships and integration keys cannot delegate beyond the actor's current authority. Every request checks active membership in PostgreSQL. Role/revocation changes apply to later requests across replicas; the final owner is protected.
+A personal identity can belong to multiple independent shops with owner/administrator/editor/viewer defaults and **32 fine scopes** for catalog, customers, orders, documents, payments, settings, team, apps and knowledge. Invitations, memberships and integration keys cannot delegate beyond the actor's current authority. Every request checks active membership in PostgreSQL. Role/revocation changes apply to later requests across replicas; the final owner is protected.
 
 Invitations expire after 24 hours and are used once. Codes are shared manually; automatic invitation mail is not implemented. The local instance bootstrap token is privileged setup authority, not a merchant integration credential. Customer, merchant and platform sessions remain distinct. [Access rules](security.md) · [Operations permissions](merchant-operations.md).
 
@@ -582,7 +582,7 @@ Atomic stock/order/idempotency/outbox transactions avoid partial commerce writes
 
 CI checks source ownership, frontend build/localization, Rust formatting/lint/tests, original Shopware PHP comparisons, real isolated PostgreSQL/HTTP regressions and selected extracted Lean policies. Existing price/context/tax/comparison/rule suites contain **7,000 bounded original-PHP comparisons**. Formal claims name exact production policies and exclude SQL/provider/browser/whole-system correctness.
 
-Million-product commerce measurements are dated workload-specific observations; they do not establish semantic recall, production capacity or a Shopware speed ratio. This remains an extensible working prototype with explicit gaps in full Shopware DAL/CMS/plugin parity, real PSP certification, production recovery/MFA, core-wide RLS, distributed quotas, automatic relocation/failover and legal compliance. [Testing](testing.md) · [Formal boundary](formal-verification.md) · [Performance](benchmarks.md) · [Complete parity matrix](shopware-parity.md).
+Million-product commerce measurements are dated workload-specific observations; they do not establish semantic recall, production capacity or a Shopware speed ratio. This remains an extensible working prototype with explicit gaps in full Shopware DAL/CMS/plugin parity, real PSP certification, full production identity/provider acceptance, core-wide RLS, distributed quotas, automatic relocation/failover and legal compliance. [Testing](testing.md) · [Formal boundary](formal-verification.md) · [Performance](benchmarks.md) · [Complete parity matrix](shopware-parity.md).
 
 ## Keep the guide current
 
@@ -616,3 +616,14 @@ and behavioral intelligence to their actual versions, settings, sandbox, rights,
 API/MCP and event owners. Native analytics now has inherited enabled/retention/
 intake controls; B2B editors expose history and selected configuration publication.
 Provider fixture success remains distinct from live account/transport acceptance.
+
+### Partial fulfillment and direct carriers
+
+Orders can split physical line quantities into multiple packages without repricing
+or decrementing inventory again. Shared HTTP/MCP, current rights, revision checks,
+customer package visibility and Flow events use the existing native order owner.
+Package-specific delivery notes and immutable private carrier PDFs use the native
+receipt store. A provider-neutral shipping assistant declares the same native
+job/callback contract; no shipping provider is bundled or configured. Synthetic
+service tests demonstrate package intent, original PDF/tracking, unknown-effect
+fences and current permissions. [Shipping workflows and limits](shipping-workflows.md).

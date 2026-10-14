@@ -365,3 +365,21 @@ deployed seed migration. Generic app/AI Flow results are not safe merely because
 user can read automation status. Preserve cleaned summaries for limited readers.
 B2B switches live in shared versioned commerce settings; channel inheritance may not
 relax that global policy. See `docs/studio-access-and-setup.md` for the current owners.
+
+## Provider-neutral shipping ownership
+
+Carrier-specific protocols, address conversion, credentials, booking receipts and UI
+belong to `extensions/apps/<carrier>/` or its independent repository. No carrier is
+selected by the general contract; never copy provider code into `src/commerce` or
+system directories. The synthetic shipping fixture is test tooling only. Reuse native app
+records/jobs and `operations/order_documents.rs` through scoped callbacks; PDFs are
+private immutable order receipts, never public product assets. Allocation changes
+use `commerce/delivery_split.rs` with current rights, CAS and one replay ledger.
+`operations/delivery_booking.rs` freezes the native package before external booking;
+unknown intents block split, dispatch and cross-provider substitution until the
+original PDF or a confirmed no-booking release is acknowledged. Pure fulfillment
+guards belong to `src/verified_kernel/fulfillment.rs` and the exact extraction map.
+Label creation does not mark dispatch or decrement stock. Unknown paid effects must
+remain fenced across restarts; recovery retrieves only a known original document.
+Native app save callbacks require explicit stable IDs and revisions.
+See `docs/shipping-workflows.md` and `extensions/apps/assistant-examples/shipping.json`.

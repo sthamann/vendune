@@ -4,6 +4,14 @@ no overflowing arithmetic, calls, casts, branches, macros or effects accepted.
 """
 from dataclasses import dataclass
 import re
+KERNEL_FILES=('src/verified_kernel.rs','src/verified_kernel/fulfillment.rs')
+def kernel_source(root):
+    # Closed module registration; no arbitrary source/import resolution is trusted.
+    source=(root/'src/verified_kernel.rs').read_text()
+    registration='mod fulfillment;\npub use fulfillment::{carrier_booking_admissible, delivery_split_admissible};\n'
+    if source.count(registration)!=1:raise ValueError('Unreviewed pure-kernel module registration')
+    return source.replace(registration,'',1)+'\n'+(root/'src/verified_kernel/fulfillment.rs').read_text()
+
 MAX_U64 = 2**64 - 1
 TOKEN = re.compile(r'\s*(->|&&|\|\||==|!=|<=|>=|[A-Za-z_][A-Za-z_0-9]*|[0-9]+|[():{},.!<>])')
 @dataclass
