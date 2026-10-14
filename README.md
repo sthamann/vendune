@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/brand/veyndo-readme.svg" alt="VEYNDO — Commerce that thinks and acts." width="100%">
+  <img src="docs/brand/veyndo-readme.svg?v=blue-20261014" alt="VEYNDO — Commerce that thinks and acts." width="100%">
 </p>
 
 <div align="center">

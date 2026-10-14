@@ -4,9 +4,9 @@ export const BRAND = Object.freeze({
   name: "VEYNDO",
   studio: "Studio",
   repository: "https://github.com/sthamann/veyndo",
-  mark: "/brand/veyndo-mark.svg",
-  logo: "/brand/veyndo-logo.svg",
-  logoDark: "/brand/veyndo-logo-dark.svg",
+  mark: "/brand/veyndo-mark.svg?v=blue-20261014",
+  logo: "/brand/veyndo-logo.svg?v=blue-20261014",
+  logoDark: "/brand/veyndo-logo-dark.svg?v=blue-20261014",
 });
 export default function Brand({ markOnly = false }: { markOnly?: boolean }) {
   return markOnly ? (
