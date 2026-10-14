@@ -1,4 +1,5 @@
 /** Browser bootstrap only; application selection and error recovery live in application/. */
+import "./shared/ui/brand.css";
 import { createRoot } from "react-dom/client";
 import { LocaleProvider } from "./shared/i18n/i18n";
 import ApplicationRouter from "./application/ApplicationRouter";

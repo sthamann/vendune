@@ -348,7 +348,7 @@
 .veyndo-checkout .checkout-b2b {
   padding: 1.25rem;
   margin-block: 1rem;
-  border: 1px solid var(--shop-border, #d6dfdb);
+  border: 1px solid var(--shop-border, #d6dbdf);
   border-radius: 1rem;
   background: var(--shop-surface, #fff);
 }

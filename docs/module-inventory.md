@@ -929,7 +929,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/ui/Icon.tsx](../frontend/src/shared/ui/Icon.tsx) | Icon: Presentational icons and catalogue artwork with explicit inputs.. |
 | [frontend/src/shared/ui/ProductArt.tsx](../frontend/src/shared/ui/ProductArt.tsx) | Product Art: Presentational icons and catalogue artwork with explicit inputs.. |
 | [frontend/src/shared/ui/WorkspaceBoundary.tsx](../frontend/src/shared/ui/WorkspaceBoundary.tsx) | Contain a workspace render failure and let the user retry without losing the application shell. |
-| [frontend/src/shared/ui/brand.css](../frontend/src/shared/ui/brand.css) | Shared vector brand sizing and typography for Studio and the operator console. |
+| [frontend/src/shared/ui/brand.css](../frontend/src/shared/ui/brand.css) | Shared Veyndo brand palette and vector sizing; light UI text uses the contrast-safe blue. |
 | [frontend/src/shared/ui/confirm-dialog.css](../frontend/src/shared/ui/confirm-dialog.css) | Modal surface shared by settings, media and future destructive actions. |
 | [frontend/src/storefront/account/AccountDownloads.tsx](../frontend/src/storefront/account/AccountDownloads.tsx) | Paid download entitlements are fetched by the server and retrieved with customer headers, never URL tokens. |
 | [frontend/src/storefront/account/AccountOrderDetail.tsx](../frontend/src/storefront/account/AccountOrderDetail.tsx) | Purchase detail uses immutable addresses, current fulfillment, issued PDFs and paid order entitlements. |

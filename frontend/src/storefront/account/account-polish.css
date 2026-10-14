@@ -1,9 +1,9 @@
 /* Brand-aware account presentation with a separate orientation panel and bounded, scrollable forms. */
 .customer-account {
-  --account-accent: var(--blue, #245d49);
-  --account-ink: var(--ink, #202f2b);
-  --account-muted: var(--muted, #66746e);
-  --account-line: var(--line, #dfe6e1);
+  --account-accent: var(--blue, var(--veyndo-blue-text));
+  --account-ink: var(--ink, #20292f);
+  --account-muted: var(--muted, #666e74);
+  --account-line: var(--line, #dfe3e6);
 }
 .customer-account.is-auth {
   width: min(900px, calc(100vw - 48px));

@@ -19,8 +19,8 @@
   padding: clamp(24px, 3vw, 40px);
   grid-template-columns: 1fr 1fr;
   gap: 18px 32px;
-  background: linear-gradient(125deg, #edf5ef, #f8faf6);
-  border-color: #dce8df;
+  background: linear-gradient(125deg, #edf2f5, #f6f8fa);
+  border-color: #dce3e8;
   scroll-margin-top: 24px;
 }
 .shop-concierge h2 {
@@ -47,10 +47,10 @@
 .shop-concierge form {
   background: white;
   padding: 6px;
-  border: 1px solid #c9dccf;
+  border: 1px solid #c9d4dc;
   border-radius: 16px;
   align-items: center;
-  box-shadow: 0 8px 24px #173a2408;
+  box-shadow: 0 8px 24px #172b3a08;
 }
 .shop-concierge input {
   background: transparent;
@@ -73,7 +73,7 @@
   align-items: center;
   gap: 10px;
   min-height: 44px;
-  border: 1px solid #d2e1d7;
+  border: 1px solid #d2dbe1;
   background: #ffffffb3;
   color: var(--ink);
   padding: 10px 14px;

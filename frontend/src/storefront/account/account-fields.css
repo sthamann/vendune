@@ -20,7 +20,7 @@
   font-weight: 600;
 }
 .customer-account .shop-primary:hover:not(:disabled) {
-  background: #174533;
+  background: #173245;
 }
 .customer-account .shop-secondary,
 .customer-account .studio-secondary {
@@ -34,8 +34,8 @@
 }
 .customer-account .shop-secondary:hover:not(:disabled),
 .customer-account .studio-secondary:hover:not(:disabled) {
-  border-color: #a3bfae;
-  background: #f6faf5;
+  border-color: #a3b3bf;
+  background: #f5f8fa;
 }
 .customer-account fieldset {
   border: 0;
@@ -50,7 +50,7 @@
   margin: 0 0 19px;
   font-size: 12px;
   font-weight: 550;
-  color: #4a5b50;
+  color: #4a545b;
   min-width: 0;
 }
 .customer-account input:not([type="checkbox"]),
@@ -60,26 +60,26 @@
   min-width: 0;
   min-height: 48px;
   padding: 12px 14px;
-  border: 1px solid #d5ded7;
+  border: 1px solid #d5dade;
   border-radius: 9px;
   color: var(--account-ink);
   background: #fff;
   font: inherit;
   font-size: 14px;
-  box-shadow: 0 1px 3px #17352205;
+  box-shadow: 0 1px 3px #17283505;
 }
 .customer-account input:hover,
 .customer-account select:hover {
-  border-color: #9db8a5;
+  border-color: #9dadb8;
 }
 .customer-account input:focus,
 .customer-account select:focus,
 .customer-account textarea:focus {
-  border-color: #71957e;
+  border-color: #718695;
 }
 .customer-account input:disabled {
-  background: #f5f7f4;
-  color: #77867a;
+  background: #f4f6f7;
+  color: #778086;
 }
 .customer-account form > small,
 .customer-account fieldset > small {
@@ -155,9 +155,9 @@
   gap: 6px;
 }
 .customer-account .customer-address-badges span {
-  color: #315e46;
-  background: #edf3ec;
-  border-color: #d8e5d8;
+  color: #314b5e;
+  background: #ecf0f3;
+  border-color: #d8e0e5;
   font-size: 10px;
 }
 .customer-account .customer-actions {
@@ -171,7 +171,7 @@
   padding: 20px;
   border: 1px solid var(--account-line);
   border-radius: 14px;
-  background: #f9fbf7;
+  background: #f7f9fb;
 }
 .customer-account .customer-address-fields details {
   margin-top: 0;
@@ -212,8 +212,8 @@
   display: flex;
   padding: 4px;
   border-radius: 12px;
-  background: #f0f4ef;
-  border: 1px solid #e2e9e0;
+  background: #eff2f4;
+  border: 1px solid #e0e5e9;
   gap: 4px;
 }
 .customer-account .account-auth-tabs button {
@@ -222,12 +222,12 @@
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: #68756a;
+  color: #687075;
   font-size: 13px;
 }
 .customer-account .account-auth-tabs button[aria-current] {
   background: #fff;
   color: var(--account-accent);
-  box-shadow: 0 2px 8px #1e342511;
+  box-shadow: 0 2px 8px #1e2b3411;
   font-weight: 650;
 }

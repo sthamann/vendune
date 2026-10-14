@@ -1,4 +1,13 @@
-/** Shared vector brand sizing and typography for Studio and the operator console. */
+/** Shared Veyndo brand palette and vector sizing; light UI text uses the contrast-safe blue. */
+:root {
+  --veyndo-blue: #189eff;
+  --veyndo-blue-deep: #0176ff;
+  --veyndo-blue-text: #0b539b;
+  --veyndo-blue-ink: #06325f;
+  --veyndo-blue-soft: #e3f3ff;
+  --veyndo-blue-hover: #d4ebff;
+}
+
 .veyndo-brand {
   display: inline-flex;
   flex-direction: column;
