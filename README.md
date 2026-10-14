@@ -174,7 +174,8 @@ checks have bounded scope; they do not establish full-system production maturity
 [Testing](docs/testing.md) · [Formal verification boundaries](docs/formal-verification.md) · [Shopware parity](docs/shopware-parity.md) · [Dated workload measurements](docs/benchmarks.md).
 
 [System consistency audit](docs/system-consistency-audit.md): shared contracts,
-repaired permission defects and remaining history, Storyfront and deployment boundaries.
+the current component/version/sandbox matrix, 49 isolated-suite checks, repaired
+permission/discovery defects and remaining history, Storyfront and deployment boundaries.
 
 ## Current boundaries
 

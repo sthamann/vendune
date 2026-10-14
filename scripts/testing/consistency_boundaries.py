@@ -39,6 +39,24 @@ def check_consistency_boundaries(request, role, invite, headers, owner_headers):
         return request("/mcp", {"jsonrpc": "2.0", "id": 2, "method": "tools/call",
                                "params": {"name": name, "arguments": args}}, h)["result"]
 
+    history_tools = {"merchant.history", "merchant.history.version", "merchant.history.restore"}
+    role("history_write_only", ["knowledge.write"])
+    hw = headers(invite("history_write_only", "history-write-only"))
+    request("/api/history/source/" + source["id"], h=hw, expected=403)
+    assert not history_tools & tools(hw), "Write-only role advertises unusable history operations"
+    role("history_without_pii", ["orders.read", "customers.read", "b2b.read", "b2b.manage"])
+    hp = headers(invite("history_without_pii", "history-without-pii"))
+    request("/api/history/source/" + source["id"], h=hp, expected=403)
+    assert not history_tools & tools(hp), "Missing PII grant still advertises private history"
+    assert history_tools <= tools(wh)
+    history = invoke(wh, "merchant.history", {"entity": "source", "id": source["id"]})
+    assert not history["isError"] and history["structuredContent"]["elements"]
+    role("history_read_only", ["knowledge.read"])
+    hr = headers(invite("history_read_only", "history-read-only"))
+    assert {"merchant.history", "merchant.history.version"} <= tools(hr)
+    assert "merchant.history.restore" not in tools(hr)
+    print("PASS history discovery requires the same read/write/PII conjunctions as native invocation")
+
     role("automation_writer", ["automation.manage"])
     ah = headers(invite("automation_writer", "automation-writer"))
     assert {"automation.import", "automation.save", "automation.delete"} <= tools(ah)

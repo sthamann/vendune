@@ -2163,13 +2163,13 @@
     },
     "src/history/capability.rs": {
       "status": "unproved",
-      "sha256": "54e7b26cea97c7d5d1ea5af86187de2bd2ea7edfe367c7fe13bf558c5b7d9a8e",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "624350d4ff6abe0915b0af97b15de7765e15c86f8f5637a05dc0ebacf09d692e",
+      "review": "History discovery now uses native entity rights plus current read/write/PII conjunctions; canonical entity set and PII classification are shared with native history. Real narrow-role counterexample reproduced before repair; no financial policy changed."
     },
     "src/history/mod.rs": {
       "status": "unproved",
-      "sha256": "67fda3f8b51af25f5770d60b7e6c26c87fd16b95f094b49724a36498250acb8b",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "f964414527a6080ded586187c1dbf6aacf38ab8a80d0766b634cbf97f4c7164f",
+      "review": "History discovery now uses native entity rights plus current read/write/PII conjunctions; canonical entity set and PII classification are shared with native history. Real narrow-role counterexample reproduced before repair; no financial policy changed."
     },
     "src/history/product.rs": {
       "status": "unproved",
@@ -2183,8 +2183,8 @@
     },
     "src/history/routes.rs": {
       "status": "unproved",
-      "sha256": "9c45b44b7837b61a2bfb6709c24ffda0ed687b1c28f00e8a47e0b0753a399cf2",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "e5ecdd27274850e62d9550c1c30e262fb08b255da3f5dc2a62c088c0b7eb1da4",
+      "review": "History discovery now uses native entity rights plus current read/write/PII conjunctions; canonical entity set and PII classification are shared with native history. Real narrow-role counterexample reproduced before repair; no financial policy changed."
     },
     "src/http_json.rs": {
       "status": "unproved",

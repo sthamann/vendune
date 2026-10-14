@@ -1,5 +1,19 @@
 # Changelog
 
+## Repeated cross-component audit and history discovery — 14 October 2026
+
+- Align advertised MCP history tools with the native entity read/write/PII
+  conjunctions. Write-only roles no longer see unusable restore commands and
+  PII-denied customer/order/B2B readers no longer see private history operations.
+  Actual snapshot access remains guarded by its existing native owner.
+- Share the canonical history entity registry and PII classification with the
+  schema and invocation. Add failing-before/passing-after narrow-role HTTP/MCP
+  counterexamples without another identity, history or release subsystem.
+- Refresh the complete component and version/sandbox status matrix, 49 isolated
+  suite checks, private Experience's 230-test check and explicit open boundaries.
+- Correct the documented integration registry to 85 suites; distinguish provider
+  fixtures, build warnings, selected proofs and source tests from hosted acceptance.
+
 ## Shared agentic Studio grids — 14 October 2026
 
 - Replace fixed order/product/customer lists with one configurable grid: draggable

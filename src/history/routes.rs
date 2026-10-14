@@ -12,7 +12,7 @@ pub(super) async fn list(
     axum::extract::Query(p): axum::extract::Query<Page>,
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
-    if entity.starts_with("b2b") || ["customer", "order"].contains(&entity.as_str()) {
+    if requires_pii(&entity) {
         auth::permit(&h, "customers.pii")?;
     }
     let (read, write) = rights(&entity)?;
@@ -32,7 +32,7 @@ pub(super) async fn detail(
     Path((entity, id, version)): Path<(String, String, i64)>,
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
-    if entity.starts_with("b2b") || ["customer", "order"].contains(&entity.as_str()) {
+    if requires_pii(&entity) {
         auth::permit(&h, "customers.pii")?;
     }
     auth::permit(&h, rights(&entity)?.0)?;
@@ -55,7 +55,7 @@ pub(super) async fn restore(
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
-    if entity.starts_with("b2b") || ["customer", "order"].contains(&entity.as_str()) {
+    if requires_pii(&entity) {
         auth::permit(&h, "customers.pii")?;
     }
     let (read, write) = rights(&entity)?;

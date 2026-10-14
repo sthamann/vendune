@@ -46,6 +46,19 @@ claim. Native workflow/group metadata are now explicit navigation fixtures.
 
 ## System consistency audit — 14 October 2026
 
+[Second pass and full component matrix](system-consistency-audit.md#component-status-at-the-second-pass):
+**49 registered native HTTP/PostgreSQL/provider suites** pass at `b4fb561`, followed
+by a reproduced history-discovery counterexample and its targeted repair. MCP now
+requires the same entity read/write/PII conjunctions as invocation. Rust format,
+all-target Clippy and **243 tests** pass. Private Experience `6563b2d` passes its
+complete check with **230 tests**, type/structure/localization checks and build.
+The private entry-chunk size warning remains visible. This refresh adds no paid
+provider calls, fresh dense-Qdrant test, public full-flow acceptance or claim of
+100% coverage. The targeted repaired roles/history/isolation rerun passes, including
+the new denied-access cases. The regenerated site validates 211 pages, all 204
+Markdown sources and 5,036 local links/assets. The previous pass's evidence remains
+dated below.
+
 [Full findings and boundaries](system-consistency-audit.md). Thirteen selected
 isolated HTTP/PostgreSQL/provider suites passed before new counterexamples
 exposed knowledge-source stage rights and HTTP/MCP automation admission defects.
@@ -207,8 +220,8 @@ already-disposable database. Failures remain failures, and child processes stop
 before database cleanup. SIGINT flushes optional Rust coverage profiles.
 
 [scripts/testing/suites.json](../scripts/testing/suites.json) is the single
-registry for **48 HTTP suites, 17 local provider/connector/integration suites, four browser
-contracts and three verification-tool commands** (72 registered suites).
+registry for **55 HTTP suites, 23 local provider/connector/integration suites, four browser
+contracts and three verification-tool commands** (85 registered suites).
 The local server uses an offline model URL; live model checks are separate, opt-in
 checks. Credentials, payments, mail and Slack are exercised against loopback
 protocol fixtures. Passing these does not demonstrate a real provider account.

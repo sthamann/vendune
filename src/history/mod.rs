@@ -5,6 +5,37 @@ mod product;
 mod restore;
 mod routes;
 pub(crate) use capability::{invoke, schema, visible};
+pub(super) const ENTITIES: &[&str] = &[
+    "role",
+    "product",
+    "category",
+    "customer",
+    "order",
+    "settings",
+    "company",
+    "companyChannel",
+    "checkoutChannel",
+    "rule",
+    "flow",
+    "promotion",
+    "channel",
+    "source",
+    "b2bCompany",
+    "b2bUnit",
+    "b2bQuote",
+    "b2bList",
+    "b2bApproval",
+];
+pub(super) fn requires_pii(entity: &str) -> bool {
+    entity.starts_with("b2b") || ["customer", "order"].contains(&entity)
+}
+pub(super) fn accessible(h: &RequestContext, entity: &str, restore: bool) -> bool {
+    rights(entity).is_ok_and(|(read, write)| {
+        auth::allowed(h, read)
+            && (!requires_pii(entity) || auth::allowed(h, "customers.pii"))
+            && (!restore || write.is_some_and(|scope| auth::allowed(h, scope)))
+    })
+}
 pub(crate) fn router() -> Router<App> {
     Router::new()
         .secure_route(
