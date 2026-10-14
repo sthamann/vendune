@@ -4,7 +4,6 @@ import type { RequestFn } from "../../../../frontend/src/shared/api/types";
 import AppConsent from "../../../../frontend/src/admin/apps/AppConsent";
 import Icon from "../../../../frontend/src/shared/ui/Icon";
 import { useChannelText } from "../../../../frontend/src/admin/channels/channel-i18n";
-import { useMarketText } from "./marketplace-i18n";
 import MarketplacePanel from "./MarketplacePanel";
 import { useMarketplaceSetupText } from "./marketplace-setup-i18n";
 import "./marketplaces.css";
@@ -24,7 +23,6 @@ export default function MarketplaceWorkspace({
   onBack: () => void;
 }) {
   const t = useMarketplaceSetupText(),
-    m = useMarketText(),
     c = useChannelText();
   const [app, setApp] = useState<{ active: boolean; revision: number }>(),
     [loading, setLoading] = useState(true),
@@ -71,7 +69,7 @@ export default function MarketplaceWorkspace({
           ← {c("back")}
         </button>
         <span className="kicker">{name}</span>
-        <h1>{m("heading")}</h1>
+        <h1>{t("studio")}</h1>
         <p>{t("intro")}</p>
       </header>
       {error && <p role="alert">{error}</p>}

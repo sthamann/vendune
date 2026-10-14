@@ -1,6 +1,12 @@
 /** Guided seller setup copy; credentials remain service-side and installation does not imply a live seller connection. */
 import { useLocale } from "../../../../frontend/src/shared/i18n/i18n";
 const words = {
+  studio: [
+    "Marketplace Studio",
+    "Marketplace Studio",
+    "Marketplace Studio",
+    "Marketplace Studio",
+  ],
   intro: [
     "Your channel is ready. Connect a marketplace, review your offers and synchronize orders here.",
     "Dein Kanal ist bereit. Verbinde einen Marktplatz, prüfe deine Angebote und synchronisiere hier Bestellungen.",
