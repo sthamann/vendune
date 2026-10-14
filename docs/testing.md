@@ -5,8 +5,8 @@
 ## Agentic directory grids — 14 October 2026
 
 [Guide and actual browser captures](agentic-grids.md). The complete local frontend
-run passes **493 tests in 88 files**. V8 coverage measures **64.59% lines, 63.30%
-statements, 57.21% branches and 52.29% functions** across the declared host and
+run passes **493 tests in 88 files**. V8 coverage measures **64.63% lines, 63.33%
+statements, 57.23% branches and 52.27% functions** across the declared host and
 trusted app scope. These are measured figures, not 100% coverage. All **243 Rust
 unit tests**, format/all-target Clippy, source/route inventory and four-language
 gates pass.
@@ -30,6 +30,14 @@ zero mismatches and **155** rejected mutations; the grid's SQL, async code and U
 are reviewed/tested adapters, not new whole-system proofs.
 The rendered site checks **211 pages**, all **204 Markdown sources** and **5,031
 local links/assets**, including the illustrated guide and capture provenance.
+
+The full PR run exposed a navigation-test cold-import timing assumption: its
+default one-second wait expired while the real lazy workspace was still loading.
+A temporary 1.4-second delay on the actual order-module import reproduces that
+failure. The corrected readiness wait passes the same delayed path, retains its
+content/request assertions and bounded budgets, and the diagnostic delay is removed
+from the committed test. This is functional readiness evidence, not a performance
+claim. Native workflow/group metadata are now explicit navigation fixtures.
 
 ## System consistency audit — 14 October 2026
 
