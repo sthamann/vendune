@@ -33,3 +33,15 @@ body:
         - Reviewed and published a sandbox change
         - Returned after restarting
         - Blocked before starting
+  - type: dropdown
+    id: source
+    attributes:
+      label: Where did you find Veyndo? (optional)
+      options:
+        - GitHub
+        - LinkedIn
+        - Hacker News
+        - DEV.to
+        - Reddit
+        - Rust community
+        - Personal recommendation or another source
