@@ -106,7 +106,7 @@ pub async fn execute(a: &App, t: &str, i: Input) -> Result<Value> {
         ));
     }
     Ok(
-        json!({"kind":i.kind,"format":i.format,"document":body,"sourceOrderId":i.order_id,"sourceReceiptId":i.receipt_id,"contentType":if i.format=="ubl"{"application/xml"}else{"application/edifact"},"networkCertified":false,"profile":"veyndo-basic-1","sourceHash":hash(&s.to_string())}),
+        json!({"kind":i.kind,"format":i.format,"document":body,"sourceOrderId":i.order_id,"sourceReceiptId":i.receipt_id,"contentType":if i.format=="ubl"{"application/xml"}else{"application/edifact"},"networkCertified":false,"profile":"veyndo-basic-1","sourceHash":hash(&json!({"sourceOrderId":i.order_id,"sourceReceiptId":i.receipt_id,"format":i.format,"kind":i.kind,"document":body}).to_string())}),
     )
 }
 fn render(fmt: &str, kind: &str, p: &Value, s: &Value) -> Result<String> {

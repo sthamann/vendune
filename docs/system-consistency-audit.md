@@ -1,8 +1,8 @@
 # System consistency audit — 14 October 2026
 
 **Verdict: the common commerce foundation is connected, but the whole product is
-not uniformly complete.** Two successive passes reproduced and repaired three
-permission/transport defects. Retained-history, original Storyfront, automation
+not uniformly complete.** Successive passes reproduced and repaired six
+permission, identity and transport defects. Retained-history, original Storyfront, automation
 and deployment boundaries remain incomplete.
 
 The first review began at `a9256ce`; its permission repairs merged in `74dbc19`
@@ -41,6 +41,39 @@ as native history. Read-only roles see reads, qualified editors see restoration,
 and write-only/PII-denied roles do not see unusable history tools. The canonical
 entity set also supplies the MCP schema; invocation still checks the requested
 entity, current tenant and current revision.
+
+**Legacy customer ownership:** a later adversarial case registered an account
+after a historical guest purchase. Removing the modern `orderCustomer` binding
+in the disposable fixture reproduced the old persisted shape: matching the
+guest's contact email alone exposed that old order to the new account. This was
+an actual data-admission defect, unlike the discovery-only issue above.
+Account history, invoice access and paid download consumers now share the native
+immutable customer-ID binding. The email-only fallback is removed; admitted CRM
+staff can still search those guest records, and paid files retain exact original
+cart-token admission. Legacy records without a provable account binding remain
+unassigned rather than acquiring guessed identity during migration or signup.
+Actual binary/PDF tests deny the new claimant, preserve the original cart proof,
+and preserve qualified merchant access. No financial snapshot is rewritten by
+this production change.
+
+**Review identity and Rule Builder:** another real case typed a prior buyer's
+guest email in a different cart and received `verifiedPurchase: true`; that
+email could also occupy the buyer's unique review identity. Purchase verification
+now uses the original cart or immutable authenticated customer ID. Review
+contexts use separate `cart:` / `customer:` namespaces; native review-count facts
+consume only the account namespace. Actual MCP rule preview remains false for
+inherited guest reviews, then becomes true after a genuine account submission.
+Append-only migration 093 withdraws email-derived historical purchase badges
+without changing text, rating or approval. The native migration-only upgrade is
+tested against a seeded old row; no historical author identity is guessed.
+
+**EDI export identity:** the full CI run caught repeated exports with different
+`sourceHash` values. A deterministic native regression adds an operational order
+note between exports: the document stays identical but the previous hash included
+the live order activity/workflow. The app now fingerprints the serialized document
+and its explicit native order/receipt/format/kind identifiers. Receipt authority,
+partner admission, cancellation checks and native amounts stay unchanged. The
+implementation remains under `extensions/apps/edi`, not in the commerce core.
 
 ## Integration matrix
 
@@ -135,15 +168,22 @@ format, all-target Clippy and **243 tests** pass; the private `6563b2d` complete
 check passes **230 tests**, translation/structure/type checks and its actual build.
 The private build still warns about its 562 kB minified entry chunk: full initial
 bundle splitting is not completed by these checks.
-The refreshed site validates **211 pages**, all **204 Markdown sources** and
-**5,036 local links/assets**. The same source is rendered for GitHub Pages;
+The final refreshed site validates **214 pages**, all **207 Markdown sources**
+and **5,128 local links/assets**. The same source is rendered for GitHub Pages;
 a local build alone is not evidence of its public deployment.
 
 Two operational evidence limits matter: the general isolation suite uses a
 synthetic database owner and reports `coreRls: false`; the separate production
 foundation suite exercises strict non-owner RLS. Deployment must explicitly
 enable `DB_RLS_REQUIRED=true` with a separate runtime connection; a passing
-owner-backed API suite is not evidence of this hosting configuration. `/health`
+owner-backed API suite is not evidence of this hosting configuration. A subsequent
+read-only check of the running hosted Core `540e066` on 14 October found
+`DB_RLS_REQUIRED` unset and `DATABASE_RUNTIME_URL` absent. The strict runtime
+startup audit is therefore not enabled there. The existing native provisioning
+contract is prepared, but the restricted hosted credential and configuration
+change require the requested hosting confirmation; no live configuration was
+changed by this read-only check. This is an open production security boundary,
+not a claim that a foreign-tenant request succeeded. `/health`
 probes PostgreSQL and reports descriptive model/knowledge/payment fields. It does
 not probe Qdrant or every provider, and its fixed `payment: simulated` field is
 not per-shop provider readiness. Inspect the existing authorized provider/index
@@ -165,10 +205,27 @@ Bad typed HTTP bodies may still produce Axum's plain-text 422 before native
 JSON errors; uniform extraction-error envelopes are not implemented by this
 diagnostic repair and remain an API consistency boundary.
 
+The later legacy-ownership counterexample failed despite those earlier passing
+suites. The repair is checked by `customer_accounts` and the existing
+`merchant_operations` digital/PDF suite, supplemented by tenant isolation,
+checkout transfer, generic payment-provider and shipment regressions. Its shared
+SQL fragment is static and values remain bound through `QueryBuilder`; Rust's
+dynamic-SQL safety check is retained. These SQL adapters remain unproved by Lean.
+The final nine-suite identity/review run passes `commerce`, `automation`,
+`customer_accounts`, `merchant_operations`, `tenant_isolation`, `legal_privacy`,
+`checkout_handoff`, `payment_providers` and `shipment_workflows`. A separate
+native upgrade check confirms migration 093's badge withdrawal and unchanged
+review content/approval. These targeted suites overlap the earlier 49; they are
+not counted as 58 distinct suites or full coverage. The later EDI/native B2B
+rerun passes with a forced operational note between otherwise identical exports;
+the seven existing EDI Rust tests and targeted Clippy also pass. The CI failure
+and deterministic pre-fix hash mismatch are retained as diagnostic evidence.
+
 No real customer dataset, paid inference, external mail, payment or seller API was
 used. This is not a fresh public end-to-end test of all hosted shops. PR 109's
-repair was verified running on the hosted Core. The newer history-discovery repair
-requires its own protected merge and hosted release before it is publicly active.
+repair was verified running on the hosted Core. The history-discovery repair merged as `e63f92a` (PR 111). The customer/review
+identity repairs in PR 120 require protected merge and the backup/migration/readiness
+release before they are publicly active. Local success alone is not that evidence.
 
 ## Next closure work
 

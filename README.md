@@ -219,6 +219,10 @@ checks have bounded scope; they do not establish full-system production maturity
 the current component/version/sandbox matrix, 49 isolated-suite checks, repaired
 permission/discovery defects and remaining history, Storyfront and deployment boundaries.
 
+Customer history, invoices and digital files require an immutable purchase-time
+account binding; matching an old guest's email does not grant ownership. Paid
+guest files retain their exact original cart capability.
+
 ## Current boundaries
 
 | Area | Current scope |

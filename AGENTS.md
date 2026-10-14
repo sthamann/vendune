@@ -120,6 +120,15 @@ The exact proof boundary and extension procedure are documented in
   `scripts/security/tenant_schema.py` rejects missing containment.
 - Add real own/foreign-shop regressions for new object entry points. Confirm
   denied mutations leave victim state unchanged; UUIDs are not authorization.
+- Customer account orders, receipts and downloads require the immutable native
+  order-customer ID binding. Reuse `accounts::ORDER_ACCOUNT_SCOPE`; never infer
+  historical account ownership from a matching unverified contact email. Legacy
+  unbound orders remain CRM records; paid guest files retain exact original cart
+  capability checks. Do not backfill financial identities by email during signup.
+- Verified-purchase reviews require original cart or immutable account purchase
+  proof. Review identity and customer rule facts use the canonical cart/account
+  namespaces; guest contact email cannot reserve another actor's review or count
+  as that actor's submission. Migrations must not guess old author identities.
 - Run the registered `tenant_isolation` suite. Do not describe foreign keys,
   app-only RLS or selected Lean policies as complete core/SaaS isolation.
 
