@@ -1,7 +1,6 @@
 """Curated reading paths and shared document navigation; Markdown remains authoritative."""
 import html
 import json
-import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -97,3 +96,22 @@ def chrome(prefix):
             '<label class="docs-locale-label"><span class="sr-only" data-docs-copy="language">Language</span>'
             '<select id="docs-language" aria-label="Documentation language"><option value="en">English</option>'
             '<option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option></select></label></div>')
+
+
+def shell(prefix, docs):
+    """Keep public document chrome on the apex; all article/assets links stay in /docs."""
+    home = 'https://veyndo.ai/' if docs else prefix + 'index.html'
+    brand = prefix + ('docs/assets/ui/brand.svg' if docs else 'docs/brand/veyndo-logo-dark.svg')
+    def copy(key, text):
+        return f' data-docs-copy="{key}"' if docs else ''
+    nav = [('navDemo', home + '#demo', 'Demos'),
+           ('navTour', prefix + 'docs/first-tour.html', 'Try it'),
+           ('navBenchmarks', prefix + ('docs/benchmarks.html' if docs else 'benchmarks.html'), 'Benchmarks'),
+           ('navDocs', prefix + 'docs/index.html', 'Handbook'),
+           ('github', 'https://github.com/sthamann/veyndo', 'GitHub ↗')]
+    header = f'<header class="header wrap"><a class="brand" href="{home}"><img class="brand-wordmark" src="{brand}?v=blue-20261014" alt="VEYNDO" /></a><nav aria-label="Main navigation">' + ''.join(
+        f'<a href="{href}"{copy(key, text)}>{text}</a>' for key, href, text in nav) + '</nav></header>'
+    footer = '<footer class="wrap footer"><span' + copy('ownership', '') + '>Source available. Merchant control.</span> <a href="' + prefix + 'docs/licensing.html">Sustainable Use License</a><div>' + ''.join(
+        f'<a href="{prefix}docs/{file}"{copy(key,text)}>{text}</a>' for key,file,text in [
+            ('contribute','repository/CONTRIBUTING.html','Contribute'), ('security','security.html','Security & scope')]) + '</div><p' + copy('boundary','') + '>Experimental prototype · Provider transactions unverified · No production-readiness claim</p></footer>'
+    return header, footer

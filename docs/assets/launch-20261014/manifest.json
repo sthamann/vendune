@@ -1,0 +1,25 @@
+{
+  "capturedAt": "2026-10-14",
+  "sourceBranch": "feat/ai-first-docs",
+  "frontendBase": "f2aa173",
+  "capture": "Unmodified Chrome viewport screenshots through cua_repl",
+  "scope": "Isolated grid_directory.py loopback fixture, built-in synthetic Nord Atelier, local model wire. Not a hosted production or paid AI/provider acceptance.",
+  "screenshots": {
+    "app-studio.jpg": {
+      "sha256": "ae89502447e2865065716022c3d78c9821317cd5092a372ab0098ca8cfb95d19",
+      "bytes": 121662
+    },
+    "agentic-orders.jpg": {
+      "sha256": "2e2be3009c6cf5ac87c3ed2a4fb7899b8648bca300a7ec6cd37d42cd1123951a",
+      "bytes": 87303
+    },
+    "connected-knowledge.jpg": {
+      "sha256": "8816503205d260ab1da80daf0eb1ae151568356f848b33604966a7e5b8e3ebd8",
+      "bytes": 100043
+    },
+    "fashion-storefront.jpg": {
+      "sha256": "74b0c5d799b349bef6a95b286c2e7701d09d622e9650a80f5bb7619cd69a0677",
+      "bytes": 77588
+    }
+  }
+}

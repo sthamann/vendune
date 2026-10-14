@@ -25,7 +25,17 @@
     "language": "Language",
     "source": "View source ↗",
     "english": "English source",
-    "open": "Read article →"
+    "open": "Read article →",
+    "skip": "Skip to content",
+    "navDemo": "Demos",
+    "navTour": "Try it",
+    "navBenchmarks": "Benchmarks",
+    "navDocs": "Handbook",
+    "github": "GitHub ↗",
+    "ownership": "Source available. Merchant control.",
+    "contribute": "Contribute",
+    "security": "Security & scope",
+    "boundary": "Experimental prototype · Provider transactions unverified · No production-readiness claim"
   },
   "de": {
     "eyebrow": "DAS VEYNDO HANDBUCH",
@@ -53,7 +63,17 @@
     "language": "Sprache",
     "source": "Quelle ansehen ↗",
     "english": "Englische Quelle",
-    "open": "Artikel lesen →"
+    "open": "Artikel lesen →",
+    "skip": "Zum Inhalt springen",
+    "navDemo": "Demos",
+    "navTour": "Ausprobieren",
+    "navBenchmarks": "Messungen",
+    "navDocs": "Handbuch",
+    "github": "GitHub ↗",
+    "ownership": "Quellcode verfügbar. Händler behalten die Kontrolle.",
+    "contribute": "Mitwirken",
+    "security": "Sicherheit & Umfang",
+    "boundary": "Experimenteller Prototyp · Anbietertransaktionen ungeprüft · Keine Zusage der Produktionsreife"
   },
   "fr": {
     "eyebrow": "LE GUIDE VEYNDO",
@@ -81,7 +101,17 @@
     "language": "Langue",
     "source": "Voir la source ↗",
     "english": "Source en anglais",
-    "open": "Lire l’article →"
+    "open": "Lire l’article →",
+    "skip": "Aller au contenu",
+    "navDemo": "Démos",
+    "navTour": "Essayer",
+    "navBenchmarks": "Mesures",
+    "navDocs": "Guide",
+    "github": "GitHub ↗",
+    "ownership": "Code disponible. Contrôle du commerçant.",
+    "contribute": "Contribuer",
+    "security": "Sécurité et portée",
+    "boundary": "Prototype expérimental · Transactions des fournisseurs non vérifiées · Maturité de production non garantie"
   },
   "es": {
     "eyebrow": "EL MANUAL VEYNDO",
@@ -109,6 +139,16 @@
     "language": "Idioma",
     "source": "Ver la fuente ↗",
     "english": "Fuente en inglés",
-    "open": "Leer artículo →"
+    "open": "Leer artículo →",
+    "skip": "Ir al contenido",
+    "navDemo": "Demos",
+    "navTour": "Probar",
+    "navBenchmarks": "Mediciones",
+    "navDocs": "Manual",
+    "github": "GitHub ↗",
+    "ownership": "Código disponible. Control del comerciante.",
+    "contribute": "Contribuir",
+    "security": "Seguridad y alcance",
+    "boundary": "Prototipo experimental · Transacciones de proveedores sin verificar · Madurez de producción no garantizada"
   }
 }

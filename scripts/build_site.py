@@ -8,6 +8,7 @@ import re
 from pathlib import Path
 
 from site_markdown import build_documents
+from site_navigation import shell
 
 ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / '.site'
@@ -110,12 +111,16 @@ def build():
                           license=REPO + '/blob/main/LICENSE')
         else:
             schema.update(headline=title, author={'@type': 'Person', 'name': 'Stefan Hamann'})
+        prefix = '' if path.parent == Path('.') else os.path.relpath('.', path.parent) + '/'
+        header, footer = shell(prefix, filename.startswith('docs/'))
         fields = {
+            'site_header': header, 'site_footer': footer,
+            'skip_attrs': 'data-docs-copy="skip"' if filename.startswith('docs/') else '',
             'title': html.escape(title),
             'description': html.escape(description, quote=True),
             'canonical': url,
-            'image': BASE + ('docs/assets/showcase/storefront.webp' if filename == 'index.html'
-                             else 'assets/veyndo-studio-en.jpg'),
+            'image': BASE + ('docs/assets/launch-20261014/fashion-storefront.jpg' if filename == 'index.html'
+                             else 'docs/assets/launch-20261014/agentic-orders.jpg'),
             'schema': json.dumps(schema, ensure_ascii=False).replace('<', '\\u003c'),
             'content': content,
             'root': '' if path.parent == Path('.') else os.path.relpath('.', path.parent) + '/',

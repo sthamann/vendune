@@ -1,5 +1,13 @@
 # Changelog
 
+## AI-first website and connected handbook — 14 October 2026
+
+- Add seven ordered handbook paths, chapter/outline navigation and ranked search over every published Markdown source.
+- Keep Markdown and the existing verified Pages publisher authoritative; the website consumes that public publication through its isolated apex-only facade.
+- Localize handbook interface and reading-path descriptions in English, German, French and Spanish; retain and label original English technical articles.
+- Refresh README screenshots from the actual blue Veyndo UI and explain the synthetic/local-model capture boundary.
+
+
 ## First visitor and contributor entry — 14 October 2026
 
 - Add one connected first tour, an agent workshop and a scoped public roadmap.

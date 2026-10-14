@@ -9,11 +9,11 @@
 **Commerce, rebuilt for the AI era.**
 
 [![Verify](https://github.com/sthamann/veyndo/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/sthamann/veyndo/actions/workflows/verify.yml)
-[![Documentation](https://github.com/sthamann/veyndo/actions/workflows/pages.yml/badge.svg?branch=main)](https://sthamann.github.io/veyndo/docs/)
-[![Working prototype](https://img.shields.io/badge/status-working_prototype-171B18)](#current-boundaries)
-[![Sustainable Use License](https://img.shields.io/badge/license-Sustainable_Use-60751C)](LICENSE)
+[![Documentation](https://github.com/sthamann/veyndo/actions/workflows/pages.yml/badge.svg?branch=main)](https://veyndo.ai/docs/)
+[![Working prototype](https://img.shields.io/badge/status-working_prototype-142943)](#current-boundaries)
+[![Sustainable Use License](https://img.shields.io/badge/license-Sustainable_Use-189EFF)](LICENSE)
 
-[Try one complete round](docs/first-tour.md) · [Watch the tours](#see-it-in-action) · [First contributions](docs/early-contributors.md) · [Feature guide](docs/features.md) · [Architecture](docs/production-architecture.md) · [Documentation](https://sthamann.github.io/veyndo/docs/)
+[Try one complete round](docs/first-tour.md) · [Watch the tours](#see-it-in-action) · [First contributions](docs/early-contributors.md) · [Feature guide](docs/features.md) · [Architecture](docs/production-architecture.md) · [Documentation](https://veyndo.ai/docs/)
 
 </div>
 
@@ -42,12 +42,17 @@ Commerce remains usable without a model. Hosted chat clients need their own secu
 connection and account-side setup; [connection requirements](docs/connectors.md)
 are explicit.
 
-## See the foundation in action
+## Ask. Review. Act.
 
-[![Actual Veyndo App Studio preview](docs/assets/showcase/app-studio.webp)](https://sthamann.github.io/veyndo/docs/assets/showcase/build-and-automate.mp4)
+[![Ask the live order directory and review native filters](docs/assets/launch-20261014/agentic-orders.jpg)](docs/agentic-grids.md)
 
-[Watch the 29-second actual-UI recording](https://sthamann.github.io/veyndo/docs/assets/showcase/build-and-automate.mp4)
-· Synthetic shop · Edited recording · Simulated payments
+**“Show orders from customer Alex.”** A natural-language request becomes a
+reviewable native filter. Apply it to the same permitted order directory used
+by Studio, HTTP and MCP. [Current screenshot provenance](docs/assets/launch-20261014/README.md):
+synthetic shop, local model fixture, simulated payments.
+
+[Watch the earlier 29-second app/automation recording](https://veyndo.ai/docs/assets/showcase/build-and-automate.mp4)
+· Dated UI recording · Edited for readability · Simulated payments
 
 **Try one complete round:** start your own synthetic shop, change a product in a
 private sandbox, inspect the difference and publish the selected change.
@@ -69,7 +74,19 @@ If this direction is useful to you, star the repository to bookmark it and help 
 | **Agentic grids** | Search, filter and sort orders/products/customers, arrange columns and review natural-language filter suggestions through the same native APIs. [Guide](docs/agentic-grids.md). |
 | **Control** | Use team permissions, private sandboxes, selected releases, version history and central model settings. |
 
-[![The VEYNDO Studio with its approved Living V identity](docs/assets/veyndo-studio-en.jpg)](docs/ui-experience.md)
+[![Build an app visually on the same versioned manifest as coding agents](docs/assets/launch-20261014/app-studio.jpg)](docs/app-studio.md)
+
+## Follow one connected path
+
+[Understand the idea](https://veyndo.ai/docs/#chapter-start) →
+[Connect intelligence](https://veyndo.ai/docs/#chapter-intelligence) →
+[Create apps and automation](https://veyndo.ai/docs/#chapter-apps) →
+[Control and publish changes](https://veyndo.ai/docs/#chapter-control).
+
+The handbook stays on **veyndo.ai**, with seven ordered chapters, full-text
+search, article outlines and previous/next reading links. Navigation ships in
+English, German, French and Spanish; technical articles retain their original
+English source. [How the documentation stays connected](docs/documentation-site.md).
 
 ## Get started
 
@@ -120,30 +137,32 @@ retains the database. [Setup and troubleshooting](docs/quickstart.md).
 
 ## See it in action
 
-Fresh VEYNDO captures use an isolated synthetic shop. Payments are simulated;
+The screenshots below show the current blue Veyndo UI, captured on 14 October
+2026 in an isolated synthetic shop. Historical recordings retain their original
+capture dates and may show earlier colors or logos. Payments are simulated;
 recordings are edited for readability and are not latency measurements.
 
-[![Nord Atelier storefront](docs/assets/showcase/storefront.webp)](docs/features.md#storefront-and-shopping)
+[![Nord Atelier storefront](docs/assets/launch-20261014/fashion-storefront.jpg)](docs/features.md#storefront-and-shopping)
 
 **Connected knowledge:** inspect source ownership, review a demonstration source
 and keep autonomy limits visible. Retrieval is distinct from model-weight training.
 [Watch](docs/assets/showcase/connected-intelligence.mp4) · [Knowledge guide](docs/knowledge-workspace.md).
 
-[![Knowledge and explicit boundaries](docs/assets/showcase/connected-intelligence.webp)](docs/assets/showcase/connected-intelligence.mp4)
+[![Knowledge and explicit boundaries](docs/assets/launch-20261014/connected-knowledge.jpg)](docs/assets/showcase/connected-intelligence.mp4)
 
 **App Studio:** visual controls and coding agents share one executable manifest.
 Test a product-bound record in a private preview and save an immutable draft
 version. Saving a version and publishing it are separate actions.
 [Watch](docs/assets/showcase/app-studio.mp4) · [Build five useful apps](docs/app-tutorials/README.md).
 
-[![Actual App Studio and private preview](docs/assets/showcase/app-studio.webp)](docs/assets/showcase/app-studio.mp4)
+[![Actual App Studio and private preview](docs/assets/launch-20261014/app-studio.jpg)](docs/assets/showcase/app-studio.mp4)
 
 **Agentic grids:** search the full permitted order, product or customer directory,
 arrange your columns and review AI filter suggestions before applying them.
 The same native APIs and current access checks serve people and agents.
 [Illustrated guide](docs/agentic-grids.md).
 
-[![Actual shared order grid](docs/assets/agentic-grid/orders-en.png)](docs/agentic-grids.md)
+[![Actual shared order grid](docs/assets/launch-20261014/agentic-orders.jpg)](docs/agentic-grids.md)
 
 [Full feature tour](docs/features.md) · [Video transcripts and capture boundaries](docs/video-tours.md).
 

@@ -25,36 +25,9 @@
     </script>
   </head>
   <body class="{{body_class}}">
-    <a class="skip" href="#main">Skip to content</a>
-    <header class="header wrap">
-      <a class="brand" href="{{root}}index.html"
-        ><img class="brand-wordmark" src="{{root}}docs/brand/veyndo-logo-dark.svg?v=blue-20261014" alt="VEYNDO" /></a
-      >
-      <nav aria-label="Main navigation">
-        <a href="{{root}}index.html#demo">Demos</a
-        ><a href="{{root}}docs/first-tour.html">Try it</a
-        ><a href="{{root}}benchmarks.html">Benchmarks</a
-        ><a href="{{root}}docs/index.html">Docs</a
-        ><a class="github" href="https://github.com/sthamann/veyndo"
-          >GitHub ↗</a
-        >
-      </nav>
-    </header>
+    <a class="skip" href="#main" {{skip_attrs}}>Skip to content</a>
+    {{site_header}}
     <main id="main" class="wrap">{{content}}</main>
-    <footer class="wrap footer">
-      <span
-        >Source available. Merchant control.
-        <a href="{{root}}docs/licensing.html">Sustainable Use License</a>.</span
-      >
-      <div>
-        <a href="{{root}}docs/repository/CONTRIBUTING.html">Contribute</a
-        ><a href="{{root}}docs/security.html">Security & scope</a
-        ><a href="{{root}}sitemap.xml">Sitemap</a>
-      </div>
-      <p>
-        Experimental prototype · Provider transactions unverified · No
-        production-readiness claim
-      </p>
-    </footer>
+    {{site_footer}}
   </body>
 </html>

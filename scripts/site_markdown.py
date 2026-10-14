@@ -168,4 +168,5 @@ def build_documents(dest, write_page):
         shutil.copyfile(ROOT / 'site' / name, assets / name)
     shutil.copyfile(ROOT / 'site/style.css', assets / 'site.css')
     shutil.copyfile(ROOT / 'site/favicon.svg', assets / 'favicon.svg')
+    shutil.copyfile(ROOT / 'docs/brand/veyndo-logo.svg', assets / 'brand.svg')
     return len(records)
