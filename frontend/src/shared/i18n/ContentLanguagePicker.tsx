@@ -1,4 +1,5 @@
 /** Compact shared language switcher with explicit main-language context; selection never changes persisted content. */
+import "./content-editors.css";
 import { useContentLanguage } from "./ContentLanguage";
 import { useInternationalText } from "./international-i18n";
 export default function ContentLanguagePicker() {

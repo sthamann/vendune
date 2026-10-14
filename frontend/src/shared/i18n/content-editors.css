@@ -1,0 +1,70 @@
+/* Shared translated fields and content-language context own their styles on every direct editor entry. */
+.studio .intl-translated-field {
+  display: grid;
+  gap: 7px;
+}
+.studio .intl-field-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.studio .intl-field-heading label {
+  font-size: 12px;
+  font-weight: 550;
+}
+.studio .intl-inherit {
+  font-size: 10px;
+  padding: 5px 7px;
+  color: var(--muted);
+  border-radius: 6px;
+}
+.studio .intl-inherit[aria-pressed="true"] {
+  background: var(--hover);
+  color: var(--accent);
+}
+/* Compact language context shared by all content editors. */
+.studio .intl-language-switcher {
+  position: sticky;
+  top: 12px;
+  z-index: 5;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 4px 18px #112b4810;
+}
+.studio .intl-language-switcher label {
+  display: grid;
+  gap: 7px;
+  min-width: 160px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.studio .intl-language-switcher select {
+  width: 100%;
+  min-width: 0;
+}
+.studio .intl-language-switcher small {
+  color: var(--muted);
+  font-size: 10px;
+  padding-bottom: 10px;
+}
+.studio .intl-translated-field > input,
+.studio .intl-translated-field > textarea {
+  width: 100%;
+  min-width: 0;
+}
+.studio .intl-translated-field:has(.intl-inherit[aria-pressed="true"]) > input,
+.studio
+  .intl-translated-field:has(.intl-inherit[aria-pressed="true"])
+  > textarea {
+  background: var(--hover);
+  border-style: dashed;
+}

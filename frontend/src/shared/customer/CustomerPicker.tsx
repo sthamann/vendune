@@ -1,4 +1,5 @@
 /** Debounced, bounded native customer search with cancellation fencing and explicit selection. */
+import "./customer-picker.css";
 import { useEffect, useState } from "react";
 import type { RequestFn } from "../api/types";
 import { useAdminCreationText } from "../i18n/admin-creation-i18n";

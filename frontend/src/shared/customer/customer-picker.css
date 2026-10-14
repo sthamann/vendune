@@ -1,0 +1,59 @@
+/* Shared bounded CRM search and selected identity; loaded independently of its B2B or order consumer. */
+.b2b-customer-picker label {
+  display: grid;
+  gap: 10px;
+}
+.b2b-customer-results {
+  display: grid;
+  gap: 8px;
+  max-height: 260px;
+  overflow: auto;
+  margin-top: 12px;
+}
+.b2b-customer-results button,
+.b2b-selected-customer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  background: var(--surface);
+  color: var(--text);
+  text-align: left;
+}
+.b2b-customer-results button[aria-selected="true"] {
+  border-color: var(--accent);
+  background: var(--hover);
+}
+.b2b-customer-results span {
+  flex: 1;
+}
+.b2b-customer-results small {
+  display: block;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.b2b-selected-customer > span {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.b2b-selected-customer small {
+  display: block;
+  color: var(--muted);
+  margin-top: 6px;
+}
+@media (max-width: 600px) {
+  .b2b-customer-picker > .b2b-selected-customer,
+  .studio .admin-create .b2b-customer-picker > .b2b-selected-customer {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+  }
+  .b2b-selected-customer > button {
+    grid-column: 1/-1;
+    width: 100%;
+    min-height: 44px;
+  }
+}

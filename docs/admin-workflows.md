@@ -158,10 +158,15 @@ order for a lamp (**74.90 EUR + 4.90 EUR delivery = 79.80 EUR**), opened its nat
 order detail, and followed its customer link back to the linked order history.
 The payment remained pending. Mobile settings/customer/order views were checked at
 390 × 844 without document overflow; shipping and representative product/app/channel
-views were also inspected. These captures use synthetic data and do not certify every
+views were also inspected. The reused B2B customer picker was checked in its
+company dialog; full-width placement, selected name/email spacing and native
+fieldset frames were corrected. Shared translation controls now load their own
+styles: a direct editor entry no longer depends on previously visiting settings. These captures use synthetic data and do not certify every
 Admin dialog or a live payment provider. The persisted HTTP suites separately exercise
 current rights, negative ownership, concurrency and replay behavior.
 
+[B2B customer picker](assets/admin-20261014/b2b-customer-picker.png) ·
+[Mobile B2B dialog](assets/admin-20261014/b2b-mobile.png) ·
 [Mobile settings](assets/admin-20261014/settings-mobile.png) ·
 [Mobile customer](assets/admin-20261014/customer-mobile.png) ·
 [Mobile order review](assets/admin-20261014/order-mobile.png)

@@ -858,6 +858,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/customer/CustomerFields.tsx](../frontend/src/shared/customer/CustomerFields.tsx) | Contact fields mirror the account API while access, identity and pricing remain separate. |
 | [frontend/src/shared/customer/CustomerPicker.tsx](../frontend/src/shared/customer/CustomerPicker.tsx) | Debounced, bounded native customer search with cancellation fencing and explicit selection. |
 | [frontend/src/shared/customer/GoogleAddressSearch.tsx](../frontend/src/shared/customer/GoogleAddressSearch.tsx) | Opt-in Places widget fills editable address fields, rejects unsupported destinations and ignores stale replies. |
+| [frontend/src/shared/customer/customer-picker.css](../frontend/src/shared/customer/customer-picker.css) | Shared bounded CRM search and selected identity; loaded independently of its B2B or order consumer. |
 | [frontend/src/shared/customer/customer-types.ts](../frontend/src/shared/customer/customer-types.ts) | Shared customer/address contracts; merchant and customer sessions use distinct request adapters. |
 | [frontend/src/shared/customer/google-address.ts](../frontend/src/shared/customer/google-address.ts) | Google Places adapter: lazy public browser key, bounded loader and international address mapping. |
 | [frontend/src/shared/geography/CountryPicker.tsx](../frontend/src/shared/geography/CountryPicker.tsx) | Locale-aware world catalogue adapter for the shared searchable entity picker. |
@@ -908,6 +909,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/cognitive-events-i18n.ts](../frontend/src/shared/i18n/cognitive-events-i18n.ts) | Typed labels shared by the knowledge timeline and the native Flow Builder event catalogue. |
 | [frontend/src/shared/i18n/company-i18n.ts](../frontend/src/shared/i18n/company-i18n.ts) | Company identity, field inheritance and legal storefront vocabulary in four interface languages. |
 | [frontend/src/shared/i18n/connected-i18n.ts](../frontend/src/shared/i18n/connected-i18n.ts) | Four-language vocabulary for connected apps, consent and visual automation. |
+| [frontend/src/shared/i18n/content-editors.css](../frontend/src/shared/i18n/content-editors.css) | Shared translated fields and content-language context own their styles on every direct editor entry. |
 | [frontend/src/shared/i18n/content-language.ts](../frontend/src/shared/i18n/content-language.ts) | Resolve editable translation keys without merging distinct regional locales or fabricating inherited values. |
 | [frontend/src/shared/i18n/control-i18n.ts](../frontend/src/shared/i18n/control-i18n.ts) | Complete vocabulary for the platform control plane and service hub. Technical provider/service IDs stay stable. |
 | [frontend/src/shared/i18n/crm-i18n.ts](../frontend/src/shared/i18n/crm-i18n.ts) | Complete CRM/history vocabulary shared by settings, customer account and entity editors. |
