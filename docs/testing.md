@@ -59,12 +59,14 @@ the new denied-access cases. The regenerated site validates 211 pages, all 204
 Markdown sources and 5,036 local links/assets. The previous pass's evidence remains
 dated below.
 
-The anonymous public probe passed health/unauthorized-operator checks but failed
-on a non-JSON registration response. `hosting_check.py` now reports a useful
-bounded failure instead of crashing or counting a gateway denial as a verified
-API gate. Tooling tests cover expected JSON, non-JSON denials, wrong status/shape
-and oversized responses. This negative is retained; it is not a completed
-public onboarding or authenticated end-to-end test.
+The old empty-registration public probe failed before native policy admission.
+`hosting_check.py` now uses the native DTO shape with deliberately invalid email
+and an empty password, so no account/shop can be created even if signup is open.
+The refreshed public health/unauthorized-operator/closed-signup checks pass.
+Fifteen tooling tests cover expected JSON, non-JSON denials, wrong status/shape
+and oversized responses; failures retain bounded diagnostics rather than becoming
+successful gateway claims. Typed-body extraction can still produce a plain-text
+422. This is not completed public onboarding or authenticated end-to-end acceptance.
 
 [Full findings and boundaries](system-consistency-audit.md). Thirteen selected
 isolated HTTP/PostgreSQL/provider suites passed before new counterexamples

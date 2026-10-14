@@ -16,6 +16,9 @@
 - Give the anonymous hosting verifier bounded diagnostics for non-JSON/wrong-status
   replies. Preserve failure rather than claiming an edge denial proves native
   application admission; add actual failure-preservation tooling regressions.
+- Correct the registration probe to reach the native closed-signup policy with
+  the proper DTO shape but deliberately invalid email/empty password, preserving
+  its inability to create a shop. The public anonymous smoke check passes.
 
 ## Shared agentic Studio grids — 14 October 2026
 

@@ -163,7 +163,10 @@ class HostingChecks(unittest.TestCase):
         with contextlib.redirect_stdout(output), self.assertRaisesRegex(ValueError, "does not verify the API gate"):
             check("https://fixture.example", opener)
         self.assertNotIn("gates verified", output.getvalue())
-        self.assertEqual(calls[-1].data, b'{}')
+        probe = json.loads(calls[-1].data)
+        self.assertEqual(set(probe), {"email", "name", "password", "workspaceId"})
+        self.assertNotIn('@', probe['email'])
+        self.assertEqual(probe['password'], '')
         self.assertEqual(calls[-1].get_method(), "POST")
 
     def test_status_shape_and_size_failures_have_bounded_diagnostics(self):

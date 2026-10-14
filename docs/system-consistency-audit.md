@@ -149,15 +149,21 @@ not probe Qdrant or every provider, and its fixed `payment: simulated` field is
 not per-shop provider readiness. Inspect the existing authorized provider/index
 status owners for those facts.
 
-The fresh public anonymous probe reached `/health` (200) and the unauthorized
-platform overview (401), but empty registration returned a non-JSON 403. Adding
-an untrusted Origin to an empty body instead reached a plain-text 422 JSON
-deserializer rejection. These responses do not establish browser-Origin
-admission or authenticated onboarding. The original hosting checker crashed
-while parsing the denial. It now produces a bounded explicit failure without
-printing response bodies or treating an edge/framework denial as success; local
-tooling regressions preserve that failed verdict. Full public acceptance remains
-unverified by this probe.
+The original public anonymous probe reached `/health` (200) and the unauthorized
+platform overview (401), but its empty registration body returned non-JSON 403
+and 422 responses. Source inspection establishes that `Register` deserialization
+runs before the closed-signup policy. The corrected probe supplies that DTO
+shape with an intentionally invalid email and empty password: it reaches the
+closed-signup policy, but cannot create an account if signup is open because
+email validation precedes hashing/writes. The refreshed public probe passes
+health 200, unauthorized platform 401 and closed direct registration 403.
+Non-JSON/wrong-status replies still fail with bounded diagnostics; they never
+become a successful application-gate claim. Fifteen tooling tests include those
+negative cases. This is not browser-Origin or authenticated onboarding acceptance.
+
+Bad typed HTTP bodies may still produce Axum's plain-text 422 before native
+JSON errors; uniform extraction-error envelopes are not implemented by this
+diagnostic repair and remain an API consistency boundary.
 
 No real customer dataset, paid inference, external mail, payment or seller API was
 used. This is not a fresh public end-to-end test of all hosted shops. PR 109's

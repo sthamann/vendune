@@ -27,7 +27,11 @@ def check(base, opener=urllib.request.urlopen):
     for path, method, body, expected in [
         ("/health", "GET", None, 200),
         ("/api/platform/overview", "GET", None, 401),
-        ("/api/auth/register", "POST", {}, 403),
+        # Match the native Register shape so the closed-signup policy is reached.
+        # The deliberately invalid email fails before password hashing/writes if
+        # public signup is accidentally open; this probe can never create a shop.
+        ("/api/auth/register", "POST", {"email": "not-an-email", "name": "Hosting gate probe",
+         "password": "", "workspaceId": "hosting-gate-probe"}, 403),
     ]:
         request = urllib.request.Request(
             base + path, data=None if body is None else json.dumps(body).encode(),
