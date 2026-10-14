@@ -162,7 +162,17 @@ it("keeps merchant credentials absent when signed out and shows a login path", a
     screen.getByRole("heading", { name: "Sign in to Studio" }),
   ).toBeVisible();
   await waitFor(() => expect(location.hash).toBe("#login"));
-  expect(fetcher.mock.calls.every(([path]) => path === "/health")).toBe(true);
+  expect(
+    fetcher.mock.calls.every(([path]) =>
+      ["/health", "/api/auth/recovery"].includes(String(path)),
+    ),
+  ).toBe(true);
+  expect(
+    fetcher.mock.calls.every(
+      ([, init]) =>
+        !(init?.headers as Record<string, string> | undefined)?.Authorization,
+    ),
+  ).toBe(true);
 });
 
 it("opens a blocking login overlay on the current workspace after product authentication expires", async () => {
