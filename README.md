@@ -90,6 +90,14 @@ English source. [How the documentation stays connected](docs/documentation-site.
 
 ## Get started
 
+**Hosted SaaS:** [create a normal shop](https://start.veyndo.ai/start) empty, with
+sample products, or with a **reviewed AI/imported catalogue**. Describe 1–12
+fictional products or capture a limited selection from public shop URLs, edit
+native prices/stock/taxes and create your shop. Optional AI images require the
+configured provider. This standard path keeps ordinary Veyndo shops separate
+from Storyfront Experiences. [How product onboarding works](docs/experience-integration.md#ordinary-saas-shops-with-reviewed-ai-or-imported-products).
+
+
 **Container tour:** Git + Docker Compose + OpenSSL; no Rust/Node build or model download.
 
 ```sh
