@@ -142,5 +142,58 @@ class PlaygroundSafety(unittest.TestCase):
             self.assertEqual(json.loads(target.read_text())['workspace'], 'playground-example')
 
 
+class HostingChecks(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+    def test_edge_denial_never_becomes_a_successful_application_gate(self):
+        import io
+        import contextlib
+        from hosting_check import check
+        calls = []
+        def opener(request, timeout):
+            calls.append(request)
+            response = io.BytesIO(b'{"status":"ok"}' if len(calls) == 1 else
+                                  b'{"error":"unauthorized"}' if len(calls) == 2 else b'Forbidden')
+            response.status = [200, 401, 403][len(calls) - 1]
+            response.headers = {"Content-Type": "text/plain" if len(calls) == 3 else "application/json"}
+            return response
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output), self.assertRaisesRegex(ValueError, "does not verify the API gate"):
+            check("https://fixture.example", opener)
+        self.assertNotIn("gates verified", output.getvalue())
+        probe = json.loads(calls[-1].data)
+        self.assertEqual(set(probe), {"email", "name", "password", "workspaceId"})
+        self.assertNotIn('@', probe['email'])
+        self.assertEqual(probe['password'], '')
+        self.assertEqual(calls[-1].get_method(), "POST")
+
+    def test_status_shape_and_size_failures_have_bounded_diagnostics(self):
+        import io
+        from hosting_check import reply
+        for status, payload, message in [(422, b'{}', "expected HTTP 403"),
+                                         (403, b'[]', "JSON object required"),
+                                         (403, b'x' * 65537, "exceeds 64 KiB")]:
+            with self.subTest(status=status, message=message):
+                response = io.BytesIO(payload)
+                response.status = status
+                response.headers = {"Content-Type": "application/json"}
+                with self.assertRaisesRegex(ValueError, message):
+                    reply(response, "/api/auth/register", 403)
+
+    def test_expected_json_health_and_denials_keep_the_original_success_contract(self):
+        import io
+        from hosting_check import reply
+        for path, status, data in [("/health", 200, {"status": "ok"}),
+                                   ("/api/platform/overview", 401, {"error": "unauthorized"}),
+                                   ("/api/auth/register", 403, {"error": "forbidden"})]:
+            with self.subTest(path=path):
+                response = io.BytesIO(json.dumps(data).encode())
+                response.status = status
+                response.headers = {"Content-Type": "application/json"}
+                self.assertEqual(reply(response, path, status), status)
+
+
 if __name__ == '__main__':
     unittest.main()

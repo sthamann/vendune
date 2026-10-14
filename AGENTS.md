@@ -370,7 +370,10 @@ Read [the system consistency audit](docs/system-consistency-audit.md) when addin
 cross-domain entry points. Knowledge-source `document:*` diff/release units require
 `knowledge.read`/`knowledge.write`, never catalog rights. MCP discovery must use
 the owning operation's scopes; unrelated read grants must not gate write-only
-operations, and channel grants must not advertise rule tools. Classify every new
+operations, and channel grants must not advertise rule tools. History discovery
+must require the same per-entity read/write/PII conjunctions as invocation; reuse
+the native entity registry and PII classification rather than another scope list.
+Classify every new
 persisted entity's CAS revision, retained history, restore and staging policy
 explicitly; a revision counter alone is not full content versioning. Keep live
 financial and operational effects excluded from configuration rollback.
