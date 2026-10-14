@@ -21,6 +21,7 @@ export default function GridAgent({
     [error, setError] = useState("");
   const [plan, setPlan] = useState<GridCriteria | null>(null);
   const generation = useRef(0);
+  const host = useRef<HTMLDivElement>(null);
   useEffect(
     () => () => {
       generation.current++;
@@ -34,9 +35,17 @@ export default function GridAgent({
     setPlan(null);
     setError("");
   };
+  useEffect(() => {
+    if (!open) return;
+    const outside = (e: PointerEvent) => {
+      if (host.current && !host.current.contains(e.target as Node)) close();
+    };
+    document.addEventListener("pointerdown", outside);
+    return () => document.removeEventListener("pointerdown", outside);
+  }, [open]);
   if (!agent.enabled) return null;
   return (
-    <div className="agent-grid-assistant">
+    <div ref={host} className="agent-grid-assistant">
       <button
         type="button"
         className="agent-grid-ask"
@@ -56,6 +65,12 @@ export default function GridAgent({
             }
           }}
         >
+          <div className="agent-grid-popover-heading">
+            <strong>{g("agent")}</strong>
+            <button type="button" aria-label={g("cancel")} onClick={close}>
+              <Icon name="close" />
+            </button>
+          </div>
           <form
             onSubmit={async (e) => {
               e.preventDefault();

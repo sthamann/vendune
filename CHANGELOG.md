@@ -1,14 +1,5 @@
 # Changelog
 
-## System consistency and narrow-role boundaries — 14 October 2026
-
-- Use knowledge scopes for source-document stage diffs/publication, protecting
-  private source changes from catalog-only readers and enabling knowledge-only editors.
-- Align automation import HTTP rights and MCP discovery with native scopes;
-  write-only roles need no unrelated reads and channel roles cannot invoke rule writes.
-- Add real HTTP/MCP/PostgreSQL regressions and an audit separating connected
-  foundations from incomplete history, Storyfront, AI and release scope.
-- Correct outdated group, event, scope, SKU/SEO and shipping documentation.
 ## Shared agentic Studio grids — 14 October 2026
 
 - Replace fixed order/product/customer lists with one configurable grid: draggable
@@ -18,8 +9,18 @@
   HTTP/MCP contract, with current domain/PII rights and replica-wide admission.
 - Reuse the visual shell in declarative app tables, preserving native write forms.
 - Add real isolated Store API/PostgreSQL/model wire regressions and translated controls.
+- Add illustrated usage/ownership documentation, touch-safe popovers, false-valued
+  filter chips and an always-accessible details action when the main column is hidden.
 
+## System consistency and narrow-role boundaries — 14 October 2026
 
+- Use knowledge scopes for source-document stage diffs/publication, protecting
+  private source changes from catalog-only readers and enabling knowledge-only editors.
+- Align automation import HTTP rights and MCP discovery with native scopes;
+  write-only roles need no unrelated reads and channel roles cannot invoke rule writes.
+- Add real HTTP/MCP/PostgreSQL regressions and an audit separating connected
+  foundations from incomplete history, Storyfront, AI and release scope.
+- Correct outdated group, event, scope, SKU/SEO and shipping documentation.
 ## Shopware-blue Veyndo identity — 14 October 2026
 
 - Replace the lime logo/favicon/README artwork with #189EFF and share one blue UI palette.

@@ -5,7 +5,6 @@ import { useGridPage } from "../../shared/grid/useGridPage";
 import { useGridAccess } from "../../shared/grid/useGridAccess";
 import { useGridText } from "../../shared/grid/grid-i18n";
 import { useOperationsText } from "../../shared/i18n/operations-i18n";
-import { useCustomerText } from "../../shared/i18n/customer-i18n";
 import type { RequestFn } from "../shell/studio-types";
 export default function CustomerDirectory({
   request,
@@ -21,7 +20,6 @@ export default function CustomerDirectory({
   onOpen: (email: string) => void;
 }) {
   const { o } = useOperationsText(),
-    { c } = useCustomerText(),
     { g, locale } = useGridText();
   const page = useGridPage(request, "/api/merchant/customers", {}, queryState),
     rights = useGridAccess(request);
@@ -59,7 +57,7 @@ export default function CustomerDirectory({
         },
         {
           key: "group",
-          label: c("customerGroup"),
+          label: o("group"),
           options: groups.map((g) => ({ value: g.id, label: groupName(g.id) })),
         },
       ]}
@@ -100,7 +98,7 @@ export default function CustomerDirectory({
         },
         {
           id: "group",
-          label: c("customerGroup"),
+          label: o("group"),
           render: (r) => (
             <span className="agent-grid-tag">
               {r.guest ? g("guest") : groupName(r.customerGroup)}

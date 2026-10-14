@@ -378,7 +378,7 @@ no model or external delivery provider. The exact current source inventory is
 
 | File/group | Responsibility | Regression evidence |
 |---|---|---|
-| `commerce/product_admin.rs`, `product_admin.sql`, `product_channels.rs`, `product_edit.rs`, `product_fields.rs` | Bounded merchant queries, product/variant creation, atomic revision saves, inventory/pricing and category/channel assignments | `catalog_management.py`, `commerce.py`, `merchant_operations.py`, frontend catalog-management tests |
+| `commerce/product_admin.rs`, `product_channels.rs`, `product_edit.rs`, `product_fields.rs` | Bounded merchant queries, product/variant creation, atomic revision saves, inventory/pricing and category/channel assignments | `catalog_management.py`, `commerce.py`, `merchant_operations.py`, frontend catalog-management tests |
 | `categories/{mod,admin,navigation}.rs`, `listing.sql`, migrations 026/027 | Tenant-safe translated tree, navigation roots, membership, nested product listings, indexed search | Rust validation tests; real category/cycle/visibility/locale/channel HTTP tests |
 | `assets/rich_document.rs`, shared `rich-document.tsx`, admin `RichEditor.tsx` | Safe structured WYSIWYG admission and storefront rendering | Rust unsafe-content negatives, actual React renderer tests, browser save/reload |
 | `admin/catalog/{ProductDataView,ProductEditor,ProductPanels,ProductMediaWorkspace,MediaDropzone,AiImageStudio,ProductVariants,RelatedProducts,CategoriesWorkspace}.tsx` | One list/create/detail workspace, gallery/SKU/category workflows | Strict build, architecture constraints, unit tests and real synthetic browser creation |

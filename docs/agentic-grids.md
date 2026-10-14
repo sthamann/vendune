@@ -4,6 +4,8 @@ Orders, products and customers now share one grid instead of separate fixed list
 People and agents use the same native filter/sort contract. The grid never owns
 prices, customer identity, order states or a second database.
 
+![Actual shared order grid in English with synthetic checkout-created orders](assets/agentic-grid/orders-en.png)
+
 ## Use the list
 
 1. Open **Orders**, **Products** or **Customers** in Studio. Search runs on the
@@ -25,6 +27,8 @@ Column layout/density is a device preference scoped by origin/shop/sandbox and
 list ID. It contains column IDs only, not records, credentials, business configuration
 or release units. This is deliberately distinct from entity history and staging.
 
+![Column visibility, ordering arrows, compact rows and explicit close control](assets/agentic-grid/columns-en.png)
+
 ## Ask your list
 
 With `assistant.use` and the list's current domain rights, open **Ask your list**:
@@ -42,6 +46,12 @@ The model returns typed filter suggestions. Studio shows them for review and
 **Apply filters** issues an ordinary native list read. Unsupported constraints must
 be reported instead of silently dropped. Invalid fields/types/dates/sort keys are
 rejected. Provider failure leaves manual search/filtering available.
+
+![A read-only customer filter is reviewed before applying it to the order list](assets/agentic-grid/ai-preview-en.png)
+
+These are real browser captures using synthetic records and a loopback model
+fixture. They demonstrate the UI, native API and review path; they do not measure
+the semantic quality of a live AI provider. [Capture provenance](assets/agentic-grid/README.md).
 
 The customer filter matches text in the immutable order customer snapshot (name/email)
 and legacy contact fields; it does not claim to disambiguate people with identical
@@ -99,6 +109,17 @@ Domain directories supply columns, allowed filters, existing request functions a
 native navigation. New entity directories must reuse it rather than copying a list.
 Bundled controls are translated into EN/DE/FR/ES. Merchant content and app labels keep
 their existing main-language inheritance.
+
+![Product category filtering in the same grid](assets/agentic-grid/products-en.png)
+
+![Customer directory using the same controls and translated group labels](assets/agentic-grid/customers-en.png)
+
+The table scrolls inside its container on narrow screens; it does not expand the
+whole page. Column ordering has keyboard and touch controls, and popovers support
+an explicit close action, Escape and outside clicks. Compare the actual
+[mobile order list](assets/agentic-grid/orders-mobile-en.png),
+[mobile column controls](assets/agentic-grid/mobile-columns-en.png) and
+[dark appearance](assets/agentic-grid/orders-dark-en.png).
 
 Declarative app table blocks also reuse the column/density/expanded-row shell and
 retain their native inline forms and current app actions. Their existing indexed

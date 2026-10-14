@@ -109,6 +109,7 @@ mod tests {
         );
         assert!(validate("customers", &json!({"guest":true})).is_ok());
         assert!(validate("products", &json!({"active":true,"lowStock":true})).is_ok());
+        assert!(validate("products", &json!({"lowStock":false})).is_err());
         assert!(validate("customers", &json!({"state":"placed"})).is_err());
         assert!(validate("orders", &json!({"from":"not-a-date"})).is_err());
     }

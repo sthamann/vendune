@@ -1,4 +1,5 @@
 /** Accessible column ordering/visibility controls provide keyboard and touch alternatives to drag headers. */
+import { useRef, useEffect } from "react";
 import Icon from "../ui/Icon";
 import { useGridText } from "./grid-i18n";
 import { moveColumn, type GridLayout } from "./preferences";
@@ -14,14 +15,47 @@ export default function GridColumns({
   onReset: () => void;
 }) {
   const { g } = useGridText();
+  const ref = useRef<HTMLDetailsElement>(null);
+  const close = (focus = false) => {
+    if (ref.current) {
+      ref.current.open = false;
+      if (focus) ref.current.querySelector("summary")?.focus();
+    }
+  };
+  useEffect(() => {
+    const outside = (e: PointerEvent) => {
+      if (ref.current?.open && !ref.current.contains(e.target as Node)) close();
+    };
+    document.addEventListener("pointerdown", outside);
+    return () => document.removeEventListener("pointerdown", outside);
+  }, []);
+
   return (
-    <details className="agent-grid-column-menu">
+    <details
+      ref={ref}
+      className="agent-grid-column-menu"
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          e.stopPropagation();
+          close(true);
+        }
+      }}
+    >
       <summary>
         <Icon name="table" />
         {g("columns")}
       </summary>
       <div className="agent-grid-column-panel">
-        <strong>{g("customize")}</strong>
+        <div className="agent-grid-popover-heading">
+          <strong>{g("customize")}</strong>
+          <button
+            type="button"
+            aria-label={g("closeColumns")}
+            onClick={() => close(true)}
+          >
+            <Icon name="close" />
+          </button>
+        </div>
         <p>{g("columnsHint")}</p>
         {layout.order.map((id, i) => {
           const column = columns.find((c) => c.id === id);

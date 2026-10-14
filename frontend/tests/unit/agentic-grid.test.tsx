@@ -4,6 +4,7 @@ import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, expect, it, vi } from "vitest";
 import AgenticGrid from "../../src/shared/grid/AgenticGrid";
+import CustomerDirectory from "../../src/admin/customers/CustomerDirectory";
 import { useGridPage } from "../../src/shared/grid/useGridPage";
 import { LocaleProvider } from "../../src/shared/i18n/i18n";
 import type { GridCriteria } from "../../src/shared/grid/types";
@@ -81,6 +82,24 @@ it("supports drag headers without changing search criteria", () => {
   expect(screen.getAllByRole("columnheader")[0]).toHaveTextContent("Number");
   expect(screen.getByTestId("criteria")).toHaveTextContent("{}");
 });
+it("closes column controls explicitly, on Escape and outside without hiding a column", async () => {
+  const user = userEvent.setup();
+  render(<Demo />, { wrapper: LocaleProvider });
+  const trigger = screen.getByText("Columns", { selector: "summary" });
+  const menu = trigger.closest("details")!;
+  await user.click(trigger);
+  expect(menu.open).toBe(true);
+  await user.click(screen.getByRole("button", { name: "Close columns" }));
+  expect(menu.open).toBe(false);
+  expect(trigger).toHaveFocus();
+  await user.click(trigger);
+  await user.keyboard("{Escape}");
+  expect(menu.open).toBe(false);
+  await user.click(trigger);
+  await user.click(screen.getByTestId("criteria"));
+  expect(menu.open).toBe(false);
+  expect(screen.getAllByRole("columnheader")).toHaveLength(2);
+});
 it("reviews planner filters before applying and rejects identity fields", async () => {
   const user = userEvent.setup();
   const request = vi
@@ -114,6 +133,22 @@ it("reviews planner filters before applying and rejects identity fields", async 
 it("does not offer AI without its current right", () => {
   render(<Demo enabled={false} />, { wrapper: LocaleProvider });
   expect(screen.queryByRole("button", { name: "Ask your list" })).toBeNull();
+});
+it("renders the customer group with the native translated vocabulary", async () => {
+  const request = vi.fn().mockResolvedValue({ elements: [] });
+  render(
+    <CustomerDirectory
+      request={request}
+      groups={[]}
+      groupName={(id) => id}
+      onOpen={vi.fn()}
+    />,
+    { wrapper: LocaleProvider },
+  );
+  expect(
+    screen.getByRole("columnheader", { name: "Customer group" }),
+  ).toBeVisible();
+  await waitFor(() => expect(request).toHaveBeenCalled());
 });
 it("clears rows on errors and ignores a superseded response", async () => {
   let resolveOld: (v: any) => void = () => {};

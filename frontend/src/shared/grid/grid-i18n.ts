@@ -1,6 +1,12 @@
 /** Typed four-language shared grid vocabulary; commerce content keeps its existing inheritance contract. */
 import { useLocale } from "../i18n/i18n";
 const words = {
+  closeColumns: [
+    "Close columns",
+    "Spalten schließen",
+    "Fermer les colonnes",
+    "Cerrar columnas",
+  ],
   countOne: [
     "1 result on this page",
     "1 Ergebnis auf dieser Seite",

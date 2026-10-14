@@ -96,6 +96,13 @@ version. Saving a version and publishing it are separate actions.
 
 [![Actual App Studio and private preview](docs/assets/showcase/app-studio.webp)](docs/assets/showcase/app-studio.mp4)
 
+**Agentic grids:** search the full permitted order, product or customer directory,
+arrange your columns and review AI filter suggestions before applying them.
+The same native APIs and current access checks serve people and agents.
+[Illustrated guide](docs/agentic-grids.md).
+
+[![Actual shared order grid](docs/assets/agentic-grid/orders-en.png)](docs/agentic-grids.md)
+
 [Full feature tour](docs/features.md) · [Video transcripts and capture boundaries](docs/video-tours.md).
 
 ## Intelligence with permission to act
