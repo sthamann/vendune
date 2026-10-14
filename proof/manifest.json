@@ -2563,8 +2563,8 @@
     },
     "src/operations/grid_schema.rs": {
       "status": "unproved",
-      "sha256": "3dd6b7791fca816b498e94ff1bb905f0b8a5b0a74699ff5f32b1b00d68b26d66",
-      "review": "Reviewed native grid criteria and tenant cursors, translated sorting and read-only central-provider planning under current domain/PII grants. Strict OpenAI optional nulls are normalized only after allowlisted-key checks; unknown null identity fields and empty supported plans fail closed, explicit false is preserved. Real PostgreSQL HTTP/MCP provider and restart fixtures pass. Existing extracted financial policies are unchanged; SQL/model semantics/async/UI remain unproved adapters."
+      "sha256": "16a8bd91058374321e133d4be2e25e69f788881c1b6536b3f963ba33ab1881ca",
+      "review": "Reviewed bounded native grids, tenant cursors and current domain/PII admission. Strict-provider optional nulls normalize only recognized fields; null identity fields, blank planned text and empty supported plans fail closed, while explicit false stays a filter. Actual HTTP/MCP OpenAI/Ollama wire and restart fixtures pass. Existing pure financial policies are unchanged; SQL/model semantics/async/UI remain unproved adapters."
     },
     "src/operations/guest_customers.rs": {
       "status": "unproved",

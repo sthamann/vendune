@@ -52,6 +52,8 @@ native grid validator normalizes only known optional fields before validation;
 unknown identity fields remain rejected even when null. Explicit `false` values
 (such as inactive customers) remain real filters. The central provider adapter
 and ordinary HTTP/MCP owner are shared across this path.
+Blank planned text filters are rejected instead of being treated as a useful
+search proposal. Manual list APIs retain their existing empty-search behavior.
 
 ![A read-only customer filter is reviewed before applying it to the order list](assets/agentic-grid/ai-preview-en.png)
 

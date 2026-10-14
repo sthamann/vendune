@@ -45,6 +45,11 @@ pub(crate) fn fields(entity: &str) -> Result<Value> {
 }
 pub(crate) fn schema(entity: &str) -> Result<Value> {
     let mut fields = fields(entity)?;
+    for field in fields.as_object_mut().unwrap().values_mut() {
+        if field["type"] == "string" {
+            field["minLength"] = json!(1);
+        }
+    }
     if entity == "products" {
         fields["lowStock"]["enum"] = json!([true]);
     }
@@ -70,7 +75,8 @@ pub(crate) fn validate(entity: &str, v: &Value) -> Result<Value> {
             }
         } else {
             let text = value.as_str().ok_or(bad("Invalid text grid filter"))?;
-            if text.len() > 200
+            if text.trim().is_empty()
+                || text.len() > 200
                 || text.chars().any(char::is_control)
                 || field["enum"]
                     .as_array()
@@ -127,6 +133,8 @@ mod tests {
             json!({"customer":"Alex"})
         );
         assert!(validate("orders", &json!({"tenant":null})).is_err());
+        assert!(validate("orders", &json!({"customer":""})).is_err());
+        assert!(validate("orders", &json!({"query":"   "})).is_err());
         assert!(validate("customers", &json!({"state":"placed"})).is_err());
         assert!(validate("orders", &json!({"from":"not-a-date"})).is_err());
     }

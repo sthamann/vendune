@@ -108,6 +108,7 @@ try:
  state['result']={'supported':True,'criteria':{'active':False}}
  assert call('/api/merchant/grid/plan',{**payload,'entity':'customers'})['criteria']=={'active':False}
  state['result']={'supported':True,'criteria':{'tenant':None}};call('/api/merchant/grid/plan',payload,expected=400)
+ state['result']={'supported':True,'criteria':{'customer':''}};call('/api/merchant/grid/plan',payload,expected=400)
  state['result']={'supported':True,'criteria':{}};call('/api/merchant/grid/plan',payload,expected=400)
  state['result']={'supported':False,'criteria':{}};assert not call('/api/merchant/grid/plan',payload)['supported']
  state['reject']=True;call('/api/merchant/grid/plan',payload,expected=502);state['reject']=False
