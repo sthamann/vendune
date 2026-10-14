@@ -28,7 +28,7 @@ shell. This does not establish arbitrary app full-text/model support or live-mod
 semantic quality. The existing **54-policy / 156,657-case** formal gate passes with
 zero mismatches and **155** rejected mutations; the grid's SQL, async code and UI
 are reviewed/tested adapters, not new whole-system proofs.
-The rendered site checks **211 pages**, all **204 Markdown sources** and **5,031
+The rendered site checks **211 pages**, all **204 Markdown sources** and **5,032
 local links/assets**, including the illustrated guide and capture provenance.
 
 The full PR run exposed a navigation-test cold-import timing assumption: its

@@ -64,30 +64,13 @@ value across currencies, and performs no conversion or aggregation.
 
 ## One native contract
 
-```mermaid
-sequenceDiagram
-    participant User as Merchant
-    participant Grid as Shared grid
-    participant Planner as Rust filter planner
-    participant Model as Central model provider
-    participant API as Native list owner
-    participant DB as Tenant-scoped PostgreSQL
-    User->>Grid: Search, filters or a question
-    opt Natural-language question
-        Grid->>Planner: entity, instruction, locale
-        Planner->>Planner: Current assistant/domain/PII admission
-        Planner->>Model: Bounded question + allowlisted schema
-        Model-->>Planner: Suggested criteria
-        Planner->>Planner: Validate keys/types/dates/sort
-        Planner-->>Grid: Read-only suggestion
-        Grid-->>User: Review filters
-        User->>Grid: Apply
-    end
-    Grid->>API: Existing list request + criteria + cursor
-    API->>API: Current membership, domain rights and tenant
-    API->>DB: Parameter-bound filters, global sort, stable cursor
-    DB-->>Grid: At most 100 permitted rows
-```
+![Optional AI planning, explicit review and authorized native API response](assets/agentic-grid/native-contract.svg)
+
+Manual searches go directly from the grid to the native list owner. AI planning
+adds the optional question/review steps; database results return through that
+same authorized API. [Editable Mermaid source](assets/agentic-grid/native-contract.mmd)
+· [Structured diagram](assets/agentic-grid/native-contract.json).
+
 
 `POST /api/merchant/grid/plan` and MCP `merchant.grid.plan` share the same owner.
 Manual execution continues through `/api/merchant/orders`, `/customers`, `/products`

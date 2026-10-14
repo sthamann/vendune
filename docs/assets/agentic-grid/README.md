@@ -24,3 +24,11 @@ a claim that every natural-language request is understood by a particular model.
 The temporary viewport override was reset after capture. The isolated review
 database is disposable. Recreate it with `GRID_REVIEW_HOLD=1` when new captures
 are needed; never use production customer data or expose its private fixture file.
+
+`native-contract.svg` is a script-free static sequence drawing laid out from the
+validated `native-contract.json`; equivalent editable Mermaid source is
+`native-contract.mmd`. The Mermaid tool statically validates/exports that source.
+The SVG uses distinct lifelines for all six owners and native SVG arrows. It depicts owner/message relationships, not
+measured timings. It is served as an ordinary image so the documentation needs
+no remote renderer or executable diagram code. Static lint is not a semantic
+proof or evidence that a specific Mermaid renderer was used.

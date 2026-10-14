@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="950" viewBox="0 0 1280 950" role="img" aria-labelledby="title desc">
+<title id="title">A shared grid with one authorized native API</title>
+<desc id="desc">Optional AI filter planning and human review, followed by current tenant-scoped API reads. Database results return through the same API.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#1572e8"/></marker></defs>
+<rect width="1280" height="950" rx="22" fill="#f8fbff"/>
+<g font-family="system-ui,-apple-system,Segoe UI,sans-serif" fill="#142c44">
+<text x="34" y="45" font-size="25" font-weight="700">One path for people and agents</text>
+<text x="34" y="73" font-size="15" fill="#526b83">AI proposes filters. Native commerce decides access and returns rows.</text>
+<rect x="26" y="98" width="172" height="48" rx="12" fill="#e8f2ff" stroke="#b4d1f7"/>
+<text x="112" y="128" text-anchor="middle" font-size="17" font-weight="600">Merchant</text>
+<path d="M112 155 V865" stroke="#c0d2e6" stroke-dasharray="4 5"/>
+<rect x="236" y="98" width="172" height="48" rx="12" fill="#e8f2ff" stroke="#b4d1f7"/>
+<text x="322" y="128" text-anchor="middle" font-size="17" font-weight="600">Shared grid</text>
+<path d="M322 155 V865" stroke="#c0d2e6" stroke-dasharray="4 5"/>
+<rect x="446" y="98" width="172" height="48" rx="12" fill="#e8f2ff" stroke="#b4d1f7"/>
+<text x="532" y="128" text-anchor="middle" font-size="17" font-weight="600">Rust planner</text>
+<path d="M532 155 V865" stroke="#c0d2e6" stroke-dasharray="4 5"/>
+<rect x="656" y="98" width="172" height="48" rx="12" fill="#e8f2ff" stroke="#b4d1f7"/>
+<text x="742" y="128" text-anchor="middle" font-size="17" font-weight="600">Model provider</text>
+<path d="M742 155 V865" stroke="#c0d2e6" stroke-dasharray="4 5"/>
+<rect x="866" y="98" width="172" height="48" rx="12" fill="#e8f2ff" stroke="#b4d1f7"/>
+<text x="952" y="128" text-anchor="middle" font-size="17" font-weight="600">Native API</text>
+<path d="M952 155 V865" stroke="#c0d2e6" stroke-dasharray="4 5"/>
+<rect x="1076" y="98" width="172" height="48" rx="12" fill="#e8f2ff" stroke="#b4d1f7"/>
+<text x="1162" y="128" text-anchor="middle" font-size="17" font-weight="600">Tenant database</text>
+<path d="M1162 155 V865" stroke="#c0d2e6" stroke-dasharray="4 5"/>
+<rect x="20" y="173" width="1240" height="477" rx="12" fill="#eaf3ff" opacity=".65"/>
+<text x="35" y="197" font-size="13" font-weight="700" fill="#526b83">OPTIONAL QUESTION · PLANNING · EXPLICIT REVIEW</text>
+<text x="35" y="660" font-size="13" font-weight="700" fill="#526b83">THE SAME NATIVE READ FOR MANUAL AND AI FILTERS</text>
+<path d="M 112 240 H 322" fill="none" stroke="#1572e8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="217.0" y="232" text-anchor="middle" font-size="14" fill="#142c44" stroke="#f8fbff" stroke-width="5" paint-order="stroke">Optional: ask your list</text>
+<path d="M 322 284 H 532" fill="none" stroke="#1572e8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="427.0" y="276" text-anchor="middle" font-size="14" fill="#142c44" stroke="#f8fbff" stroke-width="5" paint-order="stroke">Question, entity, locale</text>
+<path d="M 532 328 h38 v13 h-38" fill="none" stroke="#1572e8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="576" y="320" text-anchor="start" font-size="14" fill="#142c44" stroke="#f8fbff" stroke-width="5" paint-order="stroke">Current assistant / domain / PII rights</text>
+<path d="M 532 372 H 742" fill="none" stroke="#1572e8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="637.0" y="364" text-anchor="middle" font-size="14" fill="#142c44" stroke="#f8fbff" stroke-width="5" paint-order="stroke">Bounded question + allowlisted schema</text>
+<path d="M 742 416 H 532" fill="none" stroke="#1572e8" stroke-width="1.8" marker-end="url(#arrow)" stroke-dasharray="5 4"/>
+<text x="637.0" y="408" text-anchor="middle" font-size="14" fill="#142c44" stroke="#f8fbff" stroke-width="5" paint-order="stroke">Suggested criteria</text>
+<path d="M 532 460 h38 v13 h-38" fill="none" stroke="#1572e8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="576" y="452" text-anchor="start" font-size="14" fill="#142c44" stroke="#f8fbff" stroke-width="5" paint-order="stroke">Validate criteria; no SQL or identity</text>
+<path d="M 532 504 H 322" fill="none" stroke="#1572e8" stroke-width="1.8" marker-end="url(#arrow)" stroke-dasharray="5 4"/>
+<text x="427.0" y="496" text-anchor="middle" font-size="14" fill="#142c44" stroke="#f8fbff" stroke-width="5" paint-order="stroke">Read-only filter suggestion</text>
+<path d="M 322 548 H 112" fill="none" stroke="#1572e8" stroke-width="1.8" marker-end="url(#arrow)" stroke-dasharray="5 4"/>
+<text x="217.0" y="540" text-anchor="middle" font-size="14" fill="#142c44" stroke="#f8fbff" stroke-width="5" paint-order="stroke">Review the filters</text>
+<path d="M 112 592 H 322" fill="none" stroke="#1572e8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="217.0" y="584" text-anchor="middle" font-size="14" fill="#142c44" stroke="#f8fbff" stroke-width="5" paint-order="stroke">Explicit Apply</text>
+<path d="M 322 678 H 952" fill="none" stroke="#1572e8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="637.0" y="670" text-anchor="middle" font-size="14" fill="#142c44" stroke="#f8fbff" stroke-width="5" paint-order="stroke">Native criteria + cursor read</text>
+<path d="M 952 722 h38 v13 h-38" fill="none" stroke="#1572e8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="996" y="714" text-anchor="start" font-size="14" fill="#142c44" stroke="#f8fbff" stroke-width="5" paint-order="stroke">Current membership, rights and tenant</text>
+<path d="M 952 766 H 1162" fill="none" stroke="#1572e8" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="1057.0" y="758" text-anchor="middle" font-size="14" fill="#142c44" stroke="#f8fbff" stroke-width="5" paint-order="stroke">Parameter-bound query and global sort</text>
+<path d="M 1162 810 H 952" fill="none" stroke="#1572e8" stroke-width="1.8" marker-end="url(#arrow)" stroke-dasharray="5 4"/>
+<text x="1057.0" y="802" text-anchor="middle" font-size="14" fill="#142c44" stroke="#f8fbff" stroke-width="5" paint-order="stroke">Bounded permitted rows</text>
+<path d="M 952 854 H 322" fill="none" stroke="#1572e8" stroke-width="1.8" marker-end="url(#arrow)" stroke-dasharray="5 4"/>
+<text x="637.0" y="846" text-anchor="middle" font-size="14" fill="#142c44" stroke="#f8fbff" stroke-width="5" paint-order="stroke">Authorized native response</text>
+<text x="34" y="910" font-size="14" fill="#526b83">No model SQL · No tenant override · No mutation · Bounded rows · HTTP and MCP share the native owner</text>
+</g></svg>
