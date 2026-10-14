@@ -1201,6 +1201,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/formal/registry.py](../scripts/formal/registry.py) | Explicit full-source inventory and reviewed adapter locks, not proof coverage claims. |
 | [scripts/formal/runners.py](../scripts/formal/runners.py) | Generate conformance drivers from parsed policy signatures, never a second policy implementation. |
 | [scripts/formal.py](../scripts/formal.py) | Run extraction, Lean proofs/axiom audit, compiled conformance and complete source-inventory checks. |
+| [scripts/github_traffic.py](../scripts/github_traffic.py) | Save one private GitHub snapshot; overlapping traffic windows are never summed. |
 | [scripts/grid_directory.py](../scripts/grid_directory.py) | Real native directories and read-only model planning in an isolated PostgreSQL database and loopback provider. |
 | [scripts/hosting_check.py](../scripts/hosting_check.py) | Check a deployed experimental SaaS HTTPS origin without credentials or real orders. |
 | [scripts/hosting_container.py](../scripts/hosting_container.py) | Smoke-test the built deployment image against an isolated database on the local Compose network. |
