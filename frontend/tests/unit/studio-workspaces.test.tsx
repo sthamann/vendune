@@ -144,7 +144,7 @@ it("navigates every merchant workspace without duplicating registry requests", a
   // retains its short deadline; instrumented shared CI needs more than 5s total.
 }, 20_000);
 it("keeps merchant credentials absent when signed out and shows a login path", async () => {
-  const fetcher = vi.fn(async (path: string) => {
+  const fetcher = vi.fn(async (path: string, _init?: RequestInit) => {
     if (path === "/health" || path === "/api/apps/surfaces")
       return {
         ok: true,
