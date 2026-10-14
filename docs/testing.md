@@ -14,6 +14,8 @@ source/route inventory and existing **54-policy / 156,657-case** formal gates pa
 the mutation gate rejects **155** broken policies. Private Experience's complete
 check passes **230 tests**. No new coverage percentage or whole-system guarantee
 is inferred; no live provider or paid AI call was made.
+The rebuilt documentation passes **208 pages**, all **201 Markdown sources** and
+**4,957 local links/assets**, including this audit.
 
 ## Fulfillment, carrier app and identity verification — 14 October 2026
 
