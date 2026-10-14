@@ -6,10 +6,10 @@
     <title>{{title}}</title>
     <meta name="description" content="{{description}}" />
     <meta name="robots" content="index,follow" />
-    <meta name="theme-color" content="#171B18" />
+    <meta name="theme-color" content="#189EFF" />
     <link rel="canonical" href="{{canonical}}" />
-    <link rel="icon" href="{{root}}favicon.svg?v=blue-20261014" type="image/svg+xml" />
-    <link rel="stylesheet" href="{{root}}style.css" />
+    <link rel="icon" href="{{root}}{{favicon}}?v=blue-20261014" type="image/svg+xml" />
+    <link rel="stylesheet" href="{{root}}{{main_styles}}" />
     {{page_assets}}
     <meta property="og:type" content="website" />
     <meta property="og:title" content="{{title}}" />
@@ -24,7 +24,7 @@
       {{schema}}
     </script>
   </head>
-  <body>
+  <body class="{{body_class}}">
     <a class="skip" href="#main">Skip to content</a>
     <header class="header wrap">
       <a class="brand" href="{{root}}index.html"

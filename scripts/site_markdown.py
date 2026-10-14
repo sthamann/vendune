@@ -11,6 +11,7 @@ from pathlib import Path
 from urllib.parse import quote, unquote, urlsplit, urlunsplit
 
 import markdown
+from site_navigation import sidebar, onward, hub, chrome
 
 ROOT = Path(__file__).resolve().parents[1]
 REPO = 'https://github.com/sthamann/veyndo'
@@ -137,45 +138,34 @@ def render(source, dest, known):
 def build_documents(dest, write_page):
     known = set(sources())
     records = []
+    rendered = []
     for source in sorted(known):
         title, body, toc, text = render(source, dest, known)
         path = destination(source)
-        prefix = os.path.relpath('.', path.parent).replace(os.sep, '/') + '/'
-        content = ('<div class="docs-layout"><aside class="docs-sidebar">'
-                   f'<a href="{prefix}docs/index.html">← All documentation</a>'
-                   '<p>On this page</p>' + toc + '</aside><article class="article docs-article">'
-                   '<div class="docs-source"><span>' + html.escape(source.as_posix()) + '</span>'
-                   f'<a href="{REPO}/blob/main/{quote(source.as_posix(), safe="/")}">View on GitHub ↗</a>'
-                   '</div>' + body + '</article></div>')
         description = text[len(title):].strip()[:180] or title
-        write_page(path, title + ' | ' + source.as_posix() + ' | Veyndo', description, content)
         records.append({'source': source.as_posix(), 'url': path.as_posix(),
                         'title': title, 'description': description, 'text': text})
-    groups = [('Guides', [r for r in records if r['source'].startswith('docs/')]),
-              ('Repository and module notes', [r for r in records if not r['source'].startswith('docs/')])]
-    content = ('<article class="article docs-index"><p class="eyebrow">Veyndo documentation</p>'
-               '<h1>Guides and developer reference</h1><p class="lead">Read the Markdown guides '
-               'as web pages. Every page is built from its repository source on publication.</p>'
-               '<div class="docs-start"><a href="quickstart.html">Get started</a>'
-               '<a href="playground.html">Try the playground</a><a href="architecture.html">Architecture</a>'
-               '<a href="security.html">Security &amp; scope</a></div>'
-               '<label for="docs-search">Search all documentation</label>'
-               '<input id="docs-search" type="search" placeholder="Products, checkout, apps…" '
-               'autocomplete="off" aria-describedby="docs-count" />'
-               f'<p id="docs-count" role="status">{len(records)} Markdown documents</p>'
-               '<div id="docs-results"></div><div id="docs-directory">')
-    for title, rows in groups:
-        content += '<section><h2>' + title + '</h2><ul class="docs-list">'
-        for record in rows:
-            url = os.path.relpath(record['url'], 'docs').replace(os.sep, '/')
-            content += ('<li><a href="' + html.escape(url) + '">' + html.escape(record['title']) +
-                        '</a><small>' + html.escape(record['source']) + '</small></li>')
-        content += '</ul></section>'
-    content += '</div></article><script src="../docs.js" defer></script>'
+        rendered.append((source, title, body, toc, text, path, description))
+    for source, title, body, toc, text, path, description in rendered:
+        prefix = os.path.relpath('.', path.parent).replace(os.sep, '/') + '/'
+        navigation, group = sidebar(source.as_posix(), prefix, records, toc)
+        minutes = max(1, (len(text.split()) + 229) // 230)
+        content = (chrome(prefix) + '<div class="docs-layout">' + navigation + '<article class="article docs-article">'
+                   '<div class="docs-source"><span>' + html.escape(source.as_posix()) + '</span>'
+                   f'<a href="{REPO}/blob/main/{quote(source.as_posix(), safe="/")}" data-docs-copy="source">View source ↗</a>'
+                   f'</div><p class="docs-reading"><span data-docs-copy="english">English source</span> · {minutes} min</p>' + body +
+                   onward(source.as_posix(), prefix, records, group) + '</article></div>')
+        write_page(path, title + ' | ' + source.as_posix() + ' | Veyndo', description, content)
+    content = chrome('../') + hub(records)
     write_page(Path('docs/index.html'), 'Documentation | Veyndo',
                'Search and read all Veyndo guides, source ownership notes and developer contracts.', content)
     (dest / 'docs/search.json').write_text(json.dumps(records, ensure_ascii=False))
     (dest / 'docs/manifest.json').write_text(json.dumps(
         [{'source': r['source'], 'url': r['url']} for r in records], indent=2) + '\n')
-    shutil.copyfile(ROOT / 'site/docs.js', dest / 'docs.js')
+    assets = dest / 'docs/assets/ui'
+    assets.mkdir(parents=True, exist_ok=True)
+    for name in ['docs.js', 'docs.css', 'docs-copy.json', 'docs-navigation.json']:
+        shutil.copyfile(ROOT / 'site' / name, assets / name)
+    shutil.copyfile(ROOT / 'site/style.css', assets / 'site.css')
+    shutil.copyfile(ROOT / 'site/favicon.svg', assets / 'favicon.svg')
     return len(records)

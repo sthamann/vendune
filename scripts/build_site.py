@@ -98,6 +98,8 @@ def build():
     def write_page(path, title, description, content):
         filename = path.as_posix()
         url = BASE + ('' if filename == 'index.html' else filename)
+        if filename.startswith('docs/'):
+            url = 'https://veyndo.ai/' + filename
         schema = {
             '@context': 'https://schema.org',
             '@type': 'SoftwareSourceCode' if filename == 'index.html' else 'TechArticle',
@@ -117,8 +119,14 @@ def build():
             'schema': json.dumps(schema, ensure_ascii=False).replace('<', '\\u003c'),
             'content': content,
             'root': '' if path.parent == Path('.') else os.path.relpath('.', path.parent) + '/',
+            'body_class': 'docs-site' if filename.startswith('docs/') else '',
+            'main_styles': 'docs/assets/ui/site.css' if filename.startswith('docs/') else 'style.css',
+            'favicon': 'docs/assets/ui/favicon.svg' if filename.startswith('docs/') else 'favicon.svg',
             'page_assets': ('<link rel="stylesheet" href="showcase.css" />'
-                            '<script src="showcase.js" defer></script>') if filename == 'index.html' else '',
+                            '<script src="showcase.js" defer></script>') if filename == 'index.html' else (
+                                '<link rel="stylesheet" href="' + os.path.relpath('docs/assets/ui/docs.css',path.parent) + '" />'
+                                '<script src="' + os.path.relpath('docs/assets/ui/docs.js',path.parent) + '" defer></script>'
+                            ) if filename.startswith('docs/') else '',
         }
         # Substitute only the shell: code examples in a guide may contain {{literal}}.
         document = re.sub(r'\{\{(\w+)\}\}', lambda match: fields[match[1]], template)
