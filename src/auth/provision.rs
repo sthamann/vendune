@@ -1,5 +1,5 @@
 //! Reusable synthetic shop provisioning for initial signup and additional shops owned by the same merchant.
-use super::{hash_password, issue_session};
+use super::hash_password;
 use crate::{
     App, Arc, Json, RequestContext, Result, Sandbox, State, Value, accounts, auth, bad, categories,
     conflict, demo_catalog, env, hash, header, json, knowledge, prototype_products,
@@ -126,6 +126,8 @@ pub(crate) async fn create_workspace(
     let user = header(&h, "x-rac-user")
         .filter(|u| *u != "bootstrap")
         .ok_or(bad("Use a personal merchant account"))?;
+    // Only a live personal session may create another workspace or carry MFA proof.
+    super::mfa::personal(&a, &h).await?;
     let slug = v["workspaceId"]
         .as_str()
         .ok_or(bad("Workspace ID required"))?;
@@ -136,6 +138,17 @@ pub(crate) async fn create_workspace(
         .ok_or(bad("Workspace name required"))?;
     let demo = hash_password("demo-business".into()).await?;
     let mut tx = a.db.begin().await?;
+    let token = header(&h, "authorization").and_then(|v| v.strip_prefix("Bearer "));
+    sqlx::query("SELECT id FROM merchant_users WHERE id=$1 FOR UPDATE")
+        .bind(user)
+        .fetch_one(&mut *tx)
+        .await?;
+    if !super::mfa::trusted_session_tx(&mut tx, user, token).await? {
+        return Err(crate::Error(
+            crate::StatusCode::UNAUTHORIZED,
+            "Personal session expired".into(),
+        ));
+    }
     sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,19))")
         .bind(user)
         .execute(&mut *tx)
@@ -156,5 +169,7 @@ pub(crate) async fn create_workspace(
         knowledge::sync_product_scoped(&a.db, slug, &json!(p)).await?;
     }
     knowledge::seed_relations(&a.db, slug).await?;
-    Ok(Json(issue_session(&a, user, slug).await?))
+    Ok(Json(
+        super::sessions::issue_session_with_proof(&a, user, slug, token).await?,
+    ))
 }

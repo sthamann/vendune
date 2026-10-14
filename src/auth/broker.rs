@@ -1,7 +1,7 @@
 //! Optional trusted identity exchange: signatures bind route, audience, expiry and one-use nonce.
-use super::{email, hash_password, issue_session, provision_shop};
+use super::{email, hash_password, provision_shop};
 use crate::{
-    App, Arc, Error, Json, Result, Sha256, State, StatusCode, Value, bad, conflict, env, hash,
+    App, Arc, Error, Json, Result, Row, Sha256, State, StatusCode, Value, bad, conflict, env, hash,
     json, knowledge, prototype_products, uid, validate_tenant,
 };
 
@@ -65,6 +65,26 @@ pub(crate) async fn assertion(a: &App, route: &str, v: &Value) -> Result<Value> 
         ));
     }
     email(&claims)?;
+    if route == "/api/identity/inference" {
+        let row=sqlx::query("SELECT u.id,coalesce(m.enabled,false) AS required FROM merchant_users u LEFT JOIN merchant_mfa m ON m.user_id=u.id WHERE u.email=$1").bind(email(&claims)?).fetch_optional(&a.db).await?;
+        if let Some(row) = row
+            && row.get::<bool, _>("required")
+        {
+            let mut tx = a.db.begin().await?;
+            if !super::mfa::trusted_session_tx(
+                &mut tx,
+                &row.get::<String, _>("id"),
+                claims["sessionToken"].as_str(),
+            )
+            .await?
+            {
+                return Err(Error(
+                    StatusCode::UNAUTHORIZED,
+                    "Second factor required".into(),
+                ));
+            }
+        }
+    }
     if !claims["sub"]
         .as_str()
         .is_some_and(|s| !s.is_empty() && s.len() <= 200)
@@ -107,7 +127,7 @@ pub(crate) async fn exchange(State(a): State<App>, Json(v): Json<Value>) -> Resu
         .execute(&mut *tx)
         .await?;
     // Only the configured broker can assert verified ownership of this email; arbitrary clients cannot link accounts.
-    let user: String=sqlx::query_scalar("INSERT INTO merchant_users(id,email,name,password_hash,password_initialized) VALUES($1,$2,$3,$4,false) ON CONFLICT(email) DO UPDATE SET email=EXCLUDED.email RETURNING id")
+    let user: String=sqlx::query_scalar("INSERT INTO merchant_users(id,email,name,password_hash,password_initialized,email_verified_at) VALUES($1,$2,$3,$4,false,now()) ON CONFLICT(email) DO UPDATE SET email=EXCLUDED.email,email_verified_at=COALESCE(merchant_users.email_verified_at,now()) RETURNING id")
         .bind(uid()).bind(&email).bind(name).bind(random_password).fetch_one(&mut *tx).await?;
     let linked: Option<String> = sqlx::query_scalar(
         "SELECT user_id FROM merchant_identities WHERE issuer=$1 AND subject=$2",
@@ -122,6 +142,19 @@ pub(crate) async fn exchange(State(a): State<App>, Json(v): Json<Value>) -> Resu
         ));
     }
     sqlx::query("INSERT INTO merchant_identities(issuer,subject,user_id) VALUES($1,$2,$3) ON CONFLICT DO NOTHING").bind(issuer).bind(subject).bind(&user).execute(&mut *tx).await?;
+    let first: Option<String> = sqlx::query_scalar(
+        "SELECT tenant FROM membership_grants WHERE user_id=$1 AND active ORDER BY tenant LIMIT 1",
+    )
+    .bind(&user)
+    .fetch_optional(&mut *tx)
+    .await?;
+    if !super::mfa::trusted_session_tx(&mut tx, &user, c["sessionToken"].as_str()).await?
+        && let Some(first) = first
+        && let Some(challenge) = super::mfa::challenge_tx(&mut tx, &user, &first).await?
+    {
+        tx.commit().await?;
+        return Ok(Json(challenge));
+    }
     let exists: bool = sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM tenants WHERE id=$1)")
         .bind(shop)
         .fetch_one(&mut *tx)
@@ -167,5 +200,8 @@ pub(crate) async fn exchange(State(a): State<App>, Json(v): Json<Value>) -> Resu
         }
         knowledge::seed_relations(&a.db, shop).await?;
     }
-    Ok(Json(issue_session(&a, &user, shop).await?))
+    Ok(Json(
+        super::sessions::issue_session_with_proof(&a, &user, shop, c["sessionToken"].as_str())
+            .await?,
+    ))
 }

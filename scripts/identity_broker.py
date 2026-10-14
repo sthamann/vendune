@@ -106,7 +106,12 @@ with (ROOT/'artifacts/identity-broker-server.log').open('w') as log:
         call(infer,signed(infer,subject,system='Test',input='Test',schema={'type':'object'},images=['data:image/png;base64,'+'A'*100000]),expected=400)
         check('Stable UUID imports cannot overwrite existing products or expose foreign editors; bounded vision assertions retain schema admission')
         old_ticket=call('/api/auth/handoff',{},mh)['ticket']
-        one=call(cred,signed(cred,subject,workspaceId=shop,action='set-password',password=secret+'-new'))
+        recovery='/api/identity/recovery'
+        snapshot=call(recovery,signed(recovery,subject))
+        assert {w['id'] for w in snapshot['workspaces']}=={shop}
+        one=call(cred,signed(cred,subject,workspaceId=shop,action='set-password',password=secret+'-new',credentialRevision=snapshot['credentialRevision']))
+        call(cred,signed(cred,subject,workspaceId=shop,action='set-password',password=secret,credentialRevision=snapshot['credentialRevision']),expected=409)
+        assert one['user']['emailVerified'] is True
         call('/api/auth/redeem',{'ticket':old_ticket},expected=401)
         mh={'x-tenant':shop,'Authorization':'Bearer '+one['token']}
         ticket=call('/api/auth/handoff',{},mh)['ticket'];assert len(ticket)==64
@@ -114,6 +119,44 @@ with (ROOT/'artifacts/identity-broker-server.log').open('w') as log:
         call('/api/auth/redeem',{'ticket':ticket},expected=401)
         call('/api/search/product',{}, {'x-tenant':other,'Authorization':'Bearer '+session['token']},expected=403)
         check('A Studio handoff redeems once to the personal account and never grants another merchant workspace')
+        import struct
+        setup=call('/api/auth/mfa/enroll',{'password':secret+'-new'},mh)
+        counter=int(time.time())//30
+        raw=hmac.new(base64.b32decode(setup['secret']),struct.pack('>Q',counter),hashlib.sha1).digest()
+        offset=raw[-1]&15;otp=str((struct.unpack('>I',raw[offset:offset+4])[0]&0x7fffffff)%1000000).zfill(6)
+        factor=call('/api/auth/mfa/confirm',{'password':secret+'-new','code':otp,'revision':setup['revision']},mh)
+        one=factor['session'];mh={'x-tenant':shop,'Authorization':'Bearer '+one['token']}
+        new_shop='proof-'+suffix
+        for proof in [None,'forged-token',two['token']]:
+            claims={'workspaceId':new_shop,'workspaceName':'Must not provision'}
+            if proof:claims['sessionToken']=proof
+            pending=call(path,signed(path,subject,**claims))
+            assert pending['mfaRequired'] and 'token' not in pending
+        from subprocess import run
+        command=psql(os.environ['DB_CONTAINER'],'commerce',os.environ['TEST_DATABASE'],'-X','-q','-At','-v','ON_ERROR_STOP=1')
+        absent=run(command,input="SELECT count(*) FROM tenants WHERE id='"+new_shop+"'",text=True,capture_output=True)
+        assert absent.returncode==0 and absent.stdout.strip()=='0'
+        pending=call('/api/identity/session',signed('/api/identity/session',subject))
+        assert pending['mfaRequired']
+        infer='/api/identity/inference'
+        call(infer,signed(infer,subject,system='Test',input='Test',schema={'type':'object'}),expected=401)
+        # A current personal proof admits the existing route; no model is configured, so native inference remains unavailable.
+        call(infer,signed(infer,subject,sessionToken=one['token'],system='Test',input='Test',schema={'type':'object'}),expected=400)
+        created=call(path,signed(path,subject,sessionToken=one['token'],workspaceId=new_shop,workspaceName='Verified second shop'))
+        assert created['workspace']==new_shop and 'token' in created
+        # Password recovery preserves MFA and revokes old proof/handoff everywhere.
+        ticket=call('/api/auth/handoff',{},mh)['ticket']
+        snap=call(recovery,signed(recovery,subject))
+        reset=call(cred,signed(cred,subject,workspaceId=shop,action='set-password',password=secret+'-final',credentialRevision=snap['credentialRevision']))
+        assert reset['mfaRequired'] and 'token' not in reset
+        call('/api/auth/redeem',{'ticket':ticket},expected=401)
+        continued=call('/api/auth/mfa/verify',{'challengeToken':reset['challengeToken'],'code':factor['recoveryCodes'][0]})
+        mh={'x-tenant':shop,'Authorization':'Bearer '+continued['token']};one=continued
+        # Old password-recovery proof cannot create a shop after revocation.
+        stale=call(path,signed(path,subject,sessionToken=factor['session']['token'],workspaceId='stale-'+suffix,workspaceName='Denied'))
+        assert stale['mfaRequired'] and 'token' not in stale
+        check('Verified email recovery preserves MFA; forged/foreign/revoked proof cannot provision or infer; current personal proof carries across owned shops')
+
         alias='world-'+suffix
         call('/api/settings/frontends',{'alias':alias,'channel':'default'},mh,method='PUT')
         th={'x-tenant':other,'Authorization':'Bearer '+two['token']}

@@ -9,6 +9,10 @@ import { useConnectedText } from "../../shared/i18n/connected-i18n";
 import type { Session } from "../team/UsersManager";
 import type { RequestFn } from "./studio-types";
 import { useStudioSession } from "./useStudioSession";
+import {
+  isMfaChallenge,
+  type MfaChallenge,
+} from "../../shared/auth/AuthenticationChallenge";
 
 function route(hash: string) {
   const url = new URL(location.href);
@@ -25,6 +29,7 @@ export function useStudioAccess(
 ) {
   const { x } = useConnectedText();
   const [identity, setIdentity] = useState<Session>();
+  const [challenge, setChallenge] = useState<MfaChallenge>();
   const current = useRef(identity);
   current.current = identity;
   const [expired, setExpired] = useState(false);
@@ -82,7 +87,11 @@ export function useStudioAccess(
       active = false;
     };
   }, [token, workspace, retry]);
-  const accept = async (session: Session) => {
+  const accept = async (session: Session | MfaChallenge) => {
+    if (isMfaChallenge(session)) {
+      setChallenge(session);
+      return;
+    }
     if (!session.token) throw new Error(x("studioSignIn"));
     if (identity && session.user.id !== identity.user.id)
       throw new Error(x("resumeSameAccount"));
@@ -109,6 +118,7 @@ export function useStudioAccess(
     setVerified(JSON.stringify([session.token, target]));
     setExpired(false);
     setError("");
+    setChallenge(undefined);
   };
   useEffect(() => {
     const url = new URL(location.href);
@@ -117,7 +127,7 @@ export function useStudioAccess(
     url.searchParams.delete("login_ticket");
     history.replaceState(null, "", url);
     setChecking(true);
-    void shopApi<Session>("/api/auth/redeem", { ticket })
+    void shopApi<Session | MfaChallenge>("/api/auth/redeem", { ticket })
       .then(accept)
       .catch((e) => setError(e.message))
       .finally(() => setChecking(false));
@@ -129,6 +139,7 @@ export function useStudioAccess(
     setIdentity(undefined);
     setVerified("");
     setExpired(false);
+    setChallenge(undefined);
     setError("");
     route("login");
     // Explicitly leaving discards private in-memory editors; reauthentication does not.
@@ -136,6 +147,8 @@ export function useStudioAccess(
   };
   return {
     identity,
+    challenge,
+    cancelChallenge: () => setChallenge(undefined),
     expired,
     checking,
     error,

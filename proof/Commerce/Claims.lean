@@ -434,4 +434,10 @@ theorem external_paid_total_exact (paid : Bool) (calculated declared : Nat) :
 theorem external_unpaid_denied (calculated declared : Nat) :
     external_paid_total_admissible false calculated declared = false := by
   simp [external_paid_total_admissible]
+/-- Proves factor admission only; code cryptography, SQL and broker evidence remain tested boundaries. -/
+theorem auth_factor_exact (required verified : Bool) :
+    auth_factor_admissible required verified = true ↔ required = false ∨ verified = true := by
+  cases required <;> cases verified <;> simp [auth_factor_admissible]
+theorem auth_factor_required_denied : auth_factor_admissible true false = false := by
+  rfl
 end CommerceKernel

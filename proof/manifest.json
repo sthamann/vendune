@@ -479,6 +479,15 @@
         "external_paid_total_exact",
         "external_unpaid_denied"
       ]
+    },
+    "auth_factor_admissible": {
+      "bindings": [
+        "src/auth/sessions.rs"
+      ],
+      "theorems": [
+        "auth_factor_exact",
+        "auth_factor_required_denied"
+      ]
     }
   },
   "sources": {
@@ -1164,23 +1173,33 @@
     },
     "src/auth/abuse.rs": {
       "status": "unproved",
-      "sha256": "8d213dd5ba677065a21d14d20c3be7cc8b4f4bd9846cf5ba28178af0a9003c38",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "f884aaa3da82fc004b25a0fbc2c500c6a20e5e01425c42d7cc7327bd13e57dac",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
     "src/auth/broker.rs": {
       "status": "unproved",
-      "sha256": "a89710279be6c122362743f9a58c5d10965465e3ff7f2cb8cbc73e72332293ca",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "f91e9875baf82b555e87839ca032d92d8d42a85f2225e32f14eadfb89fe6d3d1",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
     "src/auth/broker_credentials.rs": {
       "status": "unproved",
-      "sha256": "b95941233c59b721603c7c6ba97d37fc299eb7d4ec599cddb1ec5b4f60c07505",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "882e4eb560d73942dc65e337d2af7d5955dbde28f01c18e3854e46684189e395",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
     "src/auth/broker_inference.rs": {
       "status": "unproved",
       "sha256": "e86b8ec9923397c1a0ebed01ef40fe1e2c96dbebdc7d4496fb2bd18744ef3fe9",
       "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+    },
+    "src/auth/broker_recovery.rs": {
+      "status": "unproved",
+      "sha256": "08e4c62dc8ea124929c20468d2f33153b9d6af4448b198ab236cf2a04bfc65f1",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+    },
+    "src/auth/broker_session.rs": {
+      "status": "unproved",
+      "sha256": "2f131c6901f66c6a5f801c3d2aab64c47dc2e293a8f66684b4e917e3191e837c",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
     "src/auth/credentials.rs": {
       "status": "unproved",
@@ -1194,8 +1213,8 @@
     },
     "src/auth/handoff.rs": {
       "status": "unproved",
-      "sha256": "72518a5b35cb97055b38e18b5573d3d7928eaccf256c9583f604d74a050e1aaf",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "09676e04d6a6bcde60613f919b5c3837a16c6053a631eaaa39f7e5dc7f68fb48",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
     "src/auth/identity.rs": {
       "status": "unproved",
@@ -1217,15 +1236,20 @@
       "sha256": "2c1749000a3aca822427e8f427d4304fbf161a5772568ba3e9d31a1e32ae1aa6",
       "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
+    "src/auth/mfa.rs": {
+      "status": "unproved",
+      "sha256": "2be503506c16776b9c66777a79d43a24850f4f5841d4b311b34bc532305ad299",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+    },
     "src/auth/middleware.rs": {
       "status": "reviewed-binding",
-      "sha256": "f153894f71be2043aa5b7beecdc604ac9d4eda23643088ffa6611f6c95245f22",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "c77c760e8cd1dac57b27101cab8aea1a18d2feb7ca411d82d0d4bbc742c15f66",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
     "src/auth/mod.rs": {
       "status": "unproved",
-      "sha256": "c878e31760b8a42b977100c234f0969af54fdcbdda21cd8c1ed5f09158d36a97",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "9284a2b1fddc26480d85e206e192bea7c21f8c1afb532c5ed538a578ecbdb285",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
     "src/auth/permissions.rs": {
       "status": "reviewed-binding",
@@ -1234,8 +1258,13 @@
     },
     "src/auth/provision.rs": {
       "status": "unproved",
-      "sha256": "4b970ceafdbced04d8bb47746377fd390092c5b80d259eba51c46548a396d28b",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "b21fb105cd3750d9996fe128215857d56b12eb2d4777cd218e52ca721b1eef51",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+    },
+    "src/auth/recovery_entry.rs": {
+      "status": "unproved",
+      "sha256": "e12b4742eb7a12e5278c4da896a13ca569dd18922de8d5a35c2a23127e7638e4",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
     "src/auth/registration.rs": {
       "status": "unproved",
@@ -1252,10 +1281,20 @@
       "sha256": "7bc70dd86dc0498f4b69b97b673ac390619ed8e58cb0287068b7f413dfb94a9b",
       "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
     },
-    "src/auth/sessions.rs": {
+    "src/auth/routes.rs": {
       "status": "unproved",
-      "sha256": "88a3d46f0bcbd59baf8cf8dbb220f77a31c38723afc307beb167c4d0a54180b8",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "04da83d3cc71d7d64828da705edc1192d3c46997826948c76a2118ff1925b1fa",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+    },
+    "src/auth/sessions.rs": {
+      "status": "reviewed-binding",
+      "sha256": "3ea56de717b7b60305443c76aaf400952944e7acd9816f51791930c50abeefcd",
+      "review": "Reviewed canonical personal MFA proof and system-only migration 091, code/recovery replay fences, stale credential CAS and parent-session revocation; user-data projection now reuses its scoped transaction connection to avoid nested pool borrows; native PostgreSQL isolation, broker restart and UI/private continuation regression suites pass; surrounding adapters remain unproved"
+    },
+    "src/auth/totp.rs": {
+      "status": "unproved",
+      "sha256": "b352bc5f42ae55c79ca2334339463eb2e90ed9e229b27b5add8045aa891a7217",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
     "src/automation_rules/comparison.rs": {
       "status": "unproved",
@@ -1419,8 +1458,8 @@
     },
     "src/bin/verified_kernel/dispatch.rs": {
       "status": "unproved",
-      "sha256": "c583bb1820badca78f2103126310329d3c92cbad7331ac9dc8a8de3e5cef4d24",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "9159a70a2a0164db1a5adc03713163cd066d7f0acac0fc9167b84aae0a1d00e6",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
     "src/bin/verified_kernel.rs": {
       "status": "conformance-driver",
@@ -2419,8 +2458,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "a4d36e43224eabfb30f469b290f510fff676d7bf682a6eb62127ceca24b743fa",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "881dd03d710299e66199f411539461ec4fbb10658205d81e1761fff8708fcd89",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -2829,8 +2868,8 @@
     },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "9903c5cde96594a68bf6966a7f0213f5980fe866db066b9d6147130ac17b5def",
-      "review": "Reviewed the coordinated Veyndo crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "b85f379828d315c6a245fbb2db4f2edde8b5f80d91450b7896c6e4993faf6c6b",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",
@@ -3024,8 +3063,8 @@
     },
     "src/verified_kernel.rs": {
       "status": "extracted-policy",
-      "sha256": "471ffeb4b4651ef0d4f0e54d31bc616e665b6fce1c17889c5ec6b1f2289abfee",
-      "review": "Reviewed exact paid external-order amount and positive-total guards, their live import consumers, signed-input rejection, Lean properties and negative mutations; provider tax law, SQL and external effects remain unproved"
+      "sha256": "0292150ced3fcf99104f61bd1ec1281b726db159cc9a6e66c155b04733332c3a",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
     "src/work_signal.rs": {
       "status": "unproved",
@@ -3447,9 +3486,13 @@
       "sha256": "b29354f29fd5e5aa966e78d6b46ede19f00a9c8f189331936682275eb6f14e84",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
+    "migrations/091-account-security.sql": {
+      "sha256": "dde0626c1d32b9fb140e392c4731f186b01fdfe531175dc57c3f8ca371758240",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+    },
     "proof/Commerce/Claims.lean": {
-      "sha256": "9ffc4b92e9fb2c3d7b91f6c3ab8e0f1a3d4a5821d5b9c656e74b1b8c3607f0bc",
-      "review": "Reviewed exact paid external-order amount and positive-total guards, their live import consumers, signed-input rejection, Lean properties and negative mutations; provider tax law, SQL and external effects remain unproved"
+      "sha256": "d3d9b8741cfd6dd8aef4939a8fe27ceda428d146ec210eaf5b1ac34ab10bd5d0",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
     "proof/lakefile.toml": {
       "sha256": "1cda05bac02223024b93388cf858edad4719c46f8d37a826a73a6a6e15d79432",
@@ -3484,8 +3527,8 @@
       "review": "Reviewed policy integration and unchanged module inventory; added proof/CI integrity locks and tested terminal API regression"
     },
     "scripts/formal/mutations.py": {
-      "sha256": "c91baeb151691692855ff8f08eee1470f8468bbd0d72d67ef6d45905782f5cf5",
-      "review": "Reviewed exact paid external-order amount and positive-total guards, their live import consumers, signed-input rejection, Lean properties and negative mutations; provider tax law, SQL and external effects remain unproved"
+      "sha256": "5b6780a315201a080a472361d371b26031cd8c5dbd96cd8233d2b3111b5b50e3",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
     "scripts/formal/registry.py": {
       "sha256": "76fe686dccf1a4c3b625983909e8f5251cd076d9bb75a4c407cd1f2e917e2a05",

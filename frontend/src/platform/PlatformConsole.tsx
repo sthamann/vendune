@@ -20,10 +20,13 @@ import PlatformDashboard from "./PlatformDashboard";
 import PlatformLanguage from "./PlatformLanguage";
 import PlatformShops, { CreateShop, type NewShop } from "./PlatformShops";
 import PlatformSignIn from "./PlatformSignIn";
+import AccountSecurity from "../shared/auth/AccountSecurity";
+import { useSecurityText } from "../shared/i18n/security-i18n";
 import "./styles/platform.css";
 const storage = "rac-platform-token";
 export default function PlatformConsole() {
-  const c = useControlText();
+  const c = useControlText(),
+    security = useSecurityText();
   const t = usePlatformText(),
     { date } = useLocale();
   const [token, setToken] = useState(
@@ -35,7 +38,7 @@ export default function PlatformConsole() {
     [audit, setAudit] = useState<Audit[]>([]),
     [detail, setDetail] = useState<ShopDetail>();
   const [view, setView] = useState<
-      "overview" | "shops" | "activity" | "ai" | "infrastructure"
+      "overview" | "shops" | "activity" | "ai" | "infrastructure" | "security"
     >("overview"),
     [days, setDays] = useState(30),
     [search, setSearch] = useState(""),
@@ -171,7 +174,14 @@ export default function PlatformConsole() {
         <strong>{t("title")}</strong>
         <nav>
           {(
-            ["overview", "shops", "ai", "infrastructure", "activity"] as const
+            [
+              "overview",
+              "shops",
+              "ai",
+              "infrastructure",
+              "activity",
+              "security",
+            ] as const
           ).map((v) => (
             <button
               key={v}
@@ -183,7 +193,11 @@ export default function PlatformConsole() {
                 setCreate(false);
               }}
             >
-              {v === "ai" || v === "infrastructure" ? c(v) : t(v)}
+              {v === "security"
+                ? security("title")
+                : v === "ai" || v === "infrastructure"
+                  ? c(v)
+                  : t(v)}
             </button>
           ))}
         </nav>
@@ -198,7 +212,11 @@ export default function PlatformConsole() {
           <div>
             <small>{t("title")}</small>
             <h1>
-              {view === "ai" || view === "infrastructure" ? c(view) : t(view)}
+              {view === "security"
+                ? security("title")
+                : view === "ai" || view === "infrastructure"
+                  ? c(view)
+                  : t(view)}
             </h1>
           </div>
           <div className="platform-actions">
@@ -308,6 +326,16 @@ export default function PlatformConsole() {
           <PlatformAI key={refresh} token={token} />
         ) : view === "infrastructure" ? (
           <PlatformInfrastructure key={refresh} token={token} />
+        ) : view === "security" ? (
+          <AccountSecurity
+            token={token}
+            onLogout={() => void logout()}
+            onSession={(session) => {
+              if (!session.token) return;
+              sessionStorage.setItem(storage, session.token);
+              setToken(session.token);
+            }}
+          />
         ) : view === "activity" ? (
           <section className="platform-panel">
             <h2>{t("activity")}</h2>

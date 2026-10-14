@@ -174,3 +174,8 @@ verification. [Exact trust and deployment boundary](experience-integration.md).
 tenant schemas, callback/surface authority, bounded Wasm, encrypted secrets,
 private file access and replay/lease controls together with executable regressions
 and deployment limits. These controls do not certify arbitrary third-party code.
+
+Personal authenticator enrollment, revision-checked recovery and mandatory factor
+admission across merchant/operator/Experience paths are documented in
+[account-security.md](account-security.md). These operational credentials are not
+sandboxed shop configuration and cannot be restored through content history.

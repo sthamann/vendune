@@ -8,12 +8,9 @@ import { shopApi } from "../../shared/api/shop-api";
 import { useShopText } from "../../shared/i18n/shop-i18n";
 import "../styles/commerce-manager.css";
 import PersonalAccountForm from "./PersonalAccountForm";
-export type Session = {
-  token?: string;
-  workspace: string;
-  user: { id: string; name: string; email: string };
-  workspaces: { id: string; name: string; role: string }[];
-};
+import AccountSecurity from "../../shared/auth/AccountSecurity";
+import type { Session } from "../../shared/api/account-types";
+export type { Session } from "../../shared/api/account-types";
 type Member = {
   id: string;
   name: string;
@@ -225,6 +222,11 @@ export default function UsersManager({
         </section>
       ) : (
         <>
+          <AccountSecurity
+            token={token}
+            onLogout={onLogout}
+            onSession={onSession}
+          />
           <section className="commerce-card">
             <h2>{session.user.name}</h2>
             <p>{session.user.email}</p>

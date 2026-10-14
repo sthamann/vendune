@@ -161,7 +161,9 @@ async fn authenticate_scoped(State(a): State<App>, mut request: Request, next: N
         let channel = crate::marketing::channel_id(&h).to_owned();
         h.insert("x-rac-channel-preview", channel.parse().unwrap());
     }
-    let private_response = preview
+    let private_response = path.starts_with("/api/auth/")
+        || path.starts_with("/api/identity/")
+        || preview
         || header(&h, "x-rac-role").is_some()
         || request
             .extensions()

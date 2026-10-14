@@ -20,6 +20,8 @@ import Commerce.Claims
 #print axioms CommerceKernel.app_surface_stale_denied
 #print axioms CommerceKernel.app_tool_disabled
 #print axioms CommerceKernel.app_tool_exact
+#print axioms CommerceKernel.auth_factor_exact
+#print axioms CommerceKernel.auth_factor_required_denied
 #print axioms CommerceKernel.b2b_approval_exact
 #print axioms CommerceKernel.b2b_budget_conserves
 #print axioms CommerceKernel.b2b_budget_exact

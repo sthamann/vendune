@@ -4,6 +4,12 @@ import type { Session } from "./UsersManager";
 
 import { shopApi } from "../../shared/api/shop-api";
 import "../styles/commerce-manager.css";
+import { useEffect, useState } from "react";
+import AuthenticationChallenge, {
+  isMfaChallenge,
+  type MfaChallenge,
+} from "../../shared/auth/AuthenticationChallenge";
+import RecoveryLink from "../../shared/auth/RecoveryLink";
 export type PersonalAccountFormProps = {
   run: (fn: () => Promise<void>) => Promise<void>;
   mode: string;
@@ -20,6 +26,16 @@ export default function PersonalAccountForm({
   busy,
   email,
 }: PersonalAccountFormProps) {
+  const [challenge, setChallenge] = useState<MfaChallenge>();
+  useEffect(() => setChallenge(undefined), [mode]);
+  if (challenge)
+    return (
+      <AuthenticationChallenge
+        challenge={challenge}
+        onSession={onSession}
+        onCancel={() => setChallenge(undefined)}
+      />
+    );
   return (
     <form
       className="account-form"
@@ -28,10 +44,14 @@ export default function PersonalAccountForm({
         const form = new FormData(e.currentTarget);
         const body = Object.fromEntries(form);
         run(async () => {
-          const session = await shopApi<Session>(
+          const session = await shopApi<Session | MfaChallenge>(
             `/api/auth/${mode === "join" ? "accept" : mode}`,
             body,
           );
+          if (isMfaChallenge(session)) {
+            setChallenge(session);
+            return;
+          }
           await onSession(session);
         });
       }}
@@ -101,6 +121,7 @@ export default function PersonalAccountForm({
       <button className="studio-primary" disabled={busy}>
         {s(mode)}
       </button>
+      {mode === "login" && <RecoveryLink />}
     </form>
   );
 }

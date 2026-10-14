@@ -1,5 +1,18 @@
 # Changelog
 
+## Personal account security — 14 October 2026
+
+- Add native authenticator enrollment, expiring bounded challenges, replay-safe TOTP,
+  one-use recovery codes and immediate personal-session/handoff revocation.
+- Keep verified email recovery, credential revisions, private Experience continuations,
+  operator/merchant sign-in and new-shop creation behind the same factor admission.
+- Recheck private Experience cookies against native proof; refresh retry proof before
+  brand/model work. Recover interrupted Studio handoffs without repeating credential changes.
+- Keep credentials outside sandbox/release/history restoration. Use existing encrypted
+  state and outbox for secret-free security-change events; extend selected Lean admission
+  coverage without claiming cryptography, SQL or provider correctness is proved.
+- [Configuration, source ownership and synthetic end-to-end tests](docs/account-security.md).
+
 ## Studio setup and reusable roles — 13 October 2026
 
 - Fix POS/marketplace wizard validation across interface and content languages. New channels start in the shop main language; missing fields have targeted errors and accessible invalid states.

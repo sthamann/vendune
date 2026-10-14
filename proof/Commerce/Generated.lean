@@ -156,4 +156,7 @@ def external_amount_admissible (gross : Nat) (tax : Nat) (rate : Nat) : Bool :=
 def external_paid_total_admissible (paid : Bool) (calculated : Nat) (declared : Nat) : Bool :=
   ((paid && (decide (calculated > 0))) && (decide (calculated = declared)))
 
+def auth_factor_admissible (required : Bool) (verified : Bool) : Bool :=
+  ((!required) || verified)
+
 end CommerceKernel
