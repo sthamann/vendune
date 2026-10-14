@@ -102,3 +102,6 @@ source=request('/api/knowledge/documents',{'title':'Policy','content':'Synthetic
 request('/api/knowledge/documents/'+source['id']+'/index',{},wh)
 request('/api/merchant/products/lamp',{},wh,'PUT',403)
 print('PASS knowledge-only writes share ingestion/indexing without product mutation rights')
+
+from testing.consistency_boundaries import check_consistency_boundaries
+check_consistency_boundaries(request, role, invite, headers, ah)

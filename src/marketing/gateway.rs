@@ -1,5 +1,16 @@
 //! MCP automation tools call the same tenant-bound handlers and validators as HTTP; no separate mutation semantics.
 use super::*;
+/// Discovery admits exactly the domain scopes used by the invoked native handlers.
+pub(crate) fn capability_visible(h: &RequestContext, name: &str) -> bool {
+    let any = |scopes: &[&str]| scopes.iter().any(|scope| auth::allowed(h, scope));
+    match name {
+        "automation.catalog" | "automation.preview" => auth::allowed(h, "automation.read"),
+        "automation.import" => auth::allowed(h, "automation.manage"),
+        "automation.list" | "automation.dependencies" => any(&["automation.read", "channels.read"]),
+        "automation.save" | "automation.delete" => any(&["automation.manage", "channels.manage"]),
+        _ => false,
+    }
+}
 pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -> Result<Value> {
     merchant(a, h)?;
     let Json(value) = match name {

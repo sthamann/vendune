@@ -88,9 +88,9 @@ The sixteen original Core action names are registered, plus `note`, `ai_proposal
 | Original action family | Native behavior and specific boundary |
 |---|---|
 | Add/remove customer or order tags | Transactional metadata update; duplicate tags removed; original `tagIds` is accepted as an alias for `tags` |
-| Set customer/order/customer-group custom field | `field` and typed JSON `value`; tenant-owned JSONB storage; group storage currently follows the two native groups |
+| Set customer/order/customer-group custom field | `field` and typed JSON `value`; tenant-owned JSONB storage; configured group identities retain their explicit price basis |
 | Set affiliate/campaign codes | Customer or order attribution metadata; immutable original customer identity remains intact |
-| Change customer group/status | `groupId`/`customerGroupId` (`consumer` or `business`) or Boolean `active`; sessions and open-cart authority revoked |
+| Change customer group/status | `groupId`/`customerGroupId` must match a configured tenant group, or Boolean `active`; sessions and open-cart authority revoked |
 | Set order state | `kind: order/payment/delivery`, `state`; uses the existing revision/state machine and emits its real transition events; provider/payment/terminal guards stay active |
 | Generate document | `kind: invoice/delivery_note`; real immutable numbered PDF, centrally configured seller details; arbitrary source document-type UUIDs need mapping |
 | Grant download access | Boolean `value`: grant or revoke entitlements for ordered download assets; existing download/payment guards still apply |
@@ -105,7 +105,11 @@ The event outbox projects matching flows to `flow_jobs`. A malformed stored flow
 
 A delay stores the next cursor, trace and `available_at` in PostgreSQL and releases its worker. Another worker can continue when it is due. Membership is rechecked at continuation. The worker renews its lease between nodes. An interrupted unconfirmed action is reported as uncertain; external effects are not blindly repeated. This is not an exactly-once guarantee over arbitrary third-party systems. Existing native transition events may start other flows; arbitrary cycles between separate flow definitions still need a global recursion policy.
 
-The current built-in producers remain order placement, payment capture/update and order/payment/delivery state changes, plus namespaced app events. All upstream customer/authentication/catalog and commercial-extension triggers have not been ported. Customer/tag metadata actions currently have activity receipts but do not emit a complete upstream DAL event set.
+The native event catalog includes product create/update, order/payment/delivery,
+package/document, POS, B2B, source/claim/experiment, consent and consumer-request
+events, plus namespaced app events. `marketing/flows.rs::EVENTS` owns the admitted
+names. This is not the complete upstream DAL/authentication or commercial extension
+trigger set. Customer/tag actions do not emit every upstream entity event.
 
 ## HTTP and MCP
 
@@ -120,7 +124,13 @@ The current built-in producers remain order placement, payment capture/update an
 | Original condition normalization | `POST /api/automation/import-condition` | `automation.import` (`condition`) |
 | Rule entity metadata | `PUT /api/automation/entities/{products,customers,orders}/{id}` | Use the authenticated HTTP route; no separate metadata MCP tool yet |
 
-Configuration reads/previews require `settings.read`; writes/deletes/imports require `settings.write`. Each action additionally checks its specific customers/orders/documents/apps/catalog/knowledge permission. Preview requires the same cart context token as storefront cart operations. API and MCP call the same handlers.
+Rules/flows/promotions reads and previews require `automation.read`; writes,
+deletes and condition import require `automation.manage`. Channel reads/writes use
+`channels.read` / `channels.manage`. Shared tools admit the applicable domain and
+recheck the actual kind in native handlers. Legacy settings grants still imply
+these rights. Each Flow action checks its specific domain permissions. Preview
+uses the ordinary cart context. HTTP/MCP discovery and invocation are covered by
+[narrow-grant regressions](system-consistency-audit.md).
 
 Example native graph (`data.pipeline`, together with a translated flow name, instruction, locale, trigger and top-level condition):
 

@@ -2318,8 +2318,8 @@
     },
     "src/marketing/catalog.rs": {
       "status": "unproved",
-      "sha256": "4531da75b7d996b6c8e606e614446180909056170f3f6a6b4219416bdf972969",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "8896230c6e277711ffcc46de5da42f8a0b715c0486d791eec4373bd4dcc8e02e",
+      "review": "Review knowledge-source staging read/write admission against native knowledge scopes; automation import HTTP and MCP discovery now use the native per-operation scopes. Real denied-source, successful knowledge-only release, immutable history and write-only transport regressions pass. No pure decision or theorem is changed."
     },
     "src/marketing/channel_access.rs": {
       "status": "reviewed-binding",
@@ -2398,8 +2398,8 @@
     },
     "src/marketing/gateway.rs": {
       "status": "unproved",
-      "sha256": "2724529fe1eaf1c6555848e2ecd7772787425cc64f09f4be192692336199dfbe",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "46612ff613bdb423375fa2d74dee7a2b4b0b48365b1ea347f29ba23a29fe0ae5",
+      "review": "Review knowledge-source staging read/write admission against native knowledge scopes; automation import HTTP and MCP discovery now use the native per-operation scopes. Real denied-source, successful knowledge-only release, immutable history and write-only transport regressions pass. No pure decision or theorem is changed."
     },
     "src/marketing/jobs.rs": {
       "status": "unproved",
@@ -2423,8 +2423,8 @@
     },
     "src/marketing/mod.rs": {
       "status": "unproved",
-      "sha256": "379039f843b11a4532cec75122d04784470f2f9ca987204bbaf44d58b9e36d2e",
-      "review": "Reviewed selective-publication domain rights, transactional channel and current installed Flow action admission, shared B2B configuration writers with history and staging, method/currency dependency guards, and inherited consent-bound analytics. PostgreSQL and frontend regressions exercise successful effects, denied access, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "cec494f0bb6d287b385c8014c0b7905e91738600cfc7df24f1ec23a6c7412f97",
+      "review": "Review knowledge-source staging read/write admission against native knowledge scopes; automation import HTTP and MCP discovery now use the native per-operation scopes. Real denied-source, successful knowledge-only release, immutable history and write-only transport regressions pass. No pure decision or theorem is changed."
     },
     "src/marketing/pipeline.rs": {
       "status": "reviewed-binding",
@@ -2483,8 +2483,8 @@
     },
     "src/mcp/visibility.rs": {
       "status": "unproved",
-      "sha256": "8e9ffcbd49e3a09f4e4a7f56aea26b7b08ade4422bb9b435c62594d48b221925",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "dfa9352b3ca9243dd23df65ba6dfea4b354375523682576edf72ef105b4777d4",
+      "review": "Review knowledge-source staging read/write admission against native knowledge scopes; automation import HTTP and MCP discovery now use the native per-operation scopes. Real denied-source, successful knowledge-only release, immutable history and write-only transport regressions pass. No pure decision or theorem is changed."
     },
     "src/mcp.rs": {
       "status": "unproved",
@@ -2988,8 +2988,8 @@
     },
     "src/staging/access.rs": {
       "status": "unproved",
-      "sha256": "e1486f6c41729e796e103dbb982c351ba75af823b1f0c11dc7b8a147e7269bab",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "ca2b463c4bba20b7c57edfc51c76ced3723561e1d6ce7584ef96f1ba8afe1255",
+      "review": "Review knowledge-source staging read/write admission against native knowledge scopes; automation import HTTP and MCP discovery now use the native per-operation scopes. Real denied-source, successful knowledge-only release, immutable history and write-only transport regressions pass. No pure decision or theorem is changed."
     },
     "src/staging/assets.rs": {
       "status": "unproved",

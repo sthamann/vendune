@@ -41,8 +41,8 @@ changes string literals only. It rejects missing/extra/duplicate keys, missing
 languages, empty translations and changed interpolation parameters **before any
 file is written**. Export again after upstream catalogue changes. Review and
 format the resulting source diff as normal. Imports do not call AI providers or
-write merchant data. The current catalogue contains 2,505 interface keys; CI
-recomputes the count instead of requiring this number to stay constant.
+write merchant data. CI recomputes interface and bundled app catalogue counts
+from the current source; dated counts belong in verification evidence.
 
 Interface-language expansion requires updating the shared locale registry,
 catalogue layout and formatting tests together. The current tuple catalogues

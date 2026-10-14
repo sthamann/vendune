@@ -5,6 +5,10 @@ marketplaces and visitor intelligence. It distinguishes native functionality,
 private sandboxes, provider fixtures and external production acceptance.
 A merged source change does not prove that a hosted service has rolled it out.
 
+The [14 October system consistency audit](system-consistency-audit.md) extends
+this map with reproduced knowledge-staging and HTTP/MCP admission defects,
+their repairs and remaining architecture boundaries.
+
 ## One system, several surfaces
 
 ```mermaid

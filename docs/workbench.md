@@ -142,8 +142,10 @@ production identity work.
 Product metadata supports enabled-shop-language names/descriptions, SEO metadata,
 translated specifications, cross-selling IDs and a free-shipping flag consumed
 by checkout. Existing SKU quantity prices and delivery timing remain shared
-between detail and cart. SEO slugs are metadata, not yet separate server-rendered
-routes; full Shopware advanced-price/currency inheritance remains a bounded port.
+between detail and cart. Stable SKU/product HTML routes and optional localized SEO
+slugs use `src/storefront_pages.rs` with ordinary tenant/channel visibility. They
+serve the existing SPA shell; this is not full server rendering or the entire
+Shopware SEO engine. [Current currency and price behavior](currencies.md).
 
 ## Verification
 
