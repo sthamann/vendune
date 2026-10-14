@@ -62,7 +62,7 @@ jobs:
           print('PASS packaged personal signup, seeded products and private sandbox baseline')
           PYTEST
           docker compose --env-file .run/try.env -p veyndo-try -f compose.try.yaml restart commerce
-          curl --fail --retry 12 --retry-delay 5 --retry-connrefused http://127.0.0.1:8788/health
+          curl --fail --retry 12 --retry-delay 5 --retry-connrefused --retry-all-errors http://127.0.0.1:8788/health
           python3 - <<'PYTEST'
           import json, urllib.request, pathlib
           session = json.loads(pathlib.Path('.run/preview-session.json').read_text())
