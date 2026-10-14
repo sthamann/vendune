@@ -177,6 +177,7 @@ pub(super) async fn preview_quote(
         revision: 0,
         status: "preview".into(),
         data: Cart {
+            admin_actor: None,
             coupons: vec![],
             pos_actor: None,
             pos_discount: None,

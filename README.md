@@ -66,7 +66,7 @@ If this direction is useful to you, star the repository to bookmark it and help 
 
 | Foundation | What you can do |
 | --- | --- |
-| **Commerce** | Manage products, variants, customers, orders, currencies, taxes, shipping, payments and documents through shared native operations. |
+| **Commerce** | Manage products, variants, currencies, taxes, shipping, payments and documents; create customers and reviewed orders directly in Studio through the same Rust checkout. [Admin workflow](docs/admin-workflows.md). |
 | **Intelligence** | Connect private and published sources, inspect retrieval, review proposals and set limits for bounded autonomy. |
 | **Agents** | Expose authorized HTTP/MCP actions and scoped UCP checkout paths using the same ownership and revision checks. |
 | **Experiences** | Build storefronts and connected experiences for human shoppers while keeping machine access tied to authoritative commerce data. |
@@ -87,6 +87,13 @@ The handbook stays on **veyndo.ai**, with seven ordered chapters, full-text
 search, article outlines and previous/next reading links. Navigation ships in
 English, German, French and Spanish; technical articles retain their original
 English source. [How the documentation stays connected](docs/documentation-site.md).
+
+## Run the shop from Studio
+
+Set up the shop in a searchable, ordered workspace. Create a customer with default
+billing/shipping addresses, build an order from the native catalogue and approve its
+exact quote before placing it. The same Rust checkout owns prices, stock and events.
+[Follow the illustrated Admin walkthrough](docs/admin-workflows.md).
 
 ## Get started
 

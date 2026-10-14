@@ -19,7 +19,11 @@ pub(super) async fn accept(
     if v.policy_version != version(&s.legal) {
         return Err(conflict("Legal documents changed; review again"));
     }
-    let data = json!({"policyVersion":v.policy_version,"terms":v.terms,"digitalImmediate":v.digital_immediate,"locale":c.data.locale,"recordedAt":chrono::Utc::now().to_rfc3339()});
+    let mut data = json!({"policyVersion":v.policy_version,"terms":v.terms,"digitalImmediate":v.digital_immediate,"locale":c.data.locale,"recordedAt":chrono::Utc::now().to_rfc3339()});
+    if let Some(actor) = &h.admin_order {
+        data["source"] = json!("merchantRecordedCustomerAcknowledgement");
+        data["actor"] = json!(actor);
+    }
     sqlx::query("INSERT INTO legal_acceptances(tenant,cart_id,data) VALUES($1,$2,$3) ON CONFLICT(tenant,cart_id) DO UPDATE SET data=EXCLUDED.data")
       .bind(&c.tenant).bind(&c.id).bind(&data).execute(&mut *tx).await?;
     tx.commit().await?;

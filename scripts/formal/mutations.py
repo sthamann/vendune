@@ -5,6 +5,7 @@ from registry import check
 from axioms import source_check,dependency_check
 
 MUTANTS=[
+ ("admin_payment_admissible","!is_admin || manual || simulated","true"),
  ("carrier_booking_admissible","is_open &&","true &&"),
  ("carrier_booking_admissible","!closed &&","true &&"),
  ("carrier_booking_admissible","!labelled &&","true &&"),

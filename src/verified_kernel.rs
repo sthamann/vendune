@@ -308,3 +308,7 @@ pub fn external_paid_total_admissible(paid: bool, calculated: u64, declared: u64
 pub fn auth_factor_admissible(required: bool, verified: bool) -> bool {
     !required || verified
 }
+
+pub fn admin_payment_admissible(is_admin: bool, manual: bool, simulated: bool) -> bool {
+    !is_admin || manual || simulated
+}

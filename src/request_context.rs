@@ -25,6 +25,8 @@ pub(crate) struct RequestContext {
     pub validated_tenant: bool,
     /// Internal POS admission, never reconstructed from transport headers.
     pub pos: Option<crate::pos::Admission>,
+    /// Trusted manual-order adapter admission; transport cannot forge this marker.
+    pub admin_order: Option<String>,
     pub tenant_status: Option<String>,
     pub access: Option<std::sync::Arc<crate::performance::access_snapshot::AccessSnapshot>>,
     preview: Option<String>,

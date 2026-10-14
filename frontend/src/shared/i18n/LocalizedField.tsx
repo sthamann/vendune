@@ -1,4 +1,5 @@
 /** Single visible field for the editor's language, with main-language preview and explicit restore-to-inheritance. */
+import "./content-editors.css";
 import { useId } from "react";
 import { useContentLanguage } from "./ContentLanguage";
 import { useInternationalText } from "./international-i18n";

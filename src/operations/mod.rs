@@ -4,8 +4,18 @@ mod addresses;
 mod company_logo;
 mod company_model;
 mod company_public;
+mod creation_schema;
+pub(crate) use creation_schema::CAPABILITIES as CREATION_CAPABILITIES;
+mod customer_create;
+pub(crate) use creation_schema::schema as creation_schema;
 mod customer_lookup;
 mod customers;
+mod manual_order_admission;
+mod manual_orders;
+pub(crate) use manual_order_admission::{
+    admin_order, admin_purchase, admit_admin_payment, admit_admin_products, check_admin_customer,
+    guard_admin_cart, lock_admin_checkout,
+};
 mod guest_customers;
 pub(crate) use customers::restore_customer;
 pub(crate) use master_data::save as restore_company;
@@ -42,14 +52,19 @@ pub(crate) fn permission(name: &str) -> Option<&'static str> {
         "merchant.workflow" => "orders.read",
         "merchant.workflow.save" => "settings.write",
         "merchant.customer.lookup" | "merchant.customers" | "merchant.customer" => "customers.read",
-        "merchant.customer.save"
+        "merchant.customer.creation"
+        | "merchant.customer.create"
+        | "merchant.customer.save"
         | "merchant.customer.address.save"
         | "merchant.customer.address.delete" => "customers.write",
         "merchant.customer.addresses" => "customers.read",
         "merchant.orders" | "merchant.order" => "orders.read",
-        "merchant.order.transition" | "merchant.order.note" | "merchant.delivery.split" => {
-            "orders.write"
-        }
+        "merchant.order.context"
+        | "merchant.order.review"
+        | "merchant.order.complete"
+        | "merchant.order.transition"
+        | "merchant.order.note"
+        | "merchant.delivery.split" => "orders.write",
         "merchant.receipts" => "documents.read",
         "merchant.receipt.create" => "documents.create",
         "merchant.payment" | "merchant.payment.onboarding" => "payments.manage",
@@ -66,6 +81,20 @@ pub(crate) fn permission(name: &str) -> Option<&'static str> {
         _ => return None,
     })
 }
+/// Compound admission for manual ordering is identical in discovery and invocation.
+pub(crate) fn creation_visible(h: &RequestContext, name: &str) -> bool {
+    !matches!(
+        name,
+        "merchant.order.context" | "merchant.order.review" | "merchant.order.complete"
+    ) || [
+        "orders.write",
+        "customers.read",
+        "customers.pii",
+        "catalog.read",
+    ]
+    .iter()
+    .all(|s| auth::allowed(h, s))
+}
 pub(crate) fn requires_pii(name: &str) -> bool {
     name.starts_with("merchant.customer.")
         || matches!(
@@ -76,6 +105,9 @@ pub(crate) fn requires_pii(name: &str) -> bool {
                 | "merchant.order"
                 | "merchant.order.transition"
                 | "merchant.order.note"
+                | "merchant.order.context"
+                | "merchant.order.review"
+                | "merchant.order.complete"
                 | "merchant.delivery.split"
                 | "merchant.receipts"
                 | "merchant.receipt.create"
@@ -98,6 +130,21 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
     };
     let criteria = || serde_json::from_value(v.clone()).map_err(|_| bad("Invalid search criteria"));
     let Json(result) = match name {
+        "merchant.customer.creation" => {
+            customer_create::context(State(a.clone()), h.clone()).await?
+        }
+        "merchant.customer.create" => {
+            customer_create::create(State(a.clone()), h.clone(), Json(v.clone())).await?
+        }
+        "merchant.order.context" | "merchant.order.review" | "merchant.order.complete" => Json(
+            Box::pin(manual_orders::invoke(
+                a,
+                h,
+                name.rsplit('.').next().unwrap(),
+                v,
+            ))
+            .await?,
+        ),
         "merchant.grid.plan" => {
             grid_plan::plan(State(a.clone()), h.clone(), Json(v.clone())).await?
         }

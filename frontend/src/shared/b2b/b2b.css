@@ -354,42 +354,19 @@
   width: 20px;
   height: 20px;
 }
-.b2b-customer-picker label,
 .b2b-company-search {
   display: grid;
   gap: 10px;
-}
-.b2b-company-search {
   grid-column: 1/-1;
 }
-.b2b-customer-results {
-  display: grid;
-  gap: 8px;
-  max-height: 260px;
-  overflow: auto;
-  margin-top: 12px;
+/* Native fieldsets and the shared CRM picker use the complete form width. */
+fieldset.b2b-fields {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
 }
-.b2b-customer-results button,
-.b2b-selected-customer {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 14px;
-  background: var(--surface);
-  color: var(--text);
-  text-align: left;
-}
-.b2b-customer-results button[aria-selected="true"] {
-  border-color: var(--accent);
-  background: var(--hover);
-}
-.b2b-customer-results span {
-  flex: 1;
-}
-.b2b-customer-results small {
-  display: block;
-  color: var(--muted);
-  margin-top: 6px;
+.b2b-fields > .b2b-customer-picker {
+  grid-column: 1 / -1;
+  min-width: 0;
 }

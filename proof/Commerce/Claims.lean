@@ -459,4 +459,11 @@ theorem carrier_booking_exact (is_open closed labelled occupied same : Bool) :
 theorem carrier_booking_occupied_denied (is_open closed labelled : Bool) :
     carrier_booking_admissible is_open closed labelled true false = false := by
   simp [carrier_booking_admissible]
+/-- Pure admin payment admission; async SQL/provider/authentication code remains outside this proof. -/
+theorem admin_payment_exact (is_admin manual simulated : Bool) :
+    admin_payment_admissible is_admin manual simulated = true ↔
+    is_admin = false ∨ manual = true ∨ simulated = true := by
+  cases is_admin <;> cases manual <;> cases simulated <;> simp [admin_payment_admissible]
+theorem admin_external_payment_denied : admin_payment_admissible true false false = false := by
+  rfl
 end CommerceKernel

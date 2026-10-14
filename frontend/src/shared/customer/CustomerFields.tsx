@@ -5,10 +5,12 @@ export default function CustomerFields({
   value,
   onChange,
   disabled = false,
+  requiredName = false,
 }: {
   value: Contact;
   onChange: (p: Contact) => void;
   disabled?: boolean;
+  requiredName?: boolean;
 }) {
   const { c } = useCustomerText();
   const parts = value.name?.split(" ") ?? [];
@@ -34,6 +36,7 @@ export default function CustomerFields({
           {c(key)}
           <input
             disabled={disabled}
+            required={requiredName && key === "firstName"}
             type={key === "birthday" ? "date" : "text"}
             maxLength={200}
             value={value[key] ?? ""}

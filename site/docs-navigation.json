@@ -115,6 +115,7 @@
         "es": "Catálogo, clientes, pedidos y canales comparten operaciones nativas."
       },
       "sources": [
+        "docs/admin-workflows.md",
         "docs/product-management.md",
         "docs/merchant-operations.md",
         "docs/shipping-workflows.md",

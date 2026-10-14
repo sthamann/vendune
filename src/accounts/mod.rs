@@ -134,14 +134,17 @@ async fn register(
     ))
 }
 async fn logout(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {
-    let (t, _) = identity(&a, &h).await?;
+    let (t, email) = identity(&a, &h).await?;
+    if header(&h, "sw-context-token").is_some() {
+        load_cart(&a, &h).await?;
+    }
     sqlx::query("DELETE FROM customer_sessions WHERE tenant=$1 AND digest=$2")
         .bind(&t)
         .bind(hash(header(&h, "x-customer-token").unwrap()))
         .execute(&a.db)
         .await?;
     if let Some(token) = header(&h, "sw-context-token") {
-        sqlx::query("UPDATE carts SET data=jsonb_set(jsonb_set(jsonb_set(jsonb_set(jsonb_set(data,'{email}','null'),'{customer_id}','null'),'{group}','\"consumer\"'),'{company}','null'),'{b2b}','null'),token=$1,revision=revision+1 WHERE tenant=$2 AND token=$3 AND status='open'").bind(uid()).bind(&t).bind(token).execute(&a.db).await?;
+        sqlx::query("UPDATE carts SET data=jsonb_set(jsonb_set(jsonb_set(jsonb_set(jsonb_set(data,'{email}','null'),'{customer_id}','null'),'{group}','\"consumer\"'),'{company}','null'),'{b2b}','null'),token=$1,revision=revision+1 WHERE tenant=$2 AND token=$3 AND status='open' AND data->>'email'=$4").bind(uid()).bind(&t).bind(token).bind(&email).execute(&a.db).await?;
     }
     Ok(Json(json!({"loggedOut":true})))
 }

@@ -83,7 +83,7 @@ pub(super) async fn file(
     );
     query
         .push(accounts::ORDER_ACCOUNT_SCOPE)
-        .push(") OR (length($5)>0 AND c.token=$5))");
+        .push(") OR (length($5)>0 AND c.token=$5 AND c.data->>'admin_actor' IS NULL AND c.data->>'pos_actor' IS NULL))");
     let r = query
         .build()
         .bind(t)

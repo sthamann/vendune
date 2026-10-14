@@ -178,3 +178,47 @@ it.each([
     ).not.toBeInTheDocument();
   },
 );
+
+it("orders settings by setup task, searches navigation and hides ungranted connected areas", async () => {
+  const user = userEvent.setup();
+  render(
+    <SettingsWorkspace
+      {...props}
+      rights={["settings.read"]}
+      request={api()}
+      onChannels={vi.fn()}
+      onApps={vi.fn()}
+    />,
+    { wrapper: LocaleProvider },
+  );
+  await screen.findByDisplayValue("Unit shop");
+  const navigation = screen.getByRole("navigation", { name: "Settings" });
+  const labels = Array.from(navigation.querySelectorAll("button strong")).map(
+    (n) => n.textContent,
+  );
+  expect(labels).toEqual([
+    "Company details",
+    "Legal & privacy",
+    "Languages",
+    "Countries",
+    "Currencies",
+    "Tax management",
+    "Shipping method",
+    "Payment method",
+    "Customer groups",
+    "Company purchasing",
+  ]);
+  expect(labels).not.toContain("Apps");
+  await user.type(
+    screen.getByRole("searchbox", { name: "Find a setting" }),
+    "currenc",
+  );
+  expect(navigation.querySelectorAll("button")).toHaveLength(1);
+  expect(navigation).toHaveTextContent("Currencies");
+  await user.clear(screen.getByRole("searchbox", { name: "Find a setting" }));
+  await user.type(
+    screen.getByRole("searchbox", { name: "Find a setting" }),
+    "not-a-setting",
+  );
+  expect(navigation).toHaveTextContent("No matching settings");
+});

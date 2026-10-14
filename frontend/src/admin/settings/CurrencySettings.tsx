@@ -24,10 +24,14 @@ export default function CurrencySettings({
   revision,
   dirty,
   reload,
+  canReadCatalogue = false,
+  canWriteCatalogue = false,
 }: {
   revision: number;
   dirty: boolean;
   reload: () => void;
+  canReadCatalogue?: boolean;
+  canWriteCatalogue?: boolean;
 } & InternationalProps) {
   const { c, locale } = useCurrencyText();
   const cfg = config.currencies ?? defaultCurrencies;
@@ -62,7 +66,7 @@ export default function CurrencySettings({
     };
   }, [request]);
   useEffect(() => {
-    if (channel) return;
+    if (channel || !canReadCatalogue) return;
     let active = true;
     const load = () =>
       request("/api/merchant/currencies/price-jobs")
@@ -78,7 +82,7 @@ export default function CurrencySettings({
       active = false;
       window.clearInterval(timer);
     };
-  }, [request, channel]);
+  }, [request, channel, canReadCatalogue]);
   const action = async (path: string, body: unknown, refresh = false) => {
     if (dirty) {
       setError(c("saveFirst"));
@@ -277,7 +281,7 @@ export default function CurrencySettings({
                   <button
                     type="button"
                     className="studio-primary"
-                    disabled={busy || dirty}
+                    disabled={busy || dirty || !canWriteCatalogue}
                     onClick={() =>
                       void action("/api/merchant/currencies/price-jobs", {
                         currency: d.code,
@@ -318,7 +322,7 @@ export default function CurrencySettings({
             <button
               type="button"
               className="studio-primary"
-              disabled={busy || dirty}
+              disabled={busy || dirty || !canWriteCatalogue}
               onClick={() =>
                 void action(
                   "/api/merchant/currencies/rates/refresh",

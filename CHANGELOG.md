@@ -1,5 +1,14 @@
 # Changelog
 
+## 14 October 2026 — coherent settings and native Admin creation
+
+- Group and search shop settings by foundations, markets/pricing, checkout/fulfillment and customers/business; keep domain-specific shortcuts permission-aware.
+- Repair currency card padding, scope/language toolbar, responsive navigation and catalogue-job permission visibility. Load translated-field and language-picker styles from their shared owners so direct editor entry looks the same as navigation through settings. Give shared B2B customer pickers the complete form width, separate name/email and remove default fieldset frames.
+- Create CRM profiles and default billing/shipping addresses atomically through native Rust owners, with history/outbox and idempotent retries; no customer credentials are issued. Keep auto-filled address company names complete while preserving explicitly different recipient data.
+- Build actor-private manual-order quotes from bounded customer/product lookup, addresses, channel language/currency and native coupon/method pricing. Explicit review binds the exact total and revision before shared checkout.
+- Enforce final manual/simulated payment mode under native locks, preserve original customer binding, block stolen private tokens from checkout/logout/downloads and serialize settings/channel/customer/cart changes and same-customer orders.
+- Document configuration gaps and the financial/operational sandbox boundary; add real API/MCP/PostgreSQL and UI regressions plus an extracted small admin-payment admission proof.
+
 ## 14 October 2026 — hosted AI/source catalogue onboarding
 
 The separately deployed hosted SaaS wizard now offers a reviewed initial AI or

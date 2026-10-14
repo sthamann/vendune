@@ -1,5 +1,7 @@
 # VEYNDO feature guide
 
+**Admin workflow update:** grouped/searchable settings, native CRM creation and reviewed manual orders use the same Rust owners and current role/PII checks. [Step-by-step guide and current boundaries](admin-workflows.md).
+
 **Agentic grids:** shared order/product/customer directories, configurable columns,
 server filtering/sorting and reviewed natural-language criteria. Declarative app
 tables reuse the same visual shell. [How it works and precise scope](agentic-grids.md).

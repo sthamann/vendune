@@ -1,6 +1,8 @@
 /** CRM list and editable customer profile with linked order history. */
 import type { GridCriteria } from "../../shared/grid/types";
 import { AppSurfaceSlot } from "../../shared/apps/AppSurfaces";
+import CustomerCreate from "./CustomerCreate";
+import { useAdminCreationText } from "../../shared/i18n/admin-creation-i18n";
 import CustomerDirectory from "./CustomerDirectory";
 import GuestContact from "./GuestContact";
 import AddressBook from "../../shared/customer/AddressBook";
@@ -27,6 +29,8 @@ export default function CustomersManager({
   onEntity?: OpenEntity;
   onEntityBack?: () => void;
 }) {
+  const { n } = useAdminCreationText();
+  const [creating, setCreating] = useState(false);
   const [gridCursor, setGridCursor] = useState("");
   const [gridCriteria, setGridCriteria] = useState<GridCriteria>({});
   const { o } = useOperationsText();
@@ -58,14 +62,22 @@ export default function CustomersManager({
     request("/store-api/checkout/options")
       .then((v) => setCountries(v.countries))
       .catch((e) => setError(e.message));
-    request("/api/merchant/customer-groups")
-      .then((v) => {
-        setGroups(v.elements);
-        setMainLocale(v.mainLocale);
-      })
-      .catch((e) => setError(e.message));
     request("/api/auth/access")
-      .then((v) => setCanEdit(v.permissions.includes("customers.write")))
+      .then(async (v) => {
+        setCanEdit(v.permissions.includes("customers.write"));
+        if (v.permissions.includes("customers.write")) {
+          const context = await request(
+            "/api/merchant/customers/create-context",
+          );
+          setGroups(context.elements ?? []);
+          setCountries(context.countries ?? ["DE"]);
+          setMainLocale(context.mainLocale);
+        } else if (v.permissions.includes("settings.read")) {
+          const context = await request("/api/merchant/customer-groups");
+          setGroups(context.elements ?? []);
+          setMainLocale(context.mainLocale);
+        }
+      })
       .catch((e) => setError(e.message));
   }, [request]);
   const detail = async (email: string) => {
@@ -103,9 +115,28 @@ export default function CustomersManager({
       <div className="page-intro">
         <h1>{o("customers")}</h1>
         <p>{o("customersHint")}</p>
+        {!customer && !creating && canEdit && (
+          <button className="studio-primary" onClick={() => setCreating(true)}>
+            {n("newCustomer")}
+          </button>
+        )}
       </div>
       {error && <p role="alert">{error}</p>}
-      {customer ? (
+      {creating ? (
+        <CustomerCreate
+          key={mainLocale}
+          request={request}
+          countries={countries}
+          groups={groups}
+          groupName={groupName}
+          onBack={() => setCreating(false)}
+          onCreated={(email) => {
+            setCreating(false);
+            if (onEntity) onEntity("customers", email);
+            else void detail(email);
+          }}
+        />
+      ) : customer ? (
         <>
           <button
             className="studio-secondary"

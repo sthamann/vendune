@@ -8,6 +8,8 @@ pub(crate) struct Item {
 }
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub(crate) struct Cart {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub(crate) admin_actor: Option<String>,
     #[serde(default)]
     pub(crate) coupons: Vec<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]

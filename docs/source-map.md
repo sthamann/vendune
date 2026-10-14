@@ -602,3 +602,12 @@ and retain their existing action/inline-form contracts.
 customer list owners supply native validated queries and central model planning.
 MCP shares the field schema and handlers. `grid_directory.py` runs actual isolated
 PostgreSQL/Store API/HTTP/MCP/model wire checks. [Guide and ownership boundaries](agentic-grids.md).
+
+## Admin customer and reviewed order creation
+
+`operations/customer_create.rs` commits profile/default addresses through native accounts/history/outbox; `manual_orders.rs` adapts native carts and checkout; `manual_order_admission.rs` owns actor-private and locked final admission; `creation_schema.rs` exports the same MCP contract. Studio uses modular `CustomerCreate`, `OrderCreate`, `useOrderCreation`, `OrderProductPicker`, `OrderReview` and the shared native customer picker. [Workflow and proof boundaries](admin-workflows.md).
+
+Shared content editing styles belong to `frontend/src/shared/i18n/content-editors.css`,
+imported by the language picker and localized field themselves. Bounded customer
+selection owns `frontend/src/shared/customer/customer-picker.css`; B2B and Admin
+orders reuse it. A direct editor entry must not require visiting settings first.

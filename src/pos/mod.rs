@@ -2,6 +2,7 @@
 use crate::*;
 mod config;
 mod customer;
+pub(crate) use customer::check as check_customer;
 mod discount;
 pub(crate) use discount::{Discount, apply as adjust_quote};
 mod gateway;
@@ -109,6 +110,7 @@ pub(crate) fn router() -> Router<App> {
 }
 /// Also invoked by ordinary cart adapters. A stolen POS token is not merchant or channel admission.
 pub(crate) fn guard_cart(h: &RequestContext, c: &StoredCart) -> Result<()> {
+    operations::guard_admin_cart(h, c)?;
     if c.data.pos_actor.is_some()
         && !h
             .pos

@@ -60,6 +60,7 @@ pub(crate) async fn new_cart(
         tenant: t.into(),
         token: uid(),
         data: Cart {
+            admin_actor: None,
             coupons: vec![],
             pos_actor: None,
             pos_discount: None,

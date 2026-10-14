@@ -1,0 +1,206 @@
+/* Shared native creation workspaces: readable fields, predictable actions and responsive review. */
+.studio .admin-create {
+  padding: 0;
+  min-width: 0;
+  overflow: clip;
+}
+.studio .admin-create-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px;
+  border-bottom: 1px solid var(--border);
+}
+.studio .admin-create-heading p {
+  color: var(--muted);
+  line-height: 1.7;
+  margin-top: 8px;
+  max-width: 65ch;
+}
+.studio .admin-create-section {
+  padding: 28px;
+  margin: 0;
+  min-width: 0;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  gap: 20px;
+}
+.studio .admin-create-section legend {
+  float: left;
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.studio .admin-create-section h3 {
+  margin: 0;
+  font-size: 15px;
+}
+.studio .admin-create label {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.studio .admin-create label.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.studio .admin-create input:not([type="checkbox"]),
+.studio .admin-create select {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  min-height: 44px;
+}
+.studio .admin-create input:invalid:not(:placeholder-shown):focus {
+  border-color: var(--danger);
+}
+.studio .admin-create input[type="checkbox"] {
+  margin: 0;
+  flex-shrink: 0;
+}
+.studio .admin-create .b2b-customer-results {
+  display: grid;
+  gap: 8px;
+  max-height: 260px;
+  overflow: auto;
+}
+.studio .admin-create .b2b-customer-results button,
+.studio .admin-create .b2b-selected-customer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-align: left;
+}
+.studio .admin-create .b2b-customer-results span {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.studio .admin-create .b2b-customer-results small {
+  display: block;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.studio .admin-create .b2b-selected-customer {
+  margin: 14px 0;
+  background: var(--hover);
+}
+.studio .admin-create .b2b-selected-customer > span {
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+.studio .admin-create .b2b-selected-customer small {
+  display: block;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.studio .admin-create .admin-product-results {
+  display: grid;
+  gap: 8px;
+  max-height: 260px;
+  overflow: auto;
+}
+.studio .admin-create .admin-product-results button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.studio .admin-create .admin-product-results img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: var(--hover);
+}
+.studio .admin-create .admin-product-results span {
+  flex: 1;
+}
+.studio .admin-create .admin-product-results small {
+  display: block;
+  color: var(--muted);
+  margin-top: 5px;
+}
+.studio .admin-order-line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 100px auto;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.studio .admin-order-review {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+  background: var(--hover);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.studio .admin-order-review dl {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.studio .admin-order-review dd {
+  margin: 0;
+  font-weight: 600;
+}
+.studio .admin-order-review .admin-order-total {
+  font-size: 24px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+@media (max-width: 700px) {
+  .studio .admin-create-heading {
+    flex-direction: column;
+  }
+  .studio .admin-create-heading,
+  .studio .admin-create-section {
+    padding: 20px;
+  }
+  .studio .admin-order-line {
+    grid-template-columns: minmax(0, 1fr) 80px;
+  }
+  .studio .admin-order-line > button {
+    grid-column: 1/-1;
+    justify-self: start;
+  }
+}
+
+.studio .admin-review-addresses {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.studio .admin-review-addresses article {
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  min-width: 0;
+}
+.studio .admin-review-addresses h3 {
+  margin: 0 0 12px;
+}
+.studio .admin-review-addresses address {
+  font-style: normal;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 700px) {
+  .studio .admin-review-addresses {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
