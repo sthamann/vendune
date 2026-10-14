@@ -1,17 +1,11 @@
 name: Publish tested local preview image
 on:
-  workflow_run:
-    workflows: [Verify prototype]
-    types: [completed]
+  push:
     branches: [main]
 permissions:
   contents: read
 jobs:
   image:
-    if: >-
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.event == 'push' &&
-      github.event.workflow_run.head_repository.full_name == github.repository
     runs-on: ubuntu-24.04
     concurrency:
       group: public-preview-image
@@ -22,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
+          ref: ${{ github.sha }}
           persist-credentials: false
       - uses: docker/setup-buildx-action@v3
       - uses: docker/build-push-action@v6
@@ -35,7 +29,7 @@ jobs:
           cache-to: type=gha,mode=max
           labels: |
             org.opencontainers.image.source=https://github.com/sthamann/veyndo
-            org.opencontainers.image.revision=${{ github.event.workflow_run.head_sha }}
+            org.opencontainers.image.revision=${{ github.sha }}
       - name: Start the actual packaged local tour and verify HTTP readiness
         env:
           VEYNDO_IMAGE: veyndo-preview:test
@@ -87,7 +81,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish the smoke-tested image with an immutable source tag
         env:
-          SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
+          SOURCE_SHA: ${{ github.sha }}
         run: |
           docker tag veyndo-preview:test ghcr.io/sthamann/veyndo:sha-$SOURCE_SHA
           docker push ghcr.io/sthamann/veyndo:sha-$SOURCE_SHA

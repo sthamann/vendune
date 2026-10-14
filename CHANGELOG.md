@@ -4,7 +4,7 @@
 
 - Add one connected first tour, an agent workshop and a scoped public roadmap.
 - Add an isolated loopback-only container tour without a local Rust/Node toolchain.
-- Publish the existing Rust image only after successful main verification and an actual container/HTTP smoke check; preserve immutable source tags.
+- Publish the existing Rust image from protected main after the required PR verification and an actual container/HTTP smoke check; preserve immutable source tags.
 - Make actual recordings and first contribution tasks visible from the README and docs homepage.
 - Add first-tour feedback and a private local GitHub traffic snapshot tool.
 
