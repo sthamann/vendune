@@ -1250,6 +1250,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/shipment_workflows.py](../scripts/shipment_workflows.py) | Real isolated PostgreSQL/HTTP package conservation, replay, current rights, customer projection and flow effects. |
 | [scripts/shipping_contract.py](../scripts/shipping_contract.py) | Test-only carrier-neutral service: native jobs, package intent, documents and Flow; no external bookings. |
 | [scripts/site_markdown.py](../scripts/site_markdown.py) | Render every tracked Markdown document with repository-aware links and search. |
+| [scripts/site_navigation.py](../scripts/site_navigation.py) | Curated reading paths and shared document navigation; Markdown remains authoritative. |
 | [scripts/staging.py](../scripts/staging.py) | Real PG proof: private sandbox, immutable app versions, selective release and conflicts. No paid inference. |
 | [scripts/storefront_urls.py](../scripts/storefront_urls.py) | Real HTTP product deep links and host isolation in disposable shops. |
 | [scripts/structure.py](../scripts/structure.py) | Guard the documented Rust domain split and public extension examples. |

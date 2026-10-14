@@ -1,0 +1,187 @@
+{
+  "version": 1,
+  "groups": [
+    {
+      "id": "start",
+      "title": {
+        "en": "Understand & try",
+        "de": "Verstehen & ausprobieren",
+        "fr": "Comprendre et essayer",
+        "es": "Comprender y probar"
+      },
+      "description": {
+        "en": "Start with the idea, then complete your first real workflow.",
+        "de": "Beginne mit der Idee und probiere dann einen vollständigen Ablauf aus.",
+        "fr": "Découvrez l’idée, puis réalisez votre premier parcours complet.",
+        "es": "Descubre la idea y completa tu primer flujo real."
+      },
+      "sources": [
+        "docs/first-tour.md",
+        "docs/features.md",
+        "docs/quickstart.md",
+        "docs/playground.md",
+        "docs/video-tours.md",
+        "docs/early-contributors.md",
+        "docs/documentation-site.md"
+      ]
+    },
+    {
+      "id": "intelligence",
+      "title": {
+        "en": "Intelligence comes first",
+        "de": "Intelligenz zuerst",
+        "fr": "L’intelligence d’abord",
+        "es": "Inteligencia primero"
+      },
+      "description": {
+        "en": "Connect knowledge, review proposals and give agents permission to act.",
+        "de": "Verbinde Wissen, prüfe Vorschläge und gib Agenten gezielte Handlungsmöglichkeiten.",
+        "fr": "Reliez les connaissances, examinez les propositions et autorisez les agents.",
+        "es": "Conecta conocimiento, revisa propuestas y autoriza a los agentes."
+      },
+      "sources": [
+        "docs/cognitive-commerce.md",
+        "docs/knowledge-workspace.md",
+        "docs/agent-workshop.md",
+        "docs/connectors.md",
+        "docs/behavior-intelligence.md",
+        "docs/agentic-grids.md",
+        "docs/connected-workbench.md"
+      ]
+    },
+    {
+      "id": "experiences",
+      "title": {
+        "en": "Shape the experience",
+        "de": "Erlebnisse gestalten",
+        "fr": "Créer des expériences",
+        "es": "Diseñar experiencias"
+      },
+      "description": {
+        "en": "Follow a product from discovery to the same authoritative checkout.",
+        "de": "Vom Produkt bis zum Checkout: ein Erlebnis auf derselben Commerce-Grundlage.",
+        "fr": "Du produit au paiement, sur la même base commerce.",
+        "es": "Del descubrimiento al checkout sobre la misma base de comercio."
+      },
+      "sources": [
+        "docs/ui-experience.md",
+        "docs/fashion-demo.md",
+        "docs/experience-integration.md",
+        "docs/storyfront.md",
+        "docs/checkout.md",
+        "docs/channel-management.md",
+        "docs/localization.md"
+      ]
+    },
+    {
+      "id": "apps",
+      "title": {
+        "en": "Build apps & automate",
+        "de": "Apps bauen & automatisieren",
+        "fr": "Créer des apps et automatiser",
+        "es": "Crear apps y automatizar"
+      },
+      "description": {
+        "en": "One visual and agentic app contract, real records, events and controlled releases.",
+        "de": "Ein Vertrag für visuellen Bau und Agenten: echte Daten, Ereignisse und geprüfte Freigaben.",
+        "fr": "Un contrat visuel et agentique : données réelles, événements et publications contrôlées.",
+        "es": "Un contrato visual y agentico: datos reales, eventos y publicaciones controladas."
+      },
+      "sources": [
+        "docs/app-studio.md",
+        "docs/app-assistants.md",
+        "docs/app-tutorials/README.md",
+        "docs/app-platform.md",
+        "docs/automation.md",
+        "docs/connected-apps.md",
+        "docs/email-delivery.md",
+        "docs/payment-provider-api.md",
+        "docs/studio-api-and-channels.md",
+        "docs/plugin-ownership.md"
+      ]
+    },
+    {
+      "id": "commerce",
+      "title": {
+        "en": "Run connected commerce",
+        "de": "Commerce gemeinsam betreiben",
+        "fr": "Exploiter un commerce connecté",
+        "es": "Operar comercio conectado"
+      },
+      "description": {
+        "en": "Catalog, customers, orders and new channels share native business operations.",
+        "de": "Katalog, Kunden, Bestellungen und neue Kanäle nutzen gemeinsame Geschäftsaktionen.",
+        "fr": "Catalogue, clients, commandes et canaux partagent les opérations natives.",
+        "es": "Catálogo, clientes, pedidos y canales comparten operaciones nativas."
+      },
+      "sources": [
+        "docs/product-management.md",
+        "docs/merchant-operations.md",
+        "docs/shipping-workflows.md",
+        "docs/currencies.md",
+        "docs/international-commerce.md",
+        "docs/company-settings.md",
+        "docs/pos.md",
+        "docs/b2b-commerce.md",
+        "docs/b2b-ucp-negotiation.md",
+        "docs/edi.md",
+        "docs/marketplaces.md",
+        "docs/european-operation.md"
+      ]
+    },
+    {
+      "id": "control",
+      "title": {
+        "en": "Control, stage & operate",
+        "de": "Kontrollieren, testen & betreiben",
+        "fr": "Contrôler, tester et exploiter",
+        "es": "Controlar, probar y operar"
+      },
+      "description": {
+        "en": "Keep identities, history, private environments and publication boundaries explicit.",
+        "de": "Identitäten, Historie, private Umgebungen und Veröffentlichung bleiben nachvollziehbar.",
+        "fr": "Gardez des identités, un historique et des limites de publication explicites.",
+        "es": "Mantén identidades, historial y límites de publicación explícitos."
+      },
+      "sources": [
+        "docs/workbench.md",
+        "docs/entity-history.md",
+        "docs/account-security.md",
+        "docs/tenant-isolation.md",
+        "docs/app-security.md",
+        "docs/security.md",
+        "docs/platform.md",
+        "docs/managed-hosting.md",
+        "docs/deployment.md",
+        "docs/cloud-releases.md"
+      ]
+    },
+    {
+      "id": "foundation",
+      "title": {
+        "en": "Inside the foundation",
+        "de": "Das Fundament verstehen",
+        "fr": "Comprendre les fondations",
+        "es": "Comprender los fundamentos"
+      },
+      "description": {
+        "en": "Architecture, source ownership, measured evidence and current limitations.",
+        "de": "Architektur, Code-Verantwortung, gemessene Ergebnisse und aktuelle Grenzen.",
+        "fr": "Architecture, responsabilité du code, résultats mesurés et limites actuelles.",
+        "es": "Arquitectura, responsabilidad del código, resultados medidos y límites actuales."
+      },
+      "sources": [
+        "docs/production-architecture.md",
+        "docs/architecture.md",
+        "docs/source-map.md",
+        "docs/rust-services.md",
+        "docs/testing.md",
+        "docs/formal-verification.md",
+        "docs/shopware-parity.md",
+        "docs/benchmarks.md",
+        "docs/system-consistency-audit.md",
+        "docs/licensing.md"
+      ]
+    }
+  ]
+}

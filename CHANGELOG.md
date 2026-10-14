@@ -1,5 +1,12 @@
 # Changelog
 
+## AI-first website and connected handbook — 14 October 2026
+
+- Add seven ordered handbook paths, chapter/outline navigation and ranked search over every published Markdown source.
+- Keep Markdown and the existing verified Pages publisher authoritative; the website consumes that public publication through its isolated apex-only facade.
+- Localize handbook interface and reading-path descriptions in English, German, French and Spanish; retain and label original English technical articles.
+- Refresh README screenshots from the actual blue Veyndo UI and explain the synthetic/local-model capture boundary.
+
 ## Unreleased — EDI identity and hosted RLS evidence
 
 - EDI exports fingerprint the actual serialized document and native source identifiers; operational notes no longer change an identical export's identity. The regression uses the existing native order-note API, and the implementation stays app-owned.

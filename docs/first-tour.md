@@ -10,7 +10,10 @@ with [English captions](assets/showcase/build-and-automate.vtt).
 It shows actual UI in an isolated shop, edited for readability. It is a recording,
 not an interactive session or a latency measurement.
 
-![Actual private app preview](assets/showcase/app-studio.webp)
+![Current blue App Studio, synthetic private draft](assets/launch-20261014/app-studio.jpg)
+
+[14 October capture notes](assets/launch-20261014/README.md). The video above
+retains its original capture date and may show earlier branding.
 
 ## Run your own local tour
 

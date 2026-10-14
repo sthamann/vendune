@@ -1,20 +1,56 @@
-# Read and maintain the public documentation
+# The connected Veyndo handbook
 
-The [documentation website](https://sthamann.github.io/veyndo/docs/) publishes
-every tracked Markdown file in this repository. Guides under `docs/` appear at
-`docs/NAME.html`; repository and module notes appear under `docs/repository/`. Hidden source directories use a `dot-` prefix in public
-paths (for example `.github/` becomes `dot-github/`), because [GitHub Pages artifact
-upload](https://github.com/actions/upload-pages-artifact/blob/v3/action.yml)
-excludes `.github` directories. The source link retains the original path.
-The Docs link in the public navigation opens the full directory. Full-text search
-includes guide bodies and module notes; browsing and reading work without JavaScript.
+The [public handbook](https://veyndo.ai/docs/) follows a deliberate reading path:
+understand and try the product → connect intelligence → shape experiences → build
+apps and automation → operate commerce → control changes → inspect the foundation.
+It opens on the Veyndo website and uses the repository's Markdown as its source.
 
-Markdown files are the source for these pages. Tables, code, heading links, images,
-README layout and collapsible sections render inside the same site shell. Links
-between guides open HTML pages. Code, configuration, raw evidence and source
-directories link back to their actual GitHub targets. Each article has an on-page
-contents list and its original source link. The short marketing introductions
-remain in `site/pages/`; keep their summaries consistent with the full guides.
+## Find the right starting point
+
+| Your goal | Start here |
+| --- | --- |
+| Understand what Veyndo does | [Feature guide](features.md) and [connected cognition](cognitive-commerce.md) |
+| Try a complete working round | [First tour](first-tour.md) |
+| Give an agent a bounded job | [Agent workshop](agent-workshop.md) |
+| Create an extension | [Visual App Studio](app-studio.md) and [five illustrated workshops](app-tutorials/README.md) |
+| Design a connected shop | [Experience integration](experience-integration.md), [Storyfront](storyfront.md) and [checkout](checkout.md) |
+| Deploy or assess the boundaries | [Architecture](production-architecture.md), [hosting](managed-hosting.md) and [security](security.md) |
+
+Every rendered article provides its original source, chapter navigation and an
+article outline. Previous/next links follow the chapter sequence. Wide tables and
+code scroll within the article; the chapter menu collapses on small screens.
+
+Search covers the **complete** Markdown inventory, including module READMEs and
+historical evidence. The curated chapters lead with current guides; the complete
+reference retains other sources and their original dates and scope.
+
+## One publication, two public surfaces
+
+The existing Pages workflow builds the complete source inventory, search index,
+navigation, assets and canonical metadata. `scripts/check_site.py` checks every
+local link, anchor, article, search record and sitemap entry before publication.
+`site/docs-navigation.json` owns the curated chapter order;
+`site/docs-copy.json` owns the interface text.
+
+The private website runtime serves `/docs/` on the apex from the fixed public
+GitHub Pages publication. It does not copy articles into another knowledge store
+or use merchant sessions. Cookies, authorization and tenant headers are never
+forwarded upstream. Only public documentation paths and GET/HEAD are accepted;
+recordings use streaming and bounded ranges. API, shop and Experience hosts keep
+their own existing routes. GitHub Pages remains an independently readable mirror.
+
+## Language and evidence
+
+Handbook navigation, search messages and chapter descriptions ship in English,
+German, French and Spanish. Technical articles currently retain their original
+English content and are labeled accordingly. A localized interface is not a claim
+that all historical technical prose has been translated.
+
+Current README screenshots are genuine browser captures with the blue Veyndo
+identity. [Capture notes](assets/launch-20261014/README.md) distinguish synthetic
+commerce and local model fixtures from real provider transactions. Historical
+recordings remain dated evidence and are not presented as current-interface stills.
+
 
 ## Build and validate
 

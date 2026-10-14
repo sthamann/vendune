@@ -82,6 +82,26 @@ def check():
     search = json.loads((SITE / 'docs/search.json').read_text())
     assert {row['source']: row['url'] for row in search} == expected, 'Search inventory drift'
     assert all(row['text'] for row in search), 'Empty searchable document'
+    navigation = json.loads((SITE / 'docs/assets/ui/docs-navigation.json').read_text())
+    copy = json.loads((SITE / 'docs/assets/ui/docs-copy.json').read_text())
+    assert set(copy) == {'en', 'de', 'fr', 'es'}
+    assert all(set(words) == set(copy['en']) and all(words.values()) for words in copy.values()), 'Handbook locale drift'
+    curated = [source for group in navigation['groups'] for source in group['sources']]
+    assert len(curated) == len(set(curated)) and set(curated) <= set(expected), 'Curated reading path drift'
+    for group in navigation['groups']:
+        assert set(group['title']) == set(group['description']) == set(copy)
+        assert 'chapter-' + group['id'] in pages['docs/index.html'].ids
+    for name, page in pages.items():
+        if name.startswith('docs/'):
+            assert page.canonical == 'https://veyndo.ai/' + name, 'Handbook canonical left the website'
+            assert any(tag == 'select' and attrs.get('id') == 'docs-language' for tag, attrs in page.elements)
+            assert any(link.endswith('/docs.js') or link == 'docs.js' for link in page.links), (name, 'Missing shared navigation script')
+    for group in navigation['groups']:
+        for index, source in enumerate(group['sources']):
+            article = (SITE / expected[source]).read_text()
+            assert 'aria-current="page"' in article, 'Active chapter absent'
+            for neighbor in group['sources'][max(0,index-1):index+2]:
+                assert Path(expected[neighbor]).name in article, 'Reading sequence absent'
     architecture = (SITE / 'docs/production-architecture.html').read_text()
     for name in ['system', 'checkout', 'security', 'intelligence']:
         diagram = SITE / f'docs/assets/architecture/{name}.svg'
