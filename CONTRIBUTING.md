@@ -3,6 +3,9 @@
 This is an experimental commerce and migration laboratory. Changes should keep
 merchant authority, tenant isolation and deterministic commerce operations explicit.
 
+Pick a concrete [first contribution](docs/early-contributors.md) or share an
+application in [Discussions](https://github.com/sthamann/veyndo/discussions).
+
 ## Start locally
 
 Follow [the quickstart](docs/quickstart.md). You can explore commerce without

@@ -2,6 +2,9 @@
 
 Start with commerce, then add AI or an MCP client when you need it.
 
+For a prepared image without the Rust/Node build, use the [container first tour](first-tour.md).
+The source workflow below remains the development path.
+
 ## Requirements
 
 - Rust stable 1.96+ (`cargo` on your PATH)

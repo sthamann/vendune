@@ -1,0 +1,38 @@
+# Local synthetic tour. Ports stay on loopback; provider credentials are not accepted here.
+services:
+  postgres:
+    image: postgres:17-bookworm
+    environment:
+      POSTGRES_USER: commerce
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Run scripts/try.sh first}
+      POSTGRES_DB: commerce
+    volumes: ["try-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U commerce"]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+  qdrant:
+    image: qdrant/qdrant:v1.16.3
+    volumes: ["try-search:/qdrant/storage"]
+  commerce:
+    image: ${VEYNDO_IMAGE:-ghcr.io/sthamann/veyndo:preview}
+    environment:
+      DATABASE_URL: postgres://commerce:${DB_PASSWORD}@postgres:5432/commerce
+      QDRANT_URL: http://qdrant:6333
+      BIND_ADDR: 0.0.0.0:8787
+      PUBLIC_BASE_URL: http://127.0.0.1:${TRY_PORT:-8788}
+      COMMERCE_PUBLIC_ORIGIN: http://127.0.0.1:${TRY_PORT:-8788}
+      BOOTSTRAP_MODE: auto
+      SEED_DEMO: "true"
+      ALLOW_PUBLIC_SIGNUP: "true"
+      ALLOW_BOOTSTRAP_AUTH: "false"
+      IMAGE_GENERATION_ENABLED: "false"
+      PROCESS_ROLE: all
+    ports: ["127.0.0.1:${TRY_PORT:-8788}:8787"]
+    depends_on:
+      postgres: {condition: service_healthy}
+      qdrant: {condition: service_started}
+volumes:
+  try-data:
+  try-search:

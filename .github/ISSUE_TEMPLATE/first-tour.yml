@@ -1,0 +1,35 @@
+name: First tour feedback
+description: Tell us the first step that worked differently from the guide.
+title: "First tour: "
+labels: ["feedback"]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Source commit or image tag
+    validations:
+      required: true
+  - type: input
+    id: setup
+    attributes:
+      label: Operating system, Docker version and setup path
+    validations:
+      required: true
+  - type: textarea
+    id: step
+    attributes:
+      label: First unexpected step
+      description: Include expected and observed behavior. Remove credentials and personal data.
+    validations:
+      required: true
+  - type: dropdown
+    id: completed
+    attributes:
+      label: How far did you get?
+      options:
+        - Started the local service
+        - Created a synthetic shop
+        - Saved a simulated order
+        - Reviewed and published a sandbox change
+        - Returned after restarting
+        - Blocked before starting
