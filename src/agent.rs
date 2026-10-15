@@ -184,9 +184,26 @@ pub(super) async fn merchant_chat(
             json!({"conversationId":id,"messages":messages(&a,&t,&id).await?,"run":queued}),
         ));
     }
-    let run = agent_runs::wait(&a, &h, queued["taskId"].as_str().unwrap()).await?;
+    complete_chat(&a, &h, queued).await
+}
+pub(crate) async fn complete_chat(
+    a: &App,
+    h: &RequestContext,
+    queued: Value,
+) -> Result<Json<Value>> {
+    let t = merchant(a, h)?;
+    let id = queued["conversationId"]
+        .as_str()
+        .ok_or(bad("Saved conversation required"))?;
+    let run = agent_runs::wait(
+        a,
+        h,
+        queued["taskId"].as_str().ok_or(bad("Saved run required"))?,
+    )
+    .await?;
+    admit_conversation(a, &t, id, h).await?;
     Ok(Json(
-        json!({"conversationId":id,"messages":messages(&a,&t,&id).await?,"run":run}),
+        json!({"conversationId":id,"messages":messages(a,&t,id).await?,"run":run}),
     ))
 }
 

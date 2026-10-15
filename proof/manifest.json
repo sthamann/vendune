@@ -926,8 +926,8 @@
     },
     "src/agent.rs": {
       "status": "unproved",
-      "sha256": "65c157acc39ba63041ccc055e760cec6b3c653bef9a608ad28951affe063c3ab",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "3d68fe64d9161ab29dab3ace4ceb25e5cf7ecf3faaa90f7155ee3922d5126d26",
+      "review": "Reviewed SSE durable admission before streaming: stored IDs, replay before quota, retained HTTP failures and one native queued run; worker restart and quota regression suite passed."
     },
     "src/agent_runs/authority.rs": {
       "status": "unproved",
@@ -1921,8 +1921,8 @@
     },
     "src/cognition/stream.rs": {
       "status": "unproved",
-      "sha256": "db946ea7d2aa4002e35400fdcf1dc11d6f39505000d8978f50ac93f2c35a99d2",
-      "review": "Reviewed final existing-task continuation, actor/scope/evidence checks, UUID lease fences, pre-quota idempotency for HTTP/chat/SSE/MCP and invoker-only transactional state outbox trigger. Actual killed-worker, withdrawal, original approval and final-quota retries execute through Rust/PostgreSQL. Financial pure policies unchanged."
+      "sha256": "b0741012c82196f6e1224758fd4da757f2abf06551fa00d2ba951f19a6ee25de",
+      "review": "Reviewed SSE durable admission before streaming: stored IDs, replay before quota, retained HTTP failures and one native queued run; worker restart and quota regression suite passed."
     },
     "src/cognition/tools.rs": {
       "status": "unproved",

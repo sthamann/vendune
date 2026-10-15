@@ -217,8 +217,11 @@ try:
     passed('At the final daily quota, accepted chat/API retries return the original run without another attempt; new work is rejected')
     def streamed(body):
         request=urllib.request.Request(base+'/api/agent/chat/stream',data=json.dumps(body).encode(),headers={'Content-Type':'application/json',**h})
-        with urllib.request.urlopen(request,timeout=30) as response:
-            frames=response.read().decode();assert response.headers['content-type'].startswith('text/event-stream')
+        try:
+            with urllib.request.urlopen(request,timeout=30) as response:
+                frames=response.read().decode();assert response.headers['content-type'].startswith('text/event-stream')
+        except urllib.error.HTTPError as error:
+            assert error.code==429;return json.load(error)
         terminal=[frame for frame in frames.split('\n\n') if 'event: complete' in frame or 'event: error' in frame][-1]
         return json.loads(next(line.removeprefix('data: ') for line in terminal.splitlines() if line.startswith('data: ')))
     sql(f"DELETE FROM tenant_ai_usage WHERE tenant='{tenant}'")

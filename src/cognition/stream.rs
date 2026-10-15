@@ -11,7 +11,7 @@ pub(crate) fn router() -> Router<App> {
 async fn chat(
     State(a): State<App>,
     h: RequestContext,
-    Json(v): Json<Value>,
+    Json(mut v): Json<Value>,
 ) -> Result<impl axum::response::IntoResponse> {
     merchant(&a, &h)?;
     agent::assistant_access(&h)?;
@@ -21,12 +21,20 @@ async fn chat(
     {
         return Err(bad("Message must contain 1..4000 characters"));
     }
-    let mut job =
-        veyndo::tenant_scope::spawn(
-            async move { agent::merchant_chat(State(a), h, Json(v)).await },
-        );
+    // Commit acceptance (or return its HTTP error) before opening SSE. Waiting never enqueues another turn.
+    let background = v["background"] == true;
+    v["background"] = json!(true);
+    let Json(accepted) = agent::merchant_chat(State(a.clone()), h.clone(), Json(v)).await?;
+    let progress = json!({"conversationId":accepted["conversationId"],"run":accepted["run"]});
+    let mut job = veyndo::tenant_scope::spawn(async move {
+        if background {
+            Ok(Json(accepted))
+        } else {
+            agent::complete_chat(&a, &h, accepted["run"].clone()).await
+        }
+    });
     let stream = async_stream::stream! {
-        yield Ok::<_,std::convert::Infallible>(Event::default().event("accepted").data("{}"));
+        yield Ok::<_,std::convert::Infallible>(Event::default().event("accepted").json_data(progress).expect("JSON acceptance"));
         let started=std::time::Instant::now();
         loop {
             tokio::select! {
