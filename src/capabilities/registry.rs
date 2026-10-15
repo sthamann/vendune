@@ -99,6 +99,20 @@ impl Operation {
 mod tests {
     use super::*;
     #[test]
+    fn catalog_contract_preserves_native_categories_and_search_alias() {
+        let schema = tool_schema("catalog.search");
+        for value in [
+            json!({"categoryId":"cycle","search":"lamp"}),
+            json!({"query":"lamp"}),
+        ] {
+            apps::validate_native_input(&schema, &value).unwrap();
+            let parsed: CatalogCriteria = serde_json::from_value(value).unwrap();
+            assert_eq!(parsed.search.as_deref(), Some("lamp"));
+            parsed.page_size().unwrap();
+        }
+        assert!(apps::validate_native_input(&schema, &json!({"categoryId":true})).is_err());
+    }
+    #[test]
     fn every_operation_has_one_contract_and_agent_reads_are_conservative() {
         assert!(OPERATIONS.len() > 100);
         for operation in OPERATIONS.iter() {

@@ -154,7 +154,7 @@ pub(crate) fn input(name: &str) -> Value {
             json!({"environment":{"type":"string"},"prompt":{"type":"string"},"agent":{"type":"string"}})
         }
         "catalog.search" => {
-            json!({"query":{"type":"string","maxLength":200},"category":{"type":"string","maxLength":100},"ids":{"type":"array","maxItems":500,"items":{"type":"string","minLength":1,"maxLength":200}},"after":{"type":"string","maxLength":200},"limit":{"type":"integer","minimum":1,"maximum":100}})
+            json!({"query":{"type":"string","maxLength":200},"search":{"type":"string","maxLength":200},"category":{"type":"string","maxLength":100},"categoryId":{"type":"string","maxLength":100},"ids":{"type":"array","maxItems":500,"items":{"type":"string","minLength":1,"maxLength":200}},"after":{"type":"string","maxLength":200},"limit":{"type":"integer","minimum":1,"maximum":100}})
         }
         "knowledge.search" | "knowledge.external" => json!({"query":{"type":"string"}}),
         "cart.create" => json!({"session":{"type":"string"}}),

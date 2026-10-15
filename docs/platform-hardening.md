@@ -49,7 +49,10 @@ failure (`-32603`). Business and input-validation failures remain tool results
 with `isError: true`, actionable structured errors and compatible text.
 Native calls validate the same published input schema before executing. Nullable
 types are actually checked; required/unknown fields report escaped JSON Pointers.
-The bounded validator is a deliberately restricted schema implementation, not an
+Native rich-document inputs use a separate bounded depth/node profile inside that
+same validator; the 64 KiB envelope cap and domain validation remain in force.
+App actions retain their narrower original budgets. The validator is a restricted
+schema implementation, not an
 unrestricted JSON Schema engine. Raw malformed JSON still uses the HTTP extractor.
 
 ## SQL and event reliability

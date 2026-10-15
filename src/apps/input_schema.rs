@@ -1,7 +1,27 @@
 //! Bounded recursive action-input contract. Untyped managed fields still receive depth/size budgets.
 use super::*;
 const DEPTH: usize = 12;
-const NODES: usize = 2048;
+#[derive(Clone, Copy)]
+struct Budget {
+    depth: usize,
+    nodes: usize,
+    string: usize,
+    fields: usize,
+}
+const APP: Budget = Budget {
+    depth: 12,
+    nodes: 2048,
+    string: 8192,
+    fields: 100,
+};
+// Native rich documents count content/array/mark wrappers as well as domain nodes.
+// MCP still has the same 64 KiB request cap; domain validation remains authoritative.
+const NATIVE: Budget = Budget {
+    depth: 32,
+    nodes: 16384,
+    string: 65536,
+    fields: 1000,
+};
 fn invalid(path: &str, reason: &str) -> Error {
     Error::validation(path, format!("Action input {path}: {reason}"))
 }
@@ -20,29 +40,35 @@ fn matches_type(kind: &str, v: &Value) -> bool {
         _ => false,
     }
 }
-fn bounded(v: &Value, depth: usize, left: &mut usize, path: &str) -> Result<()> {
-    if depth > DEPTH || *left == 0 {
+fn bounded(v: &Value, depth: usize, left: &mut usize, path: &str, budget: Budget) -> Result<()> {
+    if depth > budget.depth || *left == 0 {
         return Err(invalid(path, "nested input budget exceeded"));
     }
     *left -= 1;
     match v {
-        Value::String(s) if s.len() > 8192 => {
-            return Err(invalid(path, "string exceeds 8192 bytes"));
+        Value::String(s) if s.len() > budget.string => {
+            return Err(invalid(path, "string exceeds byte budget"));
         }
         Value::Array(values) => {
             if values.len() > 1000 {
                 return Err(invalid(path, "array exceeds 1000 entries"));
             }
             for (i, value) in values.iter().enumerate() {
-                bounded(value, depth + 1, left, &pointer_child(path, &i.to_string()))?;
+                bounded(
+                    value,
+                    depth + 1,
+                    left,
+                    &pointer_child(path, &i.to_string()),
+                    budget,
+                )?;
             }
         }
         Value::Object(values) => {
-            if values.len() > 100 || values.keys().any(|k| k.len() > 100) {
+            if values.len() > budget.fields || values.keys().any(|k| k.len() > 100) {
                 return Err(invalid(path, "object exceeds field budget"));
             }
             for (key, value) in values {
-                bounded(value, depth + 1, left, &pointer_child(path, key))?;
+                bounded(value, depth + 1, left, &pointer_child(path, key), budget)?;
             }
         }
         _ => (),
@@ -132,6 +158,12 @@ fn node(schema: &Value, v: &Value, path: &str) -> Result<()> {
     }
     Ok(())
 }
+pub(crate) fn validate_native(schema: &Value, v: &Value) -> Result<()> {
+    if !v.is_object() {
+        return Err(invalid("", "must be an object"));
+    }
+    validate_with_budget(schema, v, NATIVE)
+}
 pub(crate) fn validate(schema: &Value, v: &Value) -> Result<()> {
     if !v.is_object() || v.to_string().len() > 65536 {
         return Err(invalid("", "must be an object of at most 64 KiB"));
@@ -139,11 +171,14 @@ pub(crate) fn validate(schema: &Value, v: &Value) -> Result<()> {
     validate_value(schema, v)
 }
 pub(super) fn validate_value(schema: &Value, v: &Value) -> Result<()> {
+    validate_with_budget(schema, v, APP)
+}
+fn validate_with_budget(schema: &Value, v: &Value, budget: Budget) -> Result<()> {
     if v.to_string().len() > 65536 {
-        return Err(invalid("", "response exceeds 64 KiB"));
+        return Err(invalid("", "value exceeds 64 KiB"));
     }
-    let mut nodes = NODES;
-    bounded(v, 0, &mut nodes, "")?;
+    let mut nodes = budget.nodes;
+    bounded(v, 0, &mut nodes, "", budget)?;
     node(schema, v, "")
 }
 

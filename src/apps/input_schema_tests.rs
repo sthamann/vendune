@@ -56,3 +56,17 @@ fn open_managed_fields_remain_bounded() {
     assert!(validate(&s, &json!({"fields":v})).is_err());
     assert!(validate(&s, &json!({"fields":{"title":"x".repeat(8193)}})).is_err());
 }
+#[test]
+fn native_rich_content_keeps_domain_depth_without_widening_app_actions() {
+    let schema = json!({"type":"object","properties":{"product":{"type":"object"}}});
+    let v = json!({"product":{"extra":{"richDescription":{"de":[{"type":"document","doc":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Hello","marks":[{"type":"link","attrs":{"href":"https://example.test"}}]}]}]}}]}}}});
+    // This is an already valid native product, not an arbitrary app envelope.
+    validate_native(&schema, &v).unwrap();
+    assert!(validate(&schema, &v).is_err());
+    let mut deep = json!(0);
+    for _ in 0..34 {
+        deep = json!({"nested":deep});
+    }
+    assert!(validate_native(&schema, &json!({"product":deep})).is_err());
+    assert!(validate_native(&schema, &json!({"product":{"text":"x".repeat(65536)}})).is_err());
+}

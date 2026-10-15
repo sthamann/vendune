@@ -91,7 +91,7 @@ mod storage;
 pub(crate) use cart_contributions::*;
 pub(crate) use compatibility::upgrade_cart;
 pub(crate) use events::*;
-pub(crate) use gateway::{invoke_app, invoke_mcp, validate_input};
+pub(crate) use gateway::{invoke_app, invoke_mcp, validate_input, validate_native_input};
 pub(crate) use manifest::*;
 pub(crate) use registry::*;
 pub(crate) use routes::*;

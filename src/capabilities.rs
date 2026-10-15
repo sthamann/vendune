@@ -44,7 +44,7 @@ pub(crate) fn invoke<'a>(
             ))
         });
     }
-    if let Err(error) = apps::validate_input(&operation.input_schema(), v) {
+    if let Err(error) = apps::validate_native_input(&operation.input_schema(), v) {
         return Box::pin(async move { Err(error) });
     }
     operation.owner.invoke(a, h, name, v)

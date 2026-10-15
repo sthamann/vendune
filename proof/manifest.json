@@ -1036,8 +1036,8 @@
     },
     "src/apps/gateway.rs": {
       "status": "reviewed-binding",
-      "sha256": "f37ec15bbcf78ea1ab3c3a3e0cea9b852e68d0b2c89f9b266df6b3e234c0b87a",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "10ec3ab272ba9b9f305f35545ccf4e759f2162865d4537f68a04b4c46a970c1f",
+      "review": "Reviewed native schema budget regression: shared validator retains strict app limits and permits bounded native rich documents; actual catalog MCP regression plus depth and byte counterexamples. No extracted policy changes."
     },
     "src/apps/hosted.rs": {
       "status": "unproved",
@@ -1046,13 +1046,13 @@
     },
     "src/apps/input_schema.rs": {
       "status": "unproved",
-      "sha256": "4f73c8b1c641805b89d23e2c7f3f6fcb357f896c8a174f6d6f5db7c8eba539aa",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "62929e7edaf336bb6ff0fecf67c666d381552792823b6ca47563603e30241549",
+      "review": "Reviewed native schema budget regression: shared validator retains strict app limits and permits bounded native rich documents; actual catalog MCP regression plus depth and byte counterexamples. No extracted policy changes."
     },
     "src/apps/input_schema_tests.rs": {
       "status": "unproved",
-      "sha256": "6e94993e9bb82da2f6207a2ab99235c4d01e1b031a6ae6fc63251a91dde40e48",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "3f52766be092ad296d83dced93282887b7e2717dffa8084065c152b2398ac6e8",
+      "review": "Reviewed native schema budget regression: shared validator retains strict app limits and permits bounded native rich documents; actual catalog MCP regression plus depth and byte counterexamples. No extracted policy changes."
     },
     "src/apps/job_callbacks.rs": {
       "status": "unproved",
@@ -1076,8 +1076,8 @@
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "2dcc345f4f00528a3598a3cbe6360a02255e9d6dbcea0117ce78f4fbf0c68e90",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "45744c9694ca84b6422aa9b556bfe5394219f706dcde5333d25fcc0a73c58e55",
+      "review": "Reviewed native schema budget regression: shared validator retains strict app limits and permits bounded native rich documents; actual catalog MCP regression plus depth and byte counterexamples. No extracted policy changes."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
@@ -1636,18 +1636,18 @@
     },
     "src/capabilities/registry.rs": {
       "status": "unproved",
-      "sha256": "ff5aadbae9a74207ca8efa488d93138c91e0daa98b931eff77c78bc39ee5c01e",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "36fd6dd6ba41ea0b80c5fae802a8cb077b1d5acb533e72474ad984d2fb2cd236",
+      "review": "Reviewed native operation compatibility: rich-document budget profiles retain app bounds; published catalog filter now matches actual categoryId/search DTO aliases; regression assertions retain validation and source fences."
     },
     "src/capabilities/schema.rs": {
       "status": "unproved",
-      "sha256": "6eca4585f09268c812e8211e953e455152cb5d4b573cc01e83a0dda77c4e6c18",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "218da509b532b88bf2d10696c72301012444d399c549a65002593e40c33bb224",
+      "review": "Reviewed native operation compatibility: rich-document budget profiles retain app bounds; published catalog filter now matches actual categoryId/search DTO aliases; regression assertions retain validation and source fences."
     },
     "src/capabilities.rs": {
       "status": "unproved",
-      "sha256": "31d9a514ffb2e31d9c1e7704419102b62c2e3a9e7bbe827df86fe1006e8427e4",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "f2db23ea7f640231302c7004b01bc1e366c2d5eb5163c4fb3f7d965a4e948c40",
+      "review": "Reviewed native schema budget regression: shared validator retains strict app limits and permits bounded native rich documents; actual catalog MCP regression plus depth and byte counterexamples. No extracted policy changes."
     },
     "src/cart_model.rs": {
       "status": "unproved",

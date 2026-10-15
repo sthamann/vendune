@@ -3,6 +3,9 @@ use super::*;
 pub(crate) fn validate_input(schema: &Value, v: &Value) -> Result<()> {
     input_schema::validate(schema, v)
 }
+pub(crate) fn validate_native_input(schema: &Value, v: &Value) -> Result<()> {
+    input_schema::validate_native(schema, v)
+}
 pub(crate) async fn invoke_app(
     a: &App,
     h: &RequestContext,
