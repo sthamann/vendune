@@ -267,6 +267,32 @@
   }
 }
 @media (max-width: 1000px) {
+  .designer-layout,
+  .designer-layout.with-pages {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+  }
+  .designer-canvas {
+    min-height: 420px;
+    width: 100%;
+  }
+  .designer-inspector,
+  .designer-tree {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .designer-tree {
+    order: 1;
+  }
+  .designer-canvas {
+    order: 0;
+  }
+  .designer-inspector {
+    order: 2;
+  }
   .designer-inspector {
     max-height: none;
     min-height: 440px;
