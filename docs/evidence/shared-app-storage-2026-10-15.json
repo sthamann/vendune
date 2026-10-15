@@ -83,7 +83,8 @@
   "verificationNotes": [
     "The broad local run completed all selected HTTP/provider/browser suites, then the final money comparison could not locate its PHP oracle. Rerun with the existing pinned Shopware 6.7.14.2 autoloader passed all 1344 cases and the remaining structural gates.",
     "The strengthened actual-tenant metadata/projection denial tests passed on the final separately authenticated transaction-pooler rerun.",
-    "The first full GitHub run exposed identity_broker rewinding only migration055 on a post102 database. Replaced that impossible mixed schema with an isolated original001-054 SQL/ledger database; native055-102 migration and real managed-connection HTTP reads across two serving processes pass locally without a runtime repair path."
+    "The first full GitHub run exposed identity_broker rewinding only migration055 on a post102 database. Replaced that impossible mixed schema with an isolated original001-054 SQL/ledger database; native055-102 migration and real managed-connection HTTP reads across two serving processes pass locally without a runtime repair path.",
+    "At 678a9c6, the push verification passed in 32m18s while the PR merge-ref run exposed a transient planner evidence conflict in developer_documents. A real provider-pause/embedding-lease switch reproduces the 409 with unchanged documents; native validation now re-admits the exact supplied chunks rather than repeating retrieval. The corresponding supplied-source archive control still rejects before an executable proposal."
   ],
   "limits": [
     "Synthetic isolated data and local protocol/model fixtures; no paid calls, real customers or real money",
@@ -100,6 +101,18 @@
     "migrations/102-consolidate-app-tables.sql": "1d68240d615e71283187f2a692cd1d07a628293df3c49168fad156f9377dbb05",
     "src/apps/hosted.rs": "f5adce11589835f9bae7a599f8adb200fa7f8daf9c646eea7ec4e4867a7c0a64",
     "scripts/identity_broker.py": "e78861c5241d3dcc2e7d012375663af6d6aad3a2e5748e125596da7f2e3f6bdb",
-    "scripts/testing/hosted_migration.py": "8abc02724de107532c6ad39eaf12d1e33b9584d7438909ae2a473d523a5cf04a"
+    "scripts/testing/hosted_migration.py": "8abc02724de107532c6ad39eaf12d1e33b9584d7438909ae2a473d523a5cf04a",
+    "src/planner.rs": "97afc4cdc529f94deb6d1f9b84e115c0572ab2697b390e51d785e6a60b328279",
+    "src/documents/retrieval.rs": "121eb9567852948cdc3f36522dad020acb3783448ff7568ed044a789d2f3318d",
+    "scripts/developer_documents.py": "157447d0315b206da7d93fe10ad93b678a2388dc5366f57df460809e723a0add",
+    "scripts/durable_agents.py": "081e555b36835e98a0d2720657e60def3029a9f8287518e9dd9f52d0000c0560"
+  },
+  "plannerSourceFence": {
+    "cause": "Re-running semantic/lexical retrieval made unchanged frozen evidence depend on embedding admission and index readiness",
+    "deterministicBeforeFixHttpStatus": 409,
+    "unchangedSourceAdmissionSwitchAfterFixHttpStatus": 200,
+    "archivedSuppliedPrivateSourceHttpStatus": 409,
+    "newRuntimeOrQueue": false,
+    "review": "Independent read-only review found no concrete privacy/revocation weakening; current authority, app and external-source guards remain"
   }
 }

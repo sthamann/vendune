@@ -6,6 +6,7 @@
 - Preserve existing API/MCP/Flow/UI, CAS/history, native hook/configuration pricing, public pages/forms and selected sandbox publication. F5 resets only scoped private rows.
 - Add verified maintenance migration of populated existing models/relations with original IDs/revisions, quota/document retention and safe abort controls; old Core writers must be drained. Production cutover is not implied by local verification.
 - Keep existing package/model/field/index/row/byte caps; table count does not prove unlimited throughput.
+- Correct a reproduced planner conflict exposed by the full CI run: checkpoint validation re-admits the exact supplied document evidence rather than re-running an availability-dependent search. Real embedding-admission changes no longer stop unchanged work; archiving a supplied private source still stops before an executable proposal.
 
 ## Durable merchant planning — published, 15 October 2026
 

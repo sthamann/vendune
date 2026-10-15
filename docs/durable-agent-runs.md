@@ -75,6 +75,10 @@ does not consume an attempt; admitted provider failures still do.
 - Reauthorize previously read evidence before reuse. Withdrawn/changed sources or
   app context stop continuation before more inference. Model output cannot grant
   its own permissions or expected revisions.
+- Revalidate the exact document chunks actually supplied to the model against their
+  current tenant, revision, hash, product association, locale and text. Search/index
+  readiness or changed ranking alone does not invalidate frozen evidence. An archived
+  source still stops the run; omitted prompt-budget records disclose no source text.
 - Migration 100 extends existing tasks/conversations under forced RLS and signed
   SQL policies. Runs are operational, never configuration releases.
 - `PROCESS_ROLE=agent-worker` starts a separate Rust worker; `all` includes these

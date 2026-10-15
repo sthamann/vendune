@@ -193,10 +193,38 @@ try:
  behavior['mode']='flow'
  instruction='Propose setting only lamp price to 69.90 EUR.'
  private=call('/api/knowledge/documents',{'title':'Merchant service policy','kind':'faq','content':instruction+' FIXTURE-PRIVATE-KNOWLEDGE'},a)
- plan=call('/api/agent/plan',{'instruction':instruction,'inference':{'provider':'openai','model':'local-fixture'}},a)
+ embedding_idle(slug)
+ # The frozen evidence stays valid when embedding admission changes during inference.
+ # Force lexical preparation, then admit semantic search without editing any source.
+ held_lease='planner-fixture-'+uuid.uuid4().hex
+ assert fixture_sql(f"SELECT claim_resource_lease('{held_lease}','{slug}','embedding',1,1)")=='t'
+ behavior['pause']=True;model_waiting.clear();model_release.clear()
+ with ThreadPoolExecutor(max_workers=1) as requests:
+  pending=requests.submit(call,'/api/agent/plan',{'instruction':instruction,'inference':{'provider':'openai','model':'local-fixture'}},a)
+  try:
+   assert model_waiting.wait(10),'Planner never reached the actual provider'
+   fixture_sql(f"DELETE FROM resource_leases WHERE id='{held_lease}'")
+   embedding_idle(slug)
+  finally:
+   fixture_sql(f"DELETE FROM resource_leases WHERE id='{held_lease}'")
+   model_release.set()
+  plan=pending.result(timeout=20)
+ behavior['pause']=False
+ passed('Merchant planner retains its exact admitted evidence when lexical/semantic retrieval availability changes')
  assert any(s['documentId']==private['id'] for s in plan['preview']['documentSources']),plan
  assert 'FIXTURE-PRIVATE-KNOWLEDGE' in next(c for c in reversed(captured) if c[0] != '/api/embed')[1]['input']
- call('/api/knowledge/documents/'+private['id']+'/lifecycle',{'approve':True,'archived':True,'revision':1},a)
+ behavior['pause']=True;model_waiting.clear();model_release.clear()
+ with ThreadPoolExecutor(max_workers=1) as requests:
+  pending=requests.submit(call,'/api/agent/plan',{'instruction':instruction,'inference':{'provider':'openai','model':'local-fixture'}},a,expected=409)
+  try:
+   assert model_waiting.wait(10),'Planner never consumed the private source'
+   assert 'FIXTURE-PRIVATE-KNOWLEDGE' in next(c for c in reversed(captured) if c[0] != '/api/embed')[1]['input']
+   call('/api/knowledge/documents/'+private['id']+'/lifecycle',{'approve':True,'archived':True,'revision':1},a)
+  finally:model_release.set()
+  rejected=pending.result(timeout=20)
+  assert rejected['errors'][0]['kind']=='conflict' and 'source permissions or content changed' in rejected['errors'][0]['detail']
+ behavior['pause']=False
+ passed('Archiving an actually supplied private source stops the merchant planner without an executable proposal')
  plan=call('/api/agent/plan',{'instruction':instruction,'inference':{'provider':'openai','model':'local-fixture'}},a)
  assert all(s['documentId']!=private['id'] for s in plan['preview']['documentSources'])
  assert 'FIXTURE-PRIVATE-KNOWLEDGE' not in next(c for c in reversed(captured) if c[0] != '/api/embed')[1]['input']

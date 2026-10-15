@@ -216,12 +216,11 @@ pub(crate) async fn validate_context(
     saved: &Value,
 ) -> Result<()> {
     let instruction = request["instruction"].as_str().unwrap_or("");
-    let locale = request["locale"].as_str().unwrap_or("en-GB");
     let apps = apps::planning_context(a, t, h).await?;
-    let sources = documents::search_in(a, t, None, instruction, false, locale, true).await?;
+    let sources_current = documents::sources_current(a, t, &saved["documentSources"]).await?;
     let private = apps::private_evidence(a, t, instruction).await?;
     if apps != saved["appContext"]
-        || cognition::snapshot(&sources, 6000) != saved["documentSources"]
+        || !sources_current
         || cognition::snapshot(&private, 4000) != saved["privateSources"]
     {
         return Err(conflict(

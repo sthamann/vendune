@@ -2326,8 +2326,8 @@
     },
     "src/documents/retrieval.rs": {
       "status": "unproved",
-      "sha256": "8646e01e9128e4dbf2ad5cde9af0937935488740e294095f1346403d6238a011",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "121eb9567852948cdc3f36522dad020acb3783448ff7568ed044a789d2f3318d",
+      "review": "Review exact frozen document identity re-admission instead of transient retrieval equality; deterministic real-HTTP lease-switch reproducer failed before and passes after, supplied-source archival still conflicts, current scope and other source guards retained; independent security review found no concrete weakening"
     },
     "src/documents/tools.rs": {
       "status": "unproved",
@@ -3026,8 +3026,8 @@
     },
     "src/planner.rs": {
       "status": "unproved",
-      "sha256": "26b117c1c643e4fbf7ef89e897279073817b86c8c728d42d84dc387fa442fd99",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "97afc4cdc529f94deb6d1f9b84e115c0572ab2697b390e51d785e6a60b328279",
+      "review": "Review exact frozen document identity re-admission instead of transient retrieval equality; deterministic real-HTTP lease-switch reproducer failed before and passes after, supplied-source archival still conflicts, current scope and other source guards retained; independent security review found no concrete weakening"
     },
     "src/platform/ai.rs": {
       "status": "reviewed-binding",
