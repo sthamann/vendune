@@ -212,4 +212,8 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         "099-authenticated-database-scope",
         include_str!("../../migrations/099-authenticated-database-scope.sql"),
     ),
+    (
+        "100-durable-agent-runs",
+        include_str!("../../migrations/100-durable-agent-runs.sql"),
+    ),
 ];

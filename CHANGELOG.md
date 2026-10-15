@@ -1,6 +1,14 @@
 # Changelog
 
-## Browser session boundary — in development, 15 October 2026
+## Durable merchant planning — in development, 15 October 2026
+
+- Extend native tasks/conversations with private context and completed inference checkpoints, actor/scopes/credential-kind ceilings, fenced leases, uncertainty, cancellation and explicit revision-bound continuation. Do not store bearer credentials or introduce a second queue, planner or approval path.
+- Recheck current membership, session/key, shop/stage and previously read evidence before continuation. Kill/restart a real Rust worker during a synthetic provider call; completed steps are reused and revoked/withdrawn inputs stop late results. Only native approval changes the product.
+- Submit Studio chat in the background and restore run progress on reload. Fence late responses by account/shop/stage/conversation; show localized progress and explicit uncertain-call controls. Accepted sends are not restored as retries after a separate refresh failure.
+- Share HTTP/MCP run operations through the native capability registry. Deduplicate same-actor request IDs, including parallel retries at the final daily quota; preserve synchronous planning errors. Keep read-only metadata conservative and private checkpoints out of API/events.
+- Add the Rust `agent-worker` role, bounded per-tenant admission and migration 100 on existing operational tables. Source implementation/local acceptance are not a statement that production is updated or arbitrary app effects are resumable.
+
+## Browser session boundary — merged, deployment pending, 15 October 2026
 
 - Adapt existing merchant/platform and separate tenant customer ledgers to host-only HttpOnly cookies, exact origins and per-tab anti-CSRF/session fences. Explicit API/MCP bearer contracts remain compatible; browser authentication JSON contains no opaque bearer.
 - Keep passive session/profile responses free of cookie mutations and pin customer response handling to the originating tenant and session generation. Late successes/errors cannot overwrite or clear a newly accepted identity. Legacy credentials leave browser storage and remain memory-only until the next explicit sign-in/handoff.

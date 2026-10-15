@@ -926,8 +926,33 @@
     },
     "src/agent.rs": {
       "status": "unproved",
-      "sha256": "319ecd68ca5fbc76b0fba426a2a725521cf022499ccbe7424759fa0617f6a02e",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "65c157acc39ba63041ccc055e760cec6b3c653bef9a608ad28951affe063c3ab",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+    },
+    "src/agent_runs/authority.rs": {
+      "status": "unproved",
+      "sha256": "cd574c227fa5ca391163eb554febbf6eeb8b9c10ab5d9b7fd977585ffc06f964",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+    },
+    "src/agent_runs/checkpoint.rs": {
+      "status": "unproved",
+      "sha256": "f9ed8b91c0bbae7e06425a528032587ee0c58fe0efb86183b3cba55ec62ef00f",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+    },
+    "src/agent_runs/contract.rs": {
+      "status": "unproved",
+      "sha256": "816eae20fb0775bd656b97db091721e20e3581949566f30b63072791e012aae8",
+      "review": "Reviewed migration100 operational run columns, bounded private checkpoints and invoker transactional progress trigger; actor/scope/credential and evidence rechecks, lease-fenced native-only proposal finalization, request-ID replay before daily quota, and actual worker-kill/revocation/source-withdrawal/HTTP-MCP/quota controls. Existing pure financial policies unchanged."
+    },
+    "src/agent_runs/worker.rs": {
+      "status": "unproved",
+      "sha256": "ab1fb6ee6975dc1d4e08a29d3051b68e65c26bb8a3745b6494f0b6d583317da1",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+    },
+    "src/agent_runs.rs": {
+      "status": "unproved",
+      "sha256": "f2bef1a4ef52949762945e7d17a03a5593e87067cd4992b4ea5c9658f8df99f0",
+      "review": "Reviewed migration100 operational run columns, bounded private checkpoints and invoker transactional progress trigger; actor/scope/credential and evidence rechecks, lease-fenced native-only proposal finalization, request-ID replay before daily quota, and actual worker-kill/revocation/source-withdrawal/HTTP-MCP/quota controls. Existing pure financial policies unchanged."
     },
     "src/apps/approval.rs": {
       "status": "reviewed-binding",
@@ -1641,13 +1666,13 @@
     },
     "src/capabilities/admission.rs": {
       "status": "unproved",
-      "sha256": "d01e3acb64e6e0fa2e3f33f2000e4b073c54a93ad29b261c71a0f17a11bdbf7a",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "2529f11c83b024aa9824a95da179d6bddbad237f24e55310cea036cde42f9de7",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
-      "sha256": "cf91658f761c352b171d67e6a0b72f0c2ad5cd05fe65be324e3062d9a2eb0bc1",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "f01a19a7e2d8a85fefefdac64f53f8d379ce718c69cc86b3bb94266a45240ef5",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     },
     "src/capabilities/contract.rs": {
       "status": "unproved",
@@ -1661,23 +1686,23 @@
     },
     "src/capabilities/dispatch.rs": {
       "status": "unproved",
-      "sha256": "94bc16c0a0ef39d4ee3acebfe0140b61f01449931e34c62277a68fb4831c5636",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "614442ddf6ad95c4e9513b0759bb4661bd03757ad1f410eb84bd3cb09513838f",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     },
     "src/capabilities/registry.rs": {
       "status": "unproved",
-      "sha256": "36fd6dd6ba41ea0b80c5fae802a8cb077b1d5acb533e72474ad984d2fb2cd236",
-      "review": "Reviewed native operation compatibility: rich-document budget profiles retain app bounds; published catalog filter now matches actual categoryId/search DTO aliases; regression assertions retain validation and source fences."
+      "sha256": "539b70efc20f5167264e0a837651c40eb8b386866fecaf4246b2e2a4c411bd8c",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     },
     "src/capabilities/schema.rs": {
       "status": "unproved",
-      "sha256": "218da509b532b88bf2d10696c72301012444d399c549a65002593e40c33bb224",
-      "review": "Reviewed native operation compatibility: rich-document budget profiles retain app bounds; published catalog filter now matches actual categoryId/search DTO aliases; regression assertions retain validation and source fences."
+      "sha256": "55a599858537c4e4c9a0e813d8d69d05032506140bcaef5054d175ba50ccb5fd",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     },
     "src/capabilities.rs": {
       "status": "unproved",
-      "sha256": "f2db23ea7f640231302c7004b01bc1e366c2d5eb5163c4fb3f7d965a4e948c40",
-      "review": "Reviewed native schema budget regression: shared validator retains strict app limits and permits bounded native rich documents; actual catalog MCP regression plus depth and byte counterexamples. No extracted policy changes."
+      "sha256": "0c39f0ac79dff7720896be99d8296c04662e5a4e27d1235ac535479fb4fac25f",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     },
     "src/cart_model.rs": {
       "status": "unproved",
@@ -1748,11 +1773,6 @@
       "status": "unproved",
       "sha256": "d83b944d836e96d1bf54ec61ca334a23958414ca0db1dcff463791dc20b7fc78",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
-    },
-    "src/chat_lease.rs": {
-      "status": "unproved",
-      "sha256": "0f53325d6a4229be31bece171f3d61df1e9e3d93de64063070e8b60c60b388d4",
-      "review": "Initial extraction of 13 production policies; surrounding Rust explicitly unproved; existing HTTP regression suites retained"
     },
     "src/checkout_handoff.rs": {
       "status": "unproved",
@@ -1901,13 +1921,13 @@
     },
     "src/cognition/stream.rs": {
       "status": "unproved",
-      "sha256": "aeaef386a8b88f34ca816a70f8a57a1e485a43a1f5f11181d1f4029b31beeebf",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "db946ea7d2aa4002e35400fdcf1dc11d6f39505000d8978f50ac93f2c35a99d2",
+      "review": "Reviewed final existing-task continuation, actor/scope/evidence checks, UUID lease fences, pre-quota idempotency for HTTP/chat/SSE/MCP and invoker-only transactional state outbox trigger. Actual killed-worker, withdrawal, original approval and final-quota retries execute through Rust/PostgreSQL. Financial pure policies unchanged."
     },
     "src/cognition/tools.rs": {
       "status": "unproved",
-      "sha256": "aa5eb8974917d0b848cbb30f40367513a72b1cc04d98cce60cb4d81b37e2a3ed",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "5b187158426bf52cf53c9821d542453a73c0541e8b3490c5f45f03c0b456e71d",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     },
     "src/commerce/app_adjustments.rs": {
       "status": "unproved",
@@ -2396,8 +2416,8 @@
     },
     "src/inference.rs": {
       "status": "unproved",
-      "sha256": "d4808f09f6c28d0dc9edf7dc76da31c93fa04e9c905e3a765da78957951653ba",
-      "review": "Reviewed bounded RFC6902 model edit adapter, protected metadata and storage/access retention, atomic clone application and host versions; real local Qwen textbox/button, native HTTP staging and no-op/destructive negative cases. SQL/provider adapters remain unproved."
+      "sha256": "f832884c2bf2ae2341c3334b26b0d016fc618c788b401ff39a8b950043d8d51c",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     },
     "src/knowledge/embeddings.rs": {
       "status": "unproved",
@@ -2486,8 +2506,8 @@
     },
     "src/main.rs": {
       "status": "unproved",
-      "sha256": "2f4079fb50daa91ce439e726b4fd166b0ed359eae631a828fae6eb45f3955294",
-      "review": "Reviewed the coordinated Veyndo crate/WIT identity replacement, canonical vector UI assets and method-preserving domain redirect; exact historical migration SHA pairs and additive trigger/function migration preserve ledger and records, verified against 81 historical migrations. Namespace-only Rust changes and formatter import ordering retain behavior; unit, scoped HTTP/PostgreSQL and clippy checks passed. Surrounding Rust remains unproved."
+      "sha256": "53babb2d6705728bbcd611a87bc19aa58be627e175a8c1237033c918f0be5734",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     },
     "src/marketing/app_flows.rs": {
       "status": "reviewed-binding",
@@ -2571,8 +2591,8 @@
     },
     "src/marketing/flows.rs": {
       "status": "unproved",
-      "sha256": "c58a2ded0a5ecc191b00c941bc286bf8f6a4b003b185bd0240fbf1574f246f70",
-      "review": "Review 2026-10-14: bounded modular fulfillment predicates; native carrier intent freezes allocation/dispatch across unknown effects and cross-provider calls, confirmed rejection releases its own intent, exact PDFs acknowledge the original intent. Reviewed split/machine binding, tenant/package/CAS/quota checks and local paid-effect negative fixtures; SQL, crypto and carrier protocols remain unproved."
+      "sha256": "e7b91cc77a4d7929bf6d8cc6f0d116714de00c148535708417e41ce562ad3f2c",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     },
     "src/marketing/gateway.rs": {
       "status": "unproved",
@@ -2676,8 +2696,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "e190602bddbde12436a5e520167e1ea32533a06053b913c5da6cbf93744a897b",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "e766af451e0e4ba250df15146a05649fd3816cd04c2ae2bf586d75fe9eb9d44a",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -2951,8 +2971,8 @@
     },
     "src/performance/admission.rs": {
       "status": "unproved",
-      "sha256": "c13f1290e265a28a9fb702aaf5552afe7fbd2b74b48b17577e3c20a514074665",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "92c078e2b1900f58c25fa609539e97dea0b4d93246d53caf518ff68565725601",
+      "review": "Reviewed final existing-task continuation, actor/scope/evidence checks, UUID lease fences, pre-quota idempotency for HTTP/chat/SSE/MCP and invoker-only transactional state outbox trigger. Actual killed-worker, withdrawal, original approval and final-quota retries execute through Rust/PostgreSQL. Financial pure policies unchanged."
     },
     "src/performance/authority.rs": {
       "status": "unproved",
@@ -3006,8 +3026,8 @@
     },
     "src/planner.rs": {
       "status": "unproved",
-      "sha256": "f0edf053289a86f4880d003f32d4bf4f60605ded99c414472e012d0b3f20165d",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "26b117c1c643e4fbf7ef89e897279073817b86c8c728d42d84dc387fa442fd99",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     },
     "src/platform/ai.rs": {
       "status": "reviewed-binding",
@@ -3121,8 +3141,8 @@
     },
     "src/proposal_apply.rs": {
       "status": "unproved",
-      "sha256": "5b14a37306c1c98273bad60da02d382bbecfb3e5f18a1045e3dad9a135d09bcd",
-      "review": "Reviewed generated app schema and retained storage/access/service contracts, explicit merchant translation enqueue transaction and replay guards, app-only inference output budget and personalization scope/explanation adapters. Verified relevant SQL/provider/frontend fixtures; adapter changes remain outside the extracted policy proof scope."
+      "sha256": "3e378bfd99b09502380383e458d0cd97df969aa2813b44283a93b07e82b1d912",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     },
     "src/proposal_model.rs": {
       "status": "unproved",
@@ -3131,8 +3151,8 @@
     },
     "src/proposal_routes.rs": {
       "status": "unproved",
-      "sha256": "df90140a172eaa20d01e5e431909de85949f2cc868a54a3a4a74d785b496ad5a",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "dc3b6fd2d9d242d9ee2664e844a610444ad5471967ba88f7602941a997a99142",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     },
     "src/request_context.rs": {
       "status": "unproved",
@@ -3141,8 +3161,8 @@
     },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "254780e1a1aba073d826ca90a3f465d8f43ce90a3bede392d58de0e4675a8da2",
-      "review": "Reviewed browser adapters against existing personal/customer ledgers, exact host/origin/CSRF admission, passive-response races, current database scopes, explicit MCP compatibility and intersecting build-owned credential-origin CSP; no pure money or authorization policy changed"
+      "sha256": "91b65dcfdd4e58045ae01a08a1749ab671de2550a93641a1944b0b2e4e628c9b",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",
@@ -3366,8 +3386,8 @@
     },
     "src/workers.rs": {
       "status": "unproved",
-      "sha256": "703ac634f63578e31dfd886000c6c6deb761ed285544eaac68dffc10b6be8168",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "4725d2228d7ca9b50835dde26dd063121632401254a97315a71de1f9d4a33481",
+      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     }
   },
   "inputs": {
@@ -3814,6 +3834,10 @@
     "migrations/099-authenticated-database-scope.sql": {
       "sha256": "f2a1bf26eda6d0fc867ab0dd1434aeabbc77339fc740db357e7b713f04730e50",
       "review": "Retain reviewed separate role-bound SQL scope and 099 staged rollout; native frontend alias allocation requires global collision visibility and atomic managed app DDL while retaining explicit tenant predicates. Added an actual-login negative case proving PUBLIC TEMP allowed table shadowing; configure now revokes PUBLIC TEMP and startup rejects effective tenant CREATE/TEMP grants. No pure Lean policies changed."
+    },
+    "migrations/100-durable-agent-runs.sql": {
+      "sha256": "09ef8b2a117b675ecfb03f2654d76a570872d6d57ae04a258ed92854ff121773",
+      "review": "Reviewed migration100 operational run columns, bounded private checkpoints and invoker transactional progress trigger; actor/scope/credential and evidence rechecks, lease-fenced native-only proposal finalization, request-ID replay before daily quota, and actual worker-kill/revocation/source-withdrawal/HTTP-MCP/quota controls. Existing pure financial policies unchanged."
     },
     "proof/Commerce/Claims.lean": {
       "sha256": "f3de8f3bdfbf76e69dc5a609a7534aa460a7dd5f6c4f6ed14a07590efbdd59ad",

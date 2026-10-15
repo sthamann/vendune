@@ -14,7 +14,7 @@ This folder owns the Rust modules listed below. Each source begins with its resp
 - [`catalog_page.rs`](catalog_page.rs): Bounded tenant-scoped catalog reads. A cursor is a product ID, never an offset.
 - [`catalog_routes.rs`](catalog_routes.rs): Health and localized catalogue HTTP routes.
 - [`channel_metrics.rs`](channel_metrics.rs): Bounded, lossy diagnostic counters. Never use this buffer for business events.
-- [`chat_lease.rs`](chat_lease.rs): Short, cross-replica conversation leases; inference never retains a database transaction.
+- [`agent_runs.rs`](agent_runs.rs): Existing-task continuation, private checkpoints and lease-fenced native proposal completion.
 - [`checkout_handoff.rs`](checkout_handoff.rs): Single-use checkout transfer for independent storefronts; no app-specific catalog or checkout rules.
 - [`concierge.rs`](concierge.rs): Read-only storefront shopping advisor.
 - [`context.rs`](context.rs): Bounded behavioral ports of Shopware 6.7.14.2 context and product-cart selection.

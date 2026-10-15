@@ -228,15 +228,14 @@ try:
     time.sleep(.2)
     assert [call(base, '/api/runtime', h=h)['performance']['reads']['eventInvalidations'] for base in bases] == rollback
     print('PASS committed outbox event invalidates both replicas; rollback emits no notification')
-    # Requests fail before any provider traffic, yet admission attempts remain durable across replicas.
+    # Accepted native tasks consume one durable attempt across replicas; malformed chat does not create work.
     ai_h = {'x-tenant':sessions[0]['workspace'],'Authorization':'Bearer '+sessions[0]['token']}
     if tenant_role:
         sql(f"INSERT INTO tenant_resource_limits(tenant,daily_ai) VALUES('{sessions[0]['workspace']}',3) ON CONFLICT(tenant) DO UPDATE SET daily_ai=3")
     stage = call(one, '/api/environments', {'name':'Quota fixture'}, ai_h)['id']
     for index in range(3):
-        # Missing message is rejected by handler, after quota reservation, without provider calls.
-        call(bases[index%2], '/store-api/product/lamp/questions' if index==2 else '/api/agent/chat', {}, {**ai_h,'x-tenant':stage if index==1 else sessions[0]['workspace']}, expected=400)
-    call(two, '/api/agent/chat', {}, ai_h, expected=429)
+        call(bases[index%2], '/api/agent/chat', {'message':'Local unavailable model quota fixture','background':True,'inference':{'provider':'ollama','model':'unavailable-fixture'}}, {**ai_h,'x-tenant':stage if index==1 else sessions[0]['workspace']})
+    call(two, '/api/agent/chat', {'message':'Over quota','background':True}, ai_h, expected=429)
     assert scoped(sessions[0]['workspace'], 'SELECT attempts FROM tenant_ai_usage').splitlines()[-1] == '3'
     print('PASS daily interactive AI quota is atomic and shared across replicas')
     core_hardening.verify(sql,call,bases,h)

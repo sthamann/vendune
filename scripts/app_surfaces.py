@@ -112,7 +112,8 @@ def run():
         config[app_id]["uiDigests"] = {"v1/index.html": hashlib.sha256(module.UI).hexdigest()}
         pin(config,app_id,m)
         pin(config,app_id,busy)
-        env = {**os.environ, "APP_SERVICES": json.dumps(config), "PROCESS_ROLE": "http", "BIND_ADDR": f"127.0.0.1:{api_port}", "OPENAI_API_KEY": "local-wire-fixture", "OPENAI_BASE_URL": f"http://127.0.0.1:{model_server.server_address[1]}/v1"}
+        # This provider fixture owns both HTTP and queued planning; unrelated test workers must not claim its jobs.
+        env = {**os.environ, "APP_SERVICES": json.dumps(config), "PROCESS_ROLE": "all", "BIND_ADDR": f"127.0.0.1:{api_port}", "OPENAI_API_KEY": "local-wire-fixture", "OPENAI_BASE_URL": f"http://127.0.0.1:{model_server.server_address[1]}/v1"}
 
         def call(path, body=None, headers=None, expected=200, method=None):
             if path == '/api/apps' and isinstance(body,dict) and ('manifest' in body or 'builtIn' in body): body=consent(body)
@@ -211,6 +212,7 @@ def run():
                 call(f"/api/apps/{app_id}/http/guides", {"id": f"page-{n:03}", "revision": 0, "fields": fields}, h)
             call(f"/api/apps/{app_id}/http/guides", {"id": "zz-last", "revision": 0, "fields": fields}, h)
             chat = call("/api/agent/chat", {"message": "Propose changing only the zz-last guide.", "inference": {"provider":"openai", "model":"local-fixture"}}, h)
+            assert chat["messages"][-1]["data"].get("preview"),chat
             preview = chat["messages"][-1]["data"]["preview"]
             task_id = chat["messages"][-1]["data"]["taskId"]
             context = next(item for item in preview["appContext"] if item["app"] == app_id)

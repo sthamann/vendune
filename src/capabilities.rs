@@ -132,14 +132,15 @@ pub(super) async fn invoke_native(
         }
         "merchant.plan" => {
             auth::permit(h, "knowledge.read")?;
-            let t = merchant(a, h)?;
+            merchant(a, h)?;
             let (locale, _) = language_context(a, h).await?;
             let instruction = v["instruction"].as_str().unwrap_or("");
             if instruction.is_empty() || instruction.len() > 4000 {
                 return Err(bad("Instruction must contain 1..4000 characters"));
             }
-            performance::reserve_ai_attempt(a, &t).await?;
-            plan_with(a, &t, instruction, None, "", &locale, h).await
+            let queued=agent_runs::enqueue(a,h,json!({"instruction":instruction,"locale":locale,"channel":marketing::channel_id(h)}),None).await?;
+            let run = agent_runs::wait(a, h, queued["taskId"].as_str().unwrap()).await?;
+            agent_runs::plan_result(run)
         }
         "merchant.apply" => {
             let t = merchant(a, h)?;

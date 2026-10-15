@@ -1,4 +1,4 @@
-//! SSE transports real chat completion and waiting heartbeats; detached execution retains tenant scope and the existing durable chat lease.
+//! Compatible SSE transport waits on the same persisted run; detached request handling retains native tenant scope.
 use super::*;
 use axum::response::sse::{Event, KeepAlive, Sse};
 pub(crate) fn router() -> Router<App> {

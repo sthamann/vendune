@@ -1,6 +1,5 @@
-//! Grounded model planning, recorded inputs and proposed changes.
+//! Grounded model planning: durable input snapshots share native proposal validation and explicit apply.
 use crate::*;
-
 pub(crate) async fn plan_with(
     a: &App,
     t: &str,
@@ -14,6 +13,112 @@ pub(crate) async fn plan_with(
     if instruction.is_empty() || instruction.len() > 4000 {
         return Err(bad("Instruction must contain 1..4000 characters"));
     }
+    let prepared = match agent_runs::checkpoint::load(a, "context").await? {
+        Some(value) => value,
+        None => {
+            let value = prepare(a, t, instruction, history, locale, authority).await?;
+            agent_runs::checkpoint::save(a, "context", &value).await?;
+            value
+        }
+    };
+    let mut ps: Vec<Product> = serde_json::from_value(prepared["products"].clone())
+        .map_err(|_| bad("Invalid saved agent context"))?;
+    let (commerce_settings, _) = commerce::config(a, t).await?;
+    let graph = &prepared["graph"];
+    let facts = &prepared["facts"];
+    let memory = &prepared["memory"];
+    let app_names = &prepared["appNames"];
+    let app_context = &prepared["appContext"];
+    let model_app_context = &prepared["modelAppContext"];
+    let document_sources = &prepared["documentSources"];
+    let private_sources = &prepared["privateSources"];
+    let _slot = a.inference_slots.clone().try_acquire_owned().map_err(|_| {
+        Error(
+            StatusCode::TOO_MANY_REQUESTS,
+            "Inference capacity busy; try again shortly".into(),
+        )
+    })?;
+    let _cluster = performance::cluster_lease::Lease::acquire(a, t, "model", 2).await?;
+    let (output, tool_trace) = cognition::tools::rounds(
+        a,
+        authority,
+        choice,
+        prepared["system"].as_str().unwrap(),
+        prepared["prompt"].as_str().unwrap(),
+        &prepared["schema"],
+    )
+    .await?;
+    let mut p: Proposal = serde_json::from_value(output.value)
+        .map_err(|e| bad(format!("Invalid model proposal: {e}")))?;
+    // Read tools may discover another requested SKU; only hydrate its current owning-tenant row.
+    let requested = p
+        .changes
+        .iter()
+        .map(|c| c.product_id.clone())
+        .collect::<Vec<_>>();
+    if requested.len() > 100 {
+        return Err(bad("Proposal product budget exceeded"));
+    }
+    for row in
+        sqlx::query("SELECT * FROM products WHERE tenant=$1 AND id=ANY($2) ORDER BY id LIMIT 100")
+            .bind(t)
+            .bind(&requested)
+            .fetch_all(&a.db)
+            .await?
+    {
+        let item = product(&row);
+        if !ps.iter().any(|p| p.id == item.id) {
+            ps.push(item);
+        }
+    }
+    if let Some(change) = &mut p.app_action {
+        apps::bind_change(a, t, change, authority).await?;
+    }
+    // Concurrency tokens are trusted state, never facts invented by the model.
+    for c in &mut p.changes {
+        let before = ps
+            .iter()
+            .find(|p| p.id == c.product_id)
+            .ok_or(bad("Unknown product in plan"))?;
+        c.expected_revision = before.revision;
+        if c.price == Some(before.price) {
+            c.price = None;
+        }
+        if c.stock == Some(before.stock) {
+            c.stock = None;
+        }
+    }
+    p.changes.retain(|c| c.price.is_some() || c.stock.is_some());
+    if p.experience.as_ref() == Some(&prepared["experience"].clone()) {
+        p.experience = None;
+        p.expected_experience_revision = None;
+    } else if p.experience.is_some() {
+        p.expected_experience_revision = Some(prepared["experienceRevision"].as_i64().unwrap());
+    }
+    if let Some(experience) = p.experience.as_mut() {
+        experience["headlineLocale"] = json!(locale);
+    }
+    if p.translation.as_ref().is_some_and(|l| {
+        !commerce_settings.locales.contains(l) || *l == commerce_settings.main_locale
+    }) {
+        return Err(bad("Select an enabled translation target"));
+    }
+    validate_proposal(&p, &ps)?;
+    let policy_revision = cognition::guardrails::validate_plan(a, t, &p, &ps).await?;
+    let id = agent_runs::current_id().unwrap_or_else(uid);
+    let evidence = json!({"model":output.model,"inference":output.provider,"usage":output.usage,"evalCount":output.usage["output_tokens"],"knowledge":graph,"instruction":instruction,"locale":locale,"proposal":p,"translationInference":choice.cloned().unwrap_or(Choice{provider:veyndo::inference::Provider::Platform,model:None}),"verifiedFacts":facts,"catalogBefore":ps,"memory":memory,"contextLimit":24,"policyRevision":policy_revision,"actor":header(authority,"x-rac-user"),"toolTrace":tool_trace,"appActions":app_names,"appContext":app_context,"modelAppContext":model_app_context,"documentSources":document_sources,"externalSources":private_sources,"experienceBefore":prepared["experience"].clone(),"applied":false});
+    agent_runs::persist(a, t, &id, &evidence).await?;
+    Ok(json!({"taskId":id,"preview":evidence,"approvalRequired":true}))
+}
+
+async fn prepare(
+    a: &App,
+    t: &str,
+    instruction: &str,
+    history: &str,
+    locale: &str,
+    authority: &RequestContext,
+) -> Result<Value> {
     let mut language_headers = RequestContext::new();
     language_headers.insert("x-tenant", t.parse().map_err(|_| bad("Invalid tenant"))?);
     language_headers.insert(
@@ -21,7 +126,7 @@ pub(crate) async fn plan_with(
         locale.parse().map_err(|_| bad("Invalid locale"))?,
     );
     let (_, chain) = language_context(a, &language_headers).await?;
-    let mut ps = cognition::context_products(a, t, &chain, instruction).await?;
+    let ps = cognition::context_products(a, t, &chain, instruction).await?;
     let er = sqlx::query("SELECT data,revision FROM experiences WHERE tenant=$1")
         .bind(t)
         .fetch_one(&a.db)
@@ -88,79 +193,40 @@ pub(crate) async fn plan_with(
         "Evidence-based memory (associations, no proven causal uplift): {memory}\nInstalled app actions (describe availability; execution uses the authorized app gateway): {}\n{prompt}\nAuthoritative shop observations (use the exact learningSignals counts in your answer to questions about learning): {facts}",
         json!(app_names)
     );
-    let _slot = a.inference_slots.clone().try_acquire_owned().map_err(|_| {
-        Error(
-            StatusCode::TOO_MANY_REQUESTS,
-            "Inference capacity busy; try again shortly".into(),
-        )
-    })?;
-    let _cluster = crate::performance::cluster_lease::Lease::acquire(a, t, "model", 2).await?;
-    let (output, tool_trace) =
-        cognition::tools::rounds(a, authority, choice, system, &prompt, &schema).await?;
-    let mut p: Proposal = serde_json::from_value(output.value)
-        .map_err(|e| bad(format!("Invalid model proposal: {e}")))?;
-    // Read tools may discover another requested SKU; only hydrate its current owning-tenant row.
-    let requested = p
-        .changes
+
+    let products = ps
         .iter()
-        .map(|c| c.product_id.clone())
+        .map(|p| {
+            let mut v = json!(p);
+            v["extra"] = p.extra.clone();
+            v
+        })
         .collect::<Vec<_>>();
-    if requested.len() > 100 {
-        return Err(bad("Proposal product budget exceeded"));
-    }
-    for row in
-        sqlx::query("SELECT * FROM products WHERE tenant=$1 AND id=ANY($2) ORDER BY id LIMIT 100")
-            .bind(t)
-            .bind(&requested)
-            .fetch_all(&a.db)
-            .await?
+    Ok(
+        json!({"products":products,"experience":er.get::<Value,_>("data"),"experienceRevision":er.get::<i64,_>("revision"),"schema":schema,"system":system,"prompt":prompt,"graph":graph,"facts":facts,"memory":memory,"appNames":app_names,"appContext":app_context,"modelAppContext":model_app_context,"documentSources":document_sources,"privateSources":private_sources}),
+    )
+}
+
+/// A saved prompt is not continuing permission to disclose withdrawn app/document evidence.
+pub(crate) async fn validate_context(
+    a: &App,
+    t: &str,
+    h: &RequestContext,
+    request: &Value,
+    saved: &Value,
+) -> Result<()> {
+    let instruction = request["instruction"].as_str().unwrap_or("");
+    let locale = request["locale"].as_str().unwrap_or("en-GB");
+    let apps = apps::planning_context(a, t, h).await?;
+    let sources = documents::search_in(a, t, None, instruction, false, locale, true).await?;
+    let private = apps::private_evidence(a, t, instruction).await?;
+    if apps != saved["appContext"]
+        || cognition::snapshot(&sources, 6000) != saved["documentSources"]
+        || cognition::snapshot(&private, 4000) != saved["privateSources"]
     {
-        let item = product(&row);
-        if !ps.iter().any(|p| p.id == item.id) {
-            ps.push(item);
-        }
+        return Err(conflict(
+            "Agent source permissions or content changed; prepare a new proposal",
+        ));
     }
-    if let Some(change) = &mut p.app_action {
-        apps::bind_change(a, t, change, authority).await?;
-    }
-    // Concurrency tokens are trusted state, never facts invented by the model.
-    for c in &mut p.changes {
-        let before = ps
-            .iter()
-            .find(|p| p.id == c.product_id)
-            .ok_or(bad("Unknown product in plan"))?;
-        c.expected_revision = before.revision;
-        if c.price == Some(before.price) {
-            c.price = None;
-        }
-        if c.stock == Some(before.stock) {
-            c.stock = None;
-        }
-    }
-    p.changes.retain(|c| c.price.is_some() || c.stock.is_some());
-    if p.experience.as_ref() == Some(&er.get::<Value, _>("data")) {
-        p.experience = None;
-        p.expected_experience_revision = None;
-    } else if p.experience.is_some() {
-        p.expected_experience_revision = Some(er.get("revision"));
-    }
-    if let Some(experience) = p.experience.as_mut() {
-        experience["headlineLocale"] = json!(locale);
-    }
-    if p.translation.as_ref().is_some_and(|l| {
-        !commerce_settings.locales.contains(l) || *l == commerce_settings.main_locale
-    }) {
-        return Err(bad("Select an enabled translation target"));
-    }
-    validate_proposal(&p, &ps)?;
-    let policy_revision = cognition::guardrails::validate_plan(a, t, &p, &ps).await?;
-    let id = uid();
-    let evidence = json!({"model":output.model,"inference":output.provider,"usage":output.usage,"evalCount":output.usage["output_tokens"],"knowledge":graph,"instruction":instruction,"locale":locale,"proposal":p,"translationInference":choice.cloned().unwrap_or(Choice{provider:veyndo::inference::Provider::Platform,model:None}),"verifiedFacts":facts,"catalogBefore":ps,"memory":memory,"contextLimit":24,"policyRevision":policy_revision,"actor":header(authority,"x-rac-user"),"toolTrace":tool_trace,"appActions":app_names,"appContext":app_context,"modelAppContext":model_app_context,"documentSources":document_sources,"externalSources":private_sources,"experienceBefore":er.get::<Value,_>("data"),"applied":false});
-    sqlx::query("INSERT INTO tasks(id,tenant,proposal) VALUES($1,$2,$3)")
-        .bind(&id)
-        .bind(t)
-        .bind(&evidence)
-        .execute(&a.db)
-        .await?;
-    Ok(json!({"taskId":id,"preview":evidence,"approvalRequired":true}))
+    Ok(())
 }

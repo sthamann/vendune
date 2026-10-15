@@ -7,20 +7,15 @@ pub(crate) async fn agent_plan(
     Json(v): Json<Value>,
 ) -> Result<Json<Value>> {
     agent::assistant_access(&h)?;
-    let t = merchant(&a, &h)?;
+    merchant(&a, &h)?;
     auth::permit(&h, "knowledge.read")?;
-    Ok(Json(
-        plan_with(
-            &a,
-            &t,
-            v["instruction"].as_str().unwrap_or(""),
-            choice(&v)?.as_ref(),
-            "",
-            &language_context(&a, &h).await?.0,
-            &h,
-        )
-        .await?,
-    ))
+    let selection = choice(&v)?;
+    let queued=agent_runs::enqueue(&a,&h,json!({"instruction":v["instruction"],"inference":selection,"locale":language_context(&a,&h).await?.0,"channel":marketing::channel_id(&h)}),None).await?;
+    if v["background"] == true {
+        return Ok(Json(queued));
+    }
+    let run = agent_runs::wait(&a, &h, queued["taskId"].as_str().unwrap()).await?;
+    Ok(Json(agent_runs::plan_result(run)?))
 }
 pub(crate) async fn agent_apply(
     State(a): State<App>,
@@ -39,9 +34,11 @@ pub(crate) async fn tasks(State(a): State<App>, h: RequestContext) -> Result<Jso
     agent::assistant_access(&h)?;
     let t = merchant(&a, &h)?;
     let rs = sqlx::query(
-        "SELECT id,proposal,applied FROM tasks WHERE tenant=$1 ORDER BY created_at DESC LIMIT 30",
+        "SELECT id,proposal,applied FROM tasks WHERE tenant=$1 AND (run_state IS NULL OR run_state='ready') AND coalesce(run_actor,proposal->>'actor')=$2 AND (run_scopes IS NULL OR run_scopes <@ $3) ORDER BY created_at DESC LIMIT 30",
     )
     .bind(t)
+    .bind(header(&h,"x-rac-user"))
+    .bind(json!(auth::SCOPES.iter().filter(|s|auth::allowed(&h,s)).collect::<Vec<_>>()))
     .fetch_all(&a.db)
     .await?;
     Ok(Json(

@@ -11,3 +11,27 @@
 @import "./studio/10-studio-mobile-preview-button.css";
 
 @import "./automation.css";
+
+.agent-run-card {
+  margin: 16px 0;
+  padding: 20px;
+  border: 1px solid var(--border, #ccdfef);
+  border-radius: 16px;
+  background: var(--surface, #fff);
+  box-shadow: 0 4px 20px #0870c308;
+}
+.agent-run-card > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.agent-run-card p {
+  line-height: 1.6;
+  margin: 10px 0;
+}
+.agent-run-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}

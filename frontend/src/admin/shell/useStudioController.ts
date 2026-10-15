@@ -19,6 +19,7 @@ import { useStudioRequests } from "./requests";
 import { useServerHealth } from "./useServerHealth";
 import { useStudioPermissions } from "./useStudioPermissions";
 import { useStudioAccess } from "./useStudioAccess";
+import { useChatTurns } from "./useChatTurns";
 
 export function useStudioController({
   onChanged,
@@ -249,49 +250,43 @@ export function useStudioController({
   useEffect(() => {
     localStorage.setItem("rac-studio-theme-v03", theme);
   }, [theme]);
-  const load = async (conversationId: string) => {
-    const value = await request(`/api/agent/conversations/${conversationId}`);
-    setId(value.conversationId);
-    setMessages(value.messages);
-    selectTab("assistant");
-    setMenu(false);
-  };
-  const newChat = () => {
-    setId(undefined);
-    setMessages([]);
-    setDraft("");
-    selectTab("assistant");
-    setMenu(false);
-    composer.current?.focus();
-  };
+  const chat = useChatTurns({
+    scope: JSON.stringify([
+      scope,
+      auth.identity?.user.id,
+      auth.expired,
+      locale,
+    ]),
+    request,
+    connected,
+    busy,
+    id,
+    setId,
+    messages,
+    setMessages,
+    draft,
+    setDraft,
+    setPendingText,
+    provider,
+    model,
+    run,
+    refresh,
+    onOpen: () => {
+      selectTab("assistant");
+      setMenu(false);
+    },
+    onNew: () => {
+      selectTab("assistant");
+      setMenu(false);
+      composer.current?.focus();
+    },
+  });
+  const { load, newChat, send } = chat;
   const intent = (text: string) => {
     selectTab("assistant");
     setDraft(text);
     setMenu(false);
     requestAnimationFrame(() => composer.current?.focus());
-  };
-  const send = async () => {
-    if (!draft.trim() || busy || !connected) return;
-    const text = draft;
-    setPendingText(text);
-    setDraft("");
-    await run(async () => {
-      try {
-        const v = await request("/api/agent/chat/stream", {
-          message: text,
-          conversationId: id,
-          inference: { provider, model: model || undefined },
-        });
-        setId(v.conversationId);
-        setMessages(v.messages);
-        await refresh();
-      } catch (e) {
-        setDraft(text);
-        throw e;
-      } finally {
-        setPendingText("");
-      }
-    });
   };
   const apply = async (m: Message) => {
     await request(`/api/agent/tasks/${m.data.taskId}/apply`, { approve: true });
@@ -350,7 +345,10 @@ export function useStudioController({
     setDraft,
     pendingText,
     setPendingText,
-    busy,
+    busy: busy || chat.active,
+    savedRun: chat.savedRun,
+    progressUnavailable: chat.progressUnavailable,
+    controlRun: chat.controlRun,
     setBusy,
     error,
     setError,

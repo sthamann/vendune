@@ -44,6 +44,15 @@ two-replica purchase/cancellation/MCP regression in `production_foundations`.
 
 ## Cognitive commerce continuity
 
+Merchant planning continuation belongs to existing `tasks`, conversations and
+`src/agent_runs/`; read `docs/durable-agent-runs.md`. Keep native read tools, central
+inference and original proposal approval. Store private completed checkpoints,
+recheck credential/scope/evidence, fence completion by its lease and explicitly
+continue uncertain calls. Detect request-ID replays before new attempt quota
+admission. Never store opaque credentials, auto-repeat ambiguous calls, add a
+second queue or turn resume into automatic writes. Keep actual worker-kill,
+HTTP restart, revocation, source-withdrawal and duplicate-request regressions.
+
 Read [the connected cognition guide](docs/cognitive-commerce.md) before changing
 intelligence. It records exact implemented paths and the still-open audit scope.
 `src/cognition/` owns source review, read-agent rounds, price guardrails, controlled

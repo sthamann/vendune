@@ -76,7 +76,7 @@ request('/api/history/role/stock_reader',h=uh,expected=403)
 # Atomically create company/unit and bind only a customer in the same tenant.
 customer=request('/store-api/account/register',{'email':'buyer-'+tag+'@example.test','password':'Customer-fixture-password-2026!','name':'Ada Lookup','firstName':'Ada','lastName':'Lookup'},{'x-tenant':a['workspace']})
 lookup=request('/api/merchant/customers/lookup?limit=20&query=Ada',h=ah)
-assert len(lookup['elements'])==1 and not any(k in lookup['elements'][0] for k in ['addresses','billingAddress','passwordHash'])
+assert len(lookup['elements'])==1 and not any(k in lookup['elements'][0] for k in ['addresses','billingAddress','passwordHash']),lookup
 customer_id=lookup['elements'][0]['id']
 id='c'+tag
 created=request('/api/b2b/company.create',{'id':id,'revision':0,'data':{'name':{'en-GB':'Company fixture'},'active':True,'vatId':''},'customerId':customer_id},ah)

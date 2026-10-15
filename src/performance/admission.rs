@@ -173,6 +173,8 @@ pub(crate) async fn run(a: &App, request: Request, next: Next) -> Response {
     };
     if class == "ai"
         && validated
+        // Native durable planning reserves only when enqueue actually creates work, after its replay lookup.
+        && !matches!(path, "/api/agent/chat" | "/api/agent/chat/stream" | "/api/agent/plan")
         && let Err(e) = reserve_ai_attempt(a, &tenant).await
     {
         return if e.0 == StatusCode::TOO_MANY_REQUESTS {

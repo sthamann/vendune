@@ -37,6 +37,7 @@ pub struct Inference {
     anthropic_key: Option<String>,
     anthropic_model: String,
 }
+#[derive(Clone, Serialize, Deserialize)]
 pub struct Output {
     pub value: Value,
     pub model: String,

@@ -140,7 +140,8 @@ does not measure HTTP, inference, mixed tenant load or the entire platform.
 Planner/Concierge separate read decisions from the final response. Up to four
 read-decision calls allow at most three executed read rounds, three tools per round,
 followed by one final response call (at most five model calls). The read-decision
-schema cannot contain proposed changes. Malformed decisions stop without a task.
+schema cannot contain proposed changes. Malformed decisions stop without an
+executable proposal; durable merchant runs retain their stopped task for inspection.
 Core tools are explicitly classified; current actor permissions and input schemas
 are checked at dispatch. Installed app tools require a current authorized read-only
 contract. Storefront agents can read only public catalog tools. Tools cannot execute
@@ -153,11 +154,14 @@ projection (up to 32 KiB). `modelAppContext` records the separate 4 KiB prompt
 projection, including explicit whole-record omissions. Inspecting a proposal's
 review data does not establish that the model read those omitted records.
 
-`POST /api/agent/chat/stream` carries acceptance, elapsed waiting updates and final
-completion/errors through the existing conversation and lease owner. It is **not
-provider token streaming**, a new chat backend or process-resumable model execution.
-Reloading retrieves the persisted conversation. Reviewed claims, experiment lifecycle/results and applied proposals emit native outbox events selectable in Flow Builder; the existing worker executes them. Scoped app subscriptions receive minimized IDs/states, never private quotes or actor identities. Context omits oversized records
-explicitly and never dumps a million-product catalog into the model.
+Studio now submits `POST /api/agent/chat` with `background: true`, stores acceptance
+and polls the native run. [Saved agent work](durable-agent-runs.md) extends existing
+tasks/conversations with private checkpoints, lease fencing, current evidence and
+explicit continuation. It does not provide provider token streaming or unrestricted
+durable app-write execution. Reloading restores progress and the same proposal.
+Reviewed claims, experiments, proposals and minimized run progress use the original
+outbox/Flow owner. App subscribers receive IDs/states, never private quotes or actor
+identities. Context omits oversized records rather than dumping a whole catalog.
 
 ### Buyer context admission and response freshness
 

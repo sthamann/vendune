@@ -2,6 +2,11 @@
 use crate::*;
 pub(super) fn visible(a: &App, h: &RequestContext, name: &str) -> bool {
     let n = &name;
+    if n.starts_with("merchant.run.") {
+        return merchant(a, h).is_ok()
+            && agent::assistant_access(h).is_ok()
+            && h.principal.app.is_none();
+    }
     if n.starts_with("merchant.app.") {
         return merchant(a, h).is_ok()
             && auth::allowed(h, "apps.read")

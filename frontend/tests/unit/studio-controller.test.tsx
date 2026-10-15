@@ -29,11 +29,12 @@ function network() {
       else if (p === "/api/agent/conversations")
         value = { conversations: [{ id: "c", title: "Fixture conversation" }] };
       else if (p === "/api/auth/session") value = session;
-      else if (
-        p === "/api/agent/conversations/c" ||
-        p === "/api/agent/chat/stream"
-      )
-        value = { conversationId: "c", messages };
+      else if (p === "/api/agent/conversations/c" || p === "/api/agent/chat")
+        value = {
+          conversationId: "c",
+          messages,
+          run: { taskId: "unit-task", state: "ready", revision: 5 },
+        };
       else if (p === "/api/agent/tasks/unit-task/apply")
         value = { applied: true };
       else throw Error("Unexpected fixture path " + p + " " + options?.method);
