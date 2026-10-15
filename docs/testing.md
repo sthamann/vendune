@@ -25,6 +25,14 @@ separate non-owner system/tenant logins, signing-key rotation, restart and denie
 schema/projection access. These are local verification contracts, not proof of a
 completed production migration or unlimited data/throughput capacity.
 
+The existing `identity_broker` suite now constructs an actual separate pre-055
+database from original SQL and ledger checksums. The native migration process must
+upgrade it through storage consolidation, install its missing managed Storyfront
+package and validate the hosted FK before any HTTP read. Two serving processes
+then expose the original managed connection without changing its package revision
+or version history. Rewinding only migration 055 on an already post-102 database
+was an invalid historical fixture; it is not retained as an alternate runtime path.
+
 ## Agentic directory grids — 14 October 2026
 
 [Guide and actual browser captures](agentic-grids.md). The complete local frontend

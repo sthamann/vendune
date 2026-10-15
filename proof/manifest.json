@@ -1086,8 +1086,8 @@
     },
     "src/apps/hosted.rs": {
       "status": "unproved",
-      "sha256": "99c9395d7e764592661a12827605735ff0457f9894a15a20e441b6a6196edd4d",
-      "review": "Reviewed tenant-scoped hosted app association, transactional immutable Storyfront installation and one-time validated migration 055; dependency deactivation shares config/app locks; private renderer excluded. PostgreSQL regressions cover foreign references and cold restart. SQL/network adapters remain unproved."
+      "sha256": "f5adce11589835f9bae7a599f8adb200fa7f8daf9c646eea7ec4e4867a7c0a64",
+      "review": "Reviewed hosted migration responsibility comment after moving native backfill behind shared-store consolidation. Actual pre-055 SQL and canonical ledger now upgrade via the unchanged native migrator before HTTP reads; two real serving processes retain managed Storyfront connection, revision and version history. No runtime decision or proof boundary changed."
     },
     "src/apps/input_schema.rs": {
       "status": "unproved",
