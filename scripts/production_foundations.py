@@ -102,6 +102,10 @@ try:
         # The direct signed suite already repeats the entire HTTP registry. Pooler
         # verification repeats the focused two-replica/restart/rotation path below.
         suites=[] if tenant_pooler else json.loads((ROOT/'scripts/testing/suites.json').read_text())['http']
+        if not tenant_pooler and (selected:=env.get('TEST_SIGNED_HTTP_SUITES')):
+            requested=selected.split(',')
+            assert set(requested)<=set(suites),'Only registered HTTP suites can be selected'
+            suites=[s for s in suites if s in requested]
         for suite in [s for s in suites if s not in ['translations','checkout_review','merchant_operations','tenant_isolation']]:
             command=['python3',f'scripts/{suite}.py']
             if suite=='scalability':command+=['--container',env['TEST_DB_CONTAINER']]

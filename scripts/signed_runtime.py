@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 """Repeat the real two-replica runtime path with separately authenticated tenant/system SQL roles."""
 import os
-import runpy
-from pathlib import Path
-os.environ['TEST_SIGNED_SCOPE']='1'
-runpy.run_path(str(Path(__file__).with_name('production_foundations.py')),run_name='__main__')
+import subprocess
+import sys
+# Activation is a coordinated database cutover, not temporary request state.
+# Give this fixture its own database so later legacy/provider suites are unchanged.
+subprocess.run(
+    [sys.executable,'scripts/verify_integration.py','--container',os.environ.get('TEST_DB_CONTAINER','veyndo-postgres-1'),'--only','production_foundations'],
+    env={**os.environ,'TEST_SIGNED_SCOPE':'1'},check=True,
+)
