@@ -1,0 +1,26 @@
+{
+  "recordedDate": "2026-10-15",
+  "scope": "Hosted shared-app-storage maintenance and browser acceptance; simulated checkout, not real settlement or universal system certification",
+  "productionCutover": true,
+  "migrationSourceCommit": "d5c5d0317837bb7730855d9a7733d52fe0f67ccc",
+  "mainEquivalentCommit": "6622c6db03dfc8964eaa5a48d6e8394c9e9b94b6",
+  "backup": {"name": "pre-shared-app-store-20261015", "completed": true, "sizeGB": 6, "durationSeconds": 58, "restoreExercised": false},
+  "migration": {"run": "75941d39-f367-4d90-b18b-da95579f230a", "oldCoreDrained": true, "exitCode": 0, "legacyTablesRetired": 8, "sharedRecordsPreserved": 3, "sharedReferencesPreserved": 2},
+  "authority": {"enforced": true, "separateSystemAndTenantLogins": true, "servingCredentialGrantChanges": false},
+  "postUseReadOnlyAudit": {"run": "63fdfab2-962d-4bd3-ab59-a092d19ad92a", "packages": 27, "logicalModels": 12, "records": 5, "lookupRows": 14, "referenceRows": 2, "physicalAppTables": 4, "forcedRlsTables": 4, "legacyAppTables": 0},
+  "browserAcceptance": {
+    "existingStoryfront": {"shop": "lumen-story-lab-15-o-98aa4751fa", "order": "RAC-80c690e3", "quantity": 2, "totalEUR": "54.70", "embeddedCheckout": true, "storyfrontBagCleared": true, "adminOrderAndGuestCustomerVisible": true},
+    "newSaas": {"shop": "shared-store-e2e-15--93512d51db", "aiProducts": 2, "generatedImagesLoaded": 2, "germanAndEnglishProductContentChecked": true, "emptyCheckoutRefused": true, "order": "RAC-ed17044e", "totalEUR": "24.40", "bagCleared": true, "adminOrderAndGuestCustomerVisible": true, "orderPlacedFlowVisible": true, "stockAfterOnePurchase": 19},
+    "newExperience": {"shop": "blue-desk-experience-97c8c89c06", "aiProducts": 2, "nativeStoryfrontReviewBuildPublish": true, "order": "RAC-f687ed68", "totalEUR": "21.40", "embeddedCheckout": true, "germanOrderProductName": true, "storyfrontBagCleared": true},
+    "appPublication": {"apps": ["site_builder", "site_forms"], "privateSandbox": "Shop gestalten", "changedAppRecord": "appdata:site_builder:pages:page_83609e17f3564107", "savedThroughNativeEditor": true, "publicPageUnchangedBeforeApproval": true, "selectedPublicationConfirmed": true, "publicHeadingAfterPublication": "Gemeinsam gespeichert. Klar gestaltet."}
+  },
+  "boundaries": [
+    "Only fictitious products, synthetic buyer data and simulated payments were used.",
+    "Welcome-email acceptance is not evidence of inbox delivery.",
+    "The new Experience's Commerce administration requires personal Studio authentication; no password enrollment or access check was bypassed.",
+    "Invoice issuance correctly remains unavailable before configuring a legal issuer; hosted invoice creation was not exercised.",
+    "Original Storyfront inner controls retain some English labels in the German shell; full localization is not established.",
+    "A chosen-shop-name presentation defect found in the new SaaS is tracked separately in PR 137.",
+    "This is not a load benchmark, online tenant relocation, backup-restore drill, live payment/carrier/marketplace/hardware acceptance or proof that every feature is defect-free."
+  ]
+}

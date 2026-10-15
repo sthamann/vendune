@@ -2,6 +2,7 @@
 
 ## Hosted acceptance follow-up
 
+- Complete the coordinated hosted shared-app-storage cutover after a fresh backup and stopped old Core. Retire eight verified legacy tables; confirm four fixed forced-RLS tables after new installations, private page publication and three public simulated checkout flows. Record results and explicit acceptance boundaries separately from local verification.
 - Show the supplied shop name in an unconfigured standard storefront instead of its technical address. Reuse the existing tenant-scoped public company projection; preserve explicit brand translations, legal identity, settings revisions and receipt issuer snapshots.
 
 ## Shared managed app storage

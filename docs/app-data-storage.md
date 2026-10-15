@@ -104,4 +104,13 @@ required for deployment. Local verification is not evidence of production cutove
 The [dated local evidence](evidence/shared-app-storage-2026-10-15.json) records actual
 results, source hashes, the resolved local oracle prerequisite and deployment limits.
 
+The [15 October hosted acceptance](evidence/shared-app-storage-hosted-2026-10-15.json)
+separately records the completed backup, drained-Core migration and public browser
+flows. All eight declared legacy tables were retired. After new shop creation,
+native app installations, a private page edit and selected publication, the database
+still had four physical app tables and no legacy app tables, with 27 packages and
+12 logical models. Existing and newly generated Storyfront shops and a new AI-seeded
+standard shop completed simulated purchases; the evidence retains untested provider,
+invoice, authentication, restore and localization boundaries explicitly.
+
 [App platform](app-platform.md) · [Authenticated SQL authority](authenticated-database-scope.md) · [Testing](testing.md)
