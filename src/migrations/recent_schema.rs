@@ -205,6 +205,10 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         include_str!("../../migrations/097-outbox-fairness.sql"),
     ),
     (
+        "098-product-content-revision",
+        include_str!("../../migrations/098-product-content-revision.sql"),
+    ),
+    (
         "099-authenticated-database-scope",
         include_str!("../../migrations/099-authenticated-database-scope.sql"),
     ),

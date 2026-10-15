@@ -6,6 +6,7 @@ export type ProductDraft = {
   availableLocales?: string[];
   channels?: { id: string; data: any; visible: boolean }[];
   revision: number;
+  contentRevision?: number;
   translations: Record<
     string,
     { name: string | null; description: string | null }
@@ -118,6 +119,25 @@ export function hydrateDraft(v: any): ProductDraft {
     catalog: { ...defaults.catalog, ...v.catalog },
     commerce: { ...defaults.commerce, ...v.commerce },
   };
+}
+/** Omitting untouched stock permits content CAS without ever replaying a purchased quantity. */
+export function productSavePayload(draft: ProductDraft, baseline: string) {
+  const {
+    id: _id,
+    channels: _channels,
+    mainLocale: _mainLocale,
+    availableLocales: _availableLocales,
+    ...payload
+  } = draft;
+  const commerce = { ...payload.commerce };
+  if (
+    draft.id &&
+    draft.contentRevision !== undefined &&
+    commerce.stock === JSON.parse(baseline || "{}").commerce?.stock
+  ) {
+    delete commerce.stock;
+  }
+  return { ...payload, commerce };
 }
 export function categoryDepth(
   category: Category,
