@@ -57,9 +57,11 @@ unrestricted JSON Schema engine. Raw malformed JSON still uses the HTTP extracto
 
 ## SQL and event reliability
 
-Quoted app field names escape embedded quotes in all builds; SQL safety no longer
-depends on `debug_assert!`. Manifest admission still restricts identifiers before
-schema DDL. This defense does not make arbitrary caller-supplied SQL an allowed API.
+App storage uses fixed SQL tables and bound record values. Manifest admission
+restricts logical model/field identifiers; installation and schema upgrades no
+longer interpolate app-defined tables or issue DDL. Declared equality lookups use
+the fixed projection indexes. This defense does not make arbitrary caller-supplied
+SQL an allowed API. See [the shared storage contract](app-data-storage.md).
 
 The existing outbox now leases one ready tenant per batch using persistent
 least-recently-served sequence metadata. Other replicas skip its scheduling lock.
