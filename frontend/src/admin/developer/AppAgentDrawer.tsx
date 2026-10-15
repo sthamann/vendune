@@ -71,7 +71,11 @@ export default function AppAgentDrawer({
       </header>
       <p className="app-agent-drawer-hint">{t("agentHint")}</p>
       <fieldset disabled={studio.busy} className="app-agent-drawer-body">
-        <AppAgentPanel studio={studio} request={request} />
+        <AppAgentPanel
+          key={studio.manifest.id}
+          studio={studio}
+          request={request}
+        />
       </fieldset>
     </dialog>,
     document.querySelector(".studio") ?? document.body,

@@ -297,6 +297,16 @@ it("keeps the agent in a separate dialog and preserves an unfinished prompt when
   ).toHaveValue("Add a welcome banner");
   fireEvent(screen.getByRole("dialog"), new Event("cancel"));
   expect(close).toHaveBeenCalledTimes(2);
+  rerender(
+    <AppAgentDrawer
+      {...props}
+      open
+      studio={{ ...studio, manifest: { ...studio.manifest, id: "other_app" } }}
+    />,
+  );
+  expect(
+    screen.getByRole("textbox", { name: "What would you like to change?" }),
+  ).toHaveValue("");
   show.mockRestore();
   hide.mockRestore();
 });
