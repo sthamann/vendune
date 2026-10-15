@@ -98,7 +98,13 @@ login, rather than using `SET ROLE` on a migration session. It checks forged ten
 and system values, role-bound/expired signatures, private actor substitution,
 identity/key access, DDL denial and key rotation after retiring-key expiry.
 
-The canonical HTTP suite registry is also repeated against the signed runtime
-(translation provider fixtures run separately). Existing pure Lean policies
+`signed_pooler` repeats the same focused flows through two actual PgBouncer
+transaction pools, one backend per login, while notification listeners retain
+the direct system connection. No pool is configured to force a privileged user.
+
+The canonical HTTP suite registry is also repeated against the signed runtime.
+Fixtures owning another fresh database (offline setup and document providers)
+retain their isolated bootstrap; translations run as their separate provider fixture.
+Existing pure Lean policies
 remain unchanged; PostgreSQL, transport, signature integration and deployment
 remain tested implementation, not a whole-system formal proof.
