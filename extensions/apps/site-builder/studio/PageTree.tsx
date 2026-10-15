@@ -17,10 +17,12 @@ export default function PageTree({
   d,
   writable,
   onOpen: open,
+  onHome,
 }: {
   d: Designer;
   writable: boolean;
   onOpen: (page: Page) => void;
+  onHome: () => void;
 }) {
   const t = useDesignText(),
     { language, mainLocale } = useContentLanguage();
@@ -30,15 +32,21 @@ export default function PageTree({
   return (
     <aside className="designer-tree">
       <h2>{t("pages")}</h2>
+      {!visible.some((p) => p.slug === "home" && p.status !== "archived") && (
+        <button className={!d.draft ? "active" : ""} onClick={onHome}>
+          <Icon name="globe" />
+          <span>
+            {t("home")}
+            <small>{t("nativeHome")}</small>
+          </span>
+        </button>
+      )}
       {visible.map((p) => (
         <button
           className={d.draft?.id === p.id ? "active" : ""}
           key={p.id}
           onClick={() => {
-            if (writable && p.channel === "*" && d.channel !== "*") {
-              const copy = newPage(d.channel, mainLocale, "", p.kind);
-              open({ ...p, id: copy.id, revision: 0, channel: d.channel });
-            } else open(p);
+            open(p);
           }}
         >
           <Icon
@@ -86,8 +94,6 @@ export default function PageTree({
           disabled={!writable || !newTitle.trim()}
           onClick={() => {
             const p = newPage(d.channel, mainLocale, newTitle.trim(), kind);
-            if (!visible.length && ["page", "landing"].includes(kind))
-              p.slug = "home";
             open(p);
             setNewTitle("");
           }}

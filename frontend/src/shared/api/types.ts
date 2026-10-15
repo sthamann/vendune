@@ -3,5 +3,5 @@ export type RequestFn = (
   path: string,
   body?: unknown,
   method?: string,
-  options?: { idempotencyKey?: string },
+  options?: { idempotencyKey?: string; salesChannel?: string; locale?: string },
 ) => Promise<any>;

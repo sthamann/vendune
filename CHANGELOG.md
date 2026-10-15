@@ -1,5 +1,12 @@
 # Changelog
 
+## Preview-first shop design — 15 October 2026
+
+- Show the existing native storefront immediately and select saved home pages automatically; remove the blank new-page prerequisite and oversized introductory layout.
+- Use shared native header/hero/product/footer views in an isolated responsive canvas, with contextual properties, on-demand page navigation and persistent save controls. The design preview starts no cart, checkout, tracking or AI session.
+- Open publication review in the actual editor sandbox; keep native app saves/history/release, fork inherited home pages only on edit, preserve actual locale text and product-media selection, and correct the rich editor's language-code-as-prose fallback.
+- Keep session-bound merchant previews on their shared origin instead of redirecting away from the host-bound cookie. Add app-owned UI regressions and channel/locale transport checks.
+
 ## Hosted runtime separation — 15 October 2026
 
 - Switch hosted Core `5e4c18b` to a restricted, non-owner PostgreSQL login with mandatory RLS, separate runtime/listener connections, migration-only owner access and disabled bootstrap authentication.

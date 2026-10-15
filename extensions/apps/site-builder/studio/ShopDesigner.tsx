@@ -5,12 +5,12 @@ import {
   ContentLanguage,
   useContentLanguage,
 } from "../../../../frontend/src/shared/i18n/ContentLanguage";
-import ContentLanguagePicker from "../../../../frontend/src/shared/i18n/ContentLanguagePicker";
 import { contentText } from "../../../../frontend/src/shared/i18n/content-language";
 import AppConsent from "../../../../frontend/src/admin/apps/AppConsent";
 import ConfirmDialog from "../../../../frontend/src/shared/ui/ConfirmDialog";
 import Icon from "../../../../frontend/src/shared/ui/Icon";
 import SiteRenderer from "../Renderer";
+import { homeDraft } from "./home-draft";
 import {
   inheritedTheme,
   effectivePages,
@@ -21,16 +21,16 @@ import { useDesignText } from "./design-i18n";
 import { useEditorText } from "./editor-i18n";
 import useDesigner, { type Designer } from "./useDesigner";
 import PageTree from "./PageTree";
-import PageInspector from "./PageInspector";
-import DesignAgent from "./DesignAgent";
-import PrivateFormInbox from "../../../../frontend/src/shared/apps/PrivateFormInbox";
-import PageHistory from "./PageHistory";
 import usePageProducts from "../usePageProducts";
+import DesignerInspector from "./DesignerInspector";
+import StorefrontCanvas, { type HomeSnapshot } from "./StorefrontCanvas";
 import "./designer.css";
+import "./canvas.css";
 import "./inspector.css";
 type Props = {
   request: RequestFn;
   workspace: string;
+  shopName?: string;
   rights: string[];
   sandbox: boolean;
   onEnvironments: () => void;
@@ -55,6 +55,7 @@ export default function ShopDesigner(props: Props) {
 function DesignerView({
   request,
   workspace,
+  shopName,
   rights,
   sandbox,
   onEnvironments,
@@ -67,16 +68,22 @@ function DesignerView({
   useEffect(() => {
     d.setCatalogueLanguage(language);
   }, [language]);
-  const [device, setDevice] = useState<"desktop" | "tablet" | "mobile">(
-      "desktop",
+  const [device, setDevice] = useState<"desktop" | "tablet" | "mobile">(() =>
+      window.matchMedia("(max-width: 650px)").matches ? "mobile" : "desktop",
     ),
+    [showPages, setShowPages] = useState(false),
     [install, setInstall] = useState(false),
     [pending, setPending] = useState<Page>(),
     [pendingChannel, setPendingChannel] = useState<string>(),
+    [pendingHome, setPendingHome] = useState(false),
     [creating, setCreating] = useState(false);
 
   const [comparison, setComparison] = useState<Page | null>(null);
-  const writable = sandbox && rights.includes("channels.manage"),
+  useEffect(() => setComparison(null), [workspace, d.channel, request]);
+  const writable =
+      sandbox &&
+      rights.includes("channels.manage") &&
+      d.context!.installed.includes("site_builder"),
     missing = ["site_builder", "site_forms"].find(
       (id) => !d.context!.installed.includes(id),
     );
@@ -98,7 +105,45 @@ function DesignerView({
       setCreating(false);
     }
   };
-  const block = d.draft?.content.blocks.find((b) => b.id === d.selected);
+  useEffect(() => {
+    if (!d.loaded || d.draft) return;
+    const pages = effectivePages(d.pages, d.channel);
+    const home = pages.find(
+      (p) => p.slug === "home" && p.status !== "archived",
+    );
+    if (home) d.open(home);
+  }, [d.loaded, d.pages, d.channel, d.draft]);
+  const customizeHome = (
+    snapshot: HomeSnapshot,
+    section: "hero" | "products",
+  ) => {
+    if (d.draft) return;
+    if (!sandbox) {
+      void createSandbox();
+      return;
+    }
+    if (missing) {
+      setInstall(true);
+      return;
+    }
+    if (!writable) {
+      d.setError(t("readOnly"));
+      return;
+    }
+    const page = homeDraft(
+      d.channel,
+      mainLocale,
+      language,
+      d.context!.catalogue.elements,
+      snapshot,
+    );
+    d.open(page);
+    d.setSelected(
+      section === "hero"
+        ? page.content.blocks[0].id
+        : page.content.blocks[1].id,
+    );
+  };
   const theme = {
     ...inheritedTheme(d.pages, d.channel),
     ...explicitTheme(d.draft?.theme),
@@ -114,16 +159,42 @@ function DesignerView({
         )
       ).catalogue.elements,
   );
+  const setup = missing ? (
+    <section className="studio-card designer-setup">
+      <Icon name="palette" size={40} />
+      <h2>{t("install")}</h2>
+      <p>{t("installHint")}</p>
+      <button
+        className="studio-primary"
+        disabled={!rights.includes("apps.manage")}
+        onClick={() => setInstall(true)}
+      >
+        {t("install")}
+      </button>
+      {install && (
+        <AppConsent
+          key={missing}
+          app={missing}
+          request={request}
+          onCancel={() => setInstall(false)}
+          onInstall={async (consent) => {
+            await request("/api/apps", consent);
+            await d.load();
+            window.dispatchEvent(new Event("commerce.apps.changed"));
+          }}
+        />
+      )}
+    </section>
+  ) : null;
   return (
     <div className="shop-designer">
       <header className="designer-heading">
         <div>
-          <span className="section-label">{t("title")}</span>
           <h1>{t("title")}</h1>
           <p>{t("hint")}</p>
         </div>
         <label>
-          {t("pages")}
+          {t("channel")}
           <select
             value={d.channel}
             onChange={(e) => {
@@ -164,6 +235,16 @@ function DesignerView({
             {t("sandbox")} ↗
           </button>
         )}
+        {d.draft && (
+          <button
+            className="studio-primary"
+            disabled={!writable || !d.dirty || d.busy}
+            onClick={() => void d.save()}
+          >
+            <Icon name="check" />
+            {t("save")}
+          </button>
+        )}
         <button
           disabled={!rights.includes("environments.read")}
           onClick={onEnvironments}
@@ -171,66 +252,71 @@ function DesignerView({
           {t("publish")} ↗
         </button>
       </div>
-      <p className="designer-scope-hint">{t("sandboxHint")}</p>
-      {missing ? (
-        <section className="studio-card designer-setup">
-          <Icon name="palette" size={40} />
-          <h2>{t("install")}</h2>
-          <p>{t("installHint")}</p>
-          <button
-            className="studio-primary"
-            disabled={!rights.includes("apps.manage")}
-            onClick={() => setInstall(true)}
-          >
-            {t("install")}
-          </button>
-          {install && (
-            <AppConsent
-              key={missing}
-              app={missing}
-              request={request}
-              onCancel={() => setInstall(false)}
-              onInstall={async (consent) => {
-                await request("/api/apps", consent);
-                await d.load();
-                window.dispatchEvent(new Event("commerce.apps.changed"));
-              }}
-            />
-          )}
-        </section>
-      ) : (
-        <div className="designer-layout">
-          <PageTree d={d} writable={writable} onOpen={open} />
-          <section className="designer-canvas">
-            <div className="designer-preview-bar">
-              <div role="group" aria-label={t("preview")}>
-                {(["desktop", "tablet", "mobile"] as const).map((k) => (
-                  <button
-                    key={k}
-                    aria-pressed={device === k}
-                    onClick={() => setDevice(k)}
-                  >
-                    {t(k)}
-                  </button>
-                ))}
-              </div>
-              <button
-                aria-label={t("up")}
-                disabled={!writable || !d.canUndo}
-                onClick={d.undo}
-              >
-                ↶
-              </button>
-              <button
-                aria-label={t("down")}
-                disabled={!writable || !d.canRedo}
-                onClick={d.redo}
-              >
-                ↷
-              </button>
+      <p className="designer-scope-hint">
+        {d.draft && sandbox ? t("draftHint") : t("previewHint")}
+      </p>
+
+      <div className={`designer-layout ${showPages ? "with-pages" : ""}`}>
+        {showPages && (
+          <PageTree
+            d={d}
+            writable={writable}
+            onOpen={open}
+            onHome={() => {
+              if (d.dirty) setPendingHome(true);
+              else d.close();
+            }}
+          />
+        )}
+        <section className="designer-canvas">
+          <div className="designer-preview-bar">
+            <button
+              aria-expanded={showPages}
+              onClick={() => setShowPages(!showPages)}
+            >
+              <Icon name="menu" size={16} />
+              {t("pagesToggle")}
+            </button>
+            <div role="group" aria-label={t("preview")}>
+              {(["desktop", "tablet", "mobile"] as const).map((k) => (
+                <button
+                  key={k}
+                  aria-pressed={device === k}
+                  onClick={() => setDevice(k)}
+                >
+                  {t(k)}
+                </button>
+              ))}
             </div>
+            <button
+              aria-label={t("undo")}
+              disabled={!writable || !d.canUndo}
+              onClick={d.undo}
+            >
+              ↶
+            </button>
+            <button
+              aria-label={t("redo")}
+              disabled={!writable || !d.canRedo}
+              onClick={d.redo}
+            >
+              ↷
+            </button>
+          </div>
+          <StorefrontCanvas
+            key={`${workspace}:${d.channel}:${language}`}
+            request={request}
+            workspace={workspace}
+            shopName={shopName}
+            channel={d.channel}
+            language={language}
+            device={device}
+            appearance={d.draft ? theme : undefined}
+            products={d.context!.catalogue.elements}
+            onHome={customizeHome}
+          >
             {d.draft ? (
-              <div className={`designer-device device-${device}`}>
+              <div>
                 <SiteRenderer
                   page={comparison ?? d.draft}
                   pages={effectivePages(d.pages, d.channel)}
@@ -262,96 +348,33 @@ function DesignerView({
                   }
                 />
               </div>
-            ) : (
-              <div className="designer-empty">
-                <Icon name="palette" size={60} />
-                <h2>{t("addPage")}</h2>
-                <p>{t("select")}</p>
-              </div>
-            )}
-          </section>
-          <aside className="designer-inspector">
-            {d.draft && (
-              <>
-                <ContentLanguagePicker />
-                <PageInspector
-                  page={d.draft}
-                  appearance={theme}
-                  block={block}
-                  products={selection.products}
-                  request={request}
-                  onSearch={d.search}
-                  disabled={!writable}
-                  onChange={d.edit}
-                  onSelect={d.setSelected}
-                />
-                <button
-                  className="studio-primary designer-save"
-                  disabled={!writable || !d.dirty || d.busy}
-                  onClick={() => void d.save()}
-                >
-                  <Icon name="check" />
-                  {t("save")}
-                </button>
-                <DesignAgent
-                  key={`${d.draft.id}:${d.draft.revision}:${d.selected}`}
-                  request={request}
-                  page={d.draft}
-                  selected={d.selected}
-                  disabled={
-                    !writable ||
-                    d.dirty ||
-                    !d.draft.revision ||
-                    !rights.includes("assistant.use")
-                  }
-                  onPreview={setComparison}
-                  onApplied={async () => {
-                    setComparison(null);
-                    await d.load();
-                    const response = await request(
-                      "/api/apps/site_builder/actions/editor_pages",
-                      { id: d.draft!.id },
-                    );
-                    if (response.elements[0]) d.open(response.elements[0]);
-                  }}
-                />
-                {rights.includes("apps.read") && (
-                  <PageHistory
-                    request={request}
-                    page={d.draft}
-                    selected={d.selected}
-                    disabled={!writable}
-                    onRestore={d.edit}
-                  />
-                )}
-                {rights.includes("customers.pii") &&
-                  rights.includes("customers.read") && (
-                    <PrivateFormInbox
-                      key={d.draft.id}
-                      request={request}
-                      pageId={d.draft.id}
-                      mainLocale={mainLocale}
-                      labels={Object.fromEntries(
-                        d.draft.content.blocks.flatMap((b) =>
-                          b.fields.map((f) => [`${b.id}:${f.id}`, f.label]),
-                        ),
-                      )}
-                    />
-                  )}
-              </>
-            )}
-          </aside>
-        </div>
-      )}
-      {(pending || pendingChannel !== undefined) && (
+            ) : null}
+          </StorefrontCanvas>
+        </section>
+        <DesignerInspector
+          d={d}
+          request={request}
+          rights={rights}
+          writable={writable}
+          theme={theme}
+          products={selection.products}
+          setShowPages={setShowPages}
+          setup={setup}
+          onPreview={setComparison}
+        />
+      </div>
+      {(pending || pendingHome || pendingChannel !== undefined) && (
         <ConfirmDialog
           title={t("discardTitle")}
           onCancel={() => {
             setPending(undefined);
+            setPendingHome(false);
             setPendingChannel(undefined);
           }}
           onConfirm={() => {
             if (pending) d.open(pending);
+            if (pendingHome) d.close();
+            setPendingHome(false);
             if (pendingChannel !== undefined) d.changeChannel(pendingChannel);
             setPendingChannel(undefined);
             setPending(undefined);

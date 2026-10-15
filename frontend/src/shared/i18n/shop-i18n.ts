@@ -5,15 +5,18 @@ import { en } from "./locales/shop-en";
 import { fr } from "./locales/shop-fr";
 import { es } from "./locales/shop-es";
 import type { Key } from "./locales/shop-de";
-export function useShopText() {
-  const context = useLocale();
+export function shopText(locale: string) {
   const dict =
-    context.locale === "de-DE"
+    locale === "de-DE"
       ? de
-      : context.locale === "fr-FR"
+      : locale === "fr-FR"
         ? fr
-        : context.locale === "es-ES"
+        : locale === "es-ES"
           ? es
           : en;
-  return { ...context, s: (key: string) => dict[key as Key] ?? key };
+  return (key: string) => dict[key as Key] ?? key;
+}
+export function useShopText() {
+  const context = useLocale();
+  return { ...context, s: shopText(context.locale) };
 }

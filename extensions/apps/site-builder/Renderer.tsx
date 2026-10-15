@@ -106,7 +106,7 @@ export default function SiteRenderer({
               ? products.filter((p) => b.products.includes(p.id))
               : products;
         const photo =
-          b.image || (b.kind === "hero" ? products[0]?.media[0]?.url : "");
+          b.image || (b.kind === "hero" ? rows[0]?.media[0]?.url : "");
         return (
           <section
             key={b.id}

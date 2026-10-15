@@ -24,6 +24,7 @@ it.each(["#merchant", "#login", "#platform", "#studio-content"])(
 );
 it.each([
   "https://app.veyndo.ai/?shop=my-shop&sandbox=1",
+  "https://app.veyndo.ai/?shop=my-shop&preview=1",
   "https://app.veyndo.ai/?shop=my-shop&studio=developers#merchant",
   "http://127.0.0.1:8787/?shop=my-shop",
   "https://my-shop.veyndo.ai/",

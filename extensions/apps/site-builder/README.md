@@ -17,3 +17,5 @@ in native bounded batches; it does not price products or retain a separate catal
 
 Forms use the host's public form-block contract. The forms app owns intake and its
 private inbox. The original private Storyfront editor remains a different app.
+
+The Studio entry is preview-first: the existing native home is visible before a page record exists, and saved home pages open automatically. `studio/StorefrontCanvas.tsx` owns the static isolated viewport; native header/hero/product/footer **presentation** components are shared with the actual storefront. The preview creates no cart, shopper controller, tracking or payment session. `studio/home-draft.ts` converts an explicit selection to an unsaved native app document while preserving real language text and owned product-media references. `tests/` is registered through thin host test adapters; test code cannot be imported into production modules.

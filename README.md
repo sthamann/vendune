@@ -42,6 +42,8 @@ Commerce remains usable without a model. Hosted chat clients need their own secu
 connection and account-side setup; [connection requirements](docs/connectors.md)
 are explicit.
 
+**Visual shop design:** open a channel and see its existing storefront immediately. Click a hero or product collection, edit the private draft beside a desktop/tablet/mobile preview, then review a selected release. The editor shares native presentation components and the page renderer with the storefront. [Illustrated workflow and boundaries](docs/personal-workspace-and-shop-design.md).
+
 ## Your workspace. Your shop. One change path.
 
 Arrange your own Studio workspace around goals, pin permitted grid views, and shape

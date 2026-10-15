@@ -195,3 +195,22 @@ describe("Studio transport", () => {
     },
   );
 });
+
+it("selects preview channel and content language without changing the authenticated tenant", async () => {
+  const fetcher = vi
+    .fn()
+    .mockResolvedValue({ ok: true, json: async () => ({ data: {} }) });
+  vi.stubGlobal("fetch", fetcher);
+  await createStudioRequest("token-fixture", "private-stage", "en-GB")(
+    "/store-api/company",
+    undefined,
+    "GET",
+    { salesChannel: "france", locale: "fr-FR" },
+  );
+  expect(fetcher.mock.calls[0][1].headers).toMatchObject({
+    Authorization: "Bearer token-fixture",
+    "x-tenant": "private-stage",
+    "sw-sales-channel-id": "france",
+    "x-commerce-locale": "fr-FR",
+  });
+});

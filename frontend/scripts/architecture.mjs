@@ -13,7 +13,9 @@ const walk = (dir) =>
 const appRoot = path.resolve(root, "../extensions/apps");
 const pluginFiles = process.argv[2]
   ? []
-  : walk(appRoot).filter((f) => /\.(tsx?|css)$/.test(f));
+  : walk(appRoot).filter(
+      (f) => /\.(tsx?|css)$/.test(f) && !f.includes("/tests/"),
+    );
 const files = [
   ...walk(source).filter((f) => /\.(tsx?|css)$/.test(f)),
   ...pluginFiles,
@@ -59,6 +61,8 @@ for (const file of files) {
       errors.push(`${relative(file)} cannot resolve ${spec}`);
       return;
     }
+    if (runtime && target.includes("/tests/"))
+      errors.push(`${relative(file)} imports test code into production`);
     if (
       target.endsWith("/manifest.json") &&
       target.startsWith(appRoot + path.sep)

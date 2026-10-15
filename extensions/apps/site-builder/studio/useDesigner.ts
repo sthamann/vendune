@@ -1,7 +1,13 @@
 /** Explicit native saves and scope-safe reads; local undo never bypasses record CAS or staging review. */
 import { useEffect, useRef, useState } from "react";
 import type { RequestFn } from "../../../../frontend/src/shared/api/types";
-import { appPath, pageFields, normalizePage, type Page } from "../model";
+import {
+  appPath,
+  pageFields,
+  normalizePage,
+  newPage,
+  type Page,
+} from "../model";
 import type { SiteProduct } from "../Renderer";
 export type Context = {
   channels: { id: string; data: { name: Record<string, string> } }[];
@@ -100,6 +106,9 @@ export default function useDesigner(request: RequestFn, workspace: string) {
   };
   const edit = (page: Page) => {
     if (draft) setPast((p) => [...p, draft].slice(-30));
+    if (page.channel === "*" && channel !== "*") {
+      page = { ...page, id: newPage(channel, "", "").id, revision: 0, channel };
+    }
     setFuture([]);
     setDraft(page);
     setSaved(false);
@@ -167,6 +176,11 @@ export default function useDesigner(request: RequestFn, workspace: string) {
     saved,
     dirty,
     open,
+    close: () => {
+      setDraft(undefined);
+      baseline.current = "";
+      setSelected("");
+    },
     edit,
     save,
     load,

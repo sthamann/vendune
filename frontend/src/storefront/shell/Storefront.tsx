@@ -17,8 +17,6 @@ import CustomerAccount from "../account/CustomerAccount";
 import PrivacyProvider from "../legal/PrivacyProvider";
 import LegalDocument from "../legal/LegalDocument";
 import ConsumerRequestForm from "../legal/ConsumerRequestForm";
-import { openConsent } from "../../shared/legal/consent-store";
-import { useLegalText } from "../../shared/i18n/legal-i18n";
 import BehaviorAnalytics from "./BehaviorAnalytics";
 import ShopAnalytics from "../../../../extensions/apps/google-analytics/storefront/ShopAnalytics";
 import ProductPage from "../catalog/ProductPage";
@@ -30,7 +28,7 @@ import "../styles/shop.css";
 
 import { StorefrontContext } from "./StorefrontContext";
 import CompanyLegalPage from "./CompanyLegalPage";
-import { useCompanyText } from "../../shared/i18n/company-i18n";
+import StorefrontFooter from "./StorefrontFooter";
 import "../styles/company-identity.css";
 import StorefrontHeader from "./StorefrontHeader";
 import StorefrontHome from "./StorefrontHome";
@@ -41,8 +39,6 @@ import "../styles/storefront-polish.css";
 import "../styles/experience-polish.css";
 import ChannelPreview, { channelPreview } from "./ChannelPreview";
 export default function Storefront(props: { onMerchant: () => void }) {
-  const { co } = useCompanyText();
-  const { l } = useLegalText();
   const c = useStorefrontController(props);
   const {
     company,
@@ -159,20 +155,9 @@ export default function Storefront(props: { onMerchant: () => void }) {
                   <ShopSite fallback={<StorefrontHome />} />
                 )}
                 {!checkoutParent() && (
-                  <footer className="shop-footer">
-                    <strong>
-                      {company.brandName || company.name || shopTenant} /
-                    </strong>
-                    <a href="#legal">{co("legalPage")}</a>
-                    <a href="#legal/privacy">{l("privacy")}</a>
-                    <a href="#legal/terms">{l("terms")}</a>
-                    <a href="#legal/accessibility">{l("accessibility")}</a>
-                    <a href="#withdrawal">{l("withdrawHere")}</a>
-                    <a href="#privacy-rights">{l("rights")}</a>
-                    <button onClick={openConsent}>{l("consent")}</button>
-                    <p>{s("simulation")}</p>
-                    <a href="https://github.com/sthamann/veyndo">GitHub ↗</a>
-                  </footer>
+                  <StorefrontFooter
+                    name={company.brandName || company.name || shopTenant}
+                  />
                 )}
                 {account && !channelPreview() && (
                   <CustomerAccount

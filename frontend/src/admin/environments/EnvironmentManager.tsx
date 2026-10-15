@@ -17,6 +17,7 @@ export default function EnvironmentManager({
   role,
   rights,
   onSelect,
+  initialId,
 }: {
   request: RequestFn;
   environments: Environment[];
@@ -24,10 +25,15 @@ export default function EnvironmentManager({
   role: string;
   rights?: string[];
   onSelect: (id: string) => void;
+  initialId?: string;
 }) {
   const { w, date } = useWorkbenchText();
   const [name, setName] = useState("");
-  const [id, setId] = useState(environments[0]?.id ?? "");
+  const [id, setId] = useState(
+    environments.some((e) => e.id === initialId)
+      ? initialId!
+      : (environments[0]?.id ?? ""),
+  );
   const [changes, setChanges] = useState<Change[]>([]);
   const [selected, setSelected] = useState<string[]>([]);
   const [error, setError] = useState("");

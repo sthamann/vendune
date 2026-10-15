@@ -44,6 +44,7 @@ export function canonicalShopURL(url: URL): string | undefined {
     !id ||
     !validShopId(id) ||
     url.searchParams.has("sandbox") ||
+    url.searchParams.has("preview") ||
     ["#merchant", "#studio-content", "#login", "#platform"].includes(url.hash)
   )
     return;

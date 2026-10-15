@@ -62,6 +62,7 @@ export default function StudioRoutes() {
     token,
     environment,
     workspace,
+    workspaceName,
     role,
     liveRequest,
     environments,
@@ -131,6 +132,7 @@ export default function StudioRoutes() {
     <ShopDesigner
       request={request}
       workspace={environment || workspace}
+      shopName={workspaceName}
       rights={access}
       sandbox={!!environment}
       onEnvironments={() => selectTab("environments")}
@@ -243,6 +245,7 @@ export default function StudioRoutes() {
     />
   ) : tab === "environments" ? (
     <EnvironmentManager
+      initialId={environment}
       request={liveRequest}
       environments={environments}
       onRefresh={refreshEnvironments}

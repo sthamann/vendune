@@ -48,8 +48,8 @@ scheduler or promise that a sentence automatically completes a whole campaign.
 2. Create/select a private sandbox. Live view is read-only in this editor.
 3. Review the native **Shop design** and **Forms inbox** package consents. Their
    implementations remain in `extensions/apps/site-builder/` and `site-forms/`.
-4. Open a page or create a Page, Campaign, Blog, Article or Form. A first ordinary
-   page/campaign becomes `home`. Use lowercase letters, numbers and dashes for slugs.
+4. The existing storefront is visible immediately, including the native header, hero, product cards and footer. Saved home pages open automatically. Click the hero or collection to prepare a private home-page document; **New page** remains a separate action for additional pages. No blank CMS form is required before seeing the shop.
+   Additional pages use lowercase letters, numbers and dashes for their addresses.
 5. Select a section in the real shared preview. Edit its heading inline or use the
    localized inspector; rich text uses the existing Tiptap/Markdown editor.
 6. Pick actual channel products, appearance, spacing, typography and images. Switch
@@ -57,10 +57,10 @@ scheduler or promise that a sentence automatically completes a whole campaign.
 7. Save, then choose **Review publication**. Select the intended app/page changes
    in the native staging review and publish explicitly.
 
-![Shared renderer and property inspector in the native Studio](assets/workspace-20261015/designer.jpg)
+![Shared renderer and property inspector in the native Studio](assets/shop-design-20261015/editor-desktop.png)
 
 The global `*` home supplies the inherited appearance. A channel home overrides
-selected values; null/missing theme properties inherit. Selecting an inherited
+selected values; null/missing theme properties inherit. Editing an inherited
 page in a writable channel creates a channel-specific copy with a new stable ID.
 Non-home page appearance is local to that document. The native header/footer and
 product/cart routes retain the channel home theme.
@@ -178,3 +178,21 @@ provider request and continuous whole-business autonomous goals remain further w
 Continue with [staging and releases](app-studio.md), [App platform](app-platform.md),
 [localization](localization.md), [native checkout](checkout.md) and the
 [original Storyfront integration](storyfront.md).
+
+## Preview-first editor repair — 15 October 2026
+
+The editor now gives the storefront most of the available width. Pages/sections open on demand; the contextual inspector sits beside the canvas. Page metadata and SEO are collapsed while editing a section, and saving stays in the top toolbar. Desktop, tablet and mobile use independent frame widths rather than squeezing desktop CSS into a narrow column.
+
+The preview projects the actual channel catalogue and public company identity through the existing authenticated transport. Header, hero, product cards and footer are shared native presentation components, also used by the storefront. The isolated static document loads owned styles and parent-owned React components; it starts **no shopper controller, cart, analytics, AI request or payment session**. Commerce/account actions are intentionally inactive here. This is a design preview, not a replacement for testing the public checkout or private Storyfront editor; personalized concierge results and third-party interactive widgets require their own acceptance.
+
+Clicking the native home prepares an unsaved `site_builder` document with stable section IDs, genuine main-language/selected-language text and references to native product media. It does not copy an invalid local demo-image URL into the managed image field. Saving, history, AI proposals and selected release still use the existing app contracts. An inherited global page is forked into the selected channel only when edited. The rich editor displays inherited rich content instead of treating a locale code as fallback prose.
+
+Regression coverage includes the real static frame, native product rendering and click selection, no cart/order calls, automatic home selection, locale/channel transport, inherited-page fork and media/translation preservation. The package owns its test cases; thin frontend adapters register them in the shared runner.
+
+![Mobile storefront viewport inside the same editor](assets/shop-design-20261015/editor-mobile.png)
+
+The release review opens the currently selected sandbox rather than the first unrelated environment. Local browser acceptance followed native home → section selection → translated heading edit → CAS save → reopen → select only the page → native release → published page with the same heading and catalogue image. Mobile preview was checked at its actual 390 CSS-pixel frame width; this capture is the desktop editor's mobile preview, not a claim of a separate phone-browser checkout test.
+
+The same local acceptance also added an actual product from the published page to the native cart, reviewed delivery/tax totals, and completed a **simulated** EUR 43.90 order (`RAC-33d99e28`) with synthetic contact/address data. The confirmation rendered and the cart count returned to zero. This does not claim a real payment-provider settlement or a hosted rollout.
+
+![Native simulated checkout after publishing the edited page](assets/shop-design-20261015/checkout-confirmed.png)
