@@ -1071,8 +1071,8 @@
     },
     "src/apps/job_callbacks.rs": {
       "status": "unproved",
-      "sha256": "3fdbc1c4c92bbf5307f76c50f22464e65e5a42de5435e4b463a83d4ba5d1a146",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "bc0ae8cd12bf8545eb57a0f8506d65a025e83feb5343f1929223674d553ff0de",
+      "review": "Retain role-bound scope, separate pools, restrictive policies and TEMP denial. App job callbacks now lock scoped memberships and workspace role base rows before reading the canonical security-invoker grants view; no UPDATE grant on the view or wider system scope is needed. Complete registered signed HTTP flows and two separate real PgBouncer pools pass with worker restart, revocation, native app jobs and key rotation. Each signed cutover fixture owns a separate disposable database."
     },
     "src/apps/jobs.rs": {
       "status": "unproved",
