@@ -41,6 +41,18 @@ pass. The full HTTP registry with stricter connections and both exact-head CI ru
 [PR 133](https://github.com/sthamann/veyndo/pull/133) merged as `d6ed72d`; production
 role provisioning and activation have not yet been performed.
 
+**Public browser release:** [PR 134](https://github.com/sthamann/veyndo/pull/134),
+`0b7c358`, is now serving from Northflank `charming-number-9351` with one healthy
+replica. Migration 099 completed after an explicitly approved maintenance grant:
+the migration login inherits the existing runtime login, never the reverse. The
+temporary administrator reference was removed and the diagnostic job restored.
+This does not activate strict separate tenant/system runtime scope. Public UI
+acceptance completed a new native checkout (`RAC-e2d135bc`) and a checkout inside
+the original published Storyfront (`RAC-0a976d46`). The latter returned the native
+confirmation and cleared Storyfront's own bag to zero. Both used synthetic buyers
+and simulated payments. Existing Studio access/reload and the native order grid
+also worked. See the [deployment receipt](evidence/browser-release-2026-10-15.json).
+
 ## Recent product requests
 
 | Request | Verified state | Remaining acceptance |
@@ -67,7 +79,7 @@ role provisioning and activation have not yet been performed.
 | Generic revision-bound changesets | Open; existing proposals support a fixed set of changes. | Domain previews, pinned input revisions, one reviewed release/apply path and atomicity appropriate to the domain. |
 | Native provider tool calls | Open; current read rounds use structured JSON. | Actual OpenAI/Anthropic/Ollama conversation adapters, authorized tools and provider-fixture parity. |
 | Prompt caching | Existing opt-in support; not a newly implemented feature. | Verify deployment configuration and actual usage before claiming token/cost savings. |
-| Durable agent runs | Source implemented on existing tasks/conversations: private checkpoints, current authority/evidence, fenced worker leases, background UI, HTTP/MCP and explicit continuation/cancellation. | Actual worker kill/restart, duplicate requests, role/key/source withdrawal and native-only approval are exercised locally. Full verification/CI/public deployment remain distinct; general arbitrary app-effect continuation is not implemented. See [saved agent work](durable-agent-runs.md). |
+| Durable agent runs | Source implemented on existing tasks/conversations: private checkpoints, current authority/evidence, fenced worker leases, background UI, HTTP/MCP and explicit continuation/cancellation. | The complete registered local integration suite passes, including actual worker kill/restart, duplicate requests, final-quota retries, HTTP/SSE compatibility, role/key/source withdrawal and native-only approval. Exact-head CI/public deployment remain distinct; general arbitrary app-effect continuation is not implemented. See [saved agent work](durable-agent-runs.md). |
 | Evals and prompt versions | Local provider fixtures exist; broader task/injection corpus open. | Prompt identity in evidence, adversarial scope cases and explicit optional real-provider tests. |
 | ACP/AP2/subscriptions | Open; do not advertise from roadmap prose. | Verify current primary specifications, implement supported subset and real denied-access cases. |
 | JSON-LD | Requires an explicit current storefront audit. | Validate rendered product/offer facts and current public/channel/currency admission. |
@@ -91,7 +103,7 @@ role provisioning and activation have not yet been performed.
 | Released migration identifiers | Already immutable. | Never rename or renumber deployed migrations to tidy historical duplicate prefixes. |
 | SQL identifier quoting | Published through PR 130 in all builds. | Invalid delimiters remain quoted; manifest admission still rejects invalid identifiers. |
 | System-scope database role separation | Implemented source: separate restricted pools, role-bound signed transaction scopes, restrictive policies, private actor fences, native DDL owner and startup audits. Local actual-login attacks and real transaction-pool/restart/rotation paths pass. | Full HTTP verification and both exact-head CI jobs passed; PR 133 merged as `d6ed72d`. Coordinated production activation remains required; legacy/staged mode is not the enforced boundary. |
-| HttpOnly browser sessions and Studio CSP | PR 134 merged as `0b7c358` after complete HTTP, frontend, Rust and exact-head CI checks. Existing ledgers, exact origins, per-tab fences, separate customer cookies, all-host build-only scripts and bearer/MCP compatibility. | Actual local login/reload/MCP/logout passed. Northflank build succeeded; Core deployment and public browser/handoff acceptance remain pending. See [browser sessions](browser-sessions.md). |
+| HttpOnly browser sessions and Studio CSP | PR 134 merged as `0b7c358` and publicly deployed after successful migration 099. Existing ledgers, exact origins, per-tab fences, separate customer cookies, all-host build-only scripts and bearer/MCP compatibility. | Local login/reload/MCP/logout passed. Public Studio reload/order reads, native simulated purchase and original Storyfront embedded purchase/bag-clear passed. New public password/provider login was not repeated in this release check. See [browser sessions](browser-sessions.md). |
 | Purpose keys and rotation | Open. | Separate signing/encryption purposes, key IDs and backwards-compatible verification/decryption overlap. |
 | License/positioning | Sustainable Use License already identified. | Keep actual prototype/production boundaries; do not call the license OSI open source. |
 
