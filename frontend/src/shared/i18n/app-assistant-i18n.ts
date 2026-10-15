@@ -218,6 +218,12 @@ export const assistantWords = {
     "Fiche produit",
     "Detalle de producto",
   ],
+  storefrontBlock: [
+    "Shop design element",
+    "Baustein für Shop gestalten",
+    "Élément de boutique",
+    "Elemento para diseñar la tienda",
+  ],
   storefrontPage: [
     "Own storefront page",
     "Eigene Frontend-Seite",

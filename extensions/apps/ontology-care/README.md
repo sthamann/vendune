@@ -46,3 +46,9 @@ list action deliberately exposes its selected graph fields to shoppers; private
 models require current merchant rights. Source admission for the product claim
 compiler, global semantic traversal, and unstructured extraction from app content
 remain separate work. Do not treat a graph mapping as fact confirmation.
+
+Version 1.1.0 exposes the same native care view as an insertable `storefront.block`
+element. Install/update explicitly, open Shop design → Elements → From your apps,
+and insert Care knowledge. Data remains owned by this app; the page holds only the
+app/surface reference. Preview reads use the existing public list with a server-narrowed
+grant. No app files are copied into the host.

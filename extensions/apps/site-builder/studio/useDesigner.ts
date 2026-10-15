@@ -9,11 +9,13 @@ import {
   type Page,
 } from "../model";
 import type { SiteProduct } from "../Renderer";
+import type { AppSurface } from "../../../../frontend/src/shared/apps/AppSurfaces";
 export type Context = {
   channels: { id: string; data: { name: Record<string, string> } }[];
   locales: string[];
   mainLocale: string;
   installed: string[];
+  elements?: AppSurface[];
   catalogue: {
     elements: SiteProduct[];
     hasMore: boolean;
@@ -86,6 +88,21 @@ export default function useDesigner(request: RequestFn, workspace: string) {
       active = false;
     };
   }, [channel, catalogueLanguage]);
+  useEffect(() => {
+    let active = true;
+    const refresh = () => {
+      void readContext()
+        .then((c) => {
+          if (active) setContext(c);
+        })
+        .catch(() => {});
+    };
+    addEventListener("commerce.apps.changed", refresh);
+    return () => {
+      active = false;
+      removeEventListener("commerce.apps.changed", refresh);
+    };
+  }, [workspace, request, channel, catalogueLanguage]);
   const dirty = !!draft && baseline.current !== JSON.stringify(draft);
   useEffect(() => {
     if (!dirty) return;
@@ -113,16 +130,18 @@ export default function useDesigner(request: RequestFn, workspace: string) {
     setDraft(page);
     setSaved(false);
   };
-  const save = async () => {
-    if (!draft || busy) return;
+  const save = async (page = draft) => {
+    if (!page || busy) return;
+    if (page.channel === "*" && channel !== "*")
+      page = { ...page, id: newPage(channel, "", "").id, revision: 0, channel };
     setBusy(true);
     setError("");
     const current = scope.current;
     try {
       const result = await request(`${appPath}save_page`, {
-        id: draft.id,
-        revision: draft.revision,
-        fields: pageFields(draft),
+        id: page.id,
+        revision: page.revision,
+        fields: pageFields(page),
       });
       if (current !== scope.current) return;
       const next = {
@@ -134,6 +153,7 @@ export default function useDesigner(request: RequestFn, workspace: string) {
       baseline.current = JSON.stringify(next);
       setPages((rows) => [...rows.filter((p) => p.id !== next.id), next]);
       setSaved(true);
+      return next;
     } catch (e) {
       if (current === scope.current) setError((e as Error).message);
     } finally {

@@ -1,11 +1,10 @@
 /** Three-panel standard-shop editor inside the native shell; Storyfront retains its separate original editor. */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { RequestFn } from "../../../../frontend/src/shared/api/types";
 import {
   ContentLanguage,
   useContentLanguage,
 } from "../../../../frontend/src/shared/i18n/ContentLanguage";
-import { contentText } from "../../../../frontend/src/shared/i18n/content-language";
 import AppConsent from "../../../../frontend/src/admin/apps/AppConsent";
 import ConfirmDialog from "../../../../frontend/src/shared/ui/ConfirmDialog";
 import Icon from "../../../../frontend/src/shared/ui/Icon";
@@ -22,11 +21,15 @@ import { useEditorText } from "./editor-i18n";
 import useDesigner, { type Designer } from "./useDesigner";
 import PageTree from "./PageTree";
 import usePageProducts from "../usePageProducts";
-import DesignerInspector from "./DesignerInspector";
+import DesignerInspector, { type DesignerMode } from "./DesignerInspector";
+import DesignerHeader from "./DesignerHeader";
 import StorefrontCanvas, { type HomeSnapshot } from "./StorefrontCanvas";
 import "./designer.css";
 import "./canvas.css";
 import "./inspector.css";
+import "./workspace.css";
+import "./navigation.css";
+import "./palette.css";
 type Props = {
   request: RequestFn;
   workspace: string;
@@ -78,6 +81,8 @@ function DesignerView({
     [pendingHome, setPendingHome] = useState(false),
     [creating, setCreating] = useState(false);
 
+  const [mode, setMode] = useState<DesignerMode>("edit");
+  const nativeSnapshot = useRef<HomeSnapshot | undefined>(undefined);
   const [comparison, setComparison] = useState<Page | null>(null);
   useEffect(() => setComparison(null), [workspace, d.channel, request]);
   const writable =
@@ -94,6 +99,13 @@ function DesignerView({
   };
   const createSandbox = async () => {
     if (!onSandbox || creating) return;
+    if (
+      !rights.includes("environments.manage") ||
+      !rights.includes("channels.manage")
+    ) {
+      d.setError(t("readOnly"));
+      return;
+    }
     setCreating(true);
     d.setError("");
     try {
@@ -138,6 +150,7 @@ function DesignerView({
       snapshot,
     );
     d.open(page);
+    setMode("edit");
     d.setSelected(
       section === "hero"
         ? page.content.blocks[0].id
@@ -188,73 +201,22 @@ function DesignerView({
   ) : null;
   return (
     <div className="shop-designer">
-      <header className="designer-heading">
-        <div>
-          <h1>{t("title")}</h1>
-          <p>{t("hint")}</p>
-        </div>
-        <label>
-          {t("channel")}
-          <select
-            value={d.channel}
-            onChange={(e) => {
-              if (d.dirty) setPendingChannel(e.target.value);
-              else d.changeChannel(e.target.value);
-            }}
-          >
-            {d.context!.channels.map((c) => (
-              <option value={c.id} key={c.id}>
-                {contentText(c.data.name, language, mainLocale)}
-              </option>
-            ))}
-            <option value="*">{t("global")}</option>
-          </select>
-        </label>
-      </header>
-      {d.error && (
-        <p className="designer-error" role="alert">
-          {d.error}
-        </p>
-      )}
-      {selection.error && (
-        <p className="designer-error" role="alert">
-          {e("unavailable")}
-        </p>
-      )}
-      {d.saved && <p role="status">{t("saved")}</p>}
-      <div className="designer-toolbar">
-        <span className={`designer-scope ${sandbox ? "is-private" : ""}`}>
-          <Icon name={sandbox ? "lock" : "globe"} />
-          {sandbox ? t("sandbox") : t("readOnly")}
-        </span>
-        {!sandbox && (
-          <button
-            disabled={!rights.includes("environments.manage") || creating}
-            onClick={() => void createSandbox()}
-          >
-            {t("sandbox")} ↗
-          </button>
-        )}
-        {d.draft && (
-          <button
-            className="studio-primary"
-            disabled={!writable || !d.dirty || d.busy}
-            onClick={() => void d.save()}
-          >
-            <Icon name="check" />
-            {t("save")}
-          </button>
-        )}
-        <button
-          disabled={!rights.includes("environments.read")}
-          onClick={onEnvironments}
-        >
-          {t("publish")} ↗
-        </button>
-      </div>
-      <p className="designer-scope-hint">
-        {d.draft && sandbox ? t("draftHint") : t("previewHint")}
-      </p>
+      <DesignerHeader
+        d={d}
+        rights={rights}
+        sandbox={sandbox}
+        writable={writable}
+        creating={creating}
+        selectionError={!!selection.error}
+        onChannel={(channel) => {
+          if (d.dirty) setPendingChannel(channel);
+          else d.changeChannel(channel);
+        }}
+        onSandbox={() => void createSandbox()}
+        onEnvironments={onEnvironments}
+        onAgent={() => setMode("agent")}
+        agentOpen={mode === "agent"}
+      />
 
       <div className={`designer-layout ${showPages ? "with-pages" : ""}`}>
         {showPages && (
@@ -262,6 +224,8 @@ function DesignerView({
             d={d}
             writable={writable}
             onOpen={open}
+            onAdd={() => setMode("blocks")}
+            onEdit={() => setMode("edit")}
             onHome={() => {
               if (d.dirty) setPendingHome(true);
               else d.close();
@@ -314,6 +278,9 @@ function DesignerView({
             appearance={d.draft ? theme : undefined}
             products={d.context!.catalogue.elements}
             onHome={customizeHome}
+            onSnapshot={(snapshot) => {
+              nativeSnapshot.current = snapshot;
+            }}
           >
             {d.draft ? (
               <div>
@@ -327,7 +294,10 @@ function DesignerView({
                   channel={d.channel}
                   request={request}
                   selected={d.selected}
-                  onSelect={d.setSelected}
+                  onSelect={(id) => {
+                    d.setSelected(id);
+                    setMode("edit");
+                  }}
                   onInline={
                     writable && !comparison
                       ? (id, text) =>
@@ -360,6 +330,37 @@ function DesignerView({
           products={selection.products}
           setShowPages={setShowPages}
           setup={setup}
+          mode={mode}
+          onMode={setMode}
+          onPrepare={async () => {
+            if (!writable) {
+              if (!sandbox) await createSandbox();
+              else d.setError(t("readOnly"));
+              return;
+            }
+            if (
+              d.draft?.revision &&
+              !d.dirty &&
+              (d.draft.channel !== "*" || d.channel === "*")
+            )
+              return d.draft;
+            const candidate =
+              d.draft ??
+              (nativeSnapshot.current
+                ? homeDraft(
+                    d.channel,
+                    mainLocale,
+                    language,
+                    d.context!.catalogue.elements,
+                    nativeSnapshot.current,
+                  )
+                : undefined);
+            if (!candidate) {
+              d.setError(e("unavailable"));
+              return;
+            }
+            return d.save(candidate);
+          }}
           onPreview={setComparison}
         />
       </div>

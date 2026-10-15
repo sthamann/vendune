@@ -42,7 +42,7 @@ Commerce remains usable without a model. Hosted chat clients need their own secu
 connection and account-side setup; [connection requirements](docs/connectors.md)
 are explicit.
 
-**Visual shop design:** open a channel and see its existing storefront immediately. Click a hero or product collection, edit the private draft beside a desktop/tablet/mobile preview, then review a selected release. The editor shares native presentation components and the page renderer with the storefront. [Illustrated workflow and boundaries](docs/personal-workspace-and-shop-design.md).
+**Visual shop design:** choose illustrated building blocks, including elements contributed by installed apps. Use the same agent controls as App Studio—Veyndo AI proposals or a credential-free Codex/Claude Code task, with native review and sandbox publication. Open a channel and see its existing storefront immediately. Click a hero or product collection, edit the private draft beside a desktop/tablet/mobile preview, then review a selected release. The editor shares native presentation components and the page renderer with the storefront. [Illustrated workflow and boundaries](docs/personal-workspace-and-shop-design.md).
 
 ## Your workspace. Your shop. One change path.
 
@@ -51,7 +51,7 @@ standard-shop pages on a shared live preview. Manual edits and reference-guided 
 alternatives use the same versioned app documents. Review changes in a private
 sandbox, publish selected pages, and keep the original Rust checkout.
 
-[![Visual shop design inside Veyndo Studio](docs/assets/workspace-20261015/designer.jpg)](docs/personal-workspace-and-shop-design.md)
+[![Visual shop design inside Veyndo Studio](docs/assets/shop-design-20261015/elements-gallery.png)](docs/personal-workspace-and-shop-design.md)
 
 Pages, campaign layouts, blog/article sections and private form intake live in
 app-owned packages. Original Storyfront Experiences retain their original private

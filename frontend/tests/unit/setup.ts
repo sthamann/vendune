@@ -20,6 +20,14 @@ beforeEach(() => {
   history.replaceState(null, "", "/?shop=unit-shop#merchant");
   publishConsent(undefined);
   vi.stubGlobal(
+    "ResizeObserver",
+    class {
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    },
+  );
+  vi.stubGlobal(
     "fetch",
     vi.fn(() =>
       Promise.reject(new Error("Unexpected network request in unit test")),

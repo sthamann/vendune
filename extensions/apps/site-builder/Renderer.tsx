@@ -8,6 +8,7 @@ import type { RequestFn } from "../../../frontend/src/shared/api/types";
 import PublicFormBlock from "../../../frontend/src/shared/apps/PublicFormBlock";
 import { AppSurfaceSlot } from "../../../frontend/src/shared/apps/AppSurfaces";
 import { useEditorText } from "./studio/editor-i18n";
+import AppElement from "./AppElement";
 import "./site.css";
 export type SiteProduct = {
   id: string;
@@ -208,6 +209,13 @@ export default function SiteRenderer({
                   </article>
                 ))}
               </div>
+            )}
+            {b.kind === "app" && b.extension && (
+              <AppElement
+                element={b.extension}
+                channel={channel}
+                preview={preview}
+              />
             )}
             {b.kind === "form" && (
               <PublicFormBlock

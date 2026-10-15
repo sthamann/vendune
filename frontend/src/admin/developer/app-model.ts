@@ -18,6 +18,7 @@ export const locations: Record<string, AppStudioKey> = {
   "admin.pos.receipt": "posReceipt",
   "admin.navigation": "admin",
   "storefront.page": "storefront",
+  "storefront.block": "storefrontBlock",
   "product.detail": "product",
   "storefront.home": "home",
 };

@@ -73,8 +73,7 @@ page rollback operation.
 
 ## References and reviewed alternatives
 
-Select a page/section, save it, then describe the change in **Design with the
-agent**. Optionally supply up to three public HTTPS reference URLs and two
+Open **Agent**, describe the change and choose the whole page or selected section. The agent saves the current private baseline before preparing a proposal; this never publishes the page. Select **Veyndo AI** to use the centrally configured provider. Optionally supply up to three public HTTPS reference URLs and two
 PNG/JPEG/WebP screenshots (up to 1 MiB each, 16 megapixels, 8192 pixels per side).
 Choose style, structure and content separately.
 
@@ -142,7 +141,7 @@ for the exact local journey and the limits of this evidence.
 | Personal preferences | `GET/PUT /api/studio/workspace`; MCP `studio.workspace.read/save`; forced tenant+actor RLS, current personal session, CAS, 20 retained versions |
 | Designer products/channels/locales | `GET /api/merchant/site/context`; native channel/catalog/pricing owners |
 | Page data | `site_builder` actions `editor_pages`, `save_page`; public action `pages` with native publication projection |
-| Design references/plans | `POST /api/merchant/site/plan` and `/apply`; MCP `merchant.site.plan/apply`; central inference and native tasks |
+| Design references/plans | `POST /api/merchant/site/plan`, `/task`, `/propose`, `/apply`; MCP `merchant.site.plan/task/propose/apply`; central inference and native tasks |
 | Record history | `/api/apps/{app}/entities/{entity}/{id}/history` and `.../{version}/restore`; MCP `merchant.app.history/restore` |
 | Form intake | Public `site_forms.submit`; private `responses`; managed records, native cart, outbox, Flow jobs |
 | Publication | Existing environment diff/selective release; installed package fence, current domain rights, live baseline and digest conflicts |
@@ -196,3 +195,65 @@ The release review opens the currently selected sandbox rather than the first un
 The same local acceptance also added an actual product from the published page to the native cart, reviewed delivery/tax totals, and completed a **simulated** EUR 43.90 order (`RAC-33d99e28`) with synthetic contact/address data. The confirmation rendered and the cart count returned to zero. This does not claim a real payment-provider settlement or a hosted rollout.
 
 ![Native simulated checkout after publishing the edited page](assets/shop-design-20261015/checkout-confirmed.png)
+
+
+## Illustrated elements and compact panels
+
+The right rail has four stable modes: **Edit**, **Elements**, **Agent**, **History**.
+The left rail shows pages and the selected page’s sections, with keyboard-accessible
+up/down controls. **New page** opens illustrated page/landing/blog/article/form
+choices. Text formatting uses compact shared Tiptap controls; media and less common
+formats live in one menu. EN/DE/FR/ES interface text and selected content-language
+inheritance remain separate.
+
+![Illustrated elements beside the actual shop preview](assets/shop-design-20261015/elements-gallery.png)
+
+1. Select a private sandbox and open **Elements**.
+2. Pick an illustrated hero, text, product list, image, form or article list.
+3. The element appears in the shared preview and its properties open for editing.
+4. Save the private draft, inspect history and review the selected native release.
+
+![Compact rich-text inspector and section hierarchy](assets/shop-design-20261015/compact-inspector.png)
+
+### Apps contribute elements through their existing contract
+
+A native app surface with `location: "storefront.block"` appears under **From your
+apps**. The Care knowledge example (`extensions/apps/ontology-care/`, version
+1.1.0) supplies a working example using its existing public care view and list action.
+App Studio’s frontend/combined assistant and placement selector expose this location;
+the exported schema and AI/coding-agent contract include it too.
+
+A page block stores only `kind: "app"` and `extension: {app, surface}` plus the
+ordinary localized title. It never copies app code or data into the page. Public
+native views, data projection, current package grants and declared actions remain
+owned by the app and generic runtime. Only active, same-tenant public native
+surfaces can be placed; private/service-iframe surfaces cannot become page elements.
+Preview grants contain only currently authorized read actions, so changing a request
+by hand cannot use that grant to write. App deactivation removes its registry entry;
+the editor shows an unavailable notice and the published renderer omits the element.
+Re-saving/restoring/publishing validates the active reference again. App data has its
+own history and publication rules; publishing a page does not copy private app data.
+
+### One visible agent entry, including Codex and Claude Code
+
+![Shared agent controls with a real prepared Codex task](assets/shop-design-20261015/agent-workspace.png)
+
+**Veyndo AI** prepares two or three reviewable alternatives. **Codex / Claude Code**
+prepares a task containing the current page/revision, enabled languages, at most 64
+registered element summaries, the expected result shape and the existing MCP client
+configuration. Credentials are placeholders only. This is an explicit local coding-agent
+handoff, not an embedded Codex subscription or automatic remote execution.
+
+Copy/download the task into your coding agent, paste its JSON result into **Returned
+result**, then choose **Review changes**. `/api/merchant/site/propose` validates only
+content/theme changes, selected-section scope, owned references and the current revision.
+The returned proposal uses the same native review tasks as built-in AI. **Apply** writes
+the approved revision to the private sandbox; public release remains separate. HTTP and
+MCP share the same handlers and current `channels.read/manage` + `assistant.use` checks.
+
+The real Rust/PostgreSQL suite `visual_workspace` covers export → validation → explicit
+apply, omitted/foreign/current/stale rights/revisions, no secret export, app placement,
+read-only grants and selected page publication. The model wire uses a synthetic fixture;
+these tests do not certify creative output from a real external model or all third-party
+apps. Browser acceptance verified the actual gallery, care-element data, private save,
+compact inspector and prepared Codex task. Checkout retains the previous native owner.

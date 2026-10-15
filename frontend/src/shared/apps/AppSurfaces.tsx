@@ -24,6 +24,7 @@ export type AppSurface = {
   native?: NativePayload;
   mainLocale?: string;
   locales?: string[];
+  readOnlyActions?: string[];
   surface: {
     id: string;
     location: string;
@@ -142,9 +143,13 @@ export function AdminAppNavigation({
 export function AppSurfaceView({
   selected,
   context = {},
+  preview = false,
+  bare = false,
 }: {
   selected: AppSurface;
   context?: Record<string, unknown>;
+  preview?: boolean;
+  bare?: boolean;
 }) {
   const { request, public: isPublic, surfaces } = useContext(Registry);
   const { locale } = useLocale();
@@ -157,6 +162,7 @@ export function AppSurfaceView({
     selected.surface.id,
     context,
     isPublic,
+    preview,
   );
   if (!s) return null; // Deactivation or loss of permission unmounts the guest immediately after registry refresh.
   return (
@@ -165,19 +171,23 @@ export function AppSurfaceView({
       data-app={s.app}
       data-surface={s.surface.id}
     >
-      <div className="app-surface-heading">
-        <h2>{surfaceLabel(s, isPublic ? getContentLocale() : locale)}</h2>
-        <span>
-          {s.app} · {s.version}
-        </span>
-      </div>
+      {!bare && (
+        <div className="app-surface-heading">
+          <h2>{surfaceLabel(s, isPublic ? getContentLocale() : locale)}</h2>
+          <span>
+            {s.app} · {s.version}
+          </span>
+        </div>
+      )}
       {s.native ? (
         <NativeAppView
           key={`${s.app}:${s.surface.id}:${JSON.stringify(context)}`}
           app={s.app}
           native={s.native}
           request={scoped}
-          allowedActions={s.surface.actions}
+          allowedActions={
+            preview ? (s.readOnlyActions ?? []) : s.surface.actions
+          }
           mainLocale={s.mainLocale}
           locales={s.locales}
           public={isPublic}
@@ -194,7 +204,9 @@ export function AppSurfaceView({
           locales={s.locales}
           contentLocale={isPublic ? getContentLocale() : locale}
           request={scoped}
-          allowedActions={s.surface.actions}
+          allowedActions={
+            preview ? (s.readOnlyActions ?? []) : s.surface.actions
+          }
           context={{
             ...context,
             surface: s.surface.id,

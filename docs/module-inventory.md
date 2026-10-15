@@ -73,6 +73,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/storage.rs](../src/apps/storage.rs) | Attach the shared PostgreSQL accounting trigger to tenant-specific app tables before any write. |
 | [src/apps/submissions.rs](../src/apps/submissions.rs) | Public append-only intake uses declared schemas, existing cart admission, quotas, records and outbox. |
 | [src/apps/surface_grants.rs](../src/apps/surface_grants.rs) | Short-lived UI grants bind a package, surface, actor and concrete editor object on the server. |
+| [src/apps/surface_registry.rs](../src/apps/surface_registry.rs) | Current-authority app surface projection shared by storefronts and native visual composition. |
 | [src/apps/surface_tests.rs](../src/apps/surface_tests.rs) | Contract counterexamples reject cross-scope UI actions, unsafe URLs and mutating GET routes. |
 | [src/apps/surfaces.rs](../src/apps/surfaces.rs) | App-owned UI surfaces and namespaced HTTP routes reuse the authorized action gateway. |
 | [src/apps/ui_bundles.rs](../src/apps/ui_bundles.rs) | Operator-pinned, bounded self-contained UI bundles use the same actor/context grant as app actions. |
@@ -259,6 +260,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/currencies/tests.rs](../src/currencies/tests.rs) | Currency conversion adversaries and immutable source-price semantics, independent of live rate providers. |
 | [src/customer.rs](../src/customer.rs) | Customer credential verification and context rotation. |
 | [src/demo_catalog.rs](../src/demo_catalog.rs) | Public synthetic fashion template; provisioning copies only this versioned fixture into a new tenant. |
+| [src/developer/agent_connection.rs](../src/developer/agent_connection.rs) | Credential-free local coding-agent connection shared by native editors. |
 | [src/developer/archive.rs](../src/developer/archive.rs) | Recoverable App Studio project deletion; installed packages and app records retain their independent lifecycle. |
 | [src/developer/builds.rs](../src/developer/builds.rs) | Immutable development versions are validated before storage; installation targets only private environments. |
 | [src/developer/drafts.rs](../src/developer/drafts.rs) | Actor-private, optimistic mutable autosaves; these never install or alter a published package. |
@@ -827,6 +829,10 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/platform/styles/platform/02-platform-shop-stats-span.css](../frontend/src/platform/styles/platform/02-platform-shop-stats-span.css) | platform: platform-shop-stats-span styles. Source order is preserved by the entry stylesheet. |
 | [frontend/src/platform/styles/platform/03-control.css](../frontend/src/platform/styles/platform/03-control.css) | Service hub and operational editors share the same accessible light workspace. |
 | [frontend/src/platform/styles/platform.css](../frontend/src/platform/styles/platform.css) | Ordered platform stylesheet entry; domain rules live in the adjacent folder. |
+| [frontend/src/shared/agents/AgentComposer.tsx](../frontend/src/shared/agents/AgentComposer.tsx) | Shared agent entry: domain adapters retain all API, model, permission and approval behavior. |
+| [frontend/src/shared/agents/AgentTaskTransfer.tsx](../frontend/src/shared/agents/AgentTaskTransfer.tsx) | Explicit coding-agent task download/copy and domain-validated result import; no tokens or background execution. |
+| [frontend/src/shared/agents/agent-i18n.ts](../frontend/src/shared/agents/agent-i18n.ts) | The same human and coding-agent language across native workspaces. |
+| [frontend/src/shared/agents/agents.css](../frontend/src/shared/agents/agents.css) | Compact shared composer, sized by its host rather than hardcoded to one editor. |
 | [frontend/src/shared/api/account-types.ts](../frontend/src/shared/api/account-types.ts) | Native personal account response shared by merchant and platform authentication. |
 | [frontend/src/shared/api/agent-stream.ts](../frontend/src/shared/api/agent-stream.ts) | Decode bounded UTF-8 SSE chat frames; only a completed native result reaches the existing Studio state owner. |
 | [frontend/src/shared/api/customer-session.ts](../frontend/src/shared/api/customer-session.ts) | Read only the current customer's tenant-scoped session at request time; never use merchant identity. |
@@ -868,6 +874,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/content/editor/EditorBuffer.ts](../frontend/src/shared/content/editor/EditorBuffer.ts) | Unsaved Markdown source participates in the aggregate's save/navigation guard without becoming product content. |
 | [frontend/src/shared/content/editor/MarkdownSource.tsx](../frontend/src/shared/content/editor/MarkdownSource.tsx) | Live Markdown buffer updates the same structured product document; no raw HTML is rendered or persisted. |
 | [frontend/src/shared/content/editor/RichEditor.tsx](../frontend/src/shared/content/editor/RichEditor.tsx) | Actual Tiptap WYSIWYG editor with structured safe content, media, formatting and per-language drafts. |
+| [frontend/src/shared/content/editor/RichToolbar.tsx](../frontend/src/shared/content/editor/RichToolbar.tsx) | Compact, accessible editing controls shared by every rich-text field; extra formatting stays in one menu. |
 | [frontend/src/shared/content/editor/editor-document.ts](../frontend/src/shared/content/editor/editor-document.ts) | Canonical transport drops editor-only null attributes; description headings remain within the native H2/H3 contract. |
 | [frontend/src/shared/content/editor/editor-i18n.ts](../frontend/src/shared/content/editor/editor-i18n.ts) | Four-language controls for visual/Markdown editing without changing content-language inheritance. |
 | [frontend/src/shared/content/editor/markdown-content.ts](../frontend/src/shared/content/editor/markdown-content.ts) | Markdown admission shares the public rich-document node/URL boundary; rich-only features never silently disappear. |
@@ -1139,22 +1146,29 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/product-lab/server.py](../extensions/apps/product-lab/server.py) | App-owned code, SQLite structures and versioned browser UI; no commerce credentials reach the guest. |
 | [extensions/apps/service-example/index.html](../extensions/apps/service-example/index.html) | Independent app entry; see extensions/README.md for its public contract. |
 | [extensions/apps/service-example/server.py](../extensions/apps/service-example/server.py) | Standalone app service with its own UI and durable event inbox. Run separately from the core. |
+| [extensions/apps/site-builder/AppElement.tsx](../extensions/apps/site-builder/AppElement.tsx) | Placed native app surfaces use the existing public registry, renderer and server-bound read-only preview grants. |
 | [extensions/apps/site-builder/Renderer.tsx](../extensions/apps/site-builder/Renderer.tsx) | Shared page renderer: Studio previews and published shops use exactly these registered components. |
+| [extensions/apps/site-builder/agent_handoff.rs](../extensions/apps/site-builder/agent_handoff.rs) | Coding agents edit the same page schema through credential-free tasks and explicit native review. |
 | [extensions/apps/site-builder/context.rs](../extensions/apps/site-builder/context.rs) | Designer context projects native channels, languages and calculated products; no second catalogue or price engine. |
 | [extensions/apps/site-builder/design_agent.rs](../extensions/apps/site-builder/design_agent.rs) | Scoped visual proposals reuse central inference and native revision-bound tasks; models cannot publish or execute. |
+| [extensions/apps/site-builder/elements.rs](../extensions/apps/site-builder/elements.rs) | Placed app elements resolve only active, public surfaces of this tenant; app code stays in its own package. |
 | [extensions/apps/site-builder/model.ts](../extensions/apps/site-builder/model.ts) | One app-owned document contract for manual editing, agents, API/MCP and the storefront renderer. |
+| [extensions/apps/site-builder/proposals.rs](../extensions/apps/site-builder/proposals.rs) | Native revision-bound proposal validation and persistence shared by every design agent. |
 | [extensions/apps/site-builder/references.rs](../extensions/apps/site-builder/references.rs) | Bounded reference capture uses the shared public-only DNS-pinned egress client; partial failures remain visible. |
 | [extensions/apps/site-builder/server.rs](../extensions/apps/site-builder/server.rs) | Standard-shop page contract. App-owned content and theme validation; no HTML, CSS or script evaluation. |
 | [extensions/apps/site-builder/site.css](../extensions/apps/site-builder/site.css) | Shared, responsive site renderer; merchant design data never becomes arbitrary CSS. |
 | [extensions/apps/site-builder/storefront/PublishedSite.tsx](../extensions/apps/site-builder/storefront/PublishedSite.tsx) | One permission-filtered page read supplies routing and the shared theme on every native commerce route. |
 | [extensions/apps/site-builder/storefront/ShopSite.tsx](../extensions/apps/site-builder/storefront/ShopSite.tsx) | Standard-shop routing is an app mount; commerce products, cart, account and checkout keep their original owners. |
 | [extensions/apps/site-builder/studio/AppearanceControls.tsx](../extensions/apps/site-builder/studio/AppearanceControls.tsx) | Shared page/channel appearance controls; null values retain native inheritance. |
-| [extensions/apps/site-builder/studio/DesignAgent.tsx](../extensions/apps/site-builder/studio/DesignAgent.tsx) | Source-aware alternatives are native proposal tasks; preview and approval are separate explicit actions. |
-| [extensions/apps/site-builder/studio/DesignerInspector.tsx](../extensions/apps/site-builder/studio/DesignerInspector.tsx) | Contextual properties, AI proposals and history share the designer's single native draft. |
+| [extensions/apps/site-builder/studio/BlockPalette.tsx](../extensions/apps/site-builder/studio/BlockPalette.tsx) | Built-in and installed-app elements share a visual insertion gallery and one document model. |
+| [extensions/apps/site-builder/studio/BlockPreview.tsx](../extensions/apps/site-builder/studio/BlockPreview.tsx) | Miniature component layouts communicate what each element adds without loading apps or remote images. |
+| [extensions/apps/site-builder/studio/DesignAgent.tsx](../extensions/apps/site-builder/studio/DesignAgent.tsx) | Shop design uses the shared agent workspace and existing native proposal/approval owners. |
+| [extensions/apps/site-builder/studio/DesignerHeader.tsx](../extensions/apps/site-builder/studio/DesignerHeader.tsx) | Channel, private save and agent entry remain visible above the shared preview. |
+| [extensions/apps/site-builder/studio/DesignerInspector.tsx](../extensions/apps/site-builder/studio/DesignerInspector.tsx) | Visible edit, element, agent and history modes share the same native draft and approval path. |
 | [extensions/apps/site-builder/studio/NativeHomePreview.tsx](../extensions/apps/site-builder/studio/NativeHomePreview.tsx) | Preview composes the actual native header, hero, product cards and footer, without a live cart or commands. |
 | [extensions/apps/site-builder/studio/PageHistory.tsx](../extensions/apps/site-builder/studio/PageHistory.tsx) | Whole-page and section restoration use retained native app revisions; restoration is an editable draft. |
 | [extensions/apps/site-builder/studio/PageInspector.tsx](../extensions/apps/site-builder/studio/PageInspector.tsx) | Property edits and WYSIWYG content update the same structured page record as agents and MCP. |
-| [extensions/apps/site-builder/studio/PageTree.tsx](../extensions/apps/site-builder/studio/PageTree.tsx) | Page tree and stable section ordering; all edits go through the shared designer draft. |
+| [extensions/apps/site-builder/studio/PageTree.tsx](../extensions/apps/site-builder/studio/PageTree.tsx) | Compact page hierarchy with a graphical creation dialog and stable, permission-bound section ordering. |
 | [extensions/apps/site-builder/studio/ShopDesigner.tsx](../extensions/apps/site-builder/studio/ShopDesigner.tsx) | Three-panel standard-shop editor inside the native shell; Storyfront retains its separate original editor. |
 | [extensions/apps/site-builder/studio/StorefrontCanvas.tsx](../extensions/apps/site-builder/studio/StorefrontCanvas.tsx) | Isolated viewport for native presentational components and the shared app renderer; no cart, analytics or orders run here. |
 | [extensions/apps/site-builder/studio/canvas.css](../extensions/apps/site-builder/studio/canvas.css) | Canvas sizing uses real iframe viewports; mobile tools follow the preview rather than obscure it. |
@@ -1163,9 +1177,14 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/site-builder/studio/editor-i18n.ts](../extensions/apps/site-builder/studio/editor-i18n.ts) | Inspector, history and reference-agent vocabulary. |
 | [extensions/apps/site-builder/studio/home-draft.ts](../extensions/apps/site-builder/studio/home-draft.ts) | Convert the native home to an unsaved app document; retain real locale text and owned product-media selection. |
 | [extensions/apps/site-builder/studio/inspector.css](../extensions/apps/site-builder/studio/inspector.css) | Inspector and review panels, separate from the canvas layout. |
+| [extensions/apps/site-builder/studio/navigation.css](../extensions/apps/site-builder/studio/navigation.css) | Compact page hierarchy, section ordering and page-creation cards. |
+| [extensions/apps/site-builder/studio/palette.css](../extensions/apps/site-builder/studio/palette.css) | Graphical insertion gallery for built-in and registered app-owned elements. |
 | [extensions/apps/site-builder/studio/useDesigner.ts](../extensions/apps/site-builder/studio/useDesigner.ts) | Explicit native saves and scope-safe reads; local undo never bypasses record CAS or staging review. |
+| [extensions/apps/site-builder/studio/workspace-i18n.ts](../extensions/apps/site-builder/studio/workspace-i18n.ts) | Shared visual workspace vocabulary; interface choices never become untranslated content. |
+| [extensions/apps/site-builder/studio/workspace.css](../extensions/apps/site-builder/studio/workspace.css) | Visual workspace panels: one scroll region per rail, stable mode controls and graphical element cards. |
 | [extensions/apps/site-builder/tests/canvas-cases.tsx](../extensions/apps/site-builder/tests/canvas-cases.tsx) | Real sandboxed frame renders native components and sends no preview/cart/order commands. |
 | [extensions/apps/site-builder/tests/designer-cases.tsx](../extensions/apps/site-builder/tests/designer-cases.tsx) | Initial native storefront, automatic home selection and inherited-draft copy regressions. |
+| [extensions/apps/site-builder/tests/workspace-cases.tsx](../extensions/apps/site-builder/tests/workspace-cases.tsx) | Graphical insertion and shared agent controls exercise the same native editor state. |
 | [extensions/apps/site-builder/usePageProducts.ts](../extensions/apps/site-builder/usePageProducts.ts) | Resolve explicit selections through the native bounded catalogue, independent of the first catalogue/search page. |
 | [extensions/apps/site-forms/server.rs](../extensions/apps/site-forms/server.rs) | Forms validate answers against a published page's declared fields; inbox entries stay private. |
 | [extensions/apps/site-forms/storefront/PublishedForm.tsx](../extensions/apps/site-forms/storefront/PublishedForm.tsx) | Public forms send only append-only, schema-validated requests to the native app inbox. |

@@ -19,3 +19,10 @@ Forms use the host's public form-block contract. The forms app owns intake and i
 private inbox. The original private Storyfront editor remains a different app.
 
 The Studio entry is preview-first: the existing native home is visible before a page record exists, and saved home pages open automatically. `studio/StorefrontCanvas.tsx` owns the static isolated viewport; native header/hero/product/footer **presentation** components are shared with the actual storefront. The preview creates no cart, shopper controller, tracking or payment session. `studio/home-draft.ts` converts an explicit selection to an unsaved native app document while preserving real language text and owned product-media references. `tests/` is registered through thin host test adapters; test code cannot be imported into production modules.
+
+`studio/BlockPalette.tsx` renders illustrated native/app element cards. App elements
+store references, resolve through the public app registry and use read-only preview
+grants; `elements.rs` validates their tenant, active package and public native surface.
+`proposals.rs` owns shared proposal validation and persistence; `agent_handoff.rs`
+exports credential-free tasks and validates coding-agent results through that owner.
+Shared agent controls stay in the generic host; page business behavior stays here.

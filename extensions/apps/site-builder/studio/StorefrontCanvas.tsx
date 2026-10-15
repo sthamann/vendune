@@ -1,5 +1,5 @@
 /** Isolated viewport for native presentational components and the shared app renderer; no cart, analytics or orders run here. */
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import type { RequestFn } from "../../../../frontend/src/shared/api/types";
 import { LocaleScope } from "../../../../frontend/src/shared/i18n/i18n";
@@ -10,6 +10,7 @@ import NativeHomePreview, {
   PreviewFooter,
 } from "./NativeHomePreview";
 import { useDesignText } from "./design-i18n";
+import { AppSurfaceProvider } from "../../../../frontend/src/shared/apps/AppSurfaces";
 import "../../../../frontend/src/storefront/styles/shop.css";
 import "../../../../frontend/src/storefront/styles/storefront-polish.css";
 import "../../../../frontend/src/storefront/styles/company-identity.css";
@@ -30,6 +31,7 @@ export default function StorefrontCanvas({
   onHome,
   appearance,
   products,
+  onSnapshot,
 }: {
   request: RequestFn;
   workspace: string;
@@ -41,6 +43,7 @@ export default function StorefrontCanvas({
   onHome: (home: HomeSnapshot, section: "hero" | "products") => void;
   appearance?: Theme;
   products: SiteProduct[];
+  onSnapshot?: (home: HomeSnapshot) => void;
 }) {
   const t = useDesignText(),
     host = useRef<HTMLDivElement>(null),
@@ -50,6 +53,17 @@ export default function StorefrontCanvas({
     [height, setHeight] = useState(900),
     [company, setCompany] = useState<Record<string, string>>({});
   const width = device === "mobile" ? 390 : device === "tablet" ? 768 : 1280;
+  const snapshotListener = useRef(onSnapshot);
+  snapshotListener.current = onSnapshot;
+  const publicRequest: RequestFn = useMemo(
+    () => (path, body, method, options) =>
+      request(path, body, method, {
+        ...options,
+        salesChannel: channel === "*" ? "default" : channel,
+        locale: language,
+      }),
+    [request, channel, language],
+  );
   useEffect(() => {
     let active = true;
     setCompany({});
@@ -96,25 +110,26 @@ export default function StorefrontCanvas({
     resize();
     return () => observer.disconnect();
   }, [mount]);
-  const select = (kind: "hero" | "products") => {
+  const snapshot = (): HomeSnapshot => {
     const doc = frame.current?.contentDocument;
-    onHome(
-      {
-        title: doc?.querySelector(".shop-hero h1")?.textContent?.trim() ?? "",
-        description:
-          doc
-            ?.querySelector(".shop-hero>div>p:not(.shop-kicker)")
-            ?.textContent?.trim() ?? "",
-        image:
-          doc
-            ?.querySelector<HTMLImageElement>(".shop-hero img")
-            ?.getAttribute("src") ?? "",
-        collection:
-          doc?.querySelector(".collection-title h2")?.textContent?.trim() ?? "",
-      },
-      kind,
-    );
+    return {
+      title: doc?.querySelector(".shop-hero h1")?.textContent?.trim() ?? "",
+      description:
+        doc
+          ?.querySelector(".shop-hero>div>p:not(.shop-kicker)")
+          ?.textContent?.trim() ?? "",
+      image:
+        doc
+          ?.querySelector<HTMLImageElement>(".shop-hero img")
+          ?.getAttribute("src") ?? "",
+      collection:
+        doc?.querySelector(".collection-title h2")?.textContent?.trim() ?? "",
+    };
   };
+  const select = (kind: "hero" | "products") => onHome(snapshot(), kind);
+  useEffect(() => {
+    if (mount && !children) snapshotListener.current?.(snapshot());
+  }, [mount, products, language, children]);
   const name =
     company.brandName ||
     company.name ||
@@ -143,37 +158,44 @@ export default function StorefrontCanvas({
       </div>
       {mount &&
         createPortal(
-          <LocaleScope locale={language}>
-            <div
-              className="shop"
-              data-designed={appearance ? "true" : undefined}
-              style={appearance ? themeStyle(appearance) : undefined}
-              onClickCapture={(event) => {
-                const el = event.target as Element;
-                if (
-                  el.closest("a,button") &&
-                  !el.closest(".is-design-preview")
-                ) {
+          <AppSurfaceProvider
+            request={publicRequest}
+            public
+            scopeKey={`${workspace}:${channel}:${language}`}
+          >
+            <LocaleScope locale={language}>
+              <div
+                className="shop"
+                data-designed={appearance ? "true" : undefined}
+                style={appearance ? themeStyle(appearance) : undefined}
+                onClickCapture={(event) => {
+                  const el = event.target as Element;
+                  if (
+                    el.closest("a,button") &&
+                    !el.closest(".is-design-preview")
+                  ) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    if (!children) {
+                      if (el.closest(".shop-hero")) select("hero");
+                      else if (el.closest(".shop-collection"))
+                        select("products");
+                    }
+                  }
+                }}
+                onSubmitCapture={(event) => {
                   event.preventDefault();
                   event.stopPropagation();
-                  if (!children) {
-                    if (el.closest(".shop-hero")) select("hero");
-                    else if (el.closest(".shop-collection")) select("products");
-                  }
-                }
-              }}
-              onSubmitCapture={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
-              }}
-            >
-              <PreviewHeader displayName={name} company={company} />
-              {children || (
-                <NativeHomePreview products={products} onSelect={select} />
-              )}
-              <PreviewFooter name={name} />
-            </div>
-          </LocaleScope>,
+                }}
+              >
+                <PreviewHeader displayName={name} company={company} />
+                {children || (
+                  <NativeHomePreview products={products} onSelect={select} />
+                )}
+                <PreviewFooter name={name} />
+              </div>
+            </LocaleScope>
+          </AppSurfaceProvider>,
           mount,
         )}
     </div>

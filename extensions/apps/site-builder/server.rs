@@ -2,6 +2,7 @@
 use super::*;
 mod context;
 pub(crate) mod design_agent;
+mod elements;
 pub(crate) fn router() -> Router<App> {
     Router::new()
         .merge(context::router())
@@ -29,6 +30,14 @@ pub(crate) struct Block {
     pub product_mode: Option<String>,
     #[serde(default)]
     pub fields: Vec<FormField>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub extension: Option<ElementRef>,
+}
+#[derive(Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
+pub(crate) struct ElementRef {
+    pub app: String,
+    pub surface: String,
 }
 #[derive(Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
@@ -78,7 +87,14 @@ pub(crate) fn validate(entity: &str, v: &Value) -> Result<()> {
     for b in &content.blocks {
         if !identifier(&b.id)
             || !ids.insert(&b.id)
-            || !["hero", "text", "products", "image", "form", "articles"].contains(&b.kind.as_str())
+            || ![
+                "hero", "text", "products", "image", "form", "articles", "app",
+            ]
+            .contains(&b.kind.as_str())
+            || (b.kind == "app") != b.extension.is_some()
+            || b.extension.as_ref().is_some_and(|e| {
+                !identifier(&e.app) || !identifier(&e.surface) || e.app == "site_builder"
+            })
             || b.text.len() > 100
             || b.text.iter().any(|(k, v)| {
                 !commerce::valid_locale_key(k) || v.as_ref().is_some_and(|s| s.len() > 2000)
@@ -192,6 +208,9 @@ pub(crate) async fn validate_owned(
     let content: Content =
         serde_json::from_value(v["content"].clone()).map_err(|_| bad("Invalid page"))?;
     for b in content.blocks {
+        if let Some(element) = &b.extension {
+            elements::validate_owned(tx, t, element).await?;
+        }
         let mut languages = b.text.keys().cloned().collect::<Vec<_>>();
         if let Some(rich) = b.rich.as_object() {
             languages.extend(rich.keys().cloned());

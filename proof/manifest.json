@@ -729,15 +729,30 @@
       "sha256": "ffa5bb4e821f1de6f27ca9e9fb511e6be430727458d3db22f8286c9e833c8c1a",
       "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
     },
+    "extensions/apps/site-builder/agent_handoff.rs": {
+      "status": "unproved",
+      "sha256": "290f05c01e9407a62e21c6595dd45aacac2f602170fff542ac056ea216a58776",
+      "review": "Reviewed native designer transport and shared proposal path: sandbox/current rights and positive saved-page revision before export/import, content/theme-only external results, active tenant-owned public native element references, existing CAS/history/release. Preview grants narrow existing allowed actions using the unchanged verified read policy. Real PostgreSQL/app-surface regressions and clippy pass; async adapters remain unproved."
+    },
     "extensions/apps/site-builder/context.rs": {
       "status": "unproved",
-      "sha256": "121a86e41c6cc8321b192f3340918521a9de9ead07431d260712c6c37f27ce1c",
-      "review": "Reviewed bounded native catalog IDs intersected with existing channel/B2B admission, selected-product batch hydration and configured locale context; HTTP/MCP selected-ID and foreign-channel denial regression plus Rust/catalog checks passed."
+      "sha256": "ace5934dd123c849bf3ecf5d97ec22707aa467b32a456d511fce95c22daa775e",
+      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
     },
     "extensions/apps/site-builder/design_agent.rs": {
       "status": "unproved",
-      "sha256": "ea3bbd8106be436d4c5f93beb17c5bebe5283f22bc663147791d58c53fee63fb",
-      "review": "Final reviewed site planning adds native tenant/product/locale validation before saving or previewing alternatives. Personal pin schema rejects free/PII criteria; actual concurrent save/release, publication/history/intake, private cart, Flow completion, synthetic inference/apply/failure and foreign-key fixtures pass. Original independent security findings are closed. New intake predicate, closed module extraction, exact Lean claims and negative mutations preserved; async SQL/UI/providers remain unproved."
+      "sha256": "1ac93ee1a90804f7541527140c9ff10d25c465fdc814c8364176e80eceeaf525",
+      "review": "Reviewed native designer transport and shared proposal path: sandbox/current rights and positive saved-page revision before export/import, content/theme-only external results, active tenant-owned public native element references, existing CAS/history/release. Preview grants narrow existing allowed actions using the unchanged verified read policy. Real PostgreSQL/app-surface regressions and clippy pass; async adapters remain unproved."
+    },
+    "extensions/apps/site-builder/elements.rs": {
+      "status": "unproved",
+      "sha256": "7210f4df61f7a448e27a1a0a48cf2527d3022e316fc4c5e4dc282b9f5c1f6be6",
+      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
+    },
+    "extensions/apps/site-builder/proposals.rs": {
+      "status": "unproved",
+      "sha256": "b5c36824ae066cdc9a22d9d32095c9b2c9feab6ba504e9226ba4d4cc34ee2f7d",
+      "review": "Reviewed native designer transport and shared proposal path: sandbox/current rights and positive saved-page revision before export/import, content/theme-only external results, active tenant-owned public native element references, existing CAS/history/release. Preview grants narrow existing allowed actions using the unchanged verified read policy. Real PostgreSQL/app-surface regressions and clippy pass; async adapters remain unproved."
     },
     "extensions/apps/site-builder/references.rs": {
       "status": "unproved",
@@ -746,8 +761,8 @@
     },
     "extensions/apps/site-builder/server.rs": {
       "status": "unproved",
-      "sha256": "c869b967ec0fd5b4f9d2635f37d0b3710238d30c8f97135be921fdfa8de6ce8f",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "e0c402f6a1f566af6bc44fb33b0a5d73e94c3249c34125c3aad696d06e890da0",
+      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
     },
     "extensions/apps/site-forms/server.rs": {
       "status": "unproved",
@@ -1046,8 +1061,8 @@
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "be4ff63157a77a0b13f308d1b603dc07fc8022b7ccc9803e76ba9fa22edd870f",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "0db812f6b2a8ee4daf80eeafa2ea5c2d77938a65210cfb0734119f1d899a7933",
+      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
@@ -1166,8 +1181,13 @@
     },
     "src/apps/surface_grants.rs": {
       "status": "reviewed-binding",
-      "sha256": "a449b64977e1736fc8f94cc489035247784afe57f6818260522d887385244ee6",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "661ed2d3acc22c4f42c449a8d7daaaddaed9502eb3210dd6a8ad0b97ae7235e5",
+      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
+    },
+    "src/apps/surface_registry.rs": {
+      "status": "unproved",
+      "sha256": "a7d53ef63cb833e1c1e4558505c7942a8dfa0e8a43d89eed4d570cb5e3dd1363",
+      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
     },
     "src/apps/surface_tests.rs": {
       "status": "unproved",
@@ -1176,8 +1196,8 @@
     },
     "src/apps/surfaces.rs": {
       "status": "reviewed-binding",
-      "sha256": "ebf32828604fac8176ffab907ba4f8303d476843d4bb78d9796011aacd5e6521",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "dde39097fda4eaea6a3ad7f405fa7e1d6efbb6665e7c1d4a7521cf1c76f9a1c5",
+      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
     },
     "src/apps/ui_bundles.rs": {
       "status": "unproved",
@@ -1566,8 +1586,8 @@
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
-      "sha256": "e4c5cbc1933db7a824c530e982fe4ba0227f545801180e6f8f2f0a524bbd346f",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "62c0c3665d8582758feee6d6b745e76d31c1c5ce8d50e5ad9844a5356e61b47f",
+      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
     },
     "src/capabilities/core_catalog.rs": {
       "status": "unproved",
@@ -2099,6 +2119,11 @@
       "sha256": "a467d5d664a423e9dbebd7cc3ce67f8bf2a220f8783c1d1bc4879746e469fecd",
       "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
     },
+    "src/developer/agent_connection.rs": {
+      "status": "unproved",
+      "sha256": "a77db06f9474e69d4b2e68eee4695d6acd52091ef4a1e6802b1f6aee77529eea",
+      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
+    },
     "src/developer/archive.rs": {
       "status": "unproved",
       "sha256": "c949d273fa724098e5dc777d658c0a5d7c3d1bb6bf170a3e5b30c25cf6c41512",
@@ -2131,8 +2156,8 @@
     },
     "src/developer/mod.rs": {
       "status": "unproved",
-      "sha256": "7c4d24951aae069658cea6b9305c6a49d96e2c7057d8a99a88542ece8bd24f5b",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "cb733b7a90e739ff11665e972fe14241d2ab2f74f63aa0398312a8214957069a",
+      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
     },
     "src/developer/preview.rs": {
       "status": "unproved",
@@ -2141,8 +2166,8 @@
     },
     "src/developer/routes.rs": {
       "status": "unproved",
-      "sha256": "485de9d17a8c7b88d90bac0cef473ad53f7b882ad47f4702b4d90f96edaeabf1",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "605ef60bd6377b1f3ae322565de45f44566b4965fcd751f7ceb2ad6171aabf58",
+      "review": "Reviewed native designer transport and shared proposal path: sandbox/current rights and positive saved-page revision before export/import, content/theme-only external results, active tenant-owned public native element references, existing CAS/history/release. Preview grants narrow existing allowed actions using the unchanged verified read policy. Real PostgreSQL/app-surface regressions and clippy pass; async adapters remain unproved."
     },
     "src/discount.rs": {
       "status": "reviewed-binding",
@@ -3263,8 +3288,8 @@
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "fixtures/app-studio-schema.json": {
-      "sha256": "e644a609345a94bcf23ad9e1dd94948526e0fac2345f80f2fb7211c4e043be9e",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "23f9482a6d6e946474a7dee6a67a3793c2ffbf488ad3aefe2c78cbeffe9c3e83",
+      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
     },
     "fixtures/demo-catalog.json": {
       "sha256": "e5d5eea04a7693b3f92fa58be66ad36b7ad01d5920029c29f303693aa0032ba2",

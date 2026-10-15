@@ -223,3 +223,14 @@ action rights/digest; it omits input and leases and reveals results only after
 success. Manager job lists also hide messages/results when current action rights or
 package binding no longer permit them. Private jobs and fulfillment records cannot
 be staged or released. See [partial shipments and failure recovery](shipping-workflows.md).
+
+
+### Insertable native shop elements
+
+Apps may expose `storefront.block` surfaces with `uiPath: "native/<view-id>"`,
+`storefront.slot` consent and public declared actions. They appear as illustrated
+cards in Shop design. Page documents reference the app/surface; the existing registry,
+native renderer, action grants and permission checks remain authoritative. Editor
+preview grants narrow access to read-only actions. A public element cannot expose
+private actions or arbitrary HTML/service iframes. See the [illustrated workflow](personal-workspace-and-shop-design.md#illustrated-elements-and-compact-panels)
+and `extensions/apps/ontology-care/manifest.json`.

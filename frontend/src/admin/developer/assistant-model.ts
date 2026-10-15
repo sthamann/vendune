@@ -30,6 +30,7 @@ export const placements: Record<string, AssistantKey> = {
   "admin.order": "orderFields",
   "product.detail": "productDetail",
   "storefront.page": "storefrontPage",
+  "storefront.block": "storefrontBlock",
 };
 export const contextKeys = {
   product: "productId",
@@ -188,7 +189,11 @@ export function assistedManifest(s: AssistantSetup): Manifest {
     });
     m.surfaces!.push({
       id: "shopper",
-      location: core ? "product.detail" : "storefront.page",
+      location: core
+        ? "product.detail"
+        : s.location === "storefront.block"
+          ? "storefront.block"
+          : "storefront.page",
       label: s.name,
       uiPath: "native/shopper",
       actions: [],

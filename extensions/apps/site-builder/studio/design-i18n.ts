@@ -1,6 +1,7 @@
 /** Complete interface vocabulary for the standard-shop designer, independent of page translations. */
 import { useLocale } from "../../../../frontend/src/shared/i18n/i18n";
 const words = {
+  app: ["App element", "App-Baustein", "Élément d’app", "Elemento de app"],
   channel: [
     "Sales channel",
     "Verkaufskanal",

@@ -582,7 +582,7 @@
                   "admin.navigation",
                   "admin.order",
                   "admin.product",
-                  "storefront.page",
+                  "storefront.page", "storefront.block",
                   "storefront.home",
                   "product.detail",
                   "cart.summary",

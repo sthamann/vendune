@@ -263,6 +263,12 @@ export const appStudioWords = {
     "Module admin",
     "Módulo de administración",
   ],
+  storefrontBlock: [
+    "Shop design element",
+    "Baustein für Shop gestalten",
+    "Élément de boutique",
+    "Elemento para diseñar la tienda",
+  ],
   storefront: ["Shop page", "Shop-Seite", "Page boutique", "Página de tienda"],
   product: [
     "Product detail",

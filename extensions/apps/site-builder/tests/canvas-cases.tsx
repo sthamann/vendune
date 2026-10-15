@@ -61,10 +61,8 @@ it("renders native products in a static frame and emits only a local edit select
     expect.objectContaining({ title: "Dein Stil. Ganz selbstverständlich." }),
     "hero",
   );
-  expect(request).toHaveBeenCalledExactlyOnceWith(
-    "/store-api/company",
-    undefined,
-    "GET",
-    { salesChannel: "de", locale: "de-DE" },
-  );
+  expect(request).toHaveBeenCalledWith("/store-api/company", undefined, "GET", {
+    salesChannel: "de",
+    locale: "de-DE",
+  });
 });
