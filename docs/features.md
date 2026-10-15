@@ -640,3 +640,7 @@ receipt store. A provider-neutral shipping assistant declares the same native
 job/callback contract; no shipping provider is bundled or configured. Synthetic
 service tests demonstrate package intent, original PDF/tracking, unknown-effect
 fences and current permissions. [Shipping workflows and limits](shipping-workflows.md).
+
+## Connected App Studio workbench
+
+See the [illustrated workbench guide](app-studio-workspace.md) for multiple placements, compact adjustable panels, the contextual AI drawer, model-backed form editing, shared Flow visuals, installed app settings and scoped integration keys. These extend the existing native Manifest, runtime and release owners.

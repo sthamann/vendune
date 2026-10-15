@@ -14,6 +14,7 @@ import { useState } from "react";
 import "../../shared/styles/apps.css";
 import AppActivity from "./AppActivity";
 import AppAccess from "./AppAccess";
+import AppSettings from "./AppSettings";
 import AppSecrets from "./AppSecrets";
 import AppEntity from "./AppEntity";
 import ConnectorPanel from "./ConnectorPanel";
@@ -227,6 +228,13 @@ export default function AppDetails({
         )}
         {detailTab === "appDetails" && manage && (
           <>
+            {!!p.manifest.settings?.length && (
+              <AppSettings
+                app={p.id}
+                request={request}
+                mainLocale={mainLocale}
+              />
+            )}
             <AppAccess app={p.id} request={request} />
             <AppSecrets app={p.id} request={request} />
           </>

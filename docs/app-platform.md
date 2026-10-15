@@ -234,3 +234,21 @@ native renderer, action grants and permission checks remain authoritative. Edito
 preview grants narrow access to read-only actions. A public element cannot expose
 private actions or arbitrary HTML/service iframes. See the [illustrated workflow](personal-workspace-and-shop-design.md#illustrated-elements-and-compact-panels)
 and `extensions/apps/ontology-care/manifest.json`.
+
+## Declared app configuration and bounded installation
+
+An app can declare up to 16 typed `settings` fields (localized label, key, kind and
+required flag). Values are managed under Apps → installed app → App settings through
+`GET/PUT /api/apps/{app}/settings`. The host reuses `apps/settings.rs`, the encrypted
+`apps/secrets.rs` owner and migration 096; it does not create a second settings store.
+Current personal `team.manage`, active digest, explicit approval and optimistic
+revision are required for writes. Configuration values are live-only operational
+state, excluded from native preview/release records, agent exports and public views.
+Only declared private service actions receive `_appSettings` server-side. Native
+browser views never receive secret values. See [security and setup](app-studio-workspace.md#app-settings-after-installation).
+
+New package IDs are capped at 128 per tenant under the existing installation lock;
+updates to existing IDs remain possible at the cap. A package may declare at most
+64 indexed/unique fields. Existing limits remain: 12 models, 16 fields/model,
+100,000 stored rows and 64 MiB per tenant/app. These controls bound shared storage
+and schema growth; they do not prove unlimited capacity or fleet-wide DDL fairness.

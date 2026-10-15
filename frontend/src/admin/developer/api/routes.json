@@ -175,6 +175,16 @@
     "source": "src/apps/secrets.rs"
   },
   {
+    "path": "/api/apps/{id}/settings",
+    "method": "GET",
+    "source": "src/apps/settings.rs"
+  },
+  {
+    "path": "/api/apps/{id}/settings",
+    "method": "PUT",
+    "source": "src/apps/settings.rs"
+  },
+  {
     "path": "/api/apps/{id}/surfaces/{surface}/actions/{action}",
     "method": "POST",
     "source": "src/apps/surface_grants.rs"

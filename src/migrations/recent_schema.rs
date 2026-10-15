@@ -196,4 +196,8 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         "095-app-record-history",
         include_str!("../../migrations/095-app-record-history.sql"),
     ),
+    (
+        "096-app-settings",
+        include_str!("../../migrations/096-app-settings.sql"),
+    ),
 ];

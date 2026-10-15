@@ -1,10 +1,22 @@
 /** Click-to-build, agent round-trip and immutable build lifecycle checks without paid inference. */
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { expect, it, vi } from "vitest";
+import { expect, it, vi, beforeEach } from "vitest";
 import DeveloperView from "../../src/admin/developer/DeveloperView";
 import { LocaleProvider } from "../../src/shared/i18n/i18n";
 import { template } from "../../src/admin/developer/app-model";
+beforeEach(() => {
+  vi.spyOn(HTMLDialogElement.prototype, "showModal").mockImplementation(
+    function (this: HTMLDialogElement) {
+      this.setAttribute("open", "");
+    },
+  );
+  vi.spyOn(HTMLDialogElement.prototype, "close").mockImplementation(function (
+    this: HTMLDialogElement,
+  ) {
+    this.removeAttribute("open");
+  });
+});
 function setup() {
   let build: any;
   let archived = false;
@@ -117,6 +129,7 @@ it("reviews an agent manifest before updating the same canvas, preserving conten
     label: { en: "Score", de: "Wert", es: "Valor" },
     kind: "integer",
   });
+  await user.click(screen.getByText("Schema & manual import"));
   fireEvent.change(screen.getByLabelText("Package contract"), {
     target: { value: JSON.stringify(m) },
   });
@@ -127,6 +140,7 @@ it("reviews an agent manifest before updating the same canvas, preserving conten
   await user.click(
     await screen.findByRole("button", { name: "Use this proposal" }),
   );
+  await user.click(screen.getByRole("button", { name: "Close assistant" }));
   await user.click(screen.getByRole("button", { name: "Data models" }));
   expect(screen.getByDisplayValue("care_score")).toBeVisible();
 });
@@ -140,6 +154,7 @@ it("opens a saved app card directly on the editable canvas and saves a new versi
     (c) => c[0] === "/api/developer/import",
   )![1];
   await user.click(screen.getByRole("button", { name: "Coding agent" }));
+  await user.click(screen.getByRole("button", { name: "Close assistant" }));
   await user.click(
     screen.getByRole("button", {
       name: /Product care guide.*Open for editing/,

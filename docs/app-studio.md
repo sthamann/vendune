@@ -169,3 +169,7 @@ B2B comparison](b2b-commerce.md). The independent `extensions/apps/edi/` package
 bounded EDIFACT/UBL/cXML parsing, mapped private requisition import and immutable
 native document export; no Core codec or second ledger. [EDI profiles, deployment
 and network/certification limits](edi.md).
+
+## Connected App Studio workbench
+
+See the [illustrated workbench guide](app-studio-workspace.md) for multiple placements, compact adjustable panels, the contextual AI drawer, model-backed form editing, shared Flow visuals, installed app settings and scoped integration keys. These extend the existing native Manifest, runtime and release owners.

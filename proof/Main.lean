@@ -62,6 +62,7 @@ def evalRequest (j : Json) : Except String Json := do
   | "delivery_split_admissible" => pure (toJson (delivery_split_admissible ((← (args.getObjVal? "is_open") >>= Json.getBool?)) ((← (args.getObjVal? "terminal") >>= Json.getBool?)) ((← (args.getObjVal? "available") >>= Json.getNat?)) ((← (args.getObjVal? "moving") >>= Json.getNat?))))
   | "carrier_booking_admissible" => pure (toJson (carrier_booking_admissible ((← (args.getObjVal? "is_open") >>= Json.getBool?)) ((← (args.getObjVal? "closed") >>= Json.getBool?)) ((← (args.getObjVal? "labelled") >>= Json.getBool?)) ((← (args.getObjVal? "occupied") >>= Json.getBool?)) ((← (args.getObjVal? "same") >>= Json.getBool?))))
   | "app_submission_admissible" => pure (toJson (app_submission_admissible ((← (args.getObjVal? "private_inbox") >>= Json.getBool?)) ((← (args.getObjVal? "live_scope") >>= Json.getBool?)) ((← (args.getObjVal? "current_cart") >>= Json.getBool?))))
+  | "persistent_key_admissible" => pure (toJson (persistent_key_admissible ((← (args.getObjVal? "personal") >>= Json.getBool?)) ((← (args.getObjVal? "administrator") >>= Json.getBool?))))
   | _ => throw "Unknown policy"
 
 def main : IO Unit := do

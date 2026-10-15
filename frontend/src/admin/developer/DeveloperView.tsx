@@ -13,20 +13,20 @@ import { useWorkbenchText } from "../../shared/i18n/workbench-i18n";
 import { contentText } from "../../shared/i18n/content-language";
 import { useAppStudio } from "./useAppStudio";
 import { problems } from "./app-model";
+import { AppFlowNavigation } from "./AppFlowNavigation";
+import AppDesignWorkspace from "./AppDesignWorkspace";
 import AppAssistant from "./AppAssistant";
-import AppViewTabs from "./AppViewTabs";
 import ConfirmDialog from "../../shared/ui/ConfirmDialog";
 import { useAssistantText } from "../../shared/i18n/app-assistant-i18n";
-import AppCanvas from "./AppCanvas";
-import AppInspector from "./AppInspector";
+import AppSettingsEditor from "./AppSettingsEditor";
 import AppDataEditor from "./AppDataEditor";
 import AppEditorNavigation from "./AppEditorNavigation";
 import AppPayments from "./AppPayments";
 import AppConnections from "./AppConnections";
-import AppAgentPanel from "./AppAgentPanel";
+import AppAgentDrawer from "./AppAgentDrawer";
+import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
 import AppVersions from "./AppVersions";
 import AppLibrary from "./AppLibrary";
-import SandboxPreview from "./SandboxPreview";
 import { useAppPreview } from "./useAppPreview";
 import AppStudioStatus from "./AppStudioStatus";
 import AppStudioIntro from "./AppStudioIntro";
@@ -38,6 +38,8 @@ import "../styles/app-studio-inspector.css";
 import "../styles/app-studio-panels.css";
 import "../styles/app-studio-responsive.css";
 import "../styles/app-studio-preview.css";
+import "../styles/app-workspace.css";
+import "../styles/app-agent-drawer.css";
 export default function DeveloperView({
   request,
   environments,
@@ -68,6 +70,8 @@ export default function DeveloperView({
     { w } = useWorkbenchText();
   const studio = useAppStudio(request, environments[0]?.id ?? "", onRefresh),
     m = studio.manifest;
+  const [agentOpen, setAgentOpen] = useState(false);
+  const workspaceText = useAppWorkspaceText();
   const [section, setSection] = useState<AppStudioKey>("design"),
     [viewId, setViewId] = useState("workspace"),
     [selected, setSelected] = useState(""),
@@ -115,286 +119,269 @@ export default function DeveloperView({
     studio.dispatch,
   );
   return (
-    <div className="studio-page app-studio">
-      <AppStudioIntro
-        disabled={!manage || studio.busy}
-        onNew={() => {
-          setAssistant(true);
-          setPreview(false);
-          immediate.close();
-        }}
-        overview={!assistant}
-      />
-      {assistant && (
-        <ContentLanguage
-          locales={studio.locales}
-          mainLocale={studio.mainLocale}
-        >
-          <AppAssistant
-            onClose={() => setAssistant(false)}
-            onCreate={(draft) => {
-              const apply = () => {
-                studio.startDraft(draft);
-                setAssistant(false);
-                setPreview(false);
-                setSelected("");
-                setSection("design");
-              };
-              if (studio.dirty && studio.history.past.length > 0) {
-                pendingDraft.current = apply;
-                setReplaceDraft(true);
-              } else apply();
-            }}
-          />
-        </ContentLanguage>
-      )}
-      {replaceDraft && (
-        <ConfirmDialog
-          title={t("draftWarning")}
-          confirmLabel={t("create")}
-          onCancel={() => setReplaceDraft(false)}
-          onConfirm={() => {
-            pendingDraft.current?.();
-            setReplaceDraft(false);
-          }}
-        >
-          <p>{t("draftWarningHint")}</p>
-        </ConfirmDialog>
-      )}
-      <AppLibrary
-        builds={studio.builds}
-        archived={studio.archivedBuilds}
-        onArchive={(app, archived) =>
-          void studio.run(() => studio.archiveApp(app, archived))
-        }
-        mainLocale={studio.mainLocale}
-        busy={studio.busy || !manage}
-        onOpen={openForEditing}
-      />
-      {!assistant && (
-        <fieldset
-          className="app-studio-fieldset"
+    <AppFlowNavigation.Provider value={onFlows}>
+      <div className="studio-page app-studio">
+        <AppStudioIntro
           disabled={!manage || studio.busy}
-        >
-          <div className="app-studio-toolbar">
-            <div className="app-current">
-              <span className="app-logo">
-                <Icon name="layers" size={20} />
-              </span>
-              <div>
-                <strong>
-                  {contentText(m.name, locale, studio.mainLocale) || m.id}
-                </strong>
-                <small>
-                  {m.id} · {m.version} ·{" "}
-                  {a(
-                    studio.draftStorage.pending
-                      ? "autosaving"
-                      : studio.dirty
-                        ? "draftSaved"
-                        : "saved",
-                  )}
-                </small>
+          onNew={() => {
+            setAssistant(true);
+            setPreview(false);
+            immediate.close();
+          }}
+          overview={!assistant}
+        />
+        {assistant && (
+          <ContentLanguage
+            locales={studio.locales}
+            mainLocale={studio.mainLocale}
+          >
+            <AppAssistant
+              onClose={() => setAssistant(false)}
+              onCreate={(draft) => {
+                const apply = () => {
+                  studio.startDraft(draft);
+                  setAssistant(false);
+                  setPreview(false);
+                  setSelected("");
+                  setSection("design");
+                };
+                if (studio.dirty && studio.history.past.length > 0) {
+                  pendingDraft.current = apply;
+                  setReplaceDraft(true);
+                } else apply();
+              }}
+            />
+          </ContentLanguage>
+        )}
+        {replaceDraft && (
+          <ConfirmDialog
+            title={t("draftWarning")}
+            confirmLabel={t("create")}
+            onCancel={() => setReplaceDraft(false)}
+            onConfirm={() => {
+              pendingDraft.current?.();
+              setReplaceDraft(false);
+            }}
+          >
+            <p>{t("draftWarningHint")}</p>
+          </ConfirmDialog>
+        )}
+        <AppLibrary
+          builds={studio.builds}
+          archived={studio.archivedBuilds}
+          onArchive={(app, archived) =>
+            void studio.run(() => studio.archiveApp(app, archived))
+          }
+          mainLocale={studio.mainLocale}
+          busy={studio.busy || !manage}
+          onOpen={openForEditing}
+        />
+        {!assistant && (
+          <fieldset
+            className="app-studio-fieldset"
+            disabled={!manage || studio.busy}
+          >
+            <div className="app-studio-toolbar">
+              <div className="app-current">
+                <span className="app-logo">
+                  <Icon name="layers" size={20} />
+                </span>
+                <div>
+                  <strong>
+                    {contentText(m.name, locale, studio.mainLocale) || m.id}
+                  </strong>
+                  <small>
+                    {m.id} · {m.version} ·{" "}
+                    {a(
+                      studio.draftStorage.pending
+                        ? "autosaving"
+                        : studio.dirty
+                          ? "draftSaved"
+                          : "saved",
+                    )}
+                  </small>
+                </div>
               </div>
-            </div>
-            <div className="app-toolbar-actions">
-              <button
-                className="studio-secondary"
-                onClick={() => {
-                  if (studio.saved) openForEditing(studio.saved);
-                  else {
-                    setPreview(false);
-                    setSection("design");
-                  }
-                }}
-              >
-                <Icon name="code" size={16} />
-                {a("editApp")}
-              </button>
-              <label>
-                {a("sandbox")}
-                <select
-                  value={studio.env}
-                  onChange={(e) => {
-                    studio.setEnv(e.target.value);
-                    setPreview(false);
+              <div className="app-toolbar-actions">
+                <button
+                  type="button"
+                  className="studio-secondary app-agent-toggle"
+                  aria-haspopup="dialog"
+                  aria-expanded={agentOpen}
+                  onClick={() => setAgentOpen(true)}
+                >
+                  <Icon name="spark" size={17} />
+                  {workspaceText("agentTitle")}
+                </button>
+                <button
+                  className="studio-secondary"
+                  onClick={() => {
+                    if (studio.saved) openForEditing(studio.saved);
+                    else {
+                      setPreview(false);
+                      setSection("design");
+                    }
                   }}
                 >
-                  <option value="">{w("chooseStage")}</option>
-                  {environments.map((e) => (
-                    <option key={e.id} value={e.id}>
-                      {e.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <button
-                className="studio-primary"
-                disabled={!studio.env || problems(m) || !studio.dirty}
-                onClick={() => void studio.run(studio.importVersion)}
-              >
-                <Icon name="check" size={16} />
-                {a("saveVersion")}
-              </button>
-            </div>
-          </div>
-          {!environments.length && (
-            <form
-              className="app-new-sandbox"
-              onSubmit={(e) => {
-                e.preventDefault();
-                void studio.run(() => studio.createSandbox(stageName));
-              }}
-            >
-              <label>
-                {w("stageName")}
-                <input
-                  required
-                  maxLength={80}
-                  value={stageName}
-                  onChange={(e) => setStageName(e.target.value)}
-                />
-              </label>
-              <button className="studio-secondary">{w("newStage")}</button>
-            </form>
-          )}
-          <AppEditorNavigation
-            section={section}
-            onSelect={setSection}
-            versions={studio.builds.length}
-            payments={m.category === "payment" || !!m.paymentProvider}
-          />
-          <ContentLanguage
-            locales={
-              preview && canPreview && previewLanguages
-                ? previewLanguages.locales
-                : studio.locales
-            }
-            mainLocale={
-              preview && canPreview && previewLanguages
-                ? previewLanguages.mainLocale
-                : studio.mainLocale
-            }
-          >
-            <div className="app-language-toolbar">
-              <ContentLanguagePicker />
-              {section === "design" && (
-                <div className="app-canvas-actions">
-                  <button
-                    className="app-icon-button"
-                    disabled={!studio.history.past.length}
-                    aria-label={a("undo")}
-                    onClick={() => studio.dispatch("undo")}
-                  >
-                    ↶
-                  </button>
-                  <button
-                    className="app-icon-button"
-                    disabled={!studio.history.future.length}
-                    aria-label={a("redo")}
-                    onClick={() => studio.dispatch("redo")}
-                  >
-                    ↷
-                  </button>
-                  <button
-                    className="studio-secondary"
-                    disabled={immediate.busy || !!problems(m)}
-                    aria-pressed={preview && canPreview}
-                    onClick={() => {
-                      if (preview && canPreview) {
-                        setPreview(false);
-                        immediate.close();
-                      } else {
-                        setPreview(true);
-                        void immediate.run();
-                      }
+                  <Icon name="code" size={16} />
+                  {a("editApp")}
+                </button>
+                <label>
+                  {a("sandbox")}
+                  <select
+                    value={studio.env}
+                    onChange={(e) => {
+                      studio.setEnv(e.target.value);
+                      setPreview(false);
                     }}
                   >
-                    {a(preview && canPreview ? "design" : "realPreview")}
-                  </button>
-                </div>
-              )}
+                    <option value="">{w("chooseStage")}</option>
+                    {environments.map((e) => (
+                      <option key={e.id} value={e.id}>
+                        {e.name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <button
+                  className="studio-primary"
+                  disabled={!studio.env || problems(m) || !studio.dirty}
+                  onClick={() => void studio.run(studio.importVersion)}
+                >
+                  <Icon name="check" size={16} />
+                  {a("saveVersion")}
+                </button>
+              </div>
             </div>
-            {section === "design" && (
-              <>
-                <AppViewTabs
-                  manifest={m}
-                  selected={view?.id}
-                  mainLocale={studio.mainLocale}
-                  onSelect={(id) => {
-                    setViewId(id);
-                    setSelected("");
-                  }}
-                  onChange={studio.edit}
-                />
-                {view ? (
-                  <div className="app-editor-workspace">
-                    {preview && canPreview ? (
-                      <SandboxPreview
-                        key={immediate.result!.digest}
-                        app={immediate.result!.app}
-                        version={immediate.result!.version}
-                        view={
-                          m.surfaces?.find(
-                            (s) => s.uiPath === `native/${view.id}`,
-                          )?.id ?? view.id
-                        }
-                        request={scoped}
-                        onLanguages={(mainLocale, locales) =>
-                          setPreviewLanguages({ mainLocale, locales })
-                        }
-                      />
-                    ) : (
-                      <AppCanvas
-                        manifest={m}
-                        view={view}
-                        selected={selected}
-                        onSelect={setSelected}
-                        onChange={studio.edit}
-                        mainLocale={studio.mainLocale}
-                        preview={false}
-                        previewRequest={scoped}
-                      />
-                    )}
-                    <AppInspector
-                      manifest={m}
-                      view={view}
-                      selected={selected}
-                      onChange={studio.edit}
-                    />
-                  </div>
-                ) : (
-                  <p>{a("select")}</p>
-                )}
-              </>
+            {!environments.length && (
+              <form
+                className="app-new-sandbox"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  void studio.run(() => studio.createSandbox(stageName));
+                }}
+              >
+                <label>
+                  {w("stageName")}
+                  <input
+                    required
+                    maxLength={80}
+                    value={stageName}
+                    onChange={(e) => setStageName(e.target.value)}
+                  />
+                </label>
+                <button className="studio-secondary">{w("newStage")}</button>
+              </form>
             )}
-            {section === "data" && (
-              <AppDataEditor manifest={m} onChange={studio.edit} />
-            )}{" "}
-            {section === "connect" && (
-              <AppConnections
-                manifest={m}
-                onChange={studio.edit}
-                onFlows={onFlows}
-              />
-            )}{" "}
-            {section === "payments" && (
-              <AppPayments
-                manifest={m}
-                onChange={studio.edit}
+            <AppEditorNavigation
+              section={section}
+              onSelect={(key) =>
+                key === "agent" ? setAgentOpen(true) : setSection(key)
+              }
+              versions={studio.builds.length}
+              payments={m.category === "payment" || !!m.paymentProvider}
+            />
+            <ContentLanguage
+              locales={
+                preview && canPreview && previewLanguages
+                  ? previewLanguages.locales
+                  : studio.locales
+              }
+              mainLocale={
+                preview && canPreview && previewLanguages
+                  ? previewLanguages.mainLocale
+                  : studio.mainLocale
+              }
+            >
+              <div className="app-language-toolbar">
+                <ContentLanguagePicker />
+                {section === "design" && (
+                  <div className="app-canvas-actions">
+                    <button
+                      className="app-icon-button"
+                      disabled={!studio.history.past.length}
+                      aria-label={a("undo")}
+                      onClick={() => studio.dispatch("undo")}
+                    >
+                      ↶
+                    </button>
+                    <button
+                      className="app-icon-button"
+                      disabled={!studio.history.future.length}
+                      aria-label={a("redo")}
+                      onClick={() => studio.dispatch("redo")}
+                    >
+                      ↷
+                    </button>
+                    <button
+                      className="studio-secondary"
+                      disabled={immediate.busy || !!problems(m)}
+                      aria-pressed={preview && canPreview}
+                      onClick={() => {
+                        if (preview && canPreview) {
+                          setPreview(false);
+                          immediate.close();
+                        } else {
+                          setPreview(true);
+                          void immediate.run();
+                        }
+                      }}
+                    >
+                      {a(preview && canPreview ? "design" : "realPreview")}
+                    </button>
+                  </div>
+                )}
+              </div>
+              <AppAgentDrawer
+                open={agentOpen}
+                onClose={() => setAgentOpen(false)}
+                studio={studio}
                 request={request}
               />
-            )}
-            {section === "agent" && (
-              <AppAgentPanel studio={studio} request={request} />
-            )}{" "}
-            {section === "versions" && (
-              <AppVersions studio={studio} onEdit={openForEditing} />
-            )}
-          </ContentLanguage>
-        </fieldset>
-      )}
-      <AppStudioStatus studio={studio} preview={immediate} />
-    </div>
+              {section === "design" && (
+                <AppDesignWorkspace
+                  studio={studio}
+                  immediate={immediate}
+                  view={view}
+                  selected={selected}
+                  onSelect={setSelected}
+                  onView={setViewId}
+                  preview={preview}
+                  request={scoped}
+                  onLanguages={(mainLocale, locales) =>
+                    setPreviewLanguages({ mainLocale, locales })
+                  }
+                  onEditFields={() => setSection("data")}
+                />
+              )}
+              {section === "settings" && (
+                <AppSettingsEditor manifest={m} onChange={studio.edit} />
+              )}
+              {section === "data" && (
+                <AppDataEditor manifest={m} onChange={studio.edit} />
+              )}{" "}
+              {section === "connect" && (
+                <AppConnections
+                  manifest={m}
+                  onChange={studio.edit}
+                  onFlows={onFlows}
+                />
+              )}{" "}
+              {section === "payments" && (
+                <AppPayments
+                  manifest={m}
+                  onChange={studio.edit}
+                  request={request}
+                />
+              )}
+              {section === "versions" && (
+                <AppVersions studio={studio} onEdit={openForEditing} />
+              )}
+            </ContentLanguage>
+          </fieldset>
+        )}
+        <AppStudioStatus studio={studio} preview={immediate} />
+      </div>
+    </AppFlowNavigation.Provider>
   );
 }

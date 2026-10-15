@@ -1,10 +1,10 @@
 /** Accessible click-to-add canvas with selectable blocks and keyboard-accessible ordering controls. */
 import { useState } from "react";
+import AppControlThumbnail from "./AppControlThumbnail";
 import AppLogicEditor from "./AppLogicEditor";
 import { accepts } from "./control-model";
 import { controlKinds, isDataBlock } from "../../shared/apps/native/types";
 import AppDesignPreview from "./AppDesignPreview";
-import { controlIcons } from "./app-visuals";
 import AppGridCanvas from "./AppGridCanvas";
 import Icon from "../../shared/ui/Icon";
 import { useAppStudioText } from "../../shared/i18n/app-studio-i18n";
@@ -15,6 +15,8 @@ import type {
 } from "../../shared/apps/native/types";
 import NativeAppView from "../../shared/apps/native/NativeAppView";
 import type { RequestFn } from "../shell/studio-types";
+import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
+import { AppPanelHandle } from "./AppPanelSizing";
 import { snap } from "../../shared/apps/native/geometry";
 import { newBlock } from "./app-model";
 export default function AppCanvas({
@@ -26,7 +28,13 @@ export default function AppCanvas({
   mainLocale,
   preview,
   previewRequest,
+  paletteWidth = 180,
+  onResizePalette,
+  onEditFields,
 }: {
+  paletteWidth?: number;
+  onResizePalette?: (n: number) => void;
+  onEditFields?: () => void;
   manifest: Manifest;
   view: NativeView;
   selected: string;
@@ -38,6 +46,7 @@ export default function AppCanvas({
 }) {
   const [code, setCode] = useState("");
   const { a } = useAppStudioText();
+  const w = useAppWorkspaceText();
   const update = (blocks: Block[]) =>
     onChange({
       ...manifest,
@@ -60,6 +69,40 @@ export default function AppCanvas({
       )?.name;
     return b;
   };
+  const drop = (e: React.DragEvent, index = view.blocks.length) => {
+    if (view.layout === "form") return;
+    e.preventDefault();
+    e.stopPropagation();
+    const kind = e.dataTransfer.getData(
+      "application/vnd.veyndo.kind",
+    ) as Block["kind"];
+    const id = e.dataTransfer.getData("application/vnd.veyndo.block");
+    if (id) {
+      const existing = view.blocks.find((b) => b.id === id);
+      if (!existing) return;
+      const next = view.blocks.filter((b) => b.id !== id);
+      next.splice(
+        Math.min(
+          index - (view.blocks.findIndex((b) => b.id === id) < index ? 1 : 0),
+          next.length,
+        ),
+        0,
+        existing,
+      );
+      update(next);
+      onSelect(id);
+    } else if (
+      ["text", "table", "cards", "form", ...controlKinds].includes(kind) &&
+      view.blocks.length < 32 &&
+      (!isDataBlock(kind) || manifest.entities.length)
+    ) {
+      const b = add(kind),
+        next = [...view.blocks];
+      next.splice(index, 0, b);
+      update(next);
+      onSelect(b.id);
+    }
+  };
   return (
     <div className="app-designer">
       {code && (
@@ -79,6 +122,7 @@ export default function AppCanvas({
           (kind) => (
             <button
               key={kind}
+              title={a(kind)}
               draggable
               onDragStart={(e) => {
                 if (
@@ -99,7 +143,7 @@ export default function AppCanvas({
                 onSelect(b.id);
               }}
             >
-              <Icon name={controlIcons[kind]} />
+              <AppControlThumbnail kind={kind} />
               <span>{a(kind)}</span>
               <Icon name="plus" size={14} />
             </button>
@@ -110,7 +154,21 @@ export default function AppCanvas({
           <p>{a("privateHint")}</p>
         </div>
       </aside>
-      <div className="app-canvas" aria-label={a("canvas")}>
+      {onResizePalette && (
+        <AppPanelHandle
+          side="palette"
+          value={paletteWidth}
+          onChange={onResizePalette}
+        />
+      )}
+      <div
+        className="app-canvas"
+        aria-label={a("canvas")}
+        onDragOver={(e) => {
+          if (view.layout !== "form") e.preventDefault();
+        }}
+        onDrop={(e) => drop(e)}
+      >
         <div className="app-canvas-label">
           <span>{a(preview ? "realPreview" : "sample")}</span>
           <span>{view.blocks.length} / 32</span>
@@ -148,6 +206,13 @@ export default function AppCanvas({
               <article
                 className={`app-design-block ${selected === b.id ? "selected" : ""}`}
                 key={b.id}
+                draggable
+                onDragStart={(e) => {
+                  e.dataTransfer.setData("application/vnd.veyndo.block", b.id);
+                  e.dataTransfer.effectAllowed = "move";
+                }}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={(e) => drop(e, index)}
                 onDoubleClick={() => {
                   onSelect(b.id);
                   if (
@@ -173,6 +238,15 @@ export default function AppCanvas({
                     mainLocale={mainLocale}
                   />
                 </button>
+                {b.kind === "form" && selected === b.id && (
+                  <button
+                    type="button"
+                    className="app-edit-fields"
+                    onClick={onEditFields}
+                  >
+                    {w("editFields")}
+                  </button>
+                )}
                 {selected === b.id && (
                   <div className="app-node-controls">
                     <button

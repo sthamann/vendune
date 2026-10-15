@@ -116,7 +116,7 @@ pub(crate) fn validate_permissions(h: &RequestContext, v: &Value) -> Result<Valu
 pub(crate) async fn access(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {
     merchant(&a, &h)?;
     Ok(Json(
-        json!({"permissions":SCOPES.iter().filter(|s|allowed(&h,s)).collect::<Vec<_>>(),"available":SCOPES}),
+        json!({"permissions":SCOPES.iter().filter(|s|allowed(&h,s)).collect::<Vec<_>>(),"available":SCOPES,"personalSession":h.principal.personal_session}),
     ))
 }
 pub(crate) async fn sessions(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {

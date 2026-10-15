@@ -337,6 +337,15 @@ theorem app_surface_stale_denied (allowedAction : Bool) :
     app_surface_admissible false allowedAction = false := by
   cases allowedAction <;> simp [app_surface_admissible]
 
+/-- Persistent integration authority requires both a personal session and current administrator rights. -/
+theorem persistent_key_exact (personal administrator : Bool) :
+    persistent_key_admissible personal administrator = true ↔ personal = true ∧ administrator = true := by
+  cases personal <;> cases administrator <;> simp [persistent_key_admissible]
+
+theorem persistent_key_nonpersonal_denied (administrator : Bool) :
+    persistent_key_admissible false administrator = false := by
+  cases administrator <;> simp [persistent_key_admissible]
+
 theorem app_callback_exact (capability currentRole : Bool) :
     app_callback_admissible capability currentRole = true ↔ capability = true ∧ currentRole = true := by
   cases capability <;> cases currentRole <;> simp [app_callback_admissible]

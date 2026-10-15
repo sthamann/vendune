@@ -42,6 +42,8 @@ MUTANTS=[
  ("ai_autonomy_admissible","&& daily_budget","&& true"),
  ("claim_render_admissible","confirmed &&","true &&"),
  ("claim_render_admissible","&& current_source","&& true"),
+ ("persistent_key_admissible","personal &&","true &&"),
+ ("persistent_key_admissible","&& administrator","&& true"),
  ("app_callback_admissible","capability &&","true &&"),
  ("app_callback_admissible","&& current_role","&& true"),
  ("app_package_authorized","pinned || bundled","true"),

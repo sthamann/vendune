@@ -1,4 +1,5 @@
 /** Coding agents receive the current Manifest IR and authoritative schema; imported edits round-trip to the canvas. */
+import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
 import { useBuildingText } from "../../shared/i18n/app-building-i18n";
 import AppProposalReview from "./AppProposalReview";
 import { useControlText } from "../../shared/i18n/control-i18n";
@@ -30,6 +31,7 @@ export default function AppAgentPanel({
   studio: AppStudio;
   request: RequestFn;
 }) {
+  const workspace = useAppWorkspaceText();
   const c = useControlText(),
     t = useBuildingText();
   const { a } = useAppStudioText(),
@@ -156,63 +158,66 @@ export default function AppAgentPanel({
           }}
         />
       )}
-      <div className="app-agent-options">
-        <button
-          className="studio-secondary"
-          disabled={studio.busy}
-          onClick={() =>
-            void studio.run(async () =>
-              downloadJson(
-                "app-studio-schema.json",
-                await request("/api/developer/schema"),
-              ),
-            )
-          }
-        >
-          {a("schema")}
-        </button>
-        <button
-          className="studio-secondary"
-          onClick={() =>
-            downloadJson(`${studio.manifest.id}.json`, studio.manifest)
-          }
-        >
-          {a("download")}
-        </button>
-      </div>
-      <section className="app-model-card">
-        <h2>{a("import")}</h2>
-        <textarea
-          aria-label={w("contract")}
-          rows={10}
-          value={json}
-          onChange={(e) => setJson(e.target.value)}
-        />
-        <button
-          className="studio-primary"
-          disabled={!json || !studio.env || studio.busy}
-          onClick={() => {
-            try {
-              const parsed = JSON.parse(json),
-                m = (parsed.manifest ?? parsed) as Manifest;
-              if (
-                !m ||
-                !["declarative", "service"].includes(m.runtime) ||
-                !Array.isArray(m.entities) ||
-                !Array.isArray(m.views) ||
-                !Array.isArray(m.surfaces)
+      <details className="app-agent-advanced">
+        <summary>{workspace("agentAdvanced")}</summary>
+        <div className="app-agent-options">
+          <button
+            className="studio-secondary"
+            disabled={studio.busy}
+            onClick={() =>
+              void studio.run(async () =>
+                downloadJson(
+                  "app-studio-schema.json",
+                  await request("/api/developer/schema"),
+                ),
               )
-                throw Error(a("invalid"));
-              void studio.run(() => studio.proposeImport(compile(m)));
-              studio.setError("");
-            } catch (e) {
-              studio.setError((e as Error).message);
             }
-          }}
-        >
-          {a("import")}
-        </button>
-      </section>
+          >
+            {a("schema")}
+          </button>
+          <button
+            className="studio-secondary"
+            onClick={() =>
+              downloadJson(`${studio.manifest.id}.json`, studio.manifest)
+            }
+          >
+            {a("download")}
+          </button>
+        </div>
+        <section className="app-model-card">
+          <h2>{a("import")}</h2>
+          <textarea
+            aria-label={w("contract")}
+            rows={10}
+            value={json}
+            onChange={(e) => setJson(e.target.value)}
+          />
+          <button
+            className="studio-primary"
+            disabled={!json || !studio.env || studio.busy}
+            onClick={() => {
+              try {
+                const parsed = JSON.parse(json),
+                  m = (parsed.manifest ?? parsed) as Manifest;
+                if (
+                  !m ||
+                  !["declarative", "service"].includes(m.runtime) ||
+                  !Array.isArray(m.entities) ||
+                  !Array.isArray(m.views) ||
+                  !Array.isArray(m.surfaces)
+                )
+                  throw Error(a("invalid"));
+                void studio.run(() => studio.proposeImport(compile(m)));
+                studio.setError("");
+              } catch (e) {
+                studio.setError((e as Error).message);
+              }
+            }}
+          >
+            {a("import")}
+          </button>
+        </section>
+      </details>
     </div>
   );
 }

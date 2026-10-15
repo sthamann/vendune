@@ -1,4 +1,4 @@
-//! Expiring API/MCP keys are bounded to one workspace and intersect their creator's current membership.
+//! Explicit-lifetime API/MCP keys are bounded to one workspace and intersect their creator's current membership.
 use super::{permit, validate_permissions};
 use crate::{
     App, Error, Json, Path, RequestContext, Result, State, StatusCode, bad, hash, header, merchant,
@@ -87,9 +87,9 @@ pub(crate) async fn integration_list(
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     permit(&h, "users")?;
-    let rows=sqlx::query("SELECT id,name,user_id,app_id,permissions,created_at::text AS created,expires_at::text AS expires FROM integration_keys WHERE tenant=$1 ORDER BY created_at DESC LIMIT 100").bind(t).fetch_all(&a.db).await?;
+    let rows=sqlx::query("SELECT id,name,user_id,app_id,permissions,created_at::text AS created,CASE WHEN isfinite(expires_at) THEN expires_at::text ELSE NULL END AS expires FROM integration_keys WHERE tenant=$1 ORDER BY created_at DESC LIMIT 100").bind(t).fetch_all(&a.db).await?;
     Ok(Json(
-        json!({"elements":rows.iter().map(|r|json!({"id":r.get::<String,_>("id"),"name":r.get::<String,_>("name"),"userId":r.get::<String,_>("user_id"),"appId":r.get::<Option<String>,_>("app_id"),"permissions":r.get::<Value,_>("permissions"),"createdAt":r.get::<String,_>("created"),"expiresAt":r.get::<String,_>("expires")})).collect::<Vec<_>>()}),
+        json!({"elements":rows.iter().map(|r|json!({"id":r.get::<String,_>("id"),"name":r.get::<String,_>("name"),"userId":r.get::<String,_>("user_id"),"appId":r.get::<Option<String>,_>("app_id"),"permissions":r.get::<Value,_>("permissions"),"createdAt":r.get::<String,_>("created"),"expiresAt":r.get::<Option<String>,_>("expires")})).collect::<Vec<_>>()}),
     ))
 }
 pub(crate) async fn integration_create(
@@ -111,6 +111,17 @@ pub(crate) async fn integration_create(
         .as_str()
         .filter(|s| !s.trim().is_empty() && s.len() <= 100)
         .ok_or(bad("Integration name required"))?;
+    if input.non_expiring
+        && !crate::verified_kernel::persistent_key_admissible(
+            h.principal.personal_session,
+            super::permit(&h, "team.manage").is_ok(),
+        )
+    {
+        return Err(Error(
+            StatusCode::FORBIDDEN,
+            "A personal administrator session is required for a non-expiring key".into(),
+        ));
+    }
     let days = v["expiresInDays"]
         .as_i64()
         .filter(|v| (1..=90).contains(v))
@@ -131,7 +142,7 @@ pub(crate) async fn integration_create(
     }
     let id = uid();
     let key = format!("rac_{}{}", uid(), uid());
-    sqlx::query("INSERT INTO integration_keys(id,tenant,user_id,digest,name,permissions,expires_at) VALUES($1,$2,$3,$4,$5,$6,now()+$7*interval '1 day')").bind(&id).bind(&t).bind(header(&h,"x-rac-user").unwrap()).bind(hash(&key)).bind(name).bind(permissions).bind(days as i32).execute(&mut *tx).await?;
+    sqlx::query("INSERT INTO integration_keys(id,tenant,user_id,digest,name,permissions,expires_at) VALUES($1,$2,$3,$4,$5,$6,CASE WHEN $8 THEN 'infinity'::timestamptz ELSE now()+$7*interval '1 day' END)").bind(&id).bind(&t).bind(header(&h,"x-rac-user").unwrap()).bind(hash(&key)).bind(name).bind(permissions).bind(days as i32).bind(input.non_expiring).execute(&mut *tx).await?;
     tx.commit().await?;
     Ok(Json(json!({"id":id,"key":key,"workspace":t})))
 }

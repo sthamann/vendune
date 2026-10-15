@@ -4,6 +4,7 @@ import {
   assistantText,
   type AssistantKey,
 } from "../../shared/i18n/app-assistant-i18n";
+import { multiPlacementManifest } from "./assistant-placements";
 import { binding, compile } from "./app-model";
 export const appKinds = [
   "frontend",
@@ -31,6 +32,12 @@ export const placements: Record<string, AssistantKey> = {
   "product.detail": "productDetail",
   "storefront.page": "storefrontPage",
   "storefront.block": "storefrontBlock",
+  "storefront.header": "globalHeader",
+  "storefront.home": "homeSection",
+  "cart.summary": "cartSummary",
+  "checkout.content": "checkoutContent",
+  "checkout.summary": "checkoutSummary",
+  "account.overview": "accountOverview",
 };
 export const contextKeys = {
   product: "productId",
@@ -57,12 +64,18 @@ export type AssistantSetup = {
   id: string;
   name: Manifest["name"];
   location: string;
+  locations?: string[];
   mcp: boolean;
   publicRead: boolean;
   event: string;
   cron: string;
 };
 export function assistedManifest(s: AssistantSetup): Manifest {
+  return s.locations?.length
+    ? multiPlacementManifest(s, assistedSingle)
+    : assistedSingle(s);
+}
+function assistedSingle(s: AssistantSetup): Manifest {
   const service = ["payment", "shipping", "integration", "event"].includes(
     s.kind,
   );
@@ -81,7 +94,7 @@ export function assistedManifest(s: AssistantSetup): Manifest {
   const block = (kind: Block["kind"], id: string): Block => ({
     id,
     kind,
-    title: assistantText(kind === "form" ? "setup" : "body"),
+    title: kind === "form" ? s.name : assistantText("body"),
     ...binding(kind, "entries"),
     ...(core
       ? { contextBinding: { field: field!, key: contextKeys[core] } }
@@ -189,11 +202,7 @@ export function assistedManifest(s: AssistantSetup): Manifest {
     });
     m.surfaces!.push({
       id: "shopper",
-      location: core
-        ? "product.detail"
-        : s.location === "storefront.block"
-          ? "storefront.block"
-          : "storefront.page",
+      location: s.location.startsWith("admin.") ? "product.detail" : s.location,
       label: s.name,
       uiPath: "native/shopper",
       actions: [],

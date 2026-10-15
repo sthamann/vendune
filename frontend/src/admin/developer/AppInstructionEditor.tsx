@@ -1,4 +1,6 @@
 /** Block instructions expose schema-aware targets; nested branches are edited recursively under the server's bounded AST contract. */
+import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
+import Icon from "../../shared/ui/Icon";
 import type {
   Manifest,
   NativeView,
@@ -22,7 +24,8 @@ export default function AppInstructionEditor({
   onChange: (s: Statement[]) => void;
   depth?: number;
 }) {
-  const { a } = useAppStudioText();
+  const { a } = useAppStudioText(),
+    w = useAppWorkspaceText();
   const forms = view.blocks.filter((b) => b.kind === "form"),
     inputs = view.blocks.filter((b) =>
       ["textbox", "combobox", "checkbox", "datepicker"].includes(b.kind),
@@ -86,10 +89,14 @@ export default function AppInstructionEditor({
   return (
     <div className="app-instructions">
       {steps.map((s, i) => (
-        <section className="app-instruction" key={i}>
+        <section
+          id={`app-instruction-${depth}-${i}`}
+          className="app-instruction"
+          key={i}
+        >
           <header>
             <code>
-              {i + 1} · {s.op}
+              {i + 1} · {w(s.op)}
             </code>
             <button
               type="button"
@@ -188,22 +195,24 @@ export default function AppInstructionEditor({
           )}
         </section>
       ))}
-      <select
-        aria-label={a("addInstruction")}
-        value=""
-        disabled={steps.length >= 64}
-        onChange={(e) => {
-          const s = defaults.find((s) => s.op === e.target.value);
-          if (s) onChange([...steps, structuredClone(s)]);
-        }}
-      >
-        <option value="">+ {a("addInstruction")}</option>
+      <div className="app-instruction-options">
         {defaults.map((s) => (
-          <option key={s.op} value={s.op}>
-            {s.op}
-          </option>
+          <button
+            type="button"
+            key={s.op}
+            disabled={steps.length >= 64}
+            onClick={() => onChange([...steps, structuredClone(s)])}
+          >
+            <Icon
+              name={
+                s.op === "if" ? "graph" : s.op === "call" ? "pulse" : "arrow"
+              }
+              size={18}
+            />
+            {w(s.op)}
+          </button>
         ))}
-      </select>
+      </div>
     </div>
   );
 }

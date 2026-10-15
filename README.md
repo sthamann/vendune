@@ -299,3 +299,5 @@ license. Earlier MIT-distributed versions retain their rights; third-party terms
 remain intact.
 
 [License examples](docs/licensing.md) · [Contribute](CONTRIBUTING.md) · [Report an issue](https://github.com/sthamann/veyndo/issues/new/choose) · [Third-party notices](THIRD_PARTY.md) · [Changelog](CHANGELOG.md).
+
+**App Studio workbench:** [Build one app across product pages, checkout and global shop areas; visual controls, encrypted installation settings, shared Flow visuals and agent editing](docs/app-studio-workspace.md).

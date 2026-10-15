@@ -1,4 +1,5 @@
 /** Managed app models expose typed fields and opt-in public reads; removal cleans dependent bindings. */
+import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
 import AppModelDiagram from "./AppModelDiagram";
 import AppSchemaMigrations from "./AppSchemaMigrations";
 import AppFieldOptions from "./AppFieldOptions";
@@ -16,6 +17,7 @@ export default function AppDataEditor({
   onChange: (m: Manifest) => void;
 }) {
   const { a } = useAppStudioText();
+  const w = useAppWorkspaceText();
   const patch = (name: string, next: Entity) =>
     onChange({
       ...manifest,
@@ -61,6 +63,10 @@ export default function AppDataEditor({
           {a("addEntity")}
         </button>
       </div>
+      <details className="app-data-safety">
+        <summary>{a("privateHint")}</summary>
+        <p>{w("dataSafety")}</p>
+      </details>
       <AppModelDiagram manifest={manifest} onChange={onChange} />
       <AppSchemaMigrations
         key={`${manifest.id}:${manifest.version}`}

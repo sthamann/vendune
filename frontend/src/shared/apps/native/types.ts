@@ -138,6 +138,12 @@ export type Manifest = {
     channel: "stable" | "beta" | "development";
     dependencies?: { app: string; publisher: string; version: string }[];
   };
+  settings?: {
+    key: string;
+    label: Text;
+    kind: "string" | "secret" | "boolean" | "integer";
+    required: boolean;
+  }[];
   permissions: string[];
   events?: string[];
   eventFilters?: {

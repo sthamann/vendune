@@ -613,3 +613,7 @@ Shared content editing styles belong to `frontend/src/shared/i18n/content-editor
 imported by the language picker and localized field themselves. Bounded customer
 selection owns `frontend/src/shared/customer/customer-picker.css`; B2B and Admin
 orders reuse it. A direct editor entry must not require visiting settings first.
+
+## Connected App Studio workbench
+
+See the [illustrated workbench guide](app-studio-workspace.md) for multiple placements, compact adjustable panels, the contextual AI drawer, model-backed form editing, shared Flow visuals, installed app settings and scoped integration keys. These extend the existing native Manifest, runtime and release owners.

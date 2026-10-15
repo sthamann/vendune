@@ -23,9 +23,15 @@ conf=call('/api/merchant/commerce',session=a);s=conf['data'];s['mainLocale']='es
 call('/api/merchant/commerce',{'data':s,'revision':conf['revision']},a,method='PUT')
 schema=call('/api/developer/schema',session=a);label=schema['properties']['manifest']['properties']['views']['items']['properties']['blocks']['items']['properties']['title']
 assert 'it-IT' in label['required'] and label['additionalProperties'] is False
+assert 'it-IT' in schema['properties']['manifest']['properties']['settings']['items']['properties']['label']['required']
 stage=call('/api/environments',{'name':'Native App Studio'},a)['id']
 m=json.loads((pathlib.Path(__file__).resolve().parents[1]/'extensions/apps/care-studio/manifest.json').read_text())
 m['id']='studio_'+uuid.uuid4().hex[:8]
+# A single package can mount the same reviewed public native view in several real shop locations.
+shopper=next(surface for surface in m['surfaces'] if not surface['location'].startswith('admin.'))
+for i,location in enumerate(['storefront.header','checkout.content','checkout.summary']):
+ surface=copy.deepcopy(shopper);surface.update(id='mount_'+str(i),location=location);m['surfaces'].append(surface)
+
 def save(manifest,expected=200):return call('/api/developer/import',{'environment':stage,'prompt':'Native care app','summary':manifest['name'],'manifest':manifest},a,expected=expected)
 b=save(m);assert b['manifest']['views'] and b['digest'];save(m,409)
 task=call('/api/developer/task',{'environment':stage,'prompt':'Extend the same app','manifest':m,'agent':'codex'},a)
@@ -41,7 +47,7 @@ for mutation in ['write','entity','allowlist','html','script']:
  save(bad,400)
 call('/api/developer/builds/'+b['id']+'/stage',{'approve':True,'digest':b['digest']},a)
 private=call('/api/apps/surfaces',session=a,tenant=stage)['surfaces'];assert next(v for v in private if v['app']==m['id'])['native']['view']['id']=='workspace'
-public=call('/store-api/apps/surfaces',session=a,tenant=stage)['surfaces'];v=next(v for v in public if v['app']==m['id']);assert v['mainLocale']=='es-ES' and 'it-IT' in v['locales'] and all(b['kind']!='form' for b in v['native']['view']['blocks'])
+public=call('/store-api/apps/surfaces',session=a,tenant=stage)['surfaces'];assert {'storefront.header','checkout.content','checkout.summary'} <= {s['surface']['location'] for s in public if s['app']==m['id']};v=next(v for v in public if v['app']==m['id']);assert v['mainLocale']=='es-ES' and 'it-IT' in v['locales'] and all(b['kind']!='form' for b in v['native']['view']['blocks'])
 call('/store-api/apps/surfaces',tenant=stage,expected=401)
 passed('Native admin/shop registries resolve installed definitions and reject public forms, wrong bindings, unlisted actions and code injection')
 fields={'title':{'es':'Origen'},'instructions':{'es':'Contenido original','de':None,'it-IT':'Istruzioni'}}

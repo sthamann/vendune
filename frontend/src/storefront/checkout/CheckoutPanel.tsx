@@ -137,6 +137,12 @@ export default function CheckoutPanel({
           location="cart.summary"
           context={{ itemCount: cart?.lineItems.length ?? 0 }}
         />
+        {!order && !!cart?.lineItems.length && (
+          <AppSurfaceSlot
+            location="checkout.summary"
+            context={{ itemCount: cart.lineItems.length }}
+          />
+        )}
         {order ? (
           <section className="checkout-success">
             <Icon name="check" />
@@ -161,6 +167,10 @@ export default function CheckoutPanel({
         ) : (
           <div className="checkout-layout">
             <div className="checkout-form">
+              <AppSurfaceSlot
+                location="checkout.content"
+                context={{ itemCount: cart.lineItems.length }}
+              />
               <CheckoutDetails
                 cart={cart}
                 selection={selection}

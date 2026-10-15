@@ -82,6 +82,8 @@ import Commerce.Claims
 #print axioms CommerceKernel.payment_pending_capture
 #print axioms CommerceKernel.payment_refunded_terminal
 #print axioms CommerceKernel.payment_transition_exact
+#print axioms CommerceKernel.persistent_key_exact
+#print axioms CommerceKernel.persistent_key_nonpersonal_denied
 #print axioms CommerceKernel.platform_exact
 #print axioms CommerceKernel.platform_personal_required
 #print axioms CommerceKernel.pos_cash_conserves

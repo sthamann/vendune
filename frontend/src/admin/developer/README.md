@@ -27,3 +27,13 @@ Run frontend build, tests, coverage, localization and architecture checks. See [
 - `SandboxContextPicker.tsx`: bounded selection of real sandbox products/customers/orders.
 
 [Guided apps, provider boundaries and verification](../../../../docs/app-assistants.md).
+
+## Multi-placement workbench
+
+`assistant-placements.ts` compiles up to six selected areas into ordinary views/models in one package, retaining context-bound product/customer/order editors. `AppDesignWorkspace` composes the native preview and inspector; `AppPanelSizing` stores bounded presentation widths only. `AppControlThumbnail` provides passive illustrations. Stack/grid drag/drop and 12-column layout use the same Manifest blocks. `AppFormFields` edits the real selected model captions, not fake sample records.
+
+`AppSettingsEditor` edits setting declarations only. Installed values use `admin/apps/AppSettings` and the existing encrypted app-secret owner. Settings do not enter templates, agent task exports or public native payloads. Their revisions/audit metadata describe credential rotation; they are live-only and are not configuration rollback/release units.
+
+`AppLogicTopology` projects the existing bounded UI AST into the shared Flow Builder topology. It never persists or executes a second flow. `AppFlowNavigation` opens the native Flow Builder; native app saves already produce its `app.record.changed` event. `AppAgentDrawer` opens the shared `AppAgentPanel` on demand from every editing section. The native modal handles focus/Escape and keeps an unfinished prompt mounted while closed. The canvas stays in place; full task/import/provider controls use the same Manifest. The toolbox uses small illustrated rows (default 180 px; adjustable 148–280 px).
+
+[Illustrated workbench and exact runtime/security boundaries](../../../../docs/app-studio-workspace.md).

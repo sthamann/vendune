@@ -78,10 +78,8 @@ it("guides an admin app into the customer editor with private choices and correc
     { wrapper: LocaleProvider },
   );
   await user.click(screen.getByRole("button", { name: /Admin app/ }));
-  await user.selectOptions(
-    screen.getByLabelText("Where should it appear?"),
-    "admin.customer",
-  );
+  await user.click(screen.getByLabelText("Product · new submenu"));
+  await user.click(screen.getByLabelText("Customer · additional fields"));
   await user.click(screen.getByLabelText("Expose action to MCP / agents"));
   await user.click(
     screen.getByRole("button", { name: "Create editable draft" }),
