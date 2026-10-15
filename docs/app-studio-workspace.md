@@ -169,3 +169,10 @@ Saving/installing executes declared pure cases in the existing WIT sandbox.
 The selected editor now omits the app library and large introduction; Back to
 overview retains the draft and opens the normal library. The contextual assistant
 continues to use the existing modal and coding-agent round trip.
+
+Studio connection presentation is checked against the current shop and sandbox
+during render. A new scope cannot briefly inherit the previous
+connected view; a connection not yet checked displays pending instead of failure.
+Existing expiry, same-account resume, current permissions and server guards remain
+authoritative. Slow-sandbox, language refresh, failure and scope-change
+regressions exercise the shared controller rather than a separate editor session.

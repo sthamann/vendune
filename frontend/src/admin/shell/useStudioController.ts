@@ -53,11 +53,15 @@ export function useStudioController({
     }
   }, [token, workspace]);
   const [workspaceName, setWorkspaceName] = useState(workspace);
-  const [connected, setConnected] = useState(false);
+  const [connectionEstablished, setConnected] = useState(false);
   const [connectionPending, setConnectionPending] = useState(false);
   const [connectionAttempt, setConnectionAttempt] = useState(0);
 
   const connectionScope = useRef("");
+  const scope = JSON.stringify([workspace, environment]);
+  const sameScope = connectionScope.current === scope;
+  // Mask the previous shop/sandbox before effects start its replacement request.
+  const connected = connectionEstablished && sameScope;
   const [role, setRole] = useState("viewer");
   const [providers, setProviders] = useState<Provider[]>([]);
   const [provider, setProvider] = useState("platform");
@@ -78,7 +82,7 @@ export function useStudioController({
   const [settings, setSettings] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const navigation = useEntityNavigation(
-    JSON.stringify([workspace, environment]),
+    scope,
     (connected ? nav.filter((n) => canOpenStudio(n.id, access)) : nav).map(
       (n) => n.id,
     ),
@@ -181,7 +185,6 @@ export function useStudioController({
     }
     // Refresh translated context without unmounting open editors. Auth and
     // tenant/environment changes still require a newly verified connection.
-    const scope = JSON.stringify([workspace, environment]);
     if (connectionScope.current !== scope) setConnected(false);
     connectionScope.current = scope;
     setConnectionPending(true);
@@ -239,7 +242,7 @@ export function useStudioController({
     return () => {
       active = false;
     };
-  }, [request, auth.active, workspace, environment, connectionAttempt]);
+  }, [request, auth.active, workspace, environment, token, connectionAttempt]);
   useEffect(() => {
     if (tab === "assistant")
       bottom.current?.scrollIntoView({ block: "nearest" });
@@ -325,7 +328,7 @@ export function useStudioController({
     workspaceName,
     setWorkspaceName,
     connected,
-    connectionPending,
+    connectionPending: auth.active && (connectionPending || !sameScope),
     retryConnection: () => setConnectionAttempt((n) => n + 1),
     setConnected,
     sessionExpired,
