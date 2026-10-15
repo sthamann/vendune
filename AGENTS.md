@@ -33,6 +33,15 @@ commerce calculation path; API/MCP/UI consumers must not implement their own FX
 calculator. See [multi-currency commerce](docs/currencies.md). A protocol adapter
 translates inputs/outputs; it does not become a second owner of business rules.
 
+Product editing preserves aggregate `revision` for legacy/absolute-stock CAS and
+uses `contentRevision` only when `commerce.stock` is omitted. Never infer that an
+echoed old quantity is a new inventory instruction. The editor omits untouched
+stock and adopts the returned current quantity/clocks. Migration 098 observes
+existing revisioned writers during rolling releases. Keep both clocks and stock
+out of sandbox configuration digests; history restoration never restores stock.
+See `docs/product-management.md#editing-while-orders-arrive` and retain the actual
+two-replica purchase/cancellation/MCP regression in `production_foundations`.
+
 ## Cognitive commerce continuity
 
 Read [the connected cognition guide](docs/cognitive-commerce.md) before changing

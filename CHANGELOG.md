@@ -1,6 +1,13 @@
 # Changelog
 
-## Business goals and executable app examples — in development, 15 October 2026
+## Product content and inventory concurrency — in development, 15 October 2026
+
+- Preserve aggregate product revisions and add a content clock through additive migration 098. Existing replicas advance it during rolling releases; stock-only purchases/releases leave it stable.
+- Native HTTP/MCP content-only saves preserve current stock under the existing row lock. Explicit quantities and legacy clients still require the current aggregate revision; stale content reports the appropriate revision pointer.
+- The Studio omits untouched quantities and refreshes current stock after saving. History restoration and selected sandbox publication retain live inventory and exclude operational clocks from configuration digests.
+- Exercise actual two-replica purchase/content-save/cancellation/MCP and stale-write rejection, existing catalogue/history/staging/currency/translation paths and the real product editor. This does not add a second inventory ledger or change checkout money representations.
+
+## Business goals and executable app examples — merged, 15 October 2026
 
 - Extend the existing Manifest with optional versioned, localized intent/assumptions and bounded frozen pure-commerce cases. Keep legacy serialization unchanged.
 - Run declared examples in the actual isolated WIT component before development save and native installation; traps/mismatches block mutation with a precise case pointer. Preserve cases across AI presentation edits, staging and selected release.
@@ -8,7 +15,7 @@
 - Add a compact Business goal tab to App Studio, keeping the contextual agent drawer and the same visual/coding definition. Cards distinguish expected outcomes from verification claims; content inherits the configured shop language.
 - Version the snapshot-pricing example package as 1.1.0 with five deterministic cases, including JPY and validation. Actual checkout, tenant isolation and publication regressions retain their native consumers. Human confirmation provenance, historical replay, managed source builds and fleet compatibility remain open.
 
-## Shared operations and reliability — in development, 15 October 2026
+## Shared operations and reliability — released, 15 October 2026
 
 - Move native input schemas, discovery and bounded agent-read policy into one immutable operation registry; retain boxed domain dispatch and current domain/object/PII rights. Reject duplicate native names and remove duplicate B2B registrations.
 - Share native/app tool metadata; support optional bounded declared app result contracts without changing legacy package digests. Reject invalid results without exposing payloads or suggesting automatic replay of ambiguous writes.

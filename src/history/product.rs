@@ -13,7 +13,6 @@ pub(super) async fn restore(
         return Err(conflict("Product changed; reload before restoring"));
     }
     let r = &state["record"];
-    let stock = current["commerce"]["stock"].clone();
     for (key, column) in [
         ("price", "price"),
         ("taxRate", "tax_rate"),
@@ -30,7 +29,8 @@ pub(super) async fn restore(
     ] {
         current["commerce"][key] = r[column].clone();
     }
-    current["commerce"]["stock"] = stock;
+    // Restoring content must not replay a quantity or conflict with an intervening sale.
+    current["commerce"].as_object_mut().unwrap().remove("stock");
     current["extra"] = r["extra"].clone();
     let t = merchant(&a, &h)?;
     let (settings, _) = commerce::config(&a, &t).await?;

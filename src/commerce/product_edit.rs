@@ -150,23 +150,47 @@ pub(super) async fn save_product(
                 return Err(bad("Variant parent and options required"));
             }
         }
-        let inserted=sqlx::query("INSERT INTO products(tenant,id,name,description,category,price,tax_rate,stock,revision,parent_id) VALUES($1,$2,$3,$4,'objects',0,19,0,0,$5) ON CONFLICT(tenant,id) DO NOTHING").bind(&t).bind(&id).bind(&main_name).bind(&main_description).bind(&fields.parent_id).execute(&mut *tx).await?.rows_affected();
+        let inserted=sqlx::query("INSERT INTO products(tenant,id,name,description,category,price,tax_rate,stock,revision,content_revision,parent_id) VALUES($1,$2,$3,$4,'objects',0,19,0,0,0,$5) ON CONFLICT(tenant,id) DO NOTHING").bind(&t).bind(&id).bind(&main_name).bind(&main_description).bind(&fields.parent_id).execute(&mut *tx).await?.rows_affected();
         if inserted == 0 {
             return Err(conflict("Product already exists"));
         }
     }
     if !create {
         let row = sqlx::query(
-            "SELECT revision,parent_id FROM products WHERE tenant=$1 AND id=$2 FOR UPDATE",
+            "SELECT revision,content_revision,parent_id FROM products WHERE tenant=$1 AND id=$2 FOR UPDATE",
         )
         .bind(&t)
         .bind(&id)
         .fetch_optional(&mut *tx)
         .await?
         .ok_or(Error(StatusCode::NOT_FOUND, "Product not found".into()))?;
-        if row.get::<i64, _>("revision") != edit.revision {
-            return Err(conflict("Product changed"));
+        // Content-only requests cannot carry an absolute stock value. Legacy clients
+        // and explicit stock edits retain aggregate CAS, including checkout changes.
+        let content_only = edit.content_revision.is_some()
+            && edit
+                .commerce
+                .as_ref()
+                .is_none_or(|fields| fields.stock.is_none());
+        let (current, expected) = if content_only {
+            (
+                row.get::<i64, _>("content_revision"),
+                edit.content_revision.unwrap(),
+            )
+        } else {
+            (row.get::<i64, _>("revision"), edit.revision)
+        };
+        if current != expected {
+            return Err(Error::revision_at(
+                current,
+                if content_only {
+                    "/contentRevision"
+                } else {
+                    "/revision"
+                },
+                "Product changed",
+            ));
         }
+        edit.revision = row.get("revision");
         if edit
             .catalog
             .as_ref()
@@ -218,10 +242,9 @@ pub(super) async fn save_product(
         .bind(json!({"productId":id,"revision":edit.revision+1}))
         .execute(&mut *tx)
         .await?;
+    let result = json!({"id":id,"saved":true,"revision":row.get::<i64,_>("revision"),"contentRevision":row.get::<i64,_>("content_revision"),"stock":row.get::<i32,_>("stock")});
     tx.commit().await?;
-    Ok(Json(
-        json!({"id":id,"saved":true,"revision":edit.revision+1}),
-    ))
+    Ok(Json(result))
 }
 pub(crate) async fn product_editor(
     State(a): State<App>,
@@ -263,6 +286,6 @@ pub(crate) async fn product_editor(
         .collect::<Vec<_>>();
     let category_ids:Vec<String>=sqlx::query_scalar("SELECT category_id FROM product_categories WHERE tenant=$1 AND product_id=$2 ORDER BY category_id").bind(&t).bind(&id).fetch_all(&a.db).await?;
     Ok(Json(
-        json!({"id":id,"mainLocale":settings.main_locale,"availableLocales":settings.locales,"channels":channels,"catalog":{"salesChannelIds":selected_channels,"active":r.get::<bool,_>("active"),"productNumber":r.get::<Option<String>,_>("product_number").unwrap_or_else(||id.clone()),"categoryIds":category_ids,"parentId":r.get::<Option<String>,_>("parent_id"),"options":r.get::<Value,_>("options")},"revision":r.get::<i64,_>("revision"),"translations":translations,"extra":({let mut extra=r.get::<Value,_>("extra");if extra["priceCurrency"].is_null(){extra["priceCurrency"]=json!(settings.currencies.pricing_currency);}extra}),"commerce":editable_fields(&r)}),
+        json!({"id":id,"mainLocale":settings.main_locale,"availableLocales":settings.locales,"channels":channels,"catalog":{"salesChannelIds":selected_channels,"active":r.get::<bool,_>("active"),"productNumber":r.get::<Option<String>,_>("product_number").unwrap_or_else(||id.clone()),"categoryIds":category_ids,"parentId":r.get::<Option<String>,_>("parent_id"),"options":r.get::<Value,_>("options")},"revision":r.get::<i64,_>("revision"),"contentRevision":r.get::<i64,_>("content_revision"),"translations":translations,"extra":({let mut extra=r.get::<Value,_>("extra");if extra["priceCurrency"].is_null(){extra["priceCurrency"]=json!(settings.currencies.pricing_currency);}extra}),"commerce":editable_fields(&r)}),
     ))
 }

@@ -240,7 +240,7 @@ commerce owners through their respective interfaces.
 
 | Area | Guide |
 | --- | --- |
-| Products, variants, media, translated content, categories and domains | [Product management](docs/product-management.md) · [Channels](docs/channel-management.md) |
+| Products, variants, media, translated content, categories and domains | [Product management](docs/product-management.md) · [Editing while orders arrive](docs/product-management.md#editing-while-orders-arrive) · [Channels](docs/channel-management.md) |
 | Customers, accounts, orders, fulfillment, invoices and downloads | [Merchant operations](docs/merchant-operations.md) · [Partial packages and provider-neutral shipping](docs/shipping-workflows.md) |
 | Countries, destination taxes, shipping, payment and currencies | [International commerce](docs/international-commerce.md) · [Currencies](docs/currencies.md) |
 | Native POS with shared orders, stock and documents | [Point of sale](docs/pos.md) |

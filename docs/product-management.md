@@ -20,6 +20,35 @@ The TipTap editor writes a bounded JSON document, not arbitrary HTML. Supported 
 
 One product save atomically writes translations, priced fields, metadata, categories, channel overrides, knowledge-graph synchronization and a `product.created` or `product.updated` outbox event. Revision conflicts retain the browser draft and require a deliberate reload/review. Creation and updates share this operation with MCP. Durable flows can subscribe to the committed product events.
 
+## Editing while orders arrive
+
+The editor returns two clocks. `revision` is the existing aggregate revision,
+including purchases and stock releases. `contentRevision` changes with product
+content, prices, translations and configuration, but stays stable for a stock-only
+purchase or cancellation. They are independent numbers, not interchangeable IDs.
+
+The Studio omits `commerce.stock` when the person has not changed its input. Such
+an update may provide the previously read `contentRevision`; a purchase between
+opening and saving then does not block a description or image change. The native
+operation locks the current row, verifies the content clock and preserves its
+current quantity. The response supplies current `revision`, `contentRevision` and
+`stock`, so the editor also refreshes the quantity it displays.
+
+An explicit `commerce.stock` requires the current aggregate `revision`, even if a
+caller also sends `contentRevision`. A stale absolute quantity cannot restore
+units already purchased. Older clients that omit the content clock retain the
+original aggregate CAS. Both HTTP and `merchant.product.save` use this same owner;
+neither the agent nor an app bypasses the decision. A conflict includes the actual
+`currentRevision` and `/revision` or `/contentRevision` pointer identifying its clock.
+
+Migration 098 adds the clock without resetting stock or aggregate revisions. A
+database trigger also observes writes from existing replicas during a rolling
+release. Versioned translation/FX/proposal owners continue to invalidate content;
+their own existing conservative aggregate revision checks are preserved. History
+restores omit quantities. Sandbox diffs/publication exclude both revision clocks
+and stock; a released content unit advances the live clock without importing a
+sandbox quantity. This is not a new inventory ledger or a stock-only edit API.
+
 ## Categories: source-faithful bounded port
 
 Category listings can also select products through a **saved confirmed-fact query**.
@@ -75,6 +104,12 @@ Reads require `catalog.read`; writes require `catalog.write`. Native product que
 `python3 scripts/catalog_management.py` creates isolated synthetic tenants and runs actual HTTP/PostgreSQL/MCP/worker tests: creation, translations, formatting, duplicate numbers, cursor pages, active/channel admission, parent-category listings, nested listing control, hidden ancestry, cycles, tenant isolation, unsafe document rejection, uploaded byte delivery, event consumption and selective release of new products/categories. Existing commerce, account/marketing, merchant operations, protocol and scalability suites cover shared consumers. `frontend/tests/unit/catalog-management.test.tsx` exercises the actual list/editor, save conflicts and safe rich renderer; the browser check creates and reloads a real synthetic product.
 
 These tests are regressions, not 100% coverage or complete Shopware equivalence. New SQL, asynchronous adapters and editor code are recorded as unproved in the formal manifest; the existing extracted Lean policy contracts remain unchanged.
+
+`production_foundations` additionally exercises purchase → content-only save →
+stale content/stock rejection → cancellation → MCP content save across two real
+restricted-runtime replicas. The UI regression verifies omitted untouched stock,
+refreshed quantities/clocks and an explicit subsequent stock edit. These checks
+do not measure large-catalogue throughput or establish fleet scaling limits.
 
 New product pages without uploaded media render an explicit translated empty-image
 state, rather than a broken image or a fictitious product photo. Public detail and

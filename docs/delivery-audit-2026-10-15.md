@@ -21,7 +21,7 @@ contains no customer or authentication payloads. This release covers operation
 registration, errors, bounded schemas, optional app outputs, safe quoting and
 fair outbox scheduling; the security/runtime items below remain open.
 
-**Capability slice:** [PR 131](https://github.com/sthamann/veyndo/pull/131) adds
+**Capability slice:** merged as `f557631`, [PR 131](https://github.com/sthamann/veyndo/pull/131) adds
 versioned intent/assumptions and real frozen component cases to the same Manifest,
 plus Studio presentation. Local HTTP/MCP → immutable build → stage → selected
 release and browser save/reload/modal checks pass. It is not yet claimed released.
@@ -65,7 +65,7 @@ release and browser save/reload/modal checks pass. It is not yet claimed release
 | Item | State and owner | Next decisive acceptance |
 | --- | --- | --- |
 | Exact money throughout storage/calculation | Open; exact boundaries exist but product/calculation floats remain. | Pass the original-PHP differential gate before changing representation or rounding. |
-| Separate product/content and inventory revisions | Open. | Concurrent purchase cannot make a harmless content edit fail or let a stale edit restore stock. |
+| Separate product/content and inventory concurrency | Content clock and omitted-stock editing implemented in the native product owner; legacy/explicit stock saves retain aggregate CAS. | Real two-replica purchase/content/cancellation/MCP checks and editor tests pass locally. CI/release pending; other proposal/translation owners retain conservative aggregate checks. |
 | Typed/versioned native event catalogue | Open; existing event producers/consumers remain authoritative. | Producer/consumer parity, old-event compatibility and one registered emitter. |
 | Fair tenant outbox scheduling | Published through PR 130 with additive migration 097 and scheduling-row locks. | Quiet tenant finishes while an older noisy backlog remains, across real replicas. |
 | Independent subscriber checkpoints | Open. | One slow/failing projection cannot defer unrelated subscribers; no duplicate financial effects. |

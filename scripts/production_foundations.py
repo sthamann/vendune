@@ -180,6 +180,7 @@ try:
     assert scoped(sessions[0]['workspace'], f"SELECT quantity,released_at IS NOT NULL FROM order_inventory_reservations WHERE order_id='{oid}'").splitlines()[-1] == '2|t'
     print('PASS allocations ignore corrupted snapshot quantity and release once across replicas')
     inventory_batch.verify(call, bases, owner_h, sessions[0]['workspace'])
+    inventory_batch.verify_content(call, bases, owner_h, sessions[0]['workspace'])
     # Existing real SQL suites are repeated with the strict runtime, not only privileged DB fixtures.
     for suite in ['checkout_review', 'merchant_operations', 'tenant_isolation']:
         subprocess.run(['python3', f'scripts/{suite}.py'], cwd=ROOT, env={**env,'BASE_URL':one}, check=True)

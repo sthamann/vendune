@@ -12,7 +12,7 @@ pub(crate) async fn snapshot(tx: &mut Tx<'_>, t: &str) -> Result<Value> {
     assets::snapshot_assets(tx, t, &mut result).await?;
     company::snapshot(tx, t, &mut result).await?;
     commerce::snapshot_scopes(tx, t, &mut result).await?;
-    let rows=sqlx::query("SELECT to_jsonb(p)-'tenant'-'stock'-'revision' AS data FROM products p WHERE tenant=$1 ORDER BY id FOR UPDATE").bind(t).fetch_all(&mut **tx).await?;
+    let rows=sqlx::query("SELECT to_jsonb(p)-'tenant'-'stock'-'revision'-'content_revision' AS data FROM products p WHERE tenant=$1 ORDER BY id FOR UPDATE").bind(t).fetch_all(&mut **tx).await?;
     for r in rows {
         let mut value: Value = r.get("data");
         let id = value["id"].as_str().unwrap().to_string();

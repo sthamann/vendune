@@ -12,6 +12,7 @@ import type { RequestFn } from "../shell/studio-types";
 import { useCatalogText } from "../../shared/i18n/catalog-i18n";
 import {
   hydrateDraft,
+  productSavePayload,
   newDraft,
   type Category,
   type ProductDraft,
@@ -145,13 +146,7 @@ export default function ProductEditor({
     setError("");
     try {
       const translations = { ...draft.translations };
-      const {
-        id: _id,
-        channels: _channels,
-        mainLocale: _mainLocale,
-        availableLocales: _availableLocales,
-        ...payload
-      } = { ...draft, translations };
+      const payload = productSavePayload({ ...draft, translations }, baseline);
       const result = await request(
         id ? `/api/merchant/products/${id}` : "/api/merchant/products",
         payload,
@@ -162,6 +157,11 @@ export default function ProductEditor({
         translations,
         id: result.id,
         revision: result.revision,
+        contentRevision: result.contentRevision ?? draft.contentRevision,
+        commerce: {
+          ...draft.commerce,
+          stock: result.stock ?? draft.commerce.stock,
+        },
       };
       setDraft(next);
       setBaseline(JSON.stringify(next));

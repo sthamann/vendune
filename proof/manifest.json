@@ -2026,13 +2026,13 @@
     },
     "src/commerce/product_edit.rs": {
       "status": "unproved",
-      "sha256": "eb9ee4396a45b05a5b566b8f5a1ae333d4c666c1444b4d79bf2523e6342dd5b6",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "9d21c3727a09954f587f8c0b1b3f98d8264c1c434fcec6f948c0cac859775e11",
+      "review": "Review additive product content clock and rolling-writer trigger; preserve aggregate CAS for explicit stock and legacy clients; content-only HTTP/MCP edits omit stock under the locked native owner; preserve live stock in history and release snapshots. Actual two-replica purchase/cancellation and editor regressions exercise stale writes; async SQL and UI remain outside the existing unchanged Lean proof boundary."
     },
     "src/commerce/product_fields.rs": {
       "status": "unproved",
-      "sha256": "b89be531d237a67c1d96e08fbfbb9c71688516d75ed3ef760a082e0c94803b48",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "dbd0f80f4b34ed41d4c3f7a20421d68fe3c3b945b495dbc5750a8823b53e2805",
+      "review": "Review additive product content clock and rolling-writer trigger; preserve aggregate CAS for explicit stock and legacy clients; content-only HTTP/MCP edits omit stock under the locked native owner; preserve live stock in history and release snapshots. Actual two-replica purchase/cancellation and editor regressions exercise stale writes; async SQL and UI remain outside the existing unchanged Lean proof boundary."
     },
     "src/commerce/product_languages.rs": {
       "status": "unproved",
@@ -2041,8 +2041,8 @@
     },
     "src/commerce/product_metadata.rs": {
       "status": "unproved",
-      "sha256": "03737e5cc47df810365238de1e10ed22fbc8ac59d0024bb90696308daf4557b6",
-      "review": "Reviewed multi-currency admission, rational FX boundaries, immutable monetary source, additive ledger scale/RLS migrations, shared API/MCP/UCP paths and local provider/refund evidence. Only bounded policies are proved; FX, DB, network adapters and full commerce remain unproved."
+      "sha256": "ee31322df4cf15a77780e2c043de557a94b0e43d6ea08b478971f200c1c84d28",
+      "review": "Review additive product content clock and rolling-writer trigger; preserve aggregate CAS for explicit stock and legacy clients; content-only HTTP/MCP edits omit stock under the locked native owner; preserve live stock in history and release snapshots. Actual two-replica purchase/cancellation and editor regressions exercise stale writes; async SQL and UI remain outside the existing unchanged Lean proof boundary."
     },
     "src/commerce/review_moderation.rs": {
       "status": "unproved",
@@ -2306,8 +2306,8 @@
     },
     "src/failure.rs": {
       "status": "unproved",
-      "sha256": "d0446f38f9594bd7d1523e951ecf2645438f59fe0feea0551dc9236b93b3a0e4",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "19c266749fb95e87eeb379ea3b08cebe6cde78fd9df386104ab1285c6cc988d5",
+      "review": "Review additive product content clock and rolling-writer trigger; preserve aggregate CAS for explicit stock and legacy clients; content-only HTTP/MCP edits omit stock under the locked native owner; preserve live stock in history and release snapshots. Actual two-replica purchase/cancellation and editor regressions exercise stale writes; async SQL and UI remain outside the existing unchanged Lean proof boundary."
     },
     "src/foundation.rs": {
       "status": "unproved",
@@ -2326,8 +2326,8 @@
     },
     "src/history/product.rs": {
       "status": "unproved",
-      "sha256": "0c6099d83ca2dff6bcc0701a882d5b59da9e744e3aec7de7bc20a2269ce3322f",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "dee81017aaee1d89654b8e3edc0f20c7b8eec7a7ad84cb170e2568b879c3b87f",
+      "review": "Review additive product content clock and rolling-writer trigger; preserve aggregate CAS for explicit stock and legacy clients; content-only HTTP/MCP edits omit stock under the locked native owner; preserve live stock in history and release snapshots. Actual two-replica purchase/cancellation and editor regressions exercise stale writes; async SQL and UI remain outside the existing unchanged Lean proof boundary."
     },
     "src/history/restore.rs": {
       "status": "unproved",
@@ -2651,8 +2651,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "e674cc31d3b88f93574be9b4b312882416ff2a876798d0b4ec9495f66a6551d0",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "979293cc5c11a2d82b080256ac8d8b0057e9cb620368a0ecb06514f942f707ac",
+      "review": "Review additive product content clock and rolling-writer trigger; preserve aggregate CAS for explicit stock and legacy clients; content-only HTTP/MCP edits omit stock under the locked native owner; preserve live stock in history and release snapshots. Actual two-replica purchase/cancellation and editor regressions exercise stale writes; async SQL and UI remain outside the existing unchanged Lean proof boundary."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -3226,8 +3226,8 @@
     },
     "src/staging/snapshot.rs": {
       "status": "unproved",
-      "sha256": "e9d0fa2d8535564730541f2dd1f62afe7bbbfddc69b93875b9febcb296231312",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "05e4aad9738fd588c6c4f711d33ecb48cf380eb307c4b0082d01c415e5fc58b6",
+      "review": "Review additive product content clock and rolling-writer trigger; preserve aggregate CAS for explicit stock and legacy clients; content-only HTTP/MCP edits omit stock under the locked native owner; preserve live stock in history and release snapshots. Actual two-replica purchase/cancellation and editor regressions exercise stale writes; async SQL and UI remain outside the existing unchanged Lean proof boundary."
     },
     "src/storefront_pages.rs": {
       "status": "unproved",
@@ -3776,6 +3776,10 @@
     "migrations/097-outbox-fairness.sql": {
       "sha256": "839d3dcb01b4c410a8c6617f54ba2d1f1a4d72c3d573f52533cbdddfe6e10472",
       "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+    },
+    "migrations/098-product-content-revision.sql": {
+      "sha256": "028d9bbdbc80fdd25eb3c91a388a940940529bca4d6cad02be44d5c2e25472f4",
+      "review": "Review additive product content clock and rolling-writer trigger; preserve aggregate CAS for explicit stock and legacy clients; content-only HTTP/MCP edits omit stock under the locked native owner; preserve live stock in history and release snapshots. Actual two-replica purchase/cancellation and editor regressions exercise stale writes; async SQL and UI remain outside the existing unchanged Lean proof boundary."
     },
     "proof/Commerce/Claims.lean": {
       "sha256": "f3de8f3bdfbf76e69dc5a609a7534aa460a7dd5f6c4f6ed14a07590efbdd59ad",

@@ -1,11 +1,12 @@
-//! Native product administration writes priced fields under the same revision and inventory row lock.
+//! Native product fields preserve stock unless an explicit absolute quantity passes aggregate CAS.
 use super::*;
 #[derive(Deserialize, Serialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub(crate) struct ProductFields {
     pub price: f64,
     pub tax_rate: f64,
-    pub stock: i32,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub stock: Option<i32>,
     pub min_purchase: u32,
     pub purchase_steps: u32,
     pub max_purchase: Option<u32>,
@@ -25,7 +26,7 @@ impl ProductFields {
             || !(0.0..=1_000_000.).contains(&self.price)
             || !self.tax_rate.is_finite()
             || !(0.0..=50.).contains(&self.tax_rate)
-            || self.stock < 0
+            || self.stock.is_some_and(|stock| stock < 0)
             || self.min_purchase == 0
             || self.min_purchase > 1_000_000
             || self.purchase_steps == 0
@@ -96,7 +97,7 @@ impl ProductFields {
         Ok(())
     }
     pub(crate) async fn save(&self, tx: &mut sqlx::PgConnection, t: &str, id: &str) -> Result<()> {
-        sqlx::query("UPDATE products SET price=$1,tax_rate=$2,stock=$3,min_purchase=$4,purchase_steps=$5,max_purchase=$6,delivery_days=$7,list_price=$8,advanced_prices=$9,media=$10,properties=$11 WHERE tenant=$12 AND id=$13").bind(self.price).bind(self.tax_rate).bind(self.stock).bind(self.min_purchase as i32).bind(self.purchase_steps as i32).bind(self.max_purchase.map(|n|n as i32)).bind(self.delivery_days).bind(self.list_price).bind(json!(self.advanced_prices)).bind(&self.media).bind(json!(self.properties)).bind(t).bind(id).execute(&mut *tx).await?;
+        sqlx::query("UPDATE products SET price=$1,tax_rate=$2,stock=coalesce($3,stock),min_purchase=$4,purchase_steps=$5,max_purchase=$6,delivery_days=$7,list_price=$8,advanced_prices=$9,media=$10,properties=$11 WHERE tenant=$12 AND id=$13").bind(self.price).bind(self.tax_rate).bind(self.stock).bind(self.min_purchase as i32).bind(self.purchase_steps as i32).bind(self.max_purchase.map(|n|n as i32)).bind(self.delivery_days).bind(self.list_price).bind(json!(self.advanced_prices)).bind(&self.media).bind(json!(self.properties)).bind(t).bind(id).execute(&mut *tx).await?;
         sqlx::query(
             "UPDATE products SET regulation_price=$1,reference_price=$2 WHERE tenant=$3 AND id=$4",
         )
