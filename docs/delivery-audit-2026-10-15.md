@@ -55,7 +55,7 @@ their own review, checks and release complete.
 | Item | State and owner | Next decisive acceptance |
 | --- | --- | --- |
 | Exact money throughout storage/calculation | Open; exact boundaries exist but product/calculation floats remain. | Pass the original-PHP differential gate before changing representation or rounding. |
-| Separate product/content and inventory revisions | Open. | Concurrent purchase cannot make a harmless content edit fail or let a stale edit restore stock. |
+| Separate product/content and inventory concurrency | Content clock and omitted-stock editing implemented in the native product owner; legacy/explicit stock saves retain aggregate CAS. | Real two-replica purchase/content/cancellation/MCP checks and editor tests pass locally. CI/release pending; other proposal/translation owners retain conservative aggregate checks. |
 | Typed/versioned native event catalogue | Open; existing event producers/consumers remain authoritative. | Producer/consumer parity, old-event compatibility and one registered emitter. |
 | Fair tenant outbox scheduling | Implemented in this branch with additive migration 097 and scheduling-row locks. | Quiet tenant finishes while an older noisy backlog remains, across real replicas. |
 | Independent subscriber checkpoints | Open. | One slow/failing projection cannot defer unrelated subscribers; no duplicate financial effects. |

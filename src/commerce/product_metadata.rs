@@ -12,6 +12,8 @@ pub(super) struct Edit {
     #[serde(default, rename = "availableLocales")]
     pub(super) _available_locales: Value,
     pub(super) revision: i64,
+    #[serde(default)]
+    pub(super) content_revision: Option<i64>,
     pub(super) translations: HashMap<String, Translation>,
     pub(super) extra: Extra,
     #[serde(default)]

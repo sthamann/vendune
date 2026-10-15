@@ -118,6 +118,60 @@ it("retains dirty edits after a conflict and requires an explicit discard when l
   await user.click(screen.getByRole("button", { name: "Discard changes" }));
   expect(back).toHaveBeenCalledOnce();
 });
+it("omits untouched stock and refreshes both clocks and quantities after a concurrent sale", async () => {
+  const user = userEvent.setup();
+  const draft = { ...newDraft(), id: "p1", revision: 4, contentRevision: 2 };
+  draft.translations.en.name = "Oak chair";
+  draft.catalog.productNumber = "OAK-1";
+  draft.commerce.stock = 8;
+  const request = vi.fn(async (_path: string, body?: any, method?: string) =>
+    method === "PUT"
+      ? {
+          id: "p1",
+          revision: 6,
+          contentRevision: 3,
+          stock: body.commerce.stock ?? 7,
+        }
+      : draft,
+  );
+  render(
+    <LocaleProvider>
+      <ProductEditor
+        id="p1"
+        request={request}
+        categories={[]}
+        onBack={vi.fn()}
+        onCreated={vi.fn()}
+      />
+    </LocaleProvider>,
+  );
+  await screen.findByDisplayValue("Oak chair");
+  await user.type(screen.getByLabelText("Name"), " edited");
+  await user.click(screen.getByRole("button", { name: "Save product" }));
+  await waitFor(() =>
+    expect(screen.getByRole("button", { name: "Save product" })).toBeDisabled(),
+  );
+  const first = request.mock.calls.find((args) => args[2] === "PUT")![1];
+  expect(first).toMatchObject({ revision: 4, contentRevision: 2 });
+  expect(first.commerce).not.toHaveProperty("stock");
+  await user.click(screen.getByRole("tab", { name: "Prices & stock" }));
+  expect(screen.getByLabelText("Stock")).toHaveValue(7);
+  await user.clear(screen.getByLabelText("Stock"));
+  await user.type(screen.getByLabelText("Stock"), "9");
+  await user.click(screen.getByRole("button", { name: "Save product" }));
+  await waitFor(() =>
+    expect(request.mock.calls.filter((args) => args[2] === "PUT")).toHaveLength(
+      2,
+    ),
+  );
+  expect(
+    request.mock.calls.filter((args) => args[2] === "PUT")[1][1],
+  ).toMatchObject({
+    revision: 6,
+    contentRevision: 3,
+    commerce: { stock: 9 },
+  });
+});
 it("preserves legacy emphasis and renders formatted editor documents without executing unknown nodes or URLs", () => {
   const doc = editorDocument([
     { type: "paragraph", text: "**Strong** and *soft*" },

@@ -81,6 +81,11 @@ impl Failure {
         error.2.current_revision = Some(current);
         error
     }
+    pub(crate) fn revision_at(current: i64, pointer: &str, detail: &str) -> Self {
+        let mut error = Self::revision(current, detail);
+        error.2.pointer = Some(pointer.into());
+        error
+    }
     pub(crate) fn output_contract() -> Self {
         let mut error=Self::new(StatusCode::BAD_GATEWAY,"App result does not match its declared output contract; inspect the original action before retrying".into());
         error.2.kind = Kind::OutputContractError;

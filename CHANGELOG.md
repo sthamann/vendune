@@ -1,5 +1,12 @@
 # Changelog
 
+## Product content and inventory concurrency — in development, 15 October 2026
+
+- Preserve aggregate product revisions and add a content clock through additive migration 098. Existing replicas advance it during rolling releases; stock-only purchases/releases leave it stable.
+- Native HTTP/MCP content-only saves preserve current stock under the existing row lock. Explicit quantities and legacy clients still require the current aggregate revision; stale content reports the appropriate revision pointer.
+- The Studio omits untouched quantities and refreshes current stock after saving. History restoration and selected sandbox publication retain live inventory and exclude operational clocks from configuration digests.
+- Exercise actual two-replica purchase/content-save/cancellation/MCP and stale-write rejection, existing catalogue/history/staging/currency/translation paths and the real product editor. This does not add a second inventory ledger or change checkout money representations.
+
 ## Shared operations and reliability — in development, 15 October 2026
 
 - Move native input schemas, discovery and bounded agent-read policy into one immutable operation registry; retain boxed domain dispatch and current domain/object/PII rights. Reject duplicate native names and remove duplicate B2B registrations.
