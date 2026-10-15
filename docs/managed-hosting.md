@@ -16,9 +16,58 @@ Frankfurt: one Managed PostgreSQL addon, one Rust Core replica and one private Q
 
 Recorded test-topology estimate (October 2026; not a live pricing quotation): Core $12, PostgreSQL $12, Qdrant $12, PostgreSQL 6 GB $0.90, Qdrant 6 GB $0.90, retained inactive legacy 20 GB volume $3 = $40.80. Example 10 GB egress adds $0.60. Jobs/builds, backup storage, AI APIs and taxes are additional. This single-instance test topology has no HA guarantee. Qdrant's attached single-writer volume requires recreate deployment and cannot be scaled by simply increasing replicas.
 
+## Restricted hosted runtime
+
+On **15 October 2026**, hosted Core `5e4c18b` was switched to the separate
+`veyndo_runtime_login` after a database backup and explicit hosting authorization.
+The live infrastructure response confirms `strictRuntime: true` and
+`runtimeCredentialSeparated: true`; PostgreSQL reports the Core connections under
+that login. The forced-RLS preflight covered all 129 then-existing tenant tables.
+
+The Core-only secret group supplies `DATABASE_RUNTIME_URL`, `DATABASE_LISTENER_URL`,
+`DB_RLS_REQUIRED=true`, `BOOTSTRAP_MODE=serve` and `ALLOW_BOOTSTRAP_AUTH=false`.
+Its `DATABASE_URL` also refers to the restricted login. The migration-owner addon
+URI is absent from Core; separate setup/migration resources retain owner access.
+The login has no superuser, replication, database/role creation, RLS bypass,
+migration-owner membership, core ownership or core `TRUNCATE` authority. Managed
+app table ownership stays with the limited app-schema group. Connector and private
+Experience database users were not changed.
+
+For the same transition on another host:
+
+1. Back up the database and inventory all inherited variables/files, including
+   non-database secrets. Preserve `PLATFORM_SECRET_KEY` exactly: a replacement
+   cannot decrypt existing provider credentials.
+2. Use the managed database administrator to create the limited group/login and
+   grant database/schema access. Use the actual table owner for table/sequence
+   grants and managed app ownership transfer. These may be different principals.
+   Non-superuser `CREATEROLE` administrators cannot change every restricted role
+   attribute; create safe defaults and audit the resulting flags rather than
+   requesting superuser access. [PostgreSQL role administration](https://www.postgresql.org/docs/17/sql-alterrole.html).
+3. Keep the login disabled until its rights are checked. Store its password only in
+   the secret manager, URL-encode connection strings and use `psql`'s `\password`
+   command instead of putting cleartext passwords in SQL/history. Keep the database
+   private; never grant runtime membership in its owner role.
+4. Check own/foreign/unknown scope through the restricted connection. Attach the
+   complete Core configuration and detach its owner-secret group. Remove temporary
+   diagnostic jobs from the new secrets. Retain separate owner migrations on later
+   releases, with explicitly reviewed grants for new tables rather than blanket
+   default privileges on future tables.
+5. Roll the Core and verify its actual infrastructure response/database identity.
+   Test personal sign-in, provider/settings reads, shop provisioning, browsing,
+   simulated checkout, Admin projections and native Flow completion.
+
+The live follow-up completed a synthetic shop checkout for EUR 43.90, reduced the
+selected variant stock from 30 to 29, emptied the cart, exposed the order/customer
+in Studio and completed the default order Flow. Anonymous merchant/operator API
+reads were denied. Public MCP shopper discovery remained available; a private
+merchant-orders call returned `isError=true` without order data. These targeted
+checks do not certify every route, paid provider, load, restore or failover.
+See the [consistency audit](system-consistency-audit.md).
+
 ## Growing into database islands
 
-Start with one island and measure per-shop query latency, database CPU/IO, connection pressure, working-set size and queue lag. Add a second island when sustained load justifies it. Do not create one database per trial shop. Use a small control database directory `shop_id -> island_id, epoch, state` and keep identity/membership/control audit outside island data. The current Core uses one `DATABASE_URL`; a directory/router and automated relocation controller are design work, not implemented functionality.
+Start with one island and measure per-shop query latency, database CPU/IO, connection pressure, working-set size and queue lag. Add a second island when sustained load justifies it. Do not create one database per trial shop. Use a small control database directory `shop_id -> island_id, epoch, state` and keep identity/membership/control audit outside island data. The current Core targets one database with separate migration/runtime credentials; an island directory/router and automated relocation controller are design work, not implemented functionality.
 
 Each island contains an independently sized Managed PostgreSQL and a bounded Core connection pool. Stateless HTTP replicas and durable workers can scale separately. Total pools must stay below the database's connection budget; add a verified pooler before aggressive HTTP autoscaling. An island controller admits shops based on observed capacity and promotes large shops to dedicated islands. Budget limits, minimum residency and hysteresis prevent oscillating migrations. Scaling the current $45 test budget above one Core replica requires revising the budget.
 

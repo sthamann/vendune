@@ -1,5 +1,12 @@
 # Changelog
 
+## Hosted runtime separation — 15 October 2026
+
+- Switch hosted Core `5e4c18b` to a restricted, non-owner PostgreSQL login with mandatory RLS, separate runtime/listener connections, migration-only owner access and disabled bootstrap authentication.
+- Preserve the existing platform encryption key when splitting secret groups; remove the temporary diagnostic job from the new Core-only secrets.
+- Verify actual runtime flags and database identity, direct SQL tenant denials, personal sign-in, native shop provisioning, simulated checkout, stock/cart effects, Admin order/customer projection and completed default order Flow. Paid provider settlement and exhaustive security/failover checks remain separate.
+- Document managed database administrator/table-owner separation and the hosted transition checklist.
+
 ## Personal workspace and visual standard-shop design — 15 October 2026
 
 - Personal, revisioned work areas with role-aware presets, movable cards, safe pinned grid filters, goals and existing proposal review. Goal-to-Flow creates an inactive native draft.
@@ -49,7 +56,7 @@ retry checkpoints, explicit native money/stock and actual fixture proof boundari
 ## Unreleased — EDI identity and hosted RLS evidence
 
 - EDI exports fingerprint the actual serialized document and native source identifiers; operational notes no longer change an identical export's identity. The regression uses the existing native order-note API, and the implementation stays app-owned.
-- The repeated consistency audit records that hosted Core `540e066` has no mandatory RLS switch or separate runtime credential. Strict local RLS tests do not certify that hosting configuration; provisioning awaits its specific hosting confirmation.
+- The 14 October read-only audit found no mandatory RLS switch or separate hosted runtime credential. The authorized 15 October hosted transition closes that dated gap; see the entry above for its targeted live verification and limits.
 
 ## First visitor and contributor entry — 14 October 2026
 

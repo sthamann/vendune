@@ -178,12 +178,32 @@ foundation suite exercises strict non-owner RLS. Deployment must explicitly
 enable `DB_RLS_REQUIRED=true` with a separate runtime connection; a passing
 owner-backed API suite is not evidence of this hosting configuration. A subsequent
 read-only check of the running hosted Core `540e066` on 14 October found
-`DB_RLS_REQUIRED` unset and `DATABASE_RUNTIME_URL` absent. The strict runtime
-startup audit is therefore not enabled there. The existing native provisioning
-contract is prepared, but the restricted hosted credential and configuration
-change require the requested hosting confirmation; no live configuration was
-changed by this read-only check. This is an open production security boundary,
-not a claim that a foreign-tenant request succeeded. `/health`
+`DB_RLS_REQUIRED` unset and `DATABASE_RUNTIME_URL` absent. That dated gap was
+closed on **15 October 2026** after explicit hosting authorization: hosted Core
+`5e4c18b` runs with `DB_RLS_REQUIRED=true`, `BOOTSTRAP_MODE=serve`, no bootstrap
+authentication and separate runtime/listener connections as `veyndo_runtime_login`.
+The login has no superuser, replication, database/role creation, RLS bypass,
+core-table ownership, owner-role membership or core `TRUNCATE` authority. The
+preflight found all 129 then-existing tenant-bearing tables protected by forced
+RLS. The Core no longer inherits the migration-owner addon URI; setup and
+migration retain their separate owner access.
+
+Live SQL checks showed own catalogue visibility, denied unknown scope, hidden
+foreign products/orders, zero foreign product updates and no connector-table read
+access. A new isolated sample shop completed public browsing, a simulated EUR
+43.90 checkout, stock 30 → 29, empty cart, Admin order/customer projection and
+one completed default order Flow. Personal merchant/operator sign-in and the
+operator infrastructure read passed. Anonymous merchant/platform reads were
+denied; public MCP discovery exposed shopper tools and denied a private merchant
+orders call with `isError=true`. These are targeted hosted checks, not a new
+exhaustive security, provider-settlement or failover certification.
+
+The transition also caught and repaired a real configuration dependency: the old
+group held `PLATFORM_SECRET_KEY` alongside its owner URI. The original encryption
+key was preserved in the Core-only runtime group; it was not rotated or generated
+again. A completed pre-change database backup remains available. See
+[managed runtime operation](managed-hosting.md#restricted-hosted-runtime).
+`/health`
 probes PostgreSQL and reports descriptive model/knowledge/payment fields. It does
 not probe Qdrant or every provider, and its fixed `payment: simulated` field is
 not per-shop provider readiness. Inspect the existing authorized provider/index
