@@ -1,6 +1,12 @@
 /** Merchant intent and executable decision examples use the shared four-language Studio vocabulary. */
 import { useLocale } from "./i18n";
 export const appCapabilityWords = {
+  exampleFailure: [
+    "Business example {example} failed. Review the expected result and the component before saving or installing.",
+    "Geschäftsbeispiel {example} ist fehlgeschlagen. Prüfe das erwartete Ergebnis und die Komponente vor dem Speichern oder Installieren.",
+    "L’exemple métier {example} a échoué. Vérifiez le résultat attendu et le composant avant de sauvegarder ou d’installer.",
+    "El ejemplo comercial {example} falló. Revisa el resultado esperado y el componente antes de guardar o instalar.",
+  ],
   capability: [
     "Business goal",
     "Geschäftsziel",
