@@ -1,7 +1,17 @@
 /** Readable connected overview of the persisted graph; selecting a node opens its matching editor card. */
+import { useId } from "react";
 import type { Pipeline } from "./pipeline-types";
 import { useAutomationText } from "../../shared/i18n/automation-i18n";
-export default function FlowTopology({ value }: { value: Pipeline }) {
+export default function FlowTopology({
+  value,
+  labels = {},
+  onSelect,
+}: {
+  value: Pipeline;
+  labels?: Record<string, string>;
+  onSelect?: (id: string) => void;
+}) {
+  const marker = useId().replaceAll(":", "");
   const { a } = useAutomationText();
   const positions = new Map(
     value.nodes.map((n, i) => [
@@ -15,7 +25,7 @@ export default function FlowTopology({ value }: { value: Pipeline }) {
       <svg viewBox={`0 0 720 ${height}`} aria-label={a("pipeline")} role="img">
         <defs>
           <marker
-            id="flow-arrow"
+            id={marker}
             viewBox="0 0 10 10"
             refX="9"
             refY="5"
@@ -52,7 +62,7 @@ export default function FlowTopology({ value }: { value: Pipeline }) {
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
-                    markerEnd="url(#flow-arrow)"
+                    markerEnd={`url(#${marker})`}
                   />
                   <text x={from.x + 190} y={from.y + branchY - 6}>
                     {label}
@@ -64,7 +74,8 @@ export default function FlowTopology({ value }: { value: Pipeline }) {
         {value.nodes.map((n, i) => {
           const pos = positions.get(n.id)!;
           const label =
-            n.kind === "action"
+            labels[n.id] ??
+            (n.kind === "action"
               ? a(n.action)
               : a(
                   n.kind === "delay"
@@ -72,11 +83,13 @@ export default function FlowTopology({ value }: { value: Pipeline }) {
                     : n.kind === "stop"
                       ? "stop"
                       : "condition",
-                );
+                ));
           const focus = () =>
-            document
-              .getElementById(`flow-node-${n.id}`)
-              ?.scrollIntoView({ block: "center", behavior: "smooth" });
+            onSelect
+              ? onSelect(n.id)
+              : document
+                  .getElementById(`flow-node-${n.id}`)
+                  ?.scrollIntoView({ block: "center", behavior: "smooth" });
           return (
             <g
               key={n.id}

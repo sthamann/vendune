@@ -476,3 +476,24 @@ and cannot use generic edit/history restore. History keeps original read scopes 
 current field projection. Native app writes and selected releases take package fences
 before record locks. Keep the real concurrent save/release regression. Extend central
 inference/native tasks/outbox/Flows, not a second planner, queue, scheduler or checkout.
+
+## App Studio placements, assistant and installed settings
+
+Read `docs/app-studio-workspace.md` before changing these paths. Multiple app
+placements compile through `assistant-placements.ts` into the existing Manifest;
+all native mounts (including checkout.content/checkout.summary) use the shared
+registry and current action authorization. Do not add a second slot or UI executor.
+`AppAgentDrawer` reuses the shared composer/proposal import and leaves the selected
+canvas intact. Toolbox width and thumbnails are presentation only. UI event
+previews project the bounded AST into `FlowTopology`; the native Flow owner still
+executes outbox events. Never persist a separate flow graph for button actions.
+
+`apps/settings.rs` owns generic declared installed configuration through the
+existing encrypted `apps/secrets.rs` store. Current personal administration,
+active package digest, explicit approval and revision are required. Values stay
+live-only; no sandbox copy, release, restore, task export or public projection.
+Only private service actions receive server-resolved `_appSettings`; browser/native
+views do not receive secrets. Preserve package/table/index admission caps and
+current scope intersections for permanent integration keys. A permanent key never
+becomes an owner identity or permission snapshot. App business code stays in its
+app directory.

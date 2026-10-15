@@ -63,12 +63,17 @@ def run():
         model_server = module.ThreadingHTTPServer(("127.0.0.1", 0), Model)
         model_thread = threading.Thread(target=model_server.serve_forever)
         model_thread.start()
+        settings_received = []
         active = 0
         lock = threading.Lock()
 
         class Fixture(module.Handler):
             def do_POST(self):
                 nonlocal active
+                if self.path == "/actions/settings_probe":
+                    assert self.headers.get("Authorization") == "Bearer " + module.TOKEN
+                    settings_received.append(json.loads(self.rfile.read(int(self.headers["Content-Length"]))))
+                    return self.send(200,{"configured":True})
                 if self.path != "/actions/slow":
                     return super().do_POST()
                 if self.headers.get("Authorization") != "Bearer " + module.TOKEN:
@@ -98,7 +103,10 @@ def run():
             note_action.update(name=name, description="Private scoped notes", entity="private_notes", public=False, permission=scope, mcp=False)
             m["actions"].append(note_action)
         m["intelligence"]["entities"].append("private_notes")
+        m["settings"]=[{"key":"account","label":m["name"],"kind":"string","required":True},{"key":"api_token","label":m["name"],"kind":"secret","required":True}]
+        m["actions"].append({"name":"settings_probe","description":"Configured private service","handler":"service","public":False,"permission":"apps.manage","mcp":False,"inputSchema":{"type":"object","properties":{"padding":{"type":"array","items":{"type":"string"}}},"additionalProperties":False}})
         busy = copy.deepcopy(m)
+        busy.pop("settings")
         busy["version"] = "1.2.0"
         busy["actions"].append({"name": "slow", "description": "Local slow fixture", "handler": "service", "entity": None, "readOnly": True, "permission": "catalog.read", "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False}})
         config[app_id]["uiDigests"] = {"v1/index.html": hashlib.sha256(module.UI).hexdigest()}
@@ -139,6 +147,26 @@ def run():
             oh = {"Authorization": "Bearer " + other["token"], "x-tenant": other["workspace"]}
             public = {"x-tenant": u["workspace"]}
             call("/api/apps", {"manifest": m}, h)
+            settings_path=f"/api/apps/{app_id}/settings"
+            initial=call(settings_path,headers=h)
+            assert initial['values']=={} and initial['revision']==0
+            secret="SYNTHETIC-PRIVATE-"+uuid.uuid4().hex
+            settings_body={"revision":0,"digest":initial['digest'],"approve":True,"values":{"account":"local-provider-fixture","api_token":secret}}
+            call(f"/api/apps/{app_id}/actions/settings_probe",{},h,expected=400)
+            call(settings_path,settings_body,h,method='PUT')
+            saved_settings=call(settings_path,headers=h)
+            assert saved_settings['values']=={'account':'local-provider-fixture'} and 'api_token' in saved_settings['configured'] and secret not in json.dumps(saved_settings)
+            call(settings_path,settings_body,h,expected=409,method='PUT')
+            call(settings_path,{**settings_body,'revision':1,'values':{'undeclared':'x'}},h,expected=400,method='PUT')
+            assert call(f"/api/apps/{app_id}/actions/settings_probe",{},h)=={'configured':True}
+            assert settings_received[-1]['_appSettings']==settings_body['values']
+            before=len(settings_received)
+            call(f"/api/apps/{app_id}/actions/settings_probe",{'padding':['x'*8180]*8},h,expected=400)
+            assert len(settings_received)==before, 'Combined payload must be rejected before remote dispatch'
+            assert call(f"/api/apps/{app_id}/actions/settings_probe",{'padding':['small']},h)=={'configured':True}
+            call(settings_path,headers={**oh,'x-tenant':u['workspace']},expected=403)
+            call(settings_path,headers=public,expected=401)
+            passed("Declared settings are encrypted server-side, secret reads are redacted, CAS/unknown fields/foreign actors are denied and private service actions receive configured values")
             private = call("/api/apps/surfaces", headers=h)["surfaces"]
             exposed = call("/store-api/apps/surfaces", headers=public)["surfaces"]
             assert [s["surface"]["location"] for s in private] == ["admin.navigation"]
@@ -227,12 +255,14 @@ def run():
             reader = call("/api/auth/accept", {"invitationToken": invitation["token"], "name": "App reader", "password": "Synthetic-app-reader-2026!"})
             rh = {"Authorization": "Bearer " + reader["token"], "x-tenant": u["workspace"]}
             call(f"/api/apps/{app_id}/http/guides", {"id": "x", "fields": fields}, rh, expected=403)
+            call(settings_path,headers=rh,expected=403)
             passed("Namespaced custom routes preserve current merchant permissions")
             stage = call("/api/environments", {"name": "App surface branch"}, h)["id"]
             build = call("/api/developer/import", {"environment": stage, "prompt": "Review external Product Lab package", "summary": m["name"], "manifest": m}, h)
             call("/api/developer/builds/" + build["id"] + "/stage", {"approve": True, "digest": build["digest"]}, h)
             sh = {**h, "x-tenant": stage}
             call(f"/api/apps/{app_id}/actions/recommend", args, sh, expected=400)
+            call(settings_path,settings_body,sh,expected=403,method="PUT")
             passed("Reviewed external app manifests can be staged; private sandboxes cannot execute live service actions")
             call("/api/apps", {"manifest": busy}, h)
             with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:

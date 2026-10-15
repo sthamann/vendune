@@ -1,5 +1,7 @@
 /** One content language edits app/view/block metadata; changing bindings updates the actual manifest. */
 import AppControlProperties from "./AppControlProperties";
+import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
+import AppFormFields from "./AppFormFields";
 import AppGeometry from "./AppGeometry";
 import AppContextBinding from "./AppContextBinding";
 import { placements } from "./assistant-model";
@@ -20,7 +22,8 @@ export default function AppInspector({
   onChange: (m: Manifest) => void;
 }) {
   const { a } = useAppStudioText();
-  const { t } = useAssistantText();
+  const { t } = useAssistantText(),
+    w = useAppWorkspaceText();
   const block = view.blocks.find((b) => b.id === selected),
     surface = manifest.surfaces?.find((s) => s.uiPath === `native/${view.id}`);
   const patch = (v: Partial<NativeView>) =>
@@ -33,86 +36,94 @@ export default function AppInspector({
   return (
     <aside className="app-inspector">
       <span className="app-panel-label">{a("inspector")}</span>
-      <LocalizedField
-        label={a("name")}
-        value={manifest.name}
-        onChange={(v) => onChange({ ...manifest, name: textMap(v) })}
-        required
-        maxLength={100}
-      />
-      <label>
-        {a("id")}
-        <input
-          value={manifest.id}
-          maxLength={32}
-          onChange={(e) => onChange({ ...manifest, id: e.target.value })}
+      <details className="app-metadata">
+        <summary>{a("name")}</summary>
+        <LocalizedField
+          label={a("name")}
+          value={manifest.name}
+          onChange={(v) => onChange({ ...manifest, name: textMap(v) })}
+          required
+          maxLength={100}
         />
-      </label>
-      <label>
-        {a("version")}
-        <input
-          value={manifest.version}
-          maxLength={32}
-          onChange={(e) => onChange({ ...manifest, version: e.target.value })}
-        />
-      </label>
+        <label>
+          {a("id")}
+          <input
+            value={manifest.id}
+            maxLength={32}
+            onChange={(e) => onChange({ ...manifest, id: e.target.value })}
+          />
+        </label>
+        <label>
+          {a("version")}
+          <input
+            value={manifest.version}
+            maxLength={32}
+            onChange={(e) => onChange({ ...manifest, version: e.target.value })}
+          />
+        </label>
+      </details>
       <div className="app-inspector-divider" />
-      <label>
-        {a("layout")}
-        <select
-          value={view.layout}
-          onChange={(e) =>
-            patch({ layout: e.target.value as NativeView["layout"] })
-          }
-        >
-          <option value="stack">{a("stack")}</option>
-          <option value="grid">{a("grid")}</option>
-          <option value="form">{a("formDesigner")}</option>
-        </select>
-      </label>
-      {surface && (
-        <>
-          <label>
-            {a("location")}
-            <select
-              value={surface.location}
-              onChange={(e) =>
+      <details className="app-metadata">
+        <summary>
+          {a("layout")} · {a("location")}
+        </summary>
+        <label>
+          {a("layout")}
+          <select
+            value={view.layout}
+            onChange={(e) =>
+              patch({ layout: e.target.value as NativeView["layout"] })
+            }
+          >
+            <option value="stack">{a("stack")}</option>
+            <option value="grid">{a("grid")}</option>
+            <option value="form">{a("formDesigner")}</option>
+          </select>
+        </label>
+        {surface && (
+          <>
+            <label>
+              {a("location")}
+              <select
+                value={surface.location}
+                onChange={(e) =>
+                  onChange({
+                    ...manifest,
+                    surfaces: manifest.surfaces?.map((s) =>
+                      s.id === surface.id
+                        ? { ...s, location: e.target.value }
+                        : s,
+                    ),
+                  })
+                }
+              >
+                {Object.keys({ ...locations, ...placements })
+                  .map((value) => [value, value] as const)
+                  .map(([value, key]) => (
+                    <option value={value} key={value}>
+                      {placements[key] ? t(placements[key]) : a(locations[key])}
+                    </option>
+                  ))}
+              </select>
+            </label>
+            <LocalizedField
+              label={a("title")}
+              value={surface.label}
+              onChange={(v) =>
                 onChange({
                   ...manifest,
                   surfaces: manifest.surfaces?.map((s) =>
-                    s.id === surface.id
-                      ? { ...s, location: e.target.value }
-                      : s,
+                    s.id === surface.id ? { ...s, label: textMap(v) } : s,
                   ),
                 })
               }
-            >
-              {Object.keys({ ...locations, ...placements })
-                .map((value) => [value, value] as const)
-                .map(([value, key]) => (
-                  <option value={value} key={value}>
-                    {placements[key] ? t(placements[key]) : a(locations[key])}
-                  </option>
-                ))}
-            </select>
-          </label>
-          <LocalizedField
-            label={a("title")}
-            value={surface.label}
-            onChange={(v) =>
-              onChange({
-                ...manifest,
-                surfaces: manifest.surfaces?.map((s) =>
-                  s.id === surface.id ? { ...s, label: textMap(v) } : s,
-                ),
-              })
-            }
-            required
-            maxLength={100}
-          />
-        </>
-      )}
-      <div className="app-inspector-divider" />
+              required
+              maxLength={100}
+            />
+          </>
+        )}
+        <div className="app-inspector-divider" />
+      </details>
       {block ? (
         <>
           <span className="soft-tag">
@@ -131,15 +142,27 @@ export default function AppInspector({
             required
             maxLength={100}
           />
-          <AppGeometry
-            index={view.blocks.indexOf(block)}
-            block={block}
-            onChange={(next) =>
-              patch({
-                blocks: view.blocks.map((b) => (b.id === selected ? next : b)),
-              })
-            }
-          />
+          {block.kind === "form" && (
+            <AppFormFields
+              manifest={manifest}
+              block={block}
+              onChange={onChange}
+            />
+          )}
+          <details className="app-metadata">
+            <summary>{w("geometry")}</summary>
+            <AppGeometry
+              index={view.blocks.indexOf(block)}
+              block={block}
+              onChange={(next) =>
+                patch({
+                  blocks: view.blocks.map((b) =>
+                    b.id === selected ? next : b,
+                  ),
+                })
+              }
+            />
+          </details>
           {block.kind === "text" ? (
             <LocalizedField
               label={a("body")}

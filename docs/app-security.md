@@ -168,3 +168,24 @@ Service callback credentials retain their own independent scope and consent
 checks; a powerful service key never grants the calling user additional rights.
 For example, marketplace order import requires `orders.write`, `payments.manage`
 and `customers.pii`; `orders.write` alone cannot import a paid customer snapshot.
+
+## Installed settings and permanent integration credentials
+
+App settings require a current personal administrator and the active package digest.
+Secrets are write-only in the Studio form, encrypted with the existing app-bound
+secret owner, and omitted from read responses. Reads expose only nonsecret fields,
+configured-key names, revision and digest. Stale package digests require explicit
+review/re-entry. PUT rejects undeclared keys, wrong types, foreign tenants, stale
+revisions and sandbox writes. Private service actions receive a server-owned
+`_appSettings` object; input cannot override it. Public actions and native browser
+views receive none. Values are not sandbox/release/history-restore units.
+
+Permanent integration keys are an explicit option for current personal
+`team.manage` sessions. Their scopes remain intersected with current membership,
+revocation still applies, and integration credentials cannot mint permanent child
+keys. `persistent_key_admissible` has exact generated Lean claims and negative
+mutations; the proof covers that pure two-boolean predicate, not SQL, encryption,
+UI correctness or a service provider. Real HTTP/PostgreSQL tests cover those
+implemented admission boundaries.
+
+The [workbench guide](app-studio-workspace.md) documents test coverage and limits.

@@ -526,6 +526,16 @@
         "app_submission_exact",
         "app_submission_private_live_cart"
       ]
+    },
+    "persistent_key_admissible": {
+      "bindings": [
+        "src/auth/integrations.rs",
+        "src/apps/settings.rs"
+      ],
+      "theorems": [
+        "persistent_key_exact",
+        "persistent_key_nonpersonal_denied"
+      ]
     }
   },
   "sources": {
@@ -1026,8 +1036,8 @@
     },
     "src/apps/gateway.rs": {
       "status": "reviewed-binding",
-      "sha256": "91c57d6103f99ff4361b87cc69445984cb957745578796dbb293920ccf672da6",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "0210c7babe969f2150f43dc286669ba8ee1ab908e316b47a0542818f0bfde46c",
+      "review": "Reviewed final App Studio adapters: private declared settings share the existing encrypted tenant/app/digest CAS owner, private service injection is bounded to 64 KiB including settings, registry cap counts registered package IDs, and permanent keys require the extracted personal-administrator predicate. HTTP tests cover secret redaction, CAS, settings delivery, scope/tenant/sandbox denial and revocation; SQL, crypto and provider behavior remain adapter boundaries."
     },
     "src/apps/hosted.rs": {
       "status": "unproved",
@@ -1051,18 +1061,18 @@
     },
     "src/apps/manifest.rs": {
       "status": "unproved",
-      "sha256": "6a70d7eafc30dc360f495a187243dc46eb130796d0d5157553fd9d195cac0052",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "4729ea08a559fbd0da419e4c95f38bf17b236aeb9e69566416cc9ac43752a884",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "src/apps/manifest_validation.rs": {
       "status": "unproved",
-      "sha256": "45f925a102d303b43aa1ea16c6bda8c1c1333cfd1a1f54fbfb40c2e085f3e042",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "c7c2a9af19063038bc6801843b212c59235a191cfaf79043744a9ab64cbd557c",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "0db812f6b2a8ee4daf80eeafa2ea5c2d77938a65210cfb0734119f1d899a7933",
-      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
+      "sha256": "ac92ac089ca6fd3bbf4bbb5989a95e1bad3d263dd01ca6464bc70390875cef2d",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
@@ -1121,8 +1131,8 @@
     },
     "src/apps/registry.rs": {
       "status": "unproved",
-      "sha256": "34129b4470e79876bea1232df8078c74908d576bde77c9488895cec058f18b6a",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "sha256": "d0ec2cbde15586ee95853d6cc1ddf49b9a483e0b3050104fa751b7f8018fc6e1",
+      "review": "Reviewed final App Studio adapters: private declared settings share the existing encrypted tenant/app/digest CAS owner, private service injection is bounded to 64 KiB including settings, registry cap counts registered package IDs, and permanent keys require the extracted personal-administrator predicate. HTTP tests cover secret redaction, CAS, settings delivery, scope/tenant/sandbox denial and revocation; SQL, crypto and provider behavior remain adapter boundaries."
     },
     "src/apps/relations.rs": {
       "status": "unproved",
@@ -1131,8 +1141,8 @@
     },
     "src/apps/routes.rs": {
       "status": "unproved",
-      "sha256": "1e17dbf1e34d7add916593acf0106566184397af0e1a247bfbe45d6dc8cc43b6",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "13f7b50a0fd1806180a3919b12395c769ec709b166c8dbe39afb0a203f82e4ed",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "src/apps/runtime.rs": {
       "status": "unproved",
@@ -1156,8 +1166,8 @@
     },
     "src/apps/secrets.rs": {
       "status": "unproved",
-      "sha256": "a4720ab6457cc9e1e0e7867930a616ccd6ca76b9df16bd6a2a0b3d082b36d2ea",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "785dfe4bb06ae89dd0cb83efbc36fc0ca8ed1bf7c15857a88ec9ad0ce127b367",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "src/apps/service_limits.rs": {
       "status": "unproved",
@@ -1168,6 +1178,11 @@
       "status": "reviewed-binding",
       "sha256": "daf47ae008a478ecef5cbc69e3518722aef84e73f3736b20a635b7e42bf0b0f7",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+    },
+    "src/apps/settings.rs": {
+      "status": "reviewed-binding",
+      "sha256": "c4ac0b0026293c1b2916eaea5232e68c573d84f48ff250642701359c59e20afa",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "src/apps/storage.rs": {
       "status": "unproved",
@@ -1196,8 +1211,8 @@
     },
     "src/apps/surfaces.rs": {
       "status": "reviewed-binding",
-      "sha256": "dde39097fda4eaea6a3ad7f405fa7e1d6efbb6665e7c1d4a7521cf1c76f9a1c5",
-      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
+      "sha256": "4491e884fd0fec3fbae5db99e5e628a850bf68fc593f5d70bd4cf78ec514a1bc",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "src/apps/ui_bundles.rs": {
       "status": "unproved",
@@ -1316,8 +1331,8 @@
     },
     "src/auth/dto.rs": {
       "status": "unproved",
-      "sha256": "99fc262bb8f85589c539f514e93383f820cdbf79da1834387ef7e8e728b8b61f",
-      "review": "Reviewed auth DTO allowlisted field shapes and rejection of injected role; existing extracted policy semantics unchanged, focused compiled regression passed"
+      "sha256": "bc16211922a689cdf3d15de2a174a7b98e5735f9cfc8401be886c8e0650fccc1",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "src/auth/handoff.rs": {
       "status": "unproved",
@@ -1330,9 +1345,9 @@
       "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/auth/integrations.rs": {
-      "status": "unproved",
-      "sha256": "c36a8e2ab2077934ff40619063a3ca484001b9f06cba1b37f941b83583ebdb97",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "status": "reviewed-binding",
+      "sha256": "e7783b7145638179bab89d1ba306c4de3c58b8b2d171a50f0a8ef6b507a15650",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "src/auth/invitations.rs": {
       "status": "unproved",
@@ -1361,8 +1376,8 @@
     },
     "src/auth/permissions.rs": {
       "status": "reviewed-binding",
-      "sha256": "5e339697f42bb8dbfc1a96666582ca3e4797559d2a15ebb74149ef5b86b7fd8b",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "d28f9ed5173beea61162e91dbaccd763386109022954716e580953f176246870",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "src/auth/provision.rs": {
       "status": "unproved",
@@ -1566,8 +1581,8 @@
     },
     "src/bin/verified_kernel/dispatch.rs": {
       "status": "unproved",
-      "sha256": "ed1fdd9d32a64f5b0d536c5c0776f0dc7db48dc381ae4d0745464a4e2fd1b0c6",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "43eaaa8bb8202d155373a6eb2e476f5e182b03a575f1f1b6ea40397a1431704f",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "src/bin/verified_kernel.rs": {
       "status": "conformance-driver",
@@ -2146,8 +2161,8 @@
     },
     "src/developer/generation_contract.rs": {
       "status": "unproved",
-      "sha256": "0cd59e4f242a33fc49e4c3be0f412515b1f2952911ccbe24ed87f8a9ada48087",
-      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+      "sha256": "cd2728125063d28ce4e6e6487b81f3f21fa133fa36491dd18cd14e3f423c22e6",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "src/developer/generation_edits.rs": {
       "status": "unproved",
@@ -2166,8 +2181,8 @@
     },
     "src/developer/routes.rs": {
       "status": "unproved",
-      "sha256": "605ef60bd6377b1f3ae322565de45f44566b4965fcd751f7ceb2ad6171aabf58",
-      "review": "Reviewed native designer transport and shared proposal path: sandbox/current rights and positive saved-page revision before export/import, content/theme-only external results, active tenant-owned public native element references, existing CAS/history/release. Preview grants narrow existing allowed actions using the unchanged verified read policy. Real PostgreSQL/app-surface regressions and clippy pass; async adapters remain unproved."
+      "sha256": "58af6c5071c2eabb6497815b7872a0a80cd98f0c2374bee0c3481ada80a33c82",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "src/discount.rs": {
       "status": "reviewed-binding",
@@ -2581,8 +2596,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "f9a266caf9be40c10668737c8c84ec72910101af6c080240ea0385dd87362890",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "8f9db044a59b6171fe94bce4d8ecd3c81aafb96e1b24ce2c884521cad35fddfd",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -3246,8 +3261,8 @@
     },
     "src/verified_kernel/app_intake.rs": {
       "status": "extracted-policy",
-      "sha256": "294d9a9ceb49373e3dc9f868df46b913e715db808b0b019a0cdd649ed7b82cae",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "81f02a63a85abaca01d359560bad09daebb903c57c6b51c88a7d9928f2572536",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "src/verified_kernel/fulfillment.rs": {
       "status": "extracted-policy",
@@ -3256,8 +3271,8 @@
     },
     "src/verified_kernel.rs": {
       "status": "extracted-policy",
-      "sha256": "d1d9d5a115f55f0a25fe04b5103cb1a0a55c359009956e06e135a642e035945c",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "87b8f8402402667eac4035d8b9a03322d3da4806b97da4ed3ba7c23e8d456d4b",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "src/work_signal.rs": {
       "status": "unproved",
@@ -3288,8 +3303,8 @@
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "fixtures/app-studio-schema.json": {
-      "sha256": "23f9482a6d6e946474a7dee6a67a3793c2ffbf488ad3aefe2c78cbeffe9c3e83",
-      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
+      "sha256": "dfb3ca2054fee52df246e2e16c42c5aaff9707812ab7ce2b7bb4a42f4fe700a8",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "fixtures/demo-catalog.json": {
       "sha256": "e5d5eea04a7693b3f92fa58be66ad36b7ad01d5920029c29f303693aa0032ba2",
@@ -3699,9 +3714,13 @@
       "sha256": "293bbecfcbfbea19ac3ac94b4518c1a8a1b861681bd2c8248642231beb45e10e",
       "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
+    "migrations/096-app-settings.sql": {
+      "sha256": "735fdc839741e346885b629d887d4935961f5e593332ec9de25a19590d5720a0",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+    },
     "proof/Commerce/Claims.lean": {
-      "sha256": "c504f58a6d8b279212998457fac1c0609c7e4465d98ed7b82bf59d9916d49a29",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "f3de8f3bdfbf76e69dc5a609a7534aa460a7dd5f6c4f6ed14a07590efbdd59ad",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "proof/lakefile.toml": {
       "sha256": "1cda05bac02223024b93388cf858edad4719c46f8d37a826a73a6a6e15d79432",
@@ -3732,12 +3751,12 @@
       "review": "Reviewed marketplace money guard consumers and exact properties, cap-neighbour comparison cases, native stock binding and local regressions; external protocols and tax law remain tested unproved boundaries"
     },
     "scripts/formal/extract.py": {
-      "sha256": "fa87fbe1615e226ff3c67456d5bbeaa50b26dab9877bdd7c540eb381707d3acb",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "2d8c45bd0e2dab5986fb281b3bd9b0f5242f738f493dd79984f028ac9201b377",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "scripts/formal/mutations.py": {
-      "sha256": "f91338001bd5a4d1158f3193d43086043cbfa3133624a34806b7d9b58f3ab0b5",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "d64861b77313e4dcb9fda430217e14d128c0d1f10af6ac2608372e745954a6ce",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "scripts/formal/registry.py": {
       "sha256": "c9c7b670df8a2ddb9f1c8f7c7359eba31c770a37531e3268126886dec0f6c02f",

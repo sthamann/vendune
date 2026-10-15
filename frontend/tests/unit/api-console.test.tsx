@@ -41,7 +41,7 @@ it("creates a bounded explicit-scope key, shows it once and revokes only after c
     ).not.toBeDisabled(),
   );
   await user.type(screen.getByLabelText("Key name"), "Catalog reader");
-  await user.click(screen.getByText("catalog.read"));
+  await user.click(screen.getByText(/\(catalog.read\)/));
   await user.click(screen.getByRole("button", { name: "Create key" }));
   expect(request).toHaveBeenCalledWith(
     "/api/workspace/integrations",
@@ -77,7 +77,7 @@ it("does not fetch keys or offer creation without team management", async () => 
       <IntegrationKeys request={request} />
     </LocaleProvider>,
   );
-  await screen.findByText("catalog.read");
+  await screen.findByText(/\(catalog.read\)/);
   expect(
     screen.getByRole("button", { name: "Create key" }).closest("fieldset"),
   ).toBeDisabled();

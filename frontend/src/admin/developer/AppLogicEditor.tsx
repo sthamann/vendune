@@ -1,5 +1,7 @@
 /** A code-behind dialog edits one AST through visual blocks, BASIC syntax or agent JSON, then returns it to the manifest compiler. */
-import { useCallback, useState, useRef } from "react";
+import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
+import { AppFlowNavigation } from "./AppFlowNavigation";
+import { useContext, useCallback, useState, useRef } from "react";
 import type {
   Block,
   Manifest,
@@ -9,6 +11,8 @@ import type {
 import { useAppStudioText } from "../../shared/i18n/app-studio-i18n";
 import { parseBasic, printBasic, validateAst } from "./basic-code";
 import { AppCodeBuffer } from "./AppCodeBuffer";
+import AppLogicTopology from "./AppLogicTopology";
+import "../styles/automation.css";
 import AppInstructionEditor from "./AppInstructionEditor";
 import ConfirmDialog from "../../shared/ui/ConfirmDialog";
 export default function AppLogicEditor({
@@ -24,6 +28,8 @@ export default function AppLogicEditor({
   onClose: () => void;
   onChange: (b: Block) => void;
 }) {
+  const w = useAppWorkspaceText(),
+    onFlows = useContext(AppFlowNavigation);
   const { a } = useAppStudioText(),
     event = block.kind === "button" ? "click" : "change";
   const [steps, setSteps] = useState<Statement[]>(
@@ -88,7 +94,19 @@ export default function AppLogicEditor({
         confirmLabel={a("applyCode")}
         disabled={pending}
       >
-        <p>{a("codeHint")}</p>
+        <p>{w("behaviorHint")}</p>
+        {onFlows && (
+          <button
+            type="button"
+            className="studio-secondary"
+            onClick={() => {
+              onClose();
+              onFlows();
+            }}
+          >
+            {a("openFlows")}
+          </button>
+        )}
         <div className="app-code-modes">
           {(["blocks", "basic", "json"] as const).map((m) => (
             <button
@@ -106,6 +124,7 @@ export default function AppLogicEditor({
             </button>
           ))}
         </div>
+        {mode === "blocks" && <AppLogicTopology steps={steps} />}
         {mode === "blocks" ? (
           <AppInstructionEditor
             steps={steps}

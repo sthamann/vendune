@@ -1,5 +1,15 @@
 # Changelog
 
+## 15 October 2026 — connected App Studio workbench
+
+- Multi-select assistant placements create ordinary editable surfaces in one app; native checkout mounts join global header, homepage, product, cart, account and page elements.
+- Illustrated toolbox, stack/grid drag/drop, bounded resizable panels, directly editable form-field captions and a contextual AI drawer reduce hidden designer behavior. The drawer retains unfinished prompts; advanced schema/import tools stay collapsed.
+- UI behavior reuses the existing Flow topology over the bounded AST; the existing Flow Builder remains the server automation owner.
+- Versioned setting declarations configure installed apps through the existing encrypted digest/CAS-bound secret store. Credentials remain live-only, redacted on reads and absent from agent exports/public payloads.
+- Searchable, grouped permissions and properly spaced key forms support explicit non-expiring keys for current personal administrators. Creator membership intersection and immediate revocation remain in force; integrations cannot create permanent children.
+- New package IDs and declared indexes have bounded schema admission. The new permanent-credential decision is extracted to Lean; SQL, cryptography, remote providers and UI behavior remain outside that proof.
+
+
 ## Visual elements and one agent workspace — 15 October 2026
 
 - Replace the sprawling inspector with Edit / Elements / Agent / History, a compact page-and-section tree and graphical page templates. Shared Tiptap controls now have small icon buttons and a single extra-formatting menu in every host.

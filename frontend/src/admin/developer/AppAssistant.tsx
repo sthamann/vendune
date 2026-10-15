@@ -39,11 +39,12 @@ export default function AppAssistant({
   const [kind, setKind] = useState<AppKind | null>(null),
     [name, setName] = useState<Manifest["name"]>(assistantText("admin")),
     [id, setId] = useState(`app_${Date.now().toString(36)}`),
-    [location, setLocation] = useState("admin.product.tab"),
+    [selectedLocations, setSelectedLocations] = useState(["admin.product.tab"]),
     [mcp, setMcp] = useState(false),
     [publish, setPublish] = useState(false),
     [event, setEvent] = useState("order.placed"),
     [cron, setCron] = useState("0 */15 * * * *");
+  const location = selectedLocations[0];
   return (
     <section className="app-assistant" aria-label={t("start")}>
       <header>
@@ -76,13 +77,13 @@ export default function AppAssistant({
                 onClick={() => {
                   setKind(k);
                   setName(assistantText(k));
-                  setLocation(
+                  setSelectedLocations([
                     k === "frontend" || k === "combined"
                       ? "product.detail"
                       : k === "admin"
                         ? "admin.product.tab"
                         : "admin.navigation",
-                  );
+                  ]);
                   setPublish(k === "frontend" || k === "combined");
                 }}
               >
@@ -106,6 +107,7 @@ export default function AppAssistant({
                 id,
                 name,
                 location,
+                locations: selectedLocations,
                 mcp,
                 publicRead: publish,
                 event,
@@ -133,29 +135,56 @@ export default function AppAssistant({
                 onChange={(e) => setId(e.target.value)}
               />
             </label>
-            <label>
-              {t("placement")}
-              <select
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              >
+            <fieldset className="app-placement-picker">
+              <legend>{t("placement")}</legend>
+              <p>{t("placementsHint")}</p>
+              <div className="app-placement-grid">
                 {Object.entries(placements)
-                  .filter(([v]) =>
-                    ["frontend", "combined"].includes(kind)
-                      ? [
-                          "product.detail",
-                          "storefront.page",
-                          "storefront.block",
-                        ].includes(v)
-                      : v.startsWith("admin."),
+                  .filter(
+                    ([v]) =>
+                      kind === "combined" ||
+                      (kind === "frontend"
+                        ? !v.startsWith("admin.")
+                        : v.startsWith("admin.")),
                   )
                   .map(([v, k]) => (
-                    <option value={v} key={v}>
-                      {t(k)}
-                    </option>
+                    <label
+                      key={v}
+                      className="app-placement-card"
+                      data-selected={selectedLocations.includes(v)}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedLocations.includes(v)}
+                        disabled={
+                          !selectedLocations.includes(v) &&
+                          selectedLocations.length >= 6
+                        }
+                        onChange={(e) =>
+                          setSelectedLocations(
+                            e.target.checked
+                              ? [...selectedLocations, v]
+                              : selectedLocations.filter((x) => x !== v),
+                          )
+                        }
+                      />
+                      <Icon
+                        name={
+                          v.includes("header")
+                            ? "frame"
+                            : v.startsWith("checkout.")
+                              ? "card"
+                              : v.startsWith("admin.")
+                                ? "lock"
+                                : "layers"
+                        }
+                        size={22}
+                      />
+                      <strong>{t(k)}</strong>
+                    </label>
                   ))}
-              </select>
-            </label>
+              </div>
+            </fieldset>
           </div>
           <fieldset className="app-assistant-access">
             <legend>{t("access")}</legend>
@@ -168,7 +197,7 @@ export default function AppAssistant({
               {t("mcpAccess")}
             </label>
             <p>{t("mcpHint")}</p>
-            {kind === "admin" && location.includes("product") && (
+            {kind === "admin" && location?.includes("product") && (
               <label className="app-check">
                 <input
                   type="checkbox"
@@ -216,7 +245,10 @@ export default function AppAssistant({
             >
               {t("back")}
             </button>
-            <button className="studio-primary">
+            <button
+              className="studio-primary"
+              disabled={!selectedLocations.length}
+            >
               <Icon name="plus" size={16} />
               {t("create")}
             </button>

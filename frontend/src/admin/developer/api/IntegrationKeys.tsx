@@ -1,6 +1,7 @@
 /** Personal, expiring, least-privilege integration keys; plaintext stays in component memory and is never reloaded. */
 import { useEffect, useState } from "react";
 import type { RequestFn } from "../../shell/studio-types";
+import PermissionPicker from "../../team/PermissionPicker";
 import ConfirmDialog from "../../../shared/ui/ConfirmDialog";
 import { usePermissionText } from "../../team/permission-i18n";
 import { useApiText } from "./api-i18n";
@@ -8,7 +9,7 @@ type Key = {
   id: string;
   name: string;
   permissions: string[];
-  expiresAt: string;
+  expiresAt: string | null;
 };
 export default function IntegrationKeys({ request }: { request: RequestFn }) {
   const t = useApiText();
@@ -17,6 +18,8 @@ export default function IntegrationKeys({ request }: { request: RequestFn }) {
     [access, setAccess] = useState<string[]>([]),
     [name, setName] = useState(""),
     [days, setDays] = useState(30),
+    [permanent, setPermanent] = useState(false),
+    [personal, setPersonal] = useState(false),
     [scopes, setScopes] = useState<string[]>([]),
     [secret, setSecret] = useState(""),
     [error, setError] = useState(""),
@@ -32,6 +35,7 @@ export default function IntegrationKeys({ request }: { request: RequestFn }) {
       .then(async (v) => {
         if (!active) return;
         setAccess(v.permissions);
+        setPersonal(v.personalSession === true);
         if (v.permissions.includes("team.manage")) {
           const result = await request("/api/workspace/integrations");
           if (active) setKeys(result.elements);
@@ -57,7 +61,12 @@ export default function IntegrationKeys({ request }: { request: RequestFn }) {
           try {
             const result = await request(
               "/api/workspace/integrations",
-              { name: name.trim(), expiresInDays: days, permissions: scopes },
+              {
+                name: name.trim(),
+                expiresInDays: days,
+                permissions: scopes,
+                ...(permanent ? { nonExpiring: true } : {}),
+              },
               "POST",
             );
             setSecret(result.key);
@@ -73,7 +82,7 @@ export default function IntegrationKeys({ request }: { request: RequestFn }) {
         }}
       >
         <fieldset disabled={!manage || busy}>
-          <div className="catalog-form-grid">
+          <div className="api-key-fields">
             <label>
               {t("name")}
               <input
@@ -84,52 +93,45 @@ export default function IntegrationKeys({ request }: { request: RequestFn }) {
               />
             </label>
             <label>
-              {t("days")}
-              <input
-                required
-                type="number"
-                min={1}
-                max={90}
-                step={1}
-                value={Number.isFinite(days) ? days : ""}
-                onChange={(e) => setDays(e.target.valueAsNumber)}
-              />
+              {t("lifetime")}
+              <select
+                value={permanent ? "permanent" : "limited"}
+                onChange={(e) => setPermanent(e.target.value === "permanent")}
+              >
+                <option value="limited">{t("limited")}</option>
+                {personal && (
+                  <option value="permanent">{t("permanent")}</option>
+                )}
+              </select>
             </label>
+            {!permanent && (
+              <label>
+                {t("days")}
+                <input
+                  required
+                  type="number"
+                  min={1}
+                  max={90}
+                  step={1}
+                  value={Number.isFinite(days) ? days : ""}
+                  onChange={(e) => setDays(e.target.valueAsNumber)}
+                />
+              </label>
+            )}
           </div>
+          {permanent && <p>{t("permanentHint")}</p>}
           <h3>{t("rights")}</h3>
-          <div className="api-scope-grid">
-            {access
-              .filter((p) => p !== "*")
-              .map((p) => (
-                <label key={p}>
-                  <input
-                    type="checkbox"
-                    checked={scopes.includes(p)}
-                    onChange={(e) =>
-                      setScopes(
-                        e.target.checked
-                          ? [...scopes, p]
-                          : scopes.filter((v) => v !== p),
-                      )
-                    }
-                  />
-                  <span>
-                    {pt(p)}
-                    <small>
-                      <code>{p}</code>
-                    </small>
-                  </span>
-                </label>
-              ))}
-          </div>
+          <PermissionPicker
+            available={access.filter((p) => p !== "*")}
+            value={scopes}
+            onChange={setScopes}
+          />
           <button
             className="studio-primary"
             disabled={
               !name.trim() ||
               !scopes.length ||
-              !Number.isInteger(days) ||
-              days < 1 ||
-              days > 90
+              (!permanent && (!Number.isInteger(days) || days < 1 || days > 90))
             }
           >
             {t("create")}
@@ -168,10 +170,13 @@ export default function IntegrationKeys({ request }: { request: RequestFn }) {
         <article className="api-key-row" key={key.id}>
           <div>
             <strong>{key.name}</strong>
-            <p>{key.permissions.join(" · ")}</p>
+            <p>{key.permissions.map((p) => `${pt(p)} (${p})`).join(" · ")}</p>
             <small>
-              {t("expiry")}: {new Date(key.expiresAt).toLocaleString()}
-              {new Date(key.expiresAt).getTime() <= Date.now()
+              {t("expiry")}:{" "}
+              {key.expiresAt
+                ? new Date(key.expiresAt).toLocaleString()
+                : t("permanent")}
+              {key.expiresAt && new Date(key.expiresAt).getTime() <= Date.now()
                 ? ` · ${t("expired")}`
                 : ""}
             </small>

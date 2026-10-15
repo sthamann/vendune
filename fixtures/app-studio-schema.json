@@ -582,7 +582,8 @@
                   "admin.navigation",
                   "admin.order",
                   "admin.product",
-                  "storefront.page", "storefront.block",
+                  "storefront.page",
+                  "storefront.block",
                   "storefront.home",
                   "product.detail",
                   "cart.summary",
@@ -593,7 +594,9 @@
                   "admin.order.general",
                   "admin.b2b.company",
                   "admin.b2b.unit",
-                  "account.b2b"
+                  "account.b2b",
+                  "checkout.content",
+                  "checkout.summary"
                 ]
               },
               "label": {
@@ -990,6 +993,61 @@
             "channel"
           ],
           "additionalProperties": false
+        },
+        "settings": {
+          "type": "array",
+          "maxItems": 16,
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "label": {
+                "type": "object",
+                "properties": {
+                  "en": {
+                    "type": "string"
+                  },
+                  "de": {
+                    "type": "string"
+                  },
+                  "fr": {
+                    "type": "string"
+                  },
+                  "es": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "en",
+                  "de",
+                  "fr",
+                  "es"
+                ],
+                "additionalProperties": false
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "string",
+                  "secret",
+                  "boolean",
+                  "integer"
+                ]
+              },
+              "required": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "key",
+              "label",
+              "kind",
+              "required"
+            ],
+            "additionalProperties": false
+          }
         }
       },
       "required": [

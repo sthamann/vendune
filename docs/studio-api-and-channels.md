@@ -49,8 +49,11 @@ checks remain the security boundary for API and MCP clients.
 
 ## Developer → API & integrations
 
-Create a named integration key with explicit scopes and a lifetime of **1–90 days
-from creation**. It is bound to that live shop and its owned staging contexts,
+Create a named integration key with explicit scopes. Choose **1–90 days from creation**,
+or explicitly **No expiry** as a currently authorized personal shop administrator
+(`team.manage`). An integration key cannot create a permanent child key. Permanent
+keys use PostgreSQL infinity internally and return `expiresAt: null` in the API;
+they still count toward the 32 active-key limit. It is bound to that live shop and its owned staging contexts,
 not every shop of the same person. It can never grant more than the creator's
 current membership, including after demotion. Revocation takes effect on the
 next request. Key management requires `team.manage` and a personal account.
@@ -58,7 +61,7 @@ The plaintext key is shown once, masked in the UI, and only held in component
 memory. Store it in your integration's secret manager. Scheduled future start
 dates and refresh-token rotation are not implemented.
 
-The explorer lists **280 static HTTP method/path pairs** (reviewed 12 October 2026) with their Rust source
+The explorer lists **323 static HTTP method/path pairs** (reviewed 15 October 2026) with their Rust source
 module. `scripts/api_catalogue.py` regenerates this list from `.route`
 declarations; the mandatory CI structure check rejects drift. Installed app `apiRoutes` are
 loaded separately for the current shop. This is not a complete OpenAPI schema;

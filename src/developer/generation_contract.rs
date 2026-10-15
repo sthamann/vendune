@@ -49,6 +49,9 @@ pub(super) fn retain(old: &Value, next: &mut Value) -> Result<()> {
             }
         }
     }
+    if let Some(settings) = old.get("settings") {
+        next["settings"] = settings.clone();
+    }
     if old["runtime"] == "service" {
         for key in ["runtime", "category", "paymentProvider"] {
             if let Some(value) = old.get(key) {

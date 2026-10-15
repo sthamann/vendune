@@ -274,6 +274,10 @@ pub(super) fn eval(j: &Value) -> Result<Value, String> {
             b("live_scope")?,
             b("current_cart")?
         ))),
+        Some("persistent_key_admissible") => Ok(json!(persistent_key_admissible(
+            b("personal")?,
+            b("administrator")?
+        ))),
         _ => Err("Unknown policy".into()),
     }
 }

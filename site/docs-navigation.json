@@ -91,6 +91,7 @@
       },
       "sources": [
         "docs/app-studio.md",
+        "docs/app-studio-workspace.md",
         "docs/app-assistants.md",
         "docs/app-tutorials/README.md",
         "docs/app-platform.md",

@@ -22,6 +22,8 @@ pub(crate) struct Integration {
     pub name: String,
     pub permissions: Vec<String>,
     pub expires_in_days: u32,
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub non_expiring: bool,
 }
 #[cfg(test)]
 mod tests {

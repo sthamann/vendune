@@ -119,3 +119,78 @@
 .api-route .soft-tag {
   flex-shrink: 0;
 }
+
+/* Key forms own their spacing; do not depend on catalog-only form styles. */
+.api-key-fields {
+  display: grid;
+  grid-template-columns: minmax(220px, 2fr) minmax(180px, 1fr) minmax(
+      150px,
+      1fr
+    );
+  gap: 20px;
+  margin: 24px 0;
+}
+.api-key-fields label {
+  display: grid;
+  gap: 9px;
+  align-content: start;
+  font-size: 13px;
+  font-weight: 600;
+}
+.api-key-fields input,
+.api-key-fields select,
+.permission-search input {
+  width: 100%;
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+}
+.api-key-panel .permission-picker {
+  margin: 16px 0 24px;
+}
+.api-key-panel .permission-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 8px;
+  max-height: 390px;
+  overflow: auto;
+  padding: 4px;
+}
+.api-key-panel .permission-option {
+  display: flex;
+  align-items: start;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 13px;
+}
+.api-key-panel .permission-option code {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 4px;
+}
+.api-key-panel .permission-option input {
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+.api-key-panel .permission-search {
+  display: grid;
+  gap: 8px;
+  max-width: 480px;
+  margin-bottom: 14px;
+}
+@media (max-width: 700px) {
+  .api-key-fields {
+    grid-template-columns: 1fr;
+  }
+  .api-key-row {
+    align-items: start;
+    flex-direction: column;
+  }
+}

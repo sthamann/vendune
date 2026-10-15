@@ -32,6 +32,25 @@ const words = {
     "Validité en jours (1–90)",
     "Validez en días (1–90)",
   ],
+  lifetime: [
+    "Key lifetime",
+    "Laufzeit des Schlüssels",
+    "Durée de la clé",
+    "Duración de la clave",
+  ],
+  limited: ["Time limited", "Zeitlich begrenzt", "Limitée", "Limitada"],
+  permanent: [
+    "No expiry",
+    "Unbegrenzt gültig",
+    "Sans expiration",
+    "Sin caducidad",
+  ],
+  permanentHint: [
+    "Personal administrators can create non-expiring keys. Revocation and current membership checks still apply.",
+    "Persönliche Administratoren können unbegrenzte Schlüssel erstellen. Widerruf und aktuelle Mitgliedsrechte gelten weiterhin.",
+    "Les administrateurs personnels peuvent créer des clés sans expiration. Révocation et droits actuels restent applicables.",
+    "Los administradores personales pueden crear claves sin caducidad. Se mantienen la revocación y los permisos actuales.",
+  ],
   rights: [
     "Granted permissions",
     "Erteilte Rechte",

@@ -7,3 +7,8 @@ pub fn app_submission_admissible(
 ) -> bool {
     private_inbox && live_scope && current_cart
 }
+
+/// Permanent credentials and credential settings require a current personal administrator.
+pub fn persistent_key_admissible(personal: bool, administrator: bool) -> bool {
+    personal && administrator
+}

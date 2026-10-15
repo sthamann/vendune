@@ -171,4 +171,7 @@ def carrier_booking_admissible (is_open : Bool) (closed : Bool) (labelled : Bool
 def app_submission_admissible (private_inbox : Bool) (live_scope : Bool) (current_cart : Bool) : Bool :=
   ((private_inbox && live_scope) && current_cart)
 
+def persistent_key_admissible (personal : Bool) (administrator : Bool) : Bool :=
+  (personal && administrator)
+
 end CommerceKernel

@@ -55,6 +55,7 @@ export function proposalChanges(
     schedules: m.schedules,
     webhooks: m.webhooks,
     configuration: m.configuration,
+    settings: m.settings,
     commerceHooks: m.commerceHooks,
     presentation: m.presentation,
   });

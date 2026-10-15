@@ -23,3 +23,5 @@ Files and their individual responsibilities are listed in [the generated source 
 ## Verification
 
 Run `npm run build`, `npm test`, `npm run test:coverage` and `npm run architecture` from `frontend/`. Coverage includes untested source files; a module in this folder is not automatically fully tested. See the root [testing guide](../../../../docs/testing.md) for backend integration and coverage limits.
+
+`AppSettings` renders an installed package's declared configuration centrally in its details, using shared typed labels and the digest/CAS-bound encrypted server API. Secrets are write-only and component memory is cleared after save. The form owns `app-settings.css`; it does not depend on developer or catalog view styles.

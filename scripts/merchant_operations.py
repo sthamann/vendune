@@ -131,6 +131,15 @@ req('/api/merchant/orders',h={**kh,'x-tenant':foreign['workspace']},expected=403
 assert 'digest' not in json.dumps(req('/api/workspace/integrations',h=h)) and key['key'] not in json.dumps(req('/api/workspace/integrations',h=h))
 req('/api/workspace/integrations/'+key['id'],h=h,method='DELETE');req('/api/merchant/orders',h=kh,expected=401)
 check('expiring one-shop API/MCP keys enforce explicit rights, hide secrets and revoke immediately')
+permanent=req('/api/workspace/integrations',{'name':'Permanent fixture','expiresInDays':30,'nonExpiring':True,'permissions':['catalog.read','team.manage']},h)
+permanent_h={'Authorization':'Bearer '+permanent['key'],'x-tenant':owner['workspace']}
+entry=next(k for k in req('/api/workspace/integrations',h=h)['elements'] if k['id']==permanent['id']);assert entry['expiresAt'] is None
+req('/api/merchant/products',h=permanent_h)
+req('/api/workspace/integrations',{'name':'Child permanent','expiresInDays':30,'nonExpiring':True,'permissions':['catalog.read']},permanent_h,expected=403)
+req('/api/workspace/integrations',{'name':'Bad days','expiresInDays':0,'permissions':['catalog.read']},h,expected=400)
+req('/api/workspace/integrations/'+permanent['id'],h=h,method='DELETE');req('/api/merchant/products',h=permanent_h,expected=401)
+check('non-expiring keys use explicit personal administrator approval, null expiry, current scopes and immediate revocation; integration credentials cannot mint permanent keys')
+
 # Full manual/delivery lifecycle and exact-once cancellation stock restoration.
 pub={'x-tenant':owner['workspace']};physical=req('/store-api/checkout/cart',{'session':'physical-'+suffix},pub);ph={**pub,'sw-context-token':physical['token']};physical=req('/store-api/checkout/cart/line-item',{'items':[{'referencedId':'notebook','quantity':1}]},ph)
 physical=req('/store-api/checkout/order',{}, {**ph,'Idempotency-Key':'physical-'+suffix});stock=req('/store-api/product/notebook',h=pub)['product']['stock']
