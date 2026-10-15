@@ -74,7 +74,7 @@ try:
     call('/api/apps',{'manifest':graph_app})
     call('/api/apps/planner_ontology/entities/guides',{'id':'guide','fields':{'product_id':'mug','title':{'en':'Exact native care'}}})
     conversation=call('/api/agent/chat',{'message':'Contract test: change lamp price.','inference':{'provider':'openai','model':'contract-openai-model'}})
-    cid=conversation['conversationId']; message=conversation['messages'][-1]; assert message['data']['preview']['inference']=='openai'
+    cid=conversation['conversationId']; message=conversation['messages'][-1]; assert message['data'].get('preview',{}).get('inference')=='openai',conversation
     path,headers,body=next(c for c in reversed(captured) if c[0] != '/api/embed'); assert path=='/v1/responses' and headers['authorization']=='Bearer contract-openai' and body['store'] is False
     assert 'app.planner_ontology.care_advice' in body['input'] and 'app.planner_ontology.applies_to' in body['input'] and 'Exact native care' in body['input'], body['input']
     passed('Native app ontology fields and reference edges reach the actual merchant model request under the existing grants and bounded context')

@@ -275,6 +275,12 @@ same security claim.
 per-tab origin/CSRF fences, including platform, customer, preview and MCP paths.
 Passive replies cannot overwrite a newer login; external bearer clients remain compatible.
 
+[Saved agent work](docs/durable-agent-runs.md) extends existing tasks and conversations
+with private checkpoints, current-rights checks, explicit continuation and cancellation.
+A killed worker's ambiguous model call is never automatically repeated; the original
+native proposal approval still owns business changes. Local restart/revocation tests
+and public deployment are distinct acceptance steps.
+
 Personal merchant and operator accounts share optional authenticator protection,
 one-use recovery codes and revision-checked password recovery through the existing
 verified identity service. [Account setup, source owners and test boundaries](docs/account-security.md).

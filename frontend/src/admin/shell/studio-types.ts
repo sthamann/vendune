@@ -129,7 +129,7 @@ export type Message = {
   role: string;
   content: string;
   applied: boolean;
-  data: { error?: boolean; taskId?: string; preview?: Preview };
+  data: { error?: boolean; taskId?: string; runId?: string; preview?: Preview };
 };
 export type Provider = {
   id: string;

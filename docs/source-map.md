@@ -1,5 +1,9 @@
 # Source responsibilities and verification map
 
+**Saved merchant planning:** [Native tasks, private checkpoints, worker restart,
+current authority and explicit continuation](durable-agent-runs.md). `agent_runs/`
+extends the existing planner/approval owner; it is not another agent backend.
+
 **Browser authority:** [Merchant/customer HttpOnly transport, exact origins, cross-tab fences and Studio CSP](browser-sessions.md).
 
 **Personal workspace and standard-shop editor:** [Illustrated workflow, shared models, rights, history, forms and publication](personal-workspace-and-shop-design.md).
@@ -164,7 +168,7 @@ See [international commerce](international-commerce.md) for the exact contract.
 | [`src/payments/storage.rs`](../src/payments/storage.rs) | Transactional provider receipts and order state updates; external responses cannot invent amounts or tenants. | `payments.py (local wire fixture) + Rust integer-money tests` |
 | [`extensions/apps/paypal/src/webhooks.rs`](../extensions/apps/paypal/src/webhooks.rs) | PayPal verifies webhook signatures before inbox insertion; provider reconciliation confirms monetary state. | `payments.py (local wire fixture) + Rust integer-money tests` |
 | [`src/payments/worker.rs`](../src/payments/worker.rs) | Leased payment jobs; network runs after claim commit, fenced receipts prevent duplicate local effects. | `payments.py (local wire fixture) + Rust integer-money tests` |
-| [`src/chat_lease.rs`](../src/chat_lease.rs) | Short, cross-replica conversation leases; inference never retains a database transaction. | `providers.py` |
+| [`src/agent_runs.rs`](../src/agent_runs.rs) | Existing-task continuation, private checkpoints, lease-fenced completion and original approval. | `durable_agents.py + providers.py` |
 | [`src/workers.rs`](../src/workers.rs) | Independently deployable worker roles; leases and durable receipts coordinate replicas. | `services.py + payments.py` |
 | [`src/http_limits.rs`](../src/http_limits.rs) | Bounded streaming responses for extension services and payment providers. | `services.py + payments.py + build` |
 

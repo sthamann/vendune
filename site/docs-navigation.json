@@ -41,6 +41,7 @@
       },
       "sources": [
         "docs/cognitive-commerce.md",
+        "docs/durable-agent-runs.md",
         "docs/knowledge-workspace.md",
         "docs/agent-workshop.md",
         "docs/connectors.md",

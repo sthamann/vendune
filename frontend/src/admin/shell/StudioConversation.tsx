@@ -1,6 +1,8 @@
 /** StudioConversation: focused Studio view; state and commands come from the session-scoped controller. */
 import { useEffect, useState } from "react";
 import StudioComposer from "./StudioComposer";
+import AgentRunCard from "./AgentRunCard";
+import { useAgentRunText } from "../../shared/i18n/agent-runs-i18n";
 import { useExperienceUIText } from "../../shared/i18n/experience-ui-i18n";
 
 import "../../shared/styles/workbench.css";
@@ -20,6 +22,7 @@ export default function StudioConversation({
   onProviderSettings?: () => void;
 }) {
   const { u } = useExperienceUIText();
+  const runText = useAgentRunText();
   const {
     t,
     setSettings,
@@ -37,6 +40,9 @@ export default function StudioConversation({
     run,
     apply,
     bottom,
+    savedRun,
+    progressUnavailable,
+    controlRun,
   } = useStudio();
   const [elapsed, setElapsed] = useState(0);
   useEffect(() => {
@@ -199,7 +205,14 @@ export default function StudioConversation({
             </div>
           </article>
         )}
-        {busy && (
+        {progressUnavailable && <p role="status">{runText("loadError")}</p>}
+        {savedRun && (
+          <AgentRunCard
+            value={savedRun}
+            control={(action) => run(() => controlRun(action))}
+          />
+        )}
+        {busy && !savedRun && (
           <div className="studio-thinking" role="status">
             <span className="thinking-dots">
               <i />

@@ -20,6 +20,11 @@ This lists every checked-in source module in these roots, including files with n
 | [src/accounts/orders.rs](../src/accounts/orders.rs) | Customer-owned order reads and receipts share one tenant/identity predicate and a public projection. |
 | [src/accounts/profile.rs](../src/accounts/profile.rs) | Typed customer-owned profile updates; price groups, email and merchant roles cannot be self-assigned. |
 | [src/agent.rs](../src/agent.rs) | Persistent grounded conversations and tenant-scoped semantic knowledge HTTP adapters. |
+| [src/agent_runs/authority.rs](../src/agent_runs/authority.rs) | Saved runs retain an upper authority bound; every continuation rechecks credential, membership and private stage admission. |
+| [src/agent_runs/checkpoint.rs](../src/agent_runs/checkpoint.rs) | Bounded journal of prepared context and completed inference calls; ambiguous calls require explicit continuation. |
+| [src/agent_runs/contract.rs](../src/agent_runs/contract.rs) | HTTP/MCP share revision-bound run controls and safe progress; checkpoints and credentials are never exported. |
+| [src/agent_runs/worker.rs](../src/agent_runs/worker.rs) | Database claims resume only completed checkpoints; unknown model outcomes are never automatically charged again. |
+| [src/agent_runs.rs](../src/agent_runs.rs) | Durable continuation extends native tasks; leases fence checkpoints and publication, never approved writes. |
 | [src/apps/approval.rs](../src/apps/approval.rs) | Operator service authority is bound to immutable package content, never to a merchant-chosen ID. |
 | [src/apps/asset_surfaces.rs](../src/apps/asset_surfaces.rs) | App file uploads reuse the product asset parser/store and require the current package plus either callback consent or a surface grant. |
 | [src/apps/business_capability/mod.rs](../src/apps/business_capability/mod.rs) | Versioned merchant intent and frozen, executable pure-decision examples in the canonical app package. |
@@ -184,7 +189,6 @@ This lists every checked-in source module in these roots, including files with n
 | [src/categories/navigation.rs](../src/categories/navigation.rs) | Public navigation is localized and restricted to the selected channel's active category ancestry. |
 | [src/channel_metrics/reads.rs](../src/channel_metrics/reads.rs) | One persisted diagnostic read shared by operator overview, shop dossiers and infrastructure. |
 | [src/channel_metrics.rs](../src/channel_metrics.rs) | Bounded, lossy diagnostic counters. Never use this buffer for business events. |
-| [src/chat_lease.rs](../src/chat_lease.rs) | Short, cross-replica conversation leases; inference never retains a database transaction. |
 | [src/checkout_handoff.rs](../src/checkout_handoff.rs) | Single-use checkout transfer for independent storefronts; no app-specific catalog or checkout rules. |
 | [src/checkout_page.rs](../src/checkout_page.rs) | The existing checkout may be framed only by its registered tenant/channel storefront. |
 | [src/checkout_products.rs](../src/checkout_products.rs) | Localized immutable checkout SKU snapshots read under the purchase transaction's locks. |
@@ -214,7 +218,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/cognition/recommendations.rs](../src/cognition/recommendations.rs) | Merchant-approved associations are consumed by the public shop without exposing order counts or identities. |
 | [src/cognition/routes.rs](../src/cognition/routes.rs) | Merchant memory endpoints and revision-bound experiment/dismissal decisions. |
 | [src/cognition/signed.rs](../src/cognition/signed.rs) | Public Ed25519 attestations bind exact native facts and channel context for five minutes; signatures do not guarantee source truth. |
-| [src/cognition/stream.rs](../src/cognition/stream.rs) | SSE transports real chat completion and waiting heartbeats; detached execution retains tenant scope and the existing durable chat lease. |
+| [src/cognition/stream.rs](../src/cognition/stream.rs) | Compatible SSE transport waits on the same persisted run; detached request handling retains native tenant scope. |
 | [src/cognition/tools.rs](../src/cognition/tools.rs) | Bounded agent read rounds use the same capability dispatcher and current actor rights; never execute writes. |
 | [src/commerce/app_adjustments.rs](../src/commerce/app_adjustments.rs) | Apply admitted integer app adjustments through native pricing/tax calculation; extensions cannot replace quote JSON. |
 | [src/commerce/catalog.rs](../src/commerce/catalog.rs) | SKU loading with parent translation fallback. |
@@ -435,7 +439,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/performance/pool.rs](../src/performance/pool.rs) | Explicit per-process database budgets and bounded queue waits; invalid deployment values fail fast. |
 | [src/performance/row_security.rs](../src/performance/row_security.rs) | Bind each borrowed PostgreSQL connection to task scope, and reject unsafe strict-runtime roles. |
 | [src/performance/settings.rs](../src/performance/settings.rs) | One MVCC snapshot validates base/override UUIDs; warm reads avoid transmitting or decoding JSON. |
-| [src/planner.rs](../src/planner.rs) | Grounded model planning, recorded inputs and proposed changes. |
+| [src/planner.rs](../src/planner.rs) | Grounded model planning: durable input snapshots share native proposal validation and explicit apply. |
 | [src/platform/ai.rs](../src/platform/ai.rs) | Operator-only inference administration: optimistic revision, encrypted write-only keys and audit without secrets. |
 | [src/platform/auth.rs](../src/platform/auth.rs) | Independent platform authorization: live personal sessions, current grants, no integration/bootstrap escalation. |
 | [src/platform/bootstrap.rs](../src/platform/bootstrap.rs) | Offline first-operator setup: migration-only process, supplied strong credentials, password proof for existing accounts. |
@@ -761,6 +765,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/settings/company-types.ts](../frontend/src/admin/settings/company-types.ts) | Typed company metadata and sparse per-channel inheritance contract; statutory facts are never auto-translated. |
 | [frontend/src/admin/settings/useCompanyContext.ts](../frontend/src/admin/settings/useCompanyContext.ts) | Load enabled content languages, countries and channel choices without overwriting an edited draft on locale refresh. |
 | [frontend/src/admin/settings/useSettingsDraft.ts](../frontend/src/admin/settings/useSettingsDraft.ts) | Revisioned settings drafts survive locale refreshes, reject late loads and keep failed saves editable. |
+| [frontend/src/admin/shell/AgentRunCard.tsx](../frontend/src/admin/shell/AgentRunCard.tsx) | Saved native run progress and explicit continuation share the conversation's permission-scoped request owner. |
 | [frontend/src/admin/shell/Merchant.tsx](../frontend/src/admin/shell/Merchant.tsx) | Studio composition root: layout, scoped controller and modular workspace views. |
 | [frontend/src/admin/shell/StudioComposer.tsx](../frontend/src/admin/shell/StudioComposer.tsx) | StudioComposer: focused Studio view; state and commands come from the session-scoped controller. |
 | [frontend/src/admin/shell/StudioContext.ts](../frontend/src/admin/shell/StudioContext.ts) | Typed, local Studio context; never shared across a different mounted Studio. |
@@ -773,6 +778,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/shell/permissions.ts](../frontend/src/admin/shell/permissions.ts) | Presentation admission mirrors named server rights. API/domain checks remain authoritative. |
 | [frontend/src/admin/shell/requests.ts](../frontend/src/admin/shell/requests.ts) | Authenticated Studio transport; staging changes only the tenant, never the principal. |
 | [frontend/src/admin/shell/studio-types.ts](../frontend/src/admin/shell/studio-types.ts) | studio types: Studio layout, session/workspace controller, authenticated transport and lazy workspace navigation. |
+| [frontend/src/admin/shell/useChatTurns.ts](../frontend/src/admin/shell/useChatTurns.ts) | Durable chat commands reuse native conversations; late responses cannot cross an account/shop/stage boundary. |
 | [frontend/src/admin/shell/useEntityNavigation.ts](../frontend/src/admin/shell/useEntityNavigation.ts) | Linked entity navigation keeps native editors, browser deep links and back paths in the same tenant scope. |
 | [frontend/src/admin/shell/useServerHealth.ts](../frontend/src/admin/shell/useServerHealth.ts) | Public server health is independent of the personal Studio session. |
 | [frontend/src/admin/shell/useStudioAccess.ts](../frontend/src/admin/shell/useStudioAccess.ts) | Central Studio identity boundary: initial login, expiry suspension and same-account resume. |
@@ -951,6 +957,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/LocalizedField.tsx](../frontend/src/shared/i18n/LocalizedField.tsx) | Single visible field for the editor's language, with main-language preview and explicit restore-to-inheritance. |
 | [frontend/src/shared/i18n/account-i18n.ts](../frontend/src/shared/i18n/account-i18n.ts) | Customer account vocabulary: one complete EN/DE/FR/ES contract for authentication and purchase care. |
 | [frontend/src/shared/i18n/admin-creation-i18n.ts](../frontend/src/shared/i18n/admin-creation-i18n.ts) | Shared settings navigation and native customer/manual-order creation vocabulary: EN/DE/FR/ES. |
+| [frontend/src/shared/i18n/agent-runs-i18n.ts](../frontend/src/shared/i18n/agent-runs-i18n.ts) | Durable run states and explicit ambiguous-call continuation, in the shared interface language. |
 | [frontend/src/shared/i18n/app-access-i18n.ts](../frontend/src/shared/i18n/app-access-i18n.ts) | Explicit app callback consent and short-lived key management vocabulary. |
 | [frontend/src/shared/i18n/app-assistant-i18n.ts](../frontend/src/shared/i18n/app-assistant-i18n.ts) | App assistants and extension permissions use the same EN/DE/FR/ES vocabulary. |
 | [frontend/src/shared/i18n/app-building-i18n.ts](../frontend/src/shared/i18n/app-building-i18n.ts) | Shared translated app recipes and reviewed AI changes; no alternate app schema. |
@@ -1328,6 +1335,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/demo/fixtures.py](../scripts/demo/fixtures.py) | Four-language, provider-free commerce playground definitions; no credentials or real customer data. |
 | [scripts/developer_documents.py](../scripts/developer_documents.py) | Local model wire fixtures verify app generation, provenance and document privacy, without paid providers. |
 | [scripts/differential.py](../scripts/differential.py) | Independent PHP/Rust differential; fails on any money delta, not averaged error. |
+| [scripts/durable_agents.py](../scripts/durable_agents.py) | Actual HTTP/PostgreSQL task continuation, killed Rust workers, current rights and no unapproved mutations; synthetic model only. |
 | [scripts/edi.py](../scripts/edi.py) | Registered EDI entry delegates app behavior and fixtures to the plugin owner. |
 | [scripts/email_tests.py](../scripts/email_tests.py) | Archived differential SMTP/TLS fixtures plus actual Rust/PostgreSQL/MCP/flow consumers. No external mail. |
 | [scripts/erp_handoff.py](../scripts/erp_handoff.py) | Registered integration entry delegates reference-app behavior to its package-owned verification. |

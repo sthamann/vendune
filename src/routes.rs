@@ -31,6 +31,7 @@ pub(crate) fn router(a: App) -> Router {
         .merge(b2b::router())
         .merge(payments::payment_router())
         .merge(cognition::cognition_router())
+        .merge(agent_runs::router())
         .secure_route(
             "/api/merchant/commerce/channels/{channel}",
             &[("GET", "settings.read"), ("PUT", "settings.write")],

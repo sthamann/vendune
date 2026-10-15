@@ -14,6 +14,7 @@ pub(crate) fn assistant_access(h: &RequestContext) -> Result<()> {
 
 pub(super) fn choice(v: &Value) -> Result<Option<Choice>> {
     v.get("inference")
+        .filter(|v| !v.is_null())
         .map(|v| serde_json::from_value(v.clone()).map_err(|_| bad("Invalid inference selection")))
         .transpose()
 }
@@ -118,7 +119,7 @@ pub(super) async fn reindex(State(a): State<App>, h: RequestContext) -> Result<J
 pub(super) async fn conversations(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {
     assistant_access(&h)?;
     let t = merchant(&a, &h)?;
-    let rows=sqlx::query("SELECT id,title,created_at::text AS created_at FROM conversations WHERE tenant=$1 ORDER BY created_at DESC LIMIT 40").bind(&t).fetch_all(&a.db).await?;
+    let rows=sqlx::query("SELECT id,title,created_at::text AS created_at FROM conversations WHERE tenant=$1 AND (owner_id=$2 OR (owner_id IS NULL AND $3)) AND NOT EXISTS(SELECT 1 FROM tasks k WHERE k.tenant=conversations.tenant AND k.conversation_id=conversations.id AND k.run_scopes IS NOT NULL AND NOT(k.run_scopes <@ $4)) ORDER BY created_at DESC LIMIT 40").bind(&t).bind(header(&h,"x-rac-user")).bind(header(&h,"x-rac-role")==Some("owner")).bind(json!(auth::SCOPES.iter().filter(|s|auth::allowed(&h,s)).collect::<Vec<_>>())).fetch_all(&a.db).await?;
     Ok(Json(
         json!({"conversations":rows.iter().map(|r|json!({"id":r.get::<String,_>("id"),"title":r.get::<String,_>("title"),"createdAt":r.get::<String,_>("created_at")})).collect::<Vec<_>>()}),
     ))
@@ -135,20 +136,10 @@ pub(super) async fn conversation(
 ) -> Result<Json<Value>> {
     assistant_access(&h)?;
     let t = merchant(&a, &h)?;
-    let exists: bool =
-        sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM conversations WHERE tenant=$1 AND id=$2)")
-            .bind(&t)
-            .bind(&id)
-            .fetch_one(&a.db)
-            .await?;
-    if !exists {
-        return Err(Error(
-            StatusCode::NOT_FOUND,
-            "Conversation not found".into(),
-        ));
-    }
+    admit_conversation(&a, &t, &id, &h).await?;
+    let run = agent_runs::conversation_run(&a, &h, &id).await?;
     Ok(Json(
-        json!({"conversationId":id,"messages":messages(&a,&t,&id).await?}),
+        json!({"conversationId":id,"messages":messages(&a,&t,&id).await?,"run":run}),
     ))
 }
 pub(super) async fn merchant_chat(
@@ -165,32 +156,11 @@ pub(super) async fn merchant_chat(
         .ok_or(bad("Message must contain 1..4000 characters"))?;
     let selection = choice(&v)?;
     let id = if let Some(id) = v["conversationId"].as_str() {
-        let exists: bool = sqlx::query_scalar(
-            "SELECT EXISTS(SELECT 1 FROM conversations WHERE tenant=$1 AND id=$2)",
-        )
-        .bind(&t)
-        .bind(id)
-        .fetch_one(&a.db)
-        .await?;
-        if !exists {
-            return Err(Error(
-                StatusCode::NOT_FOUND,
-                "Conversation not found".into(),
-            ));
-        }
+        admit_conversation(&a, &t, id, &h).await?;
         id.to_string()
     } else {
-        let id = uid();
-        let title = instruction.chars().take(70).collect::<String>();
-        sqlx::query("INSERT INTO conversations(tenant,id,title) VALUES($1,$2,$3)")
-            .bind(&t)
-            .bind(&id)
-            .bind(title)
-            .execute(&a.db)
-            .await?;
-        id
+        uid()
     };
-    let owner = chat_lease::admit(&a, &t, &id).await?;
     let previous = messages(&a, &t, &id).await?;
     let history = previous
         .iter()
@@ -206,48 +176,56 @@ pub(super) async fn merchant_chat(
         })
         .collect::<Vec<_>>()
         .join("\n");
-    sqlx::query(
-        "INSERT INTO chat_messages(tenant,conversation_id,role,content) VALUES($1,$2,'user',$3)",
+    let queued=agent_runs::enqueue(&a,&h,json!({"instruction":instruction,"inference":selection,"history":history,"locale":language_context(&a,&h).await?.0,"channel":marketing::channel_id(&h),"requestId":v["requestId"],"newConversation":v["conversationId"].is_null(),"requestedConversation":v["conversationId"]}),Some(&id)).await?;
+    let id = queued["conversationId"].as_str().unwrap_or(&id).to_string();
+    admit_conversation(&a, &t, &id, &h).await?;
+    if v["background"] == true {
+        return Ok(Json(
+            json!({"conversationId":id,"messages":messages(&a,&t,&id).await?,"run":queued}),
+        ));
+    }
+    complete_chat(&a, &h, queued).await
+}
+pub(crate) async fn complete_chat(
+    a: &App,
+    h: &RequestContext,
+    queued: Value,
+) -> Result<Json<Value>> {
+    let t = merchant(a, h)?;
+    let id = queued["conversationId"]
+        .as_str()
+        .ok_or(bad("Saved conversation required"))?;
+    let run = agent_runs::wait(
+        a,
+        h,
+        queued["taskId"].as_str().ok_or(bad("Saved run required"))?,
     )
-    .bind(&t)
-    .bind(&id)
-    .bind(instruction)
-    .execute(&a.db)
     .await?;
-    let output = tokio::time::timeout(
-        std::time::Duration::from_secs(190),
-        plan_with(
-            &a,
-            &t,
-            instruction,
-            selection.as_ref(),
-            &history,
-            &language_context(&a, &h).await?.0,
-            &h,
-        ),
-    )
-    .await
-    .unwrap_or_else(|_| {
-        Err(Error(
-            StatusCode::GATEWAY_TIMEOUT,
-            "Model turn timed out".into(),
-        ))
-    });
-    let (content, data) = match output {
-        Ok(task) => (
-            task["preview"]["proposal"]["summary"]
-                .as_str()
-                .unwrap_or("")
-                .to_string(),
-            task,
-        ),
-        Err(e) => (
-            e.1,
-            json!({"error":true,"providerUnavailable":e.0==StatusCode::BAD_GATEWAY}),
-        ),
-    };
-    chat_lease::release(&a, &t, &id, &owner, &content, &data).await?;
+    admit_conversation(a, &t, id, h).await?;
     Ok(Json(
-        json!({"conversationId":id,"messages":messages(&a,&t,&id).await?}),
+        json!({"conversationId":id,"messages":messages(a,&t,id).await?,"run":run}),
     ))
+}
+
+/// GET and subsequent turns share the same current evidence/actor admission before reading any history.
+async fn admit_conversation(a: &App, t: &str, id: &str, h: &RequestContext) -> Result<()> {
+    let scopes = json!(
+        auth::SCOPES
+            .iter()
+            .filter(|s| auth::allowed(h, s))
+            .collect::<Vec<_>>()
+    );
+    let allowed:Option<bool>=sqlx::query_scalar("SELECT NOT EXISTS(SELECT 1 FROM tasks k WHERE k.tenant=c.tenant AND k.conversation_id=c.id AND k.run_scopes IS NOT NULL AND NOT(k.run_scopes <@ $5)) FROM conversations c WHERE tenant=$1 AND id=$2 AND (owner_id=$3 OR (owner_id IS NULL AND $4))")
+        .bind(t).bind(id).bind(header(h,"x-rac-user")).bind(header(h,"x-rac-role")==Some("owner")).bind(scopes).fetch_optional(&a.db).await?;
+    match allowed {
+        None => Err(Error(
+            StatusCode::NOT_FOUND,
+            "Conversation not found".into(),
+        )),
+        Some(false) => Err(Error(
+            StatusCode::FORBIDDEN,
+            "Conversation evidence requires its original permissions".into(),
+        )),
+        Some(true) => Ok(()),
+    }
 }

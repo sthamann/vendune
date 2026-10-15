@@ -69,13 +69,23 @@ and [secure function guidance](https://www.postgresql.org/docs/17/sql-createfunc
    TENANT_LOGIN`. This grants the selected tenant login only the scoped tables,
    safe reference reads and safe identity columns. App schema ownership remains
    with the native system owner. Migration authority can maintain those app tables.
+   On PostgreSQL 17 the migration login needs `ADMIN OPTION` on the system-role
+   membership it maintains; this does not grant the serving role migration rights.
+   A separate database owner must remove the database's default `PUBLIC TEMPORARY`
+   grant if the migration login cannot revoke it. PostgreSQL can emit a warning
+   rather than failing that REVOKE: verify the tenant's effective
+   `has_database_privilege(TENANT_LOGIN,current_database(),'TEMPORARY')` is false.
+   Do not bypass the startup audit or grant database ownership to the runtime.
 4. Set `BOOTSTRAP_MODE=serve`, `DB_RLS_REQUIRED=true`, `DB_SCOPE_REQUIRED=true`,
    `DATABASE_RUNTIME_URL` to the restricted system connection and
    `DATABASE_TENANT_URL` to the tenant connection. Do not supply the migration
    `DATABASE_URL` to the serving container. Use `DB_SCOPE_STAGED=true` only during
    this coordinated rollout. The two pools share `DB_POOL_MAX` (minimum 4), rather
    than doubling the process/fleet connection budget.
-5. Verify every replica uses the new code and connections. Then run
+5. Verify every replica and worker uses the new code and connections. Upgrade
+   the connector to its gateway/FK-based admission with no Core-table reads first;
+   Storyfront and Experience keep separate service roles and call commerce APIs.
+   Review actual database consumers, not only HTTP health. Then run
    `veyndo --database-authority activate` through the migration job and remove
    `DB_SCOPE_STAGED`. Startup rejects missing enforcement, role escalation,
    privileged identity grants or tenant tables lacking their restrictive guard.

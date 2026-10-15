@@ -83,11 +83,15 @@ An accepted external mail cannot be recalled. The service drains active work on 
    without exposing tokens, configuration or customer content.
 
 For production, provision a dedicated connector login (no superuser/bypass/owner
-membership). Grant schema usage; SELECT on `tenants`/`commerce_migrations`;
+membership). Grant schema usage; SELECT on `commerce_migrations`;
 SELECT/INSERT/UPDATE/DELETE on the six `connector_*` tables; and USAGE/SELECT/UPDATE
 on `connector_changes_seq_seq`. Set its URL as `CONNECTOR_DATABASE_URL` and enable
 `DB_RLS_REQUIRED=true`. Trusted workers still use transaction-local system scope;
 ordinary tenant actions use tenant scope. The gateway key is therefore server-only authority.
+The connector does not read Core identity tables or receive the Core scope signer.
+The native gateway checks the live shop before dispatch; existing foreign keys
+reject writes for missing shops. Remove obsolete `SELECT ON tenants` grants when
+upgrading the connector before activating authenticated Core SQL scopes.
 
 ### Private hosted networking
 

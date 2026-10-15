@@ -173,6 +173,8 @@ pub(crate) async fn run(a: &App, request: Request, next: Next) -> Response {
     };
     if class == "ai"
         && validated
+        // Native durable planning reserves only when enqueue actually creates work, after its replay lookup.
+        && !matches!(path, "/api/agent/chat" | "/api/agent/chat/stream" | "/api/agent/plan")
         && let Err(e) = reserve_ai_attempt(a, &tenant).await
     {
         return if e.0 == StatusCode::TOO_MANY_REQUESTS {
@@ -201,9 +203,20 @@ pub(crate) async fn run(a: &App, request: Request, next: Next) -> Response {
 /// Shared interactive/background attempt quota; a failed provider call still counts.
 /// This is not token/spend accounting. Staging shares its live tenant's UTC-day budget.
 pub(crate) async fn reserve_ai_attempt(a: &App, tenant: &str) -> Result<()> {
-    let reserved = veyndo::tenant_scope::scoped(veyndo::tenant_scope::Scope::System,
-        sqlx::query_scalar::<_, i64>("WITH owner AS (SELECT coalesce((SELECT live_tenant FROM shop_environments WHERE tenant=$1),$1) AS tenant), scope AS (SELECT tenant,coalesce((SELECT daily_ai FROM tenant_resource_limits l WHERE l.tenant=owner.tenant),$2) AS maximum FROM owner) INSERT INTO tenant_ai_usage(tenant,day,attempts) SELECT tenant,(now() AT TIME ZONE 'UTC')::date,1 FROM scope WHERE maximum>0 ON CONFLICT(tenant,day) DO UPDATE SET attempts=tenant_ai_usage.attempts+1 WHERE tenant_ai_usage.attempts < (SELECT maximum FROM scope) RETURNING attempts")
-        .bind(tenant).bind(a.admission.daily_ai).fetch_optional(&a.db)).await?;
+    let mut tx = a.db.begin_privileged().await?;
+    reserve_ai_attempt_tx(a, tenant, &mut tx).await?;
+    tx.commit().await?;
+    Ok(())
+}
+/// Native admission only: reuse the system transaction that persists the accepted work.
+/// The explicit tenant resolves a sandbox's live budget; callers must admit the actor first.
+pub(crate) async fn reserve_ai_attempt_tx(
+    a: &App,
+    tenant: &str,
+    connection: &mut sqlx::PgConnection,
+) -> Result<()> {
+    let reserved = sqlx::query_scalar::<_, i64>("WITH owner AS (SELECT coalesce((SELECT live_tenant FROM shop_environments WHERE tenant=$1),$1) AS tenant), scope AS (SELECT tenant,coalesce((SELECT daily_ai FROM tenant_resource_limits l WHERE l.tenant=owner.tenant),$2) AS maximum FROM owner) INSERT INTO tenant_ai_usage(tenant,day,attempts) SELECT tenant,(now() AT TIME ZONE 'UTC')::date,1 FROM scope WHERE maximum>0 ON CONFLICT(tenant,day) DO UPDATE SET attempts=tenant_ai_usage.attempts+1 WHERE tenant_ai_usage.attempts < (SELECT maximum FROM scope) RETURNING attempts")
+        .bind(tenant).bind(a.admission.daily_ai).fetch_optional(connection).await?;
     if reserved.is_none() {
         a.admission.rejected.fetch_add(1, Ordering::Relaxed);
         return Err(Error(

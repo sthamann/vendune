@@ -62,7 +62,8 @@ with tempfile.TemporaryDirectory(prefix='veyndo-rust-connectors-') as directory:
   unsafe=subprocess.run([str(ROOT/'target/debug/connectors'),'--import-legacy'],input=json.dumps({'format':1,'configs':[],'jobs':[],'sources':[],'changes':[]}),text=True,env={**ce,'DB_RLS_REQUIRED':'true'},capture_output=True)
   assert unsafe.returncode!=0
   runtime_role='connector_runtime_'+uuid.uuid4().hex[:10];password=uuid.uuid4().hex
-  sql(f"CREATE ROLE {runtime_role} LOGIN NOSUPERUSER NOBYPASSRLS PASSWORD '{password}'; GRANT USAGE ON SCHEMA public TO {runtime_role}; GRANT SELECT ON tenants,commerce_migrations TO {runtime_role}; GRANT SELECT,INSERT,UPDATE,DELETE ON connector_config,connector_limits,connector_jobs,connector_oauth,connector_sources,connector_changes TO {runtime_role}; GRANT USAGE,SELECT,UPDATE ON SEQUENCE connector_changes_seq_seq TO {runtime_role};")
+  sql(f"CREATE ROLE {runtime_role} LOGIN NOSUPERUSER NOBYPASSRLS PASSWORD '{password}'; GRANT USAGE ON SCHEMA public TO {runtime_role}; GRANT SELECT ON commerce_migrations TO {runtime_role}; GRANT SELECT,INSERT,UPDATE,DELETE ON connector_config,connector_limits,connector_jobs,connector_oauth,connector_sources,connector_changes TO {runtime_role}; GRANT USAGE,SELECT,UPDATE ON SEQUENCE connector_changes_seq_seq TO {runtime_role};")
+  assert sql(f"SELECT has_table_privilege('{runtime_role}','tenants','SELECT')") == 'f'
   db=urllib.parse.urlsplit(env['DATABASE_URL']);ce['CONNECTOR_DATABASE_URL']=urllib.parse.urlunsplit(db._replace(netloc=f'{runtime_role}:{password}@{db.hostname}:{db.port}'));ce['DB_RLS_REQUIRED']='true'
   sql(f'GRANT TRUNCATE ON connector_jobs TO {runtime_role};')
   unsafe=subprocess.run([str(ROOT/'target/debug/connectors'),'--import-legacy'],input=json.dumps({'format':1,'configs':[],'jobs':[],'sources':[],'changes':[]}),text=True,env=ce,capture_output=True)
@@ -84,6 +85,8 @@ with tempfile.TemporaryDirectory(prefix='veyndo-rust-connectors-') as directory:
   http(f'http://127.0.0.1:{p1}/email/actions/status',{},expected=401)
   status=call('email','status');assert status['revision']==0 and not status['settings']['enabled']
   settings={**status['settings'],'provider':'resend','enabled':True,'dryRun':False,'fromEmail':'shop@example.test','fromName':'Rust Shop'}
+  missing=http(f'http://127.0.0.1:{p1}/email/actions/configure',{'revision':0,'settings':settings,'credentials':{'apiKey':'synthetic-private-api'}},{**direct,'x-tenant':'missing-'+uuid.uuid4().hex[:10]},expected=400)
+  assert missing=={'error':'Related shop or configuration no longer exists'},missing
   call('email','configure',{'revision':0,'settings':settings,'credentials':{'apiKey':'synthetic-private-api'}})
   assert not call('email','status',headers=oh)['credentialsConfigured']['apiKey']
   assert 'synthetic-private-api' not in json.dumps(call('email','status'))

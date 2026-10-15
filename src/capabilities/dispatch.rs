@@ -2,6 +2,7 @@
 use super::*;
 #[derive(Clone, Copy)]
 pub(super) enum Owner {
+    Runs,
     Personal,
     Site,
     AppHistory,
@@ -23,7 +24,9 @@ pub(super) enum Owner {
 }
 impl Owner {
     pub(super) fn for_name(name: &str) -> Self {
-        if name.starts_with("studio.workspace.") {
+        if name.starts_with("merchant.run.") {
+            Self::Runs
+        } else if name.starts_with("studio.workspace.") {
             Self::Personal
         } else if name.starts_with("merchant.site.") {
             Self::Site
@@ -69,6 +72,7 @@ impl Owner {
         v: &'a Value,
     ) -> CapabilityFuture<'a> {
         match self {
+            Self::Runs => Box::pin(agent_runs::invoke(a, h, name, v)),
             Self::Personal => Box::pin(studio::personal::invoke(a, h, name, v)),
             Self::Site => Box::pin(apps::site_builder::design_agent::invoke(a, h, name, v)),
             Self::AppHistory => Box::pin(apps::record_history::invoke(a, h, name, v)),

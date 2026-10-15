@@ -28,6 +28,11 @@ pub(crate) async fn apply_mode(
         .fetch_optional(&mut *tx)
         .await?
         .ok_or(Error(StatusCode::NOT_FOUND, "Task not found".into()))?;
+    if r.get::<Option<String>, _>("run_state")
+        .is_some_and(|s| s != "ready")
+    {
+        return Err(conflict("Agent run has no completed proposal to approve"));
+    }
     let v: Value = r.get("proposal");
     let p: Proposal =
         serde_json::from_value(v["proposal"].clone()).map_err(|e| bad(e.to_string()))?;

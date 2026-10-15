@@ -40,6 +40,26 @@
     "source": "src/routes.rs"
   },
   {
+    "path": "/api/agent/runs",
+    "method": "POST",
+    "source": "src/agent_runs/contract.rs"
+  },
+  {
+    "path": "/api/agent/runs/{id}",
+    "method": "GET",
+    "source": "src/agent_runs/contract.rs"
+  },
+  {
+    "path": "/api/agent/runs/{id}/cancel",
+    "method": "POST",
+    "source": "src/agent_runs/contract.rs"
+  },
+  {
+    "path": "/api/agent/runs/{id}/resume",
+    "method": "POST",
+    "source": "src/agent_runs/contract.rs"
+  },
+  {
     "path": "/api/agent/tasks",
     "method": "GET",
     "source": "src/routes.rs"

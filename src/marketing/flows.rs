@@ -41,6 +41,7 @@ pub(super) const EVENTS: &[&str] = &[
     "knowledge.document.archived",
     "knowledge.document.restored",
     "intelligence.decision",
+    "intelligence.run.changed",
     "intelligence.claim.reviewed",
     "intelligence.experiment.changed",
     "intelligence.experiment.result",

@@ -10,13 +10,29 @@ pub(crate) fn start(a: &App) {
             "payment-worker",
             "app-worker",
             "translation-worker",
-            "media-worker"
+            "media-worker",
+            "agent-worker"
         ]
         .contains(&role.as_str()),
         "Unsupported PROCESS_ROLE"
     );
     if role != "http" {
         work_signal::start(Arc::new(runtime_config::get().listener_url.clone()));
+    }
+    if ["all", "agent-worker"].contains(&role.as_str()) {
+        for _ in 0..2 {
+            let worker = a.clone();
+            veyndo::tenant_scope::spawn(async move {
+                let mut ticks = work_signal::subscribe();
+                loop {
+                    ticks.tick().await;
+                    match agent_runs::once(&worker).await {
+                        Ok(worked) => ticks.worked(worked),
+                        Err(e) => eprintln!("agent worker status={}", e.0.as_u16()),
+                    }
+                }
+            });
+        }
     }
     if ["all", "translation-worker"].contains(&role.as_str()) {
         let worker = a.clone();

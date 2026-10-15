@@ -1,6 +1,9 @@
 //! Native operation input contracts; transports consume this owner instead of maintaining their own schemas.
 use crate::*;
 pub(crate) fn input(name: &str) -> Value {
+    if let Some(schema) = agent_runs::schema(name) {
+        return schema;
+    }
     if let Some(schema) = studio::personal::schema(name) {
         return schema;
     }
