@@ -5,6 +5,36 @@ pub(crate) static CAPABILITIES: std::sync::LazyLock<Vec<(&'static str, &'static 
     std::sync::LazyLock::new(|| {
         let mut all = core::CORE.to_vec();
         all.extend(COGNITIVE.iter().copied());
+        all.extend([
+            (
+                "merchant.app.history",
+                "Read current-permission projected app record versions",
+            ),
+            (
+                "merchant.app.restore",
+                "Approve a revision-bound app record restoration",
+            ),
+        ]);
+        all.extend([
+            (
+                "merchant.site.plan",
+                "Prepare revision-bound visual shop alternatives",
+            ),
+            (
+                "merchant.site.apply",
+                "Approve a scoped shop-design proposal in staging",
+            ),
+        ]);
+        all.extend([
+            (
+                "studio.workspace.read",
+                "Read the current personal Studio workspace",
+            ),
+            (
+                "studio.workspace.save",
+                "Revise the current personal Studio workspace",
+            ),
+        ]);
         all.extend(crate::operations::CREATION_CAPABILITIES.iter().copied());
         all.extend(crate::pos::CAPABILITIES.iter().copied());
         all.extend(crate::b2b::CAPABILITIES.iter().copied());

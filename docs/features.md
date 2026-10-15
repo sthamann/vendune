@@ -1,5 +1,7 @@
 # VEYNDO feature guide
 
+**Personal workspace and standard-shop editor:** [Illustrated workflow, shared models, rights, history, forms and publication](personal-workspace-and-shop-design.md).
+
 **Admin workflow update:** grouped/searchable settings, native CRM creation and reviewed manual orders use the same Rust owners and current role/PII checks. [Step-by-step guide and current boundaries](admin-workflows.md).
 
 **Agentic grids:** shared order/product/customer directories, configurable columns,

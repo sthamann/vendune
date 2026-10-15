@@ -72,7 +72,7 @@ export function useStudioController({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState<{
-    key: "indexed" | "approvedAction" | "copied";
+    key: "indexed" | "approvedAction" | "copied" | "workspacePinned";
     count?: number;
   }>();
   const [settings, setSettings] = useState(false);

@@ -5,6 +5,9 @@ from registry import check
 from axioms import source_check,dependency_check
 
 MUTANTS=[
+ ("app_submission_admissible","private_inbox &&","true &&"),
+ ("app_submission_admissible","&& live_scope","&& true"),
+ ("app_submission_admissible","&& current_cart","&& true"),
  ("admin_payment_admissible","!is_admin || manual || simulated","true"),
  ("carrier_booking_admissible","is_open &&","true &&"),
  ("carrier_booking_admissible","!closed &&","true &&"),

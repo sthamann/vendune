@@ -8,6 +8,10 @@ import { AppSurfaceView } from "../../shared/apps/AppSurfaces";
 import "../../shared/styles/workbench.css";
 import Icon from "../../shared/ui/Icon";
 import { downloadFile } from "../../shared/api/download";
+const PersonalWorkspace = lazy(() => import("../workspace/PersonalWorkspace"));
+const ShopDesigner = lazy(
+  () => import("../../../../extensions/apps/site-builder/studio/ShopDesigner"),
+);
 const B2BWorkspace = lazy(() => import("../b2b/B2BWorkspace"));
 const POSWorkspace = lazy(() => import("../pos/POSWorkspace"));
 const AppsManager = lazy(() => import("../apps/AppsManager"));
@@ -121,6 +125,20 @@ export default function StudioRoutes() {
     );
   return appSurface ? (
     <AppSurfaceView selected={appSurface} />
+  ) : tab === "workspace" ? (
+    <PersonalWorkspace />
+  ) : tab === "design" ? (
+    <ShopDesigner
+      request={request}
+      workspace={environment || workspace}
+      rights={access}
+      sandbox={!!environment}
+      onEnvironments={() => selectTab("environments")}
+      onSandbox={async (id) => {
+        await refreshEnvironments();
+        setEnvironment(id);
+      }}
+    />
   ) : tab === "orders" ? (
     <OrdersManager
       initialId={entityTarget?.tab === "orders" ? entityTarget.id : undefined}
@@ -179,6 +197,12 @@ export default function StudioRoutes() {
       request={request}
       workspace={environment || workspace}
       onTeam={() => selectTab("users")}
+      onDesign={(id) => {
+        const url = new URL(location.href);
+        url.searchParams.set("designChannel", id);
+        history.replaceState(null, "", url);
+        selectTab("design");
+      }}
     />
   ) : tab === "productData" ? (
     connected ? (

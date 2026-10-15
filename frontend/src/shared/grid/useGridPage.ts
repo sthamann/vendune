@@ -1,4 +1,5 @@
 /** Debounced server paging with generation fences: old searches and revoked reads never retain stale rows. */
+import { consumePinnedView } from "./pinned-view";
 import { useEffect, useState } from "react";
 import type { RequestFn } from "../api/types";
 import type { GridCriteria, GridQueryState } from "./types";
@@ -19,6 +20,15 @@ export function useGridPage(
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [refresh, setRefresh] = useState(0);
+  useEffect(() => {
+    const criteria = consumePinnedView(
+      new URLSearchParams(location.search).get("studio") ?? "",
+    );
+    if (criteria) {
+      (controlled?.onCriteria ?? setCriteria)(criteria);
+      setCursor("");
+    }
+  }, [request, path]);
   const signature = JSON.stringify(criteria);
   useEffect(() => {
     let current = true;

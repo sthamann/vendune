@@ -42,6 +42,19 @@ Commerce remains usable without a model. Hosted chat clients need their own secu
 connection and account-side setup; [connection requirements](docs/connectors.md)
 are explicit.
 
+## Your workspace. Your shop. One change path.
+
+Arrange your own Studio workspace around goals, pin permitted grid views, and shape
+standard-shop pages on a shared live preview. Manual edits and reference-guided AI
+alternatives use the same versioned app documents. Review changes in a private
+sandbox, publish selected pages, and keep the original Rust checkout.
+
+[![Visual shop design inside Veyndo Studio](docs/assets/workspace-20261015/designer.jpg)](docs/personal-workspace-and-shop-design.md)
+
+Pages, campaign layouts, blog/article sections and private form intake live in
+app-owned packages. Original Storyfront Experiences retain their original private
+editor. [Illustrated guide, contracts and current limits](docs/personal-workspace-and-shop-design.md).
+
 ## Ask. Review. Act.
 
 [![Ask the live order directory and review native filters](docs/assets/launch-20261014/agentic-orders.jpg)](docs/agentic-grids.md)

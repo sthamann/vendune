@@ -1,0 +1,209 @@
+/* Shared, responsive site renderer; merchant design data never becomes arbitrary CSS. */
+.site-document {
+  color: var(--site-foreground, #14283d);
+  background: var(--site-background, #fff);
+  min-width: 0;
+  overflow-wrap: anywhere;
+  container-type: inline-size;
+}
+.site-navigation {
+  padding: 20px clamp(16px, 4%, 64px);
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+.site-navigation a {
+  color: inherit;
+  text-decoration: none;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+.site-section {
+  padding: var(--site-spacing, 40px) clamp(20px, 5%, 80px);
+  position: relative;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.site-section h2 {
+  font-size: clamp(28px, 4cqw, 64px);
+  line-height: 1.07;
+  letter-spacing: -0.045em;
+  margin: 0 0 24px;
+  max-width: 20ch;
+}
+.site-section-content {
+  min-width: 0;
+}
+.site-section p {
+  line-height: 1.75;
+  max-width: 65ch;
+}
+.site-section figure {
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--site-radius);
+}
+.site-section figure > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 750px;
+  object-fit: contain;
+  background: color-mix(in srgb, currentColor 3%, transparent);
+}
+.site-hero {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  align-items: center;
+  gap: clamp(20px, 5%, 72px);
+}
+.site-hero figure > img {
+  object-fit: cover;
+  aspect-ratio: 4/5;
+  max-height: 720px;
+}
+.site-document .site-cta,
+.site-document .site-form > button {
+  border: 0;
+  border-radius: var(--site-radius);
+  padding: 16px 22px;
+  background: var(--site-accent);
+  color: var(--site-accent-text, #fff);
+  min-height: 48px;
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+}
+.site-cta:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+.site-product-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--site-columns, 3), minmax(0, 1fr));
+  gap: 24px;
+}
+.site-product {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+.site-product-link {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.site-product img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  border-radius: var(--site-radius);
+  background: color-mix(in srgb, currentColor 3%, transparent);
+}
+.site-product strong {
+  font-size: 18px;
+}
+.site-product-link span {
+  opacity: 0.8;
+}
+.site-articles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.site-articles > a {
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+  border-radius: var(--site-radius);
+  padding: 24px;
+}
+.site-articles h3 {
+  font-size: 28px;
+  margin: 14px 0;
+}
+.site-empty {
+  padding: 40px;
+}
+.is-design-preview .site-section {
+  cursor: pointer;
+  outline: 1px dashed transparent;
+  outline-offset: -2px;
+}
+.is-design-preview .site-section:hover {
+  outline-color: #63b8ff;
+}
+.is-design-preview .site-section.is-selected {
+  outline: 3px solid #0877e8;
+  outline-offset: -3px;
+}
+.site-document :focus-visible {
+  outline: 3px solid #0877e8;
+  outline-offset: 4px;
+}
+.site-section [contenteditable="true"] {
+  outline: 2px dashed #0877e8;
+  outline-offset: 5px;
+}
+@container (max-width:720px) {
+  .site-hero {
+    grid-template-columns: 1fr;
+  }
+  .site-hero figure {
+    order: -1;
+  }
+  .site-hero figure > img {
+    aspect-ratio: 4/3;
+    max-height: 480px;
+  }
+  .site-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .site-articles {
+    grid-template-columns: 1fr;
+  }
+  .site-section {
+    padding: 28px 20px;
+  }
+  .site-section h2 {
+    font-size: 36px;
+  }
+}
+@container (max-width:400px) {
+  .site-product-grid {
+    grid-template-columns: 1fr;
+  }
+  .site-section h2 {
+    font-size: 30px;
+  }
+  .site-navigation {
+    gap: 16px;
+    padding: 12px 20px;
+  }
+}
+
+/* Theme remains active on the native product, account and checkout routes. */
+.shop[data-designed="true"] {
+  color: var(--site-foreground);
+  background: var(--site-background);
+}
+.shop[data-designed="true"] .shop-header,
+.shop[data-designed="true"] .shop-footer {
+  color: var(--site-foreground);
+  background: var(--site-background);
+}
+.shop[data-designed="true"] .shop-header button {
+  border-radius: var(--site-radius);
+}

@@ -177,6 +177,8 @@ export const en = {
   keepDraft: "Your draft is retained if the request fails.",
   lastUpdated: "Refreshed",
   noCalls: "No calls recorded",
+  workspacePinned:
+    "View pinned to your personal workspace. Personal search text was omitted.",
   approvedAction: "Changes applied. Shop data refreshed.",
   basedOn: "Based on actual shop data",
   errorReply:

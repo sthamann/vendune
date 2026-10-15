@@ -1,4 +1,6 @@
 See [v0.5 connected intelligence, app and payment paths](intelligence-apps-payments.md)
+
+**Personal workspace and standard-shop editor:** [Illustrated workflow, shared models, rights, history, forms and publication](personal-workspace-and-shop-design.md).
 for the current implementation and performance limits.
 
 # Architecture decisions and next boundaries

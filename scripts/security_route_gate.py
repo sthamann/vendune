@@ -4,7 +4,8 @@ from pathlib import Path
 import re
 root=Path(__file__).resolve().parents[1]
 count=0
-for p in (root/'src').rglob('*.rs'):
+files=[*(root/'src').rglob('*.rs'),root/'extensions/apps/site-builder/context.rs',root/'extensions/apps/site-builder/design_agent.rs']
+for p in files:
     if 'connectors' in p.parts:continue
     s=p.read_text()
     assert not re.search(r'\.route\(\s*"/api/',s), f'{p.relative_to(root)}: use secure_route with explicit rights'

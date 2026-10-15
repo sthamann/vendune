@@ -37,11 +37,15 @@ export default function RichEditor({
   onChange,
   language,
   fallback = "",
+  label,
+  disabled = false,
 }: {
   value: Record<string, RichBlock[]>;
   onChange: (v: Record<string, RichBlock[]>) => void;
   language?: string;
   fallback?: string;
+  label?: string;
+  disabled?: boolean;
 }) {
   const { c, locale } = useCatalogText();
   const e = useEditorText();
@@ -53,6 +57,7 @@ export default function RichEditor({
   const [preview, setPreview] = useState(false);
   const editor = useEditor(
     {
+      editable: !disabled,
       extensions: [
         StarterKit.configure({
           heading: { levels: [2, 3] },
@@ -70,7 +75,7 @@ export default function RichEditor({
       editorProps: {
         attributes: {
           role: "textbox",
-          "aria-label": c("rich"),
+          "aria-label": label ?? c("rich"),
           "aria-multiline": "true",
         },
       },
@@ -89,6 +94,9 @@ export default function RichEditor({
     },
     [lang],
   );
+  useEffect(() => {
+    editor?.setEditable(!disabled, false);
+  }, [editor, disabled]);
   const state = useEditorState({
     editor,
     selector: ({ editor }) => ({
@@ -122,7 +130,11 @@ export default function RichEditor({
   const compatible = markdownCompatible(editor.getJSON());
   return (
     <div className="catalog-rich">
-      <div className="catalog-editor-mode" role="group" aria-label={c("rich")}>
+      <div
+        className="catalog-editor-mode"
+        role="group"
+        aria-label={label ?? c("rich")}
+      >
         <button
           type="button"
           disabled={buffer.pending}
@@ -145,7 +157,7 @@ export default function RichEditor({
         <div
           className="catalog-rich-toolbar"
           role="toolbar"
-          aria-label={c("rich")}
+          aria-label={label ?? c("rich")}
         >
           <button
             type="button"

@@ -1,4 +1,5 @@
 /** Typed merchant rule/campaign/flow/channel forms with exact JSON available for advanced review. */
+import { useGoalTemplate } from "./goal-template";
 import AutomationDefinitions from "./AutomationDefinitions";
 import { useAutomationLanguages } from "./useAutomationLanguages";
 import AutomationDelete from "./AutomationDelete";
@@ -76,6 +77,14 @@ export default function AutomationView({
     active: true,
     condition: { type: "cartCartAmount", operator: ">=", amount: 100 },
   });
+  const goal = useGoalTemplate(
+    languages,
+    setKind,
+    setId,
+    setRevision,
+    setData,
+    setContentLanguage,
+  );
   const [busy, setBusy] = useState(false);
   const [advanced, setAdvanced] = useState("");
   const [manage, setManage] = useState(false);
@@ -112,7 +121,7 @@ export default function AutomationView({
         if (active) {
           setRows(v);
           setJobs(v.jobs);
-          if (v.rules[0]) choose(v.rules[0], "rules");
+          if (!goal.current && v.rules[0]) choose(v.rules[0], "rules");
         }
       })
       .catch((e) => {

@@ -10,7 +10,11 @@ export function useEntityNavigation(scope: string, allowed: Tab[]) {
   const initial = () => {
     const q = new URLSearchParams(location.search),
       tab = q.get("studio") as Tab;
-    const valid = allowed.includes(tab) ? tab : "assistant";
+    const valid = allowed.includes(tab)
+      ? tab
+      : allowed.includes("workspace")
+        ? "workspace"
+        : "assistant";
     return {
       tab: valid,
       id: ["customers", "orders", "productData"].includes(valid)

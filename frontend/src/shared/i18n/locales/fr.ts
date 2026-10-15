@@ -179,6 +179,8 @@ export const fr: Dictionary = {
   keepDraft: "Votre brouillon est conservé en cas d’erreur.",
   lastUpdated: "Actualisé",
   noCalls: "Aucun appel",
+  workspacePinned:
+    "Vue épinglée à votre espace personnel. Les recherches personnelles sont exclues.",
   approvedAction: "Changements appliqués. Données actualisées.",
   basedOn: "Depuis les données boutique",
   errorReply:

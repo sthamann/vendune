@@ -452,3 +452,27 @@ owns current Core admission, its durable creation job and original Storyfront im
 never build a public renderer, second catalogue or new identity broker for this link.
 The ordinary SaaS/channel path must not install Storyfront until explicitly connected.
 See `docs/channel-setup.md` for ownership, setup and evidence boundaries.
+
+## Personal workspace and standard storefront design ownership
+
+Read `docs/personal-workspace-and-shop-design.md` before extending these paths.
+`studio/personal` owns bounded per-person/live-shop presentation preferences, never
+roles or a new executor. Integration credentials cannot assume creator identity.
+Use native grids for pinned views; omit free/PII search criteria and hand off safe
+filters in memory, never in URL/localStorage. Preferences/history are not release units.
+
+`extensions/apps/site-builder/` owns page/theme schemas, renderer, WYSIWYG UI and
+reference-guided proposal preparation. `site-forms/` owns public declared-form
+validation and private inbox UI. Host code only registers generic publication,
+append-only intake and managed record history. Do not move app business behavior
+into core folders, create a parallel CMS database or reimplement private Storyfront.
+Manual/UI/API/MCP/agent writes use the same validated app fields and native save/CAS.
+Normalize model documents before both preview and persistence; reference data is
+untrusted and deselected style/structure/content must be enforced on the server.
+
+Public pages require native publication state/time/channel filtering. Form answers
+require customers.read + customers.pii, never enter public context or release units,
+and cannot use generic edit/history restore. History keeps original read scopes and
+current field projection. Native app writes and selected releases take package fences
+before record locks. Keep the real concurrent save/release regression. Extend central
+inference/native tasks/outbox/Flows, not a second planner, queue, scheduler or checkout.

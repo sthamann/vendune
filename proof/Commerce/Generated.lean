@@ -168,4 +168,7 @@ def delivery_split_admissible (is_open : Bool) (terminal : Bool) (available : Na
 def carrier_booking_admissible (is_open : Bool) (closed : Bool) (labelled : Bool) (occupied : Bool) (same : Bool) : Bool :=
   (((is_open && (!closed)) && (!labelled)) && ((!occupied) || same))
 
+def app_submission_admissible (private_inbox : Bool) (live_scope : Bool) (current_cart : Bool) : Bool :=
+  ((private_inbox && live_scope) && current_cart)
+
 end CommerceKernel

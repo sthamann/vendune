@@ -27,7 +27,7 @@ pub(crate) async fn plan_with(
         .fetch_one(&a.db)
         .await?;
     let mut schema = json!({"type":"object","properties":{"summary":{"type":"string","maxLength":1200},"changes":{"type":"array","items":{"type":"object","properties":{"product_id":{"type":"string"},"price":{"type":"number"},"stock":{"type":"integer"}},"required":["product_id"],"additionalProperties":false}},"experience":{"type":"object","properties":{"mode":{"type":"string","enum":["balanced","discovery","comparison"]},"headline":{"type":"string"}},"required":["mode","headline"],"additionalProperties":false},"expected_experience_revision":{"type":"integer"}},"required":["summary","changes"],"additionalProperties":false});
-    schema["properties"]["app_action"] = json!({"type":["object","null"],"properties":{"app":{"type":"string"},"action":{"type":"string"},"arguments_json":{"type":"string","maxLength":2000}},"required":["app","action","arguments_json"],"additionalProperties":false});
+    schema["properties"]["app_action"] = json!({"type":["object","null"],"properties":{"app":{"type":"string"},"action":{"type":"string"},"arguments_json":{"type":"string","maxLength":32768}},"required":["app","action","arguments_json"],"additionalProperties":false});
     let app_context = apps::planning_context(a, t, authority).await?;
     let (commerce_settings, _) = commerce::config(a, t).await?;
     schema["properties"]["translation"] = json!({"type":["string","null"],"enum":commerce_settings.locales.iter().filter(|l|*l!=&commerce_settings.main_locale).map(|l|json!(l)).chain(std::iter::once(Value::Null)).collect::<Vec<_>>()});

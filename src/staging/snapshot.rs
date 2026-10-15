@@ -55,7 +55,11 @@ pub(crate) async fn snapshot(tx: &mut Tx<'_>, t: &str) -> Result<Value> {
             .bind(t)
             .execute(&mut **tx)
             .await?;
-        for e in &m.entities {
+        for e in m.entities.iter().filter(|e| {
+            !m.actions
+                .iter()
+                .any(|a| a.entity.as_deref() == Some(e.name.as_str()) && a.handler == "submit")
+        }) {
             let columns = e
                 .fields
                 .iter()

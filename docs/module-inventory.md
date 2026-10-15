@@ -57,6 +57,8 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/package_fence.rs](../src/apps/package_fence.rs) | Shared package fence prevents native record or document writes racing contract upgrades. |
 | [src/apps/planning.rs](../src/apps/planning.rs) | Registered managed app actions join the same preview/approve transaction as core changes. |
 | [src/apps/presentation.rs](../src/apps/presentation.rs) | Optional passive app artwork and localized summaries; omitted metadata preserves published legacy digests. |
+| [src/apps/publication.rs](../src/apps/publication.rs) | Optional server-enforced publication window and channel projection for public app records. |
+| [src/apps/record_history.rs](../src/apps/record_history.rs) | Bounded app-record history, current entity rights and restoration through the normal managed save path. |
 | [src/apps/record_lifecycle.rs](../src/apps/record_lifecycle.rs) | Generic app-owned record lifecycle contracts. Status vocabulary and transitions belong to the app Manifest. |
 | [src/apps/registry.rs](../src/apps/registry.rs) | Atomic installation and additive schema upgrades; immutable version digests preserve history. |
 | [src/apps/relations.rs](../src/apps/relations.rs) | Multi-relations keep stable array wire values, composite tenant FKs and shared accounting; staging may clone cyclic graphs atomically. |
@@ -69,6 +71,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/service_limits.rs](../src/apps/service_limits.rs) | Shared network-app admission: per-app and aggregate tenant bulkheads plus replica-wide fenced leases. |
 | [src/apps/service_policy.rs](../src/apps/service_policy.rs) | Operator-owned private origins permit isolated service networking without relaxing public egress. |
 | [src/apps/storage.rs](../src/apps/storage.rs) | Attach the shared PostgreSQL accounting trigger to tenant-specific app tables before any write. |
+| [src/apps/submissions.rs](../src/apps/submissions.rs) | Public append-only intake uses declared schemas, existing cart admission, quotas, records and outbox. |
 | [src/apps/surface_grants.rs](../src/apps/surface_grants.rs) | Short-lived UI grants bind a package, surface, actor and concrete editor object on the server. |
 | [src/apps/surface_tests.rs](../src/apps/surface_tests.rs) | Contract counterexamples reject cross-scope UI actions, unsafe URLs and mutating GET routes. |
 | [src/apps/surfaces.rs](../src/apps/surfaces.rs) | App-owned UI surfaces and namespaced HTTP routes reuse the authorized action gateway. |
@@ -465,6 +468,8 @@ This lists every checked-in source module in these roots, including files with n
 | [src/staging/snapshot.rs](../src/staging/snapshot.rs) | Fixed publishable units: product content/translations, settings, experience and app packages. |
 | [src/storefront_pages.rs](../src/storefront_pages.rs) | Deep-link HTML transport for stable SKU URLs with optional localized SEO slugs. |
 | [src/studio/facts.rs](../src/studio/facts.rs) | Consolidate dashboard reads without unbounded pool fan-out; preserve the existing API and currency/learning semantics. |
+| [src/studio/personal/model.rs](../src/studio/personal/model.rs) | Bounded personal layouts contain references, never delegated rights or executable agent instructions. |
+| [src/studio/personal.rs](../src/studio/personal.rs) | Actor-private workspace preferences; HTTP and MCP share CAS, bounds and the current membership. |
 | [src/studio/revenue.rs](../src/studio/revenue.rs) | Merchant turnover remains separated by invoice currency; historical values are never repriced with today's FX. |
 | [src/studio.rs](../src/studio.rs) | Verified merchant overview facts consumed by the chat and activity views. |
 | [src/tenant_scope.rs](../src/tenant_scope.rs) | Database lease context: unknown tasks fail closed; trusted workers explicitly retain their scope. |
@@ -478,6 +483,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/ucp/mod.rs](../src/ucp/mod.rs) | UCP transport adapters reuse native cart, B2B, pricing, approval and checkout owners. |
 | [src/ucp/negotiation.rs](../src/ucp/negotiation.rs) | UCP B2B commands route to native RFQ/CAS/approval owners; a checkout token alone never identifies an employee. |
 | [src/ucp/profile.rs](../src/ucp/profile.rs) | Discover the versioned B2B extension and intersect opt-in platform profiles through bounded public HTTPS. |
+| [src/verified_kernel/app_intake.rs](../src/verified_kernel/app_intake.rs) | Pure public-intake admission; extracted independently of the surrounding SQL and HTTP. |
 | [src/verified_kernel/fulfillment.rs](../src/verified_kernel/fulfillment.rs) | Pure package allocation and carrier-intent admission; external facts and effects remain unproved. |
 | [src/verified_kernel.rs](../src/verified_kernel.rs) | Closed, side-effect-free commerce policies extracted to Lean; keep within the checked bool/u64 grammar. |
 | [src/work_signal.rs](../src/work_signal.rs) | One dedicated LISTEN connection per worker process. Commit notifications are hints; polling repairs lost hints. |
@@ -526,6 +532,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/automation/RuleBuilder.tsx](../frontend/src/admin/automation/RuleBuilder.tsx) | Visual recursive rule tree: AND/OR/NOT groups, typed facts and editable leaf conditions. |
 | [frontend/src/admin/automation/SourceRuleFields.tsx](../frontend/src/admin/automation/SourceRuleFields.tsx) | Original metadata drives typed condition inputs, including nested source scopes; unsupported runtimes stay visibly disabled. |
 | [frontend/src/admin/automation/automation-types.ts](../frontend/src/admin/automation/automation-types.ts) | Automation editor contracts; content languages come from the selected shop. |
+| [frontend/src/admin/automation/goal-template.ts](../frontend/src/admin/automation/goal-template.ts) | Explicit personal goal handoff into an inactive native Flow draft; no URL, persistence or new scheduler. |
 | [frontend/src/admin/automation/lifecycle-i18n.ts](../frontend/src/admin/automation/lifecycle-i18n.ts) | Shared lifecycle, starting-process and dependency vocabulary for every automation editor. |
 | [frontend/src/admin/automation/pipeline-types.ts](../frontend/src/admin/automation/pipeline-types.ts) | Stable graph data mirrors the Rust pipeline contract, with explicit true/false edges and persistent node identifiers. |
 | [frontend/src/admin/automation/source-rules.ts](../frontend/src/admin/automation/source-rules.ts) | Convert source condition nodes for the graphical editor without losing original payload fields. |
@@ -796,6 +803,13 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/team/UsersManager.tsx](../frontend/src/admin/team/UsersManager.tsx) | Users Manager: Personal accounts, memberships, roles, invitations and scoped developer access.. |
 | [frontend/src/admin/team/permission-i18n.ts](../frontend/src/admin/team/permission-i18n.ts) | Role interface vocabulary uses the shared permission label catalogue. |
 | [frontend/src/admin/team/permission-labels.ts](../frontend/src/admin/team/permission-labels.ts) | Shared readable labels and exact permission identifiers for Studio, app actions and API keys. |
+| [frontend/src/admin/workspace/PersonalWorkspace.tsx](../frontend/src/admin/workspace/PersonalWorkspace.tsx) | Personal entry point on the existing shell; requests and linked views retain current scope and rights. |
+| [frontend/src/admin/workspace/WorkspaceGoals.tsx](../frontend/src/admin/workspace/WorkspaceGoals.tsx) | Goals reference the existing proposal owner; no parallel worker, executor or approval queue. |
+| [frontend/src/admin/workspace/WorkspacePinBridge.tsx](../frontend/src/admin/workspace/WorkspacePinBridge.tsx) | The shared grid pins criteria in the existing actor-private workspace; rows and credentials are never copied. |
+| [frontend/src/admin/workspace/WorkspaceTask.tsx](../frontend/src/admin/workspace/WorkspaceTask.tsx) | Personal goals open the native proposal review and apply owner; no second approval/execution path. |
+| [frontend/src/admin/workspace/workspace-i18n.ts](../frontend/src/admin/workspace/workspace-i18n.ts) | Personal workspace vocabulary; UI language never changes saved content language. |
+| [frontend/src/admin/workspace/workspace-model.ts](../frontend/src/admin/workspace/workspace-model.ts) | Layouts are private presentation preferences, never roles or delegated permissions. |
+| [frontend/src/admin/workspace/workspace.css](../frontend/src/admin/workspace/workspace.css) | Personal workspace: stable shell, accessible rearrangement and scoped cards. |
 | [frontend/src/application/ApplicationRouter.tsx](../frontend/src/application/ApplicationRouter.tsx) | Select independent lazy applications; contain failed imports and reset boundaries on navigation. |
 | [frontend/src/main.tsx](../frontend/src/main.tsx) | Browser bootstrap only; application selection and error recovery live in application/. |
 | [frontend/src/platform/AdminHub.tsx](../frontend/src/platform/AdminHub.tsx) | Public service directory. Links select a login surface without granting operator or merchant permissions. |
@@ -826,6 +840,9 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/apps/AppFrame.tsx](../frontend/src/shared/apps/AppFrame.tsx) | Opaque-origin app UI. Its SDK can invoke only this app's declared, server-authorized actions. |
 | [frontend/src/shared/apps/AppSlot.tsx](../frontend/src/shared/apps/AppSlot.tsx) | Generic registered product configuration slot. App packages own labels, input names and business rules. |
 | [frontend/src/shared/apps/AppSurfaces.tsx](../frontend/src/shared/apps/AppSurfaces.tsx) | One registry read per workspace; app bundles load only when their surface is mounted. |
+| [frontend/src/shared/apps/PrivateFormInbox.tsx](../frontend/src/shared/apps/PrivateFormInbox.tsx) | Host composition of the app-owned private response panel, with a neutral SDK contract. |
+| [frontend/src/shared/apps/PublicFormBlock.tsx](../frontend/src/shared/apps/PublicFormBlock.tsx) | Host composition of the registered forms app; apps depend on this contract, not each other's code. |
+| [frontend/src/shared/apps/form-contract.ts](../frontend/src/shared/apps/form-contract.ts) | Public form block contract shared through the host, never by importing another app's implementation. |
 | [frontend/src/shared/apps/native/NativeAppView.tsx](../frontend/src/shared/apps/native/NativeAppView.tsx) | The same React renderer powers design preview, private sandbox, released admin modules and storefront surfaces. |
 | [frontend/src/shared/apps/native/NativeAssetField.tsx](../frontend/src/shared/apps/native/NativeAssetField.tsx) | Searchable tenant-owned files with private image preview and contextual multipart upload; no raw asset IDs need to be typed. |
 | [frontend/src/shared/apps/native/NativeBlocks.tsx](../frontend/src/shared/apps/native/NativeBlocks.tsx) | All native controls render from the same validated manifest, including one-level containers and code-behind buttons. |
@@ -877,6 +894,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/grid/grid-controls.css](../frontend/src/shared/grid/grid-controls.css) | Reusable blue Studio grid surfaces, restrained motion, contained overflow and light/dark tokens. |
 | [frontend/src/shared/grid/grid-i18n.ts](../frontend/src/shared/grid/grid-i18n.ts) | Typed four-language shared grid vocabulary; commerce content keeps its existing inheritance contract. |
 | [frontend/src/shared/grid/grid.css](../frontend/src/shared/grid/grid.css) | Reusable grid table, result feedback and responsive presentation. |
+| [frontend/src/shared/grid/pinned-view.ts](../frontend/src/shared/grid/pinned-view.ts) | Ephemeral presentation handoff; persisted views exclude free search/person criteria and never copy rows. |
 | [frontend/src/shared/grid/preferences.ts](../frontend/src/shared/grid/preferences.ts) | Layout preferences contain column IDs only, scoped to current origin/shop/environment; never customer rows or search text. |
 | [frontend/src/shared/grid/types.ts](../frontend/src/shared/grid/types.ts) | Shared read-only grid contracts; domains own rows, permissions and server query semantics. |
 | [frontend/src/shared/grid/useGridAccess.ts](../frontend/src/shared/grid/useGridAccess.ts) | Current Studio rights only control presentation; each native list/model operation rechecks server authority. |
@@ -1117,6 +1135,31 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/product-lab/server.py](../extensions/apps/product-lab/server.py) | App-owned code, SQLite structures and versioned browser UI; no commerce credentials reach the guest. |
 | [extensions/apps/service-example/index.html](../extensions/apps/service-example/index.html) | Independent app entry; see extensions/README.md for its public contract. |
 | [extensions/apps/service-example/server.py](../extensions/apps/service-example/server.py) | Standalone app service with its own UI and durable event inbox. Run separately from the core. |
+| [extensions/apps/site-builder/Renderer.tsx](../extensions/apps/site-builder/Renderer.tsx) | Shared page renderer: Studio previews and published shops use exactly these registered components. |
+| [extensions/apps/site-builder/context.rs](../extensions/apps/site-builder/context.rs) | Designer context projects native channels, languages and calculated products; no second catalogue or price engine. |
+| [extensions/apps/site-builder/design_agent.rs](../extensions/apps/site-builder/design_agent.rs) | Scoped visual proposals reuse central inference and native revision-bound tasks; models cannot publish or execute. |
+| [extensions/apps/site-builder/model.ts](../extensions/apps/site-builder/model.ts) | One app-owned document contract for manual editing, agents, API/MCP and the storefront renderer. |
+| [extensions/apps/site-builder/references.rs](../extensions/apps/site-builder/references.rs) | Bounded reference capture uses the shared public-only DNS-pinned egress client; partial failures remain visible. |
+| [extensions/apps/site-builder/server.rs](../extensions/apps/site-builder/server.rs) | Standard-shop page contract. App-owned content and theme validation; no HTML, CSS or script evaluation. |
+| [extensions/apps/site-builder/site.css](../extensions/apps/site-builder/site.css) | Shared, responsive site renderer; merchant design data never becomes arbitrary CSS. |
+| [extensions/apps/site-builder/storefront/PublishedSite.tsx](../extensions/apps/site-builder/storefront/PublishedSite.tsx) | One permission-filtered page read supplies routing and the shared theme on every native commerce route. |
+| [extensions/apps/site-builder/storefront/ShopSite.tsx](../extensions/apps/site-builder/storefront/ShopSite.tsx) | Standard-shop routing is an app mount; commerce products, cart, account and checkout keep their original owners. |
+| [extensions/apps/site-builder/studio/DesignAgent.tsx](../extensions/apps/site-builder/studio/DesignAgent.tsx) | Source-aware alternatives are native proposal tasks; preview and approval are separate explicit actions. |
+| [extensions/apps/site-builder/studio/PageHistory.tsx](../extensions/apps/site-builder/studio/PageHistory.tsx) | Whole-page and section restoration use retained native app revisions; restoration is an editable draft. |
+| [extensions/apps/site-builder/studio/PageInspector.tsx](../extensions/apps/site-builder/studio/PageInspector.tsx) | Property edits and WYSIWYG content update the same structured page record as agents and MCP. |
+| [extensions/apps/site-builder/studio/PageTree.tsx](../extensions/apps/site-builder/studio/PageTree.tsx) | Page tree and stable section ordering; all edits go through the shared designer draft. |
+| [extensions/apps/site-builder/studio/ShopDesigner.tsx](../extensions/apps/site-builder/studio/ShopDesigner.tsx) | Three-panel standard-shop editor inside the native shell; Storyfront retains its separate original editor. |
+| [extensions/apps/site-builder/studio/design-i18n.ts](../extensions/apps/site-builder/studio/design-i18n.ts) | Complete interface vocabulary for the standard-shop designer, independent of page translations. |
+| [extensions/apps/site-builder/studio/designer.css](../extensions/apps/site-builder/studio/designer.css) | Native three-panel designer; responsive canvas and independently scrollable properties. |
+| [extensions/apps/site-builder/studio/editor-i18n.ts](../extensions/apps/site-builder/studio/editor-i18n.ts) | Inspector, history and reference-agent vocabulary. |
+| [extensions/apps/site-builder/studio/inspector.css](../extensions/apps/site-builder/studio/inspector.css) | Inspector and review panels, separate from the canvas layout. |
+| [extensions/apps/site-builder/studio/useDesigner.ts](../extensions/apps/site-builder/studio/useDesigner.ts) | Explicit native saves and scope-safe reads; local undo never bypasses record CAS or staging review. |
+| [extensions/apps/site-forms/server.rs](../extensions/apps/site-forms/server.rs) | Forms validate answers against a published page's declared fields; inbox entries stay private. |
+| [extensions/apps/site-forms/storefront/PublishedForm.tsx](../extensions/apps/site-forms/storefront/PublishedForm.tsx) | Public forms send only append-only, schema-validated requests to the native app inbox. |
+| [extensions/apps/site-forms/storefront/form-i18n.ts](../extensions/apps/site-forms/storefront/form-i18n.ts) | Public form interface labels; declared field labels remain editable shop-language content. |
+| [extensions/apps/site-forms/storefront/forms.css](../extensions/apps/site-forms/storefront/forms.css) | Form styling belongs to the forms app; shared theme tokens come from its host. |
+| [extensions/apps/site-forms/studio/FormInbox.tsx](../extensions/apps/site-forms/studio/FormInbox.tsx) | Private response cards use the authorized app action; answer values never become public page content. |
+| [extensions/apps/site-forms/studio/inbox.css](../extensions/apps/site-forms/studio/inbox.css) | Response values wrap inside their private app panel; no raw JSON editing surface. |
 | [extensions/apps/slack/src/actions.rs](../extensions/apps/slack/src/actions.rs) | App-owned connector capabilities and provider settings; shared host supplies tenant-bound storage. |
 | [extensions/apps/slack/src/provider.rs](../extensions/apps/slack/src/provider.rs) | Slack notification execution belongs to the Slack app, admitted by the connector host. |
 | [extensions/apps/storyfront/studio/StoryfrontConnections.tsx](../extensions/apps/storyfront/studio/StoryfrontConnections.tsx) | Shared passive navigation from Apps and Storyfronts to the same authorized original editor. |
@@ -1304,4 +1347,5 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/translations.py](../scripts/translations.py) | Durable translation jobs against a local provider fixture, real SQL, native MCP and a cold restart; no paid calls. |
 | [scripts/users.py](../scripts/users.py) | Real multi-user, workspace isolation and role/revocation regression tests. |
 | [scripts/verify_integration.py](../scripts/verify_integration.py) | Single integration suite registry, isolated DB by default; never alters an existing shop. |
+| [scripts/visual_workspace.py](../scripts/visual_workspace.py) | Actual Rust/PostgreSQL workspace, page publication, form privacy and reviewed AI paths; synthetic model only. |
 | [scripts/workspace_roles.py](../scripts/workspace_roles.py) | Real HTTP/PostgreSQL role edits, current session/key/worker grants and native B2B setup regressions. |

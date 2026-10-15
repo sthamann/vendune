@@ -1,6 +1,12 @@
 /** Typed four-language shared grid vocabulary; commerce content keeps its existing inheritance contract. */
 import { useLocale } from "../i18n/i18n";
 const words = {
+  pin: [
+    "Pin this view",
+    "Diese Ansicht anheften",
+    "Épingler cette vue",
+    "Fijar esta vista",
+  ],
   closeColumns: [
     "Close columns",
     "Spalten schließen",

@@ -1,0 +1,29 @@
+/* Response values wrap inside their private app panel; no raw JSON editing surface. */
+.site-form-inbox > article {
+  margin: 16px 0;
+  padding: 16px;
+  border: 1px solid #d5e1ee;
+  border-radius: 14px;
+  background: var(--studio-card, #fff);
+}
+.site-form-inbox small {
+  overflow-wrap: anywhere;
+  color: var(--studio-muted, #60768d);
+}
+.site-form-inbox dl {
+  margin: 12px 0 0;
+}
+.site-form-inbox dl > div {
+  padding: 10px 0;
+  border-top: 1px solid #e2eaf3;
+}
+.site-form-inbox dt {
+  font-weight: 650;
+  font-size: 13px;
+}
+.site-form-inbox dd {
+  margin: 8px 0 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+}

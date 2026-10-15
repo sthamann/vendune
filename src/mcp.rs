@@ -4,6 +4,15 @@ mod transport;
 mod visibility;
 use transport::invoke_transport;
 pub(crate) fn tool_schema(name: &str) -> Value {
+    if let Some(schema) = studio::personal::schema(name) {
+        return schema;
+    }
+    if let Some(schema) = apps::site_builder::design_agent::schema(name) {
+        return schema;
+    }
+    if let Some(schema) = apps::record_history::schema(name) {
+        return schema;
+    }
     if let Some(schema) = auth::roles::schema(name) {
         return schema;
     }

@@ -1,6 +1,20 @@
 /** Presentation admission mirrors named server rights. API/domain checks remain authoritative. */
 import type { Tab } from "./navigation";
 const moduleRights: Record<Tab, string[]> = {
+  workspace: [
+    "catalog.read",
+    "orders.read",
+    "b2b.read",
+    "channels.read",
+    "settings.read",
+    "apps.read",
+    "developer.read",
+    "team.manage",
+    "pos.use",
+    "customers.read",
+    "knowledge.read",
+  ],
+  design: ["channels.read"],
   assistant: ["assistant.use"],
   overview: ["overview.read", "orders.read"],
   knowledge: ["knowledge.read"],
@@ -20,6 +34,7 @@ const moduleRights: Record<Tab, string[]> = {
   commerce: ["settings.read"],
 };
 export function canOpenStudio(tab: Tab, rights: string[]) {
+  if (tab === "design" && !rights.includes("catalog.read")) return false;
   if (
     ["customers", "orders"].includes(tab) &&
     !rights.includes("customers.pii")

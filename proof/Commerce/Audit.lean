@@ -18,6 +18,8 @@ import Commerce.Claims
 #print axioms CommerceKernel.app_service_transport_exact
 #print axioms CommerceKernel.app_service_transport_unapproved_denied
 #print axioms CommerceKernel.app_service_transport_unsafe_denied
+#print axioms CommerceKernel.app_submission_exact
+#print axioms CommerceKernel.app_submission_private_live_cart
 #print axioms CommerceKernel.app_surface_exact
 #print axioms CommerceKernel.app_surface_stale_denied
 #print axioms CommerceKernel.app_tool_disabled

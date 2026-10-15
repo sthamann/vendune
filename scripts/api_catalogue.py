@@ -4,7 +4,10 @@ import json,re,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 rows={}
-for file in sorted((ROOT/'src').rglob('*.rs')):
+files=[*(ROOT/'src').rglob('*.rs')]
+# Explicit native app mounts are compiled into the core; independent service routers stay excluded.
+files.extend(ROOT/'extensions/apps/site-builder'/name for name in ['context.rs','design_agent.rs'])
+for file in sorted(files):
  # Independently deployed app services are not core API endpoints.
  if 'connectors' in file.relative_to(ROOT).parts:continue
  text=file.read_text()

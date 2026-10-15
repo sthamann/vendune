@@ -269,6 +269,11 @@ pub(super) fn eval(j: &Value) -> Result<Value, String> {
             b("occupied")?,
             b("same")?
         ))),
+        Some("app_submission_admissible") => Ok(json!(app_submission_admissible(
+            b("private_inbox")?,
+            b("live_scope")?,
+            b("current_cart")?
+        ))),
         _ => Err("Unknown policy".into()),
     }
 }

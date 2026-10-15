@@ -82,6 +82,16 @@ async fn create_inner(
     sqlx::query("INSERT INTO order_state_machines(tenant,data) SELECT $2,data FROM order_state_machines WHERE tenant=$1").bind(&t).bind(&id).execute(&mut *tx).await?;
     // No external services or PSP configurations are registered for a sandbox tenant.
     sqlx::query("UPDATE commerce_settings SET data=jsonb_set(data,'{payments}',COALESCE((SELECT jsonb_agg(p) FROM jsonb_array_elements(data->'payments') p WHERE p->>'mode'<>'app'),'[]')) WHERE tenant=$1").bind(&id).execute(&mut *tx).await?;
+    for table in ["commerce_promotions", "commerce_flows", "sales_channels"] {
+        let sql = format!(
+            "INSERT INTO {table}(tenant,id,data) SELECT $2,id,data FROM {table} WHERE tenant=$1"
+        );
+        sqlx::query(sqlx::AssertSqlSafe(sql.as_str()))
+            .bind(&t)
+            .bind(&id)
+            .execute(&mut *tx)
+            .await?;
+    }
     let rows =
         sqlx::query("SELECT manifest FROM app_packages WHERE tenant=$1 AND active ORDER BY id")
             .bind(&t)
@@ -142,16 +152,6 @@ async fn create_inner(
         .bind(hash(wat))
         .execute(&mut *tx)
         .await?;
-    for table in ["commerce_promotions", "commerce_flows", "sales_channels"] {
-        let sql = format!(
-            "INSERT INTO {table}(tenant,id,data) SELECT $2,id,data FROM {table} WHERE tenant=$1"
-        );
-        sqlx::query(sqlx::AssertSqlSafe(sql.as_str()))
-            .bind(&t)
-            .bind(&id)
-            .execute(&mut *tx)
-            .await?;
-    }
     sqlx::query("INSERT INTO commerce_rules(tenant,id,name,condition,active) SELECT $2,id,name,condition,active FROM commerce_rules WHERE tenant=$1").bind(&t).bind(&id).execute(&mut *tx).await?;
     sqlx::query("INSERT INTO product_channel_visibility SELECT $2,product_id,channel_id,visible FROM product_channel_visibility WHERE tenant=$1").bind(&t).bind(&id).execute(&mut *tx).await?;
     sqlx::query("INSERT INTO company_logos(tenant,id,content,digest,mime,width,height) SELECT $2,id,content,digest,mime,width,height FROM company_logos WHERE tenant=$1").bind(&t).bind(&id).execute(&mut *tx).await?;

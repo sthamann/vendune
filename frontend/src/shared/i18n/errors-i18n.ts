@@ -1,6 +1,31 @@
 /** Localized request guidance across all transports; original diagnostics remain available to developer tools. */
 import { getLocale } from "./i18n";
 const messages: Record<string, readonly string[]> = {
+  "Design provider unavailable; your page is unchanged": [
+    "The design provider is unavailable. Check the central AI connection and retry; your saved page is unchanged.",
+    "Der Design-Anbieter ist nicht erreichbar. Prüfe die zentrale KI-Verbindung und versuche es erneut; deine Seite bleibt unverändert.",
+    "Le fournisseur de design est indisponible. Vérifiez la connexion IA et réessayez ; la page reste inchangée.",
+    "El proveedor de diseño no está disponible. Revisa la conexión IA y reintenta; la página no ha cambiado.",
+  ],
+  "A page already uses this address in this channel": [
+    "This page address is already used in this channel. Choose another address or edit the existing page.",
+    "Diese Seitenadresse wird in diesem Kanal bereits verwendet. Wähle eine andere Adresse oder bearbeite die bestehende Seite.",
+    "Cette adresse existe déjà sur ce canal. Choisissez-en une autre ou modifiez la page existante.",
+    "Esta dirección ya existe en el canal. Elige otra o edita la página existente.",
+  ],
+  "Page changed during design generation": [
+    "The page changed during generation. Reload and prepare new alternatives.",
+    "Die Seite wurde während der Generierung geändert. Lade sie neu und bereite neue Alternativen vor.",
+    "La page a changé pendant la génération. Actualisez et préparez de nouvelles variantes.",
+    "La página cambió durante la generación. Actualiza y prepara nuevas alternativas.",
+  ],
+  "Workspace changed in another window; reload before saving": [
+    "Your workspace changed in another window. Reload before saving; your local arrangement is still visible.",
+    "Dein Arbeitsplatz wurde in einem anderen Fenster geändert. Lade vor dem Speichern neu; deine lokale Anordnung bleibt sichtbar.",
+    "Votre espace a changé dans une autre fenêtre. Actualisez avant d’enregistrer.",
+    "Tu espacio cambió en otra ventana. Actualiza antes de guardar.",
+  ],
+
   "Customer already exists; select the existing customer": [
     "This email already belongs to a customer. Select the existing customer instead.",
     "Für diese E-Mail besteht bereits ein Kunde. Wähle den bestehenden Kunden aus.",

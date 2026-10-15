@@ -33,6 +33,7 @@ export default function ChannelEditor({
   onSaved,
   onDeleted,
   onMarketplace,
+  onDesign,
 }: {
   initial: Channel;
   request: RequestFn;
@@ -46,6 +47,7 @@ export default function ChannelEditor({
   onSaved: (channel: Channel) => void;
   onDeleted?: () => void;
   onMarketplace?: () => void;
+  onDesign?: () => void;
 }) {
   const life = useLifecycleText();
   const t = useChannelText(),
@@ -205,6 +207,7 @@ export default function ChannelEditor({
               onToggle={() => setConfirm("active")}
               onDeleted={onDeleted ?? onBack}
               onMarketplace={onMarketplace}
+              onDesign={onDesign}
             />
           </nav>
         )}
