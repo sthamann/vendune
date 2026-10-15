@@ -6,6 +6,7 @@
 - Add searchable illustrated component cards. Installed apps declare `storefront.block` native surfaces; pages store stable `{app,surface}` references and reuse existing public registry, localization, action grants and native renderer. No app source is copied into host directories.
 - Use shared agent controls in App Studio and Shop design. Native AI retains the centrally configured inference service; Codex/Claude Code use credential-free task export and returned-result review, not background execution. New HTTP/MCP task/propose contracts share current sandbox, rights, revision checks, proposal/apply and publication owners.
 - Server-narrowed read-only preview grants reject writes. Real PostgreSQL tests cover app-owned elements, own/foreign/private/inactive admission, selected release, explicit review and stale revisions. Browser acceptance includes inserting/saving a real Care knowledge app element and preparing a Codex task; native AI inference uses synthetic model fixtures.
+- Public native app elements follow the editor’s selected content language instead of the browser preference; a fifth-language regression preserves the independent interface setting.
 - Align all-source coverage accounting with app-owned test directories; retain runtime coverage floors and negative architecture controls.
 
 ## Preview-first shop design — 15 October 2026

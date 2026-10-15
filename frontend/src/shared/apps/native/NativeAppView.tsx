@@ -49,7 +49,9 @@ export default function NativeAppView({
         : mainLocale;
 
   const { locale: interfaceLocale, a } = useAppStudioText();
-  const locale = isPublic ? getContentLocale() : interfaceLocale;
+  const locale = isPublic
+    ? (parentLanguage?.language ?? getContentLocale())
+    : interfaceLocale;
   const scoped: RequestFn = (path, body) => {
     const action = path.split("/").at(-1)!;
     if (!allowedActions.includes(action))
