@@ -85,7 +85,8 @@ optional value. Changing a package digest requires review/re-entry.
 Values reuse the existing authenticated app-secret encryption and tenant/app/digest
 fences. They are operational **live-only** state: they are not copied into a
 sandbox, published with a release, restored from history or included in native
-browser payloads. Only declared **private service actions** receive the resolved
+browser payloads. Caller input plus resolved settings must fit the existing 64 KiB transport budget.
+Only declared **private service actions** receive the resolved
 object as server-owned `_appSettings`. Caller input cannot override it. Native
 browser views and public actions receive no settings secrets. This release does
 not add secret lookup expressions to native UI code.
@@ -106,7 +107,7 @@ execute arbitrary SQL.
 | Models / package | 12 |
 | Fields / model | 16 |
 | Indexed or unique fields / package | 64 |
-| New package IDs / shop | 128 |
+| Registered package IDs / shop | 128 |
 | Stored rows / tenant-app | 100,000 |
 | Recorded storage / tenant-app | 64 MiB |
 | Native list page | 100 records |

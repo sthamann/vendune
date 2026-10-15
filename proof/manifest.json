@@ -1036,8 +1036,8 @@
     },
     "src/apps/gateway.rs": {
       "status": "reviewed-binding",
-      "sha256": "2f67ed0ab9ef0643c503aa92d422d591152b7d75b9cd71d392942136f16c4ae5",
-      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+      "sha256": "0210c7babe969f2150f43dc286669ba8ee1ab908e316b47a0542818f0bfde46c",
+      "review": "Reviewed final App Studio adapters: private declared settings share the existing encrypted tenant/app/digest CAS owner, private service injection is bounded to 64 KiB including settings, registry cap counts registered package IDs, and permanent keys require the extracted personal-administrator predicate. HTTP tests cover secret redaction, CAS, settings delivery, scope/tenant/sandbox denial and revocation; SQL, crypto and provider behavior remain adapter boundaries."
     },
     "src/apps/hosted.rs": {
       "status": "unproved",
@@ -1131,8 +1131,8 @@
     },
     "src/apps/registry.rs": {
       "status": "unproved",
-      "sha256": "997a57080f57b34213e6a0f200e8238a6627a1accebf4d8b38f97a76b8c03152",
-      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+      "sha256": "d0ec2cbde15586ee95853d6cc1ddf49b9a483e0b3050104fa751b7f8018fc6e1",
+      "review": "Reviewed final App Studio adapters: private declared settings share the existing encrypted tenant/app/digest CAS owner, private service injection is bounded to 64 KiB including settings, registry cap counts registered package IDs, and permanent keys require the extracted personal-administrator predicate. HTTP tests cover secret redaction, CAS, settings delivery, scope/tenant/sandbox denial and revocation; SQL, crypto and provider behavior remain adapter boundaries."
     },
     "src/apps/relations.rs": {
       "status": "unproved",

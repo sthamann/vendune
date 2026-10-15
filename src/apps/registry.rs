@@ -74,7 +74,7 @@ async fn install_inner(
     let admitted: bool=sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM app_packages WHERE tenant=$1 AND id=$2) OR (SELECT count(*) FROM app_packages WHERE tenant=$1)<128").bind(t).bind(&m.id).fetch_one(&mut **tx).await?;
     if !admitted {
         return Err(bad(
-            "Maximum 128 installed app packages per shop; update or remove an existing app",
+            "Maximum 128 registered app packages per shop; update an existing app",
         ));
     }
     distribution::dependencies(tx, t, &m).await?;

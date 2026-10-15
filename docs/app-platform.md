@@ -247,7 +247,7 @@ state, excluded from native preview/release records, agent exports and public vi
 Only declared private service actions receive `_appSettings` server-side. Native
 browser views never receive secret values. See [security and setup](app-studio-workspace.md#app-settings-after-installation).
 
-New package IDs are capped at 128 per tenant under the existing installation lock;
+Registered package IDs are capped at 128 per tenant under the existing installation lock;
 updates to existing IDs remain possible at the cap. A package may declare at most
 64 indexed/unique fields. Existing limits remain: 12 models, 16 fields/model,
 100,000 stored rows and 64 MiB per tenant/app. These controls bound shared storage

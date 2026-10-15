@@ -210,6 +210,12 @@ pub(super) async fn service_call_pinned(
                 .insert("_appSettings".into(), values);
         }
     }
+    // Installed configuration shares the transport budget with caller input.
+    if body.to_string().len() > 65536 {
+        return Err(bad(
+            "App request including installed settings exceeds 64 KiB",
+        ));
+    }
     let response = egress::client(&parsed)
         .await?
         .post(format!("{}/{path}", url.trim_end_matches('/')))

@@ -104,7 +104,7 @@ def run():
             m["actions"].append(note_action)
         m["intelligence"]["entities"].append("private_notes")
         m["settings"]=[{"key":"account","label":m["name"],"kind":"string","required":True},{"key":"api_token","label":m["name"],"kind":"secret","required":True}]
-        m["actions"].append({"name":"settings_probe","description":"Configured private service","handler":"service","public":False,"permission":"apps.manage","mcp":False,"inputSchema":{"type":"object","properties":{},"additionalProperties":False}})
+        m["actions"].append({"name":"settings_probe","description":"Configured private service","handler":"service","public":False,"permission":"apps.manage","mcp":False,"inputSchema":{"type":"object","properties":{"padding":{"type":"array","items":{"type":"string"}}},"additionalProperties":False}})
         busy = copy.deepcopy(m)
         busy.pop("settings")
         busy["version"] = "1.2.0"
@@ -160,6 +160,10 @@ def run():
             call(settings_path,{**settings_body,'revision':1,'values':{'undeclared':'x'}},h,expected=400,method='PUT')
             assert call(f"/api/apps/{app_id}/actions/settings_probe",{},h)=={'configured':True}
             assert settings_received[-1]['_appSettings']==settings_body['values']
+            before=len(settings_received)
+            call(f"/api/apps/{app_id}/actions/settings_probe",{'padding':['x'*8180]*8},h,expected=400)
+            assert len(settings_received)==before, 'Combined payload must be rejected before remote dispatch'
+            assert call(f"/api/apps/{app_id}/actions/settings_probe",{'padding':['small']},h)=={'configured':True}
             call(settings_path,headers={**oh,'x-tenant':u['workspace']},expected=403)
             call(settings_path,headers=public,expected=401)
             passed("Declared settings are encrypted server-side, secret reads are redacted, CAS/unknown fields/foreign actors are denied and private service actions receive configured values")
