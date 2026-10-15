@@ -85,16 +85,7 @@ async fn run(
         let old: apps::Manifest =
             serde_json::from_value(value).map_err(|_| bad("Invalid previous preview"))?;
         if old.entities != m.entities {
-            apps::drop_preview_relations(&mut tx, &environment, &old).await?;
-            for entity in &old.entities {
-                let ddl = format!(
-                    "DROP TABLE IF EXISTS public.{} CASCADE",
-                    apps::table(&environment, &m.id, &entity.name)
-                );
-                sqlx::raw_sql(sqlx::AssertSqlSafe(ddl.as_str()))
-                    .execute(&mut *tx)
-                    .await?;
-            }
+            apps::records::reset_preview(&mut tx, &environment, &m.id).await?;
         }
     }
     let result = apps::install_preview(&mut tx, &environment, m).await?;

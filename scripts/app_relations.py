@@ -34,8 +34,8 @@ save('right','r1',['l1'],revision=1);save('left','l1',[],revision=0,status=409)
 rows=call('/api/apps/'+m['id']+'/actions/list_left',{},h)['elements'];assert rows[0]['related']==['r1','r2'];assert len(call('/api/apps/'+m['id']+'/actions/list_left',{},other)['elements'])==0
 print('PASS multi-relations preserve arrays, composite tenant ownership, atomic quota rollback, uniqueness/size bounds and revision conflicts')
 import hashlib
-name='app_'+hashlib.sha256((tenant+':'+m['id']).encode()).hexdigest()[:24]+'_right'
-assert 'violates foreign key constraint' in subprocess.run(psql(os.environ['TEST_DB_CONTAINER'],'commerce',os.environ['TEST_DATABASE'],'-qAt','-v','ON_ERROR_STOP=1'),input=f"DELETE FROM {name} WHERE tenant='{tenant}' AND id='r1';",text=True,capture_output=True).stderr
+name='app_records'
+assert 'violates foreign key constraint' in subprocess.run(psql(os.environ['TEST_DB_CONTAINER'],'commerce',os.environ['TEST_DATABASE'],'-qAt','-v','ON_ERROR_STOP=1'),input=f"DELETE FROM {name} WHERE tenant='{tenant}' AND app='{m['id']}' AND entity='right' AND id='r1';",text=True,capture_output=True).stderr
 stage=call('/api/environments',{'name':'Relation clone'},h)['id'];stage_h={**h,'x-tenant':stage}
 assert call('/api/apps/'+m['id']+'/actions/list_left',{},stage_h)['elements'][0]['related']==['r1','r2']
 print('PASS cyclic public app graphs clone atomically into staging; deleting a referenced target is blocked by PostgreSQL')

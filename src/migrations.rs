@@ -63,7 +63,7 @@ pub(crate) async fn apply(pool: &PgPool) {
             .execute(&mut *tx)
             .await
             .unwrap_or_else(|e| panic!("Migration {version}: {e}"));
-        if *version == "055-hosted-apps" {
+        if *version == "102-consolidate-app-tables" {
             apps::hosted::backfill(&mut tx)
                 .await
                 .expect("hosted app migration");

@@ -5,8 +5,11 @@ The Rust worker prepares the same revision-bound proposal as before. Closing the
 browser or losing its HTTP response does not delete the task. A proposal still
 needs native approval; continuation never applies a price change.
 
-This page describes source implementation and local acceptance. Public deployment
-must be verified separately. It does not claim unrestricted autonomous goals,
+PR 135 passed both exact-head verification runs and is publicly deployed on
+15 October. A hosted read-only task completed after browser reload and reopening
+its saved conversation, reporting the actual post-purchase stock (18 and 20).
+The [release evidence](evidence/database-enforcement-2026-10-15.json) records this
+separately from the local worker-kill test. It does not claim unrestricted autonomous goals,
 general app-write checkpoints or exactly-once model billing.
 
 ## What the merchant sees
@@ -72,6 +75,12 @@ does not consume an attempt; admitted provider failures still do.
 - Reauthorize previously read evidence before reuse. Withdrawn/changed sources or
   app context stop continuation before more inference. Model output cannot grant
   its own permissions or expected revisions.
+- Revalidate the exact document chunks actually supplied to the model against their
+  current tenant, revision, hash, product association, locale and text. Search/index
+  readiness or changed ranking alone does not invalidate frozen evidence. An archived
+  source still stops the run; omitted prompt-budget records disclose no source text.
+  If withdrawal prevents checkpointing an already called provider, retain explicit
+  uncertainty and no executable proposal; never automatically repeat that call.
 - Migration 100 extends existing tasks/conversations under forced RLS and signed
   SQL policies. Runs are operational, never configuration releases.
 - `PROCESS_ROLE=agent-worker` starts a separate Rust worker; `all` includes these

@@ -58,9 +58,8 @@ def scoped(t, statement):
     return sql(f"BEGIN; SET LOCAL ROLE {role}; SELECT set_config('rac.tenant','{t}',true),set_config('rac.system','off',true); {statement}; COMMIT;")
 
 try:
-    sql(f"CREATE ROLE {role} LOGIN PASSWORD '{password}' NOSUPERUSER NOBYPASSRLS NOINHERIT; GRANT CONNECT,CREATE ON DATABASE {database} TO {role}; GRANT USAGE,CREATE ON SCHEMA public TO {role}; GRANT SELECT,INSERT,UPDATE,DELETE,REFERENCES ON ALL TABLES IN SCHEMA public TO {role}; GRANT USAGE,SELECT ON ALL SEQUENCES IN SCHEMA public TO {role};")
-    # Existing dynamic app tables use their own FORCE-RLS policy and need a schema owner for upgrades.
-    sql(f"DO $$ DECLARE t record; BEGIN FOR t IN SELECT c.relname FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND c.relname ~ '^app_[a-f0-9]{{16}}([a-f0-9]{{8}})?_' LOOP EXECUTE format('ALTER TABLE public.%I OWNER TO {role}',t.relname); END LOOP; END $$;")
+    sql(f"CREATE ROLE {role} LOGIN PASSWORD '{password}' NOSUPERUSER NOBYPASSRLS NOINHERIT; GRANT CONNECT ON DATABASE {database} TO {role}; GRANT USAGE ON SCHEMA public TO {role}; GRANT SELECT,INSERT,UPDATE,DELETE,REFERENCES ON ALL TABLES IN SCHEMA public TO {role}; GRANT USAGE,SELECT ON ALL SEQUENCES IN SCHEMA public TO {role};")
+    # Fixed app storage remains migration-owned; serving logins need neither CREATE nor table ownership.
     # Same role privileges as documented production runtime: no core TRUNCATE or owner membership.
     runtime_url = urllib.parse.urlunsplit(url._replace(netloc=f'{role}:{password}@{url.hostname}:{url.port}'))
     env.update(DATABASE_RUNTIME_URL=runtime_url, DB_RLS_REQUIRED='true', DB_POOL_MAX='2', DB_POOL_MIN='0',
@@ -250,6 +249,6 @@ finally:
         stop(process); log.close()
     if pooler:pooler.close()
     if tenant_pooler:tenant_pooler.close()
-    # Runtime owns dynamically created app tables only; DROP OWNED is restricted to this disposable DB.
+    # Revoke this fixture's grants in its disposable DB; neither login owns the fixed app tables.
     if tenant_role: sql(f'DROP OWNED BY {tenant_role}; DROP ROLE {tenant_role};')
     sql(f'DROP OWNED BY {role}; DROP ROLE {role};')

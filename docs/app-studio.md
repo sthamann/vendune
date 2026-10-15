@@ -28,8 +28,8 @@ screenshots, practical tests, agent prompts and the shared version/release loop.
 5. In **Data models**, add rich field types and validation. The relationship diagram
    accepts dragging a field onto a target model. **Create workspace from model**
    adds a grid, linked record form and a validated save button.
-6. Press **F5** for a private one-hour preview. It creates actual actor-private app
-   tables/records through the existing registry. Changes hot-reload after validation.
+6. Press **F5** for a private one-hour preview. It creates actual actor-private logical app
+   models/records through the existing registry. Changes hot-reload after validation.
    No saving/staging/publishing is required to try a draft. Preview services cannot
    send external events, place orders or execute live payment/provider actions.
 7. Use the debugger to pause before instructions or at a numbered step, continue,

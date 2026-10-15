@@ -1,0 +1,50 @@
+{
+  "recordedDate": "2026-10-15",
+  "sourceCommit": "189d8131fb36b9917bba619aa96db6fcd8c2036f",
+  "mergeCommit": "d59734bc2a1721c6fa4c467c9e11637480f732a0",
+  "identicalSourceTree": "c2997d3d1c59aeba473ada93d824d833b48177f2",
+  "pullRequest": "https://github.com/sthamann/veyndo/pull/135",
+  "successfulExactHeadVerifyRuns": [38765206999, 38765199918],
+  "coreBuild": "numerous-order-2004",
+  "connectorBuild": "cheerful-self-743",
+  "migration100Run": "24a2bc87-bef3-4827-846e-4da98ce4aafa",
+  "connectorGrantRemovalRun": "36f93449-e008-45ed-9692-a1cd6568eccb",
+  "activationRun": "edfbe96f-e1ac-4b43-844f-7c8102a746eb",
+  "finalNativeStatusRun": "e37390a0-b2e6-43eb-959e-9fa733afa7d6",
+  "databaseStatus": {
+    "enforced": true,
+    "systemRole": "veyndo_runtime_login",
+    "tenantRole": "veyndo_tenant_login",
+    "connectorCoreRead": false,
+    "tenantTemporaryPrivilege": false,
+    "stagedException": false
+  },
+  "temporaryMaintenanceAdminReferenceRemoved": true,
+  "diagnosticJobDefaultUnchanged": true,
+  "tenantSecretBoundOnlyToCore": true,
+  "strictRestart": {
+    "deployment": "vendune-core-74dd4bd47d",
+    "readyReplicas": 1,
+    "restarts": 0
+  },
+  "publicAcceptance": {
+    "shop": "https://lumen-story-lab-15-o-98aa4751fa.veyndo.ai/",
+    "nativeCheckoutOrder": "RAC-e25bf631",
+    "amount": "24.90 EUR",
+    "payment": "simulation only",
+    "buyer": "synthetic test identity",
+    "nativeCartAfterPurchase": 0,
+    "studioReloadAndOrderRead": "passed",
+    "savedReadOnlyAgentRun": "completed after browser reload and reopening the saved conversation",
+    "agentReportedStock": [18, 20],
+    "agentCompletedModelSteps": 2,
+    "embeddedCheckoutAfterCutover": "not accepted: Browser Use reports a paused document response; iframe remained blank while direct native checkout completed",
+    "priorEmbeddedAcceptance": "browser-release-2026-10-15.json records the previous release's embedded purchase and cleared Storyfront bag; it is not a replacement for this check"
+  },
+  "limits": [
+    "No real money, new password, OAuth login or real mail delivery was tested",
+    "No production worker was killed; interruption/revocation tests use isolated local provider fixtures",
+    "Historical business replay and isolated managed source builds remain separate unfinished implementation work",
+    "This does not certify the entire system or complete the business-capability concept"
+  ]
+}

@@ -463,7 +463,7 @@ The palette contains text, forms, grids, cards, inputs, choices, dates, buttons,
 
 ![Native form designer with snapping geometry and property inspector, captured 13 October in an isolated demo shop](assets/feature-tour/app-form-designer.png)
 
-Data models include date/time, explicit-currency money, scaled decimals, private images/files, rich text and multiple relations alongside translated/JSON/scalar fields. Physical tenant/app tables enforce RLS, scoped relations, recursive validation, uniqueness and quotas. Explicit rename/remove/convert/fill migrations retain bounded recovery snapshots; arbitrary SQL is prohibited. [Manifest/storage contracts](app-platform.md).
+Data models include date/time, explicit-currency money, scaled decimals, private images/files, rich text and multiple relations alongside translated/JSON/scalar fields. Shared app record/reference/index tables enforce RLS, scoped relations, recursive validation, uniqueness and quotas. Explicit rename/remove/convert/fill migrations retain bounded recovery snapshots; arbitrary SQL is prohibited. [Manifest/storage contracts](app-platform.md).
 
 ![Typed entries model with reference, translated fields and choice values](assets/feature-tour/app-data-models.jpg)
 

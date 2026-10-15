@@ -163,9 +163,10 @@ configuration and coordinated staging owners explicitly retain system authority.
 
 Keep the restrictive authenticated policy in addition to existing tenant/domain
 policies. New core tenant tables need forced RLS, the authenticated policy and
-explicit tenant grants; strict startup rejects missing coverage. App entity and
-relation installation uses the native schema owner and `apps/schema_scope` in the
-same transaction. Tenant SQL must never own those tables or create public schema
+explicit tenant grants; strict startup rejects missing coverage. App model installation uses the native system owner; shared records/indexes/references
+use fixed forced-RLS tables and transactionally maintained projections. Read
+`docs/app-data-storage.md` before changing these paths. Never reintroduce per-shop,
+per-app, per-model or per-version tables/indexes. Tenant SQL must never own those tables or create public schema
 objects. Preserve historical pre-099 migration replay without a normal serving
 bypass. Test through actual separate database logins, HTTP/MCP, private actors,
 pool reuse, restart and signing-key rotation. `SET ROLE` on a migration connection
@@ -235,7 +236,7 @@ cards in Apps/Storyfronts; original Storyfront code stays in its private reposit
 
 Read `docs/app-platform.md`, `docs/app-security.md` and `docs/app-studio.md` before
 changing apps. `src/apps/` owns canonical manifest validation/signing, explicit
-consent, scoped callback identities, surface grants, tenant-specific schema and
+consent, scoped callback identities, surface grants, tenant-specific logical schemas and
 migrations, secrets, leased jobs and event delivery. Native app assets call the
 existing `src/assets/` owner; exports use the same private asset path. Never add
 parallel SQL stores, upload owners or direct core-API bypasses.

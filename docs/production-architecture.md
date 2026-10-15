@@ -145,8 +145,8 @@ Identity resolution, authenticated platform operations, registration/provisionin
 staging/developer control paths and fleet workers deliberately use trusted system
 scope. Their existing ownership checks still matter. Ordinary shop business requests
 receive a tenant scope. Apps receive capability contracts, never the migration URL.
-Dynamic app tables need their own schema owner for additive upgrades; the runtime
-must never own the core tables. This is defense in depth, not a proof against SQL
+App definitions are logical rows in fixed shared tables; runtime logins need no
+app DDL or table ownership. See [app storage](app-data-storage.md). This is defense in depth, not a proof against SQL
 injection, a compromised process, all side channels or arbitrary external services.
 
 ### Deploy safely
@@ -156,12 +156,12 @@ injection, a compromised process, all side channels or arbitrary external servic
    so plan DDL/backfill locks for large live installations.
 2. Provision a dedicated runtime login through the database/secret manager.
    [runtime-role.sql](../deploy/sql/runtime-role.sql) grants only core DML/reference
-   privileges, grants existing core tables (excluding connector credentials) and transfers **only managed app tables**
-   to their app schema group. Run it as the actual migration owner after additive migrations; rerun role provisioning for new tables. Never grant the migration owner to runtime.
+   privileges and grants existing fixed Core/app tables (excluding connector credentials).
+   Shared app tables stay with the migration owner. Run it as the actual migration owner after additive migrations; rerun role provisioning for new tables. Never grant the migration owner to runtime.
 3. Set `DATABASE_RUNTIME_URL`, `DB_RLS_REQUIRED=true`, `BOOTSTRAP_MODE=serve` and
    `ALLOW_BOOTSTRAP_AUTH=false` for public HTTP and worker deployments. Membership
-   in `veyndo_runtime` must be inherited by the runtime login. App tables may be
-   owned by that limited app-schema group; core tables stay with the migration owner.
+   in `veyndo_runtime` must be inherited by the runtime login. All fixed Core/app tables stay with the migration owner. Separate signed tenant/system
+   logins use the [authenticated scope setup](authenticated-database-scope.md).
    Inventory inherited secrets before detaching an owner group: preserve the existing
    `PLATFORM_SECRET_KEY` and unrelated provider/app configuration. Do not rotate
    encryption keys as a side effect of changing database credentials. The HTTP/worker

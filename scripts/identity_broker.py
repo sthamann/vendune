@@ -206,18 +206,15 @@ with (ROOT/'artifacts/identity-broker-server.log').open('w') as log:
         call(public_api,headers=host,expected=503)
         call(public_api,{},host,expected=503)
         check('Paused shops cannot remain available through a separately mounted frontend')
-        # Reconstruct the pre-055 schema in this disposable database, with a real unregistered hosted shop.
+        # Replay a real pre-055 database; a partial ledger rewind on a post-102
+        # shared store does not represent a historical deployed schema.
         call('/api/settings/frontends',{'alias':other,'channel':'default'},th,method='PUT')
         assert not call('/api/apps',headers=th)['packages']
         stop(server)
-        subprocess.run(psql(os.environ['DB_CONTAINER'],os.environ.get('TEST_DATABASE_USER','commerce'),os.environ['TEST_DATABASE'],'-v','ON_ERROR_STOP=1','-c',"ALTER TABLE hosted_frontends DROP COLUMN app_id; DELETE FROM commerce_migrations WHERE version='055-hosted-apps';"),check=True,capture_output=True)
-        server=serve(env,base,log)
-        installed=next(p for p in call('/api/apps',headers=th)['packages'] if p['id']=='storyfront')
-        assert installed['active'] and installed['managedBy']=='experience' and installed['connections'][0]['alias']==other
-        assert installed['revision']==1
+        from testing.hosted_migration import verify as verify_hosted_migration
+        verify_hosted_migration(env)
         check('Pre-055 Experience mounts install the real bundled package through migration, not a GET-side repair')
-        stop(server);server=serve(env,base,log)
-        assert next(p for p in call('/api/apps',headers=th)['packages'] if p['id']=='storyfront')['revision']==1
+        server=serve(env,base,log)
         check('A fresh restart preserves managed installation without reinstalling or changing version history')
         call(path,assertion,expected=401)
         call('/api/auth/redeem',{'ticket':ticket},expected=401)

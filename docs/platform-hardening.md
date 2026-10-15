@@ -57,9 +57,11 @@ unrestricted JSON Schema engine. Raw malformed JSON still uses the HTTP extracto
 
 ## SQL and event reliability
 
-Quoted app field names escape embedded quotes in all builds; SQL safety no longer
-depends on `debug_assert!`. Manifest admission still restricts identifiers before
-schema DDL. This defense does not make arbitrary caller-supplied SQL an allowed API.
+App storage uses fixed SQL tables and bound record values. Manifest admission
+restricts logical model/field identifiers; installation and schema upgrades no
+longer interpolate app-defined tables or issue DDL. Declared equality lookups use
+the fixed projection indexes. This defense does not make arbitrary caller-supplied
+SQL an allowed API. See [the shared storage contract](app-data-storage.md).
 
 The existing outbox now leases one ready tenant per batch using persistent
 least-recently-served sequence metadata. Other replicas skip its scheduling lock.
@@ -90,7 +92,7 @@ work; a failed subscriber can still defer the other projections for that event.
 | Money | Canonical minor-unit/currency boundaries exist, but parts of persisted/catalog/calculation models remain floating point. Preserve the original-PHP differential gate before changing representation or rounding. |
 | Product versus inventory revisions | Native product editing now supports a separate content clock and omission of untouched stock; explicit quantities retain aggregate CAS. Two-replica checkout/cancellation/MCP and UI regressions cover the path. Other operation-specific conservative aggregate checks remain. See [product concurrency](product-management.md#editing-while-orders-arrive). |
 | Native events | Replace raw event-name drift with a typed/versioned catalogue and common emitter; preserve old consumers and operational replay. |
-| App storage | Existing package/index/model/row/byte caps bound admission. Shared schema/storage and fleet DDL fairness still require migration and measurement; table hashing is not unlimited scalability. |
+| App storage | Fixed shared models/records/index/reference tables remove per-installation DDL growth. Package/model/row/byte caps remain; throughput and fleet capacity still need measurement. Coordinated existing-data cutover is required; see [storage](app-data-storage.md). |
 | Request consistency | Introduce bounded read units of work where needed; keep writes/locks authoritative and never hold a transaction across model/provider calls. |
 | Observability | Connect safe HTTP/operation/job/inference/SQL spans and explicit exporter configuration. No customer or provider bodies in logs. |
 | Module structure | Move shared domain/store/transport boundaries incrementally; immutable migration identifiers remain unchanged. |

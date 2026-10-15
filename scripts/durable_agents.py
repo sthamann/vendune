@@ -198,6 +198,25 @@ try:
     assert sql(f"SELECT proposal='{{}}'::jsonb FROM tasks WHERE tenant='{tenant}' AND id='{source_run}'")=='t'
     mode.pop('source');
     passed('A separately discovered source is reauthorized on continuation; archiving it stops before any further model call')
+    # Also fence evidence supplied in the initial prompt under the real worker's SQL authority.
+    pinned=call(base,'/api/knowledge/documents',{'title':'PinnedNativeEvidence','content':'PinnedNativeEvidenceMarker confidential source.','locale':'en-GB','kind':'manual'},h)
+    mode['block']=True;started.clear();release.clear()
+    queued=call(base,'/api/agent/runs',{'instruction':'Use PinnedNativeEvidenceMarker for a bounded proposal','inference':{'provider':'openai'}},h)
+    assert started.wait(15)
+    frozen=json.loads(sql(f"SELECT run_checkpoint::text FROM tasks WHERE tenant='{tenant}' AND id='{queued['taskId']}'"))
+    assert any(s.get('documentId')==pinned['id'] for s in frozen['context']['documentSources'])
+    call(base,'/api/knowledge/documents/'+pinned['id']+'/lifecycle',{'revision':1,'archived':True,'approve':True},h)
+    mode['block']=False;release.set()
+    for _ in range(150):
+        stopped=call(base,'/api/agent/runs/'+queued['taskId'],h=h)
+        if stopped['state'] not in ['queued','running']:break
+        time.sleep(.1)
+    # The provider was called but its output cannot be checkpointed after withdrawal.
+    # Preserve the native uncertain-call boundary instead of making it automatically retryable.
+    assert stopped['state']=='uncertain' and stopped['error']['status']==409 and stopped['preview'] is None,stopped
+    assert sql(f"SELECT proposal='{{}}'::jsonb FROM tasks WHERE tenant='{tenant}' AND id='{queued['taskId']}'")=='t'
+    calls_before=len(captured);time.sleep(.3);assert len(captured)==calls_before
+    passed('An archived prompt source fences proposal persistence and leaves its uncheckpointed provider call explicitly uncertain without replay')
     wire={'jsonrpc':'2.0','id':1,'method':'tools/list'}
     tools=call(base,'/mcp',wire,h)['result']['tools']
     assert {'merchant.run.create','merchant.run.status','merchant.run.cancel','merchant.run.resume'} <= {t['name'] for t in tools}

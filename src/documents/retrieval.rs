@@ -53,6 +53,35 @@ pub(crate) async fn search_in(
         .await?;
     Ok(json!(rows.iter().map(|r|json!({"sourceId":format!("{}:{}",r.get::<String,_>("id"),r.get::<i32,_>("position")),"documentId":r.get::<String,_>("id"),"title":r.get::<String,_>("title"),"locale":r.get::<String,_>("locale"),"productId":r.get::<Option<String>,_>("product_id"),"appliesToProductId":product,"association":if r.get::<Option<String>,_>("product_id").is_none(){"shop"}else if product.is_none() || r.get::<Option<String>,_>("product_id").as_deref()==product{"product"}else{"product-family"},"sourceType":r.get::<String,_>("source_type"),"contentHash":r.get::<String,_>("content_hash"),"revision":r.get::<i64,_>("revision"),"text":r.get::<String,_>("text")})).collect::<Vec<_>>()))
 }
+/// Re-admit the exact supplied evidence, independent of index readiness or search ranking.
+pub(crate) async fn sources_current(a: &App, t: &str, sources: &Value) -> Result<bool> {
+    let Some(items) = sources.as_array().filter(|items| items.len() <= 9) else {
+        return Ok(false);
+    };
+    let mut records = Vec::new();
+    for item in items {
+        if item["omittedRecords"].as_u64().is_some()
+            && item["readToolsRequired"] == true
+            && item.as_object().is_some_and(|o| o.len() == 2)
+        {
+            continue;
+        }
+        if !["sourceId", "documentId", "contentHash", "locale", "text"]
+            .iter()
+            .all(|key| item[*key].is_string())
+            || item["revision"].as_i64().is_none_or(|r| r <= 0)
+            || !item
+                .get("productId")
+                .is_some_and(|v| v.is_null() || v.is_string())
+        {
+            return Ok(false);
+        }
+        records.push(item.clone());
+    }
+    sqlx::query_scalar(
+        "SELECT NOT EXISTS(SELECT 1 FROM jsonb_to_recordset($2) AS s(\"sourceId\" text,\"documentId\" text,\"contentHash\" text,\"productId\" text,revision bigint,locale text,text text) WHERE NOT EXISTS(SELECT 1 FROM knowledge_documents d JOIN knowledge_chunks c ON c.tenant=d.tenant AND c.document_id=d.id WHERE d.tenant=$1 AND d.id=s.\"documentId\" AND NOT d.archived AND d.revision=s.revision AND d.content_hash=s.\"contentHash\" AND d.product_id IS NOT DISTINCT FROM s.\"productId\" AND d.id||':'||c.position=s.\"sourceId\" AND c.text=s.text AND c.locale=s.locale))",
+    ).bind(t).bind(json!(records)).fetch_one(&a.db).await.map_err(Into::into)
+}
 pub(crate) async fn index(
     State(a): State<App>,
     h: RequestContext,

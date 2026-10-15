@@ -50,10 +50,17 @@ def verify(sql, tenant_url, system_role):
                       "SELECT public.veyndo_guard_app_table('products')"]:
         probe(statement,fail=True)
     assert probe("SELECT count(*) FROM pg_stat_activity WHERE query LIKE '%v1:%' AND pid<>pg_backend_pid()")=='0'
-    app_tables=sql("SELECT c.relname FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND c.relname ~ '^app_[a-f0-9]{24}_' AND c.relkind='r' LIMIT 5").splitlines()
+    app_tables=['app_models','app_records','app_record_indexes','app_record_references']
     for table in app_tables:
         assert scoped(ticket('atelier'),f"SELECT count(*) FROM public.{table} WHERE tenant<>'atelier'")=='0'
         probe(f'ALTER TABLE public.{table} DISABLE ROW LEVEL SECURITY',fail=True)
+    for statement in [
+        "INSERT INTO app_models(tenant,app,entity,version,definition) VALUES('atelier','forged','forged','1','{}')",
+        "INSERT INTO app_record_indexes(tenant,app,entity,field,record_id,value,is_unique) VALUES('atelier','forged','forged','code','x','\"x\"',true)",
+        "INSERT INTO app_record_references(tenant,app,entity,field,record_id,position,target_entity,target_id) VALUES('atelier','forged','forged','parent','x',1,'forged','x')",
+    ]:
+        # Must reject by the write policy, not merely by an absent parent/constraint.
+        scoped(ticket('atelier'),"DO $probe$ BEGIN BEGIN "+statement+"; RAISE EXCEPTION 'Managed app projection accepted a tenant write'; EXCEPTION WHEN insufficient_privilege THEN NULL; END; END $probe$")
     for suffix in ['one','two']:
         actor='scope-person-'+suffix
         sql(f"INSERT INTO merchant_users(id,email,name,password_hash) VALUES('{actor}','{actor}@example.test','Synthetic scope actor','synthetic-unusable-hash') ON CONFLICT DO NOTHING; INSERT INTO memberships(tenant,user_id,role) VALUES('atelier','{actor}','viewer') ON CONFLICT DO NOTHING; INSERT INTO studio_workspaces(tenant,user_id,revision,data) VALUES('atelier','{actor}',1,'{{}}') ON CONFLICT DO NOTHING;")
@@ -62,5 +69,5 @@ def verify(sql, tenant_url, system_role):
     assert scoped(ticket('atelier',actor,'P'),'SELECT count(*) FROM studio_workspaces',actor='scope-person-two')=='0'
     assert scoped(ticket('atelier',actor,'A'),'SELECT count(*) FROM studio_workspaces',actor=actor)=='0'
     assert scoped(ticket('atelier'),'SELECT count(*) FROM studio_workspaces',actor=actor)=='0'
-    print('PASS actual tenant login cannot forge another shop/system/actor, steal signing keys, read identity secrets, change schema or reuse system-role tickets')
+    print('PASS actual tenant login cannot forge another shop/system/actor, steal signing keys, read identity secrets, change schema/managed projections or reuse system-role tickets')
     return probe,ticket,scoped

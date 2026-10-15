@@ -28,7 +28,7 @@ Channel IDs do not grant merchant authorization.
    generation contract. Providers need operator-configured credentials.
 3. Inspect the generated manifest, four-language labels, version and SHA-256.
    Generation saves an immutable draft; it does not install or publish it.
-4. Choose **Install in staging**. The manifest creates actual typed app tables,
+4. Choose **Install in staging**. The manifest registers actual typed logical app models,
    authorized API actions and native admin/storefront slots in that private shop.
 5. Select the sandbox in the workbench header. Use **Apps** to edit
    app records, and **Preview** to inspect its shopper UI.
@@ -152,7 +152,7 @@ Shopware SEO engine. [Current currency and price behavior](currencies.md).
 - `scripts/staging.py`: private scope, typed apps/records, selected releases,
   conflicting live versions and role/cross-shop denial.
 - `scripts/developer_documents.py`: actual OpenAI/Anthropic protocol adapters
-  using local fixtures, generated app tables/slots, document publication,
+  using local fixtures, shared app records/slots, document publication,
   semantic retrieval consumer, PDF parsing and order-triggered AI approval.
 - `scripts/marketing_accounts.py`: additional shops, customer authority/history,
   concurrent limited coupons, tax/free shipping, order flows, channels,

@@ -35,7 +35,8 @@ impl From<sqlx::Error> for Error {
         }
         if let sqlx::Error::Database(ref d) = e
             && d.code().as_deref() == Some("23505")
-            && d.constraint().is_some_and(|c| c.starts_with("idx_"))
+            && d.constraint()
+                .is_some_and(|c| c.starts_with("idx_") || c == "app_record_unique")
         {
             return conflict("App field value must be unique; another record already uses it");
         }

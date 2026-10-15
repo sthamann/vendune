@@ -269,7 +269,8 @@ External calls stay outside database transactions.
 shop SQL from trusted native system access, binds tenant/personal contexts to the
 actual login and includes a coordinated rollout with key rotation. The enforced
 deployment requires both configured logins; a legacy or staged runtime is not the
-same security claim.
+same security claim. The hosted cutover on 15 October now reports enforcement
+enabled and passed a strict restart and a new simulated purchase.
 
 [Browser sessions](docs/browser-sessions.md) use host-only HttpOnly cookies and
 per-tab origin/CSRF fences, including platform, customer, preview and MCP paths.
@@ -278,8 +279,10 @@ Passive replies cannot overwrite a newer login; external bearer clients remain c
 [Saved agent work](docs/durable-agent-runs.md) extends existing tasks and conversations
 with private checkpoints, current-rights checks, explicit continuation and cancellation.
 A killed worker's ambiguous model call is never automatically repeated; the original
-native proposal approval still owns business changes. Local restart/revocation tests
-and public deployment are distinct acceptance steps.
+native proposal approval still owns business changes. PR 135 passed the registered
+integration suite and is publicly deployed; a saved read-only task survived browser
+reload and returned current stock. See the [dated deployment evidence](docs/evidence/database-enforcement-2026-10-15.json)
+for the exact scope and the embedded-browser check that remains unaccepted.
 
 Personal merchant and operator accounts share optional authenticator protection,
 one-use recovery codes and revision-checked password recovery through the existing
@@ -324,3 +327,5 @@ remain intact.
 [License examples](docs/licensing.md) · [Contribute](CONTRIBUTING.md) · [Report an issue](https://github.com/sthamann/veyndo/issues/new/choose) · [Third-party notices](THIRD_PARTY.md) · [Changelog](CHANGELOG.md).
 
 **App Studio workbench:** [Build one app across product pages, checkout and global shop areas; visual controls, encrypted installation settings, shared Flow visuals and agent editing](docs/app-studio-workspace.md).
+
+Managed app models now use [fixed shared storage](docs/app-data-storage.md): no new table or index per shop/app/model. Existing databases require the documented coordinated maintenance migration; this is separate from hosted-release acceptance.
