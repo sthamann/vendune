@@ -55,7 +55,19 @@ try:
  assert mcp('studio.workspace.read',{},kh)['result']['isError']
  call('/api/studio/workspace',h=headers(other,a['workspace']),status=403)
  print('PASS actor-private workspace, real CAS/history, foreign tenant and integration-key denial across HTTP/MCP')
+ public={'x-tenant':a['workspace']}
+ first=call('/store-api/product',{'limit':1},public)['elements']; assert first[0]['id']!='mug'
+ assert [p['id'] for p in call('/store-api/product',{'ids':['mug'],'limit':100},public)['elements']]==['mug']
+ assert mcp('catalog.search',{'ids':['mug']},public)['result']['structuredContent']['elements'][0]['id']=='mug'
+ call('/store-api/product',{'ids':['mug']*501},public,400)
+ call('/api/automation/channels/only_chair',{'revision':0,'data':{'name':{'en-GB':'Chair only'},'kind':'storefront','active':True,'visibility':'public','locales':['en-GB'],'productIds':['chair']}},ah,method='PUT')
+ assert not call('/store-api/product',{'ids':['mug']},{**public,'sw-sales-channel-id':'only_chair'})['elements']
+ print('PASS native selected-ID catalogue projection outside first page, HTTP/MCP parity, bounded IDs and channel exclusion')
  for app in ['site_builder','site_forms']:call('/api/apps',{'builtIn':app},ah)
+ chosen=call('/api/merchant/site/context?ids=%5B%22mug%22%5D&locale=de-DE',h=ah)['catalogue']['elements']
+ native=call('/store-api/product',{'ids':['mug']},{**public,'x-commerce-locale':'de-DE'})['elements']
+ assert chosen[0]['id']==native[0]['id']=='mug' and chosen[0]['name']==native[0]['name']
+ call('/api/merchant/site/context?locale=unconfigured',h=ah,status=400)
  fields={'channel':'default','slug':'home','title':{'en-GB':'Shop','de-DE':'Unser Shop'},'kind':'landing','status':'draft','starts_at':None,'content':{'blocks':[{'id':'hero','kind':'hero','text':{'en-GB':'New collection','de-DE':'Neue Kollektion'}},{'id':'products','kind':'products','products':['mug'],'productMode':'selected'},{'id':'contact','kind':'form','text':{'de-DE':'Beratung'},'fields':[{'id':'email','kind':'email','required':True,'label':{'en-GB':'Email','de-DE':'E-Mail'}}]}]},'theme':{'accent':'#0877e8'},'seo':None,'author':None,'category':None}
  saved=save(fields,h=ah);assert saved['revision']==1
  public={'x-tenant':a['workspace']};assert not rows(public,True)

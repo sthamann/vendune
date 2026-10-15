@@ -1154,6 +1154,7 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/site-builder/studio/editor-i18n.ts](../extensions/apps/site-builder/studio/editor-i18n.ts) | Inspector, history and reference-agent vocabulary. |
 | [extensions/apps/site-builder/studio/inspector.css](../extensions/apps/site-builder/studio/inspector.css) | Inspector and review panels, separate from the canvas layout. |
 | [extensions/apps/site-builder/studio/useDesigner.ts](../extensions/apps/site-builder/studio/useDesigner.ts) | Explicit native saves and scope-safe reads; local undo never bypasses record CAS or staging review. |
+| [extensions/apps/site-builder/usePageProducts.ts](../extensions/apps/site-builder/usePageProducts.ts) | Resolve explicit selections through the native bounded catalogue, independent of the first catalogue/search page. |
 | [extensions/apps/site-forms/server.rs](../extensions/apps/site-forms/server.rs) | Forms validate answers against a published page's declared fields; inbox entries stay private. |
 | [extensions/apps/site-forms/storefront/PublishedForm.tsx](../extensions/apps/site-forms/storefront/PublishedForm.tsx) | Public forms send only append-only, schema-validated requests to the native app inbox. |
 | [extensions/apps/site-forms/storefront/form-i18n.ts](../extensions/apps/site-forms/storefront/form-i18n.ts) | Public form interface labels; declared field labels remain editable shop-language content. |

@@ -8,6 +8,11 @@ import { effectivePages, inheritedTheme, explicitTheme } from "../model";
 import SiteRenderer from "../Renderer";
 import { useEditorText } from "../studio/editor-i18n";
 import { usePublishedSite } from "./PublishedSite";
+import usePageProducts from "../usePageProducts";
+import {
+  shopApi,
+  type Product,
+} from "../../../../frontend/src/shared/api/shop-api";
 function safeSlug(value: string) {
   try {
     return decodeURIComponent(value);
@@ -29,6 +34,19 @@ export default function ShopSite({ fallback }: { fallback: ReactNode }) {
       ...inheritedTheme(pages, c.salesChannel),
       ...explicitTheme(page?.theme),
     };
+  const selection = usePageProducts(
+    page,
+    c.products,
+    `${c.shopTenant}:${c.salesChannel}:${c.locale}:${c.cart?.token}:${c.cart?.revision}`,
+    async (ids) =>
+      (
+        await shopApi<{ elements: Product[] }>(
+          "/store-api/product",
+          { ids, limit: 100 },
+          c.cart?.token,
+        )
+      ).elements,
+  );
   useEffect(() => {
     if (!page) return;
     const previousTitle = document.title;
@@ -76,20 +94,22 @@ export default function ShopSite({ fallback }: { fallback: ReactNode }) {
     );
   return (
     <main>
+      {selection.error && <p role="alert">{t("unavailable")}</p>}
       <SiteRenderer
         page={page}
         pages={visible}
-        products={c.products}
+        products={selection.products}
         theme={theme}
         language={c.locale}
         mainLocale={registry.mainLocale}
         channel={c.salesChannel}
         request={registry.request}
         onProduct={(id) => {
-          location.href = productURL(c.products.find((p) => p.id === id)!);
+          const product = selection.products.find((p) => p.id === id);
+          if (product) location.href = productURL(product);
         }}
         onAdd={(id) => {
-          const p = c.products.find((p) => p.id === id);
+          const p = selection.products.find((p) => p.id === id);
           if (p) void c.add(p.id, 1);
         }}
       />

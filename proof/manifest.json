@@ -731,8 +731,8 @@
     },
     "extensions/apps/site-builder/context.rs": {
       "status": "unproved",
-      "sha256": "97518f70fe2d8e1bf056f60c6d01bd7aab743a40316c6fb35889b36de711d466",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "121a86e41c6cc8321b192f3340918521a9de9ead07431d260712c6c37f27ce1c",
+      "review": "Reviewed bounded native catalog IDs intersected with existing channel/B2B admission, selected-product batch hydration and configured locale context; HTTP/MCP selected-ID and foreign-channel denial regression plus Rust/catalog checks passed."
     },
     "extensions/apps/site-builder/design_agent.rs": {
       "status": "unproved",
@@ -1611,13 +1611,13 @@
     },
     "src/catalog_page.rs": {
       "status": "unproved",
-      "sha256": "26a03a3fe4225fe825c6aa339fa6e09952839d5fab262c3594ab6ae3c9b42d5c",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "2c88da305c7b9d7198d9ac80a06678769eade94ed915e051fa523a96ab96f093",
+      "review": "Reviewed bounded native catalog IDs intersected with existing channel/B2B admission, selected-product batch hydration and configured locale context; HTTP/MCP selected-ID and foreign-channel denial regression plus Rust/catalog checks passed."
     },
     "src/catalog_routes.rs": {
       "status": "unproved",
-      "sha256": "cbe50a4b17af35ddffbc0612a90fa93de44d24686c3edc0c028f8c9dbdb9f35f",
-      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
+      "sha256": "50290bc48e984148f553d70d0061104d7d9a1dcaf20460279d673126701b64c9",
+      "review": "Reviewed bounded native catalog IDs intersected with existing channel/B2B admission, selected-product batch hydration and configured locale context; HTTP/MCP selected-ID and foreign-channel denial regression plus Rust/catalog checks passed."
     },
     "src/categories/admin.rs": {
       "status": "unproved",
@@ -2546,8 +2546,8 @@
     },
     "src/mcp.rs": {
       "status": "unproved",
-      "sha256": "fa3ec83492ef93fd7a18588b9d7270097149215a2fda6187064d2934b93577ea",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "73b7a6f078dcd508eb5c9ba7daf3606bdc23e7e0dc23d544c9d4ef1b132516e6",
+      "review": "Reviewed bounded native catalog IDs intersected with existing channel/B2B admission, selected-product batch hydration and configured locale context; HTTP/MCP selected-ID and foreign-channel denial regression plus Rust/catalog checks passed."
     },
     "src/migrations/identity_checksums.rs": {
       "status": "unproved",

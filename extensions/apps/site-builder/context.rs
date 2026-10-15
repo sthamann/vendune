@@ -15,6 +15,17 @@ async fn context(
     let t = merchant(&a, &h)?;
     auth::permit(&h, "catalog.read")?;
     let (settings, _) = commerce::config(&a, &t).await?;
+    if let Some(locale) = q.get("locale") {
+        if !settings.locales.contains(locale) {
+            return Err(bad("Content language unavailable"));
+        }
+        h.insert(
+            "x-commerce-locale",
+            locale
+                .parse()
+                .map_err(|_| bad("Invalid content language"))?,
+        );
+    }
     let channel = q
         .get("channel")
         .filter(|s| s.as_str() != "*")
@@ -39,8 +50,13 @@ async fn context(
             .bind(vec!["site_builder", "site_forms"])
             .fetch_all(&a.db)
             .await?;
+    let product_ids = q
+        .get("ids")
+        .map(|ids| serde_json::from_str::<Vec<String>>(ids).map_err(|_| bad("Invalid catalog IDs")))
+        .transpose()?;
     let criteria = CatalogCriteria {
-        limit: Some(24),
+        limit: Some(if product_ids.is_some() { 100 } else { 24 }),
+        product_ids,
         search: q.get("query").cloned(),
         after: q.get("after").cloned(),
         ..Default::default()

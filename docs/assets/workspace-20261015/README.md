@@ -22,7 +22,7 @@ server restart. A published form was separately submitted in Chrome and its
 answer read in the permission-protected native Studio inbox. A personal goal
 opened an inactive Flow draft with its title/instruction in the shop main language.
 
-Verification on this branch: 507 frontend tests; 245 Rust tests; Clippy, formatting,
+Verification on this branch: 508 frontend tests; 245 Rust tests; Clippy, formatting,
 ownership, localization, source inventory and API gates; the registered
 `visual_workspace` HTTP/PostgreSQL/provider fixture; existing staging, apps,
 consent, tenant, role, accounts, checkout, commerce and production-foundations

@@ -1,5 +1,5 @@
 /** Three-panel standard-shop editor inside the native shell; Storyfront retains its separate original editor. */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { RequestFn } from "../../../../frontend/src/shared/api/types";
 import {
   ContentLanguage,
@@ -18,12 +18,14 @@ import {
   type Page,
 } from "../model";
 import { useDesignText } from "./design-i18n";
+import { useEditorText } from "./editor-i18n";
 import useDesigner, { type Designer } from "./useDesigner";
 import PageTree from "./PageTree";
 import PageInspector from "./PageInspector";
 import DesignAgent from "./DesignAgent";
 import PrivateFormInbox from "../../../../frontend/src/shared/apps/PrivateFormInbox";
 import PageHistory from "./PageHistory";
+import usePageProducts from "../usePageProducts";
 import "./designer.css";
 import "./inspector.css";
 type Props = {
@@ -52,6 +54,7 @@ export default function ShopDesigner(props: Props) {
 }
 function DesignerView({
   request,
+  workspace,
   rights,
   sandbox,
   onEnvironments,
@@ -59,7 +62,11 @@ function DesignerView({
   d,
 }: Props & { d: Designer }) {
   const t = useDesignText(),
+    e = useEditorText(),
     { language, mainLocale } = useContentLanguage();
+  useEffect(() => {
+    d.setCatalogueLanguage(language);
+  }, [language]);
   const [device, setDevice] = useState<"desktop" | "tablet" | "mobile">(
       "desktop",
     ),
@@ -96,6 +103,17 @@ function DesignerView({
     ...inheritedTheme(d.pages, d.channel),
     ...explicitTheme(d.draft?.theme),
   };
+  const selection = usePageProducts(
+    comparison ?? d.draft,
+    d.context!.catalogue.elements,
+    `${workspace}:${d.channel}:${language}`,
+    async (ids) =>
+      (
+        await request(
+          `/api/merchant/site/context?channel=${encodeURIComponent(d.channel)}&locale=${encodeURIComponent(language)}&ids=${encodeURIComponent(JSON.stringify(ids))}`,
+        )
+      ).catalogue.elements,
+  );
   return (
     <div className="shop-designer">
       <header className="designer-heading">
@@ -125,6 +143,11 @@ function DesignerView({
       {d.error && (
         <p className="designer-error" role="alert">
           {d.error}
+        </p>
+      )}
+      {selection.error && (
+        <p className="designer-error" role="alert">
+          {e("unavailable")}
         </p>
       )}
       {d.saved && <p role="status">{t("saved")}</p>}
@@ -211,7 +234,7 @@ function DesignerView({
                 <SiteRenderer
                   page={comparison ?? d.draft}
                   pages={effectivePages(d.pages, d.channel)}
-                  products={d.context!.catalogue.elements}
+                  products={selection.products}
                   theme={comparison ? { ...theme, ...comparison.theme } : theme}
                   language={language}
                   mainLocale={mainLocale}
@@ -255,7 +278,7 @@ function DesignerView({
                   page={d.draft}
                   appearance={theme}
                   block={block}
-                  products={d.context!.catalogue.elements}
+                  products={selection.products}
                   request={request}
                   onSearch={d.search}
                   disabled={!writable}

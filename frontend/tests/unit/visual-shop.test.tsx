@@ -1,5 +1,5 @@
 /** Shared renderer, inheritance and native form intake regressions. No model/provider mocks claim external effects. */
-import { render, screen } from "@testing-library/react";
+import { render, renderHook, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect, it, vi } from "vitest";
 import {
@@ -16,6 +16,39 @@ import Renderer, {
 import PublishedForm from "../../../extensions/apps/site-forms/storefront/PublishedForm";
 import { canOpenStudio } from "../../src/admin/shell/permissions";
 import { newArea, moveCard } from "../../src/admin/workspace/workspace-model";
+import usePageProducts from "../../../extensions/apps/site-builder/usePageProducts";
+
+it("resolves selected products outside the first catalogue page and drops stale scope responses", async () => {
+  const page = newPage("default", "de-DE", "Shop");
+  page.content.blocks[0].products = ["outside-first-page"];
+  const product = {
+    id: "outside-first-page",
+    name: "Chosen product",
+    price: 29,
+    media: [],
+  };
+  const load = vi.fn().mockResolvedValue([product]);
+  const view = renderHook(
+    ({ scope }) => usePageProducts<typeof product>(page, [], scope, load),
+    { initialProps: { scope: "de:EUR" } },
+  );
+  await waitFor(() => expect(view.result.current.products).toEqual([product]));
+  expect(load).toHaveBeenCalledWith(["outside-first-page"]);
+  let complete: (products: (typeof product)[]) => void = () => {};
+  load.mockImplementationOnce(
+    () =>
+      new Promise((resolve) => {
+        complete = resolve;
+      }),
+  );
+  view.rerender({ scope: "de:USD" });
+  expect(view.result.current.products).toEqual([]);
+  load.mockResolvedValueOnce([{ ...product, price: 30 }]);
+  view.rerender({ scope: "fr:USD" });
+  await waitFor(() => expect(view.result.current.products[0].price).toBe(30));
+  complete([{ ...product, price: 999 }]);
+  await waitFor(() => expect(view.result.current.products[0].price).toBe(30));
+});
 
 it("inherits nulls without copying translations and applies only the channel override", () => {
   const global = newPage("*", "ja-JP", "世界");

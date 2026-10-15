@@ -31,9 +31,12 @@ export default function useDesigner(request: RequestFn, workspace: string) {
     [future, setFuture] = useState<Page[]>([]),
     scope = useRef(0),
     baseline = useRef("");
+  const [catalogueLanguage, setCatalogueLanguage] = useState("");
+  const contextScope = useRef("");
+  contextScope.current = `${workspace}:${channel}:${catalogueLanguage}`;
   const readContext = async (query = "") =>
     request(
-      `/api/merchant/site/context?channel=${encodeURIComponent(channel)}${query ? `&query=${encodeURIComponent(query)}` : ""}`,
+      `/api/merchant/site/context?channel=${encodeURIComponent(channel)}${query ? `&query=${encodeURIComponent(query)}` : ""}${catalogueLanguage ? `&locale=${encodeURIComponent(catalogueLanguage)}` : ""}`,
     ) as Promise<Context>;
   const load = async () => {
     const current = ++scope.current;
@@ -76,7 +79,7 @@ export default function useDesigner(request: RequestFn, workspace: string) {
     return () => {
       active = false;
     };
-  }, [channel]);
+  }, [channel, catalogueLanguage]);
   const dirty = !!draft && baseline.current !== JSON.stringify(draft);
   useEffect(() => {
     if (!dirty) return;
@@ -131,6 +134,7 @@ export default function useDesigner(request: RequestFn, workspace: string) {
   return {
     context,
     setContext,
+    setCatalogueLanguage,
     pages,
     setPages,
     draft,
@@ -147,9 +151,11 @@ export default function useDesigner(request: RequestFn, workspace: string) {
     },
     search: async (query: string) => {
       const current = scope.current;
+      const context = contextScope.current;
       try {
         const c = await readContext(query);
-        if (current === scope.current) setContext(c);
+        if (current === scope.current && context === contextScope.current)
+          setContext(c);
       } catch (e) {
         if (current === scope.current) setError((e as Error).message);
       }

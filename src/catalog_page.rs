@@ -10,7 +10,7 @@ pub(crate) struct CatalogCriteria {
     pub(crate) category_id: Option<String>,
     #[serde(alias = "query")]
     pub(crate) search: Option<String>,
-    #[serde(skip)]
+    #[serde(rename = "ids")]
     pub(crate) product_ids: Option<Vec<String>>,
     #[serde(skip)]
     pub(crate) channel_id: String,
@@ -20,6 +20,13 @@ pub(crate) struct CatalogCriteria {
 
 impl CatalogCriteria {
     pub(crate) fn page_size(&self) -> Result<usize> {
+        if self.product_ids.as_ref().is_some_and(|ids| {
+            ids.len() > 500 || ids.iter().any(|id| id.is_empty() || id.len() > 200)
+        }) {
+            return Err(bad(
+                "Catalog ids must contain at most 500 nonempty product IDs",
+            ));
+        }
         let limit = self.limit.unwrap_or(50);
         if !(1..=100).contains(&limit) {
             return Err(bad("limit must be between 1 and 100"));
@@ -185,5 +192,21 @@ mod tests {
             .page_size()
             .is_err()
         );
+        assert!(
+            serde_json::from_value::<CatalogCriteria>(json!({"ids":["mug"]}))
+                .unwrap()
+                .product_ids
+                .is_some()
+        );
+        for ids in [vec![String::new()], vec!["mug".into(); 501]] {
+            assert!(
+                CatalogCriteria {
+                    product_ids: Some(ids),
+                    ..Default::default()
+                }
+                .page_size()
+                .is_err()
+            );
+        }
     }
 }

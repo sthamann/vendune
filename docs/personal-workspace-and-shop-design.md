@@ -168,8 +168,10 @@ payments. Public deployment and real-model design quality require their own acce
 
 Current bounded document limits: 24 sections/page, 24 selected products/section,
 12 fields/form and the native JSON-field byte limit (8 KiB). Sandbox snapshot/release
-retains the existing 1,000 records/entity limit. Product previews use the native
-bounded catalogue, with search for selection. Full catalogue visual merchandising,
+retains the existing 1,000 records/entity limit. Product selection uses native
+search; explicitly chosen products are resolved in bounded batches even outside
+the first catalogue page. Native channel, B2B, language and pricing checks apply.
+Full catalogue visual merchandising,
 server-rendered page SEO, collaborative cursors, automatic cancellation of every
 provider request and continuous whole-business autonomous goals remain further work.
 

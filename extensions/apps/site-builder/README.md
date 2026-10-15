@@ -12,6 +12,8 @@ capture is explicit. No browser source executes.
 Global home appearance is inherited; channel home records override it. Public
 queries enforce published status, time and channel on the server. Drafts stay
 private. Existing staging diff/release publishes selected app packages and records.
+`usePageProducts.ts` resolves explicit selections outside the first catalogue page
+in native bounded batches; it does not price products or retain a separate catalogue.
 
 Forms use the host's public form-block contract. The forms app owns intake and its
 private inbox. The original private Storyfront editor remains a different app.

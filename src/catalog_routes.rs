@@ -27,6 +27,7 @@ pub(crate) async fn catalog_page(
     h: RequestContext,
     mut criteria: CatalogCriteria,
 ) -> Result<Json<Value>> {
+    criteria.page_size()?;
     let (locale, chain) = language_context(&a, &h).await?;
     let t = tenant(&h)?;
     if let Some(id) = &criteria.category_id {
