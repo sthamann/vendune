@@ -18,6 +18,8 @@ import AppDesignWorkspace from "./AppDesignWorkspace";
 import AppAssistant from "./AppAssistant";
 import ConfirmDialog from "../../shared/ui/ConfirmDialog";
 import { useAssistantText } from "../../shared/i18n/app-assistant-i18n";
+import AppCapabilityEditor from "./AppCapabilityEditor";
+import "../styles/app-capability.css";
 import AppSettingsEditor from "./AppSettingsEditor";
 import AppDataEditor from "./AppDataEditor";
 import AppEditorNavigation from "./AppEditorNavigation";
@@ -110,8 +112,12 @@ export default function DeveloperView({
     setPreview(false);
     immediate.close();
     setSelected("");
-    setSection("design");
+    setSection(build.manifest.capability ? "capability" : "design");
   };
+  const pureCapability = !!m.capability && !m.views?.length;
+  useEffect(() => {
+    if (pureCapability) setSection("capability");
+  }, [m.id, pureCapability]);
   useDesignerKeys(
     !assistant && manage && !studio.busy,
     immediate.run,
@@ -120,7 +126,9 @@ export default function DeveloperView({
   );
   return (
     <AppFlowNavigation.Provider value={onFlows}>
-      <div className="studio-page app-studio">
+      <div
+        className={`studio-page app-studio ${assistant ? "" : "app-studio-editing"}`}
+      >
         <AppStudioIntro
           disabled={!manage || studio.busy}
           onNew={() => {
@@ -166,16 +174,18 @@ export default function DeveloperView({
             <p>{t("draftWarningHint")}</p>
           </ConfirmDialog>
         )}
-        <AppLibrary
-          builds={studio.builds}
-          archived={studio.archivedBuilds}
-          onArchive={(app, archived) =>
-            void studio.run(() => studio.archiveApp(app, archived))
-          }
-          mainLocale={studio.mainLocale}
-          busy={studio.busy || !manage}
-          onOpen={openForEditing}
-        />
+        {assistant && (
+          <AppLibrary
+            builds={studio.builds}
+            archived={studio.archivedBuilds}
+            onArchive={(app, archived) =>
+              void studio.run(() => studio.archiveApp(app, archived))
+            }
+            mainLocale={studio.mainLocale}
+            busy={studio.busy || !manage}
+            onOpen={openForEditing}
+          />
+        )}
         {!assistant && (
           <fieldset
             className="app-studio-fieldset"
@@ -353,6 +363,9 @@ export default function DeveloperView({
                   }
                   onEditFields={() => setSection("data")}
                 />
+              )}
+              {section === "capability" && (
+                <AppCapabilityEditor manifest={m} onChange={studio.edit} />
               )}
               {section === "settings" && (
                 <AppSettingsEditor manifest={m} onChange={studio.edit} />

@@ -145,6 +145,26 @@ export type Manifest = {
     kind: "string" | "secret" | "boolean" | "integer";
     required: boolean;
   }[];
+  capability?: {
+    version: 1;
+    intent: Text;
+    assumptions: Text[];
+    examples: {
+      id: string;
+      label: Text;
+      hook: "price" | "discount" | "shipping" | "validation";
+      snapshot: {
+        subtotal: { minor: number; currency: string; scale: number };
+        [key: string]: unknown;
+      };
+      context: Record<string, unknown>;
+      expected: {
+        adjustment: { minor: number; currency: string; scale: number };
+        accepted: boolean;
+        reasonCode: string;
+      };
+    }[];
+  };
   permissions: string[];
   events?: string[];
   eventFilters?: {

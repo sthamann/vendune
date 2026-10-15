@@ -21,6 +21,9 @@ This lists every checked-in source module in these roots, including files with n
 | [src/agent.rs](../src/agent.rs) | Persistent grounded conversations and tenant-scoped semantic knowledge HTTP adapters. |
 | [src/apps/approval.rs](../src/apps/approval.rs) | Operator service authority is bound to immutable package content, never to a merchant-chosen ID. |
 | [src/apps/asset_surfaces.rs](../src/apps/asset_surfaces.rs) | App file uploads reuse the product asset parser/store and require the current package plus either callback consent or a surface grant. |
+| [src/apps/business_capability/mod.rs](../src/apps/business_capability/mod.rs) | Versioned merchant intent and frozen, executable pure-decision examples in the canonical app package. |
+| [src/apps/business_capability/snapshot.rs](../src/apps/business_capability/snapshot.rs) | Frozen synthetic snapshots convert into the existing read-only WIT contract; no live data, SQL or credentials are read. |
+| [src/apps/business_capability/tests.rs](../src/apps/business_capability/tests.rs) | Acceptance examples exercise the same Wasm module as checkout, including changed inputs and failed-contract admission. |
 | [src/apps/cart_contributions.rs](../src/apps/cart_contributions.rs) | Generic app contributions: configure a cart, bind package/data revisions and persist audited pricing inputs. |
 | [src/apps/commerce_hooks.rs](../src/apps/commerce_hooks.rs) | Typed pure commerce hooks share the compiled sandbox cache and receive explicit immutable snapshots, never SQL or credentials. |
 | [src/apps/compatibility.rs](../src/apps/compatibility.rs) | Explicit read adapter for persisted v0.5 engraving carts; completed order snapshots remain unchanged. |
@@ -613,6 +616,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/developer/AppAssistant.tsx](../frontend/src/admin/developer/AppAssistant.tsx) | Guided app kinds create normal editable manifests; all changes follow private-stage versioning. |
 | [frontend/src/admin/developer/AppAutomation.tsx](../frontend/src/admin/developer/AppAutomation.tsx) | Editable triggers are declared alongside UI and actions; secrets remain operator-managed. |
 | [frontend/src/admin/developer/AppCanvas.tsx](../frontend/src/admin/developer/AppCanvas.tsx) | Accessible click-to-add canvas with selectable blocks and keyboard-accessible ordering controls. |
+| [frontend/src/admin/developer/AppCapabilityEditor.tsx](../frontend/src/admin/developer/AppCapabilityEditor.tsx) | The canonical Manifest carries merchant intent and bounded pure-decision examples; no separate app document or executor. |
 | [frontend/src/admin/developer/AppCodeBuffer.ts](../frontend/src/admin/developer/AppCodeBuffer.ts) | Invalid local expressions block apply and mode changes until corrected; multiple editors report independently. |
 | [frontend/src/admin/developer/AppConnections.tsx](../frontend/src/admin/developer/AppConnections.tsx) | Route, tool, grounding and Flow Builder switches modify the shared executable manifest directly. |
 | [frontend/src/admin/developer/AppContextBinding.tsx](../frontend/src/admin/developer/AppContextBinding.tsx) | Native UI bindings connect the open host object to an indexed app field, never to a global JS context. |
@@ -774,6 +778,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/app-artwork.css](../frontend/src/admin/styles/app-artwork.css) | Category cover and app icon artwork, with local deterministic fallbacks. |
 | [frontend/src/admin/styles/app-assistant.css](../frontend/src/admin/styles/app-assistant.css) | Guided extension workspace: restrained colour, clear choices and responsive setup. |
 | [frontend/src/admin/styles/app-building.css](../frontend/src/admin/styles/app-building.css) | Modern recipe cards and structural AI review reuse Studio colors and responsive interaction rules. |
+| [frontend/src/admin/styles/app-capability.css](../frontend/src/admin/styles/app-capability.css) | Bounded business-goal cards fit the existing Studio workspace and inherit its theme. |
 | [frontend/src/admin/styles/app-catalog.css](../frontend/src/admin/styles/app-catalog.css) | App library/detail presentation: bounded cards, passive artwork, accessible filters and theme-aware forms. |
 | [frontend/src/admin/styles/app-detail.css](../frontend/src/admin/styles/app-detail.css) | Scoped app detail hierarchy, permission disclosure, data and integration forms. |
 | [frontend/src/admin/styles/app-library.css](../frontend/src/admin/styles/app-library.css) | App callback consent follows the same card and field rhythm as app configuration. |
@@ -941,6 +946,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/app-access-i18n.ts](../frontend/src/shared/i18n/app-access-i18n.ts) | Explicit app callback consent and short-lived key management vocabulary. |
 | [frontend/src/shared/i18n/app-assistant-i18n.ts](../frontend/src/shared/i18n/app-assistant-i18n.ts) | App assistants and extension permissions use the same EN/DE/FR/ES vocabulary. |
 | [frontend/src/shared/i18n/app-building-i18n.ts](../frontend/src/shared/i18n/app-building-i18n.ts) | Shared translated app recipes and reviewed AI changes; no alternate app schema. |
+| [frontend/src/shared/i18n/app-capability-i18n.ts](../frontend/src/shared/i18n/app-capability-i18n.ts) | Merchant intent and executable decision examples use the shared four-language Studio vocabulary. |
 | [frontend/src/shared/i18n/app-events-i18n.ts](../frontend/src/shared/i18n/app-events-i18n.ts) | Subscription/filter/delivery vocabulary shared by Studio and coding agents. |
 | [frontend/src/shared/i18n/app-i18n.ts](../frontend/src/shared/i18n/app-i18n.ts) | App and evidence UI vocabulary, shared by store, merchant and payment components. |
 | [frontend/src/shared/i18n/app-library-i18n.ts](../frontend/src/shared/i18n/app-library-i18n.ts) | App library vocabulary and built-in summaries; no inferred connection or payment readiness. |

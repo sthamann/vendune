@@ -1,6 +1,6 @@
 {
   "id": "snapshot_pricing",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "coreApi": "1",
   "runtime": "declarative",
   "name": {
@@ -25,5 +25,159 @@
   "entities": [],
   "actions": [],
   "slots": [],
-  "events": []
+  "events": [],
+  "capability": {
+    "version": 1,
+    "intent": {
+      "en": "Apply one percent of the current cart subtotal through a read-only commerce decision.",
+      "de": "Ein Prozent des aktuellen Warenkorb-Zwischenbetrags als schreibgeschützte Commerce-Entscheidung anwenden.",
+      "fr": "Appliquer un pour cent du sous-total courant du panier via une décision en lecture seule.",
+      "es": "Aplicar un uno por ciento del subtotal actual del carrito mediante una decisión de solo lectura."
+    },
+    "assumptions": [
+      {
+        "en": "Amounts use integer minor units and the cart currency scale. Native checkout keeps ownership of taxes, stock and payment.",
+        "de": "Beträge verwenden ganzzahlige Untereinheiten und die Währungsskala des Warenkorbs. Steuern, Bestand und Zahlung bleiben im nativen Checkout.",
+        "fr": "Les montants utilisent des unités mineures entières et l’échelle de la devise du panier. Taxes, stock et paiement restent gérés par le checkout natif.",
+        "es": "Los importes usan unidades menores enteras y la escala de la moneda del carrito. Los impuestos, el stock y el pago siguen en el checkout nativo."
+      }
+    ],
+    "examples": [
+      {
+        "id": "empty",
+        "label": {
+          "en": "Empty",
+          "de": "Leerer Warenkorb",
+          "fr": "Panier vide",
+          "es": "Carrito vacío"
+        },
+        "hook": "price",
+        "snapshot": {
+          "subtotal": {
+            "minor": 0,
+            "currency": "EUR",
+            "scale": 2
+          }
+        },
+        "context": {},
+        "expected": {
+          "adjustment": {
+            "minor": 0,
+            "currency": "EUR",
+            "scale": 2
+          },
+          "accepted": true,
+          "reasonCode": "snapshot_price"
+        }
+      },
+      {
+        "id": "one_percent",
+        "label": {
+          "en": "One percent",
+          "de": "Ein Prozent",
+          "fr": "Un pour cent",
+          "es": "Uno por ciento"
+        },
+        "hook": "price",
+        "snapshot": {
+          "subtotal": {
+            "minor": 10000,
+            "currency": "EUR",
+            "scale": 2
+          }
+        },
+        "context": {},
+        "expected": {
+          "adjustment": {
+            "minor": 100,
+            "currency": "EUR",
+            "scale": 2
+          },
+          "accepted": true,
+          "reasonCode": "snapshot_price"
+        }
+      },
+      {
+        "id": "larger_cart",
+        "label": {
+          "en": "Larger cart",
+          "de": "Größerer Warenkorb",
+          "fr": "Panier plus grand",
+          "es": "Carrito más grande"
+        },
+        "hook": "shipping",
+        "snapshot": {
+          "subtotal": {
+            "minor": 25000,
+            "currency": "EUR",
+            "scale": 2
+          }
+        },
+        "context": {},
+        "expected": {
+          "adjustment": {
+            "minor": 250,
+            "currency": "EUR",
+            "scale": 2
+          },
+          "accepted": true,
+          "reasonCode": "snapshot_price"
+        }
+      },
+      {
+        "id": "jpy_scale",
+        "label": {
+          "en": "Jpy scale",
+          "de": "Yen ohne Nachkommastellen",
+          "fr": "Yen sans décimales",
+          "es": "Yenes sin decimales"
+        },
+        "hook": "discount",
+        "snapshot": {
+          "subtotal": {
+            "minor": 20000,
+            "currency": "JPY",
+            "scale": 0
+          }
+        },
+        "context": {},
+        "expected": {
+          "adjustment": {
+            "minor": 200,
+            "currency": "JPY",
+            "scale": 0
+          },
+          "accepted": true,
+          "reasonCode": "snapshot_price"
+        }
+      },
+      {
+        "id": "validation",
+        "label": {
+          "en": "Validation",
+          "de": "Prüfung ohne Preisänderung",
+          "fr": "Validation sans changement de prix",
+          "es": "Validación sin cambio de precio"
+        },
+        "hook": "validation",
+        "snapshot": {
+          "subtotal": {
+            "minor": 10000,
+            "currency": "EUR",
+            "scale": 2
+          }
+        },
+        "context": {},
+        "expected": {
+          "adjustment": {
+            "minor": 0,
+            "currency": "EUR",
+            "scale": 2
+          },
+          "accepted": true,
+          "reasonCode": "snapshot_price"
+        }
+      }
+    ]
+  }
 }
