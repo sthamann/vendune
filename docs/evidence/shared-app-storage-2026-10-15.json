@@ -84,7 +84,8 @@
     "The broad local run completed all selected HTTP/provider/browser suites, then the final money comparison could not locate its PHP oracle. Rerun with the existing pinned Shopware 6.7.14.2 autoloader passed all 1344 cases and the remaining structural gates.",
     "The strengthened actual-tenant metadata/projection denial tests passed on the final separately authenticated transaction-pooler rerun.",
     "The first full GitHub run exposed identity_broker rewinding only migration055 on a post102 database. Replaced that impossible mixed schema with an isolated original001-054 SQL/ledger database; native055-102 migration and real managed-connection HTTP reads across two serving processes pass locally without a runtime repair path.",
-    "At 678a9c6, the push verification passed in 32m18s while the PR merge-ref run exposed a transient planner evidence conflict in developer_documents. A real provider-pause/embedding-lease switch reproduces the 409 with unchanged documents; native validation now re-admits the exact supplied chunks rather than repeating retrieval. The corresponding supplied-source archive control still rejects before an executable proposal."
+    "At 678a9c6, the push verification passed in 32m18s while the PR merge-ref run exposed a transient planner evidence conflict in developer_documents. A real provider-pause/embedding-lease switch reproduces the 409 with unchanged documents; native validation now re-admits the exact supplied chunks rather than repeating retrieval. The corresponding supplied-source archive control still rejects before an executable proposal.",
+    "The additional live-worker archive control initially expected failed; the native worker correctly retained uncertain for an already called provider whose output could not be checkpointed. The test now verifies that actual boundary, HTTP 409, no executable proposal and no automatic replay. Direct-worker and real one-backend transaction-pooler runs pass; separately authenticated system/tenant pooler regressions also pass."
   ],
   "limits": [
     "Synthetic isolated data and local protocol/model fixtures; no paid calls, real customers or real money",
@@ -105,7 +106,7 @@
     "src/planner.rs": "97afc4cdc529f94deb6d1f9b84e115c0572ab2697b390e51d785e6a60b328279",
     "src/documents/retrieval.rs": "121eb9567852948cdc3f36522dad020acb3783448ff7568ed044a789d2f3318d",
     "scripts/developer_documents.py": "157447d0315b206da7d93fe10ad93b678a2388dc5366f57df460809e723a0add",
-    "scripts/durable_agents.py": "bc29077f8dd944cc96c7d96d23ba92988137baa42f915fdfd382eb23c78928bb"
+    "scripts/durable_agents.py": "9830f3725b8c54993f4707090df1632e527dd9c00c9fe24803ad584d52659c67"
   },
   "plannerSourceFence": {
     "cause": "Re-running semantic/lexical retrieval made unchanged frozen evidence depend on embedding admission and index readiness",
@@ -113,6 +114,8 @@
     "unchangedSourceAdmissionSwitchAfterFixHttpStatus": 200,
     "archivedSuppliedPrivateSourceHttpStatus": 409,
     "newRuntimeOrQueue": false,
-    "review": "Independent read-only review found no concrete privacy/revocation weakening; current authority, app and external-source guards remain"
+    "review": "Independent read-only review found no concrete privacy/revocation weakening; current authority, app and external-source guards remain",
+    "actualWorkerArchiveRejectsProposalAndPreservesUncertainty": true,
+    "actualOneBackendPoolerWorkerRegression": true
   }
 }

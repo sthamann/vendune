@@ -209,11 +209,14 @@ try:
     mode['block']=False;release.set()
     for _ in range(150):
         stopped=call(base,'/api/agent/runs/'+queued['taskId'],h=h)
-        if stopped['state']=='failed':break
+        if stopped['state'] not in ['queued','running']:break
         time.sleep(.1)
-    assert stopped['state']=='failed' and stopped['error']['status']==409,stopped
+    # The provider was called but its output cannot be checkpointed after withdrawal.
+    # Preserve the native uncertain-call boundary instead of making it automatically retryable.
+    assert stopped['state']=='uncertain' and stopped['error']['status']==409 and stopped['preview'] is None,stopped
     assert sql(f"SELECT proposal='{{}}'::jsonb FROM tasks WHERE tenant='{tenant}' AND id='{queued['taskId']}'")=='t'
-    passed('An archived prompt source fences the actual worker before proposal persistence')
+    calls_before=len(captured);time.sleep(.3);assert len(captured)==calls_before
+    passed('An archived prompt source fences proposal persistence and leaves its uncheckpointed provider call explicitly uncertain without replay')
     wire={'jsonrpc':'2.0','id':1,'method':'tools/list'}
     tools=call(base,'/mcp',wire,h)['result']['tools']
     assert {'merchant.run.create','merchant.run.status','merchant.run.cancel','merchant.run.resume'} <= {t['name'] for t in tools}
