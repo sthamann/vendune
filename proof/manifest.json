@@ -1071,8 +1071,8 @@
     },
     "src/apps/job_callbacks.rs": {
       "status": "unproved",
-      "sha256": "3fdbc1c4c92bbf5307f76c50f22464e65e5a42de5435e4b463a83d4ba5d1a146",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "bc0ae8cd12bf8545eb57a0f8506d65a025e83feb5343f1929223674d553ff0de",
+      "review": "Retain role-bound scope, separate pools, restrictive policies and TEMP denial. App job callbacks now lock scoped memberships and workspace role base rows before reading the canonical security-invoker grants view; no UPDATE grant on the view or wider system scope is needed. Complete registered signed HTTP flows and two separate real PgBouncer pools pass with worker restart, revocation, native app jobs and key rotation. Each signed cutover fixture owns a separate disposable database."
     },
     "src/apps/jobs.rs": {
       "status": "unproved",
@@ -1091,8 +1091,8 @@
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "1db734199c5b4534b9e70b0b6ee8923cd923214aa1fc384e0ccae5c900c7eafb",
-      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
+      "sha256": "0c385a5037dd0698220777dbe7b6c54ad1a1c6f91009cefb105caa7ad3c79038",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
@@ -1151,13 +1151,13 @@
     },
     "src/apps/registry.rs": {
       "status": "unproved",
-      "sha256": "231d267164b4f26bbf867f8485e4b1a6bd5e5264c83283b5b0be398cf15f6569",
-      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
+      "sha256": "d95b8fc1b1ebd5e2f25e6f7a823722151db1f2f0b1e9723607e2870f081c53f3",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/apps/relations.rs": {
       "status": "unproved",
-      "sha256": "f714d7b539ccf25b28c4ca4103e75ec8ce7f1f121ef8355dc17afd111c065a1c",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "bebabe8e64d31a48199b31c5661f0806e068b1fe46ec35f306fa560ba10a22a6",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/apps/routes.rs": {
       "status": "unproved",
@@ -1178,6 +1178,11 @@
       "status": "unproved",
       "sha256": "50840edf0ceaa02231cd88185c6df951ba323ba4e97ab4d87fe0c5ea53675bdb",
       "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+    },
+    "src/apps/schema_scope.rs": {
+      "status": "unproved",
+      "sha256": "e89f92ecf8d3d13c77a8655ab62c638c90250f0ae99f87a1c9f200dbdb6dab62",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/apps/schema_upgrade.rs": {
       "status": "unproved",
@@ -1371,8 +1376,8 @@
     },
     "src/auth/integrations.rs": {
       "status": "reviewed-binding",
-      "sha256": "e7783b7145638179bab89d1ba306c4de3c58b8b2d171a50f0a8ef6b507a15650",
-      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+      "sha256": "34e497ecc287fd29d9c821e2dd8c8442c73c683cce3789ce2e9600a14c8c4c6a",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/auth/invitations.rs": {
       "status": "unproved",
@@ -1386,13 +1391,13 @@
     },
     "src/auth/mfa.rs": {
       "status": "unproved",
-      "sha256": "06f8d2d0f8d87f3f6ec82949a1c8c0385476fdbcc03f5ad28b20c8c5df156cd0",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "ca48077a09acec7a1f4243370ad55d79633ef0321a38e1efa199f5ef9d473f26",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/auth/middleware.rs": {
       "status": "reviewed-binding",
-      "sha256": "47e20da0520de50a17790e4290406a815ec7b12424970c5b8c9cbce7feee4f51",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "d0b094245d8ff4c752e62882a180d4aa1fc805505ef6fea3c42d6c1229c4a367",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/auth/mod.rs": {
       "status": "unproved",
@@ -1616,8 +1621,8 @@
     },
     "src/bootstrap.rs": {
       "status": "unproved",
-      "sha256": "d03239d94348fd65fe402bf40d9693ec313779cb4a898b770f56b7b32b165692",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "204766fad00d1533504ccea522e153cad02e1646091777ea10d40b6cf646135c",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/brand_redirect.rs": {
       "status": "unproved",
@@ -1746,8 +1751,8 @@
     },
     "src/checkout_page.rs": {
       "status": "unproved",
-      "sha256": "8728b2332d76cec434dd44ab8b9e72747d43d0e852e6dc217e592703c050378e",
-      "review": "Reviewed domain cutover adapters: only browser GET/HEAD redirect; explicit legacy suffixes retain native tenant/channel ownership and exact HTTPS checkout origins. Scoped HTTP/PostgreSQL handoff, checkout-review and tenant-isolation suites passed. This records adapter review, not a proof of middleware correctness."
+      "sha256": "11b57ab7a62c7cec77e06a1777c309656b896526c75dfd206b6cc31bdd549e38",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/checkout_products.rs": {
       "status": "unproved",
@@ -1796,8 +1801,8 @@
     },
     "src/cognition/behavior/report.rs": {
       "status": "unproved",
-      "sha256": "bc5fc50366b55799a84e2f81f394d7e46b1795d2a1e129174ecb69eb614be41b",
-      "review": "Reviewed selective-publication domain rights, transactional channel and current installed Flow action admission, shared B2B configuration writers with history and staging, method/currency dependency guards, and inherited consent-bound analytics. PostgreSQL and frontend regressions exercise successful effects, denied access, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "2a5e1d219da2991a2b924f8ba5e7f66b886eb43260612505c0b505688245e137",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/cognition/claim_batches.rs": {
       "status": "reviewed-binding",
@@ -2036,8 +2041,8 @@
     },
     "src/commerce/product_languages.rs": {
       "status": "unproved",
-      "sha256": "bafdb5f5ff9d30da116f4ed4c324a5309cb193da9a5a922a91749e6a56efb808",
-      "review": "Reviewed company field whitelist, dynamic locales and structured geography; tenant-only immutable decoded logo storage and public linked projection; serialized base/channel revisions with stale and concurrent HTTP cases; order-channel issuer and immutable cancellation snapshots; private cloning, selective release and digest-rebound live baseline. 80 Rust and 122 UI tests plus company, merchant operations, account and staging PostgreSQL suites passed. JSON, SQL, image and UI adapters remain unproved."
+      "sha256": "f6c1c5fa42c18468c242313d0b4514fef3e1247231ee2ec0ae1821076eb4caf8",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/commerce/product_metadata.rs": {
       "status": "unproved",
@@ -2179,6 +2184,16 @@
       "sha256": "114988d139ef265f4443c3dfa0a94d7978099fb0429b7d1537f903ca6b344d67",
       "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
+    "src/database_scope/provision.rs": {
+      "status": "unproved",
+      "sha256": "86a2a585d52fe90b6185f01d01aea869e30baaa92e008c2a5944903716589dee",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+    },
+    "src/database_scope.rs": {
+      "status": "unproved",
+      "sha256": "35ca439dad30bc2d322a2f49e0f530eaf057858841bb4c4e17638a4864067b8f",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+    },
     "src/demo_catalog.rs": {
       "status": "unproved",
       "sha256": "a467d5d664a423e9dbebd7cc3ce67f8bf2a220f8783c1d1bc4879746e469fecd",
@@ -2221,8 +2236,8 @@
     },
     "src/developer/mod.rs": {
       "status": "unproved",
-      "sha256": "cb733b7a90e739ff11665e972fe14241d2ab2f74f63aa0398312a8214957069a",
-      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
+      "sha256": "df4a6c6eef0d0b7cf65d1bf6d86fcf5099e99d197dea8a778fc0bc45a804e029",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/developer/preview.rs": {
       "status": "unproved",
@@ -2231,8 +2246,8 @@
     },
     "src/developer/routes.rs": {
       "status": "unproved",
-      "sha256": "cbb0898f1f0668d2230aa375073547a1e92c906181a269f32f34bfb8e991a78b",
-      "review": "Reviewed optional version-1 business capability contract and bounded synthetic snapshots; real sandbox verification gates immutable builds and native installation/release. Existing AI edits retain cases, legacy serialization stays unchanged, main-language validation and credential-free coding tasks share the same manifest. Core policy statements unchanged; SQL and browser adapters remain tested, unproved boundaries."
+      "sha256": "120f4feb482747d138bbba81b8eb4bbc07513d0363d2c6b39d830178aeff6aa2",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/discount.rs": {
       "status": "reviewed-binding",
@@ -2361,8 +2376,8 @@
     },
     "src/inference/settings.rs": {
       "status": "unproved",
-      "sha256": "c5215579040eafa3aef37dc2dd3baf40f317fa59def793ad6216cbe778c307bf",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "8e8956dd6fe33de0c754577a8a0a2f4e323e5e2c0dc98d9f760f0fee8ddbee0c",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/inference/tests.rs": {
       "status": "unproved",
@@ -2451,8 +2466,8 @@
     },
     "src/lib.rs": {
       "status": "unproved",
-      "sha256": "82b326944b2f1c8657815a39e0c3aabd81fd18f814a75cd7c5565f5f5b1f904f",
-      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
+      "sha256": "c128b449a2ae9cc7ec793af8fcad00f9da5f7b55a4c4da0d18fc68893123508a",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/localization.rs": {
       "status": "unproved",
@@ -2486,8 +2501,8 @@
     },
     "src/marketing/channel_preview.rs": {
       "status": "unproved",
-      "sha256": "513fc2514e2c980671de604e8366aae3ad453889d0033cc4fefe7e3669311a60",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "72f56d3010781f3a589218a9219e31757f453f3d74b4108d94bbce2878eae8de",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/marketing/channels.rs": {
       "status": "unproved",
@@ -2651,8 +2666,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "979293cc5c11a2d82b080256ac8d8b0057e9cb620368a0ecb06514f942f707ac",
-      "review": "Review additive product content clock and rolling-writer trigger; preserve aggregate CAS for explicit stock and legacy clients; content-only HTTP/MCP edits omit stock under the locked native owner; preserve live stock in history and release snapshots. Actual two-replica purchase/cancellation and editor regressions exercise stale writes; async SQL and UI remain outside the existing unchanged Lean proof boundary."
+      "sha256": "e190602bddbde12436a5e520167e1ea32533a06053b913c5da6cbf93744a897b",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -2929,6 +2944,11 @@
       "sha256": "c13f1290e265a28a9fb702aaf5552afe7fbd2b74b48b17577e3c20a514074665",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
+    "src/performance/authority.rs": {
+      "status": "unproved",
+      "sha256": "b6ac3e4acc0a3d794797ef71140e5eb6d208863cff79d5121a64ea7e3b4db8c3",
+      "review": "Retain reviewed separate role-bound SQL scope and 099 staged rollout; native frontend alias allocation requires global collision visibility and atomic managed app DDL while retaining explicit tenant predicates. Added an actual-login negative case proving PUBLIC TEMP allowed table shadowing; configure now revokes PUBLIC TEMP and startup rejects effective tenant CREATE/TEMP grants. No pure Lean policies changed."
+    },
     "src/performance/cache.rs": {
       "status": "unproved",
       "sha256": "cb3be22453fd387a9ec775862e425bcc661d13c598358d5e434e4dd60ab35227",
@@ -2956,18 +2976,18 @@
     },
     "src/performance/mod.rs": {
       "status": "unproved",
-      "sha256": "b023c8b672bf9283f62bc57e0f737ea4b5744408b9d3d65a5e4283aac6b34d40",
-      "review": "Reviewed shared UTC-day quota extraction, SSE classification and native knowledge.extract pipeline; all Rust tests and Clippy pass, native provider checks prove HTTP/MCP/Flow quota parity, exact quotes, source-language handling and current actor revocation."
+      "sha256": "b22faef0272e38e38425ec16e7e7a086a95585758088c079fc449f12f7cfa166",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/performance/pool.rs": {
       "status": "unproved",
-      "sha256": "24688bdd8b342b17c48af59793a297ae148719be094c0b7d0bf46f37019590bc",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "4b55df24aab3db84dcf64d1082ff0c3046d247fdf197ec7f1ac52a966b2639b3",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/performance/row_security.rs": {
       "status": "unproved",
-      "sha256": "29d1a2134e09e8c40bcdff2e1fe55f7024061f8914cb54293eb116c8dc60778e",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "1b7300a4bfbebda1293084421f505a93dbcccbb12363e139de7cf6533a5a4d7a",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/performance/settings.rs": {
       "status": "unproved",
@@ -3006,8 +3026,8 @@
     },
     "src/platform/metrics.rs": {
       "status": "unproved",
-      "sha256": "eb78437cdf31627882f3daa8f86720b55be3e1f1cd055ad93a23d95612e8167a",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "fb5d6a65d432feb322cca3ebbb913bb8d38c21ab11a3f04f38be73e4a13333b1",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/platform/mod.rs": {
       "status": "unproved",
@@ -3141,8 +3161,8 @@
     },
     "src/scoped_pool.rs": {
       "status": "unproved",
-      "sha256": "710cb12e2d3eb02945806a72579d3ea1a1b89bd5277a40a0c3ba130b4e6c1022",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "6eaf216e143cacb6c3b2a3a248bef11553832d30b7c01980f0d49ff898fea1c4",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/security_headers.rs": {
       "status": "unproved",
@@ -3156,8 +3176,8 @@
     },
     "src/shop_domains/frontend_bindings.rs": {
       "status": "unproved",
-      "sha256": "189f27fbe5b0ff49b89cf189c7112adc5cb62f87b85ef97346262c84666873d6",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "1a9d26a0a896f1cc34be8dbb9d8b607bedd78c67353ce06eca5863ecade6e603",
+      "review": "Retain reviewed separate role-bound SQL scope and 099 staged rollout; native frontend alias allocation requires global collision visibility and atomic managed app DDL while retaining explicit tenant predicates. Added an actual-login negative case proving PUBLIC TEMP allowed table shadowing; configure now revokes PUBLIC TEMP and startup rejects effective tenant CREATE/TEMP grants. No pure Lean policies changed."
     },
     "src/shop_domains/frontend_editor.rs": {
       "status": "unproved",
@@ -3261,8 +3281,8 @@
     },
     "src/tenant_scope.rs": {
       "status": "unproved",
-      "sha256": "39afa4c0f53c0905394658623fbfc7f86d58fe6fbe9405909bc43942929612e8",
-      "review": "Reviewed all changed Rust, append-only schemas, build/extraction and Lean inputs: lease hooks bind new/reused connections and reset on release; strict runtime rejects owner/bypass/TRUNCATE and preserves app-schema ownership; two-replica non-owner PostgreSQL tests deny forged foreign writes, enforce operator quotas and parent-stage daily usage, release persisted allocation quantities once despite corrupted snapshots, and distinguish commit from rollback invalidation. Money retains legacy EUR rounding with explicit scale and original Shopware differential; receipt-backed state admission is monotonic with late capture/refund. Async SQL/provider code remains unproved. Rust 113 tests, staging/app/automation/settings and strict checkout/CRM/tenant regressions passed; 274 frontend tests and production build passed."
+      "sha256": "1280ce70e3bfd1e5d2dfdfec510da678c376d31a25263799a316c737a824c616",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/translations/apply.rs": {
       "status": "reviewed-binding",
@@ -3346,12 +3366,12 @@
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
     "Cargo.lock": {
-      "sha256": "1e14a3bdec4ea5daeee8e23d2668df7b3fcbc494166c90bd6cc0e9d83f44299e",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "ace45b77709d51c7869d719023201c09b09c13b23591a339511963366d10eb7c",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "Cargo.toml": {
-      "sha256": "5a9df8a23673fae08f6fc94eb65bc7473ac330434c0a453481fd0bd39861b5aa",
-      "review": "Review provider-neutral split quantities, original app-bound PDF acknowledgement, native booking intent, aggregate storage and current Flow/job disclosure; provider effects remain unproved"
+      "sha256": "c73346e3607778411c7cf7b65e91bea8f778f7ccdfe66de45fab372204a324ba",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "deploy/Dockerfile": {
       "sha256": "100168e9587c23009b01ab65775056e5e49abf90ee3b7dca0fdfe05133154e25",
@@ -3780,6 +3800,10 @@
     "migrations/098-product-content-revision.sql": {
       "sha256": "028d9bbdbc80fdd25eb3c91a388a940940529bca4d6cad02be44d5c2e25472f4",
       "review": "Review additive product content clock and rolling-writer trigger; preserve aggregate CAS for explicit stock and legacy clients; content-only HTTP/MCP edits omit stock under the locked native owner; preserve live stock in history and release snapshots. Actual two-replica purchase/cancellation and editor regressions exercise stale writes; async SQL and UI remain outside the existing unchanged Lean proof boundary."
+    },
+    "migrations/099-authenticated-database-scope.sql": {
+      "sha256": "f2a1bf26eda6d0fc867ab0dd1434aeabbc77339fc740db357e7b713f04730e50",
+      "review": "Retain reviewed separate role-bound SQL scope and 099 staged rollout; native frontend alias allocation requires global collision visibility and atomic managed app DDL while retaining explicit tenant predicates. Added an actual-login negative case proving PUBLIC TEMP allowed table shadowing; configure now revokes PUBLIC TEMP and startup rejects effective tenant CREATE/TEMP grants. No pure Lean policies changed."
     },
     "proof/Commerce/Claims.lean": {
       "sha256": "f3de8f3bdfbf76e69dc5a609a7534aa460a7dd5f6c4f6ed14a07590efbdd59ad",

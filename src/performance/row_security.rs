@@ -7,6 +7,7 @@ use veyndo::tenant_scope::{Scope, current};
 pub(super) async fn bind(conn: &mut PgConnection) -> std::result::Result<(), sqlx::Error> {
     let (tenant, system) = match current() {
         Scope::Tenant(t) => (t, "off"),
+        Scope::Personal { tenant, .. } | Scope::Actor { tenant, .. } => (tenant, "off"),
         Scope::System => (String::new(), "on"),
         Scope::Denied => (String::new(), "off"),
     };

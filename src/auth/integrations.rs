@@ -39,16 +39,19 @@ pub(crate) async fn resolve_identity_channel(
     selected: Option<&str>,
     channel: Option<&str>,
 ) -> Result<Identity> {
-    let r = sqlx::query(include_str!("identity.sql"))
-        .bind(hash(token))
-        .bind(selected)
-        .bind(channel)
-        .fetch_optional(&a.db)
-        .await?
-        .ok_or(Error(
-            StatusCode::UNAUTHORIZED,
-            "Session or integration key expired or invalid".into(),
-        ))?;
+    let r = veyndo::tenant_scope::scoped(
+        veyndo::tenant_scope::Scope::System,
+        sqlx::query(include_str!("identity.sql"))
+            .bind(hash(token))
+            .bind(selected)
+            .bind(channel)
+            .fetch_optional(&a.db),
+    )
+    .await?
+    .ok_or(Error(
+        StatusCode::UNAUTHORIZED,
+        "Session or integration key expired or invalid".into(),
+    ))?;
     let scopes: Option<Value> = r.get("scopes");
     Ok(Identity {
         user: r.get("user_id"),

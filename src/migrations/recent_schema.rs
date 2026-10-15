@@ -208,4 +208,8 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         "098-product-content-revision",
         include_str!("../../migrations/098-product-content-revision.sql"),
     ),
+    (
+        "099-authenticated-database-scope",
+        include_str!("../../migrations/099-authenticated-database-scope.sql"),
+    ),
 ];

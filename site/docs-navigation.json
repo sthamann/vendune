@@ -154,6 +154,7 @@
         "docs/tenant-isolation.md",
         "docs/app-security.md",
         "docs/security.md",
+        "docs/authenticated-database-scope.md",
         "docs/platform.md",
         "docs/managed-hosting.md",
         "docs/deployment.md",

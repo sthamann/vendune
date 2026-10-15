@@ -70,6 +70,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/runtime.rs](../src/apps/runtime.rs) | Generic pure-Wasm contribution executor; the installed package supplies all business predicates. |
 | [src/apps/schedules.rs](../src/apps/schedules.rs) | Durable UTC cron ticks emit namespaced outbox events; replicas lock due rows and staging never runs them. |
 | [src/apps/schema_changes.rs](../src/apps/schema_changes.rs) | Explicit, transactional field evolution. No raw migration SQL; bounded recovery snapshots precede DDL and every converted value is validated. |
+| [src/apps/schema_scope.rs](../src/apps/schema_scope.rs) | Protect newly installed app tables within their schema transaction; preserve pre-099 historical migration replay. |
 | [src/apps/schema_upgrade.rs](../src/apps/schema_upgrade.rs) | Apply a checked migration under tenant-local DDL locks with bounded recovery history and optimistic record revisions. |
 | [src/apps/secrets.rs](../src/apps/secrets.rs) | Digest-bound per-shop app secret rotation reuses platform authenticated encryption; no plaintext read endpoint. |
 | [src/apps/service_limits.rs](../src/apps/service_limits.rs) | Shared network-app admission: per-app and aggregate tenant bulkheads plus replica-wide fenced leases. |
@@ -270,6 +271,8 @@ This lists every checked-in source module in these roots, including files with n
 | [src/currencies/routes.rs](../src/currencies/routes.rs) | Native currency discovery, revision-safe selection and authenticated FX/price job operations. |
 | [src/currencies/tests.rs](../src/currencies/tests.rs) | Currency conversion adversaries and immutable source-price semantics, independent of live rate providers. |
 | [src/customer.rs](../src/customer.rs) | Customer credential verification and context rotation. |
+| [src/database_scope/provision.rs](../src/database_scope/provision.rs) | Migration-only authority rollout commands; role passwords never pass through command arguments or output. |
+| [src/database_scope.rs](../src/database_scope.rs) | Role-bound database scope tickets; private signing material never enters requests or app contexts. |
 | [src/demo_catalog.rs](../src/demo_catalog.rs) | Public synthetic fashion template; provisioning copies only this versioned fixture into a new tenant. |
 | [src/developer/agent_connection.rs](../src/developer/agent_connection.rs) | Credential-free local coding-agent connection shared by native editors. |
 | [src/developer/archive.rs](../src/developer/archive.rs) | Recoverable App Studio project deletion; installed packages and app records retain their independent lifecycle. |
@@ -420,6 +423,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/payments/worker.rs](../src/payments/worker.rs) | Leased payment jobs; network runs after claim commit, fenced receipts prevent duplicate local effects. |
 | [src/performance/access_snapshot.rs](../src/performance/access_snapshot.rs) | One fresh, server-owned admission read shared by domain, identity, availability, channel and proxy middleware. |
 | [src/performance/admission.rs](../src/performance/admission.rs) | Bounded instance/tenant concurrency, durable UTC-day AI quotas, and low-cardinality latency telemetry. |
+| [src/performance/authority.rs](../src/performance/authority.rs) | Connect separately admitted SQL roles within one process budget; rotate authenticated transaction scopes. |
 | [src/performance/cache.rs](../src/performance/cache.rs) | Bounded weighted LRU for immutable decoded read models; no network I/O under its mutex. |
 | [src/performance/cluster_lease.rs](../src/performance/cluster_lease.rs) | Cluster-wide tenant resource leases. DB serialization protects admission; cancellation releases the fenced lease. |
 | [src/performance/delivery.rs](../src/performance/delivery.rs) | Native static bypass and bounded HTTP compression; credentials, streams and already encoded bodies stay intact. |
@@ -1372,6 +1376,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/rule_differential.py](../scripts/rule_differential.py) | Execute original Shopware numeric comparisons, including epsilon, null and unsupported operator semantics. |
 | [scripts/rust_connectors.py](../scripts/rust_connectors.py) | Actual Rust/PostgreSQL multi-process notification, OAuth/import and adversarial fixtures; no external accounts. |
 | [scripts/scalability.py](../scripts/scalability.py) | Real HTTP/PG regression for bounded reads and concurrent cart edits. |
+| [scripts/security/authenticated_scope.py](../scripts/security/authenticated_scope.py) | Adversarial SQL uses the actual tenant login, not SET ROLE on a privileged fixture session. |
 | [scripts/security/core_hardening.py](../scripts/security/core_hardening.py) | Real replica regressions for auth admission, poison-event isolation, retention and bounded resource leases. |
 | [scripts/security/tenant_schema.py](../scripts/security/tenant_schema.py) | Database adversarial checks: reject cross-shop links even when API predicates are accidentally omitted. |
 | [scripts/security_route_gate.py](../scripts/security_route_gate.py) | Every static commerce Admin API method must have an adjacent explicit permission; new routes fail closed. |
@@ -1379,6 +1384,8 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/settings_scopes.py](../scripts/settings_scopes.py) | Real tenant/channel settings, immutable order dependencies, localized gallery and selective staging regressions. |
 | [scripts/shipment_workflows.py](../scripts/shipment_workflows.py) | Real isolated PostgreSQL/HTTP package conservation, replay, current rights, customer projection and flow effects. |
 | [scripts/shipping_contract.py](../scripts/shipping_contract.py) | Test-only carrier-neutral service: native jobs, package intent, documents and Flow; no external bookings. |
+| [scripts/signed_pooler.py](../scripts/signed_pooler.py) | Two authenticated roles, each through a real one-backend transaction pooler. |
+| [scripts/signed_runtime.py](../scripts/signed_runtime.py) | Repeat the real two-replica runtime path with separately authenticated tenant/system SQL roles. |
 | [scripts/site_markdown.py](../scripts/site_markdown.py) | Render every tracked Markdown document with repository-aware links and search. |
 | [scripts/site_navigation.py](../scripts/site_navigation.py) | Curated reading paths and shared document navigation; Markdown remains authoritative. |
 | [scripts/staging.py](../scripts/staging.py) | Real PG proof: private sandbox, immutable app versions, selective release and conflicts. No paid inference. |

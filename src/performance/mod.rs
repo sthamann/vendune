@@ -18,11 +18,12 @@ pub(crate) use admission::{Admission, reserve_ai_attempt, run as admit_request};
 mod invalidation;
 mod languages;
 pub(crate) use invalidation::start as start_invalidations;
+mod authority;
 mod pool;
+pub(crate) use authority::connect as connect_database;
 mod row_security;
 mod settings;
 pub(crate) use languages::{LanguageRow, languages};
-pub(crate) use pool::pool_options;
 pub(crate) use row_security::verify as verify_row_security;
 pub(crate) use settings::settings;
 

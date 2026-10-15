@@ -179,3 +179,7 @@ Personal authenticator enrollment, revision-checked recovery and mandatory facto
 admission across merchant/operator/Experience paths are documented in
 [account-security.md](account-security.md). These operational credentials are not
 sandboxed shop configuration and cannot be restored through content history.
+
+## Authenticated database authority
+
+See [the signed-scope contract and deployment sequence](authenticated-database-scope.md) for separate tenant/system logins, private actor binding, atomic app-table protection and key rotation. Existing `rac.*` values alone are not this boundary. Production activation is explicit and follows verified replica cutover.

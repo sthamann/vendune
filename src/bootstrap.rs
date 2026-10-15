@@ -11,7 +11,13 @@ pub(crate) async fn bootstrap() -> App {
         ["auto", "serve", "migrate"].contains(&mode.as_str()),
         "Unsupported BOOTSTRAP_MODE"
     );
-    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL required");
+    let database_url = if mode == "serve" {
+        env::var("DATABASE_RUNTIME_URL")
+            .or_else(|_| env::var("DATABASE_URL"))
+            .expect("Runtime database connection required")
+    } else {
+        env::var("DATABASE_URL").expect("DATABASE_URL required for migration")
+    };
     let setup = if mode == "serve" {
         None
     } else {
@@ -23,11 +29,7 @@ pub(crate) async fn bootstrap() -> App {
         migrations::apply(&pool).await;
         Some(pool)
     };
-    let db = performance::pool_options()
-        .connect(&env::var("DATABASE_RUNTIME_URL").unwrap_or(database_url.clone()))
-        .await
-        .expect("commerce connection");
-    let db = PgPool::new(db, runtime_config::get().transaction_pooling);
+    let db = performance::connect_database(&database_url).await;
     performance::verify_row_security(&db).await;
     migrations::ready(&db).await;
     // Personal-only hosting has no shared bootstrap credential. Legacy development mode still requires one.
@@ -175,6 +177,13 @@ async fn shutdown() {
 }
 
 pub(crate) fn entry() {
+    if env::args().nth(1).as_deref() == Some("--database-authority") {
+        tokio::runtime::Runtime::new()
+            .unwrap()
+            .block_on(veyndo::database_scope::provision::run())
+            .expect("Database authority command failed");
+        return;
+    }
     if env::args().nth(1).as_deref() == Some("--sign-app") {
         apps::sign_package();
         return;

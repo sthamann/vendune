@@ -3490,6 +3490,7 @@ dependencies = [
  "wasmtime",
  "wat",
  "webpki-roots",
+ "zeroize",
 ]
 
 [[package]]

@@ -42,7 +42,8 @@ rpc=call('/mcp',{'jsonrpc':'2.0','id':1,'method':'tools/call','params':{'name':'
 assert 'error' not in rpc and not rpc['result'].get('isError'),rpc
 build=rpc['result']['structuredContent']
 assert build['manifest']['capability']==expected_contract
-call('/api/developer/builds/'+build['id']+'/stage',{'approve':True,'digest':build['digest']},h)
+staging_rpc=call('/mcp',{'jsonrpc':'2.0','id':2,'method':'tools/call','params':{'name':'developer.stage','arguments':{'buildId':build['id'],'approve':True,'digest':build['digest']}}},h)
+assert 'error' not in staging_rpc and not staging_rpc['result'].get('isError'),staging_rpc
 staged=next(p for p in call('/api/apps',h={**h,'x-tenant':stage})['packages'] if p['id']==m['id'])
 assert staged['manifest']['capability']==expected_contract
 change=next(c for c in call('/api/environments/'+stage+'/diff',h=h)['changes'] if c['key']=='app:'+m['id'])

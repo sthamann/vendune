@@ -7,7 +7,8 @@ pub(crate) async fn personal<'a>(a: &App, h: &'a RequestContext) -> Result<&'a s
     let token = header(h, "authorization")
         .and_then(|s| s.strip_prefix("Bearer "))
         .ok_or(bad("Personal session required"))?;
-    let personal:bool=sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM user_sessions WHERE digest=$1 AND user_id=$2 AND expires_at>now())").bind(hash(token)).bind(user).fetch_one(&a.db).await?;
+    let personal:bool=veyndo::tenant_scope::scoped(veyndo::tenant_scope::Scope::System,
+        sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM user_sessions WHERE digest=$1 AND user_id=$2 AND expires_at>now())").bind(hash(token)).bind(user).fetch_one(&a.db)).await?;
     if !personal {
         return Err(bad("Personal session required"));
     }

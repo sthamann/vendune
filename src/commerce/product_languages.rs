@@ -82,14 +82,10 @@ pub(super) async fn register(
     s: &Settings,
 ) -> Result<()> {
     for locale in &s.locales {
-        let id = hash(&format!("commerce-language:{locale}"))[..32].to_string();
-        sqlx::query(
-            "INSERT INTO languages(id,locale) VALUES($1,$2) ON CONFLICT(locale) DO NOTHING",
-        )
-        .bind(id)
-        .bind(locale)
-        .execute(&mut **tx)
-        .await?;
+        sqlx::query("SELECT public.veyndo_register_language($1)")
+            .bind(locale)
+            .execute(&mut **tx)
+            .await?;
     }
     Ok(())
 }

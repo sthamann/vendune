@@ -141,6 +141,29 @@ The exact proof boundary and extension procedure are documented in
 - Run the registered `tenant_isolation` suite. Do not describe foreign keys,
   app-only RLS or selected Lean policies as complete core/SaaS isolation.
 
+## Authenticated SQL authority
+
+Read `docs/authenticated-database-scope.md` before changing pools, middleware or app
+DDL. `scoped_pool` owns transaction-local signed tenant/personal/system contexts;
+`database_scope` owns role-bound tickets and their rotation. Never authorize from
+`rac.tenant`, `rac.actor` or `rac.system` alone. Signed mode uses separate restricted
+tenant/system logins within one `DB_POOL_MAX`, with no migration credential in the
+serving container. Normal public shop requests receive tenant/denied scope, not
+system scope merely because they are public. Native identity, schema, inference
+configuration and coordinated staging owners explicitly retain system authority.
+
+Keep the restrictive authenticated policy in addition to existing tenant/domain
+policies. New core tenant tables need forced RLS, the authenticated policy and
+explicit tenant grants; strict startup rejects missing coverage. App entity and
+relation installation uses the native schema owner and `apps/schema_scope` in the
+same transaction. Tenant SQL must never own those tables or create public schema
+objects. Preserve historical pre-099 migration replay without a normal serving
+bypass. Test through actual separate database logins, HTTP/MCP, private actors,
+pool reuse, restart and signing-key rotation. `SET ROLE` on a migration connection
+does not prove this boundary. Staged rollout and enforced production are distinct;
+do not claim deployment from local tests. Connector storage has its own service
+role and is not granted to Core's tenant connection.
+
 ## First-party service language boundary
 
 **Bundled production commerce and standard provider services run in Rust.**

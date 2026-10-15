@@ -265,6 +265,12 @@ External calls stay outside database transactions.
 
 [Architecture](docs/architecture.md) · [Source map](docs/source-map.md) · [Security](docs/security.md) · [Tenant isolation](docs/tenant-isolation.md).
 
+[Authenticated database scope](docs/authenticated-database-scope.md) separates normal
+shop SQL from trusted native system access, binds tenant/personal contexts to the
+actual login and includes a coordinated rollout with key rotation. The enforced
+deployment requires both configured logins; a legacy or staged runtime is not the
+same security claim.
+
 Personal merchant and operator accounts share optional authenticator protection,
 one-use recovery codes and revision-checked password recovery through the existing
 verified identity service. [Account setup, source owners and test boundaries](docs/account-security.md).

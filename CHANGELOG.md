@@ -1,5 +1,13 @@
 # Changelog
 
+## Authenticated database authority — in development, 15 October 2026
+
+- Separate restricted tenant/system connection pools within the existing process and fleet budget. Ordinary serving no longer requires the migration credential.
+- Bind transaction-local tenant, actor and personal-session context to the actual SQL login through short-lived signed tickets; keep tickets out of SQL query text. Add restrictive policies alongside existing row/actor checks, narrowly admitted identity reads and canonical language registration.
+- Keep app schema changes in the native system owner. Protect and grant new app entity/relation tables atomically; tenant SQL cannot own tables, disable RLS or create schema objects. HTTP and MCP developer staging share trusted native admission.
+- Add migration-only configure/activate/status/rotate commands, staged rollout, startup role/policy audits, minute refresh and retiring-key overlap. No production credential is created by migration or application startup.
+- Repeat actual two-replica runtime, restart, current-rights, inventory, documents, app and selective release flows with separate logins. Add actual tenant-connection attacks, private actor substitution and signing-key rotation tests. SQL/cryptographic integration remains tested, outside the selected pure Lean proofs.
+
 ## Product content and inventory concurrency — in development, 15 October 2026
 
 - Preserve aggregate product revisions and add a content clock through additive migration 098. Existing replicas advance it during rolling releases; stock-only purchases/releases leave it stable.

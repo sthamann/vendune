@@ -117,7 +117,7 @@ pub(crate) async fn stage(
     if v["approve"] != true {
         return Err(bad("Approve the reviewed build first"));
     }
-    let mut tx = a.db.begin().await?;
+    let mut tx = a.db.begin_privileged().await?;
     let row=sqlx::query("SELECT environment,manifest,digest FROM developer_builds WHERE tenant=$1 AND id=$2 AND archived=false FOR UPDATE").bind(&t).bind(&id).fetch_optional(&mut *tx).await?.ok_or(Error(StatusCode::NOT_FOUND,"Build unavailable".into()))?;
     if v["digest"] != row.get::<String, _>("digest") {
         return Err(conflict("Build digest changed"));

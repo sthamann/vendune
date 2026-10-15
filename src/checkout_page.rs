@@ -4,12 +4,16 @@ use axum::extract::Query;
 use axum::response::Html;
 pub(crate) async fn page(
     State(a): State<App>,
+    h: RequestContext,
     Query(q): Query<HashMap<String, String>>,
 ) -> Result<Response> {
     let mut frames = crate::runtime_config::get().frame_ancestors.clone();
     if q.get("embed").is_some_and(|v| v == "1") {
         let t = q.get("shop").ok_or(bad("Checkout shop required"))?;
         validate_tenant(t)?;
+        if tenant(&h)? != *t {
+            return Err(bad("Checkout shop scope is inconsistent"));
+        }
         let channel = q.get("channel").map(String::as_str).unwrap_or("default");
         let origin = q
             .get("parentOrigin")

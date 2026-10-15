@@ -26,10 +26,7 @@ pub(super) async fn read(a: &App, h: &RequestContext, t: &str, v: &Value) -> Res
         String::new()
     };
     let (locale, chain) = language_context(a, h).await?;
-    let mut tx = a.db.begin().await?;
-    sqlx::query("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
-        .execute(&mut *tx)
-        .await?;
+    let mut tx = a.db.begin_read_snapshot().await?;
     let prefix = format!("WITH events AS ({}) ", include_str!("eligible.sql"));
     let q = format!(
         "{prefix} SELECT count(*)::bigint AS events,count(DISTINCT session)::bigint AS contexts,count(DISTINCT session) FILTER(WHERE customer_id IS NOT NULL)::bigint AS identified,count(DISTINCT session) FILTER(WHERE kind='product_view')::bigint AS viewed,count(DISTINCT session) FILTER(WHERE kind='cart_add')::bigint AS added,count(DISTINCT session) FILTER(WHERE kind='checkout_start')::bigint AS checkout,(SELECT count(DISTINCT o.id) FROM orders o JOIN events e ON e.tenant=o.tenant AND e.cart_id=o.cart_id WHERE o.created_at>=now()-make_interval(days=>$3))::bigint AS ordered FROM events"

@@ -26,6 +26,11 @@ def check(message):
 
 
 env = dict(os.environ)
+# This suite owns another fresh database. Never inherit a parent fixture's runtime
+# credentials, listener or already-activated authority configuration for that other DB.
+for key in ['DATABASE_RUNTIME_URL','DATABASE_TENANT_URL','DATABASE_LISTENER_URL',
+            'DB_RLS_REQUIRED','DB_SCOPE_REQUIRED','DB_SCOPE_STAGED']:
+    env.pop(key,None)
 u = urllib.parse.urlsplit(env["DATABASE_URL"])
 env["DATABASE_URL"] = urllib.parse.urlunsplit(u._replace(path="/" + name))
 env.update(

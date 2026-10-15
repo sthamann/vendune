@@ -24,7 +24,21 @@ fair outbox scheduling; the security/runtime items below remain open.
 **Capability slice:** merged as `f557631`, [PR 131](https://github.com/sthamann/veyndo/pull/131) adds
 versioned intent/assumptions and real frozen component cases to the same Manifest,
 plus Studio presentation. Local HTTP/MCP → immutable build → stage → selected
-release and browser save/reload/modal checks pass. It is not yet claimed released.
+release and browser save/reload/modal checks pass. Both exact-head CI runs passed
+before merge. Northflank `typical-food-7029` was observed serving that SHA with
+one healthy replica, zero restarts and the public capability guide.
+
+**Product concurrency:** [PR 132](https://github.com/sthamann/veyndo/pull/132)
+passed both exact-head CI runs before merge as `4c51b2b`. It separates content
+revisions from inventory updates without replacing the stock ledger. Northflank
+`glamorous-ship-9805` was independently observed serving `4c51b2b`, one healthy
+replica, zero restarts and no HTTP 5xx in the displayed hour.
+
+**Database authority:** the connected implementation and coordinated rollout are
+documented in [authenticated database scope](authenticated-database-scope.md).
+Local separate-login attacks and real PgBouncer/two-replica/restart/rotation flows
+pass. The full HTTP registry is being repeated with the stricter connections;
+production role provisioning and activation have not yet been performed.
 
 ## Recent product requests
 
@@ -38,7 +52,7 @@ release and browser save/reload/modal checks pass. It is not yet claimed release
 | API layout, grouped rights, permanent keys | Published layout/shared permission picker; native permanent-key admission and revocation checked in CI. | Permanent keys require a current personal administrator; no new live key was created during this audit. |
 | Standard shop visual editor | Published; live preview now displays the actual shop, products and desktop/tablet/mobile controls. | A shop still explicitly reviews/installs design packages and uses private staging for changes. |
 | Marketplace/channel/Storyfront setup | Published native channel workflow and private Experience handoff. | A configured contract is not live seller certification or proof of every external Storyfront generation. |
-| Documentation and website | PR 130 documentation publication succeeded; its hardening pages are public. | PR 131 capability documentation ships with that reviewed release. |
+| Documentation and website | PR 130/131 public documentation publication succeeded; hardening and capability pages are public. | New authority documentation follows its reviewed release. |
 
 ## Source review: AI and operation consistency
 
@@ -65,7 +79,7 @@ release and browser save/reload/modal checks pass. It is not yet claimed release
 | Item | State and owner | Next decisive acceptance |
 | --- | --- | --- |
 | Exact money throughout storage/calculation | Open; exact boundaries exist but product/calculation floats remain. | Pass the original-PHP differential gate before changing representation or rounding. |
-| Separate product/content and inventory concurrency | Content clock and omitted-stock editing implemented in the native product owner; legacy/explicit stock saves retain aggregate CAS. | Real two-replica purchase/content/cancellation/MCP checks and editor tests pass locally. CI/release pending; other proposal/translation owners retain conservative aggregate checks. |
+| Separate product/content and inventory concurrency | PR 132 merged after exact-head verification and public deployment observed. Content clock and omitted-stock editing use the native product owner; legacy/explicit stock saves retain aggregate CAS. | Real two-replica purchase/content/cancellation/MCP checks and editor tests pass. Other proposal/translation owners retain conservative aggregate checks. |
 | Typed/versioned native event catalogue | Open; existing event producers/consumers remain authoritative. | Producer/consumer parity, old-event compatibility and one registered emitter. |
 | Fair tenant outbox scheduling | Published through PR 130 with additive migration 097 and scheduling-row locks. | Quiet tenant finishes while an older noisy backlog remains, across real replicas. |
 | Independent subscriber checkpoints | Open. | One slow/failing projection cannot defer unrelated subscribers; no duplicate financial effects. |
@@ -75,7 +89,7 @@ release and browser save/reload/modal checks pass. It is not yet claimed release
 | Compiler-enforced crate boundaries | Incremental work open. | Preserve native API, boxed dispatch and app ownership while reducing facade coupling. |
 | Released migration identifiers | Already immutable. | Never rename or renumber deployed migrations to tidy historical duplicate prefixes. |
 | SQL identifier quoting | Published through PR 130 in all builds. | Invalid delimiters remain quoted; manifest admission still rejects invalid identifiers. |
-| System-scope database role separation | Open. Existing restricted runtime is not owner/bypass, but `rac.system` is still a settable policy signal. | Separate restricted connections/roles and role-bound policies, coordinated deployment and real adversarial SQL checks. |
+| System-scope database role separation | Implemented source: separate restricted pools, role-bound signed transaction scopes, restrictive policies, private actor fences, native DDL owner and startup audits. Local actual-login attacks and real transaction-pool/restart/rotation paths pass. | Complete full HTTP verification, exact-head CI and coordinated production activation; legacy/staged mode is not the enforced boundary. |
 | HttpOnly browser sessions and Studio CSP | Open. Merchant tokens remain in session storage. | Existing session ledger, CSRF/origin checks, dedicated Studio policy and compatible onboarding/Experience handoffs. |
 | Purpose keys and rotation | Open. | Separate signing/encryption purposes, key IDs and backwards-compatible verification/decryption overlap. |
 | License/positioning | Sustainable Use License already identified. | Keep actual prototype/production boundaries; do not call the license OSI open source. |

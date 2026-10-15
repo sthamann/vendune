@@ -145,7 +145,7 @@ def verify(req, sql, owner, other, seed, empty, oh, h, check, base):
     second=next(r for r in req('/api/platform/shops/'+seed,headers=oh)['traffic'] if r['channel']=='mcp')
     assert second['responses']['403']==mcp['responses']['403']+1
     assert second['failures']-sum(second['responses'].values())==mcp['failures']-sum(mcp['responses'].values())
-    logs=(pathlib.Path(__file__).resolve().parents[1]/'artifacts/integration-server.log').read_text()
+    logs=pathlib.Path(os.environ.get('TEST_SERVER_LOG',pathlib.Path(__file__).resolve().parents[1]/'artifacts/integration-server.log')).read_text()
     assert 'route=/store-api/product/{id} status=404' in logs
     assert 'private-query-canary' not in logs and 'not-a-real-product' not in logs
     check('second telemetry flush adds exact statuses without double counting; HTTP logs contain route templates and omit object IDs/query strings')
