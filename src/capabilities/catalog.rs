@@ -17,6 +17,14 @@ pub(crate) static CAPABILITIES: std::sync::LazyLock<Vec<(&'static str, &'static 
         ]);
         all.extend([
             (
+                "merchant.site.task",
+                "Export a credential-free native shop design task",
+            ),
+            (
+                "merchant.site.propose",
+                "Validate a coding-agent page result for explicit review",
+            ),
+            (
                 "merchant.site.plan",
                 "Prepare revision-bound visual shop alternatives",
             ),

@@ -7,6 +7,7 @@ export default function useSurfaceGateway(
   surface: string,
   context: Record<string, unknown>,
   isPublic: boolean,
+  readOnly = false,
 ): RequestFn {
   const contextKey = JSON.stringify(context);
   return useMemo(() => {
@@ -16,7 +17,10 @@ export default function useSurfaceGateway(
     return async (path, body) => {
       const name = path.split("/").at(-1)!;
       if (!pending)
-        pending = request(`${base}/grant`, { context: JSON.parse(contextKey) })
+        pending = request(`${base}/grant`, {
+          context: JSON.parse(contextKey),
+          readOnly,
+        })
           .then((v) => ({ token: v.token, expiresAt: Date.now() + 240000 }))
           .catch((e) => {
             pending = undefined;
@@ -26,6 +30,7 @@ export default function useSurfaceGateway(
       if (Date.now() >= grant.expiresAt) {
         pending = request(`${base}/grant`, {
           context: JSON.parse(contextKey),
+          readOnly,
         }).then((v) => ({ token: v.token, expiresAt: Date.now() + 240000 }));
         grant = await pending;
       }
@@ -44,5 +49,5 @@ export default function useSurfaceGateway(
         },
       );
     };
-  }, [request, app, surface, contextKey, isPublic]);
+  }, [request, app, surface, contextKey, isPublic, readOnly]);
 }

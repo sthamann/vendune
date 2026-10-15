@@ -61,8 +61,15 @@ async fn context(
         after: q.get("after").cloned(),
         ..Default::default()
     };
+    let elements = apps::surfaces::registry(&a, &h, true).await?["surfaces"]
+        .as_array()
+        .cloned()
+        .unwrap_or_default()
+        .into_iter()
+        .filter(|s| s["surface"]["location"] == "storefront.block")
+        .collect::<Vec<_>>();
     let Json(products) = catalog_page(State(a.clone()), h, criteria).await?;
     Ok(Json(
-        json!({"channels":rows.iter().filter(|r|r.get::<Value,_>("data")["kind"]=="storefront").map(|r|json!({"id":r.get::<String,_>("id"),"data":r.get::<Value,_>("data")})).collect::<Vec<_>>(),"mainLocale":settings.main_locale,"locales":settings.locales,"installed":installed,"catalogue":products}),
+        json!({"channels":rows.iter().filter(|r|r.get::<Value,_>("data")["kind"]=="storefront").map(|r|json!({"id":r.get::<String,_>("id"),"data":r.get::<Value,_>("data")})).collect::<Vec<_>>(),"mainLocale":settings.main_locale,"locales":settings.locales,"installed":installed,"catalogue":products,"elements":elements}),
     ))
 }

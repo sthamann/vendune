@@ -29,3 +29,5 @@ Run `npm run build`, `npm test`, `npm run test:coverage` and `npm run architectu
 `useCompanyIdentity` loads the channel/language-scoped public projection. Header/footer display the effective brand/logo; `CompanyLegalPage` is reachable at `#legal`. Private banking and domestic tax fields never enter this projection.
 
 `useConsentedExperience` assigns experiments after affirmative consent and resets the displayed variant on withdrawal.
+
+`StorefrontHeaderView`, `HomeHero`, `ProductTile` and `StorefrontFooter` are shared presentational views consumed by both the existing native storefront composition and the app-owned design preview. The live controller still owns account/cart/checkout commands, consent and observations; no such controller starts in a design frame. Keep domain-specific editor behavior under `extensions/apps/site-builder/`.

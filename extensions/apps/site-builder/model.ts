@@ -4,7 +4,7 @@ import type { RichBlock } from "../../../frontend/src/shared/content/RichDescrip
 import type { FormField } from "../../../frontend/src/shared/apps/form-contract";
 export type { FormField };
 export type BlockKind =
-  "hero" | "text" | "products" | "image" | "form" | "articles";
+  "hero" | "text" | "products" | "image" | "form" | "articles" | "app";
 export type Block = {
   id: string;
   kind: BlockKind;
@@ -14,6 +14,7 @@ export type Block = {
   products: string[];
   productMode?: "all" | "selected";
   fields: FormField[];
+  extension?: { app: string; surface: string } | null;
 };
 export type Theme = {
   accent?: string | null;

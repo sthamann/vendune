@@ -1,6 +1,83 @@
 /** Complete interface vocabulary for the standard-shop designer, independent of page translations. */
 import { useLocale } from "../../../../frontend/src/shared/i18n/i18n";
 const words = {
+  app: ["App element", "App-Baustein", "Élément d’app", "Elemento de app"],
+  channel: [
+    "Sales channel",
+    "Verkaufskanal",
+    "Canal de vente",
+    "Canal de venta",
+  ],
+  home: ["Home page", "Startseite", "Accueil", "Inicio"],
+  editHome: [
+    "Customize home page",
+    "Startseite gestalten",
+    "Personnaliser l’accueil",
+    "Personalizar inicio",
+  ],
+  nativeHome: [
+    "Your current storefront",
+    "Dein aktueller Shop",
+    "Votre boutique actuelle",
+    "Tu tienda actual",
+  ],
+  nativeHint: [
+    "This is your existing shop. Select the hero or product collection to start a page draft. Nothing changes for customers until you publish.",
+    "Hier siehst du deinen bestehenden Shop. Klicke auf den Aufmacher oder die Produktauswahl, um einen Seitenentwurf zu gestalten. Für Kunden ändert sich erst nach der Veröffentlichung etwas.",
+    "Voici votre boutique. Cliquez sur l’en-tête ou les produits pour créer un brouillon. Rien ne change pour vos clients avant publication.",
+    "Esta es tu tienda. Selecciona la cabecera o los productos para crear un borrador. Nada cambia para los clientes hasta publicar.",
+  ],
+  previewHint: [
+    "Click a section to edit it",
+    "Klicke einen Bereich an, um ihn zu bearbeiten",
+    "Cliquez sur une section pour la modifier",
+    "Selecciona una sección para editarla",
+  ],
+  previewLoading: [
+    "Loading your storefront…",
+    "Dein Shop wird geladen …",
+    "Chargement de votre boutique…",
+    "Cargando tu tienda…",
+  ],
+  previewError: [
+    "The storefront preview could not load. Retry to renew your private preview.",
+    "Die Shop-Vorschau konnte nicht geladen werden. Versuche es erneut, um die private Vorschau zu erneuern.",
+    "Impossible de charger l’aperçu. Réessayez pour renouveler votre aperçu privé.",
+    "No se pudo cargar la vista previa. Reintenta para renovar la vista privada.",
+  ],
+  retry: [
+    "Reload preview",
+    "Vorschau neu laden",
+    "Recharger l’aperçu",
+    "Recargar vista previa",
+  ],
+  undo: ["Undo", "Rückgängig", "Annuler", "Deshacer"],
+  redo: ["Redo", "Wiederholen", "Rétablir", "Rehacer"],
+  tools: [
+    "Editing tools",
+    "Bearbeitungswerkzeuge",
+    "Outils de modification",
+    "Herramientas de edición",
+  ],
+  pagesToggle: [
+    "Pages & sections",
+    "Seiten & Bereiche",
+    "Pages et sections",
+    "Páginas y secciones",
+  ],
+  pageDetails: [
+    "Page settings & SEO",
+    "Seiteneinstellungen & SEO",
+    "Réglages de page et SEO",
+    "Ajustes de página y SEO",
+  ],
+  draftHint: [
+    "Sandbox preview · save and publish are separate steps",
+    "Sandbox-Vorschau · Speichern und Veröffentlichen sind getrennte Schritte",
+    "Aperçu sandbox · enregistrer et publier sont deux étapes",
+    "Vista sandbox · guardar y publicar son pasos separados",
+  ],
+
   discardTitle: [
     "Discard unsaved changes?",
     "Ungespeicherte Änderungen verwerfen?",
@@ -23,10 +100,10 @@ const words = {
     "Diseño de tienda",
   ],
   hint: [
-    "Select a channel. Shape its pages with the same renderer your customers see.",
-    "Wähle einen Kanal. Gestalte seine Seiten mit demselben Renderer, den deine Kunden sehen.",
-    "Choisissez un canal et concevez ses pages avec le même rendu que vos clients.",
-    "Elige un canal y diseña sus páginas con el mismo renderizado que ven tus clientes.",
+    "Your shop is the canvas. Select a section and see your changes immediately.",
+    "Dein Shop ist die Arbeitsfläche. Wähle einen Bereich und sieh deine Änderungen direkt.",
+    "Votre boutique est votre canevas. Sélectionnez une section et voyez vos modifications.",
+    "Tu tienda es el lienzo. Selecciona una sección y ve los cambios al instante.",
   ],
   pages: [
     "Pages & navigation",

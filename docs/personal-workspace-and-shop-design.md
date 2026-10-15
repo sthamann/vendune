@@ -48,8 +48,8 @@ scheduler or promise that a sentence automatically completes a whole campaign.
 2. Create/select a private sandbox. Live view is read-only in this editor.
 3. Review the native **Shop design** and **Forms inbox** package consents. Their
    implementations remain in `extensions/apps/site-builder/` and `site-forms/`.
-4. Open a page or create a Page, Campaign, Blog, Article or Form. A first ordinary
-   page/campaign becomes `home`. Use lowercase letters, numbers and dashes for slugs.
+4. The existing storefront is visible immediately, including the native header, hero, product cards and footer. Saved home pages open automatically. Click the hero or collection to prepare a private home-page document; **New page** remains a separate action for additional pages. No blank CMS form is required before seeing the shop.
+   Additional pages use lowercase letters, numbers and dashes for their addresses.
 5. Select a section in the real shared preview. Edit its heading inline or use the
    localized inspector; rich text uses the existing Tiptap/Markdown editor.
 6. Pick actual channel products, appearance, spacing, typography and images. Switch
@@ -57,10 +57,10 @@ scheduler or promise that a sentence automatically completes a whole campaign.
 7. Save, then choose **Review publication**. Select the intended app/page changes
    in the native staging review and publish explicitly.
 
-![Shared renderer and property inspector in the native Studio](assets/workspace-20261015/designer.jpg)
+![Shared renderer and property inspector in the native Studio](assets/shop-design-20261015/editor-desktop.png)
 
 The global `*` home supplies the inherited appearance. A channel home overrides
-selected values; null/missing theme properties inherit. Selecting an inherited
+selected values; null/missing theme properties inherit. Editing an inherited
 page in a writable channel creates a channel-specific copy with a new stable ID.
 Non-home page appearance is local to that document. The native header/footer and
 product/cart routes retain the channel home theme.
@@ -73,8 +73,7 @@ page rollback operation.
 
 ## References and reviewed alternatives
 
-Select a page/section, save it, then describe the change in **Design with the
-agent**. Optionally supply up to three public HTTPS reference URLs and two
+Open **Agent**, describe the change and choose the whole page or selected section. The agent saves the current private baseline before preparing a proposal; this never publishes the page. Select **Veyndo AI** to use the centrally configured provider. Optionally supply up to three public HTTPS reference URLs and two
 PNG/JPEG/WebP screenshots (up to 1 MiB each, 16 megapixels, 8192 pixels per side).
 Choose style, structure and content separately.
 
@@ -142,7 +141,7 @@ for the exact local journey and the limits of this evidence.
 | Personal preferences | `GET/PUT /api/studio/workspace`; MCP `studio.workspace.read/save`; forced tenant+actor RLS, current personal session, CAS, 20 retained versions |
 | Designer products/channels/locales | `GET /api/merchant/site/context`; native channel/catalog/pricing owners |
 | Page data | `site_builder` actions `editor_pages`, `save_page`; public action `pages` with native publication projection |
-| Design references/plans | `POST /api/merchant/site/plan` and `/apply`; MCP `merchant.site.plan/apply`; central inference and native tasks |
+| Design references/plans | `POST /api/merchant/site/plan`, `/task`, `/propose`, `/apply`; MCP `merchant.site.plan/task/propose/apply`; central inference and native tasks |
 | Record history | `/api/apps/{app}/entities/{entity}/{id}/history` and `.../{version}/restore`; MCP `merchant.app.history/restore` |
 | Form intake | Public `site_forms.submit`; private `responses`; managed records, native cart, outbox, Flow jobs |
 | Publication | Existing environment diff/selective release; installed package fence, current domain rights, live baseline and digest conflicts |
@@ -178,3 +177,83 @@ provider request and continuous whole-business autonomous goals remain further w
 Continue with [staging and releases](app-studio.md), [App platform](app-platform.md),
 [localization](localization.md), [native checkout](checkout.md) and the
 [original Storyfront integration](storyfront.md).
+
+## Preview-first editor repair — 15 October 2026
+
+The editor now gives the storefront most of the available width. Pages/sections open on demand; the contextual inspector sits beside the canvas. Page metadata and SEO are collapsed while editing a section, and saving stays in the top toolbar. Desktop, tablet and mobile use independent frame widths rather than squeezing desktop CSS into a narrow column.
+
+The preview projects the actual channel catalogue and public company identity through the existing authenticated transport. Header, hero, product cards and footer are shared native presentation components, also used by the storefront. The isolated static document loads owned styles and parent-owned React components; it starts **no shopper controller, cart, analytics, AI request or payment session**. Commerce/account actions are intentionally inactive here. This is a design preview, not a replacement for testing the public checkout or private Storyfront editor; personalized concierge results and third-party interactive widgets require their own acceptance.
+
+Clicking the native home prepares an unsaved `site_builder` document with stable section IDs, genuine main-language/selected-language text and references to native product media. It does not copy an invalid local demo-image URL into the managed image field. Saving, history, AI proposals and selected release still use the existing app contracts. An inherited global page is forked into the selected channel only when edited. The rich editor displays inherited rich content instead of treating a locale code as fallback prose.
+
+Regression coverage includes the real static frame, native product rendering and click selection, no cart/order calls, automatic home selection, locale/channel transport, inherited-page fork and media/translation preservation. The package owns its test cases; thin frontend adapters register them in the shared runner.
+
+![Mobile storefront viewport inside the same editor](assets/shop-design-20261015/editor-mobile.png)
+
+The release review opens the currently selected sandbox rather than the first unrelated environment. Local browser acceptance followed native home → section selection → translated heading edit → CAS save → reopen → select only the page → native release → published page with the same heading and catalogue image. Mobile preview was checked at its actual 390 CSS-pixel frame width; this capture is the desktop editor's mobile preview, not a claim of a separate phone-browser checkout test.
+
+The same local acceptance also added an actual product from the published page to the native cart, reviewed delivery/tax totals, and completed a **simulated** EUR 43.90 order (`RAC-33d99e28`) with synthetic contact/address data. The confirmation rendered and the cart count returned to zero. This does not claim a real payment-provider settlement or a hosted rollout.
+
+![Native simulated checkout after publishing the edited page](assets/shop-design-20261015/checkout-confirmed.png)
+
+
+## Illustrated elements and compact panels
+
+The right rail has four stable modes: **Edit**, **Elements**, **Agent**, **History**.
+The left rail shows pages and the selected page’s sections, with keyboard-accessible
+up/down controls. **New page** opens illustrated page/landing/blog/article/form
+choices. Text formatting uses compact shared Tiptap controls; media and less common
+formats live in one menu. EN/DE/FR/ES interface text and selected content-language
+inheritance remain separate.
+
+![Illustrated elements beside the actual shop preview](assets/shop-design-20261015/elements-gallery.png)
+
+1. Select a private sandbox and open **Elements**.
+2. Pick an illustrated hero, text, product list, image, form or article list.
+3. The element appears in the shared preview and its properties open for editing.
+4. Save the private draft, inspect history and review the selected native release.
+
+![Compact rich-text inspector and section hierarchy](assets/shop-design-20261015/compact-inspector.png)
+
+### Apps contribute elements through their existing contract
+
+A native app surface with `location: "storefront.block"` appears under **From your
+apps**. The Care knowledge example (`extensions/apps/ontology-care/`, version
+1.1.0) supplies a working example using its existing public care view and list action.
+App Studio’s frontend/combined assistant and placement selector expose this location;
+the exported schema and AI/coding-agent contract include it too.
+
+A page block stores only `kind: "app"` and `extension: {app, surface}` plus the
+ordinary localized title. It never copies app code or data into the page. Public
+native views, data projection, current package grants and declared actions remain
+owned by the app and generic runtime. Only active, same-tenant public native
+surfaces can be placed; private/service-iframe surfaces cannot become page elements.
+Preview grants contain only currently authorized read actions, so changing a request
+by hand cannot use that grant to write. App deactivation removes its registry entry;
+the editor shows an unavailable notice and the published renderer omits the element.
+Re-saving/restoring/publishing validates the active reference again. App data has its
+own history and publication rules; publishing a page does not copy private app data.
+
+### One visible agent entry, including Codex and Claude Code
+
+![Shared agent controls with a real prepared Codex task](assets/shop-design-20261015/agent-workspace.png)
+
+**Veyndo AI** prepares two or three reviewable alternatives. **Codex / Claude Code**
+prepares a task containing the current page/revision, enabled languages, at most 64
+registered element summaries, the expected result shape and the existing MCP client
+configuration. Credentials are placeholders only. This is an explicit local coding-agent
+handoff, not an embedded Codex subscription or automatic remote execution.
+
+Copy/download the task into your coding agent, paste its JSON result into **Returned
+result**, then choose **Review changes**. `/api/merchant/site/propose` validates only
+content/theme changes, selected-section scope, owned references and the current revision.
+The returned proposal uses the same native review tasks as built-in AI. **Apply** writes
+the approved revision to the private sandbox; public release remains separate. HTTP and
+MCP share the same handlers and current `channels.read/manage` + `assistant.use` checks.
+
+The real Rust/PostgreSQL suite `visual_workspace` covers export → validation → explicit
+apply, omitted/foreign/current/stale rights/revisions, no secret export, app placement,
+read-only grants and selected page publication. The model wire uses a synthetic fixture;
+these tests do not certify creative output from a real external model or all third-party
+apps. Browser acceptance verified the actual gallery, care-element data, private save,
+compact inspector and prepared Codex task. Checkout retains the previous native owner.

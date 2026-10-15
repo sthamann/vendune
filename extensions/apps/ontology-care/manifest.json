@@ -1,6 +1,6 @@
 {
   "id": "ontology_care",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "coreApi": "1",
   "runtime": "declarative",
   "category": "operations",
@@ -145,6 +145,20 @@
         "de": "Pflegehinweise",
         "fr": "Instructions d’entretien",
         "es": "Instrucciones de cuidado"
+      },
+      "uiPath": "native/care",
+      "actions": [
+        "list_guides"
+      ]
+    },
+    {
+      "id": "care_element",
+      "location": "storefront.block",
+      "label": {
+        "en": "Care knowledge",
+        "de": "Pflegewissen",
+        "fr": "Connaissances d’entretien",
+        "es": "Conocimiento de cuidado"
       },
       "uiPath": "native/care",
       "actions": [

@@ -865,6 +865,16 @@
     "source": "extensions/apps/site-builder/design_agent.rs"
   },
   {
+    "path": "/api/merchant/site/propose",
+    "method": "POST",
+    "source": "extensions/apps/site-builder/design_agent.rs"
+  },
+  {
+    "path": "/api/merchant/site/task",
+    "method": "POST",
+    "source": "extensions/apps/site-builder/design_agent.rs"
+  },
+  {
     "path": "/api/merchant/translations",
     "method": "GET",
     "source": "src/translations/mod.rs"

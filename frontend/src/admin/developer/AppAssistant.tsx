@@ -142,7 +142,11 @@ export default function AppAssistant({
                 {Object.entries(placements)
                   .filter(([v]) =>
                     ["frontend", "combined"].includes(kind)
-                      ? ["product.detail", "storefront.page"].includes(v)
+                      ? [
+                          "product.detail",
+                          "storefront.page",
+                          "storefront.block",
+                        ].includes(v)
                       : v.startsWith("admin."),
                   )
                   .map(([v, k]) => (

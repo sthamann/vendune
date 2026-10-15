@@ -17,7 +17,10 @@ export function createStudioRequest(
         ...(multipart ? {} : { "Content-Type": "application/json" }),
         Authorization: `Bearer ${token}`,
         "x-tenant": tenant,
-        "x-commerce-locale": locale,
+        "x-commerce-locale": options?.locale ?? locale,
+        ...(options?.salesChannel
+          ? { "sw-sales-channel-id": options.salesChannel }
+          : {}),
         ...(options?.idempotencyKey
           ? { "Idempotency-Key": options.idempotencyKey }
           : {}),

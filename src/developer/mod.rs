@@ -1,5 +1,6 @@
 //! Prompt-generated declarative apps and native coding-agent handoff, never unsandboxed model code.
 use crate::*;
+pub(crate) mod agent_connection;
 mod archive;
 mod builds;
 mod drafts;

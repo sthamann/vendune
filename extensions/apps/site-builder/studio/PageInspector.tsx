@@ -6,7 +6,7 @@ import LocalizedField from "../../../../frontend/src/shared/i18n/LocalizedField"
 import RichEditor from "../../../../frontend/src/shared/content/editor/RichEditor";
 import type { Block, Page, Theme, FormField } from "../model";
 import type { SiteProduct } from "../Renderer";
-import { defaultTheme } from "../model";
+import AppearanceControls from "./AppearanceControls";
 import { useDesignText } from "./design-i18n";
 import { useEditorText } from "./editor-i18n";
 function localTime(iso: string | null) {
@@ -50,132 +50,94 @@ export default function PageInspector({
         ),
       },
     });
-  const theme = (v: Partial<Theme>) =>
-    patch({ theme: { ...page.theme, ...v } });
   return (
     <div className="designer-properties">
       <h2>{t("properties")}</h2>
       <fieldset disabled={disabled}>
-        <LocalizedField
-          label={t("titleField")}
-          value={page.title}
-          onChange={(title) => patch({ title })}
-          maxLength={2000}
-          required
-        />
-        <label>
-          {t("slug")}
-          <input
-            value={page.slug}
-            maxLength={100}
-            pattern="[a-z0-9-]+"
-            onChange={(event) => patch({ slug: event.target.value })}
-          />
-        </label>
-        <label>
-          {t("status")}
-          <select
-            value={page.status}
-            onChange={(event) =>
-              patch({ status: event.target.value as Page["status"] })
-            }
-          >
-            {(["draft", "published", "archived"] as const).map((k) => (
-              <option key={k} value={k}>
-                {t(k)}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          {t("schedule")}
-          <input
-            type="datetime-local"
-            value={localTime(page.starts_at)}
-            onChange={(event) =>
-              patch({
-                starts_at: event.target.value
-                  ? new Date(event.target.value).toISOString()
-                  : null,
-              })
-            }
-          />
-        </label>
-        <LocalizedField
-          label={e("seo")}
-          value={page.seo?.description ?? {}}
-          onChange={(description) => patch({ seo: { description } })}
-          maxLength={300}
-          multiline
-        />
-        {(page.kind === "article" || page.kind === "blog") && (
-          <>
-            <label>
-              {e("author")}
-              <input
-                value={page.author ?? ""}
-                maxLength={100}
-                onChange={(event) => patch({ author: event.target.value })}
-              />
-            </label>
-            <label>
-              {e("category")}
-              <input
-                value={page.category ?? ""}
-                maxLength={100}
-                onChange={(event) => patch({ category: event.target.value })}
-              />
-            </label>
-          </>
-        )}
         <details open={!block}>
-          <summary>{t("theme")}</summary>
-          {(["accent", "background", "foreground"] as const).map((k) => (
-            <label className="designer-color" key={k}>
-              {t(k)}
-              <input
-                type="color"
-                value={
-                  page.theme[k] ??
-                  appearance?.[k] ??
-                  defaultTheme[k] ??
-                  "#ffffff"
-                }
-                onChange={(event) => theme({ [k]: event.target.value })}
-              />
-            </label>
-          ))}
+          <summary>{t("pageDetails")}</summary>
+          <LocalizedField
+            label={t("titleField")}
+            value={page.title}
+            onChange={(title) => patch({ title })}
+            maxLength={2000}
+            required
+          />
           <label>
-            {t("font")}
+            {t("slug")}
+            <input
+              value={page.slug}
+              maxLength={100}
+              pattern="[a-z0-9-]+"
+              onChange={(event) => patch({ slug: event.target.value })}
+            />
+          </label>
+          <label>
+            {t("status")}
             <select
-              value={page.theme.font ?? appearance?.font ?? "sans"}
+              value={page.status}
               onChange={(event) =>
-                theme({ font: event.target.value as Theme["font"] })
+                patch({ status: event.target.value as Page["status"] })
               }
             >
-              <option value="sans">{t("sans")}</option>
-              <option value="serif">{t("serif")}</option>
-              <option value="mono">{t("mono")}</option>
+              {(["draft", "published", "archived"] as const).map((k) => (
+                <option key={k} value={k}>
+                  {t(k)}
+                </option>
+              ))}
             </select>
           </label>
-          {(["radius", "spacing", "columns"] as const).map((k) => (
-            <label key={k}>
-              {t(k)} · {page.theme[k] ?? appearance?.[k] ?? defaultTheme[k]}
-              <input
-                type="range"
-                min={k === "columns" ? 1 : k === "spacing" ? 12 : 0}
-                max={k === "columns" ? 4 : k === "spacing" ? 96 : 32}
-                value={page.theme[k] ?? appearance?.[k] ?? defaultTheme[k] ?? 0}
-                onChange={(event) => theme({ [k]: Number(event.target.value) })}
-              />
-            </label>
-          ))}
-          <button onClick={() => patch({ theme: {} })}>{t("inherit")}</button>
+          <label>
+            {t("schedule")}
+            <input
+              type="datetime-local"
+              value={localTime(page.starts_at)}
+              onChange={(event) =>
+                patch({
+                  starts_at: event.target.value
+                    ? new Date(event.target.value).toISOString()
+                    : null,
+                })
+              }
+            />
+          </label>
+          <LocalizedField
+            label={e("seo")}
+            value={page.seo?.description ?? {}}
+            onChange={(description) => patch({ seo: { description } })}
+            maxLength={300}
+            multiline
+          />
+          {(page.kind === "article" || page.kind === "blog") && (
+            <>
+              <label>
+                {e("author")}
+                <input
+                  value={page.author ?? ""}
+                  maxLength={100}
+                  onChange={(event) => patch({ author: event.target.value })}
+                />
+              </label>
+              <label>
+                {e("category")}
+                <input
+                  value={page.category ?? ""}
+                  maxLength={100}
+                  onChange={(event) => patch({ category: event.target.value })}
+                />
+              </label>
+            </>
+          )}
         </details>
+        <AppearanceControls
+          value={page.theme}
+          appearance={appearance}
+          open={!block}
+          onChange={(theme) => patch({ theme })}
+        />
         {block && (
           <section className="designer-block-properties">
             <h3>{t(block.kind)}</h3>
-            <code>{block.id}</code>
             <LocalizedField
               label={t("titleField")}
               value={block.text}
@@ -185,11 +147,18 @@ export default function PageInspector({
             {(["hero", "text"] as string[]).includes(block.kind) && (
               <RichEditor
                 key={`${page.id}:${block.id}`}
-                value={block.rich ?? {}}
+                value={{
+                  ...block.rich,
+                  [language]:
+                    block.rich?.[language] ??
+                    block.rich?.[language.split("-")[0]] ??
+                    block.rich?.[mainLocale] ??
+                    block.rich?.[mainLocale.split("-")[0]] ??
+                    [],
+                }}
                 label={t("text")}
                 disabled={disabled}
                 language={language}
-                fallback={mainLocale}
                 onChange={(rich) => editBlock({ rich })}
               />
             )}

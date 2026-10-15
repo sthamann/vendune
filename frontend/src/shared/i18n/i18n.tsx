@@ -54,6 +54,21 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
     </LocaleContext.Provider>
   );
 }
+/** Read-only nested interface locale for previews; it never changes the merchant preference. */
+export function LocaleScope({
+  locale,
+  children,
+}: {
+  locale: string;
+  children: ReactNode;
+}) {
+  const supported = locale in locales ? (locale as Locale) : "en-GB";
+  return (
+    <LocaleContext.Provider value={{ locale: supported, setLocale: () => {} }}>
+      {children}
+    </LocaleContext.Provider>
+  );
+}
 export const CurrencyContext = createContext("EUR");
 export function useLocale() {
   const currency = useContext(CurrencyContext);

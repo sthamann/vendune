@@ -1,5 +1,21 @@
 # Changelog
 
+## Visual elements and one agent workspace — 15 October 2026
+
+- Replace the sprawling inspector with Edit / Elements / Agent / History, a compact page-and-section tree and graphical page templates. Shared Tiptap controls now have small icon buttons and a single extra-formatting menu in every host.
+- Add searchable illustrated component cards. Installed apps declare `storefront.block` native surfaces; pages store stable `{app,surface}` references and reuse existing public registry, localization, action grants and native renderer. No app source is copied into host directories.
+- Use shared agent controls in App Studio and Shop design. Native AI retains the centrally configured inference service; Codex/Claude Code use credential-free task export and returned-result review, not background execution. New HTTP/MCP task/propose contracts share current sandbox, rights, revision checks, proposal/apply and publication owners.
+- Server-narrowed read-only preview grants reject writes. Real PostgreSQL tests cover app-owned elements, own/foreign/private/inactive admission, selected release, explicit review and stale revisions. Browser acceptance includes inserting/saving a real Care knowledge app element and preparing a Codex task; native AI inference uses synthetic model fixtures.
+- Public native app elements follow the editor’s selected content language instead of the browser preference; a fifth-language regression preserves the independent interface setting.
+- Align all-source coverage accounting with app-owned test directories; retain runtime coverage floors and negative architecture controls.
+
+## Preview-first shop design — 15 October 2026
+
+- Show the existing native storefront immediately and select saved home pages automatically; remove the blank new-page prerequisite and oversized introductory layout.
+- Use shared native header/hero/product/footer views in an isolated responsive canvas, with contextual properties, on-demand page navigation and persistent save controls. The design preview starts no cart, checkout, tracking or AI session.
+- Open publication review in the actual editor sandbox; keep native app saves/history/release, fork inherited home pages only on edit, preserve actual locale text and product-media selection, and correct the rich editor's language-code-as-prose fallback.
+- Keep session-bound merchant previews on their shared origin instead of redirecting away from the host-bound cookie. Add app-owned UI regressions and channel/locale transport checks.
+
 ## Hosted runtime separation — 15 October 2026
 
 - Switch hosted Core `5e4c18b` to a restricted, non-owner PostgreSQL login with mandatory RLS, separate runtime/listener connections, migration-only owner access and disabled bootstrap authentication.

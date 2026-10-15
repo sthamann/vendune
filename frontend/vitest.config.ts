@@ -1,5 +1,5 @@
 /** All executable frontend modules are measured, including files untouched by tests. */
-import { defineConfig } from "vitest/config";
+import { coverageConfigDefaults, defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import { fileURLToPath } from "node:url";
 export default defineConfig({
@@ -15,6 +15,10 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       allowExternal: true,
+      exclude: [
+        ...coverageConfigDefaults.exclude,
+        "**/extensions/apps/**/tests/**",
+      ],
       include: [
         "src/**/*.{ts,tsx}",
         fileURLToPath(

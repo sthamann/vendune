@@ -1,0 +1,137 @@
+/* Graphical insertion gallery for built-in and registered app-owned elements. */
+.designer-palette-search {
+  position: relative;
+  display: block !important;
+  margin: 0 0 16px;
+}
+.designer-palette-search > svg {
+  position: absolute;
+  top: 11px;
+  left: 10px;
+  color: #7d94a8;
+}
+.designer-palette-search input {
+  padding-left: 33px !important;
+}
+.designer-palette-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.designer-inspector .designer-element-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: stretch;
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid #dce7f0;
+  border-radius: 12px;
+  background: var(--studio-card, #fff);
+  text-align: left;
+  transition:
+    transform 0.15s,
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.designer-inspector .designer-element-card:hover:enabled {
+  transform: translateY(-2px);
+  border-color: #59b5f0;
+  box-shadow: 0 5px 18px #1a79bf16;
+}
+.designer-element-card > span {
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+}
+.designer-element-card strong {
+  font-size: 12px;
+  font-weight: 650;
+}
+.designer-element-card small {
+  font-size: 10px;
+  line-height: 1.5;
+  min-height: 30px;
+  color: #6f879b;
+}
+.designer-element-card > svg:last-child:not(.designer-block-art) {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  color: #2b84ca;
+  background: #ffffffde;
+  border-radius: 5px;
+  padding: 3px;
+}
+.designer-block-art {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: linear-gradient(145deg, #eef7ff, #e5effc);
+}
+.designer-block-art .art-paper {
+  fill: #fff;
+  stroke: #d8e5f3;
+}
+.designer-block-art .art-image {
+  fill: #d9eafa;
+}
+.designer-block-art .art-line {
+  fill: none;
+  stroke: #c4d6e6;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.designer-block-art .art-heading {
+  fill: none;
+  stroke: #648aac;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+.designer-block-art .art-accent {
+  fill: #208ce1;
+}
+.designer-block-art .art-sun {
+  fill: #b3d9fa;
+}
+.designer-block-art .art-hill {
+  fill: #8cbce3;
+}
+.designer-block-art .art-field {
+  fill: #f6faff;
+  stroke: #d6e4f0;
+}
+.designer-block-art .art-symbol {
+  fill: none;
+  stroke: #2b8bd3;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.designer-palette-section {
+  margin: 22px 0 12px;
+  font-size: 12px;
+  color: #647e94;
+}
+.designer-empty-copy {
+  padding: 12px;
+  border: 1px dashed #d8e3ee;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #74899c;
+}
+.site-element-preview-label {
+  display: block;
+  color: #65839a;
+  font: 11px system-ui;
+  margin: 0 0 10px;
+}
+.site-element-unavailable {
+  padding: 20px;
+  border: 1px dashed #bdd4e7;
+  border-radius: 10px;
+  color: #698397;
+  font: 13px/1.6 system-ui;
+}

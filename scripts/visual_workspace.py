@@ -150,4 +150,48 @@ try:
  assert next(p for p in rows(sh) if p['id']=='home')['revision']==stage_revision+1
  assert seen
  print('PASS synthetic model HTTP → validated alternatives → existing review task → explicit sandbox apply; reference SSRF fenced, live untouched and stale alternative rejected')
+ # External agents share page CAS, task review and sandbox admission without calling a model.
+ current=next(p for p in rows(sh) if p['id']=='home')
+ exported=call('/api/merchant/site/task',{'id':'home','revision':current['revision'],'instruction':'Improve heading','agent':'codex'},sh)
+ assert exported['mcpConfig']['mcpServers']['rust-commerce-dev']['env']['COMMERCE_TENANT']==stage
+ assert a['token'] not in json.dumps(exported)
+ result=copy.deepcopy(exported['resultTemplate']);result['summary']='Reviewed coding-agent headline';result['fields']['content']['blocks'][0]['text']['de-DE']='Vom Coding-Agenten'
+ proposal=call('/api/merchant/site/propose',result,sh);assert len(proposal['variants'])==1
+ assert next(p for p in rows(sh) if p['id']=='home')['revision']==current['revision']
+ call('/api/merchant/site/apply',{'taskId':proposal['variants'][0]['taskId'],'approve':False},sh,400)
+ call('/api/merchant/site/apply',{'taskId':proposal['variants'][0]['taskId'],'approve':True},sh)
+ call('/api/merchant/site/propose',result,sh,409)
+ now=next(p for p in rows(sh) if p['id']=='home');result['revision']=now['revision'];result['fields']['channel']='*'
+ call('/api/merchant/site/propose',result,sh,400)
+ call('/api/merchant/site/task',{'id':'home','revision':now['revision'],'instruction':'Live'},ah,400)
+ call('/api/merchant/site/task',{'id':'home','revision':now['revision'],'instruction':'Denied'},kh,403)
+ tools=call('/mcp',{'jsonrpc':'2.0','id':9,'method':'tools/list'},sh)['result']['tools']
+ assert {'merchant.site.task','merchant.site.propose'} <= {t['name'] for t in tools}
+ via_mcp=mcp('merchant.site.task',{'id':'home','revision':now['revision'],'instruction':'Review','agent':'codex'},sh)
+ assert not via_mcp['result'].get('isError',False)
+ print('PASS coding-agent export → result validation → explicit native approval; no credentials/model call, CAS/live/rights denial and MCP parity')
+ # A real installed declarative app contributes a page element through its existing surface/action contract.
+ manifest=json.loads((ROOT/'extensions/apps/ontology-care/manifest.json').read_text()); manifest['id']='design_elements'
+ for scope in (ah,sh):call('/api/apps',{'manifest':manifest},scope)
+ palette=call('/api/merchant/site/context',h=sh)['elements']
+ assert any(e['app']=='design_elements' and e['surface']['location']=='storefront.block' for e in palette)
+ assert not any(e['app']=='design_elements' for e in call('/api/merchant/site/context',h=bh)['elements'])
+ extension={**copy.deepcopy(fields),'slug':'app-elements','content':{'blocks':[{'id':'care','kind':'app','extension':{'app':'design_elements','surface':'care_element'}}]}}
+ saved=save(extension,id='elements',h=sh);assert saved['revision']==1
+ bad_ref=copy.deepcopy(extension);bad_ref['slug']='private-element';bad_ref['content']['blocks'][0]['extension']['surface']='workspace'
+ call('/api/apps/site_builder/actions/save_page',{'id':'private-element','revision':0,'fields':bad_ref},sh,400)
+ call('/api/apps',{'builtIn':'site_builder'},bh)
+ call('/api/apps/site_builder/actions/save_page',{'id':'foreign-element','revision':0,'fields':extension},bh,400)
+ base_grant='/api/apps/design_elements/surfaces/workspace'
+ grant=call(base_grant+'/grant',{'context':{},'readOnly':True},sh)
+ assert 'list_guides' in grant['actions'] and 'save_guides' not in grant['actions']
+ call(base_grant+'/actions/save_guides',{'grant':grant['token'],'input':{'id':'forbidden','revision':0,'fields':{'title':{'en':'No write'},'product_id':'mug'}}},sh,403)
+ diff=call('/api/environments/'+stage+'/diff',h=ah)['changes']; change=next(c for c in diff if c['key']=='appdata:site_builder:pages:elements')
+ call('/api/environments/'+stage+'/release',{'approve':True,'selections':[{'key':change['key'],'digest':change['digest']}]},ah)
+ assert next(p for p in rows(public,True) if p['id']=='elements')['content']['blocks'][0]['extension']=={'app':'design_elements','surface':'care_element'}
+ package=next(p for p in call('/api/apps',h=sh)['packages'] if p['id']=='design_elements')
+ call('/api/apps/design_elements',{'revision':package['revision'],'active':False},sh,method='PUT')
+ call('/api/apps/site_builder/actions/save_page',{'id':'elements','revision':1,'fields':extension},sh,400)
+ print('PASS app-owned graphical element registry, native save/history/release, public reference, tenant/private/inactive rejection and server read-only grant')
+
 finally:stop(process);log.close();model.shutdown()

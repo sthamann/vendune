@@ -1,6 +1,12 @@
 /** Four-language controls for visual/Markdown editing without changing content-language inheritance. */
 import { useLocale } from "../../i18n/i18n";
 const words = {
+  more: [
+    "More formatting",
+    "Weitere Formatierung",
+    "Autres formats",
+    "Más formatos",
+  ],
   reset: [
     "Discard source changes",
     "Quelltextänderungen verwerfen",

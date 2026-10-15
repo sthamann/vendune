@@ -37,7 +37,7 @@ def read_reports(root):
             raise ValueError('Coverage source has no frontend/app owner: ' + filename)
         relative = filename[filename.index(owner):]
         modules[relative] = {k: data[k]['pct'] for k in ('lines', 'branches', 'functions', 'statements')}
-    expected_frontend = {p.relative_to(root).as_posix() for directory in ('frontend/src', 'extensions/apps') for p in (root / directory).rglob('*') if p.suffix in {'.ts', '.tsx'}}
+    expected_frontend = {p.relative_to(root).as_posix() for directory in ('frontend/src', 'extensions/apps') for p in (root / directory).rglob('*') if p.suffix in {'.ts', '.tsx'} and 'tests' not in p.relative_to(root).parts}
     expected_python = {p.relative_to(root).as_posix() for directory in ('extensions/services', 'extensions/apps', 'scripts') for p in (root / directory).rglob('*.py') if '__pycache__' not in p.parts}
     omitted = (expected_frontend - modules.keys()) | (expected_python - python['files'].keys())
     if omitted:
