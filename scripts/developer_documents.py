@@ -141,7 +141,7 @@ try:
     change()
    finally:model_release.set()
    rejected=pending.result(timeout=20)
-   assert rejected=={'errors':[{'code':'409','detail':'Product sources changed; ask again'}]},rejected
+   assert rejected=={'errors':[{'code':'409','detail':'Product sources changed; ask again','kind':'conflict','status':409,'retryable':False}]},rejected
   behavior.update({'pause':False,'uncited':False})
  def publish_current(visibility):
   current=call('/api/knowledge/documents/'+doc['id'],session=a)
