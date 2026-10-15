@@ -322,3 +322,38 @@ it("refreshes the shared app registry only after a successful workspace refresh"
     window.removeEventListener("commerce.apps.changed", changed);
   }
 });
+it("never presents a failed or connected workspace before checking the current shop and sandbox scope", async () => {
+  sessionStorage.setItem("rac-user-token", "unit-token");
+  const { fetcher } = network();
+  const observations: {
+    active: boolean;
+    connected: boolean;
+    pending: boolean;
+  }[] = [];
+  const { result } = renderHook(
+    () => {
+      const state = useStudioController({
+        onChanged: vi.fn(),
+        onExit: vi.fn(),
+      });
+      observations.push({
+        active: state.auth.active,
+        connected: state.connected,
+        pending: state.connectionPending,
+      });
+      return state;
+    },
+    { wrapper: LocaleProvider },
+  );
+  await waitFor(() => expect(result.current.connected).toBe(true));
+  expect(observations.some((s) => s.active && !s.connected && !s.pending)).toBe(
+    false,
+  );
+  // A new sandbox must not display the preceding shop scope's connected workspace.
+  fetcher.mockImplementation(async () => new Promise<never>(() => {}));
+  act(() => result.current.setEnvironment("stage"));
+  expect(result.current.connected).toBe(false);
+  expect(result.current.connectionPending || result.current.auth.checking).toBe(
+    true,
+  );
+});

@@ -37,6 +37,7 @@ export function createStudioRequest(
       throw responseError(
         value.errors?.[0]?.detail || response.statusText,
         response.status,
+        value.errors?.[0],
       );
     return value;
   };

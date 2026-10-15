@@ -159,3 +159,20 @@ The exact `personal && administrator` predicate is extracted to Lean with denial
 claims and mutations for either missing check. That proof does not cover SQL,
 encryption, third-party services or the browser. See [testing](testing.md),
 [app security](app-security.md) and [formal verification](formal-verification.md).
+
+## Business goal and decision examples
+
+The [business-capability guide](business-capabilities.md#executable-first-slice)
+adds a Business goal tab to the same Manifest editor. Localized intent and
+assumptions remain editable; frozen cases show expected input and decision.
+Saving/installing executes declared pure cases in the existing WIT sandbox.
+The selected editor now omits the app library and large introduction; Back to
+overview retains the draft and opens the normal library. The contextual assistant
+continues to use the existing modal and coding-agent round trip.
+
+Studio connection presentation is checked against the current shop and sandbox
+during render. A new scope cannot briefly inherit the previous
+connected view; a connection not yet checked displays pending instead of failure.
+Existing expiry, same-account resume, current permissions and server guards remain
+authoritative. Slow-sandbox, language refresh, failure and scope-change
+regressions exercise the shared controller rather than a separate editor session.

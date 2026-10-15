@@ -26,6 +26,8 @@ permissions and revisions stay authoritative in the Rust core.
 **Our ambition: the most advanced publicly developed commerce platform for the AI era.**
 Built in public, self-hostable and adaptable under the [Sustainable Use License](LICENSE).
 
+**Executable app goals:** [intent, assumptions and frozen decision examples](docs/business-capabilities.md#executable-first-slice) now share the versioned Manifest and Studio editor. Declared cases execute in the existing isolated component before saving/installing; empty cases are not a behavior check.
+
 **Next implementation direction:** [your business model becomes software](docs/business-capabilities.md) — one reviewed capability across data, shop, decisions, workflows and agents. The [connected hardening tracker](docs/platform-hardening.md) distinguishes delivered foundations from the remaining managed-runtime and compatibility work.
 
 The [15 October delivery audit](docs/delivery-audit-2026-10-15.md) records what is

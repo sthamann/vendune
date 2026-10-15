@@ -934,6 +934,21 @@
       "sha256": "7a5949201defdcbbed750f23cabfab8dc46a1314b485367dae5a279e615cc4ef",
       "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
     },
+    "src/apps/business_capability/mod.rs": {
+      "status": "unproved",
+      "sha256": "4885dfc7490c489a0c9273e61fa4a2781afa561c044c7486347df873d7e46449",
+      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
+    },
+    "src/apps/business_capability/snapshot.rs": {
+      "status": "unproved",
+      "sha256": "64f717f3813fdc04117b9cdd182f9fb23b5db9ebeff4d1fb97c1b9e4e6b1acc6",
+      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
+    },
+    "src/apps/business_capability/tests.rs": {
+      "status": "unproved",
+      "sha256": "edfbdf773713ac1ac8d0c79f5385c5badeae986cf89fbc491f48d7725e30fce0",
+      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
+    },
     "src/apps/cart_contributions.rs": {
       "status": "unproved",
       "sha256": "5cf1b49acd523a578853e45ce2ac1abef069dad612adee5d4e84d2fd15035c12",
@@ -941,8 +956,8 @@
     },
     "src/apps/commerce_hooks.rs": {
       "status": "unproved",
-      "sha256": "331b9ae4fdf75cd548061cfc1bb519e1d9a8757976a9340a28a251313427d126",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "54b4a1d3c3ba43d4f07c54fdb24ba1ea43c540dcb228e741e638fc1d5cbf8c1d",
+      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
     },
     "src/apps/compatibility.rs": {
       "status": "unproved",
@@ -1066,18 +1081,18 @@
     },
     "src/apps/manifest.rs": {
       "status": "unproved",
-      "sha256": "188d0c80afaa8a2873c0c2ffc2d6b9922dc191629e5eab0577d78d2eb084891e",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "7c4ebd3bb6f494cfc5cd0eecb5f0358e8dd9e78e3fffa7f8dadcaaa4ff43cb80",
+      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
     },
     "src/apps/manifest_validation.rs": {
       "status": "unproved",
-      "sha256": "22c60b95603cc013b1291f6045a981c07763e3c4f4043a3e0197b96be660d946",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "c9d0d1984f1fb1e78993e8c28ecf894f2654e648e7266fcca4c0630428bbfbd6",
+      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "45744c9694ca84b6422aa9b556bfe5394219f706dcde5333d25fcc0a73c58e55",
-      "review": "Reviewed native schema budget regression: shared validator retains strict app limits and permits bounded native rich documents; actual catalog MCP regression plus depth and byte counterexamples. No extracted policy changes."
+      "sha256": "1db734199c5b4534b9e70b0b6ee8923cd923214aa1fc384e0ccae5c900c7eafb",
+      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
@@ -1136,8 +1151,8 @@
     },
     "src/apps/registry.rs": {
       "status": "unproved",
-      "sha256": "d0ec2cbde15586ee95853d6cc1ddf49b9a483e0b3050104fa751b7f8018fc6e1",
-      "review": "Reviewed final App Studio adapters: private declared settings share the existing encrypted tenant/app/digest CAS owner, private service injection is bounded to 64 KiB including settings, registry cap counts registered package IDs, and permanent keys require the extracted personal-administrator predicate. HTTP tests cover secret redaction, CAS, settings delivery, scope/tenant/sandbox denial and revocation; SQL, crypto and provider behavior remain adapter boundaries."
+      "sha256": "231d267164b4f26bbf867f8485e4b1a6bd5e5264c83283b5b0be398cf15f6569",
+      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
     },
     "src/apps/relations.rs": {
       "status": "unproved",
@@ -2181,8 +2196,8 @@
     },
     "src/developer/builds.rs": {
       "status": "unproved",
-      "sha256": "5a15524417e01b9e16cee9f368f2b242a5ff5108bb346618b958e2787552a1a4",
-      "review": "Native App Studio Manifest views bind list/save actions with surface allowlists; public native writes reuse extracted app_read_admissible. Rust validation mutations, real isolated PostgreSQL native registry/API/MCP/translation/staging/release and order-event app-action suites pass. Legacy empty views retain package serialization; actual shop languages specialize one provider/task schema. Async adapters and renderer remain unproved."
+      "sha256": "b000f90a17fa346ec2a134c89876ae970a5b378f7e8dcd0a5cbc387f9eccf3e8",
+      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
     },
     "src/developer/drafts.rs": {
       "status": "unproved",
@@ -2196,8 +2211,8 @@
     },
     "src/developer/generation_contract.rs": {
       "status": "unproved",
-      "sha256": "cd2728125063d28ce4e6e6487b81f3f21fa133fa36491dd18cd14e3f423c22e6",
-      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+      "sha256": "74ca0559ab20602f4d9f49b7dbaabd75d52fa4013fd894cf463e29133cb98690",
+      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
     },
     "src/developer/generation_edits.rs": {
       "status": "unproved",
@@ -2216,8 +2231,8 @@
     },
     "src/developer/routes.rs": {
       "status": "unproved",
-      "sha256": "58af6c5071c2eabb6497815b7872a0a80cd98f0c2374bee0c3481ada80a33c82",
-      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+      "sha256": "cbb0898f1f0668d2230aa375073547a1e92c906181a269f32f34bfb8e991a78b",
+      "review": "Reviewed optional version-1 business capability contract and bounded synthetic snapshots; real sandbox verification gates immutable builds and native installation/release. Existing AI edits retain cases, legacy serialization stays unchanged, main-language validation and credential-free coding tasks share the same manifest. Core policy statements unchanged; SQL and browser adapters remain tested, unproved boundaries."
     },
     "src/discount.rs": {
       "status": "reviewed-binding",

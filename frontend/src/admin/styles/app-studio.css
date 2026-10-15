@@ -365,3 +365,20 @@
   background: none;
   color: #1769f3;
 }
+
+/* While editing, keep the selected workspace above the fold; the library remains on its overview. */
+.app-studio-editing .app-studio-intro {
+  margin-bottom: 16px;
+  gap: 12px;
+}
+.app-studio-editing .app-studio-intro > div {
+  flex: 1;
+}
+.app-studio-editing .app-studio-intro .kicker,
+.app-studio-editing .app-studio-intro p {
+  display: none;
+}
+.app-studio-editing .app-studio-intro h1 {
+  font-size: 24px !important;
+  margin: 0;
+}

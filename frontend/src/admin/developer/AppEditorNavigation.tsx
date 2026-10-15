@@ -17,6 +17,7 @@ export default function AppEditorNavigation({
 }) {
   const { a } = useAppStudioText();
   const tabs = [
+    "capability",
     "design",
     "data",
     "connect",
@@ -26,6 +27,7 @@ export default function AppEditorNavigation({
     "versions",
   ] as const;
   const icons: Record<(typeof tabs)[number], IconName> = {
+    capability: "spark",
     design: "palette",
     data: "database",
     connect: "graph",

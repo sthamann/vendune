@@ -1,5 +1,6 @@
 /** Localized request guidance across all transports; original diagnostics remain available to developer tools. */
 import { getLocale } from "./i18n";
+import { appCapabilityWords } from "./app-capability-i18n";
 const messages: Record<string, readonly string[]> = {
   "Design provider unavailable; your page is unchanged": [
     "The design provider is unavailable. Check the central AI connection and retry; your saved page is unchanged.",
@@ -235,11 +236,29 @@ const fallback: Record<string, readonly string[]> = {
     "El servicio no pudo completar la solicitud. Inténtalo de nuevo o revisa su configuración.",
   ],
 };
-export function responseError(detail: string, status: number): Error {
+export function responseError(
+  detail: string,
+  status: number,
+  problem?: { pointer?: string; kind?: string },
+): Error {
   const i = { "en-GB": 0, "de-DE": 1, "fr-FR": 2, "es-ES": 3 }[getLocale()];
-  const error = new Error(
-    (messages[detail] ?? fallback[String(status)] ?? fallback[500])[i],
-  );
-  Object.assign(error, { diagnostic: detail, status });
+  // Identify the declared field from structured metadata, never by parsing diagnostic prose.
+  const example =
+    problem?.kind === "validation_error" && typeof problem.pointer === "string"
+      ? /^\/capability\/examples\/(\d+)\/expected$/.exec(problem.pointer)
+      : null;
+  const message =
+    example && Number(example[1]) < 12
+      ? appCapabilityWords.exampleFailure[i].replace(
+          "{example}",
+          String(Number(example[1]) + 1),
+        )
+      : (messages[detail] ?? fallback[String(status)] ?? fallback[500])[i];
+  const error = new Error(message);
+  Object.assign(error, {
+    diagnostic: detail,
+    status,
+    ...(problem?.pointer ? { pointer: problem.pointer } : {}),
+  });
   return error;
 }

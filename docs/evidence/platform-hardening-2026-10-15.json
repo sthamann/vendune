@@ -1,0 +1,24 @@
+{
+  "health": "passed",
+  "unknownProtocolMethod": "-32601",
+  "uniquePublicTools": 34,
+  "annotations": "present",
+  "invalidCatalogArgument": {
+    "code": "400",
+    "detail": "Action input /query: type mismatch",
+    "kind": "validation_error",
+    "pointer": "/query",
+    "retryable": false,
+    "status": 400
+  },
+  "recordedAt": "2026-10-15T11:14:52.299247+00:00",
+  "commit": "f8c7ff0b6e717dc3614cc5b2e48fbe73f053abbb",
+  "pullRequest": 130,
+  "build": "slim-detail-8547",
+  "migrationJob": "vendune-migrate",
+  "migrationStatus": "success",
+  "coreStatus": "running",
+  "readyReplicas": 1,
+  "restartCount": 0,
+  "scope": "Public protocol/read validation only; broader domain suites used isolated PostgreSQL and local provider fixtures."
+}

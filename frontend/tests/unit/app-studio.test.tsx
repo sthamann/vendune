@@ -155,6 +155,7 @@ it("opens a saved app card directly on the editable canvas and saves a new versi
   )![1];
   await user.click(screen.getByRole("button", { name: "Coding agent" }));
   await user.click(screen.getByRole("button", { name: "Close assistant" }));
+  await user.click(screen.getByRole("button", { name: "Back to overview" }));
   await user.click(
     screen.getByRole("button", {
       name: /Product care guide.*Open for editing/,
@@ -230,6 +231,10 @@ it("offers explicit edit/delete controls, confirms recoverable removal and resto
   await user.click(
     await screen.findByRole("button", { name: "Save new version" }),
   );
+  expect(
+    screen.queryByRole("region", { name: "My apps" }),
+  ).not.toBeInTheDocument();
+  await user.click(screen.getByRole("button", { name: "Back to overview" }));
   expect(
     await screen.findByRole("button", { name: /^Edit app:/ }),
   ).toBeVisible();
