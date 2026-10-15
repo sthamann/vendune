@@ -2,6 +2,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { shopApi } from "../../shared/api/shop-api";
 import {
+  activateBrowserSession,
+  browserSessionMarker,
+  forgetLegacyCredentials,
+} from "../../shared/api/browser-session";
+import {
   suspendMerchantToken,
   resumeMerchantToken,
 } from "../../shared/api/merchant-session";
@@ -70,9 +75,16 @@ export function useStudioAccess(
           throw new Error(x("resumeSameAccount"));
         if (!session.workspaces.some((w) => w.id === workspace))
           throw new Error(x("studioShopAccess"));
+        activateBrowserSession(session);
         resumeMerchantToken(token);
+        const credential =
+          session.token === browserSessionMarker ? browserSessionMarker : token;
+        if (credential === browserSessionMarker) {
+          setToken(credential);
+        }
+        forgetLegacyCredentials();
         setIdentity(session);
-        setVerified(JSON.stringify([token, workspace]));
+        setVerified(JSON.stringify([credential, workspace]));
         setExpired(false);
         setError("");
         route("merchant");
@@ -101,8 +113,9 @@ export function useStudioAccess(
       member?.id ??
       session.workspaces.find((w) => w.id === session.workspace)?.id;
     if (!target) throw new Error(x("studioShopAccess"));
+    activateBrowserSession(session);
     resumeMerchantToken(session.token);
-    sessionStorage.setItem("rac-user-token", session.token);
+    forgetLegacyCredentials();
     sessionStorage.setItem("rac-user-workspace", target);
     const url = new URL(location.href);
     if (workspace !== target) {
@@ -132,7 +145,14 @@ export function useStudioAccess(
       .catch((e) => setError(e.message))
       .finally(() => setChecking(false));
   }, []);
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await liveRequest("/api/auth/logout", {});
+    } catch (e) {
+      setError((e as Error).message);
+      return;
+    }
+    forgetLegacyCredentials();
     sessionStorage.removeItem("rac-user-token");
     sessionStorage.removeItem("rac-user-workspace");
     setToken("");

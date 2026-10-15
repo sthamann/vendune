@@ -884,6 +884,11 @@
       "sha256": "70bf9c0d12611d3f3b78469a87748ce1e2b745463d82e41355ffa58c66ad96db",
       "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
     },
+    "src/accounts/browser.rs": {
+      "status": "unproved",
+      "sha256": "1a70d58708bc7df92f6e0f6638b8d1abd008d8cb4a420f17cf88cb4a4f51c944",
+      "review": "Reviewed browser adapters against existing personal/customer ledgers, exact host/origin/CSRF admission, passive-response races, current database scopes, explicit MCP compatibility and intersecting build-owned credential-origin CSP; no pure money or authorization policy changed"
+    },
     "src/accounts/contacts.rs": {
       "status": "unproved",
       "sha256": "08404f3dedaae028019441d6d090282ef9da3ba4fcc28a0db05b68101fd4fbdf",
@@ -901,8 +906,8 @@
     },
     "src/accounts/mod.rs": {
       "status": "unproved",
-      "sha256": "9746209daf196b0cc8e057df8452b946e000b8ee4049c4014427c3ae035b29ae",
-      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
+      "sha256": "025889b8817adf8653aabbb34ced9fb717308da204f52ed096823df2b792ea2c",
+      "review": "Reviewed browser adapters against existing personal/customer ledgers, exact host/origin/CSRF admission, passive-response races, current database scopes, explicit MCP compatibility and intersecting build-owned credential-origin CSP; no pure money or authorization policy changed"
     },
     "src/accounts/order_snapshot.rs": {
       "status": "unproved",
@@ -1354,6 +1359,11 @@
       "sha256": "2f131c6901f66c6a5f801c3d2aab64c47dc2e293a8f66684b4e917e3191e837c",
       "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
+    "src/auth/browser.rs": {
+      "status": "unproved",
+      "sha256": "92b83f41d2570b1184281aefee46a970afd4c09f5f0712c712f0c7a61e81bc7a",
+      "review": "Reviewed browser adapters against existing personal/customer ledgers, exact host/origin/CSRF admission, passive-response races, current database scopes, explicit MCP compatibility and intersecting build-owned credential-origin CSP; no pure money or authorization policy changed"
+    },
     "src/auth/credentials.rs": {
       "status": "unproved",
       "sha256": "36a24c34e95f437e81e79d1057305e9f3e313a05309433d5798010003836d2e8",
@@ -1401,8 +1411,8 @@
     },
     "src/auth/mod.rs": {
       "status": "unproved",
-      "sha256": "9284a2b1fddc26480d85e206e192bea7c21f8c1afb532c5ed538a578ecbdb285",
-      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+      "sha256": "7c17be7ec2de34b04179ab08d3fc7d79120777362f06f273f9a8d068077627d1",
+      "review": "Reviewed browser adapters against existing personal/customer ledgers, exact host/origin/CSRF admission, passive-response races, current database scopes, explicit MCP compatibility and intersecting build-owned credential-origin CSP; no pure money or authorization policy changed"
     },
     "src/auth/permissions.rs": {
       "status": "reviewed-binding",
@@ -3131,8 +3141,8 @@
     },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "a578a10e2a7aecfd0cc3ecfd58ddf619b8157a3aa7f89d9071c495dbef6264b1",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "254780e1a1aba073d826ca90a3f465d8f43ce90a3bede392d58de0e4675a8da2",
+      "review": "Reviewed browser adapters against existing personal/customer ledgers, exact host/origin/CSRF admission, passive-response races, current database scopes, explicit MCP compatibility and intersecting build-owned credential-origin CSP; no pure money or authorization policy changed"
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",
@@ -3166,8 +3176,8 @@
     },
     "src/security_headers.rs": {
       "status": "unproved",
-      "sha256": "f68043ecfcfd5eb2d2b07654bb77f7b91485f5c151fcf605427a01002aa0bf44",
-      "review": "Reviewed tenant/channel registered-origin checkout framing, immutable localized checkout snapshots using existing inheritance, and shopper-only receipt transport. Verified origin negatives and German parent/variant label persistence with PostgreSQL; these adapters remain unproved, existing extracted kernel policies unchanged."
+      "sha256": "cdcf7e7d78caf8c07686c9ce6bf207502503580e30307cb5bd87e537d0e9cc5c",
+      "review": "Reviewed browser adapters against existing personal/customer ledgers, exact host/origin/CSRF admission, passive-response races, current database scopes, explicit MCP compatibility and intersecting build-owned credential-origin CSP; no pure money or authorization policy changed"
     },
     "src/seed.rs": {
       "status": "unproved",

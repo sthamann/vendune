@@ -293,7 +293,7 @@ it("keeps the same chat input mounted and returns to it after the overlay login"
   expect(document.querySelector(".studio-composer textarea")).toBe(input);
   expect(input).toHaveValue("Unsubmitted private draft");
   expect(document.querySelector(".studio")).not.toHaveAttribute("inert");
-  expect(sessionStorage.getItem("rac-user-token")).toBe("ui-resume-new");
+  expect(sessionStorage.getItem("rac-user-token")).toBeNull();
 });
 
 it("adapts navigation and data loading to current grants rather than the role label", async () => {

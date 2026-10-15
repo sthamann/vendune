@@ -20,7 +20,11 @@ describe("Storefront API isolation", () => {
     const fetcher = vi.fn().mockResolvedValue(response({ ok: true }));
     vi.stubGlobal("fetch", fetcher);
     await shopApi("/store-api/product", { search: "blue" }, "checkout-a");
-    expect(fetcher.mock.calls[0][1].headers).toMatchObject({
+    expect(
+      Object.fromEntries(
+        new Headers(fetcher.mock.calls[0][1].headers).entries(),
+      ),
+    ).toMatchObject({
       "x-tenant": "unit-shop",
       "sw-sales-channel-id": "retail",
       "x-customer-token": "customer-a",
@@ -33,14 +37,16 @@ describe("Storefront API isolation", () => {
     sessionStorage.setItem("rac-user-token", "owner-a");
     history.replaceState({}, "", "/?shop=unit-shop&sandbox=1");
     await shopApi("/store-api/product");
-    expect(fetcher.mock.calls[1][1].headers.Authorization).toBe(
-      "Bearer owner-a",
-    );
+    expect(
+      new Headers(fetcher.mock.calls[1][1].headers).get("authorization"),
+    ).toBe("Bearer owner-a");
     await shopApi("/api/admin", undefined, undefined, "DELETE", "explicit-a");
     expect(fetcher.mock.calls[2][1]).toMatchObject({
       method: "DELETE",
-      headers: { Authorization: "Bearer explicit-a" },
     });
+    expect(
+      new Headers(fetcher.mock.calls[2][1].headers).get("authorization"),
+    ).toBe("Bearer explicit-a");
   });
   it("removes only the expired customer session and retries cart creation without it", async () => {
     localStorage.setItem("rac-customer:unit-shop", "expired");
@@ -84,7 +90,7 @@ describe("Storefront API isolation", () => {
     await expect(shopApi("/store-api/account")).rejects.toMatchObject({
       status: 403,
     });
-    expect(localStorage.getItem("rac-customer:unit-shop")).toBe("valid");
+    expect(localStorage.getItem("rac-customer:unit-shop")).toBeNull();
   });
 });
 describe("Catalogue lifecycle", () => {

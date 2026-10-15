@@ -1,5 +1,6 @@
 /** Browser platform shims for isolated component tests; no network or real provider calls. */
 import "@testing-library/jest-dom/vitest";
+import { forgetCustomerSession } from "../../src/shared/api/customer-session";
 import { afterEach, beforeEach, vi } from "vitest";
 import { publishConsent } from "../../src/shared/legal/consent-store";
 import { cleanup } from "@testing-library/react";
@@ -14,6 +15,7 @@ Object.defineProperty(globalThis, "sessionStorage", {
   value: testWindow.sessionStorage,
 });
 beforeEach(() => {
+  forgetCustomerSession("unit-shop");
   localStorage.clear();
   sessionStorage.clear();
   localStorage.setItem("rac-locale", "en-GB");

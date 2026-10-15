@@ -36,9 +36,13 @@ relationships are explicitly synthetic template data.
 `MERCHANT_TOKEN` remains an **instance administrator bootstrap credential**
 for local setup/verification. It has global authority and must never be
 shared with ordinary merchants. The UI places it under advanced settings;
-normal operation uses Team & access. Personal sessions are kept in browser
-sessionStorage, so same-origin XSS could steal them. Production needs an
-appropriate cookie/token gateway, OIDC/MFA, password recovery and verified email. The native strict script CSP, strict-deployment HSTS, constant-time bootstrap comparison and database-backed account/peer throttles are now implemented; see [the eighteen review fixes](core-hardening.md).
+normal operation uses Team & access. Browser personal and customer sessions now
+use the existing native ledgers through host-only HttpOnly cookies, exact origins
+and per-tab anti-CSRF fences. API bearer clients remain compatible. The merchant
+credential origin permits only build-owned scripts; shared checkout keeps manual
+addresses rather than loading third-party code with merchant authority. See the
+[browser session contract and migration limits](browser-sessions.md),
+[account MFA/recovery](account-security.md) and [eighteen review fixes](core-hardening.md).
 
 Studio validates a visible connected session once per minute and on return to
 the tab. An authoritative merchant-authentication rejection from either JSON

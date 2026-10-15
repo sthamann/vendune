@@ -1,13 +1,14 @@
 /** Request-scoped geography loading; stale requests cannot move country definitions across shops or sandboxes. */
 import { useEffect, useRef, useState } from "react";
 import { shopApi } from "../api/shop-api";
+import { browserSessionScope } from "../api/browser-session";
 import type { CountryCatalogue } from "./geography-types";
 export type GeographyRequest = (path: string) => Promise<any>;
 export function useCountryCatalogue(request: GeographyRequest = shopApi) {
   const [data, setData] = useState<CountryCatalogue>();
   const current = useRef(request);
   current.current = request;
-  const scope = `${location.search}:${sessionStorage.getItem("rac-user-token") ?? ""}`;
+  const scope = `${location.search}:${browserSessionScope()}`;
   useEffect(() => {
     let active = true;
     setData(undefined);

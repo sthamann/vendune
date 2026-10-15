@@ -69,10 +69,7 @@ export default function CheckoutIdentity({
                     { email, password },
                     cart.token,
                   );
-                  localStorage.setItem(
-                    customerSessionKey(),
-                    next.customerToken,
-                  );
+
                   onCart(next);
                   onSigned();
                 } catch (e) {

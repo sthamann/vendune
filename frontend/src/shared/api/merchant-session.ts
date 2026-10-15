@@ -27,6 +27,7 @@ const authFailures = new Set([
   "Session or integration key expired or invalid",
   "Personal merchant session required",
   "Merchant login required",
+  "Browser session changed or CSRF proof is invalid",
 ]);
 
 export function onMerchantSessionFailure(

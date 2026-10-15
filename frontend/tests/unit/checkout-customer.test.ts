@@ -1,6 +1,7 @@
 /** Final checkout carries the current buyer identity; another tenant or merchant session cannot substitute for it. */
 import { expect, it, vi } from "vitest";
 import { placeCheckoutOrder } from "../../src/storefront/checkout/checkout-order";
+import { forgetCustomerSession } from "../../src/shared/api/customer-session";
 import { cart } from "./fixtures";
 it("uses the current buyer session and stops forwarding it after logout", async () => {
   const fetch = vi.fn().mockResolvedValue({
@@ -12,17 +13,21 @@ it("uses the current buyer session and stops forwarding it after logout", async 
   localStorage.setItem("rac-customer:other-shop", "foreign-session");
   sessionStorage.setItem("rac-user-token", "merchant-session");
   await placeCheckoutOrder(cart, "de-DE", "buyer-shop", "b2b");
-  expect(fetch.mock.calls[0][1].headers).toMatchObject({
+  expect(
+    Object.fromEntries(new Headers(fetch.mock.calls[0][1].headers).entries()),
+  ).toMatchObject({
     "x-customer-token": "synthetic-buyer-session",
     "x-tenant": "buyer-shop",
     "sw-sales-channel-id": "b2b",
   });
-  localStorage.removeItem("rac-customer:buyer-shop");
+  forgetCustomerSession("buyer-shop");
   await placeCheckoutOrder(cart, "de-DE", "buyer-shop", "b2b");
-  expect(fetch.mock.calls[1][1].headers).not.toHaveProperty("x-customer-token");
+  expect(
+    new Headers(fetch.mock.calls[1][1].headers).has("x-customer-token"),
+  ).toBe(false);
   localStorage.setItem("rac-customer:buyer-shop", "new-buyer-session");
   await placeCheckoutOrder(cart, "de-DE", "buyer-shop", "b2b");
-  expect(fetch.mock.calls[2][1].headers["x-customer-token"]).toBe(
-    "new-buyer-session",
-  );
+  expect(
+    new Headers(fetch.mock.calls[2][1].headers).get("x-customer-token"),
+  ).toBe("new-buyer-session");
 });

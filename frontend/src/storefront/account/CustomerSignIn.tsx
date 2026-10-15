@@ -7,14 +7,12 @@ import { useExperienceUIText } from "../../shared/i18n/experience-ui-i18n";
 import Icon from "../../shared/ui/Icon";
 export default function CustomerSignIn({
   cart,
-  sessionKey,
   onCart,
   setSigned,
   run,
   busy,
 }: {
   cart?: Cart;
-  sessionKey: string;
   onCart: (cart: Cart) => void;
   setSigned: (signed: boolean) => void;
   run: (fn: () => Promise<void>) => Promise<void>;
@@ -94,7 +92,7 @@ export default function CustomerSignIn({
                 { email, password },
                 context.token,
               );
-              localStorage.setItem(sessionKey, result.customerToken);
+
               onCart(result);
               setSigned(true);
             });

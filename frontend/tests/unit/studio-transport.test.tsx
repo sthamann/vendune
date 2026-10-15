@@ -26,12 +26,14 @@ describe("Studio transport", () => {
       "DELETE",
     ]);
     expect(fetcher.mock.calls[0][1]).toMatchObject({
-      headers: {
-        Authorization: "Bearer token-fixture",
-        "x-tenant": "tenant-a",
-        "x-commerce-locale": "de-DE",
-      },
       body: undefined,
+    });
+    expect(
+      Object.fromEntries(new Headers(fetcher.mock.calls[0][1].headers)),
+    ).toMatchObject({
+      authorization: "Bearer token-fixture",
+      "x-tenant": "tenant-a",
+      "x-commerce-locale": "de-DE",
     });
     expect(fetcher.mock.calls[1][1].body).toBe('{"revision":6}');
   });
@@ -56,14 +58,14 @@ describe("Studio transport", () => {
       {},
     );
     for (const call of fetcher.mock.calls.slice(0, 2))
-      expect(call[1].headers).toMatchObject({
-        "Idempotency-Key": "stable-job-fixture",
+      expect(Object.fromEntries(new Headers(call[1].headers))).toMatchObject({
+        "idempotency-key": "stable-job-fixture",
         "x-tenant": "tenant-a",
-        Authorization: "Bearer token-fixture",
+        authorization: "Bearer token-fixture",
       });
-    expect(fetcher.mock.calls[2][1].headers).not.toHaveProperty(
-      "Idempotency-Key",
-    );
+    expect(
+      new Headers(fetcher.mock.calls[2][1].headers).has("idempotency-key"),
+    ).toBe(false);
   });
   it("lets the browser set multipart boundaries", async () => {
     const fetcher = vi
@@ -74,7 +76,9 @@ describe("Studio transport", () => {
     form.append("file", new Blob(["test"]), "datasheet.txt");
     await createStudioRequest("t", "a", "en-GB")("/api/upload", form);
     expect(fetcher.mock.calls[0][1].body).toBe(form);
-    expect(fetcher.mock.calls[0][1].headers).not.toHaveProperty("Content-Type");
+    expect(
+      new Headers(fetcher.mock.calls[0][1].headers).has("content-type"),
+    ).toBe(false);
   });
   it.each([{ errors: [{ detail: "Invalid credentials" }] }, {}])(
     "rejects responses with localized diagnostic %#",
@@ -111,16 +115,15 @@ describe("Studio transport", () => {
       idempotencyKey: "stage-fixture",
     });
     await result.current.liveRequest("/api/items");
-    expect(fetcher.mock.calls[0][1].headers["Idempotency-Key"]).toBe(
-      "stage-fixture",
-    );
-    expect(fetcher.mock.calls[1][1].headers).not.toHaveProperty(
-      "Idempotency-Key",
-    );
-    expect(fetcher.mock.calls.map((c) => c[1].headers["x-tenant"])).toEqual([
-      "stage",
-      "live",
-    ]);
+    expect(
+      new Headers(fetcher.mock.calls[0][1].headers).get("idempotency-key"),
+    ).toBe("stage-fixture");
+    expect(
+      new Headers(fetcher.mock.calls[1][1].headers).has("idempotency-key"),
+    ).toBe(false);
+    expect(
+      fetcher.mock.calls.map((c) => new Headers(c[1].headers).get("x-tenant")),
+    ).toEqual(["stage", "live"]);
   });
   it("tracks public health, retries and releases its interval", async () => {
     vi.useFakeTimers();

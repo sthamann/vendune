@@ -1,6 +1,14 @@
 # Changelog
 
-## Authenticated database authority — in development, 15 October 2026
+## Browser session boundary — in development, 15 October 2026
+
+- Adapt existing merchant/platform and separate tenant customer ledgers to host-only HttpOnly cookies, exact origins and per-tab anti-CSRF/session fences. Explicit API/MCP bearer contracts remain compatible; browser authentication JSON contains no opaque bearer.
+- Keep passive session/profile responses free of cookie mutations and pin customer response handling to the originating tenant and session generation. Late successes/errors cannot overwrite or clear a newly accepted identity. Legacy credentials leave browser storage and remain memory-only until the next explicit sign-in/handoff.
+- Use the shared transport for platform administration, private previews, native MCP, binary documents, refunds and final checkout. Failed sign-out stays visible instead of faking success.
+- Restrict scripts on every response from the merchant credential origin to build-owned assets; preserve the existing renderer framing policy and separate-shop autocomplete. Shared checkout retains manual address entry. Add real HTTP/MFA/customer/negative cases and delayed-response frontend regressions.
+
+
+## Authenticated database authority — merged, activation pending, 15 October 2026
 
 - Separate restricted tenant/system connection pools within the existing process and fleet budget. Ordinary serving no longer requires the migration credential.
 - Bind transaction-local tenant, actor and personal-session context to the actual SQL login through short-lived signed tickets; keep tickets out of SQL query text. Add restrictive policies alongside existing row/actor checks, narrowly admitted identity reads and canonical language registration.
@@ -8,7 +16,7 @@
 - Add migration-only configure/activate/status/rotate commands, staged rollout, startup role/policy audits, minute refresh and retiring-key overlap. No production credential is created by migration or application startup.
 - Repeat actual two-replica runtime, restart, current-rights, inventory, documents, app and selective release flows with separate logins. Add actual tenant-connection attacks, private actor substitution and signing-key rotation tests. SQL/cryptographic integration remains tested, outside the selected pure Lean proofs.
 
-## Product content and inventory concurrency — in development, 15 October 2026
+## Product content and inventory concurrency — published, 15 October 2026
 
 - Preserve aggregate product revisions and add a content clock through additive migration 098. Existing replicas advance it during rolling releases; stock-only purchases/releases leave it stable.
 - Native HTTP/MCP content-only saves preserve current stock under the existing row lock. Explicit quantities and legacy clients still require the current aggregate revision; stale content reports the appropriate revision pointer.

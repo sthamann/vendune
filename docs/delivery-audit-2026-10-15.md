@@ -37,8 +37,9 @@ replica, zero restarts and no HTTP 5xx in the displayed hour.
 **Database authority:** the connected implementation and coordinated rollout are
 documented in [authenticated database scope](authenticated-database-scope.md).
 Local separate-login attacks and real PgBouncer/two-replica/restart/rotation flows
-pass. The full HTTP registry is being repeated with the stricter connections;
-production role provisioning and activation have not yet been performed.
+pass. The full HTTP registry with stricter connections and both exact-head CI runs passed.
+[PR 133](https://github.com/sthamann/veyndo/pull/133) merged as `d6ed72d`; production
+role provisioning and activation have not yet been performed.
 
 ## Recent product requests
 
@@ -89,8 +90,8 @@ production role provisioning and activation have not yet been performed.
 | Compiler-enforced crate boundaries | Incremental work open. | Preserve native API, boxed dispatch and app ownership while reducing facade coupling. |
 | Released migration identifiers | Already immutable. | Never rename or renumber deployed migrations to tidy historical duplicate prefixes. |
 | SQL identifier quoting | Published through PR 130 in all builds. | Invalid delimiters remain quoted; manifest admission still rejects invalid identifiers. |
-| System-scope database role separation | Implemented source: separate restricted pools, role-bound signed transaction scopes, restrictive policies, private actor fences, native DDL owner and startup audits. Local actual-login attacks and real transaction-pool/restart/rotation paths pass. | Complete full HTTP verification, exact-head CI and coordinated production activation; legacy/staged mode is not the enforced boundary. |
-| HttpOnly browser sessions and Studio CSP | Open. Merchant tokens remain in session storage. | Existing session ledger, CSRF/origin checks, dedicated Studio policy and compatible onboarding/Experience handoffs. |
+| System-scope database role separation | Implemented source: separate restricted pools, role-bound signed transaction scopes, restrictive policies, private actor fences, native DDL owner and startup audits. Local actual-login attacks and real transaction-pool/restart/rotation paths pass. | Full HTTP verification and both exact-head CI jobs passed; PR 133 merged as `d6ed72d`. Coordinated production activation remains required; legacy/staged mode is not the enforced boundary. |
+| HttpOnly browser sessions and Studio CSP | Implemented source through the existing ledgers: exact origins, per-tab proof fences, separate customer cookies, all-host build-only Studio scripts and compatible explicit bearer/MCP paths. Independent review found and drove fixes for passive-response races and Studio MCP. | Complete refreshed HTTP/UI checks, exact-head CI and actual deployed browser/handoff acceptance; see [browser sessions](browser-sessions.md). |
 | Purpose keys and rotation | Open. | Separate signing/encryption purposes, key IDs and backwards-compatible verification/decryption overlap. |
 | License/positioning | Sustainable Use License already identified. | Keep actual prototype/production boundaries; do not call the license OSI open source. |
 

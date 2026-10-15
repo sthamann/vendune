@@ -155,7 +155,6 @@ export default function CustomerAccount({
           {!account.signed ? (
             <CustomerSignIn
               cart={cart}
-              sessionKey={account.key}
               onCart={onCart}
               setSigned={account.setSigned}
               run={account.run}
@@ -225,11 +224,7 @@ export default function CustomerAccount({
                       </>
                     )}
                     {page === "security" && (
-                      <AccountSecurity
-                        sessionKey={account.key}
-                        busy={account.busy}
-                        run={account.run}
-                      />
+                      <AccountSecurity busy={account.busy} run={account.run} />
                     )}
                     {page === "addresses" && (
                       <>

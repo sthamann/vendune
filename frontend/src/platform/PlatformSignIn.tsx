@@ -1,6 +1,8 @@
 /** Personal sign-in verifies the current operator grant before retaining a browser session. */
 import Brand from "../shared/ui/Brand";
 import { useState } from "react";
+import { activateBrowserSession } from "../shared/api/browser-session";
+import type { Session } from "../shared/api/account-types";
 import { usePlatformText } from "../shared/i18n/platform-i18n";
 import {
   PlatformError,
@@ -34,19 +36,17 @@ export default function PlatformSignIn({
     setFailure("");
     let issued = "";
     try {
-      const s = await request<{ token: string } | MfaChallenge>(
-        "",
-        "/api/auth/login",
-        {
-          email,
-          password,
-        },
-      );
+      const s = await request<Session | MfaChallenge>("", "/api/auth/login", {
+        email,
+        password,
+      });
       if (isMfaChallenge(s)) {
         setChallenge(s);
         setPassword("");
         return;
       }
+      if (!s.token) throw new Error(t("retry"));
+      activateBrowserSession(s);
       issued = s.token;
       await request<Operator>(issued, "/api/platform/session");
       setPassword("");
@@ -82,6 +82,7 @@ export default function PlatformSignIn({
             onCancel={() => setChallenge(undefined)}
             onSession={async (s) => {
               if (!s.token) return;
+              activateBrowserSession(s);
               await request<Operator>(s.token, "/api/platform/session");
               onAuthenticated(s.token);
             }}

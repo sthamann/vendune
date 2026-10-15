@@ -7,6 +7,7 @@ pub(crate) mod broker_credentials;
 pub(crate) mod broker_inference;
 pub(crate) mod broker_recovery;
 pub(crate) mod broker_session;
+pub(crate) mod browser;
 mod credentials;
 mod dto;
 pub(crate) mod handoff;

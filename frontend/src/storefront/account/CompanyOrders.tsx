@@ -1,4 +1,5 @@
 /** Explicit unit-history permission shares the existing customer order detail component. */
+import { customerSessionHeaders } from "../../shared/api/customer-session";
 import { useEffect, useState, useRef } from "react";
 import { downloadFile } from "../../shared/api/download";
 import { shopScope } from "../../shared/api/shop-scope";
@@ -63,8 +64,7 @@ export default function CompanyOrders({
             run(() =>
               downloadFile(path, {
                 "x-tenant": shopScope(),
-                "x-customer-token":
-                  localStorage.getItem(`rac-customer:${shopScope()}`) ?? "",
+                ...customerSessionHeaders(shopScope()),
               }),
             )
           }

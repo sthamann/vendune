@@ -1,4 +1,10 @@
 /** Tenant-scoped account loading and mutation lifecycle; expired sessions clear private data and reopen sign-in. */
+import {
+  customerCredential,
+  customerSessionHeaders,
+  forgetCustomerSession,
+  customerSessionGeneration,
+} from "../../shared/api/customer-session";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { shopApi, type Cart } from "../../shared/api/shop-api";
 import { shopScope } from "../../shared/api/shop-scope";
@@ -16,8 +22,11 @@ export function useCustomerAccount(
   onCart: (cart: Cart) => void,
 ) {
   const { a } = useAccountText();
-  const key = `rac-customer:${shopScope()}`;
-  const [signed, setSigned] = useState(!!localStorage.getItem(key));
+  const scope = shopScope();
+  const key = `rac-customer:${scope}`;
+  const currentScope = useRef(scope);
+  currentScope.current = scope;
+  const [signed, setSigned] = useState(!!customerCredential(shopScope()));
   const [profile, setProfile] = useState<AccountProfile>();
   const [options, setOptions] = useState<AccountOptions>();
   const [orders, setOrders] = useState<CustomerOrder[]>([]);
@@ -30,8 +39,9 @@ export function useCustomerAccount(
   const inflight = useRef(false),
     generation = useRef(0);
   const clear = useCallback(() => {
+    if (currentScope.current !== scope) return;
     generation.current++;
-    localStorage.removeItem(key);
+    forgetCustomerSession(scope);
     setSigned(false);
     setProfile(undefined);
     setOrders([]);
@@ -40,7 +50,25 @@ export function useCustomerAccount(
     setOptions(undefined);
     setFeedback("");
   }, [key]);
-  const failure = (e: unknown) => {
+  const failure = (
+    e: unknown,
+    expectedScope = scope,
+    expectedSession = customerSessionGeneration(scope),
+  ) => {
+    const context = (
+      e as { customerScope?: { tenant: string; generation: number } }
+    ).customerScope;
+    expectedScope = context?.tenant ?? expectedScope;
+    expectedSession = context?.generation ?? expectedSession;
+    if (currentScope.current !== expectedScope) return;
+    const now = customerSessionGeneration(expectedScope);
+    // The transport may have just cleared this expired session. It cannot clear
+    // an explicitly renewed session or another shop through this UI consumer.
+    if (
+      now !== expectedSession &&
+      !(now === expectedSession + 1 && !customerCredential(expectedScope))
+    )
+      return;
     const detail = e as { status?: number; diagnostic?: string };
     if (
       detail.status === 401 &&
@@ -54,20 +82,25 @@ export function useCustomerAccount(
   const expiredMessage = a("sessionExpired");
   const request = useCallback(
     async (path: string, body?: unknown, method?: string) => {
+      const session = customerSessionGeneration(scope);
       try {
-        return await shopApi<any>(path, body, undefined, method);
+        const value = await shopApi<any>(path, body, undefined, method);
+        if (
+          currentScope.current !== scope ||
+          customerSessionGeneration(scope) !== session
+        )
+          throw new Error(expiredMessage);
+        return value;
       } catch (e) {
-        if ((e as { status?: number }).status === 401) {
-          clear();
-          setError(expiredMessage);
-        }
+        failure(e, scope, session);
         throw e;
       }
     },
-    [clear, expiredMessage],
+    [clear, expiredMessage, scope],
   );
   const load = useCallback(async () => {
     const current = ++generation.current;
+    const session = customerSessionGeneration(scope);
     setLoading(true);
     try {
       const [p, o, d, list] = await Promise.all([
@@ -82,18 +115,23 @@ export function useCustomerAccount(
         ),
         shopApi<CustomerOrderPage>("/store-api/account/orders"),
       ]);
-      if (current !== generation.current) return;
+      if (
+        current !== generation.current ||
+        currentScope.current !== scope ||
+        customerSessionGeneration(scope) !== session
+      )
+        return;
       setProfile(p);
       setOptions(o);
       setDownloads(d.elements);
       setOrders(list.elements);
       setNextCursor(list.nextCursor);
     } catch (error) {
-      if (current === generation.current) throw error;
+      if (current === generation.current) failure(error, scope, session);
     } finally {
       if (current === generation.current) setLoading(false);
     }
-  }, [cart?.token]);
+  }, [cart?.token, scope]);
   useEffect(() => {
     if (signed) void load().catch(failure);
     return () => {
@@ -103,6 +141,7 @@ export function useCustomerAccount(
   const run = async (fn: () => Promise<void>, message = "") => {
     if (inflight.current) return;
     inflight.current = true;
+    const session = customerSessionGeneration(scope);
     setBusy(true);
     setError("");
     setFeedback("");
@@ -110,7 +149,7 @@ export function useCustomerAccount(
       await fn();
       setFeedback(message);
     } catch (e) {
-      failure(e);
+      failure(e, scope, session);
     } finally {
       inflight.current = false;
       setBusy(false);
@@ -121,10 +160,16 @@ export function useCustomerAccount(
     run(async () => {
       if (!nextCursor) return;
       const current = generation.current;
+      const session = customerSessionGeneration(scope);
       const page = await shopApi<CustomerOrderPage>(
         `/store-api/account/orders?after=${encodeURIComponent(nextCursor)}`,
       );
-      if (current !== generation.current) return;
+      if (
+        current !== generation.current ||
+        currentScope.current !== scope ||
+        customerSessionGeneration(scope) !== session
+      )
+        return;
       setOrders((previous) => {
         const ids = new Set(previous.map((o) => o.id));
         return [...previous, ...page.elements.filter((o) => !ids.has(o.id))];
@@ -135,7 +180,7 @@ export function useCustomerAccount(
     run(() =>
       downloadFile(path, {
         "x-tenant": shopScope(),
-        "x-customer-token": localStorage.getItem(key) ?? "",
+        ...customerSessionHeaders(shopScope()),
       }),
     );
   const logout = () =>
@@ -144,12 +189,19 @@ export function useCustomerAccount(
       clear();
       onCart(await shopApi<Cart>("/store-api/checkout/cart", {}));
     });
+  const renderedSession = customerSessionGeneration(scope);
   return {
     key,
     signed,
     setSigned,
     profile,
-    setProfile,
+    setProfile: (value: AccountProfile) => {
+      if (
+        currentScope.current === scope &&
+        customerSessionGeneration(scope) === renderedSession
+      )
+        setProfile(value);
+    },
     options,
     orders,
     nextCursor,

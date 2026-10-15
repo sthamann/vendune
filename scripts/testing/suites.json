@@ -11,6 +11,7 @@
     "platform",
     "users",
     "account_security",
+    "browser_sessions",
     "workspace_roles",
     "providers",
     "apps",
