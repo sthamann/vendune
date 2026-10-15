@@ -14,8 +14,9 @@ import uuid
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from testing.runtime import ROOT, serve, stop
 from testing.database import psql
+from testing.pooler import Pooler
 
-env=dict(os.environ); processes=[]; logs=[]; checks=[]
+env=dict(os.environ); processes=[]; logs=[]; checks=[]; poolers=[]
 started=threading.Event(); release=threading.Event(); captured=[]; mode={'block':True,'price':73.21}
 def port():
     with socket.socket() as s:
@@ -62,6 +63,9 @@ def call(base,path,body=None,h=None,expected=200,method=None):
     return value
 def passed(name):checks.append(name); print('PASS',name,flush=True)
 try:
+    if env.get('TEST_TRANSACTION_POOLING') == '1' and not env.get('DATABASE_RUNTIME_URL'):
+        direct = env['DATABASE_URL']; pooler = Pooler(direct); poolers.append(pooler)
+        env.update(DATABASE_URL=pooler.url, DATABASE_LISTENER_URL=direct, DB_POOLER_MODE='transaction')
     http,base=start('http'); worker,_=start('agent-worker')
     # Personal identity is real. Give this synthetic fixture an existing isolated catalog through native membership.
     suffix=uuid.uuid4().hex[:12]
@@ -236,4 +240,5 @@ finally:
     release.set()
     for process in reversed(processes):stop(process)
     for log in logs:log.close()
+    for pooler in poolers:pooler.close()
     provider.shutdown()

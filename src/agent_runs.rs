@@ -45,7 +45,9 @@ pub(crate) async fn enqueue(
         .filter(|s| auth::allowed(h, s))
         .copied()
         .collect::<Vec<_>>();
-    let mut tx = a.db.begin().await?;
+    // Quota shares the live shop across sandboxes. One admitted native transaction
+    // commits both quota and work without acquiring a second pooler backend.
+    let mut tx = a.db.begin_privileged().await?;
     sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,2))")
         .bind(&t)
         .execute(&mut *tx)
@@ -108,7 +110,7 @@ pub(crate) async fn enqueue(
         sqlx::query("INSERT INTO chat_messages(tenant,conversation_id,role,content,data) VALUES($1,$2,'user',$3,$4)").bind(&t).bind(c).bind(instruction).bind(json!({"runId":id})).execute(&mut *tx).await?;
     }
     // Only new work consumes the shared budget. Replays above remain recoverable at the daily limit.
-    performance::reserve_ai_attempt(a, &t).await?;
+    performance::reserve_ai_attempt_tx(a, &t, &mut tx).await?;
     sqlx::query("INSERT INTO tasks(tenant,id,proposal,run_state,run_request,run_actor,run_scopes,run_credential,run_personal,conversation_id,run_key,run_fingerprint) VALUES($1,$2,'{}','queued',$3,$4,$5,$6,$7,$8,$9,$10)")
         .bind(&t).bind(&id).bind(&request).bind(actor).bind(json!(scopes)).bind(credential).bind(h.principal.personal_session).bind(conversation).bind(request_key).bind(&fingerprint).execute(&mut *tx).await?;
     if let Some(c) = conversation {

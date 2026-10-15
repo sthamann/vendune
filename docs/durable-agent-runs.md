@@ -54,6 +54,11 @@ wait; no second planner is introduced.
 returns its original task, conversation and message, including at the daily quota.
 Changed input with the same ID conflicts. Only new work consumes the shared attempt
 quota; explicit continuation consumes another attempt. This is not token/spend accounting.
+Native create/resume admission commits the shared live-shop quota and saved work
+in one system transaction after checking the actor and permissions. It never
+holds a tenant transaction while waiting for a second database connection, so
+one-backend transaction poolers remain supported. Rejected or rolled-back work
+does not consume an attempt; admitted provider failures still do.
 
 ## Authority and operation
 

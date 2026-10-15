@@ -86,7 +86,13 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
     if name == "merchant.run.create" {
         return enqueue(a,h,json!({"instruction":v["instruction"],"inference":v.get("inference"),"locale":language_context(a,h).await?.0,"channel":marketing::channel_id(h),"requestId":v["requestId"]}),None).await;
     }
-    let mut tx = a.db.begin().await?;
+    // Resume charges the shared live-shop budget in the same transaction.
+    // Status/cancel retain the ordinary actor-scoped connection.
+    let mut tx = if name == "merchant.run.resume" {
+        a.db.begin_privileged().await?
+    } else {
+        a.db.begin().await?
+    };
     sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,2))")
         .bind(&t)
         .execute(&mut *tx)
@@ -143,7 +149,7 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
         if !["failed", "uncertain"].contains(&state.as_str()) {
             return Err(conflict("Only a stopped run can be explicitly resumed"));
         }
-        performance::reserve_ai_attempt(a, &t).await?;
+        performance::reserve_ai_attempt_tx(a, &t, &mut tx).await?;
         "queued"
     };
     if next == "queued"

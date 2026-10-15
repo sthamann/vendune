@@ -39,14 +39,19 @@ documented in [authenticated database scope](authenticated-database-scope.md).
 Local separate-login attacks and real PgBouncer/two-replica/restart/rotation flows
 pass. The full HTTP registry with stricter connections and both exact-head CI runs passed.
 [PR 133](https://github.com/sthamann/veyndo/pull/133) merged as `d6ed72d`; production
-role provisioning and activation have not yet been performed.
+role provisioning is now performed; final production enforcement remains pending.
 
 **Public browser release:** [PR 134](https://github.com/sthamann/veyndo/pull/134),
 `0b7c358`, is now serving from Northflank `charming-number-9351` with one healthy
 replica. Migration 099 completed after an explicitly approved maintenance grant:
 the migration login inherits the existing runtime login, never the reverse. The
 temporary administrator reference was removed and the diagnostic job restored.
-This does not activate strict separate tenant/system runtime scope. Public UI
+The separate tenant login is provisioned and the serving Core now runs staged
+signed tenant/system pools (`vendune-core-88f796858`, one ready replica). A real
+rights audit found effective PUBLIC TEMP despite restricted role flags; the
+database-owner maintenance job removed it and verified `tenant_temp=false`.
+Its administrator reference was removed again. Final enforcement still waits for
+the connector upgrade that removes its redundant Core-table read. Public UI
 acceptance completed a new native checkout (`RAC-e2d135bc`) and a checkout inside
 the original published Storyfront (`RAC-0a976d46`). The latter returned the native
 confirmation and cleared Storyfront's own bag to zero. Both used synthetic buyers

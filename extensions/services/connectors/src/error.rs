@@ -16,8 +16,15 @@ pub enum Error {
 }
 pub type Result<T> = std::result::Result<T, Error>;
 impl From<sqlx::Error> for Error {
-    fn from(_: sqlx::Error) -> Self {
-        Self::Database
+    fn from(error: sqlx::Error) -> Self {
+        if error
+            .as_database_error()
+            .is_some_and(|e| e.is_foreign_key_violation())
+        {
+            Self::Invalid("Related shop or configuration no longer exists")
+        } else {
+            Self::Database
+        }
     }
 }
 impl From<reqwest::Error> for Error {

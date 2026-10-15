@@ -796,8 +796,8 @@
     },
     "extensions/services/connectors/src/actions.rs": {
       "status": "unproved",
-      "sha256": "87e147d332884adaa052b4ed60e3e77d392eabf6bfc92fcd1643908f37734fc2",
-      "review": "Reviewed package ownership for email UI, per-app provider actions/OAuth/settings metadata, PayPal receipts and separate connector binary; existing tenant, payment and notification predicates preserved"
+      "sha256": "6540f246d66516d08fa7a1c47d008f17dc5b708024c89ba66b0644406d1c5c19",
+      "review": "Reviewed native quota/task atomic transactions and actor-bound continuation; removed connector Core identity reads, retained gateway/FK authority and sanitized missing references. Real one-backend PgBouncer create/resume/kill/restart and scoped connector regressions passed."
     },
     "extensions/services/connectors/src/crypto.rs": {
       "status": "unproved",
@@ -806,8 +806,8 @@
     },
     "extensions/services/connectors/src/error.rs": {
       "status": "unproved",
-      "sha256": "2975e5c728e508c966607676788e9d4e66fb06485f09c0769ccf70385daac821",
-      "review": "Reviewed Rust-only standard connector service: typed mail settings, tenant-bound AES-GCM, composite PostgreSQL queue/RLS, fenced distributed leases and explicit-only retry; original app/flow/MCP contract and actual SMTP/OAuth/migration regressions. SQL and providers remain unproved."
+      "sha256": "71f415f8754ed3ea355e5a7b8f56c201204903a64425da284469dd49ed967840",
+      "review": "Reviewed native quota/task atomic transactions and actor-bound continuation; removed connector Core identity reads, retained gateway/FK authority and sanitized missing references. Real one-backend PgBouncer create/resume/kill/restart and scoped connector regressions passed."
     },
     "extensions/services/connectors/src/events.rs": {
       "status": "unproved",
@@ -941,8 +941,8 @@
     },
     "src/agent_runs/contract.rs": {
       "status": "unproved",
-      "sha256": "816eae20fb0775bd656b97db091721e20e3581949566f30b63072791e012aae8",
-      "review": "Reviewed migration100 operational run columns, bounded private checkpoints and invoker transactional progress trigger; actor/scope/credential and evidence rechecks, lease-fenced native-only proposal finalization, request-ID replay before daily quota, and actual worker-kill/revocation/source-withdrawal/HTTP-MCP/quota controls. Existing pure financial policies unchanged."
+      "sha256": "a35082e762baeb6bcd126bd54250268a4b1254fed7d3dd7f835d26114d0c767d",
+      "review": "Reviewed native quota/task atomic transactions and actor-bound continuation; removed connector Core identity reads, retained gateway/FK authority and sanitized missing references. Real one-backend PgBouncer create/resume/kill/restart and scoped connector regressions passed."
     },
     "src/agent_runs/worker.rs": {
       "status": "unproved",
@@ -951,8 +951,8 @@
     },
     "src/agent_runs.rs": {
       "status": "unproved",
-      "sha256": "f2bef1a4ef52949762945e7d17a03a5593e87067cd4992b4ea5c9658f8df99f0",
-      "review": "Reviewed migration100 operational run columns, bounded private checkpoints and invoker transactional progress trigger; actor/scope/credential and evidence rechecks, lease-fenced native-only proposal finalization, request-ID replay before daily quota, and actual worker-kill/revocation/source-withdrawal/HTTP-MCP/quota controls. Existing pure financial policies unchanged."
+      "sha256": "52efca5786882f2b75a18c90d2fd55739790ab3ed247a0b72f41e8ee87f0643b",
+      "review": "Reviewed native quota/task atomic transactions and actor-bound continuation; removed connector Core identity reads, retained gateway/FK authority and sanitized missing references. Real one-backend PgBouncer create/resume/kill/restart and scoped connector regressions passed."
     },
     "src/apps/approval.rs": {
       "status": "reviewed-binding",
@@ -1061,8 +1061,8 @@
     },
     "src/apps/evidence.rs": {
       "status": "unproved",
-      "sha256": "6254fcd535e5e411efa87b07355ce925393bf09b9e4996923175fe5b99f608a1",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "daf4bfc631774ba5dd93c057af1463d9384a193c392f41ef2b02ae87918d8e15",
+      "review": "Reviewed quota/task single-connection admission and actor-bound resume; reviewed signed tenant scope handoff for collector tasks and common current-shop egress gate; connector no longer reads Core tables and sanitizes missing references. Existing business kernel unchanged."
     },
     "src/apps/evidence_routes.rs": {
       "status": "unproved",
@@ -1081,8 +1081,8 @@
     },
     "src/apps/gateway.rs": {
       "status": "reviewed-binding",
-      "sha256": "10ec3ab272ba9b9f305f35545ccf4e759f2162865d4537f68a04b4c46a970c1f",
-      "review": "Reviewed native schema budget regression: shared validator retains strict app limits and permits bounded native rich documents; actual catalog MCP regression plus depth and byte counterexamples. No extracted policy changes."
+      "sha256": "07bc53137202e636af892cdf6b770adba79d5ab81bac1ecd09224517b5a3d127",
+      "review": "Reviewed quota/task single-connection admission and actor-bound resume; reviewed signed tenant scope handoff for collector tasks and common current-shop egress gate; connector no longer reads Core tables and sanitizes missing references. Existing business kernel unchanged."
     },
     "src/apps/hosted.rs": {
       "status": "unproved",
@@ -2971,8 +2971,8 @@
     },
     "src/performance/admission.rs": {
       "status": "unproved",
-      "sha256": "92c078e2b1900f58c25fa609539e97dea0b4d93246d53caf518ff68565725601",
-      "review": "Reviewed final existing-task continuation, actor/scope/evidence checks, UUID lease fences, pre-quota idempotency for HTTP/chat/SSE/MCP and invoker-only transactional state outbox trigger. Actual killed-worker, withdrawal, original approval and final-quota retries execute through Rust/PostgreSQL. Financial pure policies unchanged."
+      "sha256": "91295b6e60ca6c84d19ac5aa7c56809159880b5ea5dd76d79dff980b9ff80836",
+      "review": "Reviewed native quota/task atomic transactions and actor-bound continuation; removed connector Core identity reads, retained gateway/FK authority and sanitized missing references. Real one-backend PgBouncer create/resume/kill/restart and scoped connector regressions passed."
     },
     "src/performance/authority.rs": {
       "status": "unproved",
@@ -3006,8 +3006,8 @@
     },
     "src/performance/mod.rs": {
       "status": "unproved",
-      "sha256": "b22faef0272e38e38425ec16e7e7a086a95585758088c079fc449f12f7cfa166",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "74e65fd8f34d8e3ab4c5dcaec8b701308156d8b8955b112359d7856b4a4b3f22",
+      "review": "Reviewed native quota/task atomic transactions and actor-bound continuation; removed connector Core identity reads, retained gateway/FK authority and sanitized missing references. Real one-backend PgBouncer create/resume/kill/restart and scoped connector regressions passed."
     },
     "src/performance/pool.rs": {
       "status": "unproved",

@@ -15,7 +15,7 @@ class Service(BaseHTTPRequestHandler):
   seen.append(self.headers.get('Authorization'));self.rfile.read(int(self.headers['Content-Length']));self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(b'{"ok":true}')
  def log_message(self,*_):pass
 service=ThreadingHTTPServer(('127.0.0.1',0),Service);threading.Thread(target=service.serve_forever,daemon=True).start()
-m=json.loads((ROOT/'extensions/apps/assistant-examples/integration.json').read_text());next_m=copy.deepcopy(m);next_m['version']='0.1.1'
+m=json.loads((ROOT/'extensions/apps/assistant-examples/integration.json').read_text());m['permissions'].append('knowledge.write');next_m=copy.deepcopy(m);next_m['version']='0.1.1'
 config={m['id']:{'url':f'http://127.0.0.1:{service.server_port}','token':'synthetic-old-operator-token'}};pin(config,m['id'],m);pin(config,m['id'],next_m)
 with socket.socket() as s:s.bind(('127.0.0.1',0));base=f'http://127.0.0.1:{s.getsockname()[1]}'
 def call(path,body=None,h=None,status=200,method=None,raw=None):
@@ -30,7 +30,7 @@ def incoming(secret,key):
  raw=b'{"payload":{"reference":"fixture"}}';stamp=str(int(time.time()));canonical='\n'.join([tenant,webhook['id'],'incoming',stamp,key,hashlib.sha256(raw).hexdigest()]);headers={'x-app-timestamp':stamp,'x-app-event-id':key,'x-app-signature':hmac.new(secret.encode(),canonical.encode(),hashlib.sha256).hexdigest()};return raw,headers
 sql(f"CREATE ROLE {role} LOGIN PASSWORD '{password}' NOSUPERUSER NOBYPASSRLS NOINHERIT; GRANT CONNECT,CREATE ON DATABASE {env['TEST_DATABASE']} TO {role}; GRANT USAGE,CREATE ON SCHEMA public TO {role}; GRANT SELECT,INSERT,UPDATE,DELETE,REFERENCES ON ALL TABLES IN SCHEMA public TO {role}; GRANT USAGE,SELECT ON ALL SEQUENCES IN SCHEMA public TO {role};")
 child={**env,'DATABASE_RUNTIME_URL':urllib.parse.urlunsplit(url._replace(netloc=f'{role}:{password}@{url.hostname}:{url.port}')),'DB_RLS_REQUIRED':'true','BOOTSTRAP_MODE':'serve','PROCESS_ROLE':'http','APP_SERVICES':json.dumps(config),'BASE_URL':base,'BIND_ADDR':base.removeprefix('http://')}
-log=(ROOT/'artifacts/app-secrets-server.log').open('w');server=None
+log=(ROOT/'artifacts/app-secrets-server.log').open('w');server=None;worker=None
 try:
  server=serve(child,base,log)
  u=call('/api/auth/register',{'name':'Secret owner','email':suffix+'@example.test','password':'Synthetic-app-secrets-2026!','workspaceId':tenant});h={'Authorization':'Bearer '+u['token'],'x-tenant':tenant}
@@ -53,6 +53,21 @@ try:
  new_signing='synthetic-rotated-webhook-'+suffix+'y'*32;call(wp,{'digest':wh['digest'],'approve':True,'revision':1,'secret':new_signing},h,method='PUT');raw,headers=incoming(signing,'revoked');call(route,h=headers,raw=raw,status=401);raw,headers=incoming(new_signing,'second');assert call(route,h=headers,raw=raw)['accepted']
  sql(f"UPDATE tenants SET status='paused' WHERE id='{tenant}'");raw,headers=incoming(new_signing,'paused');call(route,h=headers,raw=raw,status=503)
  print('PASS signed incoming webhook adopts path tenant under strict RLS, rejects conflicting context/revoked signatures and stops a paused shop')
+ # Exercise the background collector, which has no HTTP authentication middleware.
+ n=len(seen);worker=subprocess.Popen([str(ROOT/'target/debug/veyndo')],cwd=ROOT,env={**child,'PROCESS_ROLE':'app-worker'},stdout=log,stderr=log)
+ def polled():return sql(f"SELECT count(*) FROM app_export_cursors WHERE tenant='{tenant}' AND app='{m['id']}' AND last_poll > now()-interval '3 seconds'")=='1'
+ def wait_for(predicate):
+  for _ in range(100):
+   if predicate():return
+   time.sleep(.1)
+  raise AssertionError('background collector did not reach the expected state')
+ wait_for(polled);time.sleep(.3);assert len(seen)==n,'paused shop reached external app service'
+ sql(f"UPDATE tenants SET status='active' WHERE id='{tenant}'")
+ wait_for(lambda:len(seen)>n)
+ sql(f"UPDATE tenants SET status='archived' WHERE id='{tenant}'; UPDATE app_export_cursors SET last_poll='epoch' WHERE tenant='{tenant}'")
+ n=len(seen);wait_for(polled);time.sleep(.3);assert len(seen)==n,'archived shop reached external app service'
+ print('PASS actual background collector attempts dispatch but paused/archived shops never reach the external service; active shop does')
 finally:
+ if worker:stop(worker)
  if server:stop(server)
  log.close();service.shutdown();sql(f'DROP OWNED BY {role}; DROP ROLE {role};')

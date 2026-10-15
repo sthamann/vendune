@@ -71,14 +71,8 @@ pub async fn handle(store: &Store, t: &str, a: &str, path: &str, v: &Value) -> R
                 .is_match(t),
         "Invalid app or shop",
     )?;
-    // A trusted gateway token authenticates the caller; an existing live tenant is still required.
-    let mut tx = store.tx(t).await?;
-    let exists: bool = sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM tenants WHERE id=$1)")
-        .bind(t)
-        .fetch_one(&mut *tx)
-        .await?;
-    drop(tx);
-    checked(exists, "Unknown shop")?;
+    // The native gateway admits the live tenant before calling this private service.
+    // Connector writes retain tenant foreign keys; this role cannot read Core identities.
     if let Some(name) = path.strip_prefix("actions/") {
         return action(store, t, a, name, v).await;
     }
