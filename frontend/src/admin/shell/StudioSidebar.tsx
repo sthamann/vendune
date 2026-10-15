@@ -38,7 +38,7 @@ export default function StudioSidebar() {
   const groups: { label: string; tabs: Tab[] }[] = [
     {
       label: u("intelligence"),
-      tabs: ["assistant", "overview", "knowledge", "agents"],
+      tabs: ["workspace", "assistant", "overview", "knowledge", "agents"],
     },
     {
       label: u("commerce"),
@@ -46,7 +46,7 @@ export default function StudioSidebar() {
     },
     {
       label: u("experiences"),
-      tabs: ["storyfronts", "channels", "automation", "apps"],
+      tabs: ["design", "storyfronts", "channels", "automation", "apps"],
     },
     {
       label: u("workspace"),

@@ -2,6 +2,7 @@
 use super::*;
 use axum::{extract::Request, middleware::Next};
 pub(crate) mod facts;
+pub(crate) mod personal;
 mod revenue;
 
 pub(super) async fn track_channels(State(a): State<App>, request: Request, next: Next) -> Response {

@@ -1,4 +1,5 @@
 /** Studio composition root: layout, scoped controller and modular workspace views. */
+import WorkspacePinBridge from "../workspace/WorkspacePinBridge";
 import { Suspense } from "react";
 
 import { AppSurfaceProvider } from "../../shared/apps/AppSurfaces";
@@ -66,6 +67,7 @@ export default function Merchant(props: {
     return <StudioSignIn auth={controller.auth} onExit={props.onExit} />;
   return (
     <StudioContext.Provider value={controller}>
+      <WorkspacePinBridge />
       <AppSurfaceProvider
         request={request}
         scopeKey={`${workspace}:${environment}:${controller.auth.identity.user.id}`}

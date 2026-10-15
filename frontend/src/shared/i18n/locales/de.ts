@@ -181,6 +181,8 @@ export const de: Dictionary = {
   keepDraft: "Bei einem Fehler bleibt dein Entwurf erhalten.",
   lastUpdated: "Aktualisiert",
   noCalls: "Noch keine Aufrufe",
+  workspacePinned:
+    "Ansicht am Arbeitsplatz angeheftet. Persönliche Suchtexte werden nicht gespeichert.",
   approvedAction: "Änderungen angewendet. Shop-Daten aktualisiert.",
   basedOn: "Aus echten Shop-Daten",
   errorReply:

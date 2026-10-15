@@ -1,5 +1,14 @@
 # Changelog
 
+## Personal workspace and visual standard-shop design — 15 October 2026
+
+- Personal, revisioned work areas with role-aware presets, movable cards, safe pinned grid filters, goals and existing proposal review. Goal-to-Flow creates an inactive native draft.
+- App-owned standard storefront editor with one preview/published renderer, localized Tiptap sections, products, theme inheritance, pages, articles and forms; original private Storyfront stays original.
+- Public app publication projections enforce channel, status and start time. Private append-only form intake validates the published definition and native cart, then uses existing outbox/Flows; responses require customer PII rights and never become release units.
+- Shared bounded app-record history with original read scopes, actor/source, CAS restore and current-field projection. Package-before-record fences protect concurrent saves/releases.
+- Central inference prepares source-aware design alternatives as existing review tasks; explicit sandbox approval, revision checks, reference egress/image bounds and enforced style/content/structure selections.
+- Native PostgreSQL, synthetic-model, browser and frontend regression evidence and illustrated tutorial added. Real providers, production settlement and whole-business autonomous goal completion are not certified by these fixtures.
+
 ## Channel and Storyfront setup — 15 October 2026
 
 - Type-first responsive channel cards, relevant visibility fields, inline validation,

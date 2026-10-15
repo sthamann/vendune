@@ -278,7 +278,7 @@ it("also expires shared merchant requests and revalidates on returning to Studio
 
 it.each([
   ["developers", "developers"],
-  ["unknown", "assistant"],
+  ["unknown", "workspace"],
 ])(
   "opens only a known Studio workspace from the %s deep link",
   async (target, expected) => {

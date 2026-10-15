@@ -188,4 +188,12 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         "093-review-identity",
         include_str!("../../migrations/093-review-identity.sql"),
     ),
+    (
+        "094-personal-workspace",
+        include_str!("../../migrations/094-personal-workspace.sql"),
+    ),
+    (
+        "095-app-record-history",
+        include_str!("../../migrations/095-app-record-history.sql"),
+    ),
 ];

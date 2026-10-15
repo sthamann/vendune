@@ -23,7 +23,7 @@ def consent(body):
     """Fixtures explicitly approve the complete Rust-canonical package; this is not a server bypass."""
     manifest = body.get('manifest')
     if manifest is None:
-        folders = {'google_analytics':'google-analytics','shopware_payments':'shopware-payments'}
+        folders = {'site_builder':'site-builder','site_forms':'site-forms','google_analytics':'google-analytics','shopware_payments':'shopware-payments'}
         manifest = json.loads((ROOT/'extensions/apps'/folders.get(body['builtIn'],body['builtIn'])/'manifest.json').read_text())
     try: value=digest(manifest)
     except subprocess.CalledProcessError: return body

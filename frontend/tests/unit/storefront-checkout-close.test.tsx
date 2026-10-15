@@ -28,6 +28,11 @@ vi.mock("../../src/storefront/legal/PrivacyProvider", () => ({
 vi.mock("../../src/shared/apps/AppSurfaces", () => ({
   AppSurfaceProvider: ({ children }: PropsWithChildren) => children,
   AppSurfaceSlot: () => null,
+  useAppRegistry: () => ({
+    publicApps: [],
+    mainLocale: "en-GB",
+    request: vi.fn(),
+  }),
 }));
 vi.mock(
   "../../../extensions/apps/google-analytics/storefront/ShopAnalytics",

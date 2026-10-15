@@ -16,6 +16,15 @@ pub(crate) fn invoke<'a>(
     name: &'a str,
     v: &'a Value,
 ) -> CapabilityFuture<'a> {
+    if name.starts_with("studio.workspace.") {
+        return Box::pin(studio::personal::invoke(a, h, name, v));
+    }
+    if name.starts_with("merchant.site.") {
+        return Box::pin(apps::site_builder::design_agent::invoke(a, h, name, v));
+    }
+    if name.starts_with("merchant.app.") {
+        return Box::pin(apps::record_history::invoke(a, h, name, v));
+    }
     if name.starts_with("team.role") {
         return Box::pin(auth::roles::invoke(a, h, name, v));
     }

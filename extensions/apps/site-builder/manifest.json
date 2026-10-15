@@ -1,0 +1,261 @@
+{
+  "id": "site_builder",
+  "version": "1.0.0",
+  "coreApi": "1",
+  "runtime": "declarative",
+  "category": "design",
+  "name": {
+    "en": "Shop design",
+    "de": "Shop gestalten",
+    "fr": "Design de boutique",
+    "es": "Diseño de tienda"
+  },
+  "permissions": ["data.read", "data.write"],
+  "entities": [
+    {
+      "name": "pages",
+      "label": {
+        "en": "Pages",
+        "de": "Seiten",
+        "fr": "Pages",
+        "es": "Páginas"
+      },
+      "publicRead": true,
+      "publication": {
+        "statusField": "status",
+        "channelField": "channel",
+        "startsAt": "starts_at"
+      },
+      "fields": [
+        {
+          "name": "channel",
+          "kind": "string",
+          "required": true,
+          "indexed": true
+        },
+        {
+          "name": "slug",
+          "kind": "string",
+          "required": true,
+          "indexed": true
+        },
+        {
+          "name": "title",
+          "kind": "string",
+          "required": true,
+          "translatable": true
+        },
+        {
+          "name": "kind",
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "choices": [
+            {
+              "value": "page",
+              "label": {
+                "en": "Page",
+                "de": "Seite",
+                "fr": "Page",
+                "es": "Página"
+              }
+            },
+            {
+              "value": "landing",
+              "label": {
+                "en": "Landing page",
+                "de": "Landingpage",
+                "fr": "Page de campagne",
+                "es": "Página de campaña"
+              }
+            },
+            {
+              "value": "blog",
+              "label": {
+                "en": "Blog",
+                "de": "Blog",
+                "fr": "Blog",
+                "es": "Blog"
+              }
+            },
+            {
+              "value": "article",
+              "label": {
+                "en": "Article",
+                "de": "Artikel",
+                "fr": "Article",
+                "es": "Artículo"
+              }
+            },
+            {
+              "value": "form",
+              "label": {
+                "en": "Form",
+                "de": "Formular",
+                "fr": "Formulaire",
+                "es": "Formulario"
+              }
+            }
+          ]
+        },
+        {
+          "name": "status",
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "choices": [
+            {
+              "value": "draft",
+              "label": {
+                "en": "Draft",
+                "de": "Entwurf",
+                "fr": "Brouillon",
+                "es": "Borrador"
+              }
+            },
+            {
+              "value": "published",
+              "label": {
+                "en": "Published",
+                "de": "Veröffentlicht",
+                "fr": "Publié",
+                "es": "Publicado"
+              }
+            },
+            {
+              "value": "archived",
+              "label": {
+                "en": "Archived",
+                "de": "Archiviert",
+                "fr": "Archivé",
+                "es": "Archivado"
+              }
+            }
+          ]
+        },
+        {
+          "name": "starts_at",
+          "kind": "datetime"
+        },
+        {
+          "name": "content",
+          "kind": "json",
+          "required": true
+        },
+        {
+          "name": "theme",
+          "kind": "json",
+          "required": true
+        },
+        {
+          "name": "seo",
+          "kind": "json"
+        },
+        {
+          "name": "author",
+          "kind": "string"
+        },
+        {
+          "name": "category",
+          "kind": "string",
+          "indexed": true
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "name": "pages",
+      "description": "pages",
+      "handler": "list",
+      "entity": "pages",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "after": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "filter": {
+            "type": "object"
+          }
+        }
+      },
+      "public": true,
+      "readOnly": true
+    },
+    {
+      "name": "editor_pages",
+      "description": "editor pages",
+      "handler": "list",
+      "entity": "pages",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "after": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "filter": {
+            "type": "object"
+          }
+        }
+      },
+      "public": false,
+      "readOnly": true,
+      "permission": "channels.read"
+    },
+    {
+      "name": "save_page",
+      "description": "save page",
+      "handler": "save",
+      "entity": "pages",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "fields": {
+            "type": "object"
+          }
+        }
+      },
+      "public": false,
+      "readOnly": false,
+      "permission": "channels.manage"
+    }
+  ],
+  "intelligence": {
+    "description": {
+      "en": "Versioned channel pages and theme. Propose changes using save_page with the current revision; publication requires explicit review.",
+      "de": "Versionierte Kanalseiten und Gestaltung. Änderungen mit aktueller Revision vorbereiten; Veröffentlichung ausdrücklich prüfen.",
+      "fr": "Pages et thème versionnés; publication après validation.",
+      "es": "Páginas y tema versionados; publicación tras revisión."
+    },
+    "tools": ["editor_pages", "save_page"],
+    "entities": ["pages"]
+  }
+}

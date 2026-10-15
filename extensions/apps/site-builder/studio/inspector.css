@@ -1,0 +1,145 @@
+/* Inspector and review panels, separate from the canvas layout. */
+.designer-properties fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+.designer-inspector summary {
+  cursor: pointer;
+  min-height: 44px;
+  align-content: center;
+  font-weight: 650;
+}
+.designer-inspector details[open] {
+  border-top: 1px solid #dce6f0;
+  padding-top: 12px;
+  margin-top: 12px;
+}
+.designer-inspector details[open] > :not(summary) {
+  margin-top: 16px;
+}
+.designer-inspector input[type="color"] {
+  width: 48px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+.designer-color {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+}
+.designer-check {
+  display: flex !important;
+  align-items: center;
+  gap: 10px !important;
+  font-weight: 400 !important;
+  line-height: 1.5;
+}
+.designer-check input {
+  width: 18px;
+  height: 18px;
+  accent-color: #0877e8;
+}
+.designer-inspector button:not(.studio-primary) {
+  padding: 9px 12px;
+  border: 1px solid #cfdeee;
+  border-radius: 9px;
+  background: var(--studio-card, #fff);
+  color: inherit;
+}
+.designer-inspector .designer-remove {
+  color: #a62a2a !important;
+  margin: 16px 0;
+}
+.designer-save {
+  width: 100%;
+  justify-content: center;
+  margin: 24px 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 6;
+}
+.designer-block-properties {
+  display: grid;
+  gap: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #dce6f0;
+}
+.designer-block-properties > code {
+  font-size: 10px;
+  overflow-wrap: anywhere;
+  color: var(--studio-muted, #60768d);
+}
+.designer-form-field {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  background: var(--studio-bg, #f6f9fd);
+  border-radius: 12px;
+}
+.designer-agent summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.designer-agent label {
+  margin-top: 14px;
+}
+.designer-variants article,
+.designer-history article {
+  border: 1px solid #d2e0ee;
+  border-radius: 12px;
+  padding: 14px;
+  margin: 12px 0;
+  display: grid;
+  gap: 12px;
+}
+.designer-inspector pre {
+  max-height: 240px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 11px;
+}
+.designer-inspector small {
+  display: block;
+  line-height: 1.5;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.designer-empty {
+  display: grid;
+  place-content: center;
+  text-align: center;
+  min-height: 550px;
+  color: #667c93;
+}
+.designer-empty svg {
+  margin: auto;
+  color: #0877e8;
+}
+.designer-setup {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+}
+.designer-error {
+  border: 1px solid #efbdc3;
+  background: #fff5f5;
+  padding: 16px;
+  border-radius: 12px;
+  color: #8c2736;
+}
+.designer-inspector .rich-editor {
+  max-width: 100%;
+}
+.designer-reference-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}

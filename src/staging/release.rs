@@ -52,9 +52,24 @@ pub(crate) async fn release(
             .execute(&mut *tx)
             .await?;
     }
-    for k in keys.iter().filter(|k| k.starts_with("app:")) {
+    // The package fence precedes record locks, exactly as in native app writes.
+    // Otherwise a concurrent save could hold package SHARE while release holds its record.
+    let mut package_locks = std::collections::BTreeSet::new();
+    for key in &keys {
+        let app = if let Some(app) = key.strip_prefix("app:") {
+            Some(app)
+        } else {
+            key.strip_prefix("appdata:")
+                .and_then(|tail| tail.split(':').next())
+        };
+        if let Some(app) = app {
+            package_locks.insert(format!("{t}:{app}"));
+            package_locks.insert(format!("{id}:{app}"));
+        }
+    }
+    for lock in package_locks {
         sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,7))")
-            .bind(format!("{t}:{}", &k[4..]))
+            .bind(lock)
             .execute(&mut *tx)
             .await?;
     }
@@ -180,6 +195,7 @@ pub(crate) async fn release(
                 .unwrap_or(0);
             let mut fields = value.clone();
             fields.as_object_mut().unwrap().remove("id");
+            apps::record_access(&m, e, &h, "save")?;
             apps::data::save_tx(
                 &mut tx,
                 &t,

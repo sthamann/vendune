@@ -60,6 +60,14 @@ This is a behavioral port to native APIs and storage, not original DAL/UUID/wire
 | Create/update category | `POST /api/merchant/categories`; `PUT /api/merchant/categories/{id}` | `merchant.category.create`; `merchant.category.save` |
 | Public tree/listing | `POST /store-api/navigation`; `POST /store-api/product` with `{ "categoryId": "..." }` | Public Store API |
 
+Explicit merchandising selections use the same `POST /store-api/product` or MCP
+`catalog.search` with `{"ids":["product-id"],"limit":100}`. At most 500 nonempty
+IDs are accepted, with at most 100 results per cursor page. The server intersects
+these IDs with the current channel/B2B catalogue and retains active/visibility,
+language, customer, currency and pricing rules. IDs never select another tenant or
+expand a channel's assortment. The visual editor resolves selections in bounded
+batches so a chosen product need not be on the initial catalogue page.
+
 Reads require `catalog.read`; writes require `catalog.write`. Native product queries accept limits 1–100 (Studio uses 25), filter before limiting and return `nextCursor`; there is no expensive whole-catalog total. Category search/stock/status filters are server-side. Product numbers have a tenant-specific unique index; translated name/product-number search uses trigram indexes. Asset `?shop=` scope allows ordinary image requests to identify their tenant without authentication headers; private environments still require authorized access. The header tenant wins if explicitly supplied.
 
 ## Verification and boundaries

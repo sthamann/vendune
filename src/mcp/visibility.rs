@@ -2,6 +2,21 @@
 use crate::*;
 pub(super) fn visible(a: &App, h: &RequestContext, name: &str) -> bool {
     let n = &name;
+    if n.starts_with("merchant.app.") {
+        return merchant(a, h).is_ok()
+            && auth::allowed(h, "apps.read")
+            && auth::allowed(h, "catalog.read")
+            && (*n != "merchant.app.restore" || auth::allowed(h, "apps.manage"));
+    }
+    if n.starts_with("merchant.site.") {
+        return merchant(a, h).is_ok()
+            && auth::allowed(h, "channels.read")
+            && auth::allowed(h, "channels.manage")
+            && auth::allowed(h, "assistant.use");
+    }
+    if n.starts_with("studio.workspace.") {
+        return merchant(a, h).is_ok() && h.principal.personal_session;
+    }
 
     if auth::roles::schema(n).is_some() {
         return merchant(a, h).is_ok() && auth::allowed(h, "team.manage");

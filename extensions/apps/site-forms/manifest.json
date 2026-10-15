@@ -1,0 +1,106 @@
+{
+  "id": "site_forms",
+  "version": "1.0.0",
+  "coreApi": "1",
+  "runtime": "declarative",
+  "category": "operations",
+  "name": {
+    "en": "Forms inbox",
+    "de": "Formular-Eingang",
+    "fr": "R\u00e9ponses aux formulaires",
+    "es": "Buz\u00f3n de formularios"
+  },
+  "permissions": ["data.read", "data.write", "events.publish"],
+  "entities": [
+    {
+      "name": "inbox",
+      "publicRead": false,
+      "label": {
+        "en": "Responses",
+        "de": "Antworten",
+        "fr": "R\u00e9ponses",
+        "es": "Respuestas"
+      },
+      "fields": [
+        {
+          "name": "page",
+          "kind": "string",
+          "required": true,
+          "indexed": true
+        },
+        {
+          "name": "block",
+          "kind": "string",
+          "required": true
+        },
+        {
+          "name": "channel",
+          "kind": "string",
+          "required": true,
+          "indexed": true
+        },
+        {
+          "name": "answers",
+          "kind": "json",
+          "required": true
+        },
+        {
+          "name": "consent",
+          "kind": "boolean",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "name": "submit",
+      "description": "submit",
+      "handler": "submit",
+      "entity": "inbox",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fields": {
+            "type": "object"
+          }
+        },
+        "required": ["fields"]
+      },
+      "public": true,
+      "readOnly": false,
+      "mcp": false
+    },
+    {
+      "name": "responses",
+      "description": "responses",
+      "handler": "list",
+      "entity": "inbox",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "after": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "filter": {
+            "type": "object"
+          }
+        }
+      },
+      "public": false,
+      "readOnly": true,
+      "permission": "customers.pii",
+      "requiredPermissions": ["customers.read"]
+    }
+  ]
+}

@@ -10,6 +10,19 @@ const rights = ownerRights;
 function api(path: string) {
   const pathname = path.split("?")[0];
   const replies: Record<string, unknown> = {
+    "/api/studio/workspace": {
+      revision: 0,
+      data: { areas: [], active: "", goals: [] },
+      versions: [],
+    },
+    "/api/agent/tasks": { tasks: [] },
+    "/api/merchant/site/context": {
+      channels: [],
+      locales: ["en-GB"],
+      mainLocale: "en-GB",
+      installed: [],
+      catalogue: { elements: [], hasMore: false, nextCursor: null },
+    },
     "/api/pos/channels": { channels: [], mainLocale: "en-GB" },
     "/api/b2b/companies": { companies: [] },
     "/api/b2b/quotes": { quotes: [] },
@@ -131,7 +144,7 @@ it("navigates every merchant workspace without duplicating registry requests", a
   });
   const user = userEvent.setup();
   const buttons = within(navigation).getAllByRole("button");
-  expect(buttons.length).toBe(17);
+  expect(buttons.length).toBe(19);
   for (const button of buttons) {
     await user.click(button);
     await waitFor(() => expect(button).toHaveAttribute("aria-current", "page"));
@@ -235,6 +248,7 @@ it("opens a blocking login overlay on the current workspace after product authen
 });
 
 it("keeps the same chat input mounted and returns to it after the overlay login", async () => {
+  history.replaceState(null, "", "/?shop=unit-shop&studio=assistant#merchant");
   sessionStorage.setItem("rac-user-token", "ui-resume-old");
   const fetcher = vi.fn(async (path: string) => ({
     ok: true,
@@ -299,7 +313,7 @@ it("adapts navigation and data loading to current grants rather than the role la
   });
   await screen.findByRole("button", { name: "Products" });
   const nav = screen.getByRole("navigation", { name: "Veyndo Studio" });
-  expect(within(nav).getAllByRole("button")).toHaveLength(1);
+  expect(within(nav).getAllByRole("button")).toHaveLength(2);
   expect(
     fetcher.mock.calls.some(([p]) =>
       [

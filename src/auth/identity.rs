@@ -123,6 +123,7 @@ pub(super) async fn resolve(
             },
         ));
     }
+    h.principal.personal_session = identity.scopes.is_none() && identity.app.is_none();
     h.principal.tenant = Some(chosen);
     h.principal.user = Some(identity.user);
     h.principal.role = Some(member.role.clone());

@@ -466,4 +466,12 @@ theorem admin_payment_exact (is_admin manual simulated : Bool) :
   cases is_admin <;> cases manual <;> cases simulated <;> simp [admin_payment_admissible]
 theorem admin_external_payment_denied : admin_payment_admissible true false false = false := by
   rfl
+theorem app_submission_exact (privateInbox liveScope currentCart : Bool) :
+    app_submission_admissible privateInbox liveScope currentCart = (privateInbox && liveScope && currentCart) := by rfl
+
+theorem app_submission_private_live_cart (privateInbox liveScope currentCart : Bool)
+    (h : app_submission_admissible privateInbox liveScope currentCart = true) :
+    privateInbox = true ∧ liveScope = true ∧ currentCart = true := by
+  cases privateInbox <;> cases liveScope <;> cases currentCart <;> simp_all [app_submission_admissible]
+
 end CommerceKernel

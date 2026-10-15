@@ -517,6 +517,15 @@
         "admin_payment_exact",
         "admin_external_payment_denied"
       ]
+    },
+    "app_submission_admissible": {
+      "bindings": [
+        "src/apps/submissions.rs"
+      ],
+      "theorems": [
+        "app_submission_exact",
+        "app_submission_private_live_cart"
+      ]
     }
   },
   "sources": {
@@ -720,6 +729,31 @@
       "sha256": "ffa5bb4e821f1de6f27ca9e9fb511e6be430727458d3db22f8286c9e833c8c1a",
       "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
     },
+    "extensions/apps/site-builder/context.rs": {
+      "status": "unproved",
+      "sha256": "121a86e41c6cc8321b192f3340918521a9de9ead07431d260712c6c37f27ce1c",
+      "review": "Reviewed bounded native catalog IDs intersected with existing channel/B2B admission, selected-product batch hydration and configured locale context; HTTP/MCP selected-ID and foreign-channel denial regression plus Rust/catalog checks passed."
+    },
+    "extensions/apps/site-builder/design_agent.rs": {
+      "status": "unproved",
+      "sha256": "ea3bbd8106be436d4c5f93beb17c5bebe5283f22bc663147791d58c53fee63fb",
+      "review": "Final reviewed site planning adds native tenant/product/locale validation before saving or previewing alternatives. Personal pin schema rejects free/PII criteria; actual concurrent save/release, publication/history/intake, private cart, Flow completion, synthetic inference/apply/failure and foreign-key fixtures pass. Original independent security findings are closed. New intake predicate, closed module extraction, exact Lean claims and negative mutations preserved; async SQL/UI/providers remain unproved."
+    },
+    "extensions/apps/site-builder/references.rs": {
+      "status": "unproved",
+      "sha256": "2ee3779421ca948e24db00d398db134279cbfeaad31767292dd503c1b163178a",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+    },
+    "extensions/apps/site-builder/server.rs": {
+      "status": "unproved",
+      "sha256": "c869b967ec0fd5b4f9d2635f37d0b3710238d30c8f97135be921fdfa8de6ce8f",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+    },
+    "extensions/apps/site-forms/server.rs": {
+      "status": "unproved",
+      "sha256": "1484a9e0405a03576df12df4a9ef93eb0219d1debcd30d081ba2d86da15848b7",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+    },
     "extensions/apps/slack/src/actions.rs": {
       "status": "unproved",
       "sha256": "199b9d499319e4b1bd653f6fdc41f805790cfd3260bff16993929e70297103d3",
@@ -867,8 +901,8 @@
     },
     "src/apps/approval.rs": {
       "status": "reviewed-binding",
-      "sha256": "cb469f7290eafc68e1e7b368414aaf41afaa21651d1ab09841e1d62c869a16fb",
-      "review": "Review provider-neutral split quantities, original app-bound PDF acknowledgement, native booking intent, aggregate storage and current Flow/job disclosure; provider effects remain unproved"
+      "sha256": "29fcc53d5eadea476dcbcdd9d73657d6e9b9b65dbe098457a122fc54373d502c",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/apps/asset_surfaces.rs": {
       "status": "unproved",
@@ -917,8 +951,8 @@
     },
     "src/apps/data.rs": {
       "status": "unproved",
-      "sha256": "a03d7c8fef6446a2d02f0d781a12f53c573b9bf2a0458c5f174373c316c732b2",
-      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
+      "sha256": "9be20fa698f526a169127821326a5ec504ef04c9a6d2280d62be2bccbe905129",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/apps/distribution.rs": {
       "status": "unproved",
@@ -927,8 +961,8 @@
     },
     "src/apps/editor_contract.rs": {
       "status": "reviewed-binding",
-      "sha256": "c30ed3b8780c7262b12d7c1bae818b7144addccb871fce4a287276e630e2585f",
-      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
+      "sha256": "711bb59ad0237ff2c7b77ac71e7461c0273bbe5c016fc032dd8c68ccdd94a9c4",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/apps/editor_tests.rs": {
       "status": "unproved",
@@ -977,8 +1011,8 @@
     },
     "src/apps/gateway.rs": {
       "status": "reviewed-binding",
-      "sha256": "5e4672770d492ddcfd15e20d85ecc64fd4cfc14aaf3892576e27374120241451",
-      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
+      "sha256": "91c57d6103f99ff4361b87cc69445984cb957745578796dbb293920ccf672da6",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/apps/hosted.rs": {
       "status": "unproved",
@@ -1002,18 +1036,18 @@
     },
     "src/apps/manifest.rs": {
       "status": "unproved",
-      "sha256": "b15c6ca00a72239282e252acd3593d82aace37d8a41cc28c6a56cd2e3727b3db",
-      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
+      "sha256": "6a70d7eafc30dc360f495a187243dc46eb130796d0d5157553fd9d195cac0052",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/apps/manifest_validation.rs": {
       "status": "unproved",
-      "sha256": "143e7d553b675e55681912f79a02aced3119458b0d030bad5cc4e4ea5d769e86",
-      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
+      "sha256": "45f925a102d303b43aa1ea16c6bda8c1c1333cfd1a1f54fbfb40c2e085f3e042",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "fa62763a074bbd20cda82641123be03bbf01aad9fe155a37064a26909221276e",
-      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
+      "sha256": "be4ff63157a77a0b13f308d1b603dc07fc8022b7ccc9803e76ba9fa22edd870f",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
@@ -1047,13 +1081,23 @@
     },
     "src/apps/planning.rs": {
       "status": "unproved",
-      "sha256": "bdc498fd8cb9e2a4ff0f30a249b675929aedfc86be5b6db856816b1490c9b7c4",
-      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
+      "sha256": "0a081a71cd0007305f6355fd2dc9245550b6dfb0721f9cb676c5cb509f200a18",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/apps/presentation.rs": {
       "status": "unproved",
       "sha256": "07d112b154da4d3904316d27bb42c790118cc5d0fb9ed7eb5ab2749fe20ac5a2",
       "review": "Reviewed optional passive app presentation bounds and legacy digest preservation, main-locale list metadata, configured-locale generation schema, and strict provider compatibility: summaries are required objects within optional presentation while icon/cover accept nullable provider output. 84 Rust tests and real app/developer PostgreSQL suites exercise parsing, unsafe assets, immutable versions and tenant isolation."
+    },
+    "src/apps/publication.rs": {
+      "status": "unproved",
+      "sha256": "cd2b09bd69946fe4b097e999732ee47548751a3f084a54d94674558a9895cc77",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+    },
+    "src/apps/record_history.rs": {
+      "status": "unproved",
+      "sha256": "33642f79985b534e7c9776143c0a047c8eef06cd96aaa6f74e76cd56bc9b2f16",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/apps/record_lifecycle.rs": {
       "status": "unproved",
@@ -1072,8 +1116,8 @@
     },
     "src/apps/routes.rs": {
       "status": "unproved",
-      "sha256": "e2f8c741acc958785b4206015812a960b8ef5b8d129570aef0d7657770bc4fb2",
-      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
+      "sha256": "1e17dbf1e34d7add916593acf0106566184397af0e1a247bfbe45d6dc8cc43b6",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/apps/runtime.rs": {
       "status": "unproved",
@@ -1115,6 +1159,11 @@
       "sha256": "61735a4125aa1077262918e5365c643f4a4a07d8478b56d99b6d7d754fadefef",
       "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
     },
+    "src/apps/submissions.rs": {
+      "status": "reviewed-binding",
+      "sha256": "5d47ae12ce3791f3df253a1937c9e71379da4fa8da9ae76d846cba32ae5a498f",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+    },
     "src/apps/surface_grants.rs": {
       "status": "reviewed-binding",
       "sha256": "a449b64977e1736fc8f94cc489035247784afe57f6818260522d887385244ee6",
@@ -1127,8 +1176,8 @@
     },
     "src/apps/surfaces.rs": {
       "status": "reviewed-binding",
-      "sha256": "3b03e6d15424227c83b82620607b4b370b016eb355ac94e32f52a15cfa8e7b02",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "ebf32828604fac8176ffab907ba4f8303d476843d4bb78d9796011aacd5e6521",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/apps/ui_bundles.rs": {
       "status": "unproved",
@@ -1147,8 +1196,8 @@
     },
     "src/apps/ui_logic_types.rs": {
       "status": "unproved",
-      "sha256": "d26691bc22b5b080577c807911633f740cb18945e0e52855216a28bbfa9fdd29",
-      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+      "sha256": "cf71edaf8715910fb94d67aa5ca108088a670cbc855a133fbd16c10f7ef15e2a",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/apps/ui_object_key_tests.rs": {
       "status": "unproved",
@@ -1257,8 +1306,8 @@
     },
     "src/auth/identity.rs": {
       "status": "unproved",
-      "sha256": "98bc2456eac1c646ec2d400a145db3fe525916e1b1251a4f048c3312b70a46a0",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "fc25740c195939205d398e1c539b93dfb437ea3894c3c5b9a7ce48102e0daab6",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/auth/integrations.rs": {
       "status": "unproved",
@@ -1277,8 +1326,8 @@
     },
     "src/auth/mfa.rs": {
       "status": "unproved",
-      "sha256": "2be503506c16776b9c66777a79d43a24850f4f5841d4b311b34bc532305ad299",
-      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+      "sha256": "06f8d2d0f8d87f3f6ec82949a1c8c0385476fdbcc03f5ad28b20c8c5df156cd0",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/auth/middleware.rs": {
       "status": "reviewed-binding",
@@ -1497,8 +1546,8 @@
     },
     "src/bin/verified_kernel/dispatch.rs": {
       "status": "unproved",
-      "sha256": "b5b74a896dd67302ebb6ced742877504c20970c185580f27eba4e0d2135740ee",
-      "review": "Native admin creation shares CRM addresses/history and checkout. Independent review repaired actor-token routes, final provider admission and settings-channel-customer-cart locks. Regression tests exercise state, permissions, replay and concurrent orders; SQL/HTTP adapters remain unproved."
+      "sha256": "ed1fdd9d32a64f5b0d536c5c0776f0dc7db48dc381ae4d0745464a4e2fd1b0c6",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/bin/verified_kernel.rs": {
       "status": "conformance-driver",
@@ -1517,8 +1566,8 @@
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
-      "sha256": "eb95d17035a685cf237210ca319bf8850e6103e3552e38f922a94dec02ea101a",
-      "review": "Reviewed native admin customer/order ownership, compound permissions, actor-private cart and direct-token consumers, channel/settings/customer lock ordering, final extracted manual-payment admission, MCP schemas and local isolation/concurrency regressions; SQL and async effects remain outside Lean proof."
+      "sha256": "e4c5cbc1933db7a824c530e982fe4ba0227f545801180e6f8f2f0a524bbd346f",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/capabilities/core_catalog.rs": {
       "status": "unproved",
@@ -1527,8 +1576,8 @@
     },
     "src/capabilities.rs": {
       "status": "unproved",
-      "sha256": "1e4d187feb1b675faa2a988821b5dfdd6c753563647dad08a2478d883c91af2c",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "728f18cde83f75122256c13f076414f27dfe965e1ddff9f7f8a793811690243c",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/cart_model.rs": {
       "status": "unproved",
@@ -1562,13 +1611,13 @@
     },
     "src/catalog_page.rs": {
       "status": "unproved",
-      "sha256": "26a03a3fe4225fe825c6aa339fa6e09952839d5fab262c3594ab6ae3c9b42d5c",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "2c88da305c7b9d7198d9ac80a06678769eade94ed915e051fa523a96ab96f093",
+      "review": "Reviewed bounded native catalog IDs intersected with existing channel/B2B admission, selected-product batch hydration and configured locale context; HTTP/MCP selected-ID and foreign-channel denial regression plus Rust/catalog checks passed."
     },
     "src/catalog_routes.rs": {
       "status": "unproved",
-      "sha256": "cbe50a4b17af35ddffbc0612a90fa93de44d24686c3edc0c028f8c9dbdb9f35f",
-      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
+      "sha256": "50290bc48e984148f553d70d0061104d7d9a1dcaf20460279d673126701b64c9",
+      "review": "Reviewed bounded native catalog IDs intersected with existing channel/B2B admission, selected-product batch hydration and configured locale context; HTTP/MCP selected-ID and foreign-channel denial regression plus Rust/catalog checks passed."
     },
     "src/categories/admin.rs": {
       "status": "unproved",
@@ -2492,13 +2541,13 @@
     },
     "src/mcp/visibility.rs": {
       "status": "unproved",
-      "sha256": "67265372d9ea33e867ba0b25a7649bb58775fb7957a923d4e9fc025492b724a4",
-      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
+      "sha256": "d01e3acb64e6e0fa2e3f33f2000e4b073c54a93ad29b261c71a0f17a11bdbf7a",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/mcp.rs": {
       "status": "unproved",
-      "sha256": "fb30e3e055de9ca13f585757e6be0c1c8072126dec8819886e4f028f2581ff6d",
-      "review": "Native admin creation shares CRM addresses/history and checkout. Independent review repaired actor-token routes, final provider admission and settings-channel-customer-cart locks. Regression tests exercise state, permissions, replay and concurrent orders; SQL/HTTP adapters remain unproved."
+      "sha256": "73b7a6f078dcd508eb5c9ba7daf3606bdc23e7e0dc23d544c9d4ef1b132516e6",
+      "review": "Reviewed bounded native catalog IDs intersected with existing channel/B2B admission, selected-product batch hydration and configured locale context; HTTP/MCP selected-ID and foreign-channel denial regression plus Rust/catalog checks passed."
     },
     "src/migrations/identity_checksums.rs": {
       "status": "unproved",
@@ -2507,8 +2556,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "e1eda9599d6d57d401f8155a4ef3bda6df46b22909e3e149c48b5493eb314f24",
-      "review": "Native customer identity audit: shared immutable account binding removes legacy email reads from orders/PDF/downloads; original cart capability is preserved. Review purchase and duplicate identity now use actual cart/account IDs; native customer review-count facts use the same canonical namespace. Additive 093 withdraws old email-derived purchase badges without assigning identities or editing text/rating/moderation. Static SQL and bound values remain; SQL/migration adapters are reviewed, not proved; extracted money/fulfillment predicates unchanged."
+      "sha256": "f9a266caf9be40c10668737c8c84ec72910101af6c080240ea0385dd87362890",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -2832,8 +2881,8 @@
     },
     "src/planner.rs": {
       "status": "unproved",
-      "sha256": "52bad84c89198ec28bb1824d176fc6eca51a634145f92235b206e87975ae7268",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "f0edf053289a86f4880d003f32d4bf4f60605ded99c414472e012d0b3f20165d",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/platform/ai.rs": {
       "status": "reviewed-binding",
@@ -2962,13 +3011,13 @@
     },
     "src/request_context.rs": {
       "status": "unproved",
-      "sha256": "f8508daca2897cf09908f8424164e8aa02d02f5301a16dd5eb5a93af655fa7df",
-      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
+      "sha256": "73048be35292c9cb94544b970f73122f92b47720c71e3bd57d7042a4d07f650b",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "b85f379828d315c6a245fbb2db4f2edde8b5f80d91450b7896c6e4993faf6c6b",
-      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+      "sha256": "a578a10e2a7aecfd0cc3ecfd58ddf619b8157a3aa7f89d9071c495dbef6264b1",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",
@@ -3037,8 +3086,8 @@
     },
     "src/staging/access.rs": {
       "status": "unproved",
-      "sha256": "ca2b463c4bba20b7c57edfc51c76ced3723561e1d6ce7584ef96f1ba8afe1255",
-      "review": "Review knowledge-source staging read/write admission against native knowledge scopes; automation import HTTP and MCP discovery now use the native per-operation scopes. Real denied-source, successful knowledge-only release, immutable history and write-only transport regressions pass. No pure decision or theorem is changed."
+      "sha256": "7c3cabdc5e6ba41dc11d0c6f4a3b24975e52fe986a5d47cdfff128d4b49fb044",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/staging/assets.rs": {
       "status": "unproved",
@@ -3052,8 +3101,8 @@
     },
     "src/staging/clone.rs": {
       "status": "unproved",
-      "sha256": "2f4f6321223e48fbc6b1d1cc37040dd113fd89d73f7415297930753868c2bb85",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "f44f1d43cef9f5504bea95478e93d44621929fc266937064398409c58b3af1b9",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/staging/company.rs": {
       "status": "unproved",
@@ -3072,18 +3121,18 @@
     },
     "src/staging/mod.rs": {
       "status": "unproved",
-      "sha256": "9e6f2dd8062dd98cb279e9ce9f37b5a8103e1b03affacd0497fc7898d9af08f2",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "00da10f1417a9d83875b01c191d31387999e4200d18282451bf72b87615719f7",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/staging/release.rs": {
       "status": "unproved",
-      "sha256": "296af16bc02968b52dfe3dd38456301b676e5061b0ee4d4562d6ddc5c5f8c140",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "abeae042695053e85afd9d49f0d0c8c56a88a5eaad9cffe703bb830c30ad542b",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/staging/snapshot.rs": {
       "status": "unproved",
-      "sha256": "2c0a6f1515b107abfbaf4ce173ec3d3a55497c656288d77ebe746e615d590942",
-      "review": "Reviewed selective-publication domain rights, transactional channel and current installed Flow action admission, shared B2B configuration writers with history and staging, method/currency dependency guards, and inherited consent-bound analytics. PostgreSQL and frontend regressions exercise successful effects, denied access, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "e9d0fa2d8535564730541f2dd1f62afe7bbbfddc69b93875b9febcb296231312",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/storefront_pages.rs": {
       "status": "unproved",
@@ -3095,6 +3144,16 @@
       "sha256": "ce72f28cb468f027b7a9a851c5cad576ccf524b06b9e965f424363e27270d91f",
       "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
     },
+    "src/studio/personal/model.rs": {
+      "status": "unproved",
+      "sha256": "dd048f2c56685533ff01bd69203aafdadfda01a0529d05588f08cdf0f3dab185",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+    },
+    "src/studio/personal.rs": {
+      "status": "unproved",
+      "sha256": "0a054539918690df20883924b7da423d73bf41f99e8c455447cafb31caf39b87",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+    },
     "src/studio/revenue.rs": {
       "status": "unproved",
       "sha256": "62194db8088c5f27cdd1ade1046098326d0289b6d1a9f10bd98016b004db2734",
@@ -3102,8 +3161,8 @@
     },
     "src/studio.rs": {
       "status": "unproved",
-      "sha256": "aef3da6e45bbf204f09694d51811437eb73b67cc3c7bd00c1167d7ecb2dc72c7",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "0a5434e97fba7f869c4aeed65f73d33c0c21fdc6d8056b81da55bea81ed04d97",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/tenant_scope.rs": {
       "status": "unproved",
@@ -3160,6 +3219,11 @@
       "sha256": "37559f6293524d7568217ec08429ac596f8ab4fd34714c3c102c6de01220aae0",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
+    "src/verified_kernel/app_intake.rs": {
+      "status": "extracted-policy",
+      "sha256": "294d9a9ceb49373e3dc9f868df46b913e715db808b0b019a0cdd649ed7b82cae",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+    },
     "src/verified_kernel/fulfillment.rs": {
       "status": "extracted-policy",
       "sha256": "9231ccb47eb2fdf5da67eba64c917aa57e2748f21cfe645c1c394b83e8814180",
@@ -3167,8 +3231,8 @@
     },
     "src/verified_kernel.rs": {
       "status": "extracted-policy",
-      "sha256": "d4730c0922702dbd4544eed2f3b6144076337053c7f18448624d22ab9c902f5a",
-      "review": "Native admin creation shares CRM addresses/history and checkout. Independent review repaired actor-token routes, final provider admission and settings-channel-customer-cart locks. Regression tests exercise state, permissions, replay and concurrent orders; SQL/HTTP adapters remain unproved."
+      "sha256": "d1d9d5a115f55f0a25fe04b5103cb1a0a55c359009956e06e135a642e035945c",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "src/work_signal.rs": {
       "status": "unproved",
@@ -3602,9 +3666,17 @@
       "sha256": "aa71a8e30a78ad15b73b05ac0d21cb402e4a4be23459f72062e7cb43fd4c78e6",
       "review": "Native customer identity audit: shared immutable account binding removes legacy email reads from orders/PDF/downloads; original cart capability is preserved. Review purchase and duplicate identity now use actual cart/account IDs; native customer review-count facts use the same canonical namespace. Additive 093 withdraws old email-derived purchase badges without assigning identities or editing text/rating/moderation. Static SQL and bound values remain; SQL/migration adapters are reviewed, not proved; extracted money/fulfillment predicates unchanged."
     },
+    "migrations/094-personal-workspace.sql": {
+      "sha256": "729f987895b4956697129c212fa417d541627dde7ddb209f5b1e7c1f6474709c",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+    },
+    "migrations/095-app-record-history.sql": {
+      "sha256": "293bbecfcbfbea19ac3ac94b4518c1a8a1b861681bd2c8248642231beb45e10e",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+    },
     "proof/Commerce/Claims.lean": {
-      "sha256": "ef4b0438a9a5e13eaccac4d0b5024607e72cfb96301f03fd8308a99ddaaa5894",
-      "review": "Native admin creation shares CRM addresses/history and checkout. Independent review repaired actor-token routes, final provider admission and settings-channel-customer-cart locks. Regression tests exercise state, permissions, replay and concurrent orders; SQL/HTTP adapters remain unproved."
+      "sha256": "c504f58a6d8b279212998457fac1c0609c7e4465d98ed7b82bf59d9916d49a29",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "proof/lakefile.toml": {
       "sha256": "1cda05bac02223024b93388cf858edad4719c46f8d37a826a73a6a6e15d79432",
@@ -3635,12 +3707,12 @@
       "review": "Reviewed marketplace money guard consumers and exact properties, cap-neighbour comparison cases, native stock binding and local regressions; external protocols and tax law remain tested unproved boundaries"
     },
     "scripts/formal/extract.py": {
-      "sha256": "f07d8d2336ba36028c7efaec1accc83cd268ccac1e95b70f57a0d26f315af963",
-      "review": "Review provider-neutral split quantities, original app-bound PDF acknowledgement, native booking intent, aggregate storage and current Flow/job disclosure; provider effects remain unproved"
+      "sha256": "fa87fbe1615e226ff3c67456d5bbeaa50b26dab9877bdd7c540eb381707d3acb",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "scripts/formal/mutations.py": {
-      "sha256": "0c7df0cdb2704790825df7cedda6669523b5d5e63c00142e6a24be172c2403a5",
-      "review": "Native admin creation shares CRM addresses/history and checkout. Independent review repaired actor-token routes, final provider admission and settings-channel-customer-cart locks. Regression tests exercise state, permissions, replay and concurrent orders; SQL/HTTP adapters remain unproved."
+      "sha256": "f91338001bd5a4d1158f3193d43086043cbfa3133624a34806b7d9b58f3ab0b5",
+      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
     },
     "scripts/formal/registry.py": {
       "sha256": "c9c7b670df8a2ddb9f1c8f7c7359eba31c770a37531e3268126886dec0f6c02f",

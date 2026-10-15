@@ -80,7 +80,8 @@
     "edi",
     "marketplaces",
     "shipping_contract",
-    "grid_directory"
+    "grid_directory",
+    "visual_workspace"
   ],
   "browser_contracts": [
     "analytics",

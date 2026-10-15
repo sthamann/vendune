@@ -33,9 +33,17 @@ export type AppSurface = {
 };
 const Registry = createContext<{
   surfaces: AppSurface[];
+  publicApps: string[];
+  mainLocale: string;
   request: RequestFn;
   public: boolean;
-}>({ surfaces: [], request: async () => {}, public: true });
+}>({
+  surfaces: [],
+  publicApps: [],
+  mainLocale: "en-GB",
+  request: async () => {},
+  public: true,
+});
 export function AppSurfaceProvider({
   request,
   scopeKey,
@@ -48,19 +56,29 @@ export function AppSurfaceProvider({
   children: ReactNode;
 }) {
   const [surfaces, setSurfaces] = useState<AppSurface[]>([]);
+  const [publicApps, setPublicApps] = useState<string[]>([]);
+  const [mainLocale, setMainLocale] = useState("en-GB");
   const latest = useRef(request);
   latest.current = request;
   useEffect(() => {
     let active = true;
     setSurfaces([]);
+    setPublicApps([]);
     const refresh = () =>
       latest
         .current(`${isPublic ? "/store-api" : "/api"}/apps/surfaces`)
         .then((v) => {
-          if (active) setSurfaces(v.surfaces);
+          if (active) {
+            setSurfaces(v.surfaces);
+            setPublicApps(v.publicApps ?? []);
+            setMainLocale(v.mainLocale ?? "en-GB");
+          }
         })
         .catch(() => {
-          if (active) setSurfaces([]);
+          if (active) {
+            setSurfaces([]);
+            setPublicApps([]);
+          }
         });
     void refresh();
     addEventListener("commerce.apps.changed", refresh);
@@ -70,7 +88,9 @@ export function AppSurfaceProvider({
     };
   }, [scopeKey, isPublic]);
   return (
-    <Registry.Provider value={{ surfaces, request, public: isPublic }}>
+    <Registry.Provider
+      value={{ surfaces, publicApps, mainLocale, request, public: isPublic }}
+    >
       {children}
     </Registry.Provider>
   );
@@ -236,4 +256,8 @@ export function StorefrontAppPage({ path }: { path: string }) {
       <AppSurfaceView selected={selected} />
     </main>
   ) : null;
+}
+/** Public app availability accompanies the existing registry read; no failed feature-probe requests. */
+export function useAppRegistry() {
+  return useContext(Registry);
 }

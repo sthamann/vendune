@@ -10,6 +10,7 @@ use std::{
 
 #[derive(Clone, Debug, Default)]
 pub(crate) struct Principal {
+    pub personal_session: bool,
     pub user: Option<String>,
     pub role: Option<String>,
     pub tenant: Option<String>,

@@ -14,10 +14,12 @@ export default function SalesChannelsWorkspace({
   request,
   workspace,
   onTeam,
+  onDesign,
 }: {
   request: RequestFn;
   workspace: string;
   onTeam: () => void;
+  onDesign?: (id: string) => void;
 }) {
   const t = useChannelText(),
     { locale } = useLocale();
@@ -108,6 +110,7 @@ export default function SalesChannelsWorkspace({
           onBack={() => setSelected(null)}
           onSaved={save}
           onMarketplace={() => setMarketplace(true)}
+          onDesign={onDesign ? () => onDesign(selected.id) : undefined}
           onDeleted={() => {
             setChannels((old) => old.filter((c) => c.id !== selected.id));
             setSelected(null);

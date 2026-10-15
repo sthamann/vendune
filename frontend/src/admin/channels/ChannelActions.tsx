@@ -3,6 +3,7 @@ import { useState } from "react";
 import AutomationDelete from "../automation/AutomationDelete";
 import type { RequestFn } from "../shell/studio-types";
 import { posUrl, channelUrl, type Channel } from "./channel-model";
+import { useWorkspaceText } from "../workspace/workspace-i18n";
 import { useChannelText } from "./channel-i18n";
 import { connectionUrl } from "../../../../extensions/apps/storyfront/studio/storyfront-model";
 export default function ChannelActions({
@@ -13,6 +14,7 @@ export default function ChannelActions({
   onToggle,
   onDeleted,
   onMarketplace,
+  onDesign,
 }: {
   draft: Channel;
   request: RequestFn;
@@ -21,7 +23,9 @@ export default function ChannelActions({
   onToggle: () => void;
   onDeleted: () => void;
   onMarketplace?: () => void;
+  onDesign?: () => void;
 }) {
+  const personal = useWorkspaceText();
   const t = useChannelText(),
     [busy, setBusy] = useState(false),
     [error, setError] = useState("");
@@ -51,6 +55,11 @@ export default function ChannelActions({
   };
   return (
     <>
+      {draft.data.kind === "storefront" && onDesign && (
+        <button type="button" className="studio-secondary" onClick={onDesign}>
+          {personal("design")} ↗
+        </button>
+      )}
       {draft.data.kind === "marketplace" && (
         <button
           type="button"

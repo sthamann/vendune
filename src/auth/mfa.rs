@@ -1,6 +1,6 @@
 //! Personal MFA enrollment and one-use sign-in challenges share the native session and encryption owners.
 use crate::*;
-pub(super) async fn personal<'a>(a: &App, h: &'a RequestContext) -> Result<&'a str> {
+pub(crate) async fn personal<'a>(a: &App, h: &'a RequestContext) -> Result<&'a str> {
     let user = header(h, "x-rac-user")
         .filter(|u| *u != "bootstrap" && h.principal.app.is_none())
         .ok_or(bad("Personal account required"))?;

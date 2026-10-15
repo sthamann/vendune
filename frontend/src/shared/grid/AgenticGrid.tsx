@@ -88,6 +88,21 @@ export default function AgenticGrid<Row>({
           </label>
         )}
         <div className="agent-grid-tools">
+          {agent && (
+            <button
+              type="button"
+              onClick={() =>
+                window.dispatchEvent(
+                  new CustomEvent("veyndo.workspace.pin", {
+                    detail: { title, criteria },
+                  }),
+                )
+              }
+            >
+              <Icon name="link" />
+              {g("pin")}
+            </button>
+          )}
           {!!filters.length && (
             <button
               type="button"

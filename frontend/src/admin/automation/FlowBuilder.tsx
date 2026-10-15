@@ -1,4 +1,5 @@
 /** Graphical event → condition tree → action pipeline, including installed app actions. */
+import { useLifecycleText } from "./lifecycle-i18n";
 import { useConnectedText } from "../../shared/i18n/connected-i18n";
 import { useContentLanguage } from "../../shared/i18n/ContentLanguage";
 import {
@@ -19,6 +20,7 @@ export default function FlowBuilder({
   update: (key: string, value: any) => void;
   catalog: AutomationCatalog;
 }) {
+  const lifecycle = useLifecycleText();
   const { mainLocale } = useContentLanguage();
   const { a } = useAutomationText();
   const k = useKnowledgeText();
@@ -42,6 +44,9 @@ export default function FlowBuilder({
     ...catalog.apps.flatMap((a) => [
       ...(a.manifest.permissions.includes("knowledge.write")
         ? [`app.${a.id}.source_imported`]
+        : []),
+      ...(a.manifest.actions.some((v: any) => v.handler === "submit")
+        ? [`app.${a.id}.submitted`]
         : []),
       ...a.manifest.actions
         .filter((v: any) => v.handler === "emit")
@@ -71,7 +76,7 @@ export default function FlowBuilder({
           {[...new Set([...events, data.event])].filter(Boolean).map((v) => (
             <option key={v} value={v}>
               {v.startsWith("app.")
-                ? `${catalog.apps.find((a) => a.id === v.split(".")[1])?.manifest.name[locale.slice(0, 2)] ?? v.split(".")[1]} · ${v.endsWith(".source_imported") ? x("sourceImported") : v.split(".")[2]}`
+                ? `${catalog.apps.find((a) => a.id === v.split(".")[1])?.manifest.name[locale.slice(0, 2)] ?? v.split(".")[1]} · ${v.endsWith(".source_imported") ? x("sourceImported") : v.endsWith(".submitted") ? lifecycle("formSubmitted") : v.split(".")[2]}`
                 : v === "privacy.consent_changed"
                   ? l("consentChanged")
                   : v === "consumer.request.reviewed"

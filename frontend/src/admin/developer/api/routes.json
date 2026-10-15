@@ -70,6 +70,16 @@
     "source": "src/apps/surfaces.rs"
   },
   {
+    "path": "/api/apps/{app}/entities/{entity}/{record}/history",
+    "method": "GET",
+    "source": "src/apps/record_history.rs"
+  },
+  {
+    "path": "/api/apps/{app}/entities/{entity}/{record}/history/{revision}/restore",
+    "method": "POST",
+    "source": "src/apps/record_history.rs"
+  },
+  {
     "path": "/api/apps/{id}",
     "method": "PUT",
     "source": "src/apps/routes.rs"
@@ -840,6 +850,21 @@
     "source": "src/routes.rs"
   },
   {
+    "path": "/api/merchant/site/apply",
+    "method": "POST",
+    "source": "extensions/apps/site-builder/design_agent.rs"
+  },
+  {
+    "path": "/api/merchant/site/context",
+    "method": "GET",
+    "source": "extensions/apps/site-builder/context.rs"
+  },
+  {
+    "path": "/api/merchant/site/plan",
+    "method": "POST",
+    "source": "extensions/apps/site-builder/design_agent.rs"
+  },
+  {
     "path": "/api/merchant/translations",
     "method": "GET",
     "source": "src/translations/mod.rs"
@@ -1028,6 +1053,16 @@
     "path": "/api/settings/master-data/channels/{id}",
     "method": "PUT",
     "source": "src/operations/routes.rs"
+  },
+  {
+    "path": "/api/studio/workspace",
+    "method": "GET",
+    "source": "src/studio/personal.rs"
+  },
+  {
+    "path": "/api/studio/workspace",
+    "method": "PUT",
+    "source": "src/studio/personal.rs"
   },
   {
     "path": "/api/workspace/integrations",

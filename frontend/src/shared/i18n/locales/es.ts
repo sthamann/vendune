@@ -178,6 +178,8 @@ export const es: Dictionary = {
   keepDraft: "El borrador se conserva en caso de error.",
   lastUpdated: "Actualizado",
   noCalls: "Sin llamadas",
+  workspacePinned:
+    "Vista fijada en tu espacio personal. Se excluyen búsquedas personales.",
   approvedAction: "Cambios aplicados. Datos actualizados.",
   basedOn: "Datos reales de tienda",
   errorReply:

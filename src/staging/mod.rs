@@ -89,11 +89,11 @@ async fn diff(
     let actual = snapshot(&mut tx, &t).await?;
     let mut changes = vec![];
     for (key, value) in current.as_object().unwrap() {
-        if !access::can_read(&h, key) {
+        if !access::can_read_unit(&a, &h, &id, key).await? {
             continue;
         }
         if base["stage"].get(key) != Some(value) {
-            changes.push(json!({"key":key,"before":base["stage"].get(key),"after":value,"digest":hash(&value.to_string()),"conflict":actual.get(key)!=base["live"].get(key)}));
+            changes.push(json!({"key":key,"before":access::before(&h,key,&base["stage"],&current),"after":value,"digest":hash(&value.to_string()),"conflict":actual.get(key)!=base["live"].get(key)}));
         }
     }
     Ok(Json(

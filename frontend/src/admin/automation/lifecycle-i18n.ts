@@ -1,6 +1,12 @@
 /** Shared lifecycle, starting-process and dependency vocabulary for every automation editor. */
 import { useLocale } from "../../shared/i18n/i18n";
 const words = {
+  formSubmitted: [
+    "Form received",
+    "Formular eingegangen",
+    "Formulaire reçu",
+    "Formulario recibido",
+  ],
   version: ["Revision", "Revision", "Révision", "Revisión"],
   search: [
     "Search definitions",
