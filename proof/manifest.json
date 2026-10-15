@@ -2736,8 +2736,8 @@
     },
     "src/operations/company_public.rs": {
       "status": "unproved",
-      "sha256": "b2b80b505b3fb7f7007c6cd74825e0c46e01978a3faed14524bbfce687867f69",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "6f2df42dd5e9cfb1eb59923f697d48b97ee10fed851402c3332a13757b525095",
+      "review": "Reviewed tenant-scoped company presentation fallback: only absent brand and legal seller use the existing chosen tenant name; explicit localized brands and immutable issuer/config revisions stay unchanged. Actual identity-broker HTTP regression failed before and passed after; company settings and signed runtime/pooler isolation suites passed."
     },
     "src/operations/creation_schema.rs": {
       "status": "unproved",

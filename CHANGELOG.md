@@ -1,5 +1,9 @@
 # Changelog
 
+## Hosted acceptance follow-up
+
+- Show the supplied shop name in an unconfigured standard storefront instead of its technical address. Reuse the existing tenant-scoped public company projection; preserve explicit brand translations, legal identity, settings revisions and receipt issuer snapshots.
+
 ## Shared managed app storage
 
 - Replace per-shop/app/model SQL tables and indexes with four fixed shared tables, logical model versions, typed JSONB records, bounded lookup/unique projections and real tenant-aware references.

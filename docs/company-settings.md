@@ -103,6 +103,12 @@ issuance transaction. Seller/address/register/representative/VAT data are frozen
 in the document snapshot. Cancellation reuses the original invoice's seller.
 The current PDF renderer prints text; logo bytes are not embedded in PDF output.
 
+Before a merchant configures a brand or legal seller, public presentation falls
+back to the chosen shop name rather than its technical address. This is a scoped
+read of the existing shop identity, not a company-settings write or a fabricated
+legal name. Explicit brand values (including empty translations), factual seller
+details, settings revisions and immutable document issuers remain unchanged.
+
 ## Staging and implementation
 
 A private environment clones the basis, overrides and immutable logo bytes.
