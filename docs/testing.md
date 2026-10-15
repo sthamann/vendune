@@ -2,6 +2,29 @@
 
 **Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).
 
+## Fixed shared app storage — 15 October 2026
+
+[Storage model, limits and maintenance cutover](app-data-storage.md).
+The registered `app_shared_storage` suite creates eight actual shops and installs
+32 indexed packages through HTTP. Physical table/index counts remain unchanged.
+It checks typed keyset filters, equal-ID isolation, six competing unique writes
+(one success, five HTTP 409 conflicts), protected projections and scoped F5 resets.
+
+`app_storage_migration` replays the original SQL migrations 001–100 into a separate
+database and populates historical physical models. Migrations 101–102 preserve
+inactive apps, personal previews, IDs/revisions, large integers, localized NULL/empty
+values, cyclic relationships, immutable histories and app-owned document quotas.
+Missing targets, an unknown dependent SQL view and an idle configured Core login
+must abort atomically; the successful migration drops only the exact verified old
+table set without `CASCADE` and emits no invented business changes.
+
+Existing app, schema, relation, callback, ontology, jobs, assets, native component
+checkout, staging and visual page/form suites exercise the same store. The strict
+`signed_runtime` and real one-backend `signed_pooler` suites additionally exercise
+separate non-owner system/tenant logins, signing-key rotation, restart and denied
+schema/projection access. These are local verification contracts, not proof of a
+completed production migration or unlimited data/throughput capacity.
+
 ## Agentic directory grids — 14 October 2026
 
 [Guide and actual browser captures](agentic-grids.md). The complete local frontend

@@ -3,20 +3,17 @@
 -- grant this role to it, and use that login only for DATABASE_RUNTIME_URL.
 -- Runtime login must inherit this group, but NEVER the migration owner.
 CREATE ROLE veyndo_runtime NOLOGIN NOSUPERUSER NOBYPASSRLS;
-GRANT CONNECT,CREATE ON DATABASE :"DBNAME" TO veyndo_runtime;
-GRANT USAGE,CREATE ON SCHEMA public TO veyndo_runtime;
+GRANT CONNECT ON DATABASE :"DBNAME" TO veyndo_runtime;
+GRANT USAGE ON SCHEMA public TO veyndo_runtime;
 SELECT format('GRANT SELECT,INSERT,UPDATE,DELETE,REFERENCES ON public.%I TO veyndo_runtime',tablename) FROM pg_tables WHERE schemaname='public' AND tablename NOT LIKE 'connector_%' \gexec
 GRANT SELECT ON public.membership_grants TO veyndo_runtime;
 GRANT USAGE,SELECT ON ALL SEQUENCES IN SCHEMA public TO veyndo_runtime;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE ALL ON TABLES FROM veyndo_runtime;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT USAGE,SELECT ON SEQUENCES TO veyndo_runtime;
--- Only app-managed schema ownership is transferable; never transfer commerce tables.
--- Migration owner must be a member of the app-schema owner to perform the transfer.
-SELECT format('GRANT veyndo_runtime TO %I',current_user) \gexec
-SELECT format('ALTER TABLE public.%I OWNER TO veyndo_runtime',c.relname)
- FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
- WHERE n.nspname='public' AND c.relname ~ '^app_[a-f0-9]{16}([a-f0-9]{8})?_'
- AND EXISTS(SELECT 1 FROM pg_policy p WHERE p.polrelid=c.oid AND p.polname='tenant_scope') \gexec
+-- Shared app records/models/projections stay owned by the migration role.
+-- Installation changes logical definitions; serving logins need no CREATE or table ownership.
+-- For separate authenticated system/tenant logins use the native database-authority
+-- configure command documented in docs/authenticated-database-scope.md.
 -- Example, after provisioning the LOGIN separately:
 -- GRANT veyndo_runtime TO veyndo_runtime_login;
 -- DB_RLS_REQUIRED=true

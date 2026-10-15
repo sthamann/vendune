@@ -107,27 +107,15 @@ async fn create_inner(
                     .bind(&t)
                     .execute(&mut *tx)
                     .await?;
-                let columns = entity
-                    .fields
-                    .iter()
-                    .map(|f| crate::apps::column(&f.name))
-                    .collect::<Vec<_>>()
-                    .join(",");
-                let sql = format!(
-                    "SELECT to_jsonb(r) AS data FROM (SELECT id,{columns} FROM public.{} WHERE tenant=$1 ORDER BY id LIMIT 1001) r",
-                    apps::table(&t, &m.id, &entity.name)
-                );
-                let records = sqlx::query(sqlx::AssertSqlSafe(sql.as_str()))
-                    .bind(&t)
-                    .fetch_all(&mut *tx)
-                    .await?;
+                let records = apps::records::rows(&mut tx, &t, &m.id, entity, 1001).await?;
                 if records.len() > 1000 {
                     return Err(bad(
                         "Prototype sandbox supports at most 1000 public records per app entity",
                     ));
                 }
                 for r in records {
-                    let mut fields: Value = r.get("data");
+                    let mut fields = r;
+                    fields.as_object_mut().unwrap().remove("revision");
                     let record = fields.as_object_mut().unwrap().remove("id").unwrap();
                     apps::data::save_tx(
                         &mut tx,

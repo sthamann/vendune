@@ -60,27 +60,15 @@ pub(crate) async fn snapshot(tx: &mut Tx<'_>, t: &str) -> Result<Value> {
                 .iter()
                 .any(|a| a.entity.as_deref() == Some(e.name.as_str()) && a.handler == "submit")
         }) {
-            let columns = e
-                .fields
-                .iter()
-                .map(|f| crate::apps::column(&f.name))
-                .collect::<Vec<_>>()
-                .join(",");
-            let sql = format!(
-                "SELECT to_jsonb(r) AS data FROM (SELECT id,{columns} FROM public.{} WHERE tenant=$1 ORDER BY id LIMIT 1001 FOR UPDATE) r",
-                apps::table(t, &app, &e.name)
-            );
-            let records = sqlx::query(sqlx::AssertSqlSafe(sql.as_str()))
-                .bind(t)
-                .fetch_all(&mut **tx)
-                .await?;
+            let records = apps::records::rows(tx, t, &app, e, 1001).await?;
             if records.len() > 1000 {
                 return Err(bad(
                     "Prototype release supports at most 1000 records per app entity",
                 ));
             }
             for r in records {
-                let data: Value = r.get("data");
+                let mut data = r;
+                data.as_object_mut().unwrap().remove("revision");
                 result.insert(
                     format!("appdata:{app}:{}:{}", e.name, data["id"].as_str().unwrap()),
                     data,

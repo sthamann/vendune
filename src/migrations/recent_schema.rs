@@ -216,4 +216,12 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         "100-durable-agent-runs",
         include_str!("../../migrations/100-durable-agent-runs.sql"),
     ),
+    (
+        "101-shared-app-records",
+        include_str!("../../migrations/101-shared-app-records.sql"),
+    ),
+    (
+        "102-consolidate-app-tables",
+        include_str!("../../migrations/102-consolidate-app-tables.sql"),
+    ),
 ];

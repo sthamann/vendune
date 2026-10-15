@@ -9,7 +9,7 @@ before adding runtimes, stores or credentials. [Architecture](app-platform.md) a
 | Finding | Current owner and protection | Regression |
 |---|---|---|
 | B1 table bomb | `sandbox_engine.rs`, `sandbox.rs`, `component_runtime.rs`: preflight, element/memory limits, pooling, fuel, epochs | Rust oversized private table/growth/host-loop tests; `app_components` |
-| B2 shared app DDL | `apps/manifest.rs`, `apps/storage.rs`, migration 058: tenant/app hashed tables, RLS, own-version compatibility | `apps`, `app_schema`, `tenant_isolation` |
+| B2 shared app storage | `apps/records.rs`, migrations 101–102: fixed tables, full logical keys, signed RLS, managed unique/reference projections and own-version compatibility | `app_shared_storage`, `app_storage_migration`, `apps`, `app_schema`, `tenant_isolation` |
 | B3 service ID impersonation | `apps/approval.rs`: exact Rust-canonical approved digest; reserved names include Payments | `apps`, `app_surfaces`, `payment_providers` |
 | B4 wrong webhook tenant | `webhook_scope.rs`, auth middleware: route tenant admission, reject conflicting header | `app_secrets` strict non-owner RLS |
 | B5 global slow event lane | `events.rs`: eight lanes, bounded batches, lease fences, retry and replay | `app_events`, `services`, `rust_connectors` |

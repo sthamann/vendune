@@ -14,7 +14,7 @@ def call(path,body=None,h=None,method=None,expected=200):
 def check(name):checks.append(name);print('PASS',name)
 def user():return call('/api/auth/register',{'email':uuid.uuid4().hex+'@example.test','name':'App Contract Owner','password':'Synthetic-app-account-2026!','workspaceId':'apps-'+uuid.uuid4().hex[:12],'workspaceName':'App contract shop'})
 u=user();other=user();h={'Authorization':'Bearer '+u['token'],'x-tenant':u['workspace']};oh={'Authorization':'Bearer '+other['token'],'x-tenant':other['workspace']}
-call('/api/apps',{'builtIn':'engraving'},h);check('Built-in installation creates actual typed app tables')
+call('/api/apps',{'builtIn':'engraving'},h);check('Built-in installation creates typed logical models in shared app storage')
 rows=call('/api/apps/engraving/entities/rules',h=h)['elements'];assert rows==[{'id':'default','revision':1,'fee_minor':300}]
 call('/api/apps/engraving/entities/rules',{'id':'default','revision':1,'fields':{'fee_minor':'300'}},h,expected=400)
 call('/api/apps/engraving/entities/rules',{'id':'default','revision':1,'fields':{'fee_minor':300,'tenant':other['workspace']}},h,expected=400)
@@ -24,7 +24,7 @@ call('/api/apps/engraving/entities/rules',{'id':'default','revision':1,'fields':
 assert call('/api/apps/engraving/entities/rules',h=oh)['elements'][0]['fee_minor']==300
 call('/api/apps/engraving/entities/rules',{'id':'default','revision':1,'fields':{'fee_minor':200}},h,expected=409);check('App optimistic updates never alter another shop')
 call('/api/apps/engraving/entities/rules',{'id':'default','revision':2,'fields':{'fee_minor':-1}},h,expected=400)
-table='app_'+hashlib.sha256((u['workspace']+':engraving').encode()).hexdigest()[:24]+'_rules';role='test_rls_'+uuid.uuid4().hex[:12]
+table='app_records';role='test_rls_'+uuid.uuid4().hex[:12]
 # Local database bootstrap identity is a superuser; SET LOCAL ROLE proves the policy under a restricted identity.
 query=f"BEGIN; CREATE ROLE {role}; GRANT SELECT ON {table} TO {role}; SELECT set_config('rac.tenant','{u['workspace']}',true); SET LOCAL ROLE {role}; SELECT count(*) FROM {table} WHERE tenant <> '{u['workspace']}'; SELECT count(*) FROM {table} WHERE tenant = '{u['workspace']}'; ROLLBACK;"
 output=subprocess.check_output(psql(os.getenv('DB_CONTAINER','veyndo-postgres-1'),'commerce',os.getenv('TEST_DATABASE','commerce'),'-Atq','-c',query),text=True).splitlines()
@@ -158,7 +158,7 @@ call('/api/apps/independent/entities/notes',{'id':'same','fields':{'title':'Own 
 call('/api/apps/independent/entities/notes',{'id':'same','fields':{'title':42}},oh)
 assert call('/api/apps/independent/entities/notes',h=h)['elements'][0]['title']=='Own string'
 assert call('/api/apps/independent/entities/notes',h=oh)['elements'][0]['title']==42
-check('Different tenants can install the same app ID with incompatible columns without DDL collisions')
+check('Different tenants can install the same app ID with incompatible fields without DDL collisions')
 def sql(statement):
     return subprocess.check_output(psql(os.getenv('DB_CONTAINER','veyndo-postgres-1'),'commerce',os.getenv('TEST_DATABASE','commerce'),'-Atq','-c',statement),text=True).strip()
 t=u['workspace'];app='independent'
@@ -170,8 +170,8 @@ assert len(call('/api/apps/independent/entities/notes',h=h)['elements'])==1
 sql(f"UPDATE app_storage_usage SET rows=1 WHERE tenant='{t}' AND app='{app}'")
 up=copy.deepcopy(independent);up['version']='1.2.0';up['entities'][0]['fields'].append({'name':'optional','kind':'string'})
 call('/api/apps',{'manifest':up},h)
-physical='app_'+hashlib.sha256((t+':'+app).encode()).hexdigest()[:24]+'_notes'
-assert sql(f"SELECT bytes=(SELECT sum(octet_length(to_jsonb(r)::text)) FROM {physical} r) FROM app_storage_usage WHERE tenant='{t}' AND app='{app}'")=='t'
+physical='app_records'
+assert sql(f"SELECT bytes=(SELECT sum(storage_bytes) FROM {physical} r WHERE tenant='{t}' AND app='{app}') FROM app_storage_usage WHERE tenant='{t}' AND app='{app}'")=='t'
 check('Quota violations roll back writes; schema upgrades recount actual stored bytes')
 # Mutable autosaves are private to an actor and revision-protected independently of published versions.
 draft=copy.deepcopy(art);draft['id']='private_draft'

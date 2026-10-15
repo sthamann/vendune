@@ -96,20 +96,20 @@ def run(a, b, passed):
     broken = sql("BEGIN; CREATE TABLE public.security_bad_reference(tenant text NOT NULL,order_id text REFERENCES orders(id)); " + reference_query + "; ROLLBACK;")
     assert 'security_bad_reference' in broken, broken
     passed('Negative schema control detects a newly introduced unscoped order reference')
-    # Inspection is explicit: core RLS is still absent. App RLS must work under an
+    # App RLS must work under an
     # ordinary role, not the superuser used by the local container.
     role = 'security_reader_' + ta.replace('-', '_')
-    table = 'app_' + hashlib.sha256((ta+':care_studio').encode()).hexdigest()[:24] + '_guides'
+    table = 'app_records'
     sql(f"CREATE ROLE {role} NOLOGIN NOSUPERUSER NOBYPASSRLS; GRANT USAGE ON SCHEMA public TO {role}; GRANT SELECT,INSERT ON {table} TO {role};")
     try:
         assert sql(f"BEGIN; SET LOCAL ROLE {role}; SELECT count(*) FROM {table}; ROLLBACK;").strip() == '0'
         for t in (ta, tb):
             out = sql(f"BEGIN; SET LOCAL ROLE {role}; SELECT set_config('rac.tenant','{t}',true); SELECT string_agg(tenant,',') FROM {table}; ROLLBACK;")
-            assert out.splitlines() == ([t, t] if t == ta else [t]), out
+            assert out.splitlines() and set(out.splitlines()[-1].split(',')) == {t}, out
         # Transaction-local context disappears on commit on the very same connection.
         out = sql(f"BEGIN; SET LOCAL ROLE {role}; SELECT set_config('rac.tenant','{ta}',true); COMMIT; BEGIN; SET LOCAL ROLE {role}; SELECT count(*) FROM {table}; ROLLBACK;")
         assert out.splitlines()[-1] == '0', out
-        sql(f"BEGIN; SET LOCAL ROLE {role}; SELECT set_config('rac.tenant','{ta}',true); DO $probe$ BEGIN BEGIN INSERT INTO {table}(tenant,id,title) VALUES('{tb}','forged','{{\"en\":\"Forged\"}}'); RAISE EXCEPTION 'RLS accepted foreign row'; EXCEPTION WHEN insufficient_privilege THEN NULL; END; END $probe$; ROLLBACK;")
+        sql(f"BEGIN; SET LOCAL ROLE {role}; SELECT set_config('rac.tenant','{ta}',true); DO $probe$ BEGIN BEGIN INSERT INTO {table}(tenant,app,entity,id,version,fields) VALUES('{tb}','care_studio','guides','forged','1.0.0','{{\"title\":{{\"en\":\"Forged\"}}}}'); RAISE EXCEPTION 'RLS accepted foreign row'; EXCEPTION WHEN insufficient_privilege THEN NULL; END; END $probe$; ROLLBACK;")
         passed('App RLS denies missing/foreign context and resets on pooled connection reuse under NOSUPERUSER NOBYPASSRLS')
     finally:
         sql(f'DROP OWNED BY {role}; DROP ROLE {role};')

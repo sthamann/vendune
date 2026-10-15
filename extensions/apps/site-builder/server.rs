@@ -186,11 +186,7 @@ pub(crate) async fn validate_owned(
         .bind(t)
         .execute(&mut **tx)
         .await?;
-    let route_sql = format!(
-        "SELECT EXISTS(SELECT 1 FROM public.{} WHERE tenant=$1 AND channel=$2 AND slug=$3 AND id<>$4)",
-        table(t, "site_builder", "pages")
-    );
-    if sqlx::query_scalar::<_, bool>(sqlx::AssertSqlSafe(route_sql.as_str()))
+    if sqlx::query_scalar::<_, bool>("SELECT EXISTS(SELECT 1 FROM app_records WHERE tenant=$1 AND app='site_builder' AND entity='pages' AND fields->>'channel'=$2 AND fields->>'slug'=$3 AND id<>$4)")
         .bind(t)
         .bind(channel)
         .bind(v["slug"].as_str())

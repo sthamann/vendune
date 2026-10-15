@@ -79,11 +79,7 @@ pub(crate) async fn release(
             return Err(bad("Invalid app data selection"));
         }
         sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,8))")
-            .bind(format!(
-                "{t}:{}:{}",
-                apps::table(&t, parts[1], parts[2]),
-                parts[3]
-            ))
+            .bind(apps::records::lock_key(&t, parts[1], parts[2], parts[3]))
             .execute(&mut *tx)
             .await?;
     }
@@ -183,15 +179,9 @@ pub(crate) async fn release(
                 .iter()
                 .find(|e| e.name == parts[2])
                 .ok_or(bad("App entity missing"))?;
-            let sql = format!(
-                "SELECT revision FROM public.{} WHERE tenant=$1 AND id=$2",
-                apps::table(&t, &m.id, &e.name)
-            );
-            let revision = sqlx::query_scalar::<_, i64>(sqlx::AssertSqlSafe(sql.as_str()))
-                .bind(&t)
-                .bind(parts[3])
-                .fetch_optional(&mut *tx)
+            let revision = apps::records::get(&mut tx, &t, &m.id, &e.name, parts[3], false)
                 .await?
+                .and_then(|r| r["revision"].as_i64())
                 .unwrap_or(0);
             let mut fields = value.clone();
             fields.as_object_mut().unwrap().remove("id");

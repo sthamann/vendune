@@ -39,24 +39,39 @@ documented in [authenticated database scope](authenticated-database-scope.md).
 Local separate-login attacks and real PgBouncer/two-replica/restart/rotation flows
 pass. The full HTTP registry with stricter connections and both exact-head CI runs passed.
 [PR 133](https://github.com/sthamann/veyndo/pull/133) merged as `d6ed72d`; production
-role provisioning is now performed; final production enforcement remains pending.
+role provisioning and final production enforcement are now complete; see the later
+PR 135 release below for the exact hosted acceptance.
 
 **Public browser release:** [PR 134](https://github.com/sthamann/veyndo/pull/134),
-`0b7c358`, is now serving from Northflank `charming-number-9351` with one healthy
+`0b7c358`, was served from Northflank `charming-number-9351` with one healthy
 replica. Migration 099 completed after an explicitly approved maintenance grant:
 the migration login inherits the existing runtime login, never the reverse. The
 temporary administrator reference was removed and the diagnostic job restored.
-The separate tenant login is provisioned and the serving Core now runs staged
+The separate tenant login was provisioned and Core first ran staged
 signed tenant/system pools (`vendune-core-88f796858`, one ready replica). A real
 rights audit found effective PUBLIC TEMP despite restricted role flags; the
 database-owner maintenance job removed it and verified `tenant_temp=false`.
-Its administrator reference was removed again. Final enforcement still waits for
-the connector upgrade that removes its redundant Core-table read. Public UI
+Its administrator reference was removed again. This staged phase preceded the
+connector upgrade and activation recorded below. Public UI
 acceptance completed a new native checkout (`RAC-e2d135bc`) and a checkout inside
 the original published Storyfront (`RAC-0a976d46`). The latter returned the native
 confirmation and cleared Storyfront's own bag to zero. Both used synthetic buyers
 and simulated payments. Existing Studio access/reload and the native order grid
 also worked. See the [deployment receipt](evidence/browser-release-2026-10-15.json).
+
+**Enforced release and durable agents:** [PR 135](https://github.com/sthamann/veyndo/pull/135)
+passed both complete exact-head verification runs and merged as `d59734b`, with
+the same tree as built `189d813`. Core `numerous-order-2004` and connector
+`cheerful-self-743` are deployed. Migration 100 succeeded, the connector's obsolete
+Core-table read grant was removed, native activation succeeded and status reports
+`enforced=true`. Core restarted without the staged exception: one healthy replica,
+zero restarts. A new native simulated purchase (`RAC-e25bf631`), empty native cart,
+Studio session reload/order read and a saved read-only agent task passed. After
+reopening its saved conversation the agent returned the actual stock, 18 and 20.
+The current embedded checkout check remains unaccepted: Browser Use reports a
+paused document response and its iframe stayed blank, although the direct native
+checkout completed. Do not substitute the earlier embedded pass for this test.
+See the [new release evidence](evidence/database-enforcement-2026-10-15.json).
 
 ## Recent product requests
 
@@ -84,7 +99,7 @@ also worked. See the [deployment receipt](evidence/browser-release-2026-10-15.js
 | Generic revision-bound changesets | Open; existing proposals support a fixed set of changes. | Domain previews, pinned input revisions, one reviewed release/apply path and atomicity appropriate to the domain. |
 | Native provider tool calls | Open; current read rounds use structured JSON. | Actual OpenAI/Anthropic/Ollama conversation adapters, authorized tools and provider-fixture parity. |
 | Prompt caching | Existing opt-in support; not a newly implemented feature. | Verify deployment configuration and actual usage before claiming token/cost savings. |
-| Durable agent runs | Source implemented on existing tasks/conversations: private checkpoints, current authority/evidence, fenced worker leases, background UI, HTTP/MCP and explicit continuation/cancellation. | The complete registered local integration suite passes, including actual worker kill/restart, duplicate requests, final-quota retries, HTTP/SSE compatibility, role/key/source withdrawal and native-only approval. Exact-head CI/public deployment remain distinct; general arbitrary app-effect continuation is not implemented. See [saved agent work](durable-agent-runs.md). |
+| Durable agent runs | Published through PR 135 on existing tasks/conversations: private checkpoints, current authority/evidence, fenced worker leases, background UI, HTTP/MCP and explicit continuation/cancellation. | Complete local registry and both exact-head CI jobs pass, including real one-backend pooling and worker kill/restart. Hosted saved read-only work completed after browser reload. General arbitrary app-effect continuation is not implemented. See [saved agent work](durable-agent-runs.md). |
 | Evals and prompt versions | Local provider fixtures exist; broader task/injection corpus open. | Prompt identity in evidence, adversarial scope cases and explicit optional real-provider tests. |
 | ACP/AP2/subscriptions | Open; do not advertise from roadmap prose. | Verify current primary specifications, implement supported subset and real denied-access cases. |
 | JSON-LD | Requires an explicit current storefront audit. | Validate rendered product/offer facts and current public/channel/currency admission. |
@@ -107,7 +122,7 @@ also worked. See the [deployment receipt](evidence/browser-release-2026-10-15.js
 | Compiler-enforced crate boundaries | Incremental work open. | Preserve native API, boxed dispatch and app ownership while reducing facade coupling. |
 | Released migration identifiers | Already immutable. | Never rename or renumber deployed migrations to tidy historical duplicate prefixes. |
 | SQL identifier quoting | Published through PR 130 in all builds. | Invalid delimiters remain quoted; manifest admission still rejects invalid identifiers. |
-| System-scope database role separation | Implemented source: separate restricted pools, role-bound signed transaction scopes, restrictive policies, private actor fences, native DDL owner and startup audits. Local actual-login attacks and real transaction-pool/restart/rotation paths pass. | Full HTTP verification and both exact-head CI jobs passed; PR 133 merged as `d6ed72d`. Coordinated production activation remains required; legacy/staged mode is not the enforced boundary. |
+| System-scope database role separation | Production enforced: separate restricted pools, role-bound signed scopes, restrictive policies, private actor fences, native DDL owner and startup audits. Local actual-login attacks and real transaction-pool/restart/rotation paths pass. | Native hosted status is `enforced=true`; strict restart, simulated purchase and Studio reads pass. Connector Core grant and tenant TEMP are absent. See the dated PR 135 evidence and explicit embedded-browser limit above. |
 | HttpOnly browser sessions and Studio CSP | PR 134 merged as `0b7c358` and publicly deployed after successful migration 099. Existing ledgers, exact origins, per-tab fences, separate customer cookies, all-host build-only scripts and bearer/MCP compatibility. | Local login/reload/MCP/logout passed. Public Studio reload/order reads, native simulated purchase and original Storyfront embedded purchase/bag-clear passed. New public password/provider login was not repeated in this release check. See [browser sessions](browser-sessions.md). |
 | Purpose keys and rotation | Open. | Separate signing/encryption purposes, key IDs and backwards-compatible verification/decryption overlap. |
 | License/positioning | Sustainable Use License already identified. | Keep actual prototype/production boundaries; do not call the license OSI open source. |

@@ -46,11 +46,12 @@ from a merchant-authored lookalike. A service configuration needs its own
 
 ## Data and core capabilities
 
-Each tenant/app/model has its own hashed physical table name. Equal merchant app
-IDs in different shops can have incompatible fields without column collisions.
-Forced RLS and tenant-aware references apply in addition to application checks.
-Migration 058 moves existing shared tables once; historical tables remain for
-operator-controlled backup/reconciliation. Do not delete these backups automatically.
+Each tenant/app/model has a versioned logical contract in four fixed shared PostgreSQL
+tables. Equal app IDs can retain incompatible types in different shops without
+shared-column conflicts or per-shop tables. Records, fixed lookup/unique projections
+and ordered relationships use full tenant/app/entity keys, forced signed RLS,
+transactional quotas and native composite foreign keys. No app creates SQL objects.
+[Storage design, capacity and coordinated existing-data migration](app-data-storage.md).
 
 Models support strings, integers, booleans, bounded JSON, date, datetime, decimal,
 explicit-scale integer money, rich text, image/file references and multi-relations.
@@ -60,7 +61,7 @@ A public model cannot silently expose a private asset. Lists use bounded keyset
 pages, indexed filters and optimistic record revisions.
 
 Explicit schema steps can rename/remove/convert/fill fields from an exact installed
-version. Every record is validated before DDL/data changes. Installation, schema,
+version. Every record is validated before model/data changes. Installation, schema,
 recovery snapshot and outbox commit atomically. The online path is bounded to 2,000
 records/model, 4 MB/migration and retained recovery storage of 16 MB/app. Relation
 changes and larger migrations require an offline plan. Recovery snapshots are not
@@ -250,5 +251,5 @@ browser views never receive secret values. See [security and setup](app-studio-w
 Registered package IDs are capped at 128 per tenant under the existing installation lock;
 updates to existing IDs remain possible at the cap. A package may declare at most
 64 indexed/unique fields. Existing limits remain: 12 models, 16 fields/model,
-100,000 stored rows and 64 MiB per tenant/app. These controls bound shared storage
-and schema growth; they do not prove unlimited capacity or fleet-wide DDL fairness.
+100,000 stored rows and 64 MiB per tenant/app. These controls bound logical data and projection growth; fixed indexes replace
+per-installation DDL. They do not prove unlimited capacity.

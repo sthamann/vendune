@@ -771,13 +771,13 @@
     },
     "extensions/apps/site-builder/server.rs": {
       "status": "unproved",
-      "sha256": "e0c402f6a1f566af6bc44fb33b0a5d73e94c3249c34125c3aad696d06e890da0",
-      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
+      "sha256": "ca08deed75b6fddef2facbd20e776339a9888f1a5c99a83aac156c8d9671b0c0",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "extensions/apps/site-forms/server.rs": {
       "status": "unproved",
-      "sha256": "1484a9e0405a03576df12df4a9ef93eb0219d1debcd30d081ba2d86da15848b7",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "b3c250142ba8234f1bed247063bd3765e66765e71ebf0c261a2d1fa51fe316c0",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "extensions/apps/slack/src/actions.rs": {
       "status": "unproved",
@@ -966,13 +966,13 @@
     },
     "src/apps/business_capability/mod.rs": {
       "status": "unproved",
-      "sha256": "4885dfc7490c489a0c9273e61fa4a2781afa561c044c7486347df873d7e46449",
-      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
+      "sha256": "2523e791ebd864be1b59b78b77d2271a95c6c1f3100bda61cb4e898b3d2579ee",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/apps/business_capability/snapshot.rs": {
       "status": "unproved",
-      "sha256": "64f717f3813fdc04117b9cdd182f9fb23b5db9ebeff4d1fb97c1b9e4e6b1acc6",
-      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
+      "sha256": "7aa62cb42916bd0b9f3b76f04174ba0d3fd617feec8ccfa73ba432caef4d3fe9",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/apps/business_capability/tests.rs": {
       "status": "unproved",
@@ -981,13 +981,13 @@
     },
     "src/apps/cart_contributions.rs": {
       "status": "unproved",
-      "sha256": "5cf1b49acd523a578853e45ce2ac1abef069dad612adee5d4e84d2fd15035c12",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "e86a86f11eb4f042be06a26d9a7169c567f837ac871244c8c0a182eb4bcd9b75",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/apps/commerce_hooks.rs": {
       "status": "unproved",
-      "sha256": "54b4a1d3c3ba43d4f07c54fdb24ba1ea43c540dcb228e741e638fc1d5cbf8c1d",
-      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
+      "sha256": "cb0f0fb4dd8f18cdd384ce9a5cf62cda9efd62953ffdd5b5c30d1faef25d266a",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/apps/compatibility.rs": {
       "status": "unproved",
@@ -1021,8 +1021,8 @@
     },
     "src/apps/data.rs": {
       "status": "unproved",
-      "sha256": "c5b41d1690859c0f5049aa17e30078ecb77435570f4373e3c0785a1598c33ce9",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "44ab83b4cf7146b41a74901f621a39aaa4b12ca1d01fd6e769eafd2fb72df2a7",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/apps/distribution.rs": {
       "status": "unproved",
@@ -1071,8 +1071,8 @@
     },
     "src/apps/field_values.rs": {
       "status": "unproved",
-      "sha256": "b837132287e4dc24f25926059827b3c2c16569d3bacb67dca35701c334e04b6e",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "4391c6d4d33b8b443562af3b255bdb5841104a640333139893e10c7a812d020c",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/apps/form_layout.rs": {
       "status": "unproved",
@@ -1111,8 +1111,8 @@
     },
     "src/apps/manifest.rs": {
       "status": "unproved",
-      "sha256": "7c4ebd3bb6f494cfc5cd0eecb5f0358e8dd9e78e3fffa7f8dadcaaa4ff43cb80",
-      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
+      "sha256": "170422f26d10a809e09be6f2d514d2c81609b435b513a5cc43ea1438b72a49d1",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/apps/manifest_validation.rs": {
       "status": "unproved",
@@ -1121,8 +1121,8 @@
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "0c385a5037dd0698220777dbe7b6c54ad1a1c6f91009cefb105caa7ad3c79038",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "7f6718dc23333bc4cf421c82365b5f4edd9f4271fb930ac5986173234daf327d",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
@@ -1166,8 +1166,8 @@
     },
     "src/apps/publication.rs": {
       "status": "unproved",
-      "sha256": "cd2b09bd69946fe4b097e999732ee47548751a3f084a54d94674558a9895cc77",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "da5367be11fb0327912b3e95124ac7a3049484166153a7b9cb1a33155e4fb291",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/apps/record_history.rs": {
       "status": "unproved",
@@ -1179,15 +1179,20 @@
       "sha256": "46896a3c27e88a804f2f15cf11208a9c2c4efa06eee2d5d2c2b935eeb3e855c8",
       "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
+    "src/apps/records.rs": {
+      "status": "unproved",
+      "sha256": "2fec4b166d249cd8d2ebfb35b9f75ba2f1fd1bf2229431e030fcfed34e02a976",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
+    },
     "src/apps/registry.rs": {
       "status": "unproved",
-      "sha256": "d95b8fc1b1ebd5e2f25e6f7a823722151db1f2f0b1e9723607e2870f081c53f3",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "7db47528b2c8a40ed261a5dcebbcda1124b0c08dd7e6c2578564ba2090b1e48f",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/apps/relations.rs": {
       "status": "unproved",
-      "sha256": "bebabe8e64d31a48199b31c5661f0806e068b1fe46ec35f306fa560ba10a22a6",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "c6304c2d88230713f274cd457f484d7389fed6c2141d7e02748fc03df0c49fe5",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/apps/routes.rs": {
       "status": "unproved",
@@ -1206,18 +1211,13 @@
     },
     "src/apps/schema_changes.rs": {
       "status": "unproved",
-      "sha256": "50840edf0ceaa02231cd88185c6df951ba323ba4e97ab4d87fe0c5ea53675bdb",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
-    },
-    "src/apps/schema_scope.rs": {
-      "status": "unproved",
-      "sha256": "e89f92ecf8d3d13c77a8655ab62c638c90250f0ae99f87a1c9f200dbdb6dab62",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "3ad87d51d8fdf1c3db53546201471317b7a234764dbb6a2b1dc350b3406a8e02",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/apps/schema_upgrade.rs": {
       "status": "unproved",
-      "sha256": "2cae208b4e9a41add9f280a7046f9e2806f38c89a8dc059043e5be5cddbb8115",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "7872a8e7255fe8d27df89df1285e1a2c850d063a2be61c702a26c44d159e08cc",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/apps/secrets.rs": {
       "status": "unproved",
@@ -1241,8 +1241,8 @@
     },
     "src/apps/storage.rs": {
       "status": "unproved",
-      "sha256": "61735a4125aa1077262918e5365c643f4a4a07d8478b56d99b6d7d754fadefef",
-      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
+      "sha256": "5ce918e37d39d83f935ae7f337c9a4b31df34292478f55705deb9cfa7f18c9e6",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/apps/submissions.rs": {
       "status": "reviewed-binding",
@@ -2271,8 +2271,8 @@
     },
     "src/developer/preview.rs": {
       "status": "unproved",
-      "sha256": "90b690a0fc2d1ae1faeb0977241bdd60d17d483a050f470ecdc3a17bb2e6f2b7",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "190da416187b0309d3dfa20eb18f864d11b4c77abac85333664d0f809662ef9d",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/developer/routes.rs": {
       "status": "unproved",
@@ -2356,8 +2356,8 @@
     },
     "src/foundation.rs": {
       "status": "unproved",
-      "sha256": "750affebf86190dc9261a6ae8a19453a88acd9164050a2a2316111cf0dbd6b8e",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "39e7615dd31ef06f6f0c6dbcd8379b650b3e133fefd9505d271f29fb6898dc40",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/history/capability.rs": {
       "status": "unproved",
@@ -2696,8 +2696,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "e766af451e0e4ba250df15146a05649fd3816cd04c2ae2bf586d75fe9eb9d44a",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "a4d48a55a2a45e1e9dfe55dfb66dc73a4a3d83386f7d1e17e859f729bf037483",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -2706,8 +2706,8 @@
     },
     "src/migrations.rs": {
       "status": "unproved",
-      "sha256": "2704c01778beae7811f04f4a0f2585fd3b7afc39de386cfc4d1ad9e0cbebe7bf",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "755aa7f0e8ddffd0728700b4aa733e47b4a101f7ea195cd8c2285a942bfd7cc1",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/money.rs": {
       "status": "reviewed-binding",
@@ -3246,8 +3246,8 @@
     },
     "src/staging/clone.rs": {
       "status": "unproved",
-      "sha256": "f44f1d43cef9f5504bea95478e93d44621929fc266937064398409c58b3af1b9",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "c0fdd19296766269dc62bb493c42686618d0a6c2b3ea00285919c7508f7d0a3d",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/staging/company.rs": {
       "status": "unproved",
@@ -3271,13 +3271,13 @@
     },
     "src/staging/release.rs": {
       "status": "unproved",
-      "sha256": "abeae042695053e85afd9d49f0d0c8c56a88a5eaad9cffe703bb830c30ad542b",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "c588c8cb046e94ff7fe2830be39faf37ca3969cb2d986bf96d5817b1b2a4305f",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/staging/snapshot.rs": {
       "status": "unproved",
-      "sha256": "05e4aad9738fd588c6c4f711d33ecb48cf380eb307c4b0082d01c415e5fc58b6",
-      "review": "Review additive product content clock and rolling-writer trigger; preserve aggregate CAS for explicit stock and legacy clients; content-only HTTP/MCP edits omit stock under the locked native owner; preserve live stock in history and release snapshots. Actual two-replica purchase/cancellation and editor regressions exercise stale writes; async SQL and UI remain outside the existing unchanged Lean proof boundary."
+      "sha256": "b432ee7948d0381297839819818c75fba7bbe4ef14bb0f05714f052d86911af0",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "src/storefront_pages.rs": {
       "status": "unproved",
@@ -3838,6 +3838,14 @@
     "migrations/100-durable-agent-runs.sql": {
       "sha256": "09ef8b2a117b675ecfb03f2654d76a570872d6d57ae04a258ed92854ff121773",
       "review": "Reviewed migration100 operational run columns, bounded private checkpoints and invoker transactional progress trigger; actor/scope/credential and evidence rechecks, lease-fenced native-only proposal finalization, request-ID replay before daily quota, and actual worker-kill/revocation/source-withdrawal/HTTP-MCP/quota controls. Existing pure financial policies unchanged."
+    },
+    "migrations/101-shared-app-records.sql": {
+      "sha256": "8381c63c88f2ae48252081f38b5e9b6af77c4a4e92741552ce1f9a375b1bf6a3",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
+    },
+    "migrations/102-consolidate-app-tables.sql": {
+      "sha256": "1d68240d615e71283187f2a692cd1d07a628293df3c49168fad156f9377dbb05",
+      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "proof/Commerce/Claims.lean": {
       "sha256": "f3de8f3bdfbf76e69dc5a609a7534aa460a7dd5f6c4f6ed14a07590efbdd59ad",

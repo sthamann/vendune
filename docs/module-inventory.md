@@ -38,7 +38,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/core_documents.rs](../src/apps/core_documents.rs) | Dedicated bounded order-document upload requires exact app capabilities, current actor rights and native receipt ownership. |
 | [src/apps/core_exchange.rs](../src/apps/core_exchange.rs) | Generic channel/product projections and imported sales delegate to native owners with explicit app capabilities. |
 | [src/apps/credentials.rs](../src/apps/credentials.rs) | App keys reuse the core integration-key store, current creator rights, expiry and immutable package digest. |
-| [src/apps/data.rs](../src/apps/data.rs) | Managed app tables: typed writes, optimistic revisions, bounded reads and local RLS context. |
+| [src/apps/data.rs](../src/apps/data.rs) | Shared managed app records: typed writes, optimistic revisions, bounded reads and local RLS context. |
 | [src/apps/distribution.rs](../src/apps/distribution.rs) | Signed publisher namespaces and tenant-local dependency/version gates. Operator service access still requires its separate exact digest pin. |
 | [src/apps/editor_contract.rs](../src/apps/editor_contract.rs) | Editor mounts, enumerated fields and tenant-owned core references; no app alters core tables. |
 | [src/apps/editor_tests.rs](../src/apps/editor_tests.rs) | Assistant fixture contracts exercise real validation, not only the client-side builder. |
@@ -56,7 +56,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/input_schema_tests.rs](../src/apps/input_schema_tests.rs) | Adversarial schema cases exercise bounded inputs, nullable unions, escaped JSON pointers and output values. |
 | [src/apps/job_callbacks.rs](../src/apps/job_callbacks.rs) | Long-job service callbacks disclose input only after current actor consent, package and lease checks. Late callbacks cannot commit. |
 | [src/apps/jobs.rs](../src/apps/jobs.rs) | Durable long actions piggyback on the existing outbox. Apps claim a fenced lease; unknown side effects are never retried automatically. |
-| [src/apps/manifest.rs](../src/apps/manifest.rs) | Strict package contract; identifiers and limits are checked before any schema DDL. |
+| [src/apps/manifest.rs](../src/apps/manifest.rs) | Strict package contract; identifiers and limits are checked before logical model registration. |
 | [src/apps/manifest_validation.rs](../src/apps/manifest_validation.rs) | Package capability, schema and action validation; no executable behavior is inferred from names. |
 | [src/apps/mod.rs](../src/apps/mod.rs) | Versioned app packages: managed data, UI slots, agent tools and isolated service calls. |
 | [src/apps/native_data.rs](../src/apps/native_data.rs) | App record translations use configured shop languages and field-level main-language inheritance. |
@@ -70,19 +70,19 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/publication.rs](../src/apps/publication.rs) | Optional server-enforced publication window and channel projection for public app records. |
 | [src/apps/record_history.rs](../src/apps/record_history.rs) | Bounded app-record history, current entity rights and restoration through the normal managed save path. |
 | [src/apps/record_lifecycle.rs](../src/apps/record_lifecycle.rs) | Generic app-owned record lifecycle contracts. Status vocabulary and transitions belong to the app Manifest. |
+| [src/apps/records.rs](../src/apps/records.rs) | One fixed PostgreSQL record store; every operation retains tenant/app/model identity and original wire values. |
 | [src/apps/registry.rs](../src/apps/registry.rs) | Atomic installation and additive schema upgrades; immutable version digests preserve history. |
-| [src/apps/relations.rs](../src/apps/relations.rs) | Multi-relations keep stable array wire values, composite tenant FKs and shared accounting; staging may clone cyclic graphs atomically. |
+| [src/apps/relations.rs](../src/apps/relations.rs) | Shared relation projections are maintained transactionally by app_record_project; wire values remain bounded ordered arrays. |
 | [src/apps/routes.rs](../src/apps/routes.rs) | Tenant-scoped package lifecycle, generated data endpoints and a shared action adapter. |
 | [src/apps/runtime.rs](../src/apps/runtime.rs) | Generic pure-Wasm contribution executor; the installed package supplies all business predicates. |
 | [src/apps/schedules.rs](../src/apps/schedules.rs) | Durable UTC cron ticks emit namespaced outbox events; replicas lock due rows and staging never runs them. |
-| [src/apps/schema_changes.rs](../src/apps/schema_changes.rs) | Explicit, transactional field evolution. No raw migration SQL; bounded recovery snapshots precede DDL and every converted value is validated. |
-| [src/apps/schema_scope.rs](../src/apps/schema_scope.rs) | Protect newly installed app tables within their schema transaction; preserve pre-099 historical migration replay. |
-| [src/apps/schema_upgrade.rs](../src/apps/schema_upgrade.rs) | Apply a checked migration under tenant-local DDL locks with bounded recovery history and optimistic record revisions. |
+| [src/apps/schema_changes.rs](../src/apps/schema_changes.rs) | Explicit, transactional field evolution. No raw migration SQL; bounded recovery snapshots precede data changes and every converted value is validated. |
+| [src/apps/schema_upgrade.rs](../src/apps/schema_upgrade.rs) | Apply a checked migration under tenant/app package fences with bounded recovery history and optimistic record revisions. |
 | [src/apps/secrets.rs](../src/apps/secrets.rs) | Digest-bound per-shop app secret rotation reuses platform authenticated encryption; no plaintext read endpoint. |
 | [src/apps/service_limits.rs](../src/apps/service_limits.rs) | Shared network-app admission: per-app and aggregate tenant bulkheads plus replica-wide fenced leases. |
 | [src/apps/service_policy.rs](../src/apps/service_policy.rs) | Operator-owned private origins permit isolated service networking without relaxing public egress. |
 | [src/apps/settings.rs](../src/apps/settings.rs) | Declared app settings reuse the digest-bound encrypted secret owner; secret values never have a browser read path. |
-| [src/apps/storage.rs](../src/apps/storage.rs) | Attach the shared PostgreSQL accounting trigger to tenant-specific app tables before any write. |
+| [src/apps/storage.rs](../src/apps/storage.rs) | Existing aggregate app row/byte budget; shared record triggers maintain it without per-app DDL or recounts. |
 | [src/apps/submissions.rs](../src/apps/submissions.rs) | Public append-only intake uses declared schemas, existing cart admission, quotas, records and outbox. |
 | [src/apps/surface_grants.rs](../src/apps/surface_grants.rs) | Short-lived UI grants bind a package, surface, actor and concrete editor object on the server. |
 | [src/apps/surface_registry.rs](../src/apps/surface_registry.rs) | Current-authority app surface projection shared by storefronts and native visual composition. |
@@ -1299,6 +1299,8 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/app_relations.py](../scripts/app_relations.py) | Real composite-FK multi-relations: per-tenant schemas, atomic quotas/revisions, hostile references and cyclic staging clone. |
 | [scripts/app_schema.py](../scripts/app_schema.py) | Real installed-schema evolution, recovery snapshots, rollback on bad conversions and isolation of equal app IDs. |
 | [scripts/app_secrets.py](../scripts/app_secrets.py) | Encrypted tenant/app credentials and real incoming webhooks under strict non-owner RLS; synthetic local service only. |
+| [scripts/app_shared_storage.py](../scripts/app_shared_storage.py) | Actual app APIs prove fixed physical storage, concurrent uniqueness, scoped filters and private preview cleanup. |
+| [scripts/app_storage_migration.py](../scripts/app_storage_migration.py) | Replay original 001–100 SQL, then verify populated inactive/preview cyclic app tables consolidate losslessly and atomically. |
 | [scripts/app_studio.py](../scripts/app_studio.py) | Native App Studio exercised through real HTTP/PostgreSQL: shared IR, version isolation, data, routes, MCP and selective release. |
 | [scripts/app_surfaces.py](../scripts/app_surfaces.py) | Actual app UI registry/API/MCP/data/staging and slow-service isolation against Rust/PostgreSQL. |
 | [scripts/apps.py](../scripts/apps.py) | Real PostgreSQL app lifecycle, managed schema/RLS, typed API/MCP, cart and observation tests. |

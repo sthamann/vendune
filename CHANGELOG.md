@@ -1,14 +1,22 @@
 # Changelog
 
-## Durable merchant planning — in development, 15 October 2026
+## Shared managed app storage
+
+- Replace per-shop/app/model SQL tables and indexes with four fixed shared tables, logical model versions, typed JSONB records, bounded lookup/unique projections and real tenant-aware references.
+- Preserve existing API/MCP/Flow/UI, CAS/history, native hook/configuration pricing, public pages/forms and selected sandbox publication. F5 resets only scoped private rows.
+- Add verified maintenance migration of populated existing models/relations with original IDs/revisions, quota/document retention and safe abort controls; old Core writers must be drained. Production cutover is not implied by local verification.
+- Keep existing package/model/field/index/row/byte caps; table count does not prove unlimited throughput.
+
+## Durable merchant planning — published, 15 October 2026
 
 - Extend native tasks/conversations with private context and completed inference checkpoints, actor/scopes/credential-kind ceilings, fenced leases, uncertainty, cancellation and explicit revision-bound continuation. Do not store bearer credentials or introduce a second queue, planner or approval path.
 - Recheck current membership, session/key, shop/stage and previously read evidence before continuation. Kill/restart a real Rust worker during a synthetic provider call; completed steps are reused and revoked/withdrawn inputs stop late results. Only native approval changes the product.
 - Submit Studio chat in the background and restore run progress on reload. Fence late responses by account/shop/stage/conversation; show localized progress and explicit uncertain-call controls. Accepted sends are not restored as retries after a separate refresh failure.
 - Share HTTP/MCP run operations through the native capability registry. Deduplicate same-actor request IDs, including parallel retries at the final daily quota; preserve synchronous planning errors. Keep read-only metadata conservative and private checkpoints out of API/events.
-- Add the Rust `agent-worker` role, bounded per-tenant admission and migration 100 on existing operational tables. Source implementation/local acceptance are not a statement that production is updated or arbitrary app effects are resumable.
+- Add the Rust `agent-worker` role, bounded per-tenant admission and migration 100 on existing operational tables. PR 135 passed both exact-head verification runs and is publicly deployed. A real read-only task finished after a browser reload and returned the current stock. Arbitrary app effects are not resumable.
+- Keep new/resumed run quota admission and task persistence in one transaction; verify the full durable worker flow through a real one-backend transaction pooler. Propagate tenant scope into native collector children and recheck live shop status before service egress. The connector no longer reads Core tables directly.
 
-## Browser session boundary — merged, deployment pending, 15 October 2026
+## Browser session boundary — published, 15 October 2026
 
 - Adapt existing merchant/platform and separate tenant customer ledgers to host-only HttpOnly cookies, exact origins and per-tab anti-CSRF/session fences. Explicit API/MCP bearer contracts remain compatible; browser authentication JSON contains no opaque bearer.
 - Keep passive session/profile responses free of cookie mutations and pin customer response handling to the originating tenant and session generation. Late successes/errors cannot overwrite or clear a newly accepted identity. Legacy credentials leave browser storage and remain memory-only until the next explicit sign-in/handoff.
@@ -16,13 +24,14 @@
 - Restrict scripts on every response from the merchant credential origin to build-owned assets; preserve the existing renderer framing policy and separate-shop autocomplete. Shared checkout retains manual address entry. Add real HTTP/MFA/customer/negative cases and delayed-response frontend regressions.
 
 
-## Authenticated database authority — merged, activation pending, 15 October 2026
+## Authenticated database authority — production enforced, 15 October 2026
 
 - Separate restricted tenant/system connection pools within the existing process and fleet budget. Ordinary serving no longer requires the migration credential.
 - Bind transaction-local tenant, actor and personal-session context to the actual SQL login through short-lived signed tickets; keep tickets out of SQL query text. Add restrictive policies alongside existing row/actor checks, narrowly admitted identity reads and canonical language registration.
 - Keep app schema changes in the native system owner. Protect and grant new app entity/relation tables atomically; tenant SQL cannot own tables, disable RLS or create schema objects. HTTP and MCP developer staging share trusted native admission.
 - Add migration-only configure/activate/status/rotate commands, staged rollout, startup role/policy audits, minute refresh and retiring-key overlap. No production credential is created by migration or application startup.
 - Repeat actual two-replica runtime, restart, current-rights, inventory, documents, app and selective release flows with separate logins. Add actual tenant-connection attacks, private actor substitution and signing-key rotation tests. SQL/cryptographic integration remains tested, outside the selected pure Lean proofs.
+- Complete the approved hosted cutover: restricted distinct logins, effective PUBLIC TEMP removal, signed pools, connector upgrade and removal of its obsolete Core-table grant. Activate database enforcement and restart without the staged exception. Native status reports `enforced=true`; the temporary maintenance administrator reference is removed. A new simulated checkout, Studio session reload/order read and saved agent task passed. The new embedded-browser checkout check remains blocked in Browser Use and is not counted as a pass; the prior release's embedded check remains historical evidence.
 
 ## Product content and inventory concurrency — published, 15 October 2026
 

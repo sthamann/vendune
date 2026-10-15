@@ -147,10 +147,10 @@ See [international commerce](international-commerce.md) for the exact contract.
 | File | Responsibility | Coverage |
 |---|---|---|
 | [`src/apps/cart_contributions.rs`](../src/apps/cart_contributions.rs) | Generic app-to-cart contribution contract, revision binding and order read model. | `apps.py + services.py + providers.py + app_inference.py` |
-| [`src/apps/data.rs`](../src/apps/data.rs) | Managed app tables: typed writes, optimistic revisions, bounded reads and local RLS context. | `apps.py + services.py + providers.py + app_inference.py` |
+| [`src/apps/data.rs`](../src/apps/data.rs) | Shared app records: typed writes, optimistic revisions, bounded reads and local RLS context. | `apps.py + services.py + providers.py + app_inference.py` |
 | [`src/apps/events.rs`](../src/apps/events.rs) | Durable at-least-once app events, retry leases and stable event idempotency keys. | `apps.py + services.py + providers.py + app_inference.py` |
 | [`src/apps/gateway.rs`](../src/apps/gateway.rs) | One permission-aware action gateway serves HTTP, UI and MCP; service egress is operator configured. | `apps.py + services.py + providers.py + app_inference.py` |
-| [`src/apps/manifest.rs`](../src/apps/manifest.rs) | Strict package contract; identifiers and limits are checked before any schema DDL. | `apps.py + services.py + providers.py + app_inference.py` |
+| [`src/apps/manifest.rs`](../src/apps/manifest.rs) | Strict package contract; identifiers and limits are checked before logical model registration. | `apps.py + services.py + providers.py + app_inference.py` |
 | [`src/apps/mod.rs`](../src/apps/mod.rs) | Versioned app packages: managed data, UI slots, agent tools and isolated service calls. | `apps.py + services.py + providers.py + app_inference.py` |
 | [`src/apps/planning.rs`](../src/apps/planning.rs) | Registered managed app actions join the same preview/approve transaction as core changes. | `apps.py + services.py + providers.py + app_inference.py` |
 | [`src/apps/registry.rs`](../src/apps/registry.rs) | Atomic consent-bound installation, explicit tenant schema migrations and immutable version digests. | `apps.py + services.py + providers.py + app_inference.py` |
@@ -210,7 +210,7 @@ metadata, review storage and commerce settings; 007 initializes synthetic demo
 commerce once; 008 adds personal users/memberships/invitations/sessions; 009
 corrects template variant capacity and the authored example review. Migrations
 are additive; existing stock/orders/prices are retained. Migration 010 adds
-managed app metadata/DDL, event deliveries, knowledge evidence and payment
+managed app model metadata/storage, event deliveries, knowledge evidence and payment
 attempts/jobs/inbox/reservations; core monetary quotes retain their original shape. No production Shopware
 store is imported by these migrations.
 
@@ -359,7 +359,7 @@ The production-mode Docker smoke test checks the packaged server and frontend.
 Every host location and limit is listed in [the full app contract](app-platform.md).
 External app code, service declarations and frontend behavior remain outside the
 partial Lean proofs. No new core database migration was required for these optional
-manifest fields and generated app tables.
+manifest fields and shared app records.
 
 ## Source rule and durable flow migration
 
@@ -623,3 +623,7 @@ orders reuse it. A direct editor entry must not require visiting settings first.
 ## Connected App Studio workbench
 
 See the [illustrated workbench guide](app-studio-workspace.md) for multiple placements, compact adjustable panels, the contextual AI drawer, model-backed form editing, shared Flow visuals, installed app settings and scoped integration keys. These extend the existing native Manifest, runtime and release owners.
+
+## Fixed app storage
+
+`apps/records.rs`, `data.rs`, native schema migration and PostgreSQL migrations 101–102 own logical models, record CAS, fixed index/reference projections and existing-data consolidation. App-specific business code stays package-owned. See [storage, maintenance cutover and tests](app-data-storage.md).

@@ -81,8 +81,10 @@ data/history and check dependent apps. This is not destructive uninstall.
 
 Managed fields include translated strings, JSON, integer/boolean, date/datetime,
 scaled decimal, explicit-currency money, rich text, files/images and scalar/multiple
-relations. Every tenant/app owns its physical tables with forced RLS, composite
-foreign keys, recursive validation, unique constraints and storage quotas.
+relations. Every tenant/app owns logical models in four fixed shared tables, with forced RLS,
+composite foreign keys, recursive validation, unique constraints and storage quotas.
+New installations/models/index declarations create no physical tables or indexes.
+[Storage and coordinated migration](../docs/app-data-storage.md).
 Explicit migration steps can rename/remove/convert/fill fields with bounded
 recovery snapshots. No app-supplied SQL is executed.
 

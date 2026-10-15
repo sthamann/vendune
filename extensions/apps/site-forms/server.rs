@@ -18,15 +18,11 @@ pub(super) async fn admit(
     .await?
     .ok_or(bad("Shop pages are unavailable"))?;
     let _: Manifest = serde_json::from_value(m).map_err(|_| bad("Invalid page package"))?;
-    let sql = format!(
-        "SELECT content FROM public.{} WHERE tenant=$1 AND id=$2 AND status='published' AND (channel='*' OR channel=$3) AND (starts_at IS NULL OR starts_at::timestamptz<=now())",
-        table(t, "site_builder", "pages")
-    );
     sqlx::query("SELECT set_config('rac.tenant',$1,true)")
         .bind(t)
         .execute(&mut **tx)
         .await?;
-    let content = sqlx::query_scalar::<_, Value>(sqlx::AssertSqlSafe(sql.as_str()))
+    let content = sqlx::query_scalar::<_, Value>("SELECT fields->'content' FROM app_records WHERE tenant=$1 AND app='site_builder' AND entity='pages' AND id=$2 AND fields->>'status'='published' AND (fields->>'channel'='*' OR fields->>'channel'=$3) AND (fields->>'starts_at' IS NULL OR (fields->>'starts_at')::timestamptz<=now())")
         .bind(t)
         .bind(fields["page"].as_str().ok_or(bad("Page required"))?)
         .bind(channel)

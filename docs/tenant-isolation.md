@@ -101,9 +101,10 @@ report now records whether strict runtime was enabled for that run.
 Identity, provisioning, platform, staging/developer control and fleet workers have
 explicit trusted system scopes. They retain their existing tenant/object guards;
 this is not complete worker privilege separation or proof against SQL injection
-and process compromise. Dynamic app DDL ownership must be restricted to managed
-app tables. Direct PostgreSQL or session pooling is required; transaction/statement
-poolers would need transaction-local scopes instead of these connection hooks.
+and process compromise. Managed app definitions/records use fixed shared tables, full logical identity and
+protected reference/index projections; runtime logins do not own tables. The signed
+transaction-local scope supports the documented transaction pooler; statement pooling
+remains unsupported. See [shared storage](app-data-storage.md).
 See [deployment, privilege setup and remaining risks](production-architecture.md).
 Object/customer ownership checks remain necessary even under RLS.
 

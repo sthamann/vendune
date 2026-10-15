@@ -1,0 +1,98 @@
+{
+  "recordedDate": "2026-10-15",
+  "baseCommit": "d59734bc2a1721c6fa4c467c9e11637480f732a0",
+  "scope": "Local shared-app-storage verification; coordinated hosted migration is not yet performed",
+  "productionCutover": false,
+  "managedAppPhysicalTables": [
+    "app_models",
+    "app_records",
+    "app_record_indexes",
+    "app_record_references"
+  ],
+  "growthProof": {
+    "shops": 8,
+    "appInstallations": 32,
+    "addedTables": 0,
+    "addedIndexes": 0,
+    "concurrentUniqueWrites": {
+      "success200": 1,
+      "conflict409": 5
+    }
+  },
+  "passed": {
+    "rustUnitTests": 257,
+    "httpSuites": 56,
+    "affectedProviderSuites": [
+      "app_surfaces",
+      "app_export",
+      "app_distribution",
+      "app_events",
+      "app_secrets",
+      "app_generation",
+      "visual_workspace",
+      "connected_apps",
+      "marketplaces",
+      "edi",
+      "shipping_contract"
+    ],
+    "additionalProviders": [
+      "signed_runtime",
+      "signed_pooler",
+      "app_storage_migration"
+    ],
+    "browserContracts": [
+      "analytics",
+      "app-sdk",
+      "locales",
+      "architecture"
+    ],
+    "rustFormat": true,
+    "allTargetClippy": true,
+    "structureAndApiInventory": true,
+    "renderedDocumentation": {
+      "pages": 238,
+      "markdownSources": 231,
+      "localLinksAndAssets": 21810
+    },
+    "formalPolicies": 57,
+    "formalComparisonCases": 156677,
+    "formalMismatches": 0,
+    "brokenPolicyMutationsRejected": 164,
+    "shopwareMoneyBoundaryCases": 1344
+  },
+  "historicalMigration": {
+    "originalSqlThrough": "100",
+    "configuredSignedRolesBeforeExpand": true,
+    "inactiveApps": true,
+    "personalPreviews": true,
+    "cyclicRelations": true,
+    "idsAndRevisions": true,
+    "nullAndEmptyValues": true,
+    "largeIntegers": true,
+    "immutableHistoryAndDocuments": true,
+    "missingTargetRollback": true,
+    "unknownSqlDependencyRollback": true,
+    "connectedCoreRefusal": true,
+    "exactRetirementWithoutCascade": true,
+    "inventedBusinessEvents": 0
+  },
+  "review": "Independent read-only security review found no remaining concrete defect after fixing unique conflicts to HTTP 409",
+  "verificationNotes": [
+    "The broad local run completed all selected HTTP/provider/browser suites, then the final money comparison could not locate its PHP oracle. Rerun with the existing pinned Shopware 6.7.14.2 autoloader passed all 1344 cases and the remaining structural gates.",
+    "The strengthened actual-tenant metadata/projection denial tests passed on the final separately authenticated transaction-pooler rerun."
+  ],
+  "limits": [
+    "Synthetic isolated data and local protocol/model fixtures; no paid calls, real customers or real money",
+    "Fixed table count is not a production throughput, automatic sharding or zero-downtime relocation benchmark",
+    "Existing aggregate app quotas and bounded preview/release limits remain",
+    "SQL and async adapters are reviewed/tested, not whole-system Lean proofs",
+    "Deployment requires backup, stopped old Core writers, native migrations 101-102 and verified new startup"
+  ],
+  "sourceHashes": {
+    "src/apps/records.rs": "2fec4b166d249cd8d2ebfb35b9f75ba2f1fd1bf2229431e030fcfed34e02a976",
+    "src/apps/data.rs": "44ab83b4cf7146b41a74901f621a39aaa4b12ca1d01fd6e769eafd2fb72df2a7",
+    "src/apps/registry.rs": "7db47528b2c8a40ed261a5dcebbcda1124b0c08dd7e6c2578564ba2090b1e48f",
+    "migrations/101-shared-app-records.sql": "8381c63c88f2ae48252081f38b5e9b6af77c4a4e92741552ce1f9a375b1bf6a3",
+    "migrations/102-consolidate-app-tables.sql": "1d68240d615e71283187f2a692cd1d07a628293df3c49168fad156f9377dbb05"
+  }
+}

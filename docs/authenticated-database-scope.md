@@ -32,8 +32,8 @@ Migration 099 adds a **restrictive** authenticated policy alongside existing row
 policies. Their conditions combine; existing domain and actor policies remain.
 Private Studio workspace rows additionally require the signed personal actor.
 An integration credential has a distinct actor classification and cannot assume
-its creator's personal workspace. New app entity and relation tables receive the
-same guard and tenant grants before installation commits. The tenant login owns
+its creator's personal workspace. The fixed app models/records/reference/index tables receive the same guard and
+scoped grants in migrations 101–102; installation no longer creates tables. The tenant login owns
 no app table and cannot create/drop tables or disable row security.
 It also cannot create temporary objects that shadow native table names on a reused
 backend. Configuration removes the database's default `PUBLIC` temporary-object
@@ -67,8 +67,8 @@ and [secure function guidance](https://www.postgresql.org/docs/17/sql-createfunc
    Passwords belong exclusively in deployment secrets.
 3. From the migration job run `veyndo --database-authority configure SYSTEM_LOGIN
    TENANT_LOGIN`. This grants the selected tenant login only the scoped tables,
-   safe reference reads and safe identity columns. App schema ownership remains
-   with the native system owner. Migration authority can maintain those app tables.
+   safe reference reads and safe identity columns. Fixed app storage stays owned by migration authority; native system scope manages
+   logical definitions without app DDL.
    On PostgreSQL 17 the migration login needs `ADMIN OPTION` on the system-role
    membership it maintains; this does not grant the serving role migration rights.
    A separate database owner must remove the database's default `PUBLIC TEMPORARY`
@@ -94,6 +94,12 @@ and [secure function guidance](https://www.postgresql.org/docs/17/sql-createfunc
 The CLI's `status` command returns enforcement state and role names, never keys.
 New security-sensitive production access uses the normal explicit provisioning
 approval; local fixture success is not evidence that production was switched.
+
+The hosted cutover on 15 October is now complete: native status reports
+`enforced=true`, the staged exception is disabled, Core passed its strict restart,
+and the connector's obsolete Core-table read grant is absent. A new simulated
+purchase, Studio session reload/order read and a saved read-only agent task passed.
+See the [dated evidence and explicit test limits](evidence/database-enforcement-2026-10-15.json).
 
 ## Rotation and verification
 
