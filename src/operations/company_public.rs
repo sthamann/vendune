@@ -16,6 +16,19 @@ pub(super) async fn get(State(a): State<App>, h: RequestContext) -> Result<Json<
             .fetch_optional(&mut *tx)
             .await?;
     let data = company_model::resolve(&base["data"], &patch.unwrap_or(json!({})));
+    // Unconfigured shop presentation uses its chosen name, never a fabricated legal issuer.
+    let default_brand: Option<String> = if data.get("brandName").is_none_or(Value::is_null)
+        && data["name"]
+            .as_str()
+            .is_none_or(|name| name.trim().is_empty())
+    {
+        sqlx::query_scalar("SELECT name FROM tenants WHERE id=$1")
+            .bind(&t)
+            .fetch_optional(&mut *tx)
+            .await?
+    } else {
+        None
+    };
     tx.commit().await?;
     let mut public = json!({});
     for key in [
@@ -61,6 +74,9 @@ pub(super) async fn get(State(a): State<App>, h: RequestContext) -> Result<Json<
             locale,
             &settings.main_locale
         ));
+    }
+    if let Some(name) = default_brand {
+        public["brandName"] = json!(name);
     }
     if let Some(logo) = data["logoId"].as_str().filter(|s| !s.is_empty()) {
         public["logoId"] = json!(logo);

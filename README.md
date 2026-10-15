@@ -328,4 +328,4 @@ remain intact.
 
 **App Studio workbench:** [Build one app across product pages, checkout and global shop areas; visual controls, encrypted installation settings, shared Flow visuals and agent editing](docs/app-studio-workspace.md).
 
-Managed app models now use [fixed shared storage](docs/app-data-storage.md): no new table or index per shop/app/model. Existing databases require the documented coordinated maintenance migration; this is separate from hosted-release acceptance.
+Managed app models now use [fixed shared storage](docs/app-data-storage.md): no new table or index per shop/app/model. The [15 October hosted acceptance](docs/evidence/shared-app-storage-hosted-2026-10-15.json) records the completed maintenance migration, four fixed physical app tables after fresh installations, private page publication and simulated purchases in existing/new Storyfront experiences and a new AI-seeded standard shop. Other existing databases still require the documented coordinated migration.

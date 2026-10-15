@@ -58,6 +58,9 @@ with (ROOT/'artifacts/identity-broker-server.log').open('w') as log:
         assertion=signed(path,subject,workspaceId=shop,workspaceName='Fashion test',demoCatalog=True)
         one=call(path,assertion);mh={'x-tenant':shop,'Authorization':'Bearer '+one['token']}
         assert len(call('/store-api/product',{'limit':100},{'x-tenant':shop})['elements'])==12
+        identity=call('/store-api/company',headers={'x-tenant':shop})['data']
+        assert identity['brandName']=='Fashion test',identity
+        assert not identity.get('name'),identity
         assert 'coat' in json.dumps(call('/api/knowledge',headers=mh))
         call(path,assertion,expected=401)
         for changes in [{'iss':'https://evil.example'},{'verified':False},{'exp':int(time.time())-1}]:
@@ -67,6 +70,8 @@ with (ROOT/'artifacts/identity-broker-server.log').open('w') as log:
         check('Only verified, correctly signed, current, one-use assertions create owned shops with the shipping fashion catalog')
         two=call(path,signed(path,'second-'+suffix,workspaceId=other,workspaceName='Other',demoCatalog=False))
         assert not call('/store-api/product',{}, {'x-tenant':other})['elements']
+        assert call('/store-api/company',headers={'x-tenant':other})['data']['brandName']=='Other'
+        check('New shops show their own supplied display name without inventing a legal issuer')
         call(path,signed(path,'second-'+suffix,workspaceId=shop,workspaceName='Foreign'),expected=409)
         call(path,signed(path,subject,email='changed-'+suffix+'@example.test',workspaceId=shop,workspaceName='Test'),expected=409)
         check('Foreign shop takeover and silent identity-email relinking fail; opt-out produces an empty catalog')
