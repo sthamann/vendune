@@ -46,6 +46,7 @@ def verify(sql, tenant_url, system_role):
                       "SELECT public.veyndo_configure_scope(current_user,current_user)",
                       "ALTER TABLE products DISABLE ROW LEVEL SECURITY","TRUNCATE products",
                       "CREATE TABLE public.unauthorized_scope_object(id text)",
+                      "CREATE TEMPORARY TABLE products(id text)",
                       "SELECT public.veyndo_guard_app_table('products')"]:
         probe(statement,fail=True)
     assert probe("SELECT count(*) FROM pg_stat_activity WHERE query LIKE '%v1:%' AND pid<>pg_backend_pid()")=='0'

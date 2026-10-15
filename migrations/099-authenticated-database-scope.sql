@@ -164,6 +164,10 @@ BEGIN
  EXECUTE format('REVOKE ALL ON SCHEMA public FROM %I',tenant_login);
  EXECUTE format('GRANT USAGE ON SCHEMA public TO %I',tenant_login);
  EXECUTE format('GRANT CONNECT ON DATABASE %I TO %I',current_database(),tenant_login);
+ -- PUBLIC's default TEMP grant would let one tenant session shadow native table
+ -- names on a reused backend. Revoking a login's own grant cannot remove PUBLIC.
+ EXECUTE format('REVOKE TEMPORARY ON DATABASE %I FROM PUBLIC',current_database());
+ EXECUTE format('GRANT TEMPORARY ON DATABASE %I TO %I,%I',current_database(),system_login,session_user);
  EXECUTE format('REVOKE CREATE,TEMPORARY ON DATABASE %I FROM %I',current_database(),tenant_login);
  FOR r IN SELECT t.relname FROM pg_class t JOIN pg_namespace n ON n.oid=t.relnamespace
   WHERE n.nspname='public' AND t.relkind IN ('r','v','m','S') LOOP

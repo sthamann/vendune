@@ -45,11 +45,11 @@ pub(crate) async fn connect(fallback: &str) -> ScopedPool {
         tenant_role, system_role,
         "Tenant and system database logins must differ"
     );
-    let unsafe_role:bool=sqlx::query_scalar("SELECT r.rolsuper OR r.rolbypassrls OR r.rolcreaterole OR r.rolcreatedb OR r.rolreplication OR EXISTS(SELECT 1 FROM pg_roles other WHERE other.oid<>r.oid AND pg_has_role(r.oid,other.oid,'MEMBER')) OR has_schema_privilege(current_user,'public','CREATE') OR EXISTS(SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND (pg_has_role(current_user,c.relowner,'MEMBER') OR has_table_privilege(current_user,c.oid,'TRUNCATE'))) FROM pg_roles r WHERE r.rolname=session_user")
+    let unsafe_role:bool=sqlx::query_scalar("SELECT r.rolsuper OR r.rolbypassrls OR r.rolcreaterole OR r.rolcreatedb OR r.rolreplication OR EXISTS(SELECT 1 FROM pg_roles other WHERE other.oid<>r.oid AND pg_has_role(r.oid,other.oid,'MEMBER')) OR has_schema_privilege(current_user,'public','CREATE') OR has_database_privilege(current_user,current_database(),'CREATE') OR has_database_privilege(current_user,current_database(),'TEMPORARY') OR EXISTS(SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND (pg_has_role(current_user,c.relowner,'MEMBER') OR has_table_privilege(current_user,c.oid,'TRUNCATE'))) FROM pg_roles r WHERE r.rolname=session_user")
         .fetch_one(&tenant).await.expect("tenant authority audit");
     assert!(
         !unsafe_role,
-        "Tenant connection must not own relations, inherit roles, create schema objects, truncate or bypass RLS"
+        "Tenant connection must not own relations, inherit roles, create schema/temporary objects, truncate or bypass RLS"
     );
     for table in [
         "user_sessions",

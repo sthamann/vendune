@@ -2946,8 +2946,8 @@
     },
     "src/performance/authority.rs": {
       "status": "unproved",
-      "sha256": "120a8d55cff14bc2c6f46a3efc14b5703033370252ca91c197607bdc4f409eaf",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "b6ac3e4acc0a3d794797ef71140e5eb6d208863cff79d5121a64ea7e3b4db8c3",
+      "review": "Retain reviewed separate role-bound SQL scope and 099 staged rollout; native frontend alias allocation requires global collision visibility and atomic managed app DDL while retaining explicit tenant predicates. Added an actual-login negative case proving PUBLIC TEMP allowed table shadowing; configure now revokes PUBLIC TEMP and startup rejects effective tenant CREATE/TEMP grants. No pure Lean policies changed."
     },
     "src/performance/cache.rs": {
       "status": "unproved",
@@ -3176,8 +3176,8 @@
     },
     "src/shop_domains/frontend_bindings.rs": {
       "status": "unproved",
-      "sha256": "189f27fbe5b0ff49b89cf189c7112adc5cb62f87b85ef97346262c84666873d6",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "1a9d26a0a896f1cc34be8dbb9d8b607bedd78c67353ce06eca5863ecade6e603",
+      "review": "Retain reviewed separate role-bound SQL scope and 099 staged rollout; native frontend alias allocation requires global collision visibility and atomic managed app DDL while retaining explicit tenant predicates. Added an actual-login negative case proving PUBLIC TEMP allowed table shadowing; configure now revokes PUBLIC TEMP and startup rejects effective tenant CREATE/TEMP grants. No pure Lean policies changed."
     },
     "src/shop_domains/frontend_editor.rs": {
       "status": "unproved",
@@ -3802,8 +3802,8 @@
       "review": "Review additive product content clock and rolling-writer trigger; preserve aggregate CAS for explicit stock and legacy clients; content-only HTTP/MCP edits omit stock under the locked native owner; preserve live stock in history and release snapshots. Actual two-replica purchase/cancellation and editor regressions exercise stale writes; async SQL and UI remain outside the existing unchanged Lean proof boundary."
     },
     "migrations/099-authenticated-database-scope.sql": {
-      "sha256": "a5616733bdfbb850c95b5a4cc7c367bc6fb00ffdac3a36e397eb93f02fb63d4e",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "f2a1bf26eda6d0fc867ab0dd1434aeabbc77339fc740db357e7b713f04730e50",
+      "review": "Retain reviewed separate role-bound SQL scope and 099 staged rollout; native frontend alias allocation requires global collision visibility and atomic managed app DDL while retaining explicit tenant predicates. Added an actual-login negative case proving PUBLIC TEMP allowed table shadowing; configure now revokes PUBLIC TEMP and startup rejects effective tenant CREATE/TEMP grants. No pure Lean policies changed."
     },
     "proof/Commerce/Claims.lean": {
       "sha256": "f3de8f3bdfbf76e69dc5a609a7534aa460a7dd5f6c4f6ed14a07590efbdd59ad",

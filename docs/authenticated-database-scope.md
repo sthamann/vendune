@@ -35,6 +35,10 @@ An integration credential has a distinct actor classification and cannot assume
 its creator's personal workspace. New app entity and relation tables receive the
 same guard and tenant grants before installation commits. The tenant login owns
 no app table and cannot create/drop tables or disable row security.
+It also cannot create temporary objects that shadow native table names on a reused
+backend. Configuration removes the database's default `PUBLIC` temporary-object
+grant and retains it only for the trusted system/migration logins; startup checks
+the tenant login's effective database/schema privileges, including inherited grants.
 
 The tenant login cannot read global sessions, MFA, identity-provider bindings or
 platform AI secrets. Merchant identity joins expose only member ID/name/email

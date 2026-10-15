@@ -50,7 +50,10 @@ pub(super) async fn bind(
     if !super::frontends::valid_origin(&origin) {
         return Err(bad("Operator frontend origin is invalid"));
     }
-    let mut tx = a.db.begin().await?;
+    // Address allocation is a global native registry operation: it must see
+    // collisions in other shops and install the managed app in this transaction.
+    // Every subsequent read/write retains the already admitted owning tenant.
+    let mut tx = a.db.begin_privileged().await?;
     crate::marketing::lock_config(&mut tx, &t).await?;
     sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,43))")
         .bind(alias)
