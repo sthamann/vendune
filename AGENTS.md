@@ -497,3 +497,26 @@ views do not receive secrets. Preserve package/table/index admission caps and
 current scope intersections for permanent integration keys. A permanent key never
 becomes an owner identity or permission snapshot. App business code stays in its
 app directory.
+
+## Operation registry and business-capability continuity
+
+Read `docs/platform-hardening.md` and `docs/business-capabilities.md` before expanding
+agent execution or app architecture. `capabilities/registry.rs` binds native schemas,
+boxed domain routing, discovery and safe read-agent exposure; transports do not own
+second name/schema/visibility lists. `ToolContract` describes native and app tools;
+metadata never grants rights. Domain object/PII/CAS/business checks stay authoritative.
+An app output-contract failure may follow a real external effect: preserve its
+non-retryable/uncertain boundary, never automatically re-run it as harmless validation.
+
+Outbox dispatch scheduling metadata is operational, forced-RLS and never a release
+unit. Lock scheduling rows rather than tenant roots, preserve per-event savepoints
+and exact original outbox consumers. A fair tenant batch is not independent subscriber
+checkpointing. The remaining system-role/cookie/CSP issues in the tracker are not
+repaired merely by safer identifier quoting or successful ordinary isolation tests.
+
+Extend the canonical Manifest for complete business capabilities; reuse existing
+data, decisions, history, staged publication, Flows and central inference. No second
+app ledger, source-copy installation, queue, CMS, pricing owner or private Storyfront
+implementation. Choose the weakest actually supported runtime and keep unsupported
+hosting/ABI/canary/replay capabilities explicit. New operation extension points may
+narrow decisions but never replace core authorization or financial invariants.

@@ -44,6 +44,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/gateway.rs](../src/apps/gateway.rs) | One permission-aware action gateway serves HTTP, UI and MCP; service egress is operator configured. |
 | [src/apps/hosted.rs](../src/apps/hosted.rs) | Persist hosted-app dependencies through the existing package installer; no private renderer or parallel registry. |
 | [src/apps/input_schema.rs](../src/apps/input_schema.rs) | Bounded recursive action-input contract. Untyped managed fields still receive depth/size budgets. |
+| [src/apps/input_schema_tests.rs](../src/apps/input_schema_tests.rs) | Adversarial schema cases exercise bounded inputs, nullable unions, escaped JSON pointers and output values. |
 | [src/apps/job_callbacks.rs](../src/apps/job_callbacks.rs) | Long-job service callbacks disclose input only after current actor consent, package and lease checks. Late callbacks cannot commit. |
 | [src/apps/jobs.rs](../src/apps/jobs.rs) | Durable long actions piggyback on the existing outbox. Apps claim a fenced lease; unknown side effects are never retried automatically. |
 | [src/apps/manifest.rs](../src/apps/manifest.rs) | Strict package contract; identifiers and limits are checked before any schema DDL. |
@@ -77,6 +78,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/surface_registry.rs](../src/apps/surface_registry.rs) | Current-authority app surface projection shared by storefronts and native visual composition. |
 | [src/apps/surface_tests.rs](../src/apps/surface_tests.rs) | Contract counterexamples reject cross-scope UI actions, unsafe URLs and mutating GET routes. |
 | [src/apps/surfaces.rs](../src/apps/surfaces.rs) | App-owned UI surfaces and namespaced HTTP routes reuse the authorized action gateway. |
+| [src/apps/tool_contract.rs](../src/apps/tool_contract.rs) | Installed app tools share native wire metadata and validate declared results without disclosing provider payloads. |
 | [src/apps/ui_bundles.rs](../src/apps/ui_bundles.rs) | Operator-pinned, bounded self-contained UI bundles use the same actor/context grant as app actions. |
 | [src/apps/ui_logic.rs](../src/apps/ui_logic.rs) | Declarative UI code-behind validates a bounded AST; calls retain surface grants and server domain authorization. |
 | [src/apps/ui_logic_tests.rs](../src/apps/ui_logic_tests.rs) | UI programs must keep static types, same-model saves, surface allowlists and acyclic ownership before install or preview. |
@@ -154,8 +156,13 @@ This lists every checked-in source module in these roots, including files with n
 | [src/bin/verified_kernel.rs](../src/bin/verified_kernel.rs) | Generated input/output driver; production policies are dispatched by the generated module. |
 | [src/bootstrap.rs](../src/bootstrap.rs) | Startup, additive migrations, persisted extensions and outbox worker. |
 | [src/brand_redirect.rs](../src/brand_redirect.rs) | Move browser pages to the configured domain while retaining integration and checkout endpoints. |
+| [src/capabilities/admission.rs](../src/capabilities/admission.rs) | MCP discovery applies current merchant permissions through the same capability owners as invocation. |
 | [src/capabilities/catalog.rs](../src/capabilities/catalog.rs) | Shared catalogue composes native capabilities and cognitive contracts without duplicating authorization. |
+| [src/capabilities/contract.rs](../src/capabilities/contract.rs) | Shared wire description for native operations and installed app actions; hints never grant execution rights. |
 | [src/capabilities/core_catalog.rs](../src/capabilities/core_catalog.rs) | Public HTTP/MCP capability catalogue, separate from authorization and dispatch. |
+| [src/capabilities/dispatch.rs](../src/capabilities/dispatch.rs) | Closed native domain routing selected once by the operation registry; inactive futures stay boxed. |
+| [src/capabilities/registry.rs](../src/capabilities/registry.rs) | One immutable native operation record for dispatch, schemas, MCP discovery and bounded agent reads. |
+| [src/capabilities/schema.rs](../src/capabilities/schema.rs) | Native operation input contracts; transports consume this owner instead of maintaining their own schemas. |
 | [src/capabilities.rs](../src/capabilities.rs) | Shared HTTP/MCP capability dispatch and tool authorization. |
 | [src/cart_model.rs](../src/cart_model.rs) | Persisted cart, item and customer-context types. |
 | [src/cart_mutation.rs](../src/cart_mutation.rs) | Optimistic cart mutations and quantity normalization. |
@@ -285,6 +292,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/documents/workspace.rs](../src/documents/workspace.rs) | Permission-filtered knowledge census, cursor source inventory and activity; totals never masquerade as sampled graph counts. |
 | [src/experience.rs](../src/experience.rs) | Persisted storefront layout policy and observed synthetic rewards. |
 | [src/extensions.rs](../src/extensions.rs) | Merchant catalogue and Wasm extension activation/state. |
+| [src/failure.rs](../src/failure.rs) | Stable safe error details shared by HTTP, MCP and agent streams; legacy constructors retain their wire message. |
 | [src/foundation.rs](../src/foundation.rs) | Application dependencies, error responses and request context helpers. |
 | [src/history/capability.rs](../src/history/capability.rs) | HTTP/MCP parity for history; per-entity read/write scopes are checked again at invocation time. |
 | [src/history/mod.rs](../src/history/mod.rs) | Uniform tenant-scoped history from transactional database snapshots; restoration delegates to existing domain validators. |
@@ -349,8 +357,8 @@ This lists every checked-in source module in these roots, including files with n
 | [src/marketing/rule_snapshot.rs](../src/marketing/rule_snapshot.rs) | Resolve only referenced tenant rule IDs with indexed batched reads; freeze active definitions and revisions into the event snapshot. |
 | [src/marketing/rule_tests.rs](../src/marketing/rule_tests.rs) | Regression cases for native rule facts and original container boundaries. |
 | [src/marketing/rules.rs](../src/marketing/rules.rs) | Bounded Shopware-style boolean/numeric rule AST. Unknown operators/conditions fail closed. |
+| [src/mcp/protocol.rs](../src/mcp/protocol.rs) | JSON-RPC envelope errors differ from actionable domain/tool failures; no transport invents authorization. |
 | [src/mcp/transport.rs](../src/mcp/transport.rs) | MCP visibility and shared read-scope memoization, independent of internal planning tools. |
-| [src/mcp/visibility.rs](../src/mcp/visibility.rs) | MCP discovery applies current merchant permissions through the same capability owners as invocation. |
 | [src/mcp.rs](../src/mcp.rs) | Typed MCP schemas and JSON-RPC transport. |
 | [src/migrations/identity_checksums.rs](../src/migrations/identity_checksums.rs) | Explicit source-hash pairs for the reviewed identity-only migration source update. |
 | [src/migrations/recent_schema.rs](../src/migrations/recent_schema.rs) | Later additive migrations retain the same ordered ledger and checksum contract. |

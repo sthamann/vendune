@@ -15,7 +15,20 @@ pub(crate) async fn runtime(State(a): State<App>, h: RequestContext) -> Result<J
 }
 pub(crate) async fn consume_once(a: &App) -> Result<bool> {
     let mut tx = a.db.begin().await?;
-    let rows=sqlx::query("SELECT * FROM outbox WHERE delivered_at IS NULL AND dead_letter_at IS NULL AND available_at<=now() AND EXISTS(SELECT 1 FROM tenants t WHERE t.id=coalesce((SELECT live_tenant FROM shop_environments WHERE tenant=outbox.tenant),outbox.tenant) AND t.status='active') ORDER BY id LIMIT 50 FOR UPDATE SKIP LOCKED").fetch_all(&mut *tx).await?;
+    let next: Option<String> = sqlx::query_scalar(include_str!("outbox/next_tenant.sql"))
+        .fetch_optional(&mut *tx)
+        .await?;
+    let Some(next) = next else {
+        tx.commit().await?;
+        retention::once(a).await?;
+        return Ok(false);
+    };
+    let rows=sqlx::query("SELECT * FROM outbox WHERE tenant=$1 AND delivered_at IS NULL AND dead_letter_at IS NULL AND available_at<=now() ORDER BY id LIMIT 50 FOR UPDATE SKIP LOCKED")
+        .bind(&next).fetch_all(&mut *tx).await?;
+    sqlx::query("UPDATE outbox_tenant_dispatch SET served_order=nextval('public.outbox_dispatch_sequence') WHERE tenant=$1")
+        .bind(&next)
+        .execute(&mut *tx)
+        .await?;
     let worked = !rows.is_empty();
     for r in rows {
         let id = r.get::<i64, _>("id");

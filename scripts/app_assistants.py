@@ -131,7 +131,8 @@ with log_path.open('w') as log:
         call('/api/apps/example_order/entities/entries', {'id': 'x', 'fields': {}}, kh, 403)
         surfaces = call('/api/apps/surfaces', headers=kh)['surfaces']
         assert not any(s['app'] == 'example_order' for s in surfaces)
-        assert mcp(headers, 'app.example_admin.list_entries')['isError']
+        denied=call('/mcp',{'jsonrpc':'2.0','id':9,'method':'tools/call','params':{'name':'app.example_admin.list_entries','arguments':{}}},headers)
+        assert denied['error']['code']==-32602
         listed = call('/mcp', {'jsonrpc': '2.0', 'id': 2, 'method': 'tools/list'}, headers)['result']['tools']
         assert not any(t['name'].startswith('app.example_admin.') for t in listed)
         m['version'] = '0.1.1'

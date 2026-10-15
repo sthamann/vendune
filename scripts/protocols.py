@@ -19,13 +19,43 @@ u=call(path+'/complete',{}, {**h,'Idempotency-Key':'ucp-'+uuid.uuid4().hex});ass
 call(path+'/cancel',{},h,expected=409);ok('UCP cannot cancel completed order')
 v=call('/mcp',{'jsonrpc':'2.0','id':1,'method':'initialize','params':{'protocolVersion':'2025-11-25'}});assert v['result']['protocolVersion']=='2025-11-25' and v['result']['serverInfo']['name']=='veyndo';ok('MCP compatibility handshake')
 call('/mcp',{'jsonrpc':'2.0','id':2,'method':'ping'},{'Origin':'https://evil.example'},expected=403);ok('MCP rejects foreign browser origins')
+# Protocol structure errors must not be confused with actionable tool failures.
+def rpc(method,params=None,id=90):
+    body={'jsonrpc':'2.0','id':id,'method':method}
+    if params is not None:body['params']=params
+    return call('/mcp',body)
+assert rpc('ping',id=None)['result']=={}
+assert rpc('unregistered')['error']['code']==-32601
+assert rpc('tools/call',{'name':'unregistered','arguments':{}})['error']['code']==-32602
+assert rpc('tools/call',{'name':'catalog.search','arguments':[]})['error']['code']==-32602
+assert call('/mcp',{'jsonrpc':'2.0','id':{},'method':'ping'})['error']['code']==-32600
+for name,arguments,pointer in [
+    ('catalog.detail',{'productId':7},'/productId'),
+    ('catalog.search',{'query':'x'*201},'/query'),
+    ('catalog.search',{'extra':True},'/extra'),
+    ('checkout.select',{'revision':1,'checkout':{'customerEmail':True}},'/checkout/customerEmail'),
+]:
+    result=rpc('tools/call',{'name':name,'arguments':arguments})['result']
+    assert result['isError'] and result['structuredContent']['errors'][0]['pointer']==pointer,result
+    assert result['structuredContent']['errors'][0]['kind']=='validation_error'
+tools=rpc('tools/list')['result']['tools'];assert len({t['name']for t in tools})==len(tools)
+assert next(t for t in tools if t['name']=='catalog.search')['annotations']['readOnlyHint'] is True
+assert next(t for t in tools if t['name']=='checkout.complete')['annotations']['readOnlyHint'] is False
+ok('MCP validates native schemas and nullable values, reports JSON pointers, separates protocol failures and exposes unique conservative operation hints')
 if token:
     ah={'Authorization':'Bearer '+token}
     call('/api/search/product',{},expected=401);ok('Admin catalog endpoint requires merchant authority')
     source=(pathlib.Path(__file__).resolve().parents[1]/'extensions/company-limit.wat').read_text()
     result=call('/api/extensions/activate',{'wat':source},ah);assert result['activated'];ok('Wasm source compiled at activation and persisted')
     call('/api/extensions/activate',{'wat':'(module (import "env" "fs" (func)) (func (export "approve") (param i64 i64) (result i32) i32.const 1))'},ah,expected=400);ok('extension host imports rejected')
-    time.sleep(.3);r=call('/api/runtime',h=ah);assert r['eventsConsumed']>0 and r['outboxPending']==0;ok('durable outbox has a working consumer')
+    # Observe eventual consumption rather than assuming a worker tick within 300 ms.
+    deadline=time.monotonic()+5
+    while True:
+        r=call('/api/runtime',h=ah)
+        if r['eventsConsumed']>0 and r['outboxPending']==0:break
+        assert time.monotonic()<deadline,r
+        time.sleep(.05)
+    ok('durable outbox has a working consumer')
     if os.environ.get('TEST_MODEL')=='1':
         before=next(p for p in call('/store-api/product',{})['elements'] if p['id']=='lamp')['price']
         target=74.9 if before!=74.9 else 79.9

@@ -1,9 +1,11 @@
 """Owned synthetic server lifetime, child checks and loopback readiness for verification."""
 from pathlib import Path
 import signal
+import socket
 import subprocess
 import time
 import urllib.request
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -23,6 +25,14 @@ def stop(process):
 
 
 def serve(env, url, log):
+    target=urlsplit(url)
+    try:
+        occupied=socket.create_connection((target.hostname,target.port or 80),timeout=.2)
+    except OSError:
+        pass
+    else:
+        occupied.close()
+        raise RuntimeError("Synthetic verification port is already occupied; refusing to test another server")
     process = subprocess.Popen(
         [str(ROOT / "target/debug/veyndo")],
         cwd=ROOT,
@@ -36,6 +46,8 @@ def serve(env, url, log):
                 raise RuntimeError("Synthetic verification server stopped during startup")
             try:
                 with urllib.request.urlopen(url + "/health", timeout=1):
+                    if process.poll() is not None:
+                        raise RuntimeError("Synthetic verification server exited before readiness")
                     return process
             except OSError:
                 time.sleep(0.1)

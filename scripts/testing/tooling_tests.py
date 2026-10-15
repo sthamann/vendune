@@ -7,10 +7,23 @@ from pathlib import Path
 import subprocess
 import sys
 import unittest
+import socket
+from unittest.mock import patch
+import runtime
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from coverage_report import read_reports, violations
 from source_inventory import responsibility
+
+
+class OwnedRuntime(unittest.TestCase):
+    def test_occupied_port_cannot_masquerade_as_the_child_under_test(self):
+        with socket.socket() as listener:
+            listener.bind(('127.0.0.1',0)); listener.listen()
+            with patch.object(runtime.subprocess,'Popen') as spawn:
+                with self.assertRaisesRegex(RuntimeError,'already occupied'):
+                    runtime.serve({},f'http://127.0.0.1:{listener.getsockname()[1]}',None)
+                spawn.assert_not_called()
 
 
 class CoverageGates(unittest.TestCase):

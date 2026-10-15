@@ -100,6 +100,7 @@ export type Action = {
   entity?: string;
   public: boolean;
   inputSchema: Record<string, unknown>;
+  outputSchema?: Record<string, unknown>;
   flowAllowed?: boolean;
   mcp?: boolean | null;
   readOnly?: boolean;

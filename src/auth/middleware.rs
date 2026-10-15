@@ -17,7 +17,7 @@ pub(crate) fn permit(h: &RequestContext, kind: &str) -> Result<()> {
     if allowed {
         Ok(())
     } else {
-        Err(forbidden("Role does not permit this action"))
+        Err(Error::permission(kind))
     }
 }
 pub(crate) async fn authenticate(state: State<App>, request: Request, next: Next) -> Response {
