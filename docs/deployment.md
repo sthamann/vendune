@@ -1,10 +1,10 @@
 # Vercel frontend + self-hosted Rust / PostgreSQL
 
-**Current status:** the operator console and deployment package are implemented
-and tested locally. The managed Rust Studio and `/health` are reachable at
-`https://app.veyndo.ai/` (checked 2026-10-06). The root `veyndo.ai` currently fails
-TLS hostname negotiation. Public Vercel commerce deployment and production checkout
-remain unverified; see [managed hosting](managed-hosting.md) for the active topology.
+**Deployment choices:** this page describes the optional Vercel frontend and
+self-hosted backend package. The active hosted system uses Northflank, documented
+in [managed hosting](managed-hosting.md). Its 15 October 2026 restricted-runtime
+transition includes live sign-in, shop creation and simulated checkout checks;
+it does not verify this alternative Vercel topology or real payment settlement.
 GitHub Pages hosts documentation, not the Rust commerce service.
 
 ## Prepare the private host configuration

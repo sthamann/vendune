@@ -162,6 +162,11 @@ injection, a compromised process, all side channels or arbitrary external servic
    `ALLOW_BOOTSTRAP_AUTH=false` for public HTTP and worker deployments. Membership
    in `veyndo_runtime` must be inherited by the runtime login. App tables may be
    owned by that limited app-schema group; core tables stay with the migration owner.
+   Inventory inherited secrets before detaching an owner group: preserve the existing
+   `PLATFORM_SECRET_KEY` and unrelated provider/app configuration. Do not rotate
+   encryption keys as a side effect of changing database credentials. The HTTP/worker
+   environment must not retain the owner addon URI. See the dated
+   [hosted transition and live checks](managed-hosting.md#restricted-hosted-runtime).
 4. Reserve `DB_POOL_MAX + 2` per process for the pool and listeners against the shared `DB_CLUSTER_CONNECTION_BUDGET`. A fenced heartbeat enforces this fleet budget; a lost lease stops its process.
 5. Run the strict `production_foundations` suite on a disposable database and test
    registration, ordinary and sandbox operations, callbacks and cold restart before

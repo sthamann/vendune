@@ -280,6 +280,7 @@ guest files retain their exact original cart capability.
 | --- | --- |
 | **Autonomy** | Authorized actions, durable workflows and bounded controls. Continuous autonomous optimization of an entire business remains a development goal. |
 | **Production readiness** | Working prototype. Complete spend controls, relocation/failover and broader operational acceptance remain additional work. |
+| **Tenant defense in depth** | Hosted non-owner runtime and mandatory RLS verified on 15 October, including selected SQL/API denials and a simulated checkout. Current authorization checks remain essential; this is not exhaustive security certification. [Hosted evidence](docs/managed-hosting.md#restricted-hosted-runtime). |
 | **Payments & providers** | Simulated/manual payments, native PayPal and versioned payment-app contracts. Real provider outcomes require configured providers and separate acceptance. |
 | **Protocols & compatibility** | Selected native Shopware behavior and HTTP/MCP/UCP capabilities; complete plugin/DAL/CMS compatibility and full protocol conformance are outside this slice. |
 | **Apps & deployment** | Declarative packages and independent services, signatures and pinned UI bundles. Hostile-code containment and arbitrary source builds remain deployment responsibilities. |
