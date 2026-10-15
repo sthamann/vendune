@@ -84,6 +84,7 @@ pub(super) fn retain(old: &Value, next: &mut Value) -> Result<()> {
     // The generation schema intentionally does not own these advanced/manual integrations.
     for key in [
         "commerceHooks",
+        "capability",
         "distribution",
         "configuration",
         "events",
@@ -157,6 +158,15 @@ mod tests {
     fn keeps_external_service_and_manual_actions() {
         let original = json!({"id":"erp","runtime":"service","category":"integration","entities":[],"surfaces":[],"views":[],"events":["order.placed"],"actions":[{"name":"synchronize","handler":"service","permission":"orders.read","mcp":false}]});
         let mut generated = json!({"id":"erp","runtime":"declarative","category":null,"entities":[],"surfaces":[],"views":[],"actions":[]});
+        retain(&original, &mut generated).unwrap();
+        assert_eq!(generated, original);
+    }
+    #[test]
+    fn model_edits_cannot_rewrite_existing_acceptance_examples() {
+        let mut original = old();
+        original["capability"] = json!({"version":1,"intent":{"en":"Apply one percent"},"assumptions":[],"examples":[{"id":"unchanged","expected":{"minor":100}}]});
+        let mut generated = original.clone();
+        generated["capability"]["examples"] = json!([]);
         retain(&original, &mut generated).unwrap();
         assert_eq!(generated, original);
     }

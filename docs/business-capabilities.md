@@ -9,6 +9,58 @@ that managed build/microVM hosting, tenant-wide compatibility replay or automati
 canary rollback is already available. The [platform hardening programme](platform-hardening.md)
 records the connected prerequisites and their actual implementation state.
 
+## Executable first slice
+
+The canonical Manifest now accepts optional `capability` version 1: localized
+`intent`, localized `assumptions` and up to twelve frozen pure-decision `examples`.
+App Studio exposes a Business goal tab in the same editor. Its compact cards show
+the declared input, expected money adjustment and acceptance, not fabricated pass
+badges. Goal/assumption edits use the existing content-language inheritance and
+immutable version save. A package without this field retains its old serialization.
+
+Before a development version is saved or a package is installed, declared examples
+run through the existing fuel/memory/host-call-bounded WIT component. A trap or
+mismatch rejects the operation with a JSON Pointer to the case; no package, schema
+or build is created. Native staging and selected publication use that same
+installation owner. Existing AI presentation edits preserve the complete contract
+and its cases rather than rewriting expectations to obtain a pass. Ordinary
+coding-agent imports can propose explicit new contracts for merchant review.
+
+The `snapshot-pricing` 1.1.0 package demonstrates five synthetic cases: an empty
+cart, two subtotal amounts, zero-decimal JPY and zero-money validation. Its real
+checkout still executes native pricing/tax and persists the component outcomes.
+The manifest digest covers intent and examples along with code. Example metadata
+is not included in public surface projections. Use synthetic inputs only; these
+are package fixtures, not an import of customer history or credentials.
+
+This first contract does **not** claim human-confirmed provenance, a general
+historical checkout replay, full typed operation generation, native source builds,
+managed I/O or Commerce Crater. Empty example lists provide no business-behavior
+verification. Examples test their declared cases; they do not prove arbitrary app
+correctness. The remaining ordered gates below still apply.
+
+### Try the connected path
+
+![Business goal and frozen decisions in the actual Studio](screenshots/veyndo-app-business-goals.png)
+
+1. Open App Studio and edit a package carrying `capability`, such as the bundled
+   snapshot-pricing lab. Pure decision packages open their Business goal directly.
+2. Choose the content language, edit intent or assumptions and save a new version.
+   These edits use the same immutable Manifest as the visual editor and agent task.
+3. Review declared synthetic cases. For example, a EUR 100.00 subtotal expects a
+   EUR 1.00 adjustment; JPY uses zero decimal places. Cards show expectations.
+4. Saving executes those cases through the existing WIT component. A wrong result
+   blocks the save and identifies its case. Passing cases do not prove all inputs.
+5. Stage and publish through the existing selected-release review. Installation
+   reruns the cases; permissions, package consent and financial invariants remain
+   authoritative. Return to the app overview without losing the selected draft.
+
+The browser acceptance on 15 October saved a translated 1.1.1 development version,
+restored the draft after reload, opened the shared AI modal without discarding the
+selected goal and checked 390px mobile containment. HTTP/PostgreSQL cases separately
+cover wrong expectations, trapped components, immutable build admission, staging,
+selected release, foreign tenants and actual checkout outcome persistence.
+
 ## One capability contract
 
 The versioned app Manifest remains authoritative. Extend it with the merchant's

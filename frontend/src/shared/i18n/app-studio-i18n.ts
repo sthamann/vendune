@@ -1,4 +1,5 @@
 /** App Studio and native runtime vocabulary; every key ships EN/DE/FR/ES. */
+import { appCapabilityWords } from "./app-capability-i18n";
 import { appSettingWords } from "./app-settings-i18n";
 import { appPreviewWords } from "./app-preview-i18n";
 import { appOntologyWords } from "./app-ontology-i18n";
@@ -7,6 +8,7 @@ import { appLogicWords } from "./app-logic-i18n";
 import { appWorkflowWords } from "./app-workflow-i18n";
 import { useLocale } from "./i18n";
 export const appStudioWords = {
+  capability: appCapabilityWords.capability,
   settings: appSettingWords.settings,
   b2bCompany: [
     "Company workspace",

@@ -80,14 +80,14 @@ same operation owners. Existing app packages remain in `extensions/apps/<app>/`.
 | --- | --- | --- |
 | Typed decisions | Versioned typed quote/checkout/order inputs, declared price phases/dependencies, approved digest artifacts and replay inputs. | Pricing/message/engraving examples repeat frozen inputs deterministically; core money/stock/auth invariants remain enforced. |
 | Entity extensions | Namespaced typed Product/Customer/Order/Company extension fields. | Same schema and permissions reach native API, MCP/UCP, grids, search and graph; no direct core SQL access. |
-| Change contract | Intent, assumptions, confirmed examples, dependencies, migration and fallback in the canonical Manifest. | Manual and AI edits preserve identities and existing constraints; confirmations have server-owned provenance. |
+| Change contract | Optional versioned intent/assumptions and executable pure-decision cases are now implemented in the canonical Manifest and Studio; server-owned human confirmation, general dependencies/migration/fallback remain open. | Manual and AI edits preserve identities and existing constraints; confirmations have server-owned provenance. |
 | Complete B2B case | Materials, dimensions/surcharge, approvals, account/reorder and production view. | A later rule change has a visible replay diff, preserves old orders and publishes through the existing release path. |
 | Lifecycle extensions | Declarative transitions and pure guards under native invariants. | No extension can waive settlement, inventory or financial transition checks. |
 | Historical replay | Authorized bounded snapshots, outcome diffs and uncertainty. | Repeat actual admitted inputs without sending mail, charging or duplicating orders. |
 | Canary/rollback | Version-bound rollout and explicit effect handling. | Measured routing/rollback; reverting code never claims to reverse sent mail or payments. |
 | Managed source builds | Isolated Rust/TS compilation without production secrets; digest-pinned output. | Actual source → isolated build → validated artifact → current app consumer, not just a build form. |
 | Managed services | Capability-limited I/O, egress, budgets and private hosting. | Actual isolated execution, leases, observability and restart-safe ambiguous-effect handling. |
-| Commerce Crater | Checked-in apps first, then authorized tenant examples/replay corpora. | A core update runs the declared cases, detects incompatibility and produces a reviewed repair. |
+| Commerce Crater | First package-owned decision cases now execute during build admission/install/release. Fleet compatibility runs and authorized tenant replay corpora remain open. | A core update runs the declared cases, detects incompatibility and produces a reviewed repair. |
 | Shopware migration | Supported app/API/webhook subset, script scope and original differential tests. | Port one inventoried real extension first; do not promise unchanged Symfony plugins in shared Core. |
 | Enterprise cells | Placement, quotas, native extension isolation and operational ownership. | Real provisioning/update/move evidence; no per-tenant Core forks. |
 

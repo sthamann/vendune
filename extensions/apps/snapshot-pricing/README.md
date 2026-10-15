@@ -18,3 +18,10 @@ fuel, memory, table, stack, epoch and process admission limits bound execution.
 quote outcomes, reviewed checkout and idempotent order persistence, foreign shop
 isolation, malformed ABI and malicious host-call loops. See
 [the canonical hook contract](../../../docs/app-platform.md).
+
+Version 1.1.0 adds five frozen `capability.examples` cases to the same package.
+Installation and App Studio save execute the existing WIT component against those
+inputs before persisting a version. A wrong expectation or trap blocks admission.
+The Business goal tab shows localized intent, assumptions and expected adjustments.
+The native checkout still owns monetary effects, taxes, inventory and payment; these
+synthetic cases are not a replay of historical customer orders.

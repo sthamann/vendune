@@ -73,6 +73,13 @@ pub(super) async fn save(
             m.views
                 .iter()
                 .flat_map(|v| v.blocks.iter().map(|b| &b.title)),
+        )
+        .chain(m.capability.iter().map(|c| &c.intent))
+        .chain(m.capability.iter().flat_map(|c| &c.assumptions))
+        .chain(
+            m.capability
+                .iter()
+                .flat_map(|c| c.examples.iter().map(|e| &e.label)),
         );
     if labels.into_iter().any(|l| {
         l.get(main)
@@ -90,6 +97,7 @@ pub(super) async fn save(
             "App labels and summary need the shop main language; other languages inherit",
         ));
     }
+    apps::verify_package(&m).await?;
     let manifest = json!(m);
     let digest = hash(&manifest.to_string());
     let id = uid();
