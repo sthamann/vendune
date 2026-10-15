@@ -1,53 +1,52 @@
 //! Shared catalogue composes native capabilities and cognitive contracts without duplicating authorization.
 #[path = "core_catalog.rs"]
 mod core;
-pub(crate) static CAPABILITIES: std::sync::LazyLock<Vec<(&'static str, &'static str)>> =
-    std::sync::LazyLock::new(|| {
-        let mut all = core::CORE.to_vec();
-        all.extend(COGNITIVE.iter().copied());
-        all.extend([
-            (
-                "merchant.app.history",
-                "Read current-permission projected app record versions",
-            ),
-            (
-                "merchant.app.restore",
-                "Approve a revision-bound app record restoration",
-            ),
-        ]);
-        all.extend([
-            (
-                "merchant.site.task",
-                "Export a credential-free native shop design task",
-            ),
-            (
-                "merchant.site.propose",
-                "Validate a coding-agent page result for explicit review",
-            ),
-            (
-                "merchant.site.plan",
-                "Prepare revision-bound visual shop alternatives",
-            ),
-            (
-                "merchant.site.apply",
-                "Approve a scoped shop-design proposal in staging",
-            ),
-        ]);
-        all.extend([
-            (
-                "studio.workspace.read",
-                "Read the current personal Studio workspace",
-            ),
-            (
-                "studio.workspace.save",
-                "Revise the current personal Studio workspace",
-            ),
-        ]);
-        all.extend(crate::operations::CREATION_CAPABILITIES.iter().copied());
-        all.extend(crate::pos::CAPABILITIES.iter().copied());
-        all.extend(crate::b2b::CAPABILITIES.iter().copied());
-        all
-    });
+pub(super) fn definitions() -> Vec<(&'static str, &'static str)> {
+    let mut all = core::CORE.to_vec();
+    all.extend(COGNITIVE.iter().copied());
+    all.extend([
+        (
+            "merchant.app.history",
+            "Read current-permission projected app record versions",
+        ),
+        (
+            "merchant.app.restore",
+            "Approve a revision-bound app record restoration",
+        ),
+    ]);
+    all.extend([
+        (
+            "merchant.site.task",
+            "Export a credential-free native shop design task",
+        ),
+        (
+            "merchant.site.propose",
+            "Validate a coding-agent page result for explicit review",
+        ),
+        (
+            "merchant.site.plan",
+            "Prepare revision-bound visual shop alternatives",
+        ),
+        (
+            "merchant.site.apply",
+            "Approve a scoped shop-design proposal in staging",
+        ),
+    ]);
+    all.extend([
+        (
+            "studio.workspace.read",
+            "Read the current personal Studio workspace",
+        ),
+        (
+            "studio.workspace.save",
+            "Revise the current personal Studio workspace",
+        ),
+    ]);
+    all.extend(crate::operations::CREATION_CAPABILITIES.iter().copied());
+    all.extend(crate::pos::CAPABILITIES.iter().copied());
+    all.extend(crate::b2b::CAPABILITIES.iter().copied());
+    all
+}
 const COGNITIVE: &[(&str, &str)] = &[
     (
         "merchant.grid.plan",
@@ -56,14 +55,6 @@ const COGNITIVE: &[(&str, &str)] = &[
     (
         "merchant.customer.lookup",
         "Search existing customers by name, email or number",
-    ),
-    (
-        "b2b.company.create",
-        "Create a company with a first purchasing unit",
-    ),
-    (
-        "b2b.settings.save",
-        "Configure native company purchasing features",
     ),
     ("team.roles", "Read current tenant role definitions"),
     ("team.role.save", "Revise tenant role grants"),

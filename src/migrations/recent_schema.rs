@@ -200,4 +200,8 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         "096-app-settings",
         include_str!("../../migrations/096-app-settings.sql"),
     ),
+    (
+        "097-outbox-fairness",
+        include_str!("../../migrations/097-outbox-fairness.sql"),
+    ),
 ];

@@ -976,8 +976,8 @@
     },
     "src/apps/data.rs": {
       "status": "unproved",
-      "sha256": "9be20fa698f526a169127821326a5ec504ef04c9a6d2280d62be2bccbe905129",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "c5b41d1690859c0f5049aa17e30078ecb77435570f4373e3c0785a1598c33ce9",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/apps/distribution.rs": {
       "status": "unproved",
@@ -1036,8 +1036,8 @@
     },
     "src/apps/gateway.rs": {
       "status": "reviewed-binding",
-      "sha256": "0210c7babe969f2150f43dc286669ba8ee1ab908e316b47a0542818f0bfde46c",
-      "review": "Reviewed final App Studio adapters: private declared settings share the existing encrypted tenant/app/digest CAS owner, private service injection is bounded to 64 KiB including settings, registry cap counts registered package IDs, and permanent keys require the extracted personal-administrator predicate. HTTP tests cover secret redaction, CAS, settings delivery, scope/tenant/sandbox denial and revocation; SQL, crypto and provider behavior remain adapter boundaries."
+      "sha256": "f37ec15bbcf78ea1ab3c3a3e0cea9b852e68d0b2c89f9b266df6b3e234c0b87a",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/apps/hosted.rs": {
       "status": "unproved",
@@ -1046,8 +1046,13 @@
     },
     "src/apps/input_schema.rs": {
       "status": "unproved",
-      "sha256": "ae7f2bccc1b746326dda9ff731eedb459fd80680aacce888279d766f9229fb94",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "4f73c8b1c641805b89d23e2c7f3f6fcb357f896c8a174f6d6f5db7c8eba539aa",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+    },
+    "src/apps/input_schema_tests.rs": {
+      "status": "unproved",
+      "sha256": "6e94993e9bb82da2f6207a2ab99235c4d01e1b031a6ae6fc63251a91dde40e48",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/apps/job_callbacks.rs": {
       "status": "unproved",
@@ -1061,18 +1066,18 @@
     },
     "src/apps/manifest.rs": {
       "status": "unproved",
-      "sha256": "4729ea08a559fbd0da419e4c95f38bf17b236aeb9e69566416cc9ac43752a884",
-      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+      "sha256": "188d0c80afaa8a2873c0c2ffc2d6b9922dc191629e5eab0577d78d2eb084891e",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/apps/manifest_validation.rs": {
       "status": "unproved",
-      "sha256": "c7c2a9af19063038bc6801843b212c59235a191cfaf79043744a9ab64cbd557c",
-      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+      "sha256": "22c60b95603cc013b1291f6045a981c07763e3c4f4043a3e0197b96be660d946",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "ac92ac089ca6fd3bbf4bbb5989a95e1bad3d263dd01ca6464bc70390875cef2d",
-      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+      "sha256": "2dcc345f4f00528a3598a3cbe6360a02255e9d6dbcea0117ce78f4fbf0c68e90",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
@@ -1213,6 +1218,11 @@
       "status": "reviewed-binding",
       "sha256": "4491e884fd0fec3fbae5db99e5e628a850bf68fc593f5d70bd4cf78ec514a1bc",
       "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+    },
+    "src/apps/tool_contract.rs": {
+      "status": "unproved",
+      "sha256": "b57d010ad7e569ccd9f4c82e6ec778a86da7c0fb932d76191e8374e5737027fd",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/apps/ui_bundles.rs": {
       "status": "unproved",
@@ -1366,8 +1376,8 @@
     },
     "src/auth/middleware.rs": {
       "status": "reviewed-binding",
-      "sha256": "c77c760e8cd1dac57b27101cab8aea1a18d2feb7ca411d82d0d4bbc742c15f66",
-      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+      "sha256": "47e20da0520de50a17790e4290406a815ec7b12424970c5b8c9cbce7feee4f51",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/auth/mod.rs": {
       "status": "unproved",
@@ -1599,20 +1609,45 @@
       "sha256": "e87808961f1acc0966a18aa3327f6251fdd0f0692ce9660682a27f251a6586e9",
       "review": "Reviewed domain cutover adapters: only browser GET/HEAD redirect; explicit legacy suffixes retain native tenant/channel ownership and exact HTTPS checkout origins. Scoped HTTP/PostgreSQL handoff, checkout-review and tenant-isolation suites passed. This records adapter review, not a proof of middleware correctness."
     },
+    "src/capabilities/admission.rs": {
+      "status": "unproved",
+      "sha256": "d01e3acb64e6e0fa2e3f33f2000e4b073c54a93ad29b261c71a0f17a11bdbf7a",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+    },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
-      "sha256": "62c0c3665d8582758feee6d6b745e76d31c1c5ce8d50e5ad9844a5356e61b47f",
-      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
+      "sha256": "cf91658f761c352b171d67e6a0b72f0c2ad5cd05fe65be324e3062d9a2eb0bc1",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+    },
+    "src/capabilities/contract.rs": {
+      "status": "unproved",
+      "sha256": "d8a982b673d95dd2f2ab6cfda6e0e2cfcdbc53cf9239d15bfde79f521b68cdcc",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/capabilities/core_catalog.rs": {
       "status": "unproved",
       "sha256": "67bcdcf60488925af59c6e9ca82f3020e992b4d075255e83826456b9f3121fff",
       "review": "Reviewed native admin customer/order ownership, compound permissions, actor-private cart and direct-token consumers, channel/settings/customer lock ordering, final extracted manual-payment admission, MCP schemas and local isolation/concurrency regressions; SQL and async effects remain outside Lean proof."
     },
+    "src/capabilities/dispatch.rs": {
+      "status": "unproved",
+      "sha256": "94bc16c0a0ef39d4ee3acebfe0140b61f01449931e34c62277a68fb4831c5636",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+    },
+    "src/capabilities/registry.rs": {
+      "status": "unproved",
+      "sha256": "ff5aadbae9a74207ca8efa488d93138c91e0daa98b931eff77c78bc39ee5c01e",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+    },
+    "src/capabilities/schema.rs": {
+      "status": "unproved",
+      "sha256": "6eca4585f09268c812e8211e953e455152cb5d4b573cc01e83a0dda77c4e6c18",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+    },
     "src/capabilities.rs": {
       "status": "unproved",
-      "sha256": "728f18cde83f75122256c13f076414f27dfe965e1ddff9f7f8a793811690243c",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "31d9a514ffb2e31d9c1e7704419102b62c2e3a9e7bbe827df86fe1006e8427e4",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/cart_model.rs": {
       "status": "unproved",
@@ -1836,13 +1871,13 @@
     },
     "src/cognition/stream.rs": {
       "status": "unproved",
-      "sha256": "7656dfa5f61eac91d4ef1b7f6ea498365eeb011829e07be88fa2a34ba8d3af6e",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "aeaef386a8b88f34ca816a70f8a57a1e485a43a1f5f11181d1f4029b31beeebf",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/cognition/tools.rs": {
       "status": "unproved",
-      "sha256": "820b72d4ef9841fc99d67334d03be4ae4a18101583a019295ebb2e30cadb61fe",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "aa5eb8974917d0b848cbb30f40367513a72b1cc04d98cce60cb4d81b37e2a3ed",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/commerce/app_adjustments.rs": {
       "status": "unproved",
@@ -2254,10 +2289,15 @@
       "sha256": "e23d3a3aab80fe28704010cbdcf9e01bcbdf69718f0f39af04e538d894e6c32f",
       "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
     },
+    "src/failure.rs": {
+      "status": "unproved",
+      "sha256": "d0446f38f9594bd7d1523e951ecf2645438f59fe0feea0551dc9236b93b3a0e4",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+    },
     "src/foundation.rs": {
       "status": "unproved",
-      "sha256": "e0b9dadca63affeeaddcbe622cbed93aac716a15bded7e60a58b210316424cb5",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "750affebf86190dc9261a6ae8a19453a88acd9164050a2a2316111cf0dbd6b8e",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/history/capability.rs": {
       "status": "unproved",
@@ -2574,20 +2614,20 @@
       "sha256": "80f1e23235bb4140c79fd089867ed566b00ff0a7b1dd942dcc16e55b48b2867e",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
+    "src/mcp/protocol.rs": {
+      "status": "unproved",
+      "sha256": "7fbb9c50c84420a16c285df0c3e3458b1942bd45eef7334b325de6e0a06e85e3",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+    },
     "src/mcp/transport.rs": {
       "status": "unproved",
       "sha256": "e4fe4e6af90583a2febf6bcd640cedf3ee503300d8df5f1566f6a8124a10f0ef",
       "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
     },
-    "src/mcp/visibility.rs": {
-      "status": "unproved",
-      "sha256": "d01e3acb64e6e0fa2e3f33f2000e4b073c54a93ad29b261c71a0f17a11bdbf7a",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
-    },
     "src/mcp.rs": {
       "status": "unproved",
-      "sha256": "73b7a6f078dcd508eb5c9ba7daf3606bdc23e7e0dc23d544c9d4ef1b132516e6",
-      "review": "Reviewed bounded native catalog IDs intersected with existing channel/B2B admission, selected-product batch hydration and configured locale context; HTTP/MCP selected-ID and foreign-channel denial regression plus Rust/catalog checks passed."
+      "sha256": "2ab587b48bdba567c83f848ce162eeaf0f6e45c8089d4893216a36afee8912d3",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/migrations/identity_checksums.rs": {
       "status": "unproved",
@@ -2596,8 +2636,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "8f9db044a59b6171fe94bce4d8ecd3c81aafb96e1b24ce2c884521cad35fddfd",
-      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+      "sha256": "e674cc31d3b88f93574be9b4b312882416ff2a876798d0b4ec9495f66a6551d0",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -2771,8 +2811,8 @@
     },
     "src/outbox.rs": {
       "status": "unproved",
-      "sha256": "cc7ee638469a6ebd7c8aeba4d0f2cf09925da81e0b94251c28c9bb4f0b8e01f6",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "9cbe69240351f897b9300e585e9f2c2b01ebe3e708742b78e5b58e893b157437",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/payments/accounts.rs": {
       "status": "unproved",
@@ -3201,8 +3241,8 @@
     },
     "src/studio.rs": {
       "status": "unproved",
-      "sha256": "0a5434e97fba7f869c4aeed65f73d33c0c21fdc6d8056b81da55bea81ed04d97",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "6f460e9b4bd2db81c953299d1e43d8c23554b008f9a7ecaf602de0ab55d5ef95",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/tenant_scope.rs": {
       "status": "unproved",
@@ -3718,6 +3758,10 @@
       "sha256": "735fdc839741e346885b629d887d4935961f5e593332ec9de25a19590d5720a0",
       "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
+    "migrations/097-outbox-fairness.sql": {
+      "sha256": "839d3dcb01b4c410a8c6617f54ba2d1f1a4d72c3d573f52533cbdddfe6e10472",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+    },
     "proof/Commerce/Claims.lean": {
       "sha256": "f3de8f3bdfbf76e69dc5a609a7534aa460a7dd5f6c4f6ed14a07590efbdd59ad",
       "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
@@ -3833,6 +3877,10 @@
     "src/operations/customer_directory_default.sql": {
       "sha256": "83738c400b888597fce307a480a61dc4b7844a46181f45aca06f011d005ed6ab",
       "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
+    },
+    "src/outbox/next_tenant.sql": {
+      "sha256": "3a0702a20262b00abb10a784f128deabc263ef19d3b2baa9bafdb61a5897d578",
+      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
     "src/outbox/retention.sql": {
       "sha256": "293cab148e5f9d16df33ac89699b709b82f822bf6be9f55ae1d6beb2ccb03c38",

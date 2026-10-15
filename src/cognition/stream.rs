@@ -33,7 +33,7 @@ async fn chat(
                 result=&mut job => {
                     let event=match result {
                         Ok(Ok(Json(value)))=>Event::default().event("complete").json_data(value),
-                        Ok(Err(e))=>Event::default().event("error").json_data(json!({"errors":[{"status":e.0.as_u16(),"detail":e.1}]})),
+                        Ok(Err(e))=>Event::default().event("error").json_data(json!({"errors":[e.problem()]})),
                         Err(_)=>Event::default().event("error").json_data(json!({"errors":[{"status":500,"detail":"Chat execution interrupted; reload its conversation before retrying"}]})),
                     };
                     yield Ok(event.expect("JSON event serialization"));

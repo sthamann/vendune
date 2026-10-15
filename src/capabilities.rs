@@ -1,11 +1,18 @@
 //! Shared HTTP/MCP capability dispatch and tool authorization.
 use crate::*;
 
+mod admission;
 mod catalog;
-pub(crate) use catalog::CAPABILITIES;
+mod contract;
+pub(crate) use contract::ToolContract;
+mod dispatch;
+mod registry;
+mod schema;
+pub(crate) use registry::agent_reads;
+pub(crate) use registry::{OPERATIONS, tool_schema};
 pub(crate) async fn capabilities() -> Json<Value> {
     Json(
-        json!({"capabilities":CAPABILITIES.iter().map(|(n,d)|json!({"name":n,"description":d})).collect::<Vec<_>>()}),
+        json!({"capabilities":OPERATIONS.iter().map(|operation|operation.description()).collect::<Vec<_>>()}),
     )
 }
 
@@ -16,79 +23,42 @@ pub(crate) fn invoke<'a>(
     name: &'a str,
     v: &'a Value,
 ) -> CapabilityFuture<'a> {
-    if name.starts_with("studio.workspace.") {
-        return Box::pin(studio::personal::invoke(a, h, name, v));
-    }
-    if name.starts_with("merchant.site.") {
-        return Box::pin(apps::site_builder::design_agent::invoke(a, h, name, v));
-    }
-    if name.starts_with("merchant.app.") {
-        return Box::pin(apps::record_history::invoke(a, h, name, v));
-    }
-    if name.starts_with("team.role") {
-        return Box::pin(auth::roles::invoke(a, h, name, v));
-    }
-    if name.starts_with("b2b.") {
-        // Keep only the selected domain's suspended state on the heap.
-        return Box::pin(b2b::invoke(a, h, name, v));
-    }
-    if let Some(operation) = name.strip_prefix("pos.") {
-        return Box::pin(pos::invoke(a, h, operation, v));
-    }
-    if name == "catalog.facts" {
+    if name.starts_with("app.") {
         return Box::pin(async move {
-            cognition::signed::facts(
-                a,
-                h,
-                v["productId"].as_str().ok_or(bad("Product required"))?,
-            )
-            .await
-        });
-    }
-    if cognition::contracts::schema(name).is_some() {
-        return Box::pin(cognition::contracts::invoke_contract(a, h, name, v));
-    }
-    if currencies::schema(name).is_some() {
-        return Box::pin(currencies::invoke(a, h, name, v));
-    }
-    if legal::schema(name).is_some() {
-        return Box::pin(legal::invoke(a, h, name, v));
-    }
-    if history::schema(name).is_some() {
-        return Box::pin(history::invoke(a, h, name, v));
-    }
-    if name.starts_with("merchant.media.") {
-        return Box::pin(assets::media_invoke(a, h, name, v));
-    }
-    if commerce::international_permission(name).is_some() {
-        return Box::pin(commerce::international_invoke(a, h, name, v));
-    }
-    if name.starts_with("automation.") {
-        return Box::pin(marketing::invoke(a, h, name, v));
-    }
-    if operations::permission(name).is_some() {
-        return Box::pin(operations::invoke(a, h, name, v));
-    }
-    if name.starts_with("developer.") {
-        return Box::pin(developer::invoke(a, h, name, v));
-    }
-    if let Some(app) = name.strip_prefix("app.") {
-        return Box::pin(async move {
-            let (id, action) = app
+            let (id, action) = name
+                .strip_prefix("app.")
+                .unwrap()
                 .split_once('.')
                 .ok_or(bad("Invalid app capability name"))?;
             apps::invoke_app(a, h, id, action, v).await
         });
     }
-    if documents::knowledge_schema(name).is_some() {
-        return Box::pin(documents::knowledge_invoke(a, h, name, v));
+    let Some(operation) = registry::find(name) else {
+        return Box::pin(async { Err(bad("Unknown capability")) });
+    };
+    if !operation.admitted(a, h) {
+        return Box::pin(async {
+            Err(Error(
+                StatusCode::FORBIDDEN,
+                "Operation is not currently authorized".into(),
+            ))
+        });
     }
-    Box::pin(invoke_native(a, h, name, v))
+    if let Err(error) = apps::validate_input(&operation.input_schema(), v) {
+        return Box::pin(async move { Err(error) });
+    }
+    operation.owner.invoke(a, h, name, v)
 }
-type CapabilityFuture<'a> =
+
+pub(super) type CapabilityFuture<'a> =
     std::pin::Pin<Box<dyn std::future::Future<Output = Result<Value>> + Send + 'a>>;
 
-async fn invoke_native(a: &App, h: &RequestContext, name: &str, v: &Value) -> Result<Value> {
+pub(super) async fn invoke_native(
+    a: &App,
+    h: &RequestContext,
+    name: &str,
+    v: &Value,
+) -> Result<Value> {
     if name.starts_with("knowledge.") {
         merchant(a, h)?;
         auth::permit(h, "knowledge.read")?;

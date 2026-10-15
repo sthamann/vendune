@@ -1,5 +1,13 @@
 # Changelog
 
+## Shared operations and reliability — in development, 15 October 2026
+
+- Move native input schemas, discovery and bounded agent-read policy into one immutable operation registry; retain boxed domain dispatch and current domain/object/PII rights. Reject duplicate native names and remove duplicate B2B registrations.
+- Share native/app tool metadata; support optional bounded declared app result contracts without changing legacy package digests. Reject invalid results without exposing payloads or suggesting automatic replay of ambiguous writes.
+- Add typed safe error kinds, explicit scope/JSON Pointer/current app-record revision and distinct JSON-RPC request/method/parameter/server errors. Enforce native MCP schemas including nullable values.
+- Escape quoted SQL field names in release builds. Add durable per-tenant outbox scheduling fairness while preserving existing events, retries, poison-event isolation, Flow/app consumers and forced RLS.
+- Record remaining security, money, storage, agent-run and compatibility work explicitly. Adopt the connected business-capability direction without claiming managed microVM/build hosting or fleet-wide replay has already shipped.
+
 ## 15 October 2026 — connected App Studio workbench
 
 - Multi-select assistant placements create ordinary editable surfaces in one app; native checkout mounts join global header, homepage, product, cart, account and page elements.

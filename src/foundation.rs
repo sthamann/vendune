@@ -16,28 +16,13 @@ pub(crate) struct App {
     pub(crate) admission: Arc<performance::Admission>,
     pub(crate) reads: Arc<performance::Reads>,
 }
-#[derive(Debug)]
-pub(crate) struct Error(pub(crate) StatusCode, pub(crate) String);
-impl IntoResponse for Error {
-    fn into_response(self) -> Response {
-        let status = self.0;
-        let mut response = (
-            self.0,
-            Json(json!({"errors":[{"code":self.0.as_u16().to_string(),"detail":self.1}]})),
-        )
-            .into_response();
-        if status == StatusCode::TOO_MANY_REQUESTS || status == StatusCode::SERVICE_UNAVAILABLE {
-            response
-                .headers_mut()
-                .insert("retry-after", "5".parse().unwrap());
-        }
-        response
-    }
-}
+#[path = "failure.rs"]
+mod failure;
+pub(crate) use failure::Error;
 impl From<sqlx::Error> for Error {
     fn from(e: sqlx::Error) -> Self {
         if matches!(e, sqlx::Error::PoolTimedOut) {
-            return Self(
+            return Error(
                 StatusCode::SERVICE_UNAVAILABLE,
                 "Database capacity busy; retry later".into(),
             );
@@ -46,7 +31,7 @@ impl From<sqlx::Error> for Error {
             && d.constraint()
                 .is_some_and(|c| c.starts_with("app_storage_usage_") && c.ends_with("_check"))
         {
-            return Self(StatusCode::PAYLOAD_TOO_LARGE,"App storage quota exceeded (100,000 records or 64 MiB); remove data or contact the operator".into());
+            return Error(StatusCode::PAYLOAD_TOO_LARGE,"App storage quota exceeded (100,000 records or 64 MiB); remove data or contact the operator".into());
         }
         if let sqlx::Error::Database(ref d) = e
             && d.code().as_deref() == Some("23505")
@@ -63,7 +48,7 @@ impl From<sqlx::Error> for Error {
             );
         }
         eprintln!("database: {e}");
-        Self(
+        Error(
             StatusCode::INTERNAL_SERVER_ERROR,
             "Database operation failed".into(),
         )

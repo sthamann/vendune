@@ -1,33 +1,7 @@
 //! Bounded agent read rounds use the same capability dispatcher and current actor rights; never execute writes.
 use super::*;
-const READS: &[(&str, &str)] = &[
-    ("knowledge.behavior", "knowledge.read"),
-    ("catalog.search", "catalog.read"),
-    ("catalog.detail", "catalog.read"),
-    ("merchant.products", "catalog.read"),
-    ("merchant.product.content", "catalog.read"),
-    ("merchant.orders", "orders.read"),
-    ("merchant.order", "orders.read"),
-    ("merchant.commerce.read", "settings.read"),
-    ("merchant.company", "settings.read"),
-    ("automation.list", "settings.read"),
-    ("automation.catalog", "settings.read"),
-    ("knowledge.claims", "knowledge.read"),
-    ("knowledge.experiments", "knowledge.read"),
-    ("knowledge.experiment.report", "knowledge.read"),
-    ("knowledge.search", "knowledge.read"),
-    ("knowledge.external", "knowledge.read"),
-    ("knowledge.workspace", "knowledge.read"),
-    ("knowledge.product", "knowledge.read"),
-    ("knowledge.source.detail", "knowledge.read"),
-];
-pub(crate) fn catalogue(h: &RequestContext) -> Vec<Value> {
-    READS
-        .iter()
-        .filter(|(_, right)| auth::allowed(h, right))
-        .filter(|(name, _)| CAPABILITIES.iter().any(|(n, _)| n == name))
-        .map(|(name, _)| json!({"name":name,"inputSchema":tool_schema(name),"readOnly":true}))
-        .collect()
+pub(crate) fn catalogue(a: &App, h: &RequestContext) -> Vec<Value> {
+    capabilities::agent_reads(a, h)
 }
 pub(crate) async fn read(a: &App, h: &RequestContext, name: &str, input: &Value) -> Result<Value> {
     if input.to_string().len() > 8192 {
@@ -44,11 +18,12 @@ pub(crate) async fn read(a: &App, h: &RequestContext, name: &str, input: &Value)
         apps::validate_input(&tool["inputSchema"], input)?;
         return Ok(bound(&Box::pin(invoke(a, h, name, input)).await?, 0));
     }
-    let (_, scope) = READS
+    if !capabilities::agent_reads(a, h)
         .iter()
-        .find(|(n, _)| *n == name)
-        .ok_or(bad("Agent tool is not a declared read operation"))?;
-    auth::permit(h, scope)?;
+        .any(|operation| operation["name"] == name)
+    {
+        return Err(bad("Agent tool is not a declared read operation"));
+    }
     apps::validate_input(&tool_schema(name), input)?;
     let result = Box::pin(invoke(a, h, name, input)).await?;
     Ok(bound(&result, 0))
@@ -82,7 +57,7 @@ pub(crate) async fn rounds_for(
             .map(|name| json!({"name":name,"inputSchema":tool_schema(name),"readOnly":true}))
             .collect()
     } else {
-        catalogue(h)
+        catalogue(a, h)
     };
     if !public {
         tools.extend(
@@ -179,9 +154,6 @@ mod tests {
     use super::*;
     #[test]
     fn read_set_excludes_mutations_and_context_is_bounded() {
-        assert!(!READS.iter().any(|(name, _)| name.ends_with("save")
-            || name.ends_with("complete")
-            || name.ends_with("apply")));
         assert_eq!(bound(&json!(vec![1; 100]), 0), json!(vec![1; 100]));
         assert_eq!(bound(&json!("a".repeat(7000)), 0)["omitted"], true);
     }

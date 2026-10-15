@@ -1,6 +1,7 @@
 """Real replica regressions for auth admission, poison-event isolation, retention and bounded resource leases."""
 import time
 import os
+import uuid
 import urllib.request
 
 def wait(sql, query, expected, seconds=20):
@@ -15,8 +16,19 @@ def before_workers(sql):
     sql("INSERT INTO outbox(tenant,kind,data,delivered_at) VALUES('atelier','qa.expired','{}',now()-interval '400 days');")
     sql("INSERT INTO outbox(tenant,kind,data,delivered_at) VALUES('atelier','qa.retired','{\"synthetic\":true}',now()-interval '100 days'); INSERT INTO projections(event_id,tenant,kind,data) SELECT id,tenant,kind,data FROM outbox WHERE kind='qa.retired'; INSERT INTO outbox(tenant,kind,data,available_at) VALUES('atelier','qa.unsettled','{}',now()+interval '1 day');")
 
+def fairness(sql):
+    suffix=uuid.uuid4().hex[:12]
+    noisy,quiet='00-fair-noisy-'+suffix,'00-fair-quiet-'+suffix
+    sql(f"INSERT INTO tenants(id,name) VALUES('{noisy}','Synthetic noisy fixture'),('{quiet}','Synthetic quiet fixture'); CREATE OR REPLACE FUNCTION qa_slow_noisy_projection() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN IF NEW.kind='qa.fair.noisy.{suffix}' THEN PERFORM pg_sleep(.003); END IF; RETURN NEW; END $$; DROP TRIGGER IF EXISTS qa_slow_noisy ON projections; CREATE TRIGGER qa_slow_noisy BEFORE INSERT ON projections FOR EACH ROW EXECUTE FUNCTION qa_slow_noisy_projection(); INSERT INTO outbox(tenant,kind,data) SELECT '{noisy}','qa.fair.noisy.{suffix}','{{}}' FROM generate_series(1,500); INSERT INTO outbox(tenant,kind,data) VALUES('{quiet}','qa.fair.quiet.{suffix}','{{}}');")
+    try:
+        wait(sql,f"SELECT EXISTS(SELECT 1 FROM outbox WHERE tenant='{quiet}' AND delivered_at IS NOT NULL) AND EXISTS(SELECT 1 FROM outbox WHERE tenant='{noisy}' AND delivered_at IS NULL)",'t')
+    finally:
+        sql('DROP TRIGGER qa_slow_noisy ON projections; DROP FUNCTION qa_slow_noisy_projection();')
+    print('PASS least-recently-served tenant dispatch prevents an older noisy backlog from starving a quiet shop')
+
 def verify(sql, call, bases, owner):
     one,two=bases
+    fairness(sql)
     for base in bases:
         with urllib.request.urlopen(base+'/health') as response:
             assert response.headers['X-Content-Type-Options']=='nosniff'

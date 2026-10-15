@@ -73,7 +73,7 @@ def run():
                 if self.path == "/actions/settings_probe":
                     assert self.headers.get("Authorization") == "Bearer " + module.TOKEN
                     settings_received.append(json.loads(self.rfile.read(int(self.headers["Content-Length"]))))
-                    return self.send(200,{"configured":True})
+                    return self.send(200,{"configured":"invalid" if settings_received[-1].get('invalidResult') else True})
                 if self.path != "/actions/slow":
                     return super().do_POST()
                 if self.headers.get("Authorization") != "Bearer " + module.TOKEN:
@@ -104,7 +104,7 @@ def run():
             m["actions"].append(note_action)
         m["intelligence"]["entities"].append("private_notes")
         m["settings"]=[{"key":"account","label":m["name"],"kind":"string","required":True},{"key":"api_token","label":m["name"],"kind":"secret","required":True}]
-        m["actions"].append({"name":"settings_probe","description":"Configured private service","handler":"service","public":False,"permission":"apps.manage","mcp":False,"inputSchema":{"type":"object","properties":{"padding":{"type":"array","items":{"type":"string"}}},"additionalProperties":False}})
+        m["actions"].append({"name":"settings_probe","description":"Configured private service","handler":"service","public":False,"permission":"apps.manage","mcp":False,"inputSchema":{"type":"object","properties":{"invalidResult":{"type":"boolean"},"padding":{"type":"array","items":{"type":"string"}}},"additionalProperties":False},"outputSchema":{"type":"object","properties":{"configured":{"type":"boolean"}},"required":["configured"],"additionalProperties":False}})
         busy = copy.deepcopy(m)
         busy.pop("settings")
         busy["version"] = "1.2.0"
@@ -160,6 +160,9 @@ def run():
             call(settings_path,{**settings_body,'revision':1,'values':{'undeclared':'x'}},h,expected=400,method='PUT')
             assert call(f"/api/apps/{app_id}/actions/settings_probe",{},h)=={'configured':True}
             assert settings_received[-1]['_appSettings']==settings_body['values']
+            invalid=call(f"/api/apps/{app_id}/actions/settings_probe",{'invalidResult':True},h,expected=502)
+            assert invalid['errors'][0]['kind']=='output_contract_error' and invalid['errors'][0]['retryable'] is False
+            assert secret not in json.dumps(invalid)
             before=len(settings_received)
             call(f"/api/apps/{app_id}/actions/settings_probe",{'padding':['x'*8180]*8},h,expected=400)
             assert len(settings_received)==before, 'Combined payload must be rejected before remote dispatch'
@@ -191,7 +194,8 @@ def run():
             call(f"/api/apps/{app_id}/http/guides", {"id": "a", "revision": 0, "fields": fields}, h)
             call(f"/api/apps/{app_id}/http/guides", {"id": "b", "revision": 0, "fields": {**fields, "product_id": "chair"}}, h)
             call(f"/api/apps/{app_id}/http/guides", {"id": "c", "revision": 0, "fields": fields}, h)
-            call(f"/api/apps/{app_id}/http/guides", {"id": "a", "revision": 0, "fields": fields}, h, expected=409)
+            stale=call(f"/api/apps/{app_id}/http/guides", {"id": "a", "revision": 0, "fields": fields}, h, expected=409)
+            assert stale['errors'][0]['kind']=='revision_conflict' and stale['errors'][0]['currentRevision']==1
             path = f"/store-api/apps/{app_id}/http/guides"
             page = call(path + "?limit=1", headers=public)
             assert page["elements"][0]["specification"] == fields["specification"] and page["nextCursor"] == "a"
@@ -233,7 +237,8 @@ def run():
             assert "ONLY-ORDER-READ-SENTINEL" not in model_requests[-1]["input"]
             assert "save_entry" not in model_requests[-1]["input"]
             denied = call("/mcp", {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":f"app.{app_id}.save_entry","arguments":{"id":"x","fields":fields}}}, h)
-            assert denied["result"]["isError"]
+            assert denied['error']['code']==-32602
+            assert not any(row['id']=='x' for row in call(path+'?limit=100',headers=public)['elements'])
             passed("MCP-disabled internal planning works; restricted model grounding/proposals and approval cannot bypass current app scopes")
 
             call("/api/apps", {"manifest": m}, oh)
