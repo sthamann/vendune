@@ -3,9 +3,13 @@ use sqlx::postgres::PgPoolOptions;
 use std::time::Duration;
 pub(crate) fn pool_options() -> PgPoolOptions {
     let config = crate::runtime_config::get();
+    options(config.db_pool_max, config.db_pool_min)
+}
+pub(super) fn options(max: u32, min: u32) -> PgPoolOptions {
+    let config = crate::runtime_config::get();
     let options = PgPoolOptions::new()
-        .max_connections(config.db_pool_max)
-        .min_connections(config.db_pool_min)
+        .max_connections(max)
+        .min_connections(min)
         .acquire_timeout(Duration::from_millis(config.db_wait_ms.into()))
         .idle_timeout(Duration::from_secs(300))
         .max_lifetime(Duration::from_secs(1800));

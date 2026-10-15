@@ -70,6 +70,8 @@
     "fashion_demo",
     "identity_broker",
     "production_foundations",
+    "signed_runtime",
+    "signed_pooler",
     "transaction_pooler",
     "app_secrets",
     "app_events",

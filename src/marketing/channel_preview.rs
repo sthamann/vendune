@@ -31,8 +31,8 @@ pub(crate) async fn valid(
     if !token(grant) {
         return Ok(false);
     }
-    let row = sqlx::query("SELECT p.alias,m.role,m.permissions FROM channel_previews p JOIN user_sessions s ON s.digest=p.session_digest JOIN memberships m ON m.user_id=s.user_id AND m.tenant=p.tenant WHERE p.digest=$1 AND p.tenant=$2 AND p.channel=$3 AND p.channel_revision=$4 AND p.redeemed AND p.expires_at>now() AND s.expires_at>now() AND m.active")
-        .bind(hash(grant)).bind(t).bind(channel).bind(revision).fetch_optional(&a.db).await?;
+    let row = veyndo::tenant_scope::scoped(veyndo::tenant_scope::Scope::System,sqlx::query("SELECT p.alias,m.role,m.permissions FROM channel_previews p JOIN user_sessions s ON s.digest=p.session_digest JOIN memberships m ON m.user_id=s.user_id AND m.tenant=p.tenant WHERE p.digest=$1 AND p.tenant=$2 AND p.channel=$3 AND p.channel_revision=$4 AND p.redeemed AND p.expires_at>now() AND s.expires_at>now() AND m.active")
+        .bind(hash(grant)).bind(t).bind(channel).bind(revision).fetch_optional(&a.db)).await?;
     let Some(row) = row else {
         return Ok(false);
     };
@@ -72,8 +72,8 @@ async fn create(
         .and_then(|s| s.strip_prefix("Bearer "))
         .ok_or(bad("Personal session required"))?;
     let session = hash(credential);
-    let exists: bool = sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM user_sessions WHERE digest=$1 AND user_id=$2 AND expires_at>now())")
-        .bind(&session).bind(header(&h,"x-rac-user")).fetch_one(&a.db).await?;
+    let exists: bool = veyndo::tenant_scope::scoped(veyndo::tenant_scope::Scope::System,sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM user_sessions WHERE digest=$1 AND user_id=$2 AND expires_at>now())")
+        .bind(&session).bind(header(&h,"x-rac-user")).fetch_one(&a.db)).await?;
     if !exists {
         return Err(bad("Personal session required for a browser preview"));
     }

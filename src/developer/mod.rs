@@ -20,6 +20,14 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
             "developer.manage"
         },
     )?;
+    // Cross-environment package work uses the same trusted owner for HTTP and MCP.
+    veyndo::tenant_scope::scoped(
+        veyndo::tenant_scope::Scope::System,
+        invoke_admitted(a, h, name, v),
+    )
+    .await
+}
+async fn invoke_admitted(a: &App, h: &RequestContext, name: &str, v: &Value) -> Result<Value> {
     Ok(match name {
         "developer.archive" => archive::set(a, h, v).await?,
         "developer.builds" => routes::list(State(a.clone()), h.clone()).await?.0,

@@ -28,10 +28,7 @@ pub(super) async fn overview(
 ) -> Result<Json<Value>> {
     auth::actor(&h)?;
     let days = window(&c)?;
-    let mut tx = a.db.begin().await?;
-    sqlx::query("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
-        .execute(&mut *tx)
-        .await?;
+    let mut tx = a.db.begin_read_snapshot().await?;
     let row=sqlx::query("SELECT (SELECT count(*) FROM tenants t WHERE NOT EXISTS(SELECT 1 FROM shop_environments e WHERE e.tenant=t.id)) AS shops,(SELECT count(*) FROM shop_environments) AS sandboxes,(SELECT count(*) FROM merchant_users) AS users,(SELECT count(*) FROM products p WHERE NOT EXISTS(SELECT 1 FROM shop_environments e WHERE e.tenant=p.tenant)) AS products,(SELECT count(*) FROM customers c WHERE NOT EXISTS(SELECT 1 FROM shop_environments e WHERE e.tenant=c.tenant)) AS customers,(SELECT count(*) FROM orders o WHERE created_at>=current_date-($1::integer-1)*interval '1 day' AND NOT EXISTS(SELECT 1 FROM shop_environments e WHERE e.tenant=o.tenant)) AS orders,(SELECT count(*) FROM outbox o WHERE delivered_at IS NULL AND NOT EXISTS(SELECT 1 FROM shop_environments e WHERE e.tenant=o.tenant)) AS pending_events,now()::text AS generated").bind(days).fetch_one(&mut *tx).await?;
     let money = sqlx::query(AMOUNTS)
         .bind(days)

@@ -100,10 +100,13 @@ impl Inference {
             .as_ref()
             .is_none_or(|(at, _)| at.elapsed().as_secs() >= 5)
         {
-            let row = sqlx::query_as::<_, (Value, Value)>(
-                "SELECT data,secrets FROM platform_ai WHERE id=true",
+            let row = crate::tenant_scope::scoped(
+                crate::tenant_scope::Scope::System,
+                sqlx::query_as::<_, (Value, Value)>(
+                    "SELECT data,secrets FROM platform_ai WHERE id=true",
+                )
+                .fetch_one(db),
             )
-            .fetch_one(db)
             .await
             .map_err(|_| "Platform AI configuration unavailable")?;
             let mut data = row.0;

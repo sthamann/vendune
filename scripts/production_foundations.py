@@ -15,6 +15,7 @@ from testing.runtime import ROOT, serve, stop
 from testing.database import psql
 from testing.pooler import Pooler
 from security import core_hardening
+from security import authenticated_scope
 from testing import inventory_batch
 
 env = dict(os.environ)
@@ -25,6 +26,8 @@ owner = urllib.parse.unquote(url.username or 'commerce')
 database = env['TEST_DATABASE']
 processes = []
 pooler = None
+tenant_pooler = None
+tenant_role = None
 
 def sql(text, fail=False):
     result = subprocess.run(psql(env['TEST_DB_CONTAINER'],owner,database,'-qAt','-v','ON_ERROR_STOP=1'), input=text, text=True, capture_output=True)
@@ -62,9 +65,17 @@ try:
     runtime_url = urllib.parse.urlunsplit(url._replace(netloc=f'{role}:{password}@{url.hostname}:{url.port}'))
     env.update(DATABASE_RUNTIME_URL=runtime_url, DB_RLS_REQUIRED='true', DB_POOL_MAX='2', DB_POOL_MIN='0',
         PROCESS_ROLE='http', BOOTSTRAP_MODE='serve', TENANT_AI_DAILY_QUOTA='3')
+    if env.get('TEST_SIGNED_SCOPE')=='1':
+        tenant_role,tenant_url=authenticated_scope.configure(sql,env,role,runtime_url)
+        env['PUBLIC_DEFAULT_TENANT']='atelier'
+        env['TENANT_AI_DAILY_QUOTA']='1000'
+        authenticated_scope.verify(sql,tenant_url,role)
     if env.get('TEST_TRANSACTION_POOLING')=='1':
         pooler=Pooler(runtime_url)
         env.update(DATABASE_RUNTIME_URL=pooler.url,DATABASE_LISTENER_URL=runtime_url,DB_POOLER_MODE='transaction')
+        if tenant_role:
+            tenant_pooler=Pooler(tenant_url)
+            env['DATABASE_TENANT_URL']=tenant_pooler.url
     # Strict startup must reject a role that has a whole-table RLS bypass operation.
     sql(f'GRANT TRUNCATE ON products TO {role};')
     with (ROOT/'artifacts/production-unsafe-role.log').open('w') as bad_log:
@@ -74,7 +85,7 @@ try:
     assert 'Runtime role must not own core tables' in (ROOT/'artifacts/production-unsafe-role.log').read_text(), 'Startup failed before role audit'
     sql(f'REVOKE TRUNCATE ON products FROM {role};')
     print('PASS strict startup rejects a runtime with core TRUNCATE privilege')
-    core_hardening.before_workers(sql)
+    if not tenant_role:core_hardening.before_workers(sql)
     bases = []
     for index in range(2):
         base = f'http://127.0.0.1:{port()}'
@@ -84,6 +95,20 @@ try:
         bases.append(base)
     one, two = bases
     h = {'x-tenant':'atelier', 'Authorization':'Bearer '+env['MERCHANT_TOKEN']}
+    rotation_started=None
+    if tenant_role:
+        sql('SELECT public.veyndo_rotate_scope_key();')
+        rotation_started=time.monotonic()
+        # The direct signed suite already repeats the entire HTTP registry. Pooler
+        # verification repeats the focused two-replica/restart/rotation path below.
+        suites=[] if tenant_pooler else json.loads((ROOT/'scripts/testing/suites.json').read_text())['http']
+        for suite in [s for s in suites if s not in ['translations','checkout_review','merchant_operations','tenant_isolation']]:
+            command=['python3',f'scripts/{suite}.py']
+            if suite=='scalability':command+=['--container',env['TEST_DB_CONTAINER']]
+            subprocess.run(command,cwd=ROOT,env={**env,'PROCESS_ROLE':'all','BASE_URL':one,'TEST_SERVER_LOG':str(ROOT/'artifacts/production-replica-0.log')},check=True)
+        # Keep the independent protocol suite free of this deliberately unsettled event.
+        # The currency checkpoint restart below also verifies first-tick retirement of these rows.
+        core_hardening.before_workers(sql)
     assert scoped('', 'SELECT count(*) FROM products').splitlines()[-1] == '0'
     assert scoped('atelier', "SELECT count(DISTINCT tenant) FROM products").splitlines()[-1] == '1'
     assert scoped('atelier', "SELECT count(*) FROM orders WHERE tenant='workshop'").splitlines()[-1] == '0'
@@ -110,10 +135,11 @@ try:
         time.sleep(.03)
     assert state['state']=='queued' and state['processed']==100,state
     stop(processes[0][0])
-    assert sql("SELECT count(*) FROM resource_leases WHERE tenant='__runtime' AND class='db-connections' AND slots=4")=='1', 'Graceful shutdown retained a fleet connection reservation'
+    slots=int(env['DB_POOL_MAX'])+2
+    assert sql(f"SELECT count(*) FROM resource_leases WHERE tenant='__runtime' AND class='db-connections' AND slots={slots}")=='1', 'Graceful shutdown retained a fleet connection reservation'
     resumed = {**env,'PROCESS_ROLE':'all','BASE_URL':one,'BIND_ADDR':one.removeprefix('http://')}
     processes[0] = (serve(resumed,one,processes[0][1]),processes[0][1])
-    assert sql("SELECT count(*) FROM resource_leases WHERE tenant='__runtime' AND class='db-connections' AND slots=4")=='2', 'Restart lost the shared fleet budget'
+    assert sql(f"SELECT count(*) FROM resource_leases WHERE tenant='__runtime' AND class='db-connections' AND slots={slots}")=='2', 'Restart lost the shared fleet budget'
     for _ in range(200):
         state = call(one, '/api/merchant/currencies/price-jobs/'+job['id'],h=h)
         if state['state']=='completed': break
@@ -199,6 +225,8 @@ try:
     print('PASS committed outbox event invalidates both replicas; rollback emits no notification')
     # Requests fail before any provider traffic, yet admission attempts remain durable across replicas.
     ai_h = {'x-tenant':sessions[0]['workspace'],'Authorization':'Bearer '+sessions[0]['token']}
+    if tenant_role:
+        sql(f"INSERT INTO tenant_resource_limits(tenant,daily_ai) VALUES('{sessions[0]['workspace']}',3) ON CONFLICT(tenant) DO UPDATE SET daily_ai=3")
     stage = call(one, '/api/environments', {'name':'Quota fixture'}, ai_h)['id']
     for index in range(3):
         # Missing message is rejected by handler, after quota reservation, without provider calls.
@@ -207,9 +235,17 @@ try:
     assert scoped(sessions[0]['workspace'], 'SELECT attempts FROM tenant_ai_usage').splitlines()[-1] == '3'
     print('PASS daily interactive AI quota is atomic and shared across replicas')
     core_hardening.verify(sql,call,bases,h)
+    if tenant_role:
+        authenticated_scope.verify(sql,tenant_url,role)
+        while time.monotonic()-rotation_started<65:time.sleep(.1)
+        sql("UPDATE veyndo_authority.keys SET verify_until=now()-interval '1 second' WHERE NOT active")
+        for base in bases:call(base,'/store-api/product/mug',h={'x-tenant':'atelier'})
+        print('PASS scope signing-key rotation survives both running replicas after the retired key is no longer accepted')
 finally:
     for process, log in processes:
         stop(process); log.close()
     if pooler:pooler.close()
+    if tenant_pooler:tenant_pooler.close()
     # Runtime owns dynamically created app tables only; DROP OWNED is restricted to this disposable DB.
+    if tenant_role: sql(f'DROP OWNED BY {tenant_role}; DROP ROLE {tenant_role};')
     sql(f'DROP OWNED BY {role}; DROP ROLE {role};')

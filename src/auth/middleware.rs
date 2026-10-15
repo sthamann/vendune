@@ -43,6 +43,22 @@ async fn authenticate_scoped(State(a): State<App>, mut request: Request, next: N
     let mut h = RequestContext::from_request(&request);
     let path = request.uri().path().to_string();
     let method = request.method().to_string();
+    if path == "/checkout"
+        && let Ok(url) = reqwest::Url::parse(&format!("http://local{}", request.uri()))
+        && let Some((_, shop)) = url.query_pairs().find(|(k, _)| k == "shop")
+    {
+        if crate::validate_tenant(&shop).is_err()
+            || header(&h, "x-tenant").is_some_and(|selected| selected != shop)
+        {
+            return bad("Checkout shop scope is inconsistent").into_response();
+        }
+        match shop.parse() {
+            Ok(value) => {
+                h.insert("x-tenant", value);
+            }
+            Err(_) => return bad("Invalid checkout shop scope").into_response(),
+        }
+    }
     if let Err(e) = apps::bind_webhook_scope(&path, &mut h) {
         return e.into_response();
     }
@@ -169,8 +185,8 @@ async fn authenticate_scoped(State(a): State<App>, mut request: Request, next: N
             .extensions()
             .get::<crate::shop_domains::HostShop>()
             .is_some();
-    let scope = if public
-        || path.starts_with("/api/auth/")
+    let scope = if path.starts_with("/api/auth/")
+        || path.starts_with("/api/identity/")
         || path == "/api/workspaces"
         || path.starts_with("/api/developer")
         || path.starts_with("/api/environments")
@@ -180,7 +196,20 @@ async fn authenticate_scoped(State(a): State<App>, mut request: Request, next: N
         veyndo::tenant_scope::Scope::System
     } else {
         match tenant(&h) {
-            Ok(t) => veyndo::tenant_scope::Scope::Tenant(t),
+            Ok(t) => match h.principal.user.as_ref() {
+                Some(actor) if h.principal.personal_session => {
+                    veyndo::tenant_scope::Scope::Personal {
+                        tenant: t,
+                        actor: actor.clone(),
+                    }
+                }
+                Some(actor) => veyndo::tenant_scope::Scope::Actor {
+                    tenant: t,
+                    actor: actor.clone(),
+                },
+                None => veyndo::tenant_scope::Scope::Tenant(t),
+            },
+            Err(_) if public => veyndo::tenant_scope::Scope::Denied,
             Err(e) => return e.into_response(),
         }
     };

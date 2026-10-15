@@ -2,6 +2,7 @@
 pub mod automation_rules;
 pub mod component_runtime;
 pub mod context;
+pub mod database_scope;
 pub mod discount;
 pub mod http_json;
 pub mod inference;

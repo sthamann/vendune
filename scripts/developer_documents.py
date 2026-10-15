@@ -34,6 +34,12 @@ server=ThreadingHTTPServer(('127.0.0.1',0),Model);threading.Thread(target=server
 sock=socket.socket();sock.bind(('127.0.0.1',0));test_port=sock.getsockname()[1];sock.close()
 env={**os.environ,'BIND_ADDR':f'127.0.0.1:{test_port}','OPENAI_API_KEY':'local-wire-fixture','ANTHROPIC_API_KEY':'local-wire-fixture','ANTHROPIC_BASE_URL':f'http://127.0.0.1:{port}/v1','OPENAI_BASE_URL':f'http://127.0.0.1:{port}/v1','OLLAMA_URL':f'http://127.0.0.1:{port}','EMBEDDING_MODEL':'synthetic-documents-'+uuid.uuid4().hex[:12]}
 # A separate database keeps other replicas from consuming jobs with their provider configuration.
+# Its serving connection must use that database too, rather than the parent's
+# restricted connections or activated authority state.
+for key in ['DATABASE_RUNTIME_URL','DATABASE_TENANT_URL','DATABASE_LISTENER_URL',
+            'DB_RLS_REQUIRED','DB_SCOPE_REQUIRED','DB_SCOPE_STAGED','DB_POOLER_MODE']:
+ env.pop(key,None)
+env['BOOTSTRAP_MODE']='auto'
 from urllib.parse import urlsplit,urlunsplit
 fixture_db='commerce_docs_'+uuid.uuid4().hex[:12]
 db=urlsplit(env['DATABASE_URL']);db_user=db.username or 'commerce'

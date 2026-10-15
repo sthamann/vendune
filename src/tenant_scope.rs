@@ -6,6 +6,14 @@ pub enum Scope {
     #[default]
     Denied,
     Tenant(String),
+    Personal {
+        tenant: String,
+        actor: String,
+    },
+    Actor {
+        tenant: String,
+        actor: String,
+    },
     System,
 }
 tokio::task_local! { static CONTEXT: Scope; }

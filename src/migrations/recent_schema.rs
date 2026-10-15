@@ -204,4 +204,8 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         "097-outbox-fairness",
         include_str!("../../migrations/097-outbox-fairness.sql"),
     ),
+    (
+        "099-authenticated-database-scope",
+        include_str!("../../migrations/099-authenticated-database-scope.sql"),
+    ),
 ];
