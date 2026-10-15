@@ -1,5 +1,6 @@
 /** Payment ledger, adapter readiness and explicit refund approval. */
 import { shopScope } from "../../shared/api/shop-scope";
+import { browserRequest } from "../../shared/api/browser-session";
 import { useEffect, useState } from "react";
 import { useAppText } from "../../shared/i18n/app-i18n";
 import type { RequestFn } from "../shell/studio-types";
@@ -66,16 +67,20 @@ export default function PaymentManager({
                 try {
                   const amountMinor =
                     amounts[p.id] ?? p.amountMinor - p.refundedMinor;
-                  const r = await fetch(`/api/payments/${p.id}/refund`, {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                      Authorization: `Bearer ${token}`,
-                      "x-tenant": shopScope(),
-                      "Idempotency-Key": `${p.id}:refund:${p.refundedMinor}:${amountMinor}`,
-                    },
-                    body: JSON.stringify({ amountMinor, approve: true }),
-                  });
+                  const path = `/api/payments/${p.id}/refund`;
+                  const r = await fetch(
+                    path,
+                    browserRequest(path, {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                        "x-tenant": shopScope(),
+                        "Idempotency-Key": `${p.id}:refund:${p.refundedMinor}:${amountMinor}`,
+                      },
+                      body: JSON.stringify({ amountMinor, approve: true }),
+                    }),
+                  );
                   const v = await r.json();
                   if (!r.ok) throw new Error(v.errors?.[0]?.detail);
                   setData(await request("/api/payments"));

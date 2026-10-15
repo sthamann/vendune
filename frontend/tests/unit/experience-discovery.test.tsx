@@ -72,7 +72,9 @@ it("submits an explicit request with tenant and checkout context, then shows ser
   );
   expect(fetcher).toHaveBeenCalledTimes(1);
   expect(fetcher.mock.calls[0][0]).toBe("/api/concierge");
-  expect(fetcher.mock.calls[0][1].headers).toMatchObject({
+  expect(
+    Object.fromEntries(new Headers(fetcher.mock.calls[0][1].headers)),
+  ).toMatchObject({
     "x-tenant": "unit-shop",
     "sw-context-token": cart.token,
   });

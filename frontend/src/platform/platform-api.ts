@@ -1,4 +1,5 @@
-/** Tenant-independent operator API; credentials stay in the current browser session. */
+/** Tenant-independent operator API using the same HttpOnly browser boundary as Studio. */
+import { browserRequest } from "../shared/api/browser-session";
 export type Amount = {
   currency: string;
   orders: number;
@@ -74,15 +75,18 @@ export async function platformRequest<T>(
   body?: unknown,
   method?: string,
 ): Promise<T> {
-  const r = await fetch(path, {
-    cache: "no-store",
-    method: method ?? (body === undefined ? "GET" : "POST"),
-    headers: {
-      "content-type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
-    ...(body === undefined ? {} : { body: JSON.stringify(body) }),
-  });
+  const r = await fetch(
+    path,
+    browserRequest(path, {
+      cache: "no-store",
+      method: method ?? (body === undefined ? "GET" : "POST"),
+      headers: {
+        "content-type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      ...(body === undefined ? {} : { body: JSON.stringify(body) }),
+    }),
+  );
   if (!r.ok) throw new PlatformError(r.status);
   return r.json();
 }

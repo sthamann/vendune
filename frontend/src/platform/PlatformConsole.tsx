@@ -1,9 +1,10 @@
 /** Independent platform control plane: personal operator access, bounded statistics and audited shop creation. */
 import { useControlText } from "../shared/i18n/control-i18n";
+import type { Session } from "../shared/api/account-types";
 import PlatformAI from "./PlatformAI";
 import PlatformInfrastructure from "./PlatformInfrastructure";
 import PlatformShopDetail from "./PlatformShopDetail";
-import Brand from "../shared/ui/Brand";
+import PlatformSidebar, { type PlatformView } from "./PlatformSidebar";
 import { useEffect, useRef, useState } from "react";
 import { useLocale } from "../shared/i18n/i18n";
 import { usePlatformText } from "../shared/i18n/platform-i18n";
@@ -23,23 +24,24 @@ import PlatformSignIn from "./PlatformSignIn";
 import AccountSecurity from "../shared/auth/AccountSecurity";
 import { useSecurityText } from "../shared/i18n/security-i18n";
 import "./styles/platform.css";
+import {
+  activateBrowserSession,
+  browserCredential,
+  forgetLegacyCredentials,
+} from "../shared/api/browser-session";
 const storage = "rac-platform-token";
 export default function PlatformConsole() {
   const c = useControlText(),
     security = useSecurityText();
   const t = usePlatformText(),
     { date } = useLocale();
-  const [token, setToken] = useState(
-      () => sessionStorage.getItem(storage) || "",
-    ),
+  const [token, setToken] = useState(() => browserCredential(storage)),
     [operator, setOperator] = useState<Operator>(),
     [overview, setOverview] = useState<Overview>(),
     [page, setPage] = useState<ShopPage>(),
     [audit, setAudit] = useState<Audit[]>([]),
     [detail, setDetail] = useState<ShopDetail>();
-  const [view, setView] = useState<
-      "overview" | "shops" | "activity" | "ai" | "infrastructure" | "security"
-    >("overview"),
+  const [view, setView] = useState<PlatformView>("overview"),
     [days, setDays] = useState(30),
     [search, setSearch] = useState(""),
     [create, setCreate] = useState(false),
@@ -60,21 +62,34 @@ export default function PlatformConsole() {
     const current = ++generation.current;
     setBusy(true);
     setError("");
-    Promise.all([
-      request<Operator>(token, "/api/platform/session"),
-      request<Overview>(token, `/api/platform/overview?days=${days}`),
-      request<ShopPage>(
-        token,
-        `/api/platform/shops?days=${days}&search=${encodeURIComponent(search)}`,
-      ),
-      request<{ elements: Audit[] }>(token, "/api/platform/audit"),
-      detail
-        ? request<ShopDetail>(
-            token,
-            `/api/platform/shops/${detail.id}?days=${days}`,
-          )
-        : Promise.resolve(undefined),
-    ])
+    request<Session>(token, "/api/auth/session")
+      .then((session) => {
+        if (current !== generation.current)
+          throw new Error("Superseded session");
+        if (operator && session.user.id !== operator.user.id)
+          throw new PlatformError(401);
+        activateBrowserSession(session);
+        const credential = session.token || token;
+        forgetLegacyCredentials();
+        return Promise.all([
+          request<Operator>(credential, "/api/platform/session"),
+          request<Overview>(credential, `/api/platform/overview?days=${days}`),
+          request<ShopPage>(
+            credential,
+            `/api/platform/shops?days=${days}&search=${encodeURIComponent(search)}`,
+          ),
+          request<{ elements: Audit[] }>(credential, "/api/platform/audit"),
+          detail
+            ? request<ShopDetail>(
+                credential,
+                `/api/platform/shops/${detail.id}?days=${days}`,
+              )
+            : Promise.resolve(undefined),
+        ]).then((result) => {
+          if (current === generation.current) setToken(credential);
+          return result;
+        });
+      })
       .then(([o, m, s, a, d]) => {
         if (current !== generation.current) return;
         setOperator(o);
@@ -107,8 +122,14 @@ export default function PlatformConsole() {
     };
   }, [token, days, search, refresh]);
   const logout = async () => {
+    try {
+      await request(token, "/api/auth/logout", {});
+    } catch (e) {
+      fail(e);
+      return;
+    }
     generation.current++;
-    sessionStorage.removeItem(storage);
+    forgetLegacyCredentials();
     setToken("");
     setOperator(undefined);
     setOverview(undefined);
@@ -119,7 +140,6 @@ export default function PlatformConsole() {
     setError("");
     setNotice("");
     setBusy(false);
-    await request(token, "/api/auth/logout", {}).catch(() => {});
   };
   const run = async (task: () => Promise<void>) => {
     if (busy) return;
@@ -159,7 +179,7 @@ export default function PlatformConsole() {
         loading={busy}
         error={error}
         onAuthenticated={(value) => {
-          sessionStorage.setItem(storage, value);
+          forgetLegacyCredentials();
           setError("");
           setToken(value);
         }}
@@ -167,46 +187,17 @@ export default function PlatformConsole() {
     );
   return (
     <div className="platform-console">
-      <aside>
-        <div className="platform-brand">
-          <Brand markOnly />
-        </div>
-        <strong>{t("title")}</strong>
-        <nav>
-          {(
-            [
-              "overview",
-              "shops",
-              "ai",
-              "infrastructure",
-              "activity",
-              "security",
-            ] as const
-          ).map((v) => (
-            <button
-              key={v}
-              className={view === v ? "selected" : ""}
-              onClick={() => {
-                setView(v);
-                setNotice("");
-                setDetail(undefined);
-                setCreate(false);
-              }}
-            >
-              {v === "security"
-                ? security("title")
-                : v === "ai" || v === "infrastructure"
-                  ? c(v)
-                  : t(v)}
-            </button>
-          ))}
-        </nav>
-        <div className="platform-profile">
-          <strong>{operator.user.name}</strong>
-          <small>{operator.user.email}</small>
-          <button onClick={() => void logout()}>{t("logout")}</button>
-        </div>
-      </aside>
+      <PlatformSidebar
+        operator={operator}
+        view={view}
+        onLogout={logout}
+        onView={(v) => {
+          setView(v);
+          setNotice("");
+          setDetail(undefined);
+          setCreate(false);
+        }}
+      />
       <main>
         <header>
           <div>
@@ -332,7 +323,8 @@ export default function PlatformConsole() {
             onLogout={() => void logout()}
             onSession={(session) => {
               if (!session.token) return;
-              sessionStorage.setItem(storage, session.token);
+              activateBrowserSession(session);
+              forgetLegacyCredentials();
               setToken(session.token);
             }}
           />

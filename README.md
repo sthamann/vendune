@@ -271,6 +271,10 @@ actual login and includes a coordinated rollout with key rotation. The enforced
 deployment requires both configured logins; a legacy or staged runtime is not the
 same security claim.
 
+[Browser sessions](docs/browser-sessions.md) use host-only HttpOnly cookies and
+per-tab origin/CSRF fences, including platform, customer, preview and MCP paths.
+Passive replies cannot overwrite a newer login; external bearer clients remain compatible.
+
 Personal merchant and operator accounts share optional authenticator protection,
 one-use recovery codes and revision-checked password recovery through the existing
 verified identity service. [Account setup, source owners and test boundaries](docs/account-security.md).

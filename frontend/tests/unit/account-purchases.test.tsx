@@ -278,7 +278,7 @@ it("keeps an authenticated account open when the current password is incorrect",
   expect(await screen.findByRole("alert")).toHaveTextContent(
     "Email or password is incorrect.",
   );
-  expect(localStorage.getItem("rac-customer:unit-shop")).toBe(token);
+  expect(localStorage.getItem("rac-customer:unit-shop")).toBeNull();
   expect(screen.getByLabelText("Current password")).toBeInTheDocument();
 });
 

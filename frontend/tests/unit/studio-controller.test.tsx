@@ -82,9 +82,9 @@ it("loads a scoped session, preserves staging headers, sends and applies a plan"
   await waitFor(() => expect(result.current.connected).toBe(true));
   await act(() => result.current.request("/api/merchant/overview"));
   const call = fetcher.mock.calls.at(-1)!;
-  expect(call[1]?.headers).toMatchObject({
+  expect(Object.fromEntries(new Headers(call[1]?.headers))).toMatchObject({
     "x-tenant": "stage",
-    Authorization: "Bearer unit-token",
+    authorization: "Bearer unit-token",
   });
   await act(() => result.current.refreshEnvironments());
   expect(result.current.environments[0].id).toBe("stage");
@@ -143,7 +143,7 @@ it("keeps loading distinct from sign-out when switching to a slow staging enviro
   let finish!: () => void;
   fetcher.mockImplementation((path, options) =>
     String(path) === "/api/merchant/overview" &&
-    (options?.headers as Record<string, string>)["x-tenant"] === "stage"
+    new Headers(options?.headers).get("x-tenant") === "stage"
       ? new Promise((resolve) => {
           finish = () => resolve({ ok: true, json: async () => overview });
         })

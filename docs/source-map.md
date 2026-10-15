@@ -1,5 +1,7 @@
 # Source responsibilities and verification map
 
+**Browser authority:** [Merchant/customer HttpOnly transport, exact origins, cross-tab fences and Studio CSP](browser-sessions.md).
+
 **Personal workspace and standard-shop editor:** [Illustrated workflow, shared models, rights, history, forms and publication](personal-workspace-and-shop-design.md).
 
 **Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).

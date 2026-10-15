@@ -11,6 +11,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/accounts/address_restore.rs](../src/accounts/address_restore.rs) | Atomic restoration of the owning customer's address aggregate; geography, references and immutable order snapshots remain guarded. |
 | [src/accounts/address_store.rs](../src/accounts/address_store.rs) | Tenant-owned address persistence, optimistic revisions and atomic default assignment. |
 | [src/accounts/addresses.rs](../src/accounts/addresses.rs) | Store API address book uses independent customer sessions, never merchant credentials. |
+| [src/accounts/browser.rs](../src/accounts/browser.rs) | Host-only customer cookies adapt the existing tenant session ledger without granting merchant authority. |
 | [src/accounts/contacts.rs](../src/accounts/contacts.rs) | Customer-editable contact fields; identity, price group and privileges remain server-owned. |
 | [src/accounts/demo.rs](../src/accounts/demo.rs) | Public synthetic customer fixture for newly provisioned demo shops; never fills real customer addresses. |
 | [src/accounts/metadata.rs](../src/accounts/metadata.rs) | Standard customer read fields and indexed order metrics are derived from authoritative records. |
@@ -105,6 +106,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/auth/broker_inference.rs](../src/auth/broker_inference.rs) | Trusted server-to-server inference inherits operator settings without disclosing any provider credentials. |
 | [src/auth/broker_recovery.rs](../src/auth/broker_recovery.rs) | Verified-mail recovery discovers only the canonical account's active memberships; it never provisions a shop. |
 | [src/auth/broker_session.rs](../src/auth/broker_session.rs) | A freshly verified external identity may request its existing personal session; MFA remains mandatory. |
+| [src/auth/browser.rs](../src/auth/browser.rs) | Browser transport for the existing personal-session ledger: host-only HttpOnly cookies, exact origins and CSRF. |
 | [src/auth/credentials.rs](../src/auth/credentials.rs) | Argon2 password operations run off the asynchronous request executor. |
 | [src/auth/dto.rs](../src/auth/dto.rs) | Stable typed authentication envelopes; field validation remains in the shared credential owner. |
 | [src/auth/handoff.rs](../src/auth/handoff.rs) | One-time personal-session handoff to the Studio; no passwords or bearer tokens in links. |
@@ -856,8 +858,9 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/platform/PlatformLanguage.tsx](../frontend/src/platform/PlatformLanguage.tsx) | Locale selector shared by operator sign-in and the workspace. |
 | [frontend/src/platform/PlatformShopDetail.tsx](../frontend/src/platform/PlatformShopDetail.tsx) | Connected shop dossier and reversible lifecycle controls; confirmations are explicit and revision guarded. |
 | [frontend/src/platform/PlatformShops.tsx](../frontend/src/platform/PlatformShops.tsx) | Searchable shop directory and server-validated provisioning form. |
+| [frontend/src/platform/PlatformSidebar.tsx](../frontend/src/platform/PlatformSidebar.tsx) | Stable operator navigation and profile; business state remains in the console owner. |
 | [frontend/src/platform/PlatformSignIn.tsx](../frontend/src/platform/PlatformSignIn.tsx) | Personal sign-in verifies the current operator grant before retaining a browser session. |
-| [frontend/src/platform/platform-api.ts](../frontend/src/platform/platform-api.ts) | Tenant-independent operator API; credentials stay in the current browser session. |
+| [frontend/src/platform/platform-api.ts](../frontend/src/platform/platform-api.ts) | Tenant-independent operator API using the same HttpOnly browser boundary as Studio. |
 | [frontend/src/platform/styles/platform/01-platform-console.css](../frontend/src/platform/styles/platform/01-platform-console.css) | platform: platform-console styles. Source order is preserved by the entry stylesheet. |
 | [frontend/src/platform/styles/platform/02-platform-shop-stats-span.css](../frontend/src/platform/styles/platform/02-platform-shop-stats-span.css) | platform: platform-shop-stats-span styles. Source order is preserved by the entry stylesheet. |
 | [frontend/src/platform/styles/platform/03-control.css](../frontend/src/platform/styles/platform/03-control.css) | Service hub and operational editors share the same accessible light workspace. |
@@ -868,7 +871,8 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/agents/agents.css](../frontend/src/shared/agents/agents.css) | Compact shared composer, sized by its host rather than hardcoded to one editor. |
 | [frontend/src/shared/api/account-types.ts](../frontend/src/shared/api/account-types.ts) | Native personal account response shared by merchant and platform authentication. |
 | [frontend/src/shared/api/agent-stream.ts](../frontend/src/shared/api/agent-stream.ts) | Decode bounded UTF-8 SSE chat frames; only a completed native result reaches the existing Studio state owner. |
-| [frontend/src/shared/api/customer-session.ts](../frontend/src/shared/api/customer-session.ts) | Read only the current customer's tenant-scoped session at request time; never use merchant identity. |
+| [frontend/src/shared/api/browser-session.ts](../frontend/src/shared/api/browser-session.ts) | Native browser credentials stay HttpOnly; JavaScript carries only an anti-CSRF proof and a public mode marker. |
+| [frontend/src/shared/api/customer-session.ts](../frontend/src/shared/api/customer-session.ts) | Customer transport shares the native ledger; each tenant and browser tab has its own session fence. |
 | [frontend/src/shared/api/download.ts](../frontend/src/shared/api/download.ts) | Authenticated binary download, never placing session credentials in a URL. |
 | [frontend/src/shared/api/merchant-session.ts](../frontend/src/shared/api/merchant-session.ts) | Private merchant-session rejection signals shared by all JSON transports. |
 | [frontend/src/shared/api/request-json.ts](../frontend/src/shared/api/request-json.ts) | Coalesce simultaneous identical core reads with complete identity; no persisted response cache. |
@@ -1300,6 +1304,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/behavior_intelligence.py](../scripts/behavior_intelligence.py) | Real native event, consent, order, graph, MCP and tenant/PII regression; synthetic buyers only. |
 | [scripts/benchmark.py](../scripts/benchmark.py) | Reproducible local HTTP + PostgreSQL benchmark, with response validation. |
 | [scripts/branding.py](../scripts/branding.py) | Keep the public Veyndo identity, shared vector assets and executable package/deployment paths consistent. |
+| [scripts/browser_sessions.py](../scripts/browser_sessions.py) | Real HTTP personal-cookie transport, current ledger, origin/CSRF/session fences and legacy bearer compatibility. |
 | [scripts/build_app_ui.py](../scripts/build_app_ui.py) | Export deterministic example HTML and its operator uiDigests entry; never fetch remote resources. |
 | [scripts/build_site.py](../scripts/build_site.py) | Build marketing pages and the complete Markdown documentation for GitHub Pages. |
 | [scripts/catalog_management.py](../scripts/catalog_management.py) | Real HTTP/PostgreSQL catalog creation, categories, multilingual editor, visibility and staging regressions. Synthetic isolated shops only. |

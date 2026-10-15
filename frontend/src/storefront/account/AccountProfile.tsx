@@ -83,11 +83,9 @@ export default function AccountProfile({
   );
 }
 export function AccountSecurity({
-  sessionKey,
   busy,
   run,
 }: {
-  sessionKey: string;
   busy: boolean;
   run: (fn: () => Promise<void>, message?: string) => Promise<void>;
 }) {
@@ -102,14 +100,14 @@ export function AccountSecurity({
           const form = e.currentTarget,
             data = new FormData(form);
           void run(async () => {
-            const result = await shopApi<{ customerToken: string }>(
+            await shopApi<{ customerToken: string }>(
               "/store-api/account/password",
               {
                 oldPassword: data.get("oldPassword"),
                 newPassword: data.get("newPassword"),
               },
             );
-            localStorage.setItem(sessionKey, result.customerToken);
+
             form.reset();
           }, a("passwordSaved"));
         }}

@@ -562,3 +562,16 @@ cases verify behavior, or export customer history/secrets as package fixtures.
 Existing AI edits retain the contract; explicit new versions remain reviewable.
 Business code stays in its app package. These cases are not whole-app proof or
 human-confirmation provenance; keep the remaining business-capability gates open.
+
+## Browser authority continuity
+
+Read `docs/browser-sessions.md` before changing browser transports. Extend existing
+`user_sessions`/`customer_sessions`; no parallel login gateway or browser bearer store.
+Keep explicit API/MCP clients compatible, exact origins, per-tab proof fences, and
+current server-side membership/tenant checks. Public /api storefront calls must never
+inherit ambient merchant authority. Passive session/profile responses must not set
+cookies or update accepted customer proofs. Capture tenant and session generation
+before requests; late successes/401s cannot change a newer identity or another shop.
+The entire merchant credential origin admits only build-owned scripts. Do not widen
+that CSP for analytics or Maps; shared checkout retains manual address fallback.
+Preserve cookie/MFA/handoff/MCP/preview/download/checkout negative regressions.

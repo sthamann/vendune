@@ -4,6 +4,7 @@ import {
   merchantRequestSuspended,
 } from "./merchant-session";
 import { readAgentStream } from "./agent-stream";
+import { browserRequest } from "./browser-session";
 type JsonResponse = {
   value: any;
   ok: boolean;
@@ -26,6 +27,7 @@ export async function requestJson(
       },
     };
   const method = (init.method ?? "GET").toUpperCase();
+  const prepared = browserRequest(path, init);
   const read =
     !init.signal &&
     !path.startsWith("/api/apps/") &&
@@ -40,8 +42,8 @@ export async function requestJson(
     generation++;
     pending.clear();
   }
-  const headers = [...new Headers(init.headers).entries()].sort(([a], [b]) =>
-    a.localeCompare(b),
+  const headers = [...new Headers(prepared.headers).entries()].sort(
+    ([a], [b]) => a.localeCompare(b),
   );
   const key = JSON.stringify([
     generation,
@@ -49,13 +51,13 @@ export async function requestJson(
     method,
     headers,
     init.body,
-    init.credentials,
+    prepared.credentials,
     init.mode,
   ]);
   const existing = read ? pending.get(key) : undefined;
   if (existing) return structuredClone(await existing);
   const operation = (async () => {
-    const response = await fetch(path, init);
+    const response = await fetch(path, prepared);
     const value =
       response.ok &&
       response.headers?.get("content-type")?.includes("text/event-stream")

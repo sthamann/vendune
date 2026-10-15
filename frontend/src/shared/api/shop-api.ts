@@ -3,7 +3,13 @@ import { requestJson } from "./request-json";
 import { shopScope } from "./shop-scope";
 import { responseError } from "../i18n/errors-i18n";
 import { getLocale } from "../i18n/i18n";
-import { customerSessionHeaders } from "./customer-session";
+import {
+  customerSessionHeaders,
+  acceptCustomerSession,
+  forgetCustomerSession,
+  customerSessionGeneration,
+} from "./customer-session";
+import { browserCredential } from "./browser-session";
 export type CurrencyDefinition = {
   code: string;
   scale: number;
@@ -237,45 +243,60 @@ export async function shopApi<T = unknown>(
   method?: string,
   merchant?: string,
 ): Promise<T> {
+  const shop = shopScope();
+  const channel =
+    new URLSearchParams(location.search).get("channel") ?? "default";
+  const customerHeaders = customerSessionHeaders(shop);
+  const sessionGeneration = customerSessionGeneration(shop);
   const r = await requestJson(path, {
     method: method ?? (body === undefined ? "GET" : "POST"),
     headers: {
       "Content-Type": "application/json",
       "x-commerce-locale": getContentLocale(),
-      ...(localStorage.getItem(
-        `rac-currency:${shopScope()}:${new URLSearchParams(location.search).get("channel") ?? "default"}`,
-      )
+      ...(localStorage.getItem(`rac-currency:${shop}:${channel}`)
         ? {
             "x-commerce-currency": localStorage.getItem(
-              `rac-currency:${shopScope()}:${new URLSearchParams(location.search).get("channel") ?? "default"}`,
+              `rac-currency:${shop}:${channel}`,
             )!,
           }
         : {}),
-      "sw-sales-channel-id":
-        new URLSearchParams(location.search).get("channel") ?? "default",
-      ...customerSessionHeaders(shopScope()),
-      "x-tenant": shopScope(),
+      "sw-sales-channel-id": channel,
+      ...customerHeaders,
+      "x-tenant": shop,
       ...(token ? { "sw-context-token": token } : {}),
       ...(merchant ||
       (new URLSearchParams(location.search).get("sandbox") === "1"
-        ? sessionStorage.getItem("rac-user-token")
+        ? browserCredential()
         : "")
         ? {
-            Authorization: `Bearer ${merchant || sessionStorage.getItem("rac-user-token")}`,
+            Authorization: `Bearer ${merchant || browserCredential()}`,
           }
         : {}),
     },
     body: body === undefined ? undefined : JSON.stringify(body),
   });
   const v = r.value;
+  const sameSession = customerSessionGeneration(shop) === sessionGeneration;
   if (
+    r.ok &&
+    v.customerToken &&
+    sameSession &&
+    [
+      "/store-api/account/login",
+      "/store-api/account/register",
+      "/store-api/account/password",
+    ].includes(path)
+  )
+    acceptCustomerSession(shop, v);
+  if (
+    shopScope() === shop &&
     r.status === 409 &&
     v.errors?.[0]?.detail?.startsWith("Currency unavailable") &&
     path === "/store-api/checkout/cart" &&
     body !== undefined &&
     method !== "PUT"
   ) {
-    const key = `rac-currency:${shopScope()}:${new URLSearchParams(location.search).get("channel") ?? "default"}`;
+    const key = `rac-currency:${shop}:${channel}`;
     if (localStorage.getItem(key)) {
       localStorage.removeItem(key);
       return shopApi<T>(path, body, token, method, merchant);
@@ -283,12 +304,14 @@ export async function shopApi<T = unknown>(
   }
 
   if (
+    sameSession &&
     r.status === 401 &&
     path.startsWith("/store-api/") &&
     v.errors?.[0]?.detail === "Customer session expired"
   ) {
-    localStorage.removeItem(`rac-customer:${shopScope()}`);
+    forgetCustomerSession(shop);
     if (
+      shopScope() === shop &&
       path === "/store-api/checkout/cart" &&
       body !== undefined &&
       method !== "PUT"
@@ -296,6 +319,11 @@ export async function shopApi<T = unknown>(
       return shopApi<T>(path, body, token, method, merchant);
   }
   if (!r.ok)
-    throw responseError(v.errors?.[0]?.detail ?? r.statusText, r.status);
+    throw Object.assign(
+      responseError(v.errors?.[0]?.detail ?? r.statusText, r.status),
+      {
+        customerScope: { tenant: shop, generation: sessionGeneration },
+      },
+    );
   return v;
 }

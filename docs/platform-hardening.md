@@ -79,7 +79,7 @@ work; a failed subscriber can still defer the other projections for that event.
 | Area | Current evidence / next connected change |
 | --- | --- |
 | System database authority | The implemented [authenticated scope](authenticated-database-scope.md) adds separate restricted tenant/system logins, role-bound tickets, restrictive policies and a coordinated staged/enforced rollout. Local actual-login and two-replica checks precede production provisioning; the older runtime is not silently upgraded by merging code. |
-| Browser sessions and Studio CSP | Personal tokens still use browser session storage; Studio/storefront share a shell/policy. Move personal browser sessions to the existing session ledger through HttpOnly cookies, add CSRF/origin checks and isolate the Studio policy without breaking native shop/Experience handoffs. |
+| Browser sessions and Studio CSP | Source implemented through the [existing session ledgers](browser-sessions.md): HttpOnly cookies, exact origins, per-tab fences, customer generation checks and build-only credential-origin CSP. Complete the deployment/browser acceptance before claiming it active publicly. |
 | Cryptographic separation | Inventory encryption/signing uses; introduce explicit purpose keys/key IDs and a supported decrypt/verify rotation overlap without destroying existing ciphertext. |
 | Reviewed changesets | Generalize the existing proposal/apply owner to registered revision-bound operations. Keep domain previews and explicit approvals; no second proposal queue. |
 | Durable agent work | Extend existing tasks/jobs with leases, checkpoints, cancellation, usage/trace and resume; do not add an in-memory authoritative runner. |

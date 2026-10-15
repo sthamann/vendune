@@ -1,5 +1,6 @@
 /** Studio session/controller: authentication context, tenant/staging state and chat commands. */
 import { hostnameShop } from "../../shared/api/shop-scope";
+import { browserCredential } from "../../shared/api/browser-session";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { type AppSurface } from "../../shared/apps/AppSurfaces";
 import { useConnectedText } from "../../shared/i18n/connected-i18n";
@@ -35,9 +36,7 @@ export function useStudioController({
   const [access, setAccess] = useState<string[]>([]);
   const [environments, setEnvironments] = useState<Environment[]>([]);
   const [environment, setEnvironment] = useState("");
-  const [token, setToken] = useState(
-    () => sessionStorage.getItem("rac-user-token") ?? "",
-  );
+  const [token, setToken] = useState(browserCredential);
   const [workspace, setWorkspace] = useState(
     () =>
       hostnameShop() ??

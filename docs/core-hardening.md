@@ -78,8 +78,10 @@ checkout before making a performance claim.
 
 RLS protects scoped database operations; the server's explicit system scope is still
 privileged. These tests do not establish containment of SQL injection or a compromised
-process. Browser sessions still use sessionStorage; MFA/recovery and a cookie/token
-edge remain separate work. Financial float-to-integer migration, provider spend/token
+process. [Authenticated database scope](authenticated-database-scope.md) adds
+role-bound context and coordinated activation. [Browser cookies and CSP](browser-sessions.md)
+and [MFA/recovery](account-security.md) now retain their existing native owners;
+source verification and public deployment acceptance remain separate. Financial float-to-integer migration, provider spend/token
 quotas, automatic failover, large-database DDL windows and observability export are
 also separate from these eighteen fixes. Lean continues to prove only the extracted
 pure policies, not the database, network or whole system.

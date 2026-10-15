@@ -122,7 +122,7 @@ it.each([
     expect(await screen.findByText(/C-UNIT/)).toBeInTheDocument();
 
     expect(await screen.findByText(/RAC-OWNED/)).toBeInTheDocument();
-    expect(localStorage.getItem("rac-customer:unit-shop")).toBe(token);
+    expect(localStorage.getItem("rac-customer:unit-shop")).toBeNull();
     expect(localStorage.getItem("undefined")).toBeNull();
     expect(onCart).toHaveBeenCalledWith(
       expect.objectContaining({ token: "rotated-context" }),
