@@ -81,19 +81,21 @@ export default function SiteRenderer({
       style={themeStyle(theme)}
       data-site-page={page.id}
     >
-      <nav className="site-navigation" aria-label={text(page.title)}>
-        {pages
-          .filter((p) => p.kind !== "article")
-          .map((p) => (
-            <a
-              key={p.id}
-              href={`#page/${encodeURIComponent(p.slug)}`}
-              onClick={preview ? (e) => e.preventDefault() : undefined}
-            >
-              {text(p.title)}
-            </a>
-          ))}
-      </nav>
+      {pages.filter((p) => p.kind !== "article").length > 1 && (
+        <nav className="site-navigation" aria-label={text(page.title)}>
+          {pages
+            .filter((p) => p.kind !== "article")
+            .map((p) => (
+              <a
+                key={p.id}
+                href={`#page/${encodeURIComponent(p.slug)}`}
+                onClick={preview ? (e) => e.preventDefault() : undefined}
+              >
+                {text(p.title)}
+              </a>
+            ))}
+        </nav>
+      )}
       {page.content.blocks.length === 0 && (
         <p className="site-empty">{t("empty")}</p>
       )}
