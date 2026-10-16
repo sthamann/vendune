@@ -19,6 +19,10 @@
 - Preserve configuration controls and confirmation during repricing; refresh catalogue stock/prices after cart changes and purchase. Product detail and listing share the active configuration quote; completed-cart choices do not change prices for a new purchase.
 - Use the common content-language selector and translation fields in installed app data: regional language codes, non-English main-language inheritance and untouched translations are preserved. Failed purchase-history pagination retains its current page.
 - Local Chrome completed a German walnut/special-dimension simulated purchase for EUR 517 and showed an empty cart. Automated and local browser tests are separate from pending hosted and real-provider acceptance. Generalized entity/lifecycle extension, replay, source hosting, Crater, Shopware porting and Enterprise-cell gates remain open.
+## Proportionate prototype verification — 16 October 2026
+
+- Run PR verification once, cancel superseded revisions of the same PR, and distinguish documentation, ordinary presentation and full-system changes through a conservative complete Git diff. Retain full verification for backend, authentication/checkout, CI-policy, unknown or unavailable changes; renamed/deleted backend paths cannot hide in a documentation change.
+- Keep the required check, unchanged frontend coverage floors and full-module gates. Nightly/manual runs retain the complete suite; fast paths do not claim new Rust/Python coverage. Add real-Git routing regressions and visible per-suite timing/unbuffered integration output.
 
 ## Public Studio and Experience acceptance — 16 October 2026
 

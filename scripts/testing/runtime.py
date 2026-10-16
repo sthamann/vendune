@@ -11,7 +11,13 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 def run(args, env):
-    subprocess.run(args, cwd=ROOT, env=env, check=True)
+    label = ' '.join(str(arg) for arg in args[:2])
+    started = time.monotonic()
+    print('START', label, flush=True)
+    try:
+        subprocess.run(args, cwd=ROOT, env=env, check=True)
+    finally:
+        print(f'ELAPSED {time.monotonic()-started:.2f}s: {label}', flush=True)
 
 
 def stop(process):

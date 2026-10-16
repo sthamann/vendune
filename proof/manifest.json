@@ -3507,8 +3507,8 @@
   },
   "inputs": {
     ".github/workflows/verify.yml": {
-      "sha256": "235402e6dc001938b645b7c3548fb8d326e7cfc8327803dc3131d130b92b9151",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "bd1548814e9f03f731398d4c18e89e8661bcc45c87bfdfe1f272a22f398bea9d",
+      "review": "Review combined CI fast lanes against the compiler workspace: full checks remain mandatory for backend, migrations, authorization, contracts, prompts, workflow and unknown changes; doc hygiene and prompt governance always run, workspace cargo and generated-contract checks retain full coverage; main-only push plus same-PR cancellation removes duplicate verification, and complete Git history preserves prompt review admission"
     },
     "Cargo.lock": {
       "sha256": "a41217051931975ae182dcdc3c308eda8d6090f90a465114af5eb2b550e682e5",

@@ -1,5 +1,40 @@
 # Testing, coverage and maintenance contracts
 
+## Prototype feedback loop
+
+The required `verify` check selects one of three scopes from the complete Git diff:
+
+| Change | Required verification |
+| --- | --- |
+| Documentation, public handbook assets and its renderer | Render every page, validate links/assets/search/sitemap and test the scope/coverage helpers. No commerce database, Rust compile or PHP reference is started. |
+| Ordinary frontend components/styles and trusted app Studio components, optionally with documentation | Complete frontend formatting, TypeScript/Vite build, architecture, localization, unit tests and the existing frontend coverage floors/full-module requirements. |
+| Rust, schema, manifests, runtime scripts, dependencies, authentication/session/checkout UI, workflow or classification policy; any unknown path or unavailable diff | The unchanged complete formal, differential, real database/provider and coverage suite. |
+
+PR branches run once through `pull_request`, rather than duplicating the same
+head on both branch push and PR. A newer revision cancels an older run of the
+same PR. Separate PRs and the main/nightly/manual runs do not cancel one another.
+Main pushes are also classified; nightly and manually requested runs always use
+the complete suite. The required check is not removed for fast paths.
+
+`scripts/testing/ci_scope.py` uses the actual base/checkout commit, includes both
+names of renamed files and falls back to full verification for missing history,
+unknown events or paths. Two-commit checkout history is sufficient for normal
+PR merge commits and single pushes; a larger push whose base is unavailable
+deliberately uses the full path. Changes to CI itself also require the full path.
+The registered scope regression uses real Git commits/renames and mixed sensitive
+changes, rather than trusting a filename count or an untrusted PR label.
+
+Frontend-only coverage reuses the same policy and source completeness check; it
+does not fabricate fresh Rust/Python measurements or change their full-run floors.
+Full runs retain both native separate-login and pooler/multi-replica regressions.
+Each integration child logs its start and elapsed time, with unbuffered Python
+output, so a slow suite is visible instead of hidden inside one long CI block.
+
+This optimizes development feedback. A green fast check is not a new whole-system
+acceptance or evidence of live provider payments. The current prototype can use
+short, coordinated deployment restarts; no zero-downtime fleet migration is required
+for an ordinary UI or documentation release. Existing demo data is still retained.
+
 **Merchant catalogue setup:** [Current source/upload workflow, native CSV/model/media suites and evidence limits](merchant-catalogue-setup.md#verification-and-limits).
 
 **Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).

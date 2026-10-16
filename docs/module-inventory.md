@@ -1499,6 +1499,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/advisor_sources.py](../scripts/testing/advisor_sources.py) | Actual channel-admitted advisor context and concurrent native source mutations; synthetic local model only. |
 | [scripts/testing/app_approval.py](../scripts/testing/app_approval.py) | Use the Rust manifest serializer for operator pins; never invent a second canonical digest. |
 | [scripts/testing/catalog_intake_checks.py](../scripts/testing/catalog_intake_checks.py) | Native catalogue intake through HTTP/MCP; real stage saves, exact replay, current rights and selected release, no model calls. |
+| [scripts/testing/ci_scope.py](../scripts/testing/ci_scope.py) | Choose prototype CI by the complete Git diff; unknown or sensitive changes retain full verification. |
 | [scripts/testing/consistency_boundaries.py](../scripts/testing/consistency_boundaries.py) | Real transport/permission regressions for knowledge publication and automation discovery. |
 | [scripts/testing/coverage_env.py](../scripts/testing/coverage_env.py) | Convert trusted cargo-llvm-cov environment output to GitHub's environment-file syntax. |
 | [scripts/testing/coverage_report.py](../scripts/testing/coverage_report.py) | Publish separate all-source coverage totals, untested files and enforce reviewed minimums. |
@@ -1522,6 +1523,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/runtime.py](../scripts/testing/runtime.py) | Owned synthetic server lifetime, child checks and loopback readiness for verification. |
 | [scripts/testing/sitecustomize.py](../scripts/testing/sitecustomize.py) | Opt-in subprocess instrumentation for synthetic verification; never loaded by production. |
 | [scripts/testing/source_inventory.py](../scripts/testing/source_inventory.py) | Generate/check exact production and verification module inventory; listings are not coverage. |
+| [scripts/testing/test_ci_scope.py](../scripts/testing/test_ci_scope.py) | CI routing regressions exercise real Git renames, missing history and sensitive mixed changes. |
 | [scripts/testing/tooling_tests.py](../scripts/testing/tooling_tests.py) | Ordered Studio layout. |
 | [scripts/testing/workspace_boundaries.py](../scripts/testing/workspace_boundaries.py) | Check the real Cargo graph and reject domain dependency broadening, not just file sizes. |
 | [scripts/transaction_pooler.py](../scripts/transaction_pooler.py) | Repeat the real strict-runtime and multi-replica regressions through a one-backend transaction pooler. |

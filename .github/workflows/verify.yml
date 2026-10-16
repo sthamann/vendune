@@ -1,7 +1,16 @@
 name: Verify prototype
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '17 2 * * *'
+  workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: verify-${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   verify:
     runs-on: ubuntu-24.04
@@ -9,39 +18,60 @@ jobs:
       DATABASE_URL: postgres://commerce:ci-only-password@127.0.0.1:15487/commerce
       QDRANT_URL: http://127.0.0.1:16333
       MERCHANT_TOKEN: ci-only-merchant-credential-not-for-deployment
+      PYTHONUNBUFFERED: '1'
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify conservative change classification and coverage helpers
+        run: python3 scripts/testing/test_ci_scope.py && python3 scripts/testing/tooling_tests.py
+      - run: python3 scripts/testing/documentation_hygiene.py
+      - run: python3 scripts/testing/prompt_governance.py
+        env:
+          PROMPT_BASE: ${{ github.event.pull_request.base.sha }}
+      - name: Choose required verification scope
+        id: scope
+        run: python3 scripts/testing/ci_scope.py
+      - name: Build and validate every documentation page
+        if: steps.scope.outputs.lane == 'docs'
+        run: |
+          python3 -m pip install -r site/requirements.txt
+          python3 scripts/build_site.py
+          python3 scripts/check_site.py
       - name: Start standard PostgreSQL and Qdrant
+        if: steps.scope.outputs.lane == 'full'
         run: DB_PASSWORD=ci-only-password docker compose -p veyndo up -d --wait postgres qdrant
       - uses: dtolnay/rust-toolchain@stable
+        if: steps.scope.outputs.lane == 'full'
       - uses: Swatinem/rust-cache@v2
+        if: steps.scope.outputs.lane == 'full'
       - uses: actions/setup-node@v4
+        if: steps.scope.outputs.lane != 'docs'
         with:
           node-version: 22
           cache: npm
           cache-dependency-path: frontend/package-lock.json
       - uses: shivammathur/setup-php@v2
+        if: steps.scope.outputs.lane == 'full'
         with:
           php-version: '8.4'
           extensions: curl, dom, fileinfo, gd, intl, mbstring, pdo_mysql, pdo_sqlite, sodium, zip
           tools: composer:v2
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
       - name: Install verification and offline-migration dependencies
+        if: steps.scope.outputs.lane == 'full'
         run: |
           python3 -m pip install -r scripts/testing/requirements.txt
           sudo apt-get update && sudo apt-get install -y pgbouncer
       - name: Verify production Rust image compile-time inputs and negative control
+        if: steps.scope.outputs.lane == 'full'
         run: python3 scripts/testing/image_context.py
-      - run: python3 scripts/testing/documentation_hygiene.py
-      - run: python3 scripts/testing/prompt_governance.py
-        env:
-          PROMPT_BASE: ${{ github.event.pull_request.base.sha }}
       - run: cargo fmt --all --check && cargo clippy --locked --workspace --all-targets -- -D warnings
+        if: steps.scope.outputs.lane == 'full'
       - name: Instrument the real Rust unit and HTTP paths
+        if: steps.scope.outputs.lane == 'full'
         run: |
           rustup component add llvm-tools-preview
           cargo install cargo-llvm-cov --version 0.9.1 --locked
@@ -49,7 +79,9 @@ jobs:
           CARGO_LLVM_COV_TARGET_DIR="$PWD/target" cargo llvm-cov clean --workspace
           CARGO_LLVM_COV_TARGET_DIR="$PWD/target" cargo llvm-cov show-env | python3 scripts/testing/coverage_env.py >> "$GITHUB_ENV"
       - run: cargo test --locked --workspace && cargo build --locked --workspace --bins
+        if: steps.scope.outputs.lane == 'full'
       - name: Install pinned Lean toolchain
+        if: steps.scope.outputs.lane == 'full'
         uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1
         with:
           lake-package-directory: proof
@@ -59,29 +91,37 @@ jobs:
           lint: 'false'
           use-mathlib-cache: 'false'
       - name: Lean production contracts, source review locks and compiled conformance
+        if: steps.scope.outputs.lane == 'full'
         run: python3 scripts/formal.py
       - name: Reject broken policies, proof shortcuts and disconnected bindings
+        if: steps.scope.outputs.lane == 'full'
         env:
           # Intentionally broken source variants must not inflate real-core coverage.
           LLVM_PROFILE_FILE: /tmp/commerce-mutation-%p-%m.profraw
         run: python3 scripts/formal/mutations.py
       - name: Preserve formal verification evidence
-        if: always()
+        if: always() && steps.scope.outputs.lane == 'full'
         uses: actions/upload-artifact@v4
         with:
           name: formal-verification-${{ github.sha }}
           path: artifacts/formal-*.json
           if-no-files-found: ignore
       - run: npm ci && npm run format:check && npm run build && npm run architecture && npm run localization && npm run test:coverage
+        if: steps.scope.outputs.lane != 'docs'
         working-directory: frontend
       - name: Generated contracts and source boundaries
+        if: steps.scope.outputs.lane == 'full'
         run: python3 scripts/testing/operation_contracts.py --check && python3 scripts/testing/workspace_boundaries.py
       - run: composer install --working-dir=reference --no-interaction --prefer-dist
+        if: steps.scope.outputs.lane == 'full'
       - run: python3 scripts/differential.py && python3 scripts/context_differential.py && python3 scripts/delivery_differential.py && python3 scripts/rule_differential.py && python3 scripts/automation_registry.py && python3 scripts/automation_differential.py
+        if: steps.scope.outputs.lane == 'full'
       - name: Real database and local provider integration (single suite registry)
+        if: steps.scope.outputs.lane == 'full'
         run: |
           COVERAGE_PROCESS_START="$PWD/scripts/testing/.coveragerc" PYTHONPATH="$PWD/scripts/testing" python3 scripts/verify_integration.py --existing-database --container veyndo-postgres-1
       - name: Coverage reports and regression gates
+        if: steps.scope.outputs.lane == 'full'
         run: |
           mkdir -p artifacts/coverage
           cargo llvm-cov report --json --output-path artifacts/coverage/rust.json
@@ -91,7 +131,7 @@ jobs:
           python3 -m coverage html --rcfile=scripts/testing/.coveragerc
           python3 scripts/testing/coverage_report.py
       - name: Preserve complete coverage reports, gaps and integration logs
-        if: always()
+        if: always() && steps.scope.outputs.lane == 'full'
         uses: actions/upload-artifact@v4
         with:
           name: coverage-${{ github.sha }}
@@ -101,3 +141,15 @@ jobs:
             artifacts/integration-server.log
           if-no-files-found: warn
       # External model/payment/OAuth checks remain opt-in; these reports do not certify live credentials.
+      - name: Enforce unchanged frontend coverage floors
+        if: steps.scope.outputs.lane == 'frontend'
+        run: python3 scripts/testing/coverage_report.py --frontend-only
+      - name: Preserve frontend-only coverage
+        if: always() && steps.scope.outputs.lane == 'frontend'
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-coverage-${{ github.sha }}
+          path: |
+            frontend/coverage
+            artifacts/coverage/frontend-summary.json
+          if-no-files-found: warn

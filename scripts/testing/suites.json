@@ -98,6 +98,7 @@
     "architecture"
   ],
   "tooling": [
+    "testing/test_ci_scope",
     "testing/tooling_tests",
     "branding",
     "money_boundary_differential"
