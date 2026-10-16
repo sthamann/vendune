@@ -51,6 +51,25 @@ def sql(statement):
     out=subprocess.check_output(psql(env['DB_CONTAINER'],'commerce',env['TEST_DATABASE'],'-XqAt','-v','ON_ERROR_STOP=1'),input="BEGIN; SELECT set_config('rac.system','on',true); "+statement+"; COMMIT;",text=True)
     return out.strip().splitlines()[-1]
 def passed(name):checks.append(name);print('PASS',name,flush=True)
+def stop_while_commerce_holds_reference(base,h,status,tenant):
+    # A native worker can already hold a task row while its outbox insert takes
+    # the tenant FK's KEY SHARE. Stop must not invert that order by taking a
+    # conflicting tenant UPDATE lock before cancelling tasks.
+    app='agent-reference-'+uuid.uuid4().hex
+    guard=subprocess.Popen(psql(env['DB_CONTAINER'],'commerce',env['TEST_DATABASE'],'-XqAt','-v','ON_ERROR_STOP=1','-c',f"BEGIN; SELECT set_config('rac.system','on',true),set_config('application_name','{app}',true); SELECT id FROM tenants WHERE id='{tenant}' FOR KEY SHARE; SELECT pg_sleep(30); COMMIT;"),stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    executor=concurrent.futures.ThreadPoolExecutor(max_workers=1)
+    try:
+        for _ in range(100):
+            if sql(f"SELECT EXISTS(SELECT 1 FROM pg_stat_activity WHERE application_name='{app}' AND wait_event='PgSleep')")=='t':break
+            assert guard.poll() is None,'Reference-lock fixture exited early'
+            time.sleep(.02)
+        else:raise AssertionError('Reference lock was not acquired')
+        return executor.submit(call,base,'/api/agent/control',{'stopped':True,'revision':status['revision'],'approve':True},h).result(timeout=8)
+    finally:
+        sql(f"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname=current_database() AND application_name='{app}'")
+        if guard.poll() is None:guard.terminate()
+        guard.wait(timeout=5)
+        executor.shutdown(wait=True)
 try:
     http,base=start();other,base2=start()
     suffix=uuid.uuid4().hex[:12]
@@ -129,8 +148,9 @@ try:
     queued_stage=call(base,'/api/agent/runs',{'instruction':'Read only in the private test'},dict(h,**{'x-tenant':stage}))
     call(base,'/api/agent/control',h=kh,expected=403)
     call(base,'/api/agent/control',{'stopped':True,'revision':status['revision'],'approve':False},h,400)
-    paused=call(base,'/api/agent/control',{'stopped':True,'revision':status['revision'],'approve':True},h)
+    paused=stop_while_commerce_holds_reference(base,h,status,tenant)
     assert paused['stopped'] and paused['cancelled']>=2
+    passed('Native stop commits while a commerce foreign-key reference is held; no tenant/task lock inversion')
     assert call(base,'/api/agent/runs/'+queued['taskId'],h=h)['state']=='cancelled'
     assert call(base,'/api/agent/runs/'+queued_stage['taskId'],h=dict(h,**{'x-tenant':stage}))['state']=='cancelled'
     call(base,'/api/merchant/products',h=headers(active),expected=403)

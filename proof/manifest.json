@@ -571,8 +571,8 @@
     },
     "crates/cognition/src/inference/budget.rs": {
       "status": "unproved",
-      "sha256": "f66c4022d9a5a7b2422ac65117a79d51c6b3ef7c826c531709f8808a4be63585",
-      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+      "sha256": "e4e8afb7108e03974371cd768bf94aef9f27d7b4bfc8f009d665af6b30018719",
+      "review": "Reviewed agent scope construction and locking: synchronously box the child before constructing the task-local future; retain authority only while polling and verify no context leak. Live-root NO KEY UPDATE serializes allocation/enqueue/stop while admitting FK KEY SHARE, avoiding tenant/task inversion. Real held-reference HTTP stop fails before and passes after; actual worker stop and signed-role allocation cases pass. Existing kernel proof unchanged; async/SQL/provider code remains unproved and the Linux instrumented POS repeat is still required."
     },
     "crates/cognition/src/inference/error.rs": {
       "status": "unproved",
@@ -1126,8 +1126,8 @@
     },
     "src/agent_runs/controls.rs": {
       "status": "unproved",
-      "sha256": "55b2a1287d6e3570c5a56baf2b9ee7973230b0a92a58b4db435de659dd36c496",
-      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+      "sha256": "3b7e657659d3998077f35d9996be504f2b37ed8856aff485c18243aa11abc149",
+      "review": "Reviewed agent scope construction and locking: synchronously box the child before constructing the task-local future; retain authority only while polling and verify no context leak. Live-root NO KEY UPDATE serializes allocation/enqueue/stop while admitting FK KEY SHARE, avoiding tenant/task inversion. Real held-reference HTTP stop fails before and passes after; actual worker stop and signed-role allocation cases pass. Existing kernel proof unchanged; async/SQL/provider code remains unproved and the Linux instrumented POS repeat is still required."
     },
     "src/agent_runs/worker.rs": {
       "status": "unproved",
@@ -1136,8 +1136,8 @@
     },
     "src/agent_runs.rs": {
       "status": "unproved",
-      "sha256": "ed5651ad673087811efff732ba715b3a65c4270555cdf5b5c3cabd4a38190760",
-      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+      "sha256": "d8c87802d7e1ac329b4631969c5d5cd6707a06a814308fd21b88e1dfc6e341e9",
+      "review": "Reviewed agent scope construction and locking: synchronously box the child before constructing the task-local future; retain authority only while polling and verify no context leak. Live-root NO KEY UPDATE serializes allocation/enqueue/stop while admitting FK KEY SHARE, avoiding tenant/task inversion. Real held-reference HTTP stop fails before and passes after; actual worker stop and signed-role allocation cases pass. Existing kernel proof unchanged; async/SQL/provider code remains unproved and the Linux instrumented POS repeat is still required."
     },
     "src/apps/approval.rs": {
       "status": "reviewed-binding",

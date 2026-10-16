@@ -58,7 +58,7 @@ pub(crate) async fn enqueue(
     // Quota shares the live shop across sandboxes. One admitted native transaction
     // commits both quota and work without acquiring a second pooler backend.
     let mut tx = a.db.begin_privileged().await?;
-    let stopped:bool=sqlx::query_scalar("SELECT agents_stopped FROM tenants WHERE id=coalesce((SELECT live_tenant FROM shop_environments WHERE tenant=$1),$1) FOR UPDATE").bind(&t).fetch_one(&mut *tx).await?;
+    let stopped:bool=sqlx::query_scalar("SELECT agents_stopped FROM tenants WHERE id=coalesce((SELECT live_tenant FROM shop_environments WHERE tenant=$1),$1) FOR NO KEY UPDATE").bind(&t).fetch_one(&mut *tx).await?;
     if stopped {
         return Err(Error(
             StatusCode::FORBIDDEN,

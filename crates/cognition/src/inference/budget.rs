@@ -19,8 +19,10 @@ pub fn is_budgeted() -> bool {
         .try_with(|a| a.require_budget || a.key_id.is_some())
         .unwrap_or(false)
 }
-pub async fn scoped<F: Future>(authority: Authority, future: F) -> F::Output {
-    CURRENT.scope(authority, future).await
+pub fn scoped<F: Future>(authority: Authority, future: F) -> impl Future<Output = F::Output> {
+    // Construct the small scope synchronously. An async wrapper would retain F
+    // inline and multiply large HTTP/POS polling frames in instrumented builds.
+    CURRENT.scope(authority, Box::pin(future))
 }
 /// A key selects its approved model by default; client/provider routing cannot widen that choice.
 pub async fn choice(
@@ -132,7 +134,7 @@ pub async fn reserve(
         let mut tx=db.begin().await.map_err(|_|"Agent admission unavailable")?;
         // Same order as stop/key lifecycle: live tenant first, then key. No lock
         // survives the provider call. A stop affects subsequent calls, not past egress.
-        let shop=sqlx::query("SELECT id,agents_stopped FROM tenants WHERE id=coalesce((SELECT live_tenant FROM shop_environments WHERE tenant=$1),$1) FOR UPDATE")
+        let shop=sqlx::query("SELECT id,agents_stopped FROM tenants WHERE id=coalesce((SELECT live_tenant FROM shop_environments WHERE tenant=$1),$1) FOR NO KEY UPDATE")
             .bind(&authority.tenant).fetch_one(&mut *tx).await.map_err(|_|"Agent shop unavailable")?;
         let live:String=shop.get("id");
         let stopped:bool=shop.get("agents_stopped");
@@ -165,6 +167,28 @@ pub async fn reserve(
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[tokio::test]
+    async fn authority_scope_bounds_a_large_child_and_never_leaks_context() {
+        let payload = [7u8; 64 * 1024];
+        let future = scoped(
+            Authority {
+                tenant: "synthetic".into(),
+                key_id: Some("fixture".into()),
+                require_budget: true,
+            },
+            async move {
+                assert!(is_budgeted());
+                std::hint::black_box(payload).len()
+            },
+        );
+        assert!(
+            std::mem::size_of_val(&future) < 1024,
+            "Scope must box its child before constructing its own future"
+        );
+        assert!(!is_budgeted());
+        assert_eq!(future.await, 64 * 1024);
+        assert!(!is_budgeted());
+    }
     #[test]
     fn explicit_bounded_envelopes_reject_missing_limits_images_and_overflow() {
         let budget = Budget {

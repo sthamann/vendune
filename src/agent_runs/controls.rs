@@ -131,11 +131,12 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
     .bind(&t)
     .fetch_one(&mut *tx)
     .await?;
-    let row =
-        sqlx::query("SELECT agents_stopped,agents_revision FROM tenants WHERE id=$1 FOR UPDATE")
-            .bind(&live)
-            .fetch_one(&mut *tx)
-            .await?;
+    let row = sqlx::query(
+        "SELECT agents_stopped,agents_revision FROM tenants WHERE id=$1 FOR NO KEY UPDATE",
+    )
+    .bind(&live)
+    .fetch_one(&mut *tx)
+    .await?;
     let revision: i64 = row.get("agents_revision");
     let stopped: bool = row.get("agents_stopped");
     if name.ends_with("status") {

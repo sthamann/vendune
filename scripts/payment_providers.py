@@ -27,7 +27,7 @@ class Handler(BaseHTTPRequestHandler):
   self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(json.dumps(v).encode())
 secret='synthetic-private-provider-credential-123';fixture=ThreadingHTTPServer(('127.0.0.1',0),Handler);threading.Thread(target=fixture.serve_forever,daemon=True).start()
 base='http://127.0.0.1:8795';cfg={'url':f'http://127.0.0.1:{fixture.server_address[1]}','token':secret,'environment':'contract-fixture','approvalOrigins':['https://provider.example.test']};env={**os.environ,'BIND_ADDR':'127.0.0.1:8795','PAYMENT_SERVICES':json.dumps({'example_payments':{'1.0.0':cfg,'1.1.0':cfg}}),'PAYPAL_ACCOUNTS':'{}','PAYPAL_SANDBOX_ACCOUNTS':'{}'}
-ROOT.joinpath('.run').mkdir(exist_ok=True);log=open(ROOT/'.run/generic-payments.log','w');p=None
+ROOT.joinpath('artifacts').mkdir(exist_ok=True);log=open(ROOT/'artifacts/generic-payments.log','w');p=None
 ah={'Authorization':'Bearer '+os.environ['MERCHANT_TOKEN'],'x-tenant':'workshop'}
 def call(path,body=None,h=None,method=None,expected=200):
  try:
@@ -51,7 +51,7 @@ def purchase(currency="EUR"):
 try:
  p=subprocess.Popen([str(ROOT/'target/debug/veyndo')],cwd=ROOT,env=env,stdout=log,stderr=log)
  for _ in range(100):
-  if p.poll()!=None:raise RuntimeError('See .run/generic-payments.log')
+  if p.poll()!=None:raise RuntimeError('See artifacts/generic-payments.log')
   try:call('/health');break
   except OSError:time.sleep(.2)
  m=json.loads((ROOT/'extensions/apps/payment-provider/manifest.json').read_text());m['paymentProvider']['methods'][0]['currencies']=['EUR','USD','JPY','KWD'];call('/api/apps',{'manifest':m},ah)

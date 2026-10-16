@@ -45,8 +45,8 @@ agent key. A generic key is no longer an unmetered native AI credential.
 
 Before each text-model request, PostgreSQL locks the live shop and key, checks
 current admission, reserves the complete envelope, records an allocation event and
-commits. Only then may the provider call start. Two Rust replicas cannot spend the
-same remaining allocation. No transaction stays open while waiting for the model.
+commits. Live-root locks use `FOR NO KEY UPDATE`: they serialize agent controls and allocations while remaining compatible with commerce foreign-key reference readers. This avoids a tenant/task lock-order inversion at worker completion. Only then may the provider call start. Two Rust replicas cannot spend the
+same remaining allocation. No transaction stays open while waiting for the model. The authority scope constructs a boxed child synchronously, preserving a small polling boundary for large native HTTP/POS futures; it does not enlarge worker stacks.
 
 The envelope includes serialized UTF-8 request bytes, the bounded output allowance
 and 4,096 units of framing headroom. Its cost is rounded upward from the approved
@@ -98,7 +98,7 @@ increase them. Original financial approvals and domain invariants remain authori
 `agent_authorities` runs actual HTTP/PostgreSQL, two Rust replicas and a local
 synthetic model provider. It checks allocation races, independent token/cost
 exhaustion, exact model mismatch, restart, two agents sharing a human creator,
-foreign shops, revocation, sandbox stop and denied credential/commerce writes.
+foreign shops, revocation, sandbox stop, stop under a held commerce-reference lock and denied credential/commerce writes.
 The signed-runtime foundation also repeats it through separate restricted tenant
 and system logins. `durable_agents` stops a real worker during a provider call and
 rejects its late result. UI tests fence late credentials and status from a previous

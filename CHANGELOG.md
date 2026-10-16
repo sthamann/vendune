@@ -4,6 +4,8 @@
 
 - Reuse existing integration identities for personal, planning-only agent delegation: exact provider/model, explicit lifetime token and integer USD allocation limits, current-role intersection and revocation with retained counters. Generic integration credentials no longer start unbudgeted native AI work.
 - Reserve full text-model envelopes durably before egress across replicas/restarts, retain uncertain allocations, and skip query embeddings/reranking for budgeted agents. Allocations are not provider invoices. Typed exhaustion is non-retryable; no short retry hint.
+- Bound authority-scope futures before polling so the new context does not multiply large native HTTP/POS frames; test context cleanup and a large child, retain full instrumented HTTP/POS acceptance and export the provider fixture’s server log with CI evidence.
+- Use non-key live-root locks for allocations/admission/stop, preserving serialization while allowing commerce foreign-key references; retain a real held-reference regression that fails with the conflicting lock.
 - Isolate tasks, request replay and conversations between distinct agent keys sharing one human creator. Add personal revision-bound live/sandbox stop, durable worker cancellation and late-result fences, matching HTTP/MCP/Flow events and generated request contracts. Operational controls never enter sandbox publication or rollback.
 - Add explicit four-language controls and fence late key/status responses when changing shops. Exercise actual two-replica allocation races, restricted signed SQL logins, revocation, foreign-shop denial and in-flight worker stop with local synthetic providers. Deployment and real-provider acceptance remain separate in the current status.
 
