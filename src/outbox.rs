@@ -36,16 +36,14 @@ pub(crate) async fn consume_subscriber(a: &App, subscriber: &str) -> Result<bool
         return Ok(false);
     };
     let t: String = next.get("tenant");
-    let pending: Option<i64> = next.get("pending_id");
-    let retry_filter = if pending.is_some() { " AND id=$2" } else { "" };
     let selection = format!(
-        "SELECT * FROM outbox WHERE tenant=$1 AND (subscriber_mask & {bit}::smallint)=0 AND NOT dispatch_requires_retry AND dispatch_not_before<=now() AND delivered_at IS NULL AND payload_retired_at IS NULL{retry_filter} ORDER BY id LIMIT 50"
+        "SELECT e.* FROM outbox e LEFT JOIN outbox_subscriber_failures f ON f.tenant=e.tenant AND f.event_id=e.id AND f.subscriber=$2 WHERE e.tenant=$1 AND (e.subscriber_mask & {bit}::smallint)=0 AND NOT e.dispatch_requires_retry AND e.dispatch_not_before<=now() AND e.delivered_at IS NULL AND e.payload_retired_at IS NULL AND f.dead_letter_at IS NULL AND coalesce(f.available_at,'-infinity'::timestamptz)<=now() ORDER BY e.id LIMIT 50"
     );
-    let mut query = sqlx::query(sqlx::AssertSqlSafe(selection.as_str())).bind(&t);
-    if let Some(id) = pending {
-        query = query.bind(id);
-    }
-    let rows = query.fetch_all(&mut *tx).await?;
+    let rows = sqlx::query(sqlx::AssertSqlSafe(selection.as_str()))
+        .bind(&t)
+        .bind(subscriber)
+        .fetch_all(&mut *tx)
+        .await?;
     sqlx::query("UPDATE outbox_checkpoints SET served_order=nextval('public.outbox_dispatch_sequence') WHERE tenant=$1 AND subscriber=$2")
         .bind(&t).bind(subscriber).execute(&mut *tx).await?;
     let worked = !rows.is_empty();
@@ -64,21 +62,22 @@ pub(crate) async fn consume_subscriber(a: &App, subscriber: &str) -> Result<bool
                 "audit"=>{sqlx::query("INSERT INTO projections(event_id,tenant,kind,data) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING").bind(id).bind(&t).bind(&kind).bind(&data).execute(&mut *tx).await?;},
                 _=>unreachable!()
             }
-            sqlx::query("UPDATE outbox SET subscriber_mask=subscriber_mask|$3::smallint,delivered_at=CASE WHEN (subscriber_mask|$3::smallint)=15 THEN now() ELSE delivered_at END,dead_letter_at=CASE WHEN (subscriber_mask|$3::smallint)=15 THEN NULL ELSE dead_letter_at END,error_code=CASE WHEN (subscriber_mask|$3::smallint)=15 THEN NULL ELSE error_code END WHERE tenant=$1 AND id=$2")
+            sqlx::query("UPDATE outbox SET subscriber_mask=subscriber_mask|$3::smallint,attempts=CASE WHEN (subscriber_mask|$3::smallint)=15 THEN 0 ELSE attempts END,delivered_at=CASE WHEN (subscriber_mask|$3::smallint)=15 THEN now() ELSE delivered_at END,dead_letter_at=CASE WHEN (subscriber_mask|$3::smallint)=15 THEN NULL ELSE dead_letter_at END,error_code=CASE WHEN (subscriber_mask|$3::smallint)=15 THEN NULL ELSE error_code END WHERE tenant=$1 AND id=$2")
                 .bind(&t).bind(id).bind(bit).execute(&mut *tx).await?;
-            sqlx::query("UPDATE outbox_checkpoints SET last_event_id=greatest(last_event_id,$3),pending_id=NULL,attempts=0,dead_letter_at=NULL,available_at=now() WHERE tenant=$1 AND subscriber=$2")
+            sqlx::query("UPDATE outbox_checkpoints SET last_event_id=greatest(last_event_id,$3) WHERE tenant=$1 AND subscriber=$2")
                 .bind(&t).bind(subscriber).bind(id).execute(&mut *tx).await?;
+            sqlx::query("DELETE FROM outbox_subscriber_failures WHERE tenant=$1 AND event_id=$2 AND subscriber=$3")
+                .bind(&t).bind(id).bind(subscriber).execute(&mut *tx).await?;
             Ok(())
         }.instrument(tracing::info_span!("outbox_event",trace_id=%r.get::<String,_>("trace_id"),event_id=id,subscriber=subscriber)).await;
         if let Err(error) = result {
             sqlx::query("ROLLBACK TO SAVEPOINT project_event")
                 .execute(&mut *tx)
                 .await?;
-            sqlx::query("UPDATE outbox_checkpoints SET pending_id=$3,attempts=attempts+1,available_at=now()+least(300,power(2,least(attempts+1,8))::int)*interval '1 second',dead_letter_at=CASE WHEN attempts+1>=8 THEN now() ELSE NULL END WHERE tenant=$1 AND subscriber=$2")
-                .bind(&t).bind(subscriber).bind(id).execute(&mut *tx).await?;
-            // Aggregate quarantine is sticky until explicit retry or all lanes
-            // acknowledge. A first failure in another lane must not erase it.
-            sqlx::query("UPDATE outbox e SET attempts=greatest(e.attempts,c.attempts),available_at=c.available_at,dead_letter_at=coalesce(e.dead_letter_at,c.dead_letter_at),error_code='projection_failed' FROM outbox_checkpoints c WHERE e.id=$1 AND e.tenant=$2 AND c.tenant=e.tenant AND c.subscriber=$3")
+            sqlx::query("INSERT INTO outbox_subscriber_failures(tenant,event_id,subscriber,available_at) VALUES($1,$2,$3,now()+interval '2 seconds') ON CONFLICT(tenant,event_id,subscriber) DO UPDATE SET attempts=outbox_subscriber_failures.attempts+1,available_at=now()+least(300,power(2,least(outbox_subscriber_failures.attempts+1,8))::int)*interval '1 second',dead_letter_at=CASE WHEN outbox_subscriber_failures.attempts+1>=8 THEN now() ELSE NULL END")
+                .bind(&t).bind(id).bind(subscriber).execute(&mut *tx).await?;
+            // Preserve another subscriber's quarantine until explicit retry or complete acknowledgement.
+            sqlx::query("UPDATE outbox e SET attempts=greatest(e.attempts,f.attempts),available_at=f.available_at,dead_letter_at=coalesce(e.dead_letter_at,f.dead_letter_at),error_code='projection_failed' FROM outbox_subscriber_failures f WHERE e.id=$1 AND e.tenant=$2 AND f.tenant=e.tenant AND f.event_id=e.id AND f.subscriber=$3")
                 .bind(id).bind(&t).bind(subscriber).execute(&mut *tx).await?;
             eprintln!(
                 "outbox_projection_failed tenant={t} event_id={id} subscriber={subscriber} kind={kind} status={}",
@@ -87,7 +86,7 @@ pub(crate) async fn consume_subscriber(a: &App, subscriber: &str) -> Result<bool
             sqlx::query("RELEASE SAVEPOINT project_event")
                 .execute(&mut *tx)
                 .await?;
-            break;
+            continue;
         }
         sqlx::query("RELEASE SAVEPOINT project_event")
             .execute(&mut *tx)

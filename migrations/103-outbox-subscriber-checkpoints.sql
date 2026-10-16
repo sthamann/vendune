@@ -22,12 +22,8 @@ CREATE TABLE outbox_checkpoints (
  tenant text NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
  subscriber text NOT NULL CHECK(subscriber IN ('cognition','apps','flows','audit')),
  last_event_id bigint NOT NULL DEFAULT 0 CHECK(last_event_id>=0),
- pending_id bigint,
- attempts integer NOT NULL DEFAULT 0 CHECK(attempts>=0),
- available_at timestamptz NOT NULL DEFAULT now(), dead_letter_at timestamptz,
  served_order bigint NOT NULL DEFAULT 0 CHECK(served_order>=0),
- PRIMARY KEY(tenant,subscriber),
- FOREIGN KEY(tenant,pending_id) REFERENCES outbox(tenant,id)
+ PRIMARY KEY(tenant,subscriber)
 );
 ALTER TABLE outbox_checkpoints ENABLE ROW LEVEL SECURITY;
 ALTER TABLE outbox_checkpoints FORCE ROW LEVEL SECURITY;
@@ -37,7 +33,26 @@ CREATE POLICY core_tenant_scope ON outbox_checkpoints
 CREATE POLICY authenticated_scope ON outbox_checkpoints AS RESTRICTIVE
  USING(coalesce((SELECT (public.veyndo_scope_guard()->>'system')::boolean),false) OR tenant=(SELECT public.veyndo_scope_guard()->>'tenant'))
  WITH CHECK(coalesce((SELECT (public.veyndo_scope_guard()->>'system')::boolean),false) OR tenant=(SELECT public.veyndo_scope_guard()->>'tenant'));
-CREATE INDEX outbox_checkpoint_ready ON outbox_checkpoints(subscriber,served_order,tenant) WHERE dead_letter_at IS NULL;
+CREATE INDEX outbox_checkpoint_ready ON outbox_checkpoints(subscriber,served_order,tenant);
+-- Retry/quarantine belongs to one event and subscriber; it cannot block later events.
+CREATE TABLE outbox_subscriber_failures (
+ tenant text NOT NULL,
+ event_id bigint NOT NULL,
+ subscriber text NOT NULL CHECK(subscriber IN ('cognition','apps','flows','audit')),
+ attempts integer NOT NULL DEFAULT 1 CHECK(attempts>=0),
+ available_at timestamptz NOT NULL DEFAULT now(),
+ dead_letter_at timestamptz,
+ PRIMARY KEY(tenant,event_id,subscriber),
+ FOREIGN KEY(tenant,event_id) REFERENCES outbox(tenant,id) ON DELETE CASCADE
+);
+ALTER TABLE outbox_subscriber_failures ENABLE ROW LEVEL SECURITY;
+ALTER TABLE outbox_subscriber_failures FORCE ROW LEVEL SECURITY;
+CREATE POLICY core_tenant_scope ON outbox_subscriber_failures
+ USING(current_setting('rac.system',true)='on' OR tenant=nullif(current_setting('rac.tenant',true),''))
+ WITH CHECK(current_setting('rac.system',true)='on' OR tenant=nullif(current_setting('rac.tenant',true),''));
+CREATE POLICY authenticated_scope ON outbox_subscriber_failures AS RESTRICTIVE
+ USING(coalesce((SELECT (public.veyndo_scope_guard()->>'system')::boolean),false) OR tenant=(SELECT public.veyndo_scope_guard()->>'tenant'))
+ WITH CHECK(coalesce((SELECT (public.veyndo_scope_guard()->>'system')::boolean),false) OR tenant=(SELECT public.veyndo_scope_guard()->>'tenant'));
 INSERT INTO outbox_checkpoints(tenant,subscriber)
  SELECT d.tenant,s FROM outbox_tenant_dispatch d CROSS JOIN unnest(ARRAY['cognition','apps','flows','audit']) s;
 CREATE OR REPLACE FUNCTION register_outbox_tenant() RETURNS trigger LANGUAGE plpgsql SET search_path=pg_catalog,public AS $$
@@ -50,10 +65,10 @@ END $$;
 DO $$ DECLARE c record; BEGIN
  SELECT * INTO c FROM veyndo_authority.configuration;
  IF c.system_role IS NOT NULL THEN
-  EXECUTE format('GRANT SELECT,INSERT,UPDATE,DELETE ON outbox_checkpoints TO %I',c.system_role);
+  EXECUTE format('GRANT SELECT,INSERT,UPDATE,DELETE ON outbox_checkpoints,outbox_subscriber_failures TO %I',c.system_role);
  END IF;
  IF c.tenant_login IS NOT NULL THEN
-  EXECUTE format('GRANT SELECT,INSERT,UPDATE,DELETE ON outbox_checkpoints TO %I',c.tenant_login);
+  EXECUTE format('GRANT SELECT,INSERT,UPDATE,DELETE ON outbox_checkpoints,outbox_subscriber_failures TO %I',c.tenant_login);
  END IF;
 END $$;
 

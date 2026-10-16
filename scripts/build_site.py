@@ -6,6 +6,8 @@ import shutil
 import os
 import re
 from pathlib import Path
+from html.parser import HTMLParser
+from urllib.parse import urlsplit, unquote
 
 from site_markdown import build_documents
 from site_navigation import shell
@@ -14,6 +16,29 @@ ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / '.site'
 BASE = 'https://sthamann.github.io/veyndo/'
 REPO = 'https://github.com/sthamann/veyndo'
+
+
+def copy_page_media(page, document):
+    """Marketing media must not depend on incidental links in the README."""
+    class Media(HTMLParser):
+        def handle_starttag(self, tag, attrs):
+            for name, value in attrs:
+                if name not in {'src', 'poster', 'href'} or not value:
+                    continue
+                url = urlsplit(value)
+                if url.scheme or url.netloc:
+                    continue
+                source = (ROOT / page.parent / unquote(url.path)).resolve()
+                if not source.is_relative_to(ROOT) or source.suffix.lower() not in {'.jpg', '.jpeg', '.png', '.webp', '.svg', '.gif', '.mp4', '.webm', '.vtt', '.pdf'}:
+                    continue
+                if not source.is_file():
+                    if (DEST / source.relative_to(ROOT)).is_file():
+                        continue
+                    raise ValueError(f'{page}: missing marketing media: {value}')
+                output = DEST / source.relative_to(ROOT)
+                output.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(source, output)
+    Media().feed(document)
 
 
 def evidence_fields():
@@ -135,6 +160,8 @@ def build():
         }
         # Substitute only the shell: code examples in a guide may contain {{literal}}.
         document = re.sub(r'\{\{(\w+)\}\}', lambda match: fields[match[1]], template)
+        if not filename.startswith('docs/'):
+            copy_page_media(path, document)
         output = DEST / path
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text(document)

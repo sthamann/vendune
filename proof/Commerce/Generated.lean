@@ -1,4 +1,4 @@
--- Generated from src/verified_kernel.rs; do not edit.
+-- Generated from crates/kernel/src/verified_kernel.rs; do not edit.
 import Std
 
 namespace CommerceKernel

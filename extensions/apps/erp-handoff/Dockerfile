@@ -1,8 +1,9 @@
 # Independent first-party service; build context is repository root, runtime contains no Python or commerce server.
 FROM rust:1.96-bookworm AS build
 WORKDIR /build
-COPY Cargo.toml Cargo.lock ./
+COPY Cargo.toml Cargo.lock LICENSE ./
 COPY src ./src
+COPY crates/ crates/
 COPY extensions ./extensions
 COPY migrations ./migrations
 COPY fixtures ./fixtures

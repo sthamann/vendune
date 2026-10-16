@@ -3,6 +3,7 @@ FROM rust:1.96-bookworm AS build
 WORKDIR /build
 COPY Cargo.toml Cargo.lock LICENSE ./
 COPY src/ src/
+COPY crates/ crates/
 COPY migrations/ migrations/
 COPY extensions/ extensions/
 COPY fixtures/ fixtures/

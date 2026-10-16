@@ -539,6 +539,166 @@
     }
   },
   "sources": {
+    "crates/apps/src/component_runtime/abi.rs": {
+      "status": "unproved",
+      "sha256": "66070ed3fb9019bd4691917384a40df217d0875bcc7896758e49284e1f8060c4",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/apps/src/component_runtime.rs": {
+      "status": "unproved",
+      "sha256": "7a79f564a855b4b1c197c54610bc659bc5045b61345d725dea54390025a22f5d",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/apps/src/lib.rs": {
+      "status": "unproved",
+      "sha256": "6b51d1587d92072800110109675bf79b9bf2fb18c900e8d961b7851e1ce54270",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/apps/src/sandbox.rs": {
+      "status": "reviewed-binding",
+      "sha256": "a70228d60b2d20a6645282f817d00a4209e8bfd5b5bfe0d030da6cd35e262a9a",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/apps/src/sandbox_engine.rs": {
+      "status": "unproved",
+      "sha256": "4ce2449f3aac161d6a34f1de770a83ecaa4ac8fc2b902186a458e8e422475610",
+      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+    },
+    "crates/cognition/src/inference/protocol.rs": {
+      "status": "unproved",
+      "sha256": "d81c2653d383299212245ace76a492fc252b1b52a26263f1d0ca4762374de686",
+      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+    },
+    "crates/cognition/src/inference/schema.rs": {
+      "status": "unproved",
+      "sha256": "7a36ba806b3bed1aa0b0a435b2284ef1d1b702d356f55e00dfa1f750aa218636",
+      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+    },
+    "crates/cognition/src/inference/settings.rs": {
+      "status": "unproved",
+      "sha256": "8e8956dd6fe33de0c754577a8a0a2f4e323e5e2c0dc98d9f760f0fee8ddbee0c",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+    },
+    "crates/cognition/src/inference/tests.rs": {
+      "status": "unproved",
+      "sha256": "bd3ced1c7be5050a988ef0b9e894380ac10744aa1f4defde3a3aff57f9738619",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/cognition/src/inference/tools/request.rs": {
+      "status": "unproved",
+      "sha256": "83c696102b94ed55bd50e10e43adcfcc88c4cef70e0f8a5e2de35553c6790ecc",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/cognition/src/inference/tools/response.rs": {
+      "status": "unproved",
+      "sha256": "514c02ce65edd8893e7bf7ac72bbd7c8a3b3459fdb1f663e0ed0a9f9b76693f5",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/cognition/src/inference/tools/tests.rs": {
+      "status": "unproved",
+      "sha256": "6d56e60c83cd1bb504c37e0700ad32cc4fac58ef4982597fb3a64bb7c6733f06",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/cognition/src/inference/tools.rs": {
+      "status": "unproved",
+      "sha256": "baff9881691278d70342685f450d273cb5633bba6df8d896dd431d23407e4c01",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/cognition/src/inference.rs": {
+      "status": "unproved",
+      "sha256": "4d48b897dba6f0917703e8d10b7b5f4b9b8358d566e354e06cc897839fce03a4",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/cognition/src/lib.rs": {
+      "status": "unproved",
+      "sha256": "9bb6aa6ab93f5376b655487982299da23a166b4157f3195c10767eee6700849e",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/cognition/src/prompts.rs": {
+      "status": "unproved",
+      "sha256": "f1f6b25379f6d66f62ba3de131a965ed71be2ffacbee13c0a2201d9a60ba6a41",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/commerce/src/discount.rs": {
+      "status": "reviewed-binding",
+      "sha256": "82f4e3a3e0255a333eccbe9eff470513cf06bd2fd0c88b12a0f092ea69a83a26",
+      "review": "Initial extraction of 13 production policies; surrounding Rust explicitly unproved; existing HTTP regression suites retained"
+    },
+    "crates/commerce/src/lib.rs": {
+      "status": "unproved",
+      "sha256": "c5895b1862aa749a389a161cba51447505943bb748cc4c0bf7bee9808baf67eb",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/commerce/src/money.rs": {
+      "status": "reviewed-binding",
+      "sha256": "eccf8be0775f1531a2520c4c8254cccae04b27507c9035bdb46ff25a3d0b14dd",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/commerce/src/pricing.rs": {
+      "status": "unproved",
+      "sha256": "421ebdf7a78c2b46da9c1ee567d2df7052077db7f7c7919cccb516b1e020baac",
+      "review": "Initial extraction of 13 production policies; surrounding Rust explicitly unproved; existing HTTP regression suites retained"
+    },
+    "crates/kernel/src/lib.rs": {
+      "status": "unproved",
+      "sha256": "05e3ea20f6ac11228b96b7c8b29242baa375225b5d3d4dd07f8e9170952d163c",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/kernel/src/verified_kernel/app_intake.rs": {
+      "status": "extracted-policy",
+      "sha256": "81f02a63a85abaca01d359560bad09daebb903c57c6b51c88a7d9928f2572536",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+    },
+    "crates/kernel/src/verified_kernel/fulfillment.rs": {
+      "status": "extracted-policy",
+      "sha256": "9231ccb47eb2fdf5da67eba64c917aa57e2748f21cfe645c1c394b83e8814180",
+      "review": "Review 2026-10-14: modular fulfillment predicates and native carrier intent admission; same-reference CAS, occupied package denial, allocation/dispatch fence until confirmed no-effect release or original PDF acknowledgement. Local SQL/provider/restart/privacy and cross-provider denial fixtures checked; external effects and surrounding runtime remain unproved."
+    },
+    "crates/kernel/src/verified_kernel.rs": {
+      "status": "extracted-policy",
+      "sha256": "87b8f8402402667eac4035d8b9a03322d3da4806b97da4ed3ba7c23e8d456d4b",
+      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+    },
+    "crates/runtime/src/database_scope/provision.rs": {
+      "status": "unproved",
+      "sha256": "86a2a585d52fe90b6185f01d01aea869e30baaa92e008c2a5944903716589dee",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+    },
+    "crates/runtime/src/database_scope.rs": {
+      "status": "unproved",
+      "sha256": "35ca439dad30bc2d322a2f49e0f530eaf057858841bb4c4e17638a4864067b8f",
+      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+    },
+    "crates/runtime/src/http_json.rs": {
+      "status": "unproved",
+      "sha256": "c9c23ab20e85f30bfcd1ea71d7df7bf4fee87443166d87e8052d3a18dbaf879e",
+      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+    },
+    "crates/runtime/src/lib.rs": {
+      "status": "unproved",
+      "sha256": "f6c39dfc66c0b3e9a388d6089341bbb4c5ae0ba75bd3c39c794cb4c574f637b1",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/runtime/src/network_policy.rs": {
+      "status": "unproved",
+      "sha256": "c7ec2ecc3f64469e648c770e3fa74a5f23253dfa307d2eebd2acb80607869399",
+      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+    },
+    "crates/runtime/src/scoped_pool.rs": {
+      "status": "unproved",
+      "sha256": "adaa010da268cde2f79023424ab795f81b475d7bb96a327c6c59eb42a142a84c",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/runtime/src/tenant_scope.rs": {
+      "status": "unproved",
+      "sha256": "2db0b19d64730a5a2641a0bba8209b80327eea0dbdbe370982d272ba37a8b7c4",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/runtime/src/trace.rs": {
+      "status": "unproved",
+      "sha256": "da3dbe6dfaa083fcdcdff099d1756572ea75baa2ecec7cf499a9b72e42841c53",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
     "extensions/apps/edi/service/callbacks.rs": {
       "status": "unproved",
       "sha256": "26be1b50e11777bfeb227bb77b3a6c2aa03ee2d5f37b539c3db72f5eb5fe178f",
@@ -936,8 +1096,8 @@
     },
     "src/agent_runs/checkpoint.rs": {
       "status": "unproved",
-      "sha256": "f9ed8b91c0bbae7e06425a528032587ee0c58fe0efb86183b3cba55ec62ef00f",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "665a726d3a405bf539f43a8bc0ca799f7396793686a0dc6e65e00d0e1e6f31e1",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/agent_runs/contract.rs": {
       "status": "unproved",
@@ -946,8 +1106,8 @@
     },
     "src/agent_runs/worker.rs": {
       "status": "unproved",
-      "sha256": "ab1fb6ee6975dc1d4e08a29d3051b68e65c26bb8a3745b6494f0b6d583317da1",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "974d91c923b4176ffaa5ea95ee429c8a6ae9ca5f0c2b2cfff9f917934969eeda",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/agent_runs.rs": {
       "status": "unproved",
@@ -1056,8 +1216,8 @@
     },
     "src/apps/events.rs": {
       "status": "unproved",
-      "sha256": "325c780500756d576bb4ed6245b202f8de39f12f719d4f0d1f3b5842b53b6fc5",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "cc7eb579cc668edaebf7db208faf8189b31ff0566559ecdfb1409d556ea4eec5",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/apps/evidence.rs": {
       "status": "unproved",
@@ -1656,8 +1816,8 @@
     },
     "src/bootstrap.rs": {
       "status": "unproved",
-      "sha256": "204766fad00d1533504ccea522e153cad02e1646091777ea10d40b6cf646135c",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "cd461081251216eed943d809891f8eaeec42f2e79f9ac5573eabd7a5609b3a10",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/brand_redirect.rs": {
       "status": "unproved",
@@ -1691,8 +1851,8 @@
     },
     "src/capabilities/registry.rs": {
       "status": "unproved",
-      "sha256": "b45082e0fbdeb5c6619981b2904c51db162f6d7b85e6af75dcd5627f42531f0c",
-      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
+      "sha256": "2f4bc0e96602f353ae9549672e593b9dd959012aa2d4ffd3cb02ba66451e13b6",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/capabilities/schema.rs": {
       "status": "unproved",
@@ -1701,8 +1861,8 @@
     },
     "src/capabilities.rs": {
       "status": "unproved",
-      "sha256": "0c39f0ac79dff7720896be99d8296c04662e5a4e27d1235ac535479fb4fac25f",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "b469d73ed33897f9e12e60fcefd1e6990b57176b81f0ef66df26a1d7452837a1",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/cart_model.rs": {
       "status": "unproved",
@@ -1926,8 +2086,8 @@
     },
     "src/cognition/tools.rs": {
       "status": "unproved",
-      "sha256": "5b187158426bf52cf53c9821d542453a73c0541e8b3490c5f45f03c0b456e71d",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "7b5444e4a17a66bfa6bfa8b4c378fedd5be3cd460f6aedd6a0a94b322e90c6c5",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/commerce/app_adjustments.rs": {
       "status": "unproved",
@@ -2174,16 +2334,6 @@
       "sha256": "60fda9e95d8b4fc11f3100744b216f6ca23c39f0658957bdc4430d8bedd3d54c",
       "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
     },
-    "crates/apps/src/component_runtime/abi.rs": {
-      "status": "unproved",
-      "sha256": "af2d00a6ecd266ed0b09034e15322c5c1a5d758a04aca7c5ad7eb1b69a9cba03",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
-    },
-    "crates/apps/src/component_runtime.rs": {
-      "status": "unproved",
-      "sha256": "7fde158e83c2ac06d27fa23d785e97b0e7d98ca4a44f747a5a77ba4c28c65e46",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
-    },
     "src/concierge.rs": {
       "status": "unproved",
       "sha256": "4a09a690b25d5c78e0ff3d7e708802d17ca6e6085e1f3beccbb144668f6e60ff",
@@ -2216,8 +2366,8 @@
     },
     "src/currencies/pricing.rs": {
       "status": "unproved",
-      "sha256": "ba369ee9bf03ee59233d7883979b59cad1b410cf3cce3b5e5210c015e60f3b7f",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "b0e5bef5d9232abc5d9bb325e934dd7569fd27d8a861d5bc4add5cd4b8bb2bd3",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/currencies/rates.rs": {
       "status": "unproved",
@@ -2238,16 +2388,6 @@
       "status": "unproved",
       "sha256": "114988d139ef265f4443c3dfa0a94d7978099fb0429b7d1537f903ca6b344d67",
       "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
-    },
-    "crates/runtime/src/database_scope/provision.rs": {
-      "status": "unproved",
-      "sha256": "86a2a585d52fe90b6185f01d01aea869e30baaa92e008c2a5944903716589dee",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
-    },
-    "crates/runtime/src/database_scope.rs": {
-      "status": "unproved",
-      "sha256": "35ca439dad30bc2d322a2f49e0f530eaf057858841bb4c4e17638a4864067b8f",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/demo_catalog.rs": {
       "status": "unproved",
@@ -2276,8 +2416,8 @@
     },
     "src/developer/generation.rs": {
       "status": "unproved",
-      "sha256": "d224cb74b965fb088179288a778dff2212cf37b2b3928acee183deb51eed4986",
-      "review": "Reviewed app-owned marketplace Rust service, signed provider requests, exact external paid order validation and native stock/customer/order/outbox/receipt reuse; current actor additional rights enforced across HTTP/MCP/plans/jobs and retained by App Studio/AI edits. Local PostgreSQL/provider fixtures, tenant/channel/consent regressions, 221 Rust tests and 459 frontend tests passed. Existing extracted pure decisions remain unchanged; asynchronous SQL, remote providers and marketplace taxation are not formally proved."
+      "sha256": "a4aa95ac3006b8804fb484e0e62c2a02ec483e28edb77eae7343d73a17bc977f",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/developer/generation_contract.rs": {
       "status": "unproved",
@@ -2286,8 +2426,8 @@
     },
     "src/developer/generation_edits.rs": {
       "status": "unproved",
-      "sha256": "cfbf825ee01311020dfd2bf178b08696616a4a47f506fbdc018cbc509d9e8801",
-      "review": "Reviewed bounded RFC6902 model edit adapter, protected metadata and storage/access retention, atomic clone application and host versions; real local Qwen textbox/button, native HTTP staging and no-op/destructive negative cases. SQL/provider adapters remain unproved."
+      "sha256": "72ceda183ee108508f2feae65686ad0119d1d3b2d5e284e70cbbfd6bf25d5707",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/developer/mod.rs": {
       "status": "unproved",
@@ -2301,13 +2441,8 @@
     },
     "src/developer/routes.rs": {
       "status": "unproved",
-      "sha256": "120f4feb482747d138bbba81b8eb4bbc07513d0363d2c6b39d830178aeff6aa2",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
-    },
-    "crates/commerce/src/discount.rs": {
-      "status": "reviewed-binding",
-      "sha256": "82f4e3a3e0255a333eccbe9eff470513cf06bd2fd0c88b12a0f092ea69a83a26",
-      "review": "Initial extraction of 13 production policies; surrounding Rust explicitly unproved; existing HTTP regression suites retained"
+      "sha256": "a4ed2b9a6782f3a4eb8282b92d09ef2bc81fcfff60ae0230d3cd28365eccc4e6",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/documents/content.rs": {
       "status": "unproved",
@@ -2409,40 +2544,10 @@
       "sha256": "e5ecdd27274850e62d9550c1c30e262fb08b255da3f5dc2a62c088c0b7eb1da4",
       "review": "History discovery now uses native entity rights plus current read/write/PII conjunctions; canonical entity set and PII classification are shared with native history. Real narrow-role counterexample reproduced before repair; no financial policy changed."
     },
-    "crates/runtime/src/http_json.rs": {
-      "status": "unproved",
-      "sha256": "c9c23ab20e85f30bfcd1ea71d7df7bf4fee87443166d87e8052d3a18dbaf879e",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
-    },
     "src/http_limits.rs": {
       "status": "unproved",
       "sha256": "6085e1f3f2e6cb7b8dadc039c99dc925dd061a2e74c1ce55e363fa9db3bc12d2",
       "review": "Initial extraction of 13 production policies; surrounding Rust explicitly unproved; existing HTTP regression suites retained"
-    },
-    "crates/cognition/src/inference/protocol.rs": {
-      "status": "unproved",
-      "sha256": "d81c2653d383299212245ace76a492fc252b1b52a26263f1d0ca4762374de686",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
-    },
-    "crates/cognition/src/inference/schema.rs": {
-      "status": "unproved",
-      "sha256": "7a36ba806b3bed1aa0b0a435b2284ef1d1b702d356f55e00dfa1f750aa218636",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
-    },
-    "crates/cognition/src/inference/settings.rs": {
-      "status": "unproved",
-      "sha256": "8e8956dd6fe33de0c754577a8a0a2f4e323e5e2c0dc98d9f760f0fee8ddbee0c",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
-    },
-    "crates/cognition/src/inference/tests.rs": {
-      "status": "unproved",
-      "sha256": "b621a75bcf698db5df7b066c931adfb84dac7d7c57fea2345adefd9552240e6e",
-      "review": "Reviewed global AES-GCM write-only inference configuration, personal operator guards, revisioned reversible availability policy and queue admission including stages; local two-shop/fresh-process tests, 100 Rust tests and affected tenant/provider/payment/flow/translation/image regressions passed. Surrounding async adapters remain unproved."
-    },
-    "crates/cognition/src/inference.rs": {
-      "status": "unproved",
-      "sha256": "f832884c2bf2ae2341c3334b26b0d016fc618c788b401ff39a8b950043d8d51c",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
     },
     "src/knowledge/embeddings.rs": {
       "status": "unproved",
@@ -2521,8 +2626,8 @@
     },
     "src/lib.rs": {
       "status": "unproved",
-      "sha256": "c128b449a2ae9cc7ec793af8fcad00f9da5f7b55a4c4da0d18fc68893123508a",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "56304999140814bf884f5d2cc289fe323b3e7426186c1e149bc6e059b8b50974",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/localization.rs": {
       "status": "unproved",
@@ -2531,8 +2636,8 @@
     },
     "src/main.rs": {
       "status": "unproved",
-      "sha256": "53babb2d6705728bbcd611a87bc19aa58be627e175a8c1237033c918f0be5734",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "04eb712721b4c39a5907d064fc0c78b38551dcf1ee75e4ff158c53672fd3a410",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/marketing/app_flows.rs": {
       "status": "reviewed-binding",
@@ -2721,8 +2826,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "a4d48a55a2a45e1e9dfe55dfb66dc73a4a3d83386f7d1e17e859f729bf037483",
-      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
+      "sha256": "988eee6b9ab344750d4f1f10e9d2646569204215293b524ba486bab100eb9fbc",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -2734,15 +2839,10 @@
       "sha256": "755aa7f0e8ddffd0728700b4aa733e47b4a101f7ea195cd8c2285a942bfd7cc1",
       "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
-    "crates/commerce/src/money.rs": {
-      "status": "reviewed-binding",
-      "sha256": "039c3f3be70eb843a5c2bf1b6bbf8b6b5dfb89111050118a774b2557980a8142",
-      "review": "Final Money boundary review rejects negative source totals before rounding, including fractions below one cent that previously rounded to negative zero. Signed Money remains valid for explicit credit arithmetic. Exact roundtrip/overflow/currency tests and original-Shopware positive EUR boundary comparison remain intact. Product-question quota classifier follows the actual native route. No broader pricing rewrite, SQL proof or provider certification is claimed."
-    },
-    "crates/runtime/src/network_policy.rs": {
+    "src/observability.rs": {
       "status": "unproved",
-      "sha256": "c7ec2ecc3f64469e648c770e3fa74a5f23253dfa307d2eebd2acb80607869399",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "07a90627751767ce7432015818b46ddd4562441b1fbbe3403efca731a7bcdd08",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/operations/addresses.rs": {
       "status": "unproved",
@@ -2886,8 +2986,8 @@
     },
     "src/outbox/control.rs": {
       "status": "unproved",
-      "sha256": "b7e2877f1dee2f09525aadfa1704c1a6c40f81e0edb613b1b181e7add3fb6f00",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "524edc96fd2c98f12844ceeee01675606bea0156faf81620b220f09a88388827",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/outbox/retention.rs": {
       "status": "unproved",
@@ -2896,8 +2996,8 @@
     },
     "src/outbox.rs": {
       "status": "unproved",
-      "sha256": "9cbe69240351f897b9300e585e9f2c2b01ebe3e708742b78e5b58e893b157437",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "bda55e519e66fbceeac620747c2e444105ec7f57a6d6a3b25467390eaac3e40c",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/payments/accounts.rs": {
       "status": "unproved",
@@ -3051,8 +3151,8 @@
     },
     "src/planner.rs": {
       "status": "unproved",
-      "sha256": "397648b238ff026b3a1086a82fa8777a89f3930bef32fc76c49ac78623f9ca20",
-      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
+      "sha256": "5483dff767442eae27e0207b4806429ce84655e7abc555189e3a865179085ccf",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/platform/ai.rs": {
       "status": "reviewed-binding",
@@ -3159,11 +3259,6 @@
       "sha256": "50c1c63729b2a9467d5fa5a0bb94d732020d42576061df8c2378e78fcb6dd3dd",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
-    "crates/commerce/src/pricing.rs": {
-      "status": "unproved",
-      "sha256": "421ebdf7a78c2b46da9c1ee567d2df7052077db7f7c7919cccb516b1e020baac",
-      "review": "Initial extraction of 13 production policies; surrounding Rust explicitly unproved; existing HTTP regression suites retained"
-    },
     "src/proposal_apply.rs": {
       "status": "unproved",
       "sha256": "3e378bfd99b09502380383e458d0cd97df969aa2813b44283a93b07e82b1d912",
@@ -3186,8 +3281,8 @@
     },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "5a0b59c8a65ba7f85e0720a065cf7ce90fe8fee160fb73c005a17c329c91725c",
-      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
+      "sha256": "7291bb5214111211c0726b6f625aeb0a277173a4041f6ccdc9caa3a8570587b7",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",
@@ -3199,25 +3294,10 @@
       "sha256": "81197386813fdcd82fcae0d66b88ec76115dafe8d70016c0ed50d7aad0eb8ff3",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
-    "crates/apps/src/sandbox.rs": {
-      "status": "reviewed-binding",
-      "sha256": "5dbab6f829b37c51ff5037836dc07c887ad07ed8ba57243b1c7430475ea3545e",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
-    },
     "src/sandbox_cache.rs": {
       "status": "unproved",
       "sha256": "acece2e42ed522416627359bc852070f16a10d01f4a5946090990df6ef55f5a9",
       "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
-    },
-    "crates/apps/src/sandbox_engine.rs": {
-      "status": "unproved",
-      "sha256": "4ce2449f3aac161d6a34f1de770a83ecaa4ac8fc2b902186a458e8e422475610",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
-    },
-    "crates/runtime/src/scoped_pool.rs": {
-      "status": "unproved",
-      "sha256": "6eaf216e143cacb6c3b2a3a248bef11553832d30b7c01980f0d49ff898fea1c4",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
     },
     "src/security_headers.rs": {
       "status": "unproved",
@@ -3334,11 +3414,6 @@
       "sha256": "6f460e9b4bd2db81c953299d1e43d8c23554b008f9a7ecaf602de0ab55d5ef95",
       "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
     },
-    "crates/runtime/src/tenant_scope.rs": {
-      "status": "unproved",
-      "sha256": "1280ce70e3bfd1e5d2dfdfec510da678c376d31a25263799a316c737a824c616",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
-    },
     "src/translations/apply.rs": {
       "status": "reviewed-binding",
       "sha256": "f6fa08a7ec5aaf4b77ceb5b71e6b1356d11d9eb1dd7c936ee417415dcce13f86",
@@ -3389,21 +3464,6 @@
       "sha256": "37559f6293524d7568217ec08429ac596f8ab4fd34714c3c102c6de01220aae0",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
-    "crates/kernel/src/verified_kernel/app_intake.rs": {
-      "status": "extracted-policy",
-      "sha256": "81f02a63a85abaca01d359560bad09daebb903c57c6b51c88a7d9928f2572536",
-      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
-    },
-    "crates/kernel/src/verified_kernel/fulfillment.rs": {
-      "status": "extracted-policy",
-      "sha256": "9231ccb47eb2fdf5da67eba64c917aa57e2748f21cfe645c1c394b83e8814180",
-      "review": "Review 2026-10-14: modular fulfillment predicates and native carrier intent admission; same-reference CAS, occupied package denial, allocation/dispatch fence until confirmed no-effect release or original PDF acknowledgement. Local SQL/provider/restart/privacy and cross-provider denial fixtures checked; external effects and surrounding runtime remain unproved."
-    },
-    "crates/kernel/src/verified_kernel.rs": {
-      "status": "extracted-policy",
-      "sha256": "87b8f8402402667eac4035d8b9a03322d3da4806b97da4ed3ba7c23e8d456d4b",
-      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
-    },
     "src/work_signal.rs": {
       "status": "unproved",
       "sha256": "640ed67b901e03ae0246705e805324355fb5b67fd40f074739d227d70f748a06",
@@ -3411,26 +3471,70 @@
     },
     "src/workers.rs": {
       "status": "unproved",
-      "sha256": "4725d2228d7ca9b50835dde26dd063121632401254a97315a71de1f9d4a33481",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "839cb999450248f7c4daa0e74431712318e429aa3ea545d06e169432a3ef134a",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     }
   },
   "inputs": {
     ".github/workflows/verify.yml": {
-      "sha256": "ca81e6fc0d28c9372cebc8a98068c883216e5512b76515f3f92964e7dbb230c3",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "235402e6dc001938b645b7c3548fb8d326e7cfc8327803dc3131d130b92b9151",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "Cargo.lock": {
-      "sha256": "ace45b77709d51c7869d719023201c09b09c13b23591a339511963366d10eb7c",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "a41217051931975ae182dcdc3c308eda8d6090f90a465114af5eb2b550e682e5",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "Cargo.toml": {
-      "sha256": "c73346e3607778411c7cf7b65e91bea8f778f7ccdfe66de45fab372204a324ba",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "6a4e74848c4e6f9d391c804f4a1ab68c4fcb27d29ff165bd0fcfeb181d215dac",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/apps/Cargo.toml": {
+      "sha256": "496067ed6a47c2778baed402bd51378c139687fbb3b36f8f965bf880129de013",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/cognition/Cargo.toml": {
+      "sha256": "a17b8b9c95aa417a51ed22698226667f00ff12f948d8f978ddb80167fdb148c5",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/cognition/evals/tool-injection.v1.json": {
+      "sha256": "4cf25b4a445c8df9c099efb9cdac0c2160b06e633256bc9d498edac67c11535d",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/cognition/prompts/app-coding-task.v1.txt": {
+      "sha256": "7516c7400c12aabb3ab171fe4092a5025a9feacab85358bf05afac9b154c8f3c",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/cognition/prompts/app-edit.v1.txt": {
+      "sha256": "4d953447bd9edc5a02d29e488688bba8d01678e506b869b63ea175f799aa4713",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/cognition/prompts/app-generation.v1.txt": {
+      "sha256": "270d9bd6499bcb156e819485cd279c1c6e918903f68f71879c9bb9481a2a64bc",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/cognition/prompts/manifest.json": {
+      "sha256": "6f332bd32e4864eab099254199755a0b1360a52f71420bd1b375c757c637aaf4",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/cognition/prompts/merchant-planner.v1.txt": {
+      "sha256": "6fc1d69faed9342d8b95af531c3c3e0c597f1c4d18a311d3f62e5849236fdfaf",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/commerce/Cargo.toml": {
+      "sha256": "aae017a1931861c398001a481dfc3f17c0954cb89cc1247d2947934ebefb1d26",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/kernel/Cargo.toml": {
+      "sha256": "0fbd08914bdb10f97378f135b3e11e0ec5a5763296c92a2f34d31ee82158ee23",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/runtime/Cargo.toml": {
+      "sha256": "fa94f8feac17149ad75890a0486e80df77ac53a4bef0da00b73432b2d284666a",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "deploy/Dockerfile": {
-      "sha256": "100168e9587c23009b01ab65775056e5e49abf90ee3b7dca0fdfe05133154e25",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "32cff221980fddc3973e774760e28c3bc7dff414234d8b400fea9683b465a99e",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "fixtures/app-studio-schema.json": {
       "sha256": "dfb3ca2054fee52df246e2e16c42c5aaff9707812ab7ce2b7bb4a42f4fe700a8",
@@ -3872,6 +3976,10 @@
       "sha256": "1d68240d615e71283187f2a692cd1d07a628293df3c49168fad156f9377dbb05",
       "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
+    "migrations/103-outbox-subscriber-checkpoints.sql": {
+      "sha256": "b5e68f10b16abe150dc4e6a47bc099b0cee72db3fd1ec7e9e6db5204821f70aa",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
     "proof/Commerce/Claims.lean": {
       "sha256": "f3de8f3bdfbf76e69dc5a609a7534aa460a7dd5f6c4f6ed14a07590efbdd59ad",
       "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
@@ -3905,16 +4013,16 @@
       "review": "Reviewed marketplace money guard consumers and exact properties, cap-neighbour comparison cases, native stock binding and local regressions; external protocols and tax law remain tested unproved boundaries"
     },
     "scripts/formal/extract.py": {
-      "sha256": "2d8c45bd0e2dab5986fb281b3bd9b0f5242f738f493dd79984f028ac9201b377",
-      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+      "sha256": "4c60de4960139799d44be6f9ac5c78d70d856b2c6597e8695e981a4c40349f77",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "scripts/formal/mutations.py": {
       "sha256": "d64861b77313e4dcb9fda430217e14d128c0d1f10af6ac2608372e745954a6ce",
       "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
     },
     "scripts/formal/registry.py": {
-      "sha256": "c9c7b670df8a2ddb9f1c8f7c7359eba31c770a37531e3268126886dec0f6c02f",
-      "review": "Review provider-neutral split quantities, original app-bound PDF acknowledgement, native booking intent, aggregate storage and current Flow/job disclosure; provider effects remain unproved"
+      "sha256": "ed29f96108760ecc2cfd61cd953905a1c092a1fb41519167fc426915b5932004",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "scripts/formal/runners.py": {
       "sha256": "c73bda913fb0c1949c25ad7589e5d156c05f7e0a89f39ca7be8b8e40ebd5f565",
@@ -3923,6 +4031,10 @@
     "scripts/formal.py": {
       "sha256": "07b07a348c37b9cbda4b67987c5f229df5fb8071bacf51ce899f58d47195b2c1",
       "review": "Review 2026-10-14: bounded modular fulfillment predicates; native carrier intent freezes allocation/dispatch across unknown effects and cross-provider calls, confirmed rejection releases its own intent, exact PDFs acknowledge the original intent. Reviewed split/machine binding, tenant/package/CAS/quota checks and local paid-effect negative fixtures; SQL, crypto and carrier protocols remain unproved."
+    },
+    "scripts/testing/prompt_governance.py": {
+      "sha256": "9bf329f9ca7cc4cf04bc8b5db16129b796c8e4203f70d8cf371b7e12559e5897",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/auth/identity.sql": {
       "sha256": "d30de8019090f4ae166e656aaa5daf19d51f7b7efa9ebc0702127c997723c1fe",
@@ -3989,8 +4101,8 @@
       "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
     },
     "src/outbox/next_tenant.sql": {
-      "sha256": "3a0702a20262b00abb10a784f128deabc263ef19d3b2baa9bafdb61a5897d578",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "ebcb1a2c3f21b60ba0f0925f4d19e33712e3a8826d335aeafd5ef66af90cb560",
+      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/outbox/retention.sql": {
       "sha256": "293cab148e5f9d16df33ac89699b709b82f822bf6be9f55ae1d6beb2ccb03c38",

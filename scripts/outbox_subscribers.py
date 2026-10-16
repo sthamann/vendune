@@ -26,8 +26,8 @@ try:
     assert sql(f"SELECT delivered_at IS NULL FROM outbox WHERE id={event}")=='t'
     print('PASS failed audit projection leaves independent cognition/app/flow cursors advancing, while aggregate delivery stays pending',flush=True)
     # Accelerate only the disposable final retry count/clock, never production data.
-    sql("UPDATE outbox_checkpoints SET attempts=7,available_at=now() WHERE tenant='workshop' AND subscriber='audit'")
-    wait(lambda:sql("SELECT dead_letter_at IS NOT NULL FROM outbox_checkpoints WHERE tenant='workshop' AND subscriber='audit'")=='t')
+    sql("UPDATE outbox_subscriber_failures SET attempts=7,available_at=now() WHERE tenant='workshop' AND subscriber='audit'")
+    wait(lambda:sql("SELECT dead_letter_at IS NOT NULL FROM outbox_subscriber_failures WHERE tenant='workshop' AND subscriber='audit'")=='t')
     stop(worker);worker=None
     # Repair the disposable fixture, then use the ordinary authorized retry endpoint.
     sql('DROP TRIGGER fixture_fail_audit ON projections;DROP FUNCTION fixture_fail_audit()')

@@ -1492,7 +1492,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/extraction.py](../scripts/testing/extraction.py) | Native document-event extraction, review boundary and shared AI quotas; local provider only. |
 | [scripts/testing/hosted_migration.py](../scripts/testing/hosted_migration.py) | Real pre-055 SQL database upgrades through the native migrator; never rewind one ledger entry on a newer store. |
 | [scripts/testing/hotpath.py](../scripts/testing/hotpath.py) | Real HTTP wire bytes and SQL tracing checks for the existing read-performance suite. |
-| [scripts/testing/image_context.py](../scripts/testing/image_context.py) | Check real Rust include! inputs against the production image's explicit build COPY set. |
+| [scripts/testing/image_context.py](../scripts/testing/image_context.py) | /Dockerfile')] |
 | [scripts/testing/intent_navigation.py](../scripts/testing/intent_navigation.py) | Exercise saved fact categories through native catalog/MCP, source review and selective staging; no models. |
 | [scripts/testing/inventory_batch.py](../scripts/testing/inventory_batch.py) | Concurrent two-product allocation/release on the actual HTTP path, reused by strict runtime verification. |
 | [scripts/testing/legacy_customer_ownership.py](../scripts/testing/legacy_customer_ownership.py) | Historical guest snapshots never grant account ownership from an unverified email. |

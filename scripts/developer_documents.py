@@ -62,6 +62,13 @@ def call(path,body=None,session=None,tenant=None,expected=200,method=None,locale
  assert status==expected,(path,status,out)
  return out
 def passed(s):checks.append(s);print('PASS',s)
+def last_provider_input():
+ # Responses tool calls carry an input-message array; final structured calls use
+ # a string. Both must contain the actual admitted evidence, not just metadata.
+ request=next(c for c in reversed(captured) if c[0] != '/api/embed')[1]
+ value=request['input']
+ return value if isinstance(value,str) else json.dumps(value)
+
 def fixture_sql(statement):
  return subprocess.check_output(psql(container,db_user,fixture_db,'-v','ON_ERROR_STOP=1','-At','-c',statement),text=True).strip()
 def embedding_idle(tenant):
@@ -96,7 +103,7 @@ try:
  original_manifest=manifest
  manifest=json.loads((root/'extensions/apps/care-studio/manifest.json').read_text());manifest['id']='native_'+uuid.uuid4().hex[:10]
  native=call('/api/developer/generate',{'environment':e['id'],'prompt':'Extend the current native app','manifest':manifest,'inference':{'provider':'openai','model':'local-fixture'}},a)
- assert native['manifest']['views'] and native['manifest']['apiRoutes'] and manifest['id'] in next(c for c in reversed(captured) if c[0] != '/api/embed')[1]['input']
+ assert native['manifest']['views'] and native['manifest']['apiRoutes'] and manifest['id'] in last_provider_input()
  call('/api/developer/builds/'+native['id']+'/stage',{'approve':True,'digest':native['digest']},a)
  assert any(v.get('native',{}).get('view',{}).get('id')=='workspace' for v in call('/api/apps/surfaces',session=a,tenant=e['id'])['surfaces'])
  manifest=original_manifest
@@ -230,13 +237,13 @@ try:
  behavior['pause']=False
  passed('Merchant planner retains its exact admitted evidence when lexical/semantic retrieval availability changes')
  assert any(s['documentId']==private['id'] for s in plan['preview']['documentSources']),plan
- assert 'FIXTURE-PRIVATE-KNOWLEDGE' in next(c for c in reversed(captured) if c[0] != '/api/embed')[1]['input']
+ assert 'FIXTURE-PRIVATE-KNOWLEDGE' in last_provider_input()
  behavior['pause']=True;model_waiting.clear();model_release.clear()
  with ThreadPoolExecutor(max_workers=1) as requests:
   pending=requests.submit(call,'/api/agent/plan',{'instruction':instruction,'inference':{'provider':'openai','model':'local-fixture'}},a,expected=409)
   try:
    assert model_waiting.wait(10),'Planner never consumed the private source'
-   assert 'FIXTURE-PRIVATE-KNOWLEDGE' in next(c for c in reversed(captured) if c[0] != '/api/embed')[1]['input']
+   assert 'FIXTURE-PRIVATE-KNOWLEDGE' in last_provider_input()
    call('/api/knowledge/documents/'+private['id']+'/lifecycle',{'approve':True,'archived':True,'revision':1},a)
   finally:model_release.set()
   rejected=pending.result(timeout=20)
@@ -245,7 +252,7 @@ try:
  passed('Archiving an actually supplied private source stops the merchant planner without an executable proposal')
  plan=call('/api/agent/plan',{'instruction':instruction,'inference':{'provider':'openai','model':'local-fixture'}},a)
  assert all(s['documentId']!=private['id'] for s in plan['preview']['documentSources'])
- assert 'FIXTURE-PRIVATE-KNOWLEDGE' not in next(c for c in reversed(captured) if c[0] != '/api/embed')[1]['input']
+ assert 'FIXTURE-PRIVATE-KNOWLEDGE' not in last_provider_input()
  passed('Private document text/hash is consumed by the actual merchant provider prompt; archive removes it on the next call')
  behavior['mode']='flow';flow={'name':labels,'active':True,'event':'order.placed','condition':{'type':'alwaysValid'},'action':'ai_proposal','instruction':{l:'Propose setting only lamp price to 69.90 EUR.' for l in labels},'locale':'de-DE','inference':{'provider':'openai','model':'local-fixture'}}
  call('/api/automation/flows/price_draft',{'revision':0,'data':flow},a,method='PUT')

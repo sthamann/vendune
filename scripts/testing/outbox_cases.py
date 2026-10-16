@@ -21,6 +21,7 @@ BEGIN;
 SELECT set_config('rac.system','on',true);
 DROP TRIGGER prepare_outbox_delivery ON outbox;
 DROP FUNCTION prepare_outbox_delivery();
+DROP TABLE outbox_subscriber_failures;
 DROP TABLE outbox_checkpoints;
 ALTER TABLE outbox DROP COLUMN subscriber_mask, DROP COLUMN dispatch_not_before, DROP COLUMN dispatch_requires_retry;
 """ + old + """
@@ -32,13 +33,13 @@ INSERT INTO outbox(tenant,kind,data,available_at)
 DO $$ BEGIN
  IF NOT EXISTS(SELECT 1 FROM outbox WHERE kind='fixture.legacy-quarantine' AND dispatch_requires_retry AND subscriber_mask=0) THEN RAISE EXCEPTION 'Legacy quarantine was lost'; END IF;
  IF NOT EXISTS(SELECT 1 FROM outbox WHERE kind='fixture.legacy-delay' AND dispatch_not_before>now() AND NOT dispatch_requires_retry) THEN RAISE EXCEPTION 'Legacy delay was lost'; END IF;
- IF NOT EXISTS(SELECT 1 FROM pg_constraint WHERE conrelid='outbox_checkpoints'::regclass AND confrelid='outbox'::regclass AND array_length(conkey,1)=2) THEN RAISE EXCEPTION 'Missing tenant-bound pending reference'; END IF;
+ IF NOT EXISTS(SELECT 1 FROM pg_constraint WHERE conrelid='outbox_subscriber_failures'::regclass AND confrelid='outbox'::regclass AND array_length(conkey,1)=2) THEN RAISE EXCEPTION 'Missing tenant-bound pending reference'; END IF;
 END $$;
 DO $$ DECLARE foreign_event bigint; BEGIN
  INSERT INTO tenants(id,name) VALUES('fixture-outbox-foreign','Synthetic outbox boundary');
  INSERT INTO outbox(tenant,kind,data) VALUES('fixture-outbox-foreign','fixture.foreign','{}') RETURNING id INTO foreign_event;
  BEGIN
-  UPDATE outbox_checkpoints SET pending_id=foreign_event WHERE tenant='workshop' AND subscriber='audit';
+  INSERT INTO outbox_subscriber_failures(tenant,event_id,subscriber) VALUES('workshop',foreign_event,'audit');
   RAISE EXCEPTION 'Foreign pending event was admitted';
  EXCEPTION WHEN foreign_key_violation THEN NULL;
  END;
@@ -83,8 +84,8 @@ def retained_quarantine(sql, wait):
     # The real cognition consumer then fails its first attempt on the same event.
     # A fresh, retryable failure must not clear another subscriber's quarantine.
     event = int(sql("INSERT INTO outbox(tenant,kind,data,dead_letter_at) VALUES('workshop','order.placed','{}',now()) RETURNING id"))
-    sql(f"UPDATE outbox SET dispatch_requires_retry=false WHERE id={event}; UPDATE outbox_checkpoints SET pending_id={event},attempts=8,dead_letter_at=now() WHERE tenant='workshop' AND subscriber='audit'")
-    wait(lambda: sql(f"SELECT attempts>0 FROM outbox_checkpoints WHERE tenant='workshop' AND subscriber='cognition' AND pending_id={event}") == 't')
+    sql(f"UPDATE outbox SET dispatch_requires_retry=false WHERE id={event}; INSERT INTO outbox_subscriber_failures(tenant,event_id,subscriber,attempts,dead_letter_at) VALUES('workshop',{event},'audit',8,now())")
+    wait(lambda: sql(f"SELECT attempts>0 FROM outbox_subscriber_failures WHERE tenant='workshop' AND subscriber='cognition' AND event_id={event}") == 't')
     assert sql(f"SELECT dead_letter_at IS NOT NULL FROM outbox WHERE id={event}") == 't', 'Another subscriber cleared the audit quarantine'
     # Repair only the synthetic input via the consumer's existing receipt fence.
     sql(f"INSERT INTO knowledge_receipts(tenant,event_id) VALUES('workshop',{event}) ON CONFLICT DO NOTHING")

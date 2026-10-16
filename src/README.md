@@ -19,12 +19,12 @@ This folder owns the Rust modules listed below. Each source begins with its resp
 - [`concierge.rs`](concierge.rs): Read-only storefront shopping advisor.
 - [`context.rs`](context.rs): Bounded behavioral ports of Shopware 6.7.14.2 context and product-cart selection.
 - [`customer.rs`](customer.rs): Customer credential verification and context rotation.
-- [`discount.rs`](discount.rs): Integer-cent proportional discount allocation; cumulative rounding conserves the exact basket discount.
+- [`discount.rs`](../crates/commerce/src/discount.rs): Integer-cent proportional discount allocation; cumulative rounding conserves the exact basket discount.
 - [`experience.rs`](experience.rs): Persisted storefront layout policy and observed synthetic rewards.
 - [`extensions.rs`](extensions.rs): Merchant catalogue and Wasm extension activation/state.
 - [`foundation.rs`](foundation.rs): Application dependencies, error responses and request context helpers.
 - [`http_limits.rs`](http_limits.rs): Bounded streaming responses for extension services and payment providers.
-- [`inference.rs`](inference.rs): Provider adapters. Credentials stay on the server; domain validation is separate.
+- [`inference.rs`](../crates/cognition/src/inference.rs): Provider adapters. Credentials stay on the server; domain validation is separate.
 - [`knowledge.rs`](knowledge.rs): Transactional PostgreSQL knowledge relations and separately indexed Qdrant retrieval.
 - [`lib.rs`](lib.rs): Reusable pricing, context, sandbox, graph and inference modules.
 - [`localization.rs`](localization.rs): Shop locale resolution, translated catalog hydration and non-mutating merchant quote.
@@ -35,18 +35,18 @@ This folder owns the Rust modules listed below. Each source begins with its resp
 - [`order_routes.rs`](order_routes.rs): Merchant order read adapter.
 - [`outbox.rs`](outbox.rs): Durable outbox and audit projection worker.
 - [`planner.rs`](planner.rs): Grounded model planning, recorded inputs and proposed changes.
-- [`pricing.rs`](pricing.rs): Behavioral port of Shopware 6.7.14.2 quantity calculators.
+- [`pricing.rs`](../crates/commerce/src/pricing.rs): Behavioral port of Shopware 6.7.14.2 quantity calculators.
 - [`proposal_apply.rs`](proposal_apply.rs): Transactional application of approved, revision-bound proposals.
 - [`proposal_model.rs`](proposal_model.rs): Typed proposals and validation before persistence or execution.
 - [`proposal_routes.rs`](proposal_routes.rs): HTTP proposal creation, approval and task listing.
 - [`routes.rs`](routes.rs): HTTP transport registry; domain behavior lives in dedicated modules.
 - [`rule_comparison.rs`](rule_comparison.rs): Behavioral port of Shopware 6.7.14.2 RuleComparison::numeric and FloatComparator's exact epsilon boundaries.
-- [`sandbox.rs`](sandbox.rs): Pure Wasmtime guest execution with bounded resources and no host imports.
+- [`sandbox.rs`](../crates/apps/src/sandbox.rs): Pure Wasmtime guest execution with bounded resources and no host imports.
 - [`seed.rs`](seed.rs): Idempotent synthetic template catalogue initialization.
 - [`shop_domains.rs`](shop_domains.rs): Resolve configured shop subdomains before authentication; reject unknown hosts and conflicting scopes.
 - [`studio.rs`](studio.rs): Verified merchant overview facts consumed by the chat and activity views.
 - [`ucp/`](ucp/): Versioned UCP checkout, discovery and native B2B negotiation adapters.
-- [`verified_kernel.rs`](verified_kernel.rs): Closed, side-effect-free commerce policies extracted to Lean; keep within the checked bool/u64 grammar.
+- [`verified_kernel.rs`](../crates/kernel/src/verified_kernel.rs): Closed, side-effect-free commerce policies extracted to Lean; keep within the checked bool/u64 grammar.
 - [`workers.rs`](workers.rs): Independently deployable worker roles; leases and durable receipts coordinate replicas.
 
 The [source inventory](../docs/module-inventory.md) is checked in CI. [The behavioral map](../docs/source-map.md) identifies integration suites, and [testing](../docs/testing.md) describes actual coverage and limits. Every file is limited to 320 lines; `main.rs` to 120.

@@ -10,10 +10,10 @@
 
 [![Verify](https://github.com/sthamann/veyndo/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/sthamann/veyndo/actions/workflows/verify.yml)
 [![Documentation](https://github.com/sthamann/veyndo/actions/workflows/pages.yml/badge.svg?branch=main)](https://veyndo.ai/docs/)
-[![Working prototype](https://img.shields.io/badge/status-working_prototype-142943)](#current-boundaries)
+[![Working prototype](https://img.shields.io/badge/status-working_prototype-189EFF)](#current-boundaries)
 [![Sustainable Use License](https://img.shields.io/badge/license-Sustainable_Use-189EFF)](LICENSE)
 
-[Try one complete round](docs/first-tour.md) · [Watch the tours](#see-it-in-action) · [First contributions](docs/early-contributors.md) · [Feature guide](docs/features.md) · [Architecture](docs/production-architecture.md) · [Documentation](https://veyndo.ai/docs/)
+[Try one complete round](docs/first-tour.md) · [Watch the tours](docs/video-tours.md) · [First contributions](docs/early-contributors.md) · [Feature guide](docs/features.md) · [Architecture](docs/production-architecture.md) · [Documentation](https://veyndo.ai/docs/)
 
 </div>
 
@@ -85,8 +85,8 @@ source language; the reading interface supports English, German, French and Span
 ## Current boundaries
 
 Veyndo is an experiment platform, not established production infrastructure.
-Real payments/refunds, public OAuth, actual embedded checkout, disaster recovery
-and capacity limits require their own evidence. Selected Lean proofs cover named
+Simulated native and embedded checkout have dated acceptance. Real payments/refunds,
+each OAuth provider, disaster recovery and capacity require separate evidence. Selected Lean proofs cover named
 pure policies, not the whole system. Source builds, app lifecycle completeness and
 operational controls are tracked explicitly in [the current status](docs/status.md).
 

@@ -3,7 +3,7 @@
 For the current implementation and acceptance state, use **[Status](status.md)**.
 This page preserves dated evidence.
 
-# Release reviewed — 16 October 2026
+## Release reviewed — 16 October 2026
 
 ## Latest recorded deployment — 16 October
 
