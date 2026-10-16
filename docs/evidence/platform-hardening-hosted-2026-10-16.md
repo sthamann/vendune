@@ -43,7 +43,9 @@ correct configured price but do not yet list dimensions/material clearly. A shar
 immutable summary fix is under verification separately; these captures must not be
 relabeled as evidence that it is already public.
 
-The full GitHub repeat is still running when this receipt is prepared. Its preceding
+The [full required GitHub repeat](https://github.com/sthamann/veyndo/actions/runs/38926129994)
+passed at 16:20 UTC, including actual database/provider paths, formal negative
+controls and unchanged coverage floors. PR 143 merged as `1725369`. Its preceding
 run reached the final Outbox fixture and correctly refused the named CI bootstrap
 database. The repaired workflow creates its own disposable database; the production-
 database refusal and all registered suites remain. Local focused SQL/worker checks

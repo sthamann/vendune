@@ -47,8 +47,9 @@ checkout and cleared original bag, and a privately tested/published furniture ap
 with a real configured purchase. Payment was simulated throughout.
 
 The release head `7a4388d` changes CI/documentation only relative to that runtime.
-Its complete GitHub repeat is still running; the preceding test-orchestration
-failure and its correction remain recorded in the receipt. Public testing found
+Its [complete required GitHub repeat](https://github.com/sthamann/veyndo/actions/runs/38926129994)
+passed and PR 143 merged as `1725369`; the preceding test-orchestration failure
+and its correction remain recorded in the receipt. Public testing found
 missing configuration detail in generic purchase screens; that separate summary
 fix is being verified and is not claimed public here. Full B2B purchasing approval
 and current-rule reorder have local connected PostgreSQL evidence, not an extra

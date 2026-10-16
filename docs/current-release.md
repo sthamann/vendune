@@ -8,7 +8,7 @@ This page preserves dated evidence.
 [The dated hosted receipt](evidence/platform-hardening-hosted-2026-10-16.md) records
 Core `9846807`, image `steep-cushion-339`, snapshot-backed migration 103, healthy
 strict database restart and actual public SaaS, Storyfront and app/configurator
-purchases. It explicitly separates simulated payments, the running GitHub repeat
+purchases. It explicitly separates simulated payments, the successful required GitHub repeat
 and the newly found configuration-summary presentation gap. Earlier entries below
 retain their original deployment and acceptance scope.
 

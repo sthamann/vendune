@@ -18,9 +18,11 @@
   },
   "ci": {
     "run": 38926129994,
-    "state": "running; update after its actual outcome",
+    "state": "passed: full required verification including real database/providers, formal negative controls and unchanged coverage floors",
     "previousRun": 38921275020,
-    "previousFailure": "Final outbox fixture refused the named CI bootstrap database; no runtime failure. Workflow now creates its own commerce_quality database; refusal is retained and negatively tested. The unchanged outbox suite now runs first in the provider fleet."
+    "previousFailure": "Final outbox fixture refused the named CI bootstrap database; no runtime failure. Workflow now creates its own commerce_quality database; refusal is retained and negatively tested. The unchanged outbox suite now runs first in the provider fleet.",
+    "completedAt": "2026-10-16T16:20:17Z",
+    "mergedMain": "1725369b743f2535fffded2cf1fad6e163cd8fef"
   },
   "browser": {
     "engine": "Fresh Chrome tabs on deployed runtime",
@@ -39,7 +41,7 @@
       "order": "RAC-879424a9",
       "amountMinor": 2490,
       "locale": "de-DE",
-      "productLabel": "Synthetisches Demo-Produkt: Keramiktasse Sandweiß"
+      "productLabel": "Synthetisches Demo-Produkt: Keramiktasse Sandwei\u00df"
     },
     "app": {
       "id": "furniture_mvb59zya",
