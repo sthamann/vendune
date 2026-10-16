@@ -3,6 +3,15 @@
 For the current implementation and acceptance state, use **[Status](status.md)**.
 This page preserves dated evidence.
 
+## Hardening release and public app workflow — 16 October, evening
+
+[The dated hosted receipt](evidence/platform-hardening-hosted-2026-10-16.md) records
+Core `9846807`, image `steep-cushion-339`, snapshot-backed migration 103, healthy
+strict database restart and actual public SaaS, Storyfront and app/configurator
+purchases. It explicitly separates simulated payments, the successful required GitHub repeat
+and the newly found configuration-summary presentation gap. Earlier entries below
+retain their original deployment and acceptance scope.
+
 ## Release reviewed — 16 October 2026
 
 ## Latest recorded deployment — 16 October
