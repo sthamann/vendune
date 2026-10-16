@@ -109,6 +109,7 @@ try:
     passed('Independent money allocation and exact-model mismatch fail before provider egress')
     active=key();queued=run(active);sibling=key()
     assert queued['agentId']==active['id']
+    assert call(base,'/api/agent/runs/'+queued['taskId'],h=headers(active))['agentId']==active['id']
     call(base,'/api/agent/runs/'+queued['taskId'],h=headers(sibling),expected=403)
     call(base,'/api/agent/runs/'+queued['taskId'],h=headers(legacy),expected=403)
     replay_body={'requestId':uuid.uuid4().hex,'instruction':'Same request ID belongs to each agent independently'}
@@ -117,6 +118,8 @@ try:
     assert first['taskId']!=second['taskId']
     assert call(base,'/api/agent/runs',replay_body,headers(active))['taskId']==first['taskId']
     chat=call(base,'/api/agent/chat',{'message':'Private agent conversation','background':True},headers(active))
+    own=call(base,'/api/agent/conversations/'+chat['conversationId'],h=headers(active))
+    assert 'Private agent conversation' in json.dumps(own)
     call(base,'/api/agent/conversations/'+chat['conversationId'],h=headers(sibling),expected=404)
     passed('Two agent identities sharing a human creator cannot read each other’s tasks or conversations; request IDs deduplicate only their own work')
     status=call(base,'/api/agent/control',h=h)
