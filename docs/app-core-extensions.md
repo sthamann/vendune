@@ -98,6 +98,12 @@ metadata. Select them in the existing column picker and arrange them with the
 same layout controls. Exact manual filters use the shared native predicate before
 pagination, rather than filtering the current browser page.
 
+![Native product grid: saved app segment, optional column and exact server filter](assets/core-extensions-20261017/native-product-filter.png)
+
+*17 October: actual browser acceptance in an isolated synthetic shop. The product
+was edited through its native app form and then found by this server filter. This
+is a local acceptance image, not a hosted-payment or capacity claim.*
+
 `appFilter` is a JSON array encoded as a query-string value, with one to four
 conjoined predicates:
 
@@ -153,7 +159,7 @@ models, and cap embedded field bytes to 32 KiB per record and 512 KiB per native
 page. Each object's complete embedded envelope is additionally bounded to 64 KiB.
 Omitted data is reported by `omittedExtensions` and explained by the detail UI;
 use the app's own paged read for complete records. Grid planning receives at most
-128 readable indexed field definitions. Existing installation/storage quotas remain
+128 readable indexed field definitions within 16 KiB. Existing installation/storage quotas remain
 in force. These are prototype limits, not measured enterprise capacity.
 
 Registered regression `app_core_extensions` exercises actual PostgreSQL/HTTP/MCP

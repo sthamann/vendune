@@ -97,6 +97,12 @@ it("edits the existing bound record without an ID chooser, preserves CAS and kee
       "Retail",
     ),
   );
+  expect(await screen.findByRole("status")).toHaveTextContent("Record saved");
+  await userEvent.type(
+    screen.getByRole("textbox", { name: "Segment" }),
+    " again",
+  );
+  expect(screen.queryByRole("status")).toBeNull();
   await userEvent.click(screen.getByRole("button", { name: "Save record" }));
   expect(request.mock.calls[1][1]).toMatchObject({ revision: 4 });
 });

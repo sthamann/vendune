@@ -80,9 +80,10 @@ function Extension({
   objectId: string;
   request: RequestFn;
 }) {
-  const { locale } = useAppStudioText();
+  const { a, locale } = useAppStudioText();
   const [record, setRecord] = useState(x.record);
   const [epoch, setEpoch] = useState(0);
+  const [confirmed, setConfirmed] = useState(false);
   const model = {
     ...x.model,
     label: x.model.label ?? {},
@@ -95,7 +96,11 @@ function Extension({
     view: { id: "extension", layout: "form", blocks: [] },
   };
   return (
-    <section className="native-block core-extension">
+    <section
+      className="native-block core-extension"
+      onInputCapture={() => setConfirmed(false)}
+      onClickCapture={() => setConfirmed(false)}
+    >
       <header>
         <h3>
           {contentText(x.label ?? {}, locale, x.language.mainLocale) ||
@@ -121,6 +126,7 @@ function Extension({
           singleRecord
           readOnly={!x.writeAction}
           save={async (value) => {
+            setConfirmed(false);
             const fields = { ...value.fields, [anchor]: objectId };
             const accepted = await request(
               `/api/apps/${x.app}/actions/${x.writeAction}`,
@@ -135,10 +141,12 @@ function Extension({
               id: accepted.id,
               revision: accepted.revision,
             });
+            setConfirmed(true);
           }}
           saved={() => setEpoch((n) => n + 1)}
         />
       </NativeRuntime>
+      {confirmed && <p role="status">{a("savedRecord")}</p>}
     </section>
   );
 }

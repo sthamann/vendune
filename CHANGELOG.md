@@ -1,6 +1,6 @@
 # Changelog
 
-## Native app object fields — implementation, 2026-10-16
+## Native app object fields — implementation, 2026-10-17
 
 - Add versioned private product/customer/order/company bindings over the existing four shared app tables; keep native foreign keys, uniqueness, current native/PII/custom scopes, CAS, history and outbox. Preserve legacy package serialization and reject incompatible installed bindings.
 - Connect native detail forms, optional existing-grid columns and exact indexed product/customer/order filters before pagination. Reuse HTTP/MCP owners, generate request contracts from the registry, and give reviewed grid plans scoped field metadata plus versioned prompt provenance. Project namespaced graph context without claiming public buyer facts.

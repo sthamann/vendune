@@ -185,7 +185,39 @@ pub(super) async fn descriptions(a: &App, h: &RequestContext, object: Object) ->
     let t = merchant(a, h)?;
     let mut tx = a.db.begin().await?;
     let models = models(&mut tx, a, h, &t, object).await?;
-    let fields=models.iter().flat_map(|(app,_,e,_,_,_,_)|e.fields.iter().filter(|f|f.indexed && !f.translatable && matches!(f.kind.as_str(),"string"|"integer"|"boolean") && Some(f.name.as_str())!=e.extends.as_ref().map(|x|x.field.as_str())).map(move |f|serde_json::json!({"app":app,"entity":e.name,"field":f.name,"kind":f.kind,"label":f.label}))).take(128).collect::<Vec<_>>();
+    let fields=bounded_fields(models.iter().flat_map(|(app,_,e,_,_,_,_)|e.fields.iter().filter(|f|f.indexed && !f.translatable && matches!(f.kind.as_str(),"string"|"integer"|"boolean") && Some(f.name.as_str())!=e.extends.as_ref().map(|x|x.field.as_str())).map(move |f|serde_json::json!({"app":app,"entity":e.name,"field":f.name,"kind":f.kind,"label":f.label}))));
     tx.commit().await?;
     Ok(serde_json::json!(fields))
+}
+
+// Keep complete definitions rather than truncating untrusted labels into a different instruction.
+fn bounded_fields(fields: impl IntoIterator<Item = Value>) -> Vec<Value> {
+    let mut bytes = 2;
+    fields
+        .into_iter()
+        .filter(|field| {
+            let size = field.to_string().len() + 1;
+            if bytes + size > 16384 {
+                return false;
+            }
+            bytes += size;
+            true
+        })
+        .take(128)
+        .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn planning_metadata_is_bounded_without_rewriting_labels_or_starving_small_definitions() {
+        let small =
+            json!({"app":"example","entity":"details","field":"segment","label":{"en":"Segment"}});
+        let large = json!({"label":{"en":"x".repeat(20000)}});
+        let bounded = bounded_fields(vec![large, small.clone()]);
+        assert_eq!(bounded, vec![small.clone()]);
+        assert!(json!(bounded).to_string().len() <= 16384);
+        assert_eq!(bounded_fields(vec![small; 200]).len(), 128);
+    }
 }

@@ -1,6 +1,6 @@
 # App system: delivered foundations and remaining gates
 
-**Reviewed 16 October 2026.** The integrated app builder is usable. The complete
+**Reviewed 17 October 2026.** The integrated app builder is usable. The complete
 business-capability proposal — describe an individual business model and have
 Veyndo build, verify, operate and maintain it — remains an implementation programme.
 This page maps that distinction; it is not a completion percentage.

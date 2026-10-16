@@ -1,7 +1,7 @@
 # Veyndo: current status
 
 This is the single starting point for what works, what is implemented but not
-publicly accepted, and what still needs development. Updated 16 October 2026.
+publicly accepted, and what still needs development. Updated 17 October 2026.
 A green test, merged code and a completed public business journey are different evidence.
 
 ## Start with a complete journey

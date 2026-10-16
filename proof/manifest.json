@@ -1305,8 +1305,8 @@
     },
     "src/apps/extension_projection.rs": {
       "status": "unproved",
-      "sha256": "45ebcd51515cd148cfab4505cdb82536c613bfa968f492c60cd6377f11a33d36",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "11e61ed1fa070d74b9d94f9d1156ad394d3e6fb5b7470fa1749bed7564339699",
+      "review": "Reviewed native extension metadata byte bound: retain complete current-scope indexed field definitions, skip oversized labels, cap at 128 definitions and 16 KiB; no change to admissibility policy, tenant authorization or unproved adapter boundary. Unit test covers oversize skip and count limit."
     },
     "src/apps/field_values.rs": {
       "status": "unproved",

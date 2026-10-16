@@ -256,13 +256,3 @@
 .core-extension .content-language-picker {
   margin-block: 12px;
 }
-.agent-grid-extension-filter {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  gap: 12px;
-  min-width: 0;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px;
-}
