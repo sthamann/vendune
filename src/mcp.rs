@@ -49,7 +49,11 @@ pub(crate) async fn mcp(State(a): State<App>, h: RequestContext, Json(v): Json<V
                 .filter(|operation| operation.admitted(&a, &h))
                 .map(|operation| operation.tool())
                 .collect::<Vec<_>>();
-            match apps::app_tools(&a, &h).await {
+            match if h.principal.agent_key.is_some() {
+                Ok(Vec::new())
+            } else {
+                apps::app_tools(&a, &h).await
+            } {
                 Ok(apps) => {
                     tools.extend(apps);
                     Ok(json!({"tools":tools}))

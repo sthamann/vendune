@@ -228,4 +228,8 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         "103-outbox-subscriber-checkpoints",
         include_str!("../../migrations/103-outbox-subscriber-checkpoints.sql"),
     ),
+    (
+        "104-agent-authority-budgets",
+        include_str!("../../migrations/104-agent-authority-budgets.sql"),
+    ),
 ];

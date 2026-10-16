@@ -237,13 +237,16 @@ def run():
             key = call("/api/workspace/integrations", {"name":"Restricted planner","permissions":["catalog.read","catalog.write","knowledge.read","assistant.use","orders.read"],"expiresInDays":1}, h)
             restricted = {"x-tenant":u["workspace"],"Authorization":"Bearer "+key["key"]}
             call("/api/agent/tasks/"+owner_plan["taskId"]+"/apply", {"approve":True}, restricted, expected=403)
+            before_denied = len(model_requests)
             call("/api/agent/plan", {"instruction":"Update zz-last only","inference":{"provider":"openai","model":"local-fixture"}}, restricted, expected=403)
-            assert "ONLY-ORDER-READ-SENTINEL" not in model_requests[-1]["input"]
-            assert "save_entry" not in model_requests[-1]["input"]
+            # Ordinary integration credentials now fail before inference. The
+            # previous captured input belongs to the authorized owner and may
+            # legitimately contain save_entry; it is not the denied key's input.
+            assert len(model_requests) == before_denied
             denied = call("/mcp", {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":f"app.{app_id}.save_entry","arguments":{"id":"x","fields":fields}}}, h)
             assert denied['error']['code']==-32602
             assert not any(row['id']=='x' for row in call(path+'?limit=100',headers=public)['elements'])
-            passed("MCP-disabled internal planning works; restricted model grounding/proposals and approval cannot bypass current app scopes")
+            passed("MCP-disabled owner planning works; unbudgeted keys make no model call and cannot bypass app scopes or proposal approval")
 
             call("/api/apps", {"manifest": m}, oh)
             assert call(path, headers={"x-tenant": other["workspace"]})["elements"] == []

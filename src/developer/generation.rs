@@ -42,7 +42,7 @@ pub(super) async fn generate(a: &App, t: &str, h: &RequestContext, v: &Value) ->
     let system = include_str!("../../crates/cognition/prompts/app-generation.v1.txt");
     let _cluster = crate::performance::cluster_lease::Lease::acquire(a, t, "model", 2).await?;
     let edit_system = generation_edits::system(&settings.locales);
-    let out=a.inference.structured(Some(&choice),if editing { &edit_system } else { system },&format!("Interface locale {locale}. Existing development versions {versions}. Current editable manifest {}. Task: {prompt}", v.get("manifest").unwrap_or(&Value::Null)),&app_schema).await.map_err(|e|Error(StatusCode::BAD_GATEWAY,e))?;
+    let out=a.inference.structured(Some(&choice),if editing { &edit_system } else { system },&format!("Interface locale {locale}. Existing development versions {versions}. Current editable manifest {}. Task: {prompt}", v.get("manifest").unwrap_or(&Value::Null)),&app_schema).await.map_err(Error::from)?;
     let mut result = if editing {
         generation_edits::apply(&v["manifest"], &out.value, &versions)?
     } else {

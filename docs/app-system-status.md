@@ -20,6 +20,8 @@ branch, build or documentation change does not update a hosted result by itself.
 | Understand the full product direction | [Business capabilities](business-capabilities.md) |
 | Check the latest recorded hosted release | [16 October hardening and app workflow](evidence/platform-hardening-hosted-2026-10-16.md), [Release overview](current-release.md), [16 October public acceptance](evidence/studio-release-hosted-2026-10-16.json), [15 October storage acceptance](evidence/shared-app-storage-hosted-2026-10-15.json) |
 
+New local [agent controls](agent-authority-controls.md) reuse existing keys/tasks and central inference. They are not yet publicly deployed and do not close arbitrary app execution or real-provider billing gates.
+
 ## Implemented foundations
 
 | Capability | Actual implementation | Boundary |

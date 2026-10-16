@@ -2,6 +2,18 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs12 {
+  "pos.currency": {
+    cartToken: string;
+    channelId: string;
+    currency: string;
+    revision: number;
+  };
+  "pos.coupons": {
+    cartToken: string;
+    channelId: string;
+    codes: Array<string>;
+    revision: number;
+  };
   "pos.create": { channelId: string };
   "pos.cart": { cartToken: string; channelId: string };
   "pos.replace": {
@@ -49,36 +61,6 @@ export interface Inputs12 {
     unitId?: string;
   };
   "b2b.settings.save": {
-    cartRevision?: number;
-    companyId?: string;
-    customerId?: string;
-    data?: JsonValue;
-    id?: string;
-    lines?: Array<{ quantity: number; sku: string }>;
-    message?: string;
-    parentId?: string | null;
-    productIds?: Array<string>;
-    purchaseOrder?: string;
-    revision?: number;
-    state?: "approved" | "rejected";
-    unitId?: string;
-  };
-  "b2b.configuration": {
-    cartRevision?: number;
-    companyId?: string;
-    customerId?: string;
-    data?: JsonValue;
-    id?: string;
-    lines?: Array<{ quantity: number; sku: string }>;
-    message?: string;
-    parentId?: string | null;
-    productIds?: Array<string>;
-    purchaseOrder?: string;
-    revision?: number;
-    state?: "approved" | "rejected";
-    unitId?: string;
-  };
-  "b2b.requisition.import": {
     cartRevision?: number;
     companyId?: string;
     customerId?: string;

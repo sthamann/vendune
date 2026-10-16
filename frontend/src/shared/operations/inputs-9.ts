@@ -2,6 +2,16 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs9 {
+  "knowledge.experiment.stop": {
+    approve?: boolean;
+    id?: string;
+    revision?: number;
+  };
+  "knowledge.experiment.finish": {
+    approve?: boolean;
+    id?: string;
+    revision?: number;
+  };
   "knowledge.experiment.report": { id?: string };
   "catalog.facts": { productId?: string };
   "knowledge.autonomy.apply": { taskId?: string };
@@ -61,20 +71,5 @@ export interface Inputs9 {
     id: string;
     revision: number;
     version: number;
-  };
-  "merchant.site.task": {
-    agent?: "codex" | "claude_code";
-    id: string;
-    instruction: string;
-    revision: number;
-    selected?: string;
-  };
-  "merchant.site.propose": {
-    fields: JsonValue;
-    id: string;
-    instruction: string;
-    revision: number;
-    selected?: string;
-    summary?: string;
   };
 }

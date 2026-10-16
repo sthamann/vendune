@@ -458,6 +458,11 @@ interface inputs {
     %request-id: option<string>,
     %revision: s64,
   }
+  record merchant-agents-control-input {
+    %approve: bool,
+    %revision: s64,
+    %stopped: bool,
+  }
   record merchant-grid-plan-input {
     %entity: string,
     %instruction: string,
@@ -1482,6 +1487,8 @@ interface inputs {
   merchant-run-status: func(input: merchant-run-status-input) -> result<string, string>;
   merchant-run-cancel: func(input: merchant-run-cancel-input) -> result<string, string>;
   merchant-run-resume: func(input: merchant-run-resume-input) -> result<string, string>;
+  merchant-agents-status: func(input: string) -> result<string, string>;
+  merchant-agents-control: func(input: merchant-agents-control-input) -> result<string, string>;
   merchant-grid-plan: func(input: merchant-grid-plan-input) -> result<string, string>;
   merchant-customer-lookup: func(input: merchant-customer-lookup-input) -> result<string, string>;
   team-roles: func(input: team-roles-input) -> result<string, string>;

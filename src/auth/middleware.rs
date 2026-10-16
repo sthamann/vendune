@@ -154,6 +154,9 @@ async fn authenticate_scoped(State(a): State<App>, mut request: Request, next: N
     if let Err(e) = auth_result {
         return e.into_response();
     }
+    if let Err(e) = crate::agent_runs::controls::admit_key(&a, &h, &path, &method).await {
+        return e.into_response();
+    }
     h.validated_tenant = match crate::platform::admit(&a, &h, &path, &method).await {
         Ok(validated) => validated || h.principal.tenant.is_some(),
         Err(e) => return e.into_response(),
@@ -214,9 +217,13 @@ async fn authenticate_scoped(State(a): State<App>, mut request: Request, next: N
         }
     };
     *request.headers_mut() = h.transport().clone();
+    let agent_authority = crate::agent_runs::controls::model_authority(&a, &h).await;
     request.extensions_mut().insert(h);
-    let mut response =
-        veyndo::tenant_scope::scoped(scope, super::abuse::run(&a, request, next)).await;
+    let mut response = veyndo::inference::budget::scoped(
+        agent_authority,
+        veyndo::tenant_scope::scoped(scope, super::abuse::run(&a, request, next)),
+    )
+    .await;
     if private_response {
         response
             .headers_mut()

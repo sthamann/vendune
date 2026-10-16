@@ -5713,6 +5713,109 @@
                         "additionalProperties": false,
                         "properties": {
                           "name": {
+                            "const": "merchant.agents.status"
+                          },
+                          "arguments": {
+                            "additionalProperties": false,
+                            "properties": {},
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "jsonrpc",
+                      "id",
+                      "method",
+                      "params"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "jsonrpc": {
+                        "const": "2.0"
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "integer"
+                        ]
+                      },
+                      "method": {
+                        "const": "tools/call"
+                      },
+                      "params": {
+                        "type": "object",
+                        "required": [
+                          "name",
+                          "arguments"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "name": {
+                            "const": "merchant.agents.control"
+                          },
+                          "arguments": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "approve": {
+                                "enum": [
+                                  true
+                                ],
+                                "type": "boolean"
+                              },
+                              "revision": {
+                                "minimum": 1,
+                                "type": "integer"
+                              },
+                              "stopped": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "stopped",
+                              "revision",
+                              "approve"
+                            ],
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "jsonrpc",
+                      "id",
+                      "method",
+                      "params"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "jsonrpc": {
+                        "const": "2.0"
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "integer"
+                        ]
+                      },
+                      "method": {
+                        "const": "tools/call"
+                      },
+                      "params": {
+                        "type": "object",
+                        "required": [
+                          "name",
+                          "arguments"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "name": {
                             "const": "merchant.grid.plan"
                           },
                           "arguments": {

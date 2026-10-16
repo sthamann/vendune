@@ -2623,6 +2623,45 @@
       "readOnly": false
     },
     {
+      "description": "Read live shop agent stop state and revision",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      },
+      "name": "merchant.agents.status",
+      "readOnly": true
+    },
+    {
+      "description": "Explicitly stop or re-enable shop agents with current revision",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "approve": {
+            "enum": [
+              true
+            ],
+            "type": "boolean"
+          },
+          "revision": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "stopped": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "stopped",
+          "revision",
+          "approve"
+        ],
+        "type": "object"
+      },
+      "name": "merchant.agents.control",
+      "readOnly": false
+    },
+    {
       "description": "Plan read-only native list filters; review criteria before applying",
       "inputSchema": {
         "additionalProperties": false,

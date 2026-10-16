@@ -32,6 +32,7 @@ pub(crate) async fn once(a: &App) -> Result<bool> {
         trace.clone(),
         async {
             let h = authority::headers(a, &row).await?;
+            let model_authority = super::controls::model_authority(a, &h).await;
             let scope = if h.principal.personal_session {
                 veyndo::tenant_scope::Scope::Personal {
                     tenant: t.clone(),
@@ -50,28 +51,31 @@ pub(crate) async fn once(a: &App) -> Result<bool> {
             };
             veyndo::tenant_scope::scoped(
                 scope,
-                CURRENT.scope(run, async {
-                    let choice = agent::choice(&request)?;
-                    tokio::time::timeout(
-                        std::time::Duration::from_secs(190),
-                        plan_with(
-                            a,
-                            &t,
-                            request["instruction"].as_str().unwrap_or(""),
-                            choice.as_ref(),
-                            request["history"].as_str().unwrap_or(""),
-                            request["locale"].as_str().unwrap_or("en-GB"),
-                            &h,
-                        ),
-                    )
-                    .await
-                    .unwrap_or_else(|_| {
-                        Err(Error(
-                            StatusCode::GATEWAY_TIMEOUT,
-                            "Model turn timed out".into(),
-                        ))
-                    })
-                }),
+                veyndo::inference::budget::scoped(
+                    model_authority,
+                    CURRENT.scope(run, async {
+                        let choice = agent::choice(&request)?;
+                        tokio::time::timeout(
+                            std::time::Duration::from_secs(190),
+                            Box::pin(plan_with(
+                                a,
+                                &t,
+                                request["instruction"].as_str().unwrap_or(""),
+                                choice.as_ref(),
+                                request["history"].as_str().unwrap_or(""),
+                                request["locale"].as_str().unwrap_or("en-GB"),
+                                &h,
+                            )),
+                        )
+                        .await
+                        .unwrap_or_else(|_| {
+                            Err(Error(
+                                StatusCode::GATEWAY_TIMEOUT,
+                                "Model turn timed out".into(),
+                            ))
+                        })
+                    }),
+                ),
             )
             .await
         }

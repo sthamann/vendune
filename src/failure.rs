@@ -37,6 +37,24 @@ pub(crate) fn Error(status: StatusCode, detail: String) -> Failure {
     Failure::new(status, detail)
 }
 impl Failure {
+    pub(crate) fn inference(error: veyndo::inference::InferenceError) -> Self {
+        let status = match &error {
+            veyndo::inference::InferenceError::Admission(e) => {
+                StatusCode::from_u16(e.status()).unwrap()
+            }
+            _ => StatusCode::BAD_GATEWAY,
+        };
+        let mut failure = Self::new(status, error.to_string());
+        if matches!(
+            error,
+            veyndo::inference::InferenceError::Admission(veyndo::inference::Admission::Exhausted)
+        ) {
+            failure.2.kind = Kind::QuotaExceeded;
+            failure.2.retryable = false;
+            failure.2.pointer = Some("/agentBudget".into());
+        }
+        failure
+    }
     fn new(status: StatusCode, detail: String) -> Self {
         let kind = match status {
             StatusCode::BAD_REQUEST | StatusCode::UNPROCESSABLE_ENTITY => Kind::ValidationError,
@@ -119,6 +137,16 @@ impl IntoResponse for Failure {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn exhausted_lifetime_allocation_is_not_a_retryable_rate_limit() {
+        let error = Failure::inference(veyndo::inference::Admission::Exhausted.into());
+        assert_eq!(error.problem()["kind"], "quota_exceeded");
+        assert_eq!(error.problem()["retryable"], false);
+        assert_eq!(error.problem()["pointer"], "/agentBudget");
+        let response = error.into_response();
+        assert_eq!(response.status(), StatusCode::TOO_MANY_REQUESTS);
+        assert!(!response.headers().contains_key("retry-after"));
+    }
     #[test]
     fn structured_failures_keep_legacy_messages_and_explicit_safe_context() {
         let permission = Failure::permission("catalog").problem();

@@ -2,7 +2,7 @@
 import json,subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
-ALLOWED={'veyndo-kernel':set(),'veyndo-runtime':set(),'veyndo-commerce':{'veyndo-kernel'},'veyndo-apps':{'veyndo-kernel'},'veyndo-cognition':{'veyndo-runtime'}}
+ALLOWED={'veyndo-kernel':set(),'veyndo-runtime':set(),'veyndo-commerce':{'veyndo-kernel'},'veyndo-apps':{'veyndo-kernel'},'veyndo-cognition':{'veyndo-runtime','veyndo-kernel'}}
 FORBIDDEN={'veyndo-kernel':{'sqlx','reqwest','tokio','wasmtime'},'veyndo-commerce':{'sqlx','reqwest','tokio','wasmtime'},'veyndo-apps':{'sqlx','reqwest','axum'}}
 def check(packages):
     for p in packages:

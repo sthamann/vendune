@@ -114,3 +114,10 @@ pub(crate) fn token(h: &RequestContext) -> Result<&str> {
 pub(crate) fn hash(s: &str) -> String {
     format!("{:x}", Sha256::digest(s.as_bytes()))
 }
+
+// Provider transport and deterministic admission retain distinct native problem codes.
+impl From<veyndo::inference::InferenceError> for Error {
+    fn from(error: veyndo::inference::InferenceError) -> Self {
+        Error::inference(error)
+    }
+}

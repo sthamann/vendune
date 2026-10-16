@@ -48,6 +48,7 @@ pub(crate) static OPERATIONS: LazyLock<Vec<Operation>> = LazyLock::new(|| {
             // Unclassified operations deliberately retain conservative mutating hints.
             let read = agent_read
                 || name == "merchant.run.status"
+                || name == "merchant.agents.status"
                 || matches!(name, "catalog.facts" | "checkout.options" | "cart.quote");
             Operation {
                 name,
@@ -82,6 +83,12 @@ impl Operation {
         self.input.clone()
     }
     pub(crate) fn admitted(&self, a: &App, h: &RequestContext) -> bool {
+        if h.principal.agent_key.is_some()
+            && self.effect != Effect::Read
+            && !self.name.starts_with("merchant.run.")
+        {
+            return false;
+        }
         admission::visible(a, h, self.name)
     }
     pub(crate) fn description(&self) -> Value {

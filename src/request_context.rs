@@ -18,6 +18,8 @@ pub(crate) struct Principal {
     pub platform_user: Option<String>,
     pub app: Option<String>,
     pub app_permissions: Option<String>,
+    /// Existing integration-key ID, admitted server-side only for budgeted agents.
+    pub agent_key: Option<String>,
 }
 #[derive(Clone, Debug, Default)]
 pub(crate) struct RequestContext {

@@ -3,6 +3,7 @@ import { useState } from "react";
 import type { ComponentProps } from "react";
 import DeveloperView from "./DeveloperView";
 import IntegrationKeys from "./api/IntegrationKeys";
+import AgentControls from "./api/AgentControls";
 import ApiExplorer from "./api/ApiExplorer";
 import { useApiText } from "./api/api-i18n";
 import "../styles/api-console.css";
@@ -50,6 +51,7 @@ export default function DeveloperWorkspace(
             <p>{t("intro")}</p>
           </div>
           <IntegrationKeys request={props.request} />
+          <AgentControls request={props.request} />
           <ApiExplorer request={props.request} workspace={props.workspace} />
         </div>
       )}

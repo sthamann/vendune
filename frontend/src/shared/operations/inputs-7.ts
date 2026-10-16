@@ -73,9 +73,5 @@ export interface Inputs7 {
     requestId?: string;
     revision: number;
   };
-  "merchant.grid.plan": {
-    entity: "orders" | "products" | "customers";
-    instruction: string;
-    locale: string;
-  };
+  "merchant.agents.status": JsonValue;
 }
