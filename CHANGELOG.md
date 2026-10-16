@@ -1,5 +1,9 @@
 # Changelog
 
+## Checkout and subscriber lock ordering — 2026-10-16
+
+- Reproduce a two-replica checkout deadlock between product locks and an event producer touching a locked subscriber schedule. Create the four schedules with the tenant instead of on every commerce event. A held-scheduler regression fails before the repair and commits the event afterwards; existing delayed/quarantined migration state and late commits remain covered.
+
 ## Compiler boundaries, native tools and independent subscribers — 2026-10-16
 
 - Extract real kernel, runtime, commerce, app sandbox and cognition-provider crates into a Cargo workspace. Keep existing native handlers as composition owners; dependency checks reject reverse domain imports. This is an initial compiler boundary, not a complete rewrite of every root handler.

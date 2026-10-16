@@ -21,6 +21,8 @@ BEGIN;
 SELECT set_config('rac.system','on',true);
 DROP TRIGGER prepare_outbox_delivery ON outbox;
 DROP FUNCTION prepare_outbox_delivery();
+DROP TRIGGER register_outbox_subscribers ON tenants;
+DROP FUNCTION register_outbox_subscribers();
 DROP TABLE outbox_subscriber_failures;
 DROP TABLE outbox_checkpoints;
 ALTER TABLE outbox DROP COLUMN subscriber_mask, DROP COLUMN dispatch_not_before, DROP COLUMN dispatch_requires_retry;
@@ -31,12 +33,14 @@ INSERT INTO outbox(tenant,kind,data,available_at)
  VALUES('workshop','fixture.legacy-delay','{}',now()+interval '1 day');
 """ + migration + """
 DO $$ BEGIN
+ IF (SELECT count(*) FROM outbox_checkpoints)<>(SELECT count(*)*4 FROM tenants) THEN RAISE EXCEPTION 'Missing existing tenant schedules'; END IF;
  IF NOT EXISTS(SELECT 1 FROM outbox WHERE kind='fixture.legacy-quarantine' AND dispatch_requires_retry AND subscriber_mask=0) THEN RAISE EXCEPTION 'Legacy quarantine was lost'; END IF;
  IF NOT EXISTS(SELECT 1 FROM outbox WHERE kind='fixture.legacy-delay' AND dispatch_not_before>now() AND NOT dispatch_requires_retry) THEN RAISE EXCEPTION 'Legacy delay was lost'; END IF;
  IF NOT EXISTS(SELECT 1 FROM pg_constraint WHERE conrelid='outbox_subscriber_failures'::regclass AND confrelid='outbox'::regclass AND array_length(conkey,1)=2) THEN RAISE EXCEPTION 'Missing tenant-bound pending reference'; END IF;
 END $$;
 DO $$ DECLARE foreign_event bigint; BEGIN
  INSERT INTO tenants(id,name) VALUES('fixture-outbox-foreign','Synthetic outbox boundary');
+ IF (SELECT count(*) FROM outbox_checkpoints WHERE tenant='fixture-outbox-foreign')<>4 THEN RAISE EXCEPTION 'Missing new tenant schedules'; END IF;
  INSERT INTO outbox(tenant,kind,data) VALUES('fixture-outbox-foreign','fixture.foreign','{}') RETURNING id INTO foreign_event;
  BEGIN
   INSERT INTO outbox_subscriber_failures(tenant,event_id,subscriber) VALUES('workshop',foreign_event,'audit');
@@ -91,3 +95,22 @@ def retained_quarantine(sql, wait):
     sql(f"INSERT INTO knowledge_receipts(tenant,event_id) VALUES('workshop',{event}) ON CONFLICT DO NOTHING")
     print('PASS retryable subscriber failure retains another subscriber quarantine', flush=True)
     return event
+
+
+def locked_schedule(sql):
+    """An event producer must not borrow the subscriber's scheduler lock."""
+    holder = subprocess.Popen(command(), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    try:
+        holder.stdin.write("BEGIN; SELECT set_config('rac.system','on',true); UPDATE outbox_checkpoints SET served_order=served_order+1 WHERE tenant='workshop' AND subscriber='cognition';\n\\echo SCHEDULE_HELD\n")
+        holder.stdin.flush()
+        while True:
+            if holder.stdout.readline().strip() == 'SCHEDULE_HELD':
+                break
+            if holder.poll() is not None:
+                raise AssertionError('Subscriber schedule lock fixture failed')
+        event = int(sql("SET LOCAL statement_timeout='2s'; INSERT INTO outbox(tenant,kind,data) VALUES('workshop','fixture.lock-independent','{}') RETURNING id"))
+        assert event > 0
+        print('PASS producer commits an event while the subscriber scheduling row is locked', flush=True)
+    finally:
+        if holder.poll() is None:
+            holder.stdin.write('ROLLBACK;\n'); holder.stdin.flush(); holder.stdin.close(); holder.wait(timeout=5)

@@ -4007,8 +4007,8 @@
       "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
     },
     "migrations/103-outbox-subscriber-checkpoints.sql": {
-      "sha256": "4a4be887584497bcb88abf8980018ae3e0b5b2a101fffedc677f0ec1260a09b9",
-      "review": "Review combined native business capability and hardening: typed material/dimension guests remain app-owned and bounded; native CAS/FX/current B2B approval and immutable order snapshots; isolated app crate consumer preserves compiler boundary; independent per-event subscriber retry/quarantine preserves healthy events, commit gaps and explicit recovery; signed tenant/system authority, provider-native read tools and real document withdrawal, workspace image closure and source inventory. SQL/async/provider adapters remain tested, not proved."
+      "sha256": "db348d4a3053b8891eef1a55a7994eaa7703e6153fa0736831629b69b4099b8a",
+      "review": "Review undeployed migration 103 lock-order repair: backfill four subscriber schedules for every existing tenant and create new schedules in the tenant insert transaction, never from a checkout outbox insert; retain forced signed tenant RLS, role grants and event-bound retries. Deterministic held-scheduler producer fails before repair and passes after rebuilding; rollback-only migration verifies existing/new tenant schedule counts plus legacy holds, delays and composite tenant containment."
     },
     "proof/Commerce/Claims.lean": {
       "sha256": "f3de8f3bdfbf76e69dc5a609a7534aa460a7dd5f6c4f6ed14a07590efbdd59ad",

@@ -1,5 +1,5 @@
 -- Four native subscriber cursors share the original immutable outbox payload.
--- One failed subscriber pauses its own cursor, never the others. No copied event queue.
+-- Failure state belongs to each event/subscriber, never a global cursor. No copied event queue.
 -- Sequence IDs are NOT commit order. Exact acknowledgement bits, never a high
 -- watermark, decide whether a subscriber still needs this event.
 ALTER TABLE outbox ADD COLUMN subscriber_mask smallint NOT NULL DEFAULT 0 CHECK(subscriber_mask BETWEEN 0 AND 15);
@@ -54,14 +54,16 @@ CREATE POLICY authenticated_scope ON outbox_subscriber_failures AS RESTRICTIVE
  USING(coalesce((SELECT (public.veyndo_scope_guard()->>'system')::boolean),false) OR tenant=(SELECT public.veyndo_scope_guard()->>'tenant'))
  WITH CHECK(coalesce((SELECT (public.veyndo_scope_guard()->>'system')::boolean),false) OR tenant=(SELECT public.veyndo_scope_guard()->>'tenant'));
 INSERT INTO outbox_checkpoints(tenant,subscriber)
- SELECT d.tenant,s FROM outbox_tenant_dispatch d CROSS JOIN unnest(ARRAY['cognition','apps','flows','audit']) s;
-CREATE OR REPLACE FUNCTION register_outbox_tenant() RETURNS trigger LANGUAGE plpgsql SET search_path=pg_catalog,public AS $$
+ SELECT t.id,s FROM tenants t CROSS JOIN unnest(ARRAY['cognition','apps','flows','audit']) s;
+-- Create schedules before this tenant can publish commerce events. An outbox
+-- producer must never touch scheduler rows held by consumers that lock products.
+CREATE FUNCTION register_outbox_subscribers() RETURNS trigger LANGUAGE plpgsql SET search_path=pg_catalog,public AS $$
 BEGIN
- INSERT INTO public.outbox_tenant_dispatch(tenant) VALUES(NEW.tenant) ON CONFLICT DO NOTHING;
  INSERT INTO public.outbox_checkpoints(tenant,subscriber)
-  SELECT NEW.tenant,s FROM unnest(ARRAY['cognition','apps','flows','audit']) s ON CONFLICT DO NOTHING;
+  SELECT NEW.id,s FROM unnest(ARRAY['cognition','apps','flows','audit']) s;
  RETURN NEW;
 END $$;
+CREATE TRIGGER register_outbox_subscribers AFTER INSERT ON tenants FOR EACH ROW EXECUTE FUNCTION register_outbox_subscribers();
 DO $$ DECLARE c record; BEGIN
  SELECT * INTO c FROM veyndo_authority.configuration;
  IF c.system_role IS NOT NULL THEN

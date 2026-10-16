@@ -75,7 +75,8 @@ Flow/app consumers remain in the original outbox transaction. Migration 097 is
 additive. Dispatch metadata has forced tenant RLS and is operational, never a
 configuration release unit. Migration 103 adds independent cognition/apps/flows/audit schedules. Each
 subscriber acknowledges the original event using its own bit; sequence high
-watermarks are diagnostic because IDs are not commit order. Retry and quarantine
+watermarks are diagnostic because IDs are not commit order. Schedules are created with the tenant, so checkout never waits on the scheduling
+row while a consumer waits on product locks. Retry and quarantine
 are scoped to the event and subscriber, allowing later healthy events and other
 subscribers to progress. Authorized retry resets only the original quarantined
 delivery. SQL tests cover late commits, deferred legacy events, failed consumers,
