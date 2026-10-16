@@ -1,7 +1,12 @@
 /** Localized request guidance across all transports; original diagnostics remain available to developer tools. */
+import {
+  catalogIntakeErrors,
+  catalogCsvRowError,
+} from "./catalog-intake-errors";
 import { getLocale } from "./i18n";
 import { appCapabilityWords } from "./app-capability-i18n";
 const messages: Record<string, readonly string[]> = {
+  ...catalogIntakeErrors,
   "Design provider unavailable; your page is unchanged": [
     "The design provider is unavailable. Check the central AI connection and retry; your saved page is unchanged.",
     "Der Design-Anbieter ist nicht erreichbar. Prüfe die zentrale KI-Verbindung und versuche es erneut; deine Seite bleibt unverändert.",
@@ -247,8 +252,10 @@ export function responseError(
     problem?.kind === "validation_error" && typeof problem.pointer === "string"
       ? /^\/capability\/examples\/(\d+)\/expected$/.exec(problem.pointer)
       : null;
-  const message =
-    example && Number(example[1]) < 12
+  const csvRow = problem?.pointer?.match(/^\/catalogIntake\/rows\/(\d+)$/);
+  const message = csvRow
+    ? catalogCsvRowError[i].replace("{row}", csvRow[1])
+    : example && Number(example[1]) < 12
       ? appCapabilityWords.exampleFailure[i].replace(
           "{example}",
           String(Number(example[1]) + 1),

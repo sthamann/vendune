@@ -3,7 +3,7 @@ import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
 import { useBuildingText } from "../../shared/i18n/app-building-i18n";
 import AppProposalReview from "./AppProposalReview";
 import { useControlText } from "../../shared/i18n/control-i18n";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AgentComposer, {
   type AgentEngine,
 } from "../../shared/agents/AgentComposer";
@@ -24,12 +24,21 @@ export function downloadJson(name: string, value: unknown) {
   el.click();
   URL.revokeObjectURL(url);
 }
+export type AppAgentRequest = {
+  app: string;
+  environment: string;
+  prompt: string;
+};
 export default function AppAgentPanel({
   studio,
   request,
+  requestSeed,
+  onRequestConsumed,
 }: {
   studio: AppStudio;
   request: RequestFn;
+  requestSeed?: AppAgentRequest;
+  onRequestConsumed?: () => void;
 }) {
   const workspace = useAppWorkspaceText();
   const c = useControlText(),
@@ -42,6 +51,15 @@ export default function AppAgentPanel({
     [agent, setAgent] = useState<AgentEngine>("platform"),
     [task, setTask] = useState(""),
     [json, setJson] = useState("");
+  useEffect(() => {
+    if (!requestSeed) return;
+    if (
+      requestSeed.app === studio.manifest.id &&
+      requestSeed.environment === studio.env
+    )
+      setPrompt(requestSeed.prompt);
+    onRequestConsumed?.();
+  }, [requestSeed, studio.manifest.id, studio.env, onRequestConsumed]);
   const configured = studio.providers.find(
     (p) => p.id === provider,
   )?.configured;

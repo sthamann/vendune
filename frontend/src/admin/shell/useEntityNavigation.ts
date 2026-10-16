@@ -5,7 +5,11 @@ export type EntityTarget = {
   tab: "customers" | "orders" | "productData";
   id: string;
 };
-export type OpenEntity = (tab: EntityTarget["tab"], id: string) => void;
+export type OpenEntity = (
+  tab: EntityTarget["tab"],
+  id: string,
+  destinationScope?: string,
+) => void;
 export function useEntityNavigation(scope: string, allowed: Tab[]) {
   const initial = () => {
     const q = new URLSearchParams(location.search),
@@ -29,6 +33,9 @@ export function useEntityNavigation(scope: string, allowed: Tab[]) {
       return v.id ? { tab: v.tab as EntityTarget["tab"], id: v.id } : undefined;
     },
   );
+  const pending = useRef<{ scope: string; target: EntityTarget } | undefined>(
+    undefined,
+  );
   const stack = useRef<{ tab: Tab; target?: EntityTarget }[]>([]),
     previousScope = useRef(scope);
   const update = useCallback(
@@ -47,7 +54,14 @@ export function useEntityNavigation(scope: string, allowed: Tab[]) {
     stack.current = [];
     update(next);
   };
-  const openEntity: OpenEntity = (next, id) => {
+  const openEntity: OpenEntity = (next, id, destinationScope = scope) => {
+    if (destinationScope !== scope) {
+      pending.current = { scope: destinationScope, target: { tab: next, id } };
+      stack.current = [];
+      update(next);
+      return;
+    }
+    pending.current = undefined;
     stack.current.push({ tab, target: entityTarget });
     update(next, { tab: next, id });
   };
@@ -59,7 +73,14 @@ export function useEntityNavigation(scope: string, allowed: Tab[]) {
     if (previousScope.current !== scope) {
       previousScope.current = scope;
       stack.current = [];
-      update(tab, undefined, true);
+      const target =
+        pending.current?.scope === scope ? pending.current.target : undefined;
+      pending.current = undefined;
+      update(
+        target && allowed.includes(target.tab) ? target.tab : tab,
+        target && allowed.includes(target.tab) ? target : undefined,
+        true,
+      );
     }
   }, [scope, tab, update]);
   useEffect(() => {

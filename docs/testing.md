@@ -1,5 +1,7 @@
 # Testing, coverage and maintenance contracts
 
+**Merchant catalogue setup:** [Current source/upload workflow, native CSV/model/media suites and evidence limits](merchant-catalogue-setup.md#verification-and-limits).
+
 **Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).
 
 ## Fixed shared app storage — 15 October 2026

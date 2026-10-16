@@ -1,6 +1,6 @@
 /** Shared page renderer: Studio previews and published shops use exactly these registered components. */
-import type { CSSProperties } from "react";
-import type { Page, Theme } from "./model";
+import type { CSSProperties, ReactElement, ReactNode } from "react";
+import type { Block, Page, Theme } from "./model";
 import { defaultTheme, fonts, explicitTheme } from "./model";
 import { contentText } from "../../../frontend/src/shared/i18n/content-language";
 import RichDescription from "../../../frontend/src/shared/content/RichDescription";
@@ -52,6 +52,8 @@ export default function SiteRenderer({
   onInline,
   onProduct,
   onAdd,
+  decorate,
+  trailing,
 }: {
   page: Page;
   pages?: Page[];
@@ -66,6 +68,8 @@ export default function SiteRenderer({
   onInline?: (id: string, text: string) => void;
   onProduct?: (id: string) => void;
   onAdd?: (id: string) => void;
+  decorate?: (block: Block, index: number, section: ReactElement) => ReactNode;
+  trailing?: ReactNode;
 }) {
   const t = useEditorText(),
     preview = !!onSelect;
@@ -100,7 +104,7 @@ export default function SiteRenderer({
       {page.content.blocks.length === 0 && (
         <p className="site-empty">{t("empty")}</p>
       )}
-      {page.content.blocks.map((b) => {
+      {page.content.blocks.map((b, index) => {
         const title = text(b.text),
           rows =
             b.productMode === "selected" || b.products.length
@@ -108,7 +112,7 @@ export default function SiteRenderer({
               : products;
         const photo =
           b.image || (b.kind === "hero" ? rows[0]?.media[0]?.url : "");
-        return (
+        const section = (
           <section
             key={b.id}
             data-block-id={b.id}
@@ -254,7 +258,9 @@ export default function SiteRenderer({
             )}
           </section>
         );
+        return decorate ? decorate(b, index, section) : section;
       })}
+      {trailing}
       {!preview && page.slug === "home" && (
         <AppSurfaceSlot
           location="storefront.home"

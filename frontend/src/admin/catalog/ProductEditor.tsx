@@ -11,6 +11,7 @@ import { AppSurfaceView, useAppSurfaces } from "../../shared/apps/AppSurfaces";
 import type { RequestFn } from "../shell/studio-types";
 import { useCatalogText } from "../../shared/i18n/catalog-i18n";
 import {
+  productName,
   hydrateDraft,
   productSavePayload,
   newDraft,
@@ -246,7 +247,7 @@ export default function ProductEditor({
               <p className="catalog-eyebrow">
                 {id ? draft.catalog.productNumber : c("newProduct")}
               </p>
-              <h1>{draft.translations[lang]?.name || c("newProduct")}</h1>
+              <h1>{productName(draft, lang) || c("newProduct")}</h1>
               <span role="status">
                 {saved
                   ? c("saved")

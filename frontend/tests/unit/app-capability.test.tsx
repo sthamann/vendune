@@ -49,10 +49,11 @@ it("edits a goal in a fifth language without copying translations or discarding 
   });
   expect(current!.capability!.intent).toEqual({ en: "Apply one percent" });
   expect(compile(current!).capability!.examples).toEqual([example]);
+  fireEvent.click(screen.getByText("Optional automatic rule checks"));
   expect(screen.getByText("One percent")).toBeTruthy();
   expect(screen.queryByText(/No executable examples/)).toBeNull();
-  fireEvent.click(screen.getByRole("button", { name: "Add an assumption" }));
-  fireEvent.change(screen.getByLabelText("Rules and assumptions"), {
+  fireEvent.click(screen.getByRole("button", { name: "Add a requirement" }));
+  fireEvent.change(screen.getByLabelText("Requirement 1"), {
     target: { value: "Native checkout owns tax" },
   });
   expect(current!.capability!.assumptions[0]).toEqual({

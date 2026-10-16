@@ -1,0 +1,144 @@
+/* These controls decorate only the sandbox canvas. Stable drop gutters avoid shifting the target mid-drag. */
+.designer-editable-section {
+  position: relative;
+  min-width: 0;
+}
+.designer-drop-position {
+  height: 12px;
+  position: relative;
+  z-index: 3;
+  margin: 0 12px;
+  border-radius: 8px;
+}
+.designer-drop-position.accepting {
+  background: #189eff12;
+  outline: 1px dashed #189eff66;
+}
+.designer-drop-position.active {
+  background: #0877e8;
+  box-shadow: 0 0 0 3px #0877e828;
+}
+.designer-drop-position > span {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  background: #075cbb;
+  color: white;
+  padding: 5px 14px;
+  white-space: nowrap;
+  font:
+    600 13px/1.5 system-ui,
+    sans-serif;
+  box-shadow: 0 2px 8px #08233e22;
+  pointer-events: none;
+}
+.designer-drop-position.active > span {
+  display: block;
+}
+.designer-section-tools {
+  position: absolute;
+  top: 20px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border: 1px solid #bfd9f3;
+  border-radius: 10px;
+  background: white;
+  color: #14283d;
+  box-shadow: 0 3px 14px #12324c22;
+  z-index: 4;
+  opacity: 0;
+  pointer-events: none;
+  font:
+    600 13px/1.4 system-ui,
+    sans-serif;
+}
+.designer-editable-section:hover > .designer-section-tools,
+.designer-editable-section:focus-within > .designer-section-tools,
+.designer-editable-section.selected > .designer-section-tools {
+  opacity: 1;
+  pointer-events: auto;
+}
+.designer-section-tools > span {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 8px 0 4px;
+}
+.designer-section-tools > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 6px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #135eac;
+  font:
+    20px/1 system-ui,
+    sans-serif;
+  cursor: pointer;
+}
+.designer-section-tools > button:hover {
+  background: #e8f3ff;
+}
+.designer-section-tools > button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.designer-section-tools > .designer-remove-element {
+  color: #b02842;
+}
+.designer-section-tools > .designer-drag-handle {
+  cursor: grab;
+}
+.designer-drag-handle:active,
+.designer-element-card[draggable="true"]:active {
+  cursor: grabbing;
+}
+.designer-element-card[draggable="true"] {
+  cursor: grab;
+}
+.designer-section-tools button:focus-visible {
+  outline: 2px solid #0877e8;
+  outline-offset: 1px;
+}
+.designer-drag-hint {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--studio-muted, #60768d);
+}
+@media (hover: none) {
+  .designer-section-tools {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.designer-drag-handle,
+.designer-element-card[draggable="true"],
+.designer-tree-block [draggable="true"] {
+  touch-action: none;
+  user-select: none;
+}
+
+.designer-placement-status {
+  max-width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 8px 12px;
+  border-radius: 7px;
+  color: #075cbb;
+  background: #ddecff;
+  font-size: 12px;
+  font-weight: 600;
+}

@@ -1,5 +1,7 @@
 # Product management and category navigation
 
+**Merchant catalogue setup:** [CSV upload, URL extraction, described demo products, private image jobs and native staged review](merchant-catalogue-setup.md).
+
 VEYNDO Studio now owns one **Products** workspace. The **Products** tab provides a server-filtered, cursor-paginated list; **Categories** provides the translated category tree. Select a product to edit the complete native aggregate, or choose **Create product**. A new product starts inactive. Set its number, name, price, stock and assignments, then save. Activation makes it available through the same Store API consumed by the storefront.
 
 The interface supports English, German, French and Spanish. Content editors use every enabled shop content language. Change **Content language** to edit the corresponding name, short description, rich description, specifications and SEO fields. Missing/null fields inherit the shop main language; an explicitly empty description stays empty. Viewing a fallback never saves a fabricated translation. Existing rich descriptions remain language-specific. Changing the Studio interface language keeps the selected product, content language and unsaved draft open; switching shops or environments starts a separate scoped workspace.
@@ -75,7 +77,7 @@ Reference: Shopware **6.7.14.2**, commit [`29535190246fcaf0b091d7bdf02dd16358c94
 | Storefront navigation and category listing | `/store-api/navigation`, `/store-api/product` with `categoryId`; `CatalogNavigation.tsx` | Localized tree and real product filtering before pagination; no hard-coded category names |
 | Catalog content staging | `staging/categories.rs`, `clone.rs`, `release.rs` | Category and product units can publish selectively in one transaction; dependency order, staged digest and live baseline checks; live stock stays live-owned |
 
-This is a behavioral port to native APIs and storage, not original DAL/UUID/wire-schema compatibility. Missing upstream features include product streams/dynamic product groups, complete CMS category layouts, breadcrumbs/deep category routes, service/footer navigation roots, arbitrary language/currency context, manufacturer/property-group entities, full inheritance masks, bulk import/export and deletion workflows. Automatic authenticated image previews inside private staging editors are not yet implemented; private source URLs do not become publicly accessible. Category navigation is deliberately bounded to 2,000 nodes per channel; large product catalogs remain cursor-paginated and are not loaded into the browser.
+This is a behavioral port to native APIs and storage, not original DAL/UUID/wire-schema compatibility. Missing upstream features include product streams/dynamic product groups, complete CMS category layouts, breadcrumbs/deep category routes, service/footer navigation roots, arbitrary language/currency context, manufacturer/property-group entities, full inheritance masks, bulk import/export beyond the bounded creation CSV and deletion workflows. Automatic authenticated image previews inside private staging editors are not yet implemented; private source URLs do not become publicly accessible. Category navigation is deliberately bounded to 2,000 nodes per channel; large product catalogs remain cursor-paginated and are not loaded into the browser.
 
 ## APIs and MCP
 

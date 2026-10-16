@@ -5,7 +5,59 @@ catalogue data, merchant-managed sources, curated graph connections, order-deriv
 associations and explicit merchant approvals. It shows actual persisted data;
 an empty shop does not receive fabricated questions, support tickets or learning.
 
-![Knowledge overview](assets/feature-tour/knowledge.jpg)
+![Connected merchant knowledge and price controls](assets/knowledge-controls-20261016/boundaries.jpg)
+
+## Control AI price changes
+
+The grouped navigation separates **Understand your shop** (overview, sources,
+connections) from **Decide & control** (preview, price boundaries, recorded decisions,
+visitor behavior and experiments). Narrow screens use a labelled section selector;
+there is no clipped horizontal tab strip.
+
+1. Open **Shop knowledge → AI boundaries** in the intended shop/environment.
+2. Keep **I approve each proposal**, or deliberately allow limited automatic prices.
+   The automatic mode retains the native maximum of 5% daily movement and 1–100
+   unique products per UTC day. It does not start a recurring agent.
+3. Search by product name or SKU across the native catalogue. The lookup returns at
+   most 20 results; it is not restricted to the sampled dashboard products.
+4. Add a product. Its minimum and maximum initially equal its current base price.
+   Enter ordinary currency amounts, e.g. **55–65 EUR**, rather than cents. JPY and
+   three-decimal currencies use their configured scales. Percentages are displayed
+   as percentages, not basis points.
+5. Expand **Margin, discount and availability** when needed. A positive margin needs
+   a net unit cost. The calculation excludes fees, delivery and returns. Leave the
+   maximum discount empty to leave that particular limit unset.
+6. Save the configuration revision. Invalid ranges and missing cost bases are
+   flagged before saving; stale server revisions remain visible and editable.
+7. Open the product, ask the shared merchant assistant to inspect saved boundaries,
+   or continue to Rules & flows, shop settings or sandbox publication. Related
+   actions respect current rights. Save a pending draft before following these
+   links; switching knowledge sections offers explicit keep/discard choices.
+
+Saving in a sandbox creates a revision there; selected publication remains a
+separate native staging operation. Saving boundaries alone changes no product
+price. The boundaries govern AI base-price proposals, including approved proposals;
+customer-group prices, promotions and checkout rules retain their existing owners.
+The UI does not introduce another pricing engine or generic policy language.
+
+![Native catalogue search and related shop functions](assets/knowledge-controls-20261016/connections.jpg)
+
+The existing `merchant.commerce.read` MCP/planner operation supports
+`area: "aiPolicy"`. It returns at most eight exact native corridors, their required
+currency scales, the settings revision, total count and `nextAfterProductId`. Supply
+that cursor as `afterProductId` for the next page. This avoids omitting a large
+settings document from the bounded agent read context. It retains `settings.read`,
+current tenant/environment admission and the native settings source; it creates no
+new table or background worker. The unfiltered read keeps its existing contract.
+The shared merchant planner is instructed to use this read before explaining
+boundaries; native validation independently checks any resulting proposal.
+
+Frontend regression tests cover native currency conversion, unavailable rights,
+search beyond the overview sample, invalid ranges/costs, revision conflicts and
+shared product/assistant/publication links. The registered `providers` fixture
+checks the policy actually reaching the model read transcript, rejected proposals,
+autonomy budgets and settings-revision invalidation. These are synthetic provider
+contracts, not proof of real-model interpretation or measured revenue benefit.
 
 ## Five connected views
 

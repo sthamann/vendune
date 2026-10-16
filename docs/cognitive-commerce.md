@@ -1,5 +1,7 @@
 # Cognitive commerce: connected implementation and remaining work
 
+**Merchant catalogue setup:** [CSV upload, URL extraction, described demo products, private image jobs and native staged review](merchant-catalogue-setup.md).
+
 **Visitor behavior intelligence:** consent-bound guest/customer observations, native
 orders and the current semantic product graph now meet in one channel report.
 Studio charts and private timelines use the same HTTP/MCP permissions.
@@ -253,6 +255,11 @@ one-hop typed fact predicate with literal substring matching, **not arbitrary
 Cypher, inferred semantic entailment or a full intent-planning language**.
 
 ## Merchant guardrails and optional autonomy
+
+The [merchant price-boundary workflow](knowledge-workspace.md#control-ai-price-changes)
+uses ordinary currency amounts/percentages, catalogue search and shared
+product/assistant/rules/publication entry points. A bounded `merchant.commerce.read`
+`area=aiPolicy` projection retains native settings rights and paginates eight corridors.
 
 Studio **Shop knowledge → Guardrails** edits `commerce.settings.aiPolicy` with the
 same native settings revision and currency scales. Product corridors can require
