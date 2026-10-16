@@ -1,10 +1,16 @@
 # Changelog
 
+## Public Studio and Experience acceptance — 16 October 2026
+
+- Deploy Core PR 141 and private Experience PR 73; verify current public Shop Knowledge, illustrated app creation and native preview controls. No design test changes were saved or published.
+- Complete a fresh Safari simulated purchase inside original Storyfront's native checkout: RAC-c10e5d2f, 24.90 EUR, German product name, confirmation and original bag clearing. Record controlled Chrome's paused iframe and visible timeout/retry separately; no real payment or external delivery is claimed.
+- Make the embedding-contention fixture acquire its real lease atomically with bounded waiting instead of asserting after a racy idle snapshot; leave production admission and other owners' leases untouched.
+
 ## App documentation reconciliation — 16 October 2026
 
 - Add one delivered/partial/open app-system map, with source owners and dated acceptance; connect it from README, handbook navigation, website and machine-readable discovery.
 - Correct obsolete per-app-table and migration instructions to the fixed shared storage contract. Update durable-agent and enforced-database status without declaring the full business-capability concept complete.
-- Put the latest recorded 15 October hosted acceptance before older release history; preserve earlier receipts and distinguish later embedded simulated purchase acceptance from real settlement, restore or capacity evidence.
+- Put the latest recorded 16 October hosted acceptance before older release history; preserve earlier receipts and distinguish embedded simulated purchase acceptance from real settlement, restore or capacity evidence.
 - Keep isolated source compilation, complete B2B configurator, generalized entity/lifecycle extensions, historical replay, managed runtime, fleet compatibility, Shopware porting and Enterprise-cell operation explicitly open until their actual acceptance succeeds.
 
 ## Connected merchant price boundaries — 2026-10-16

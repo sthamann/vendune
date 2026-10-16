@@ -5,7 +5,7 @@ business-capability proposal — describe an individual business model and have
 Veyndo build, verify, operate and maintain it — remains an implementation programme.
 This page maps that distinction; it is not a completion percentage.
 
-The comparison uses the 15 October proposal, current `main` through `f74f29d`,
+The comparison uses the 15 October proposal, current `main` through `fa2569f`,
 the actual source owners below and dated release receipts. Source implementation,
 local integration tests and hosted acceptance are different evidence. A later
 branch, build or documentation change does not update a hosted result by itself.
@@ -18,7 +18,7 @@ branch, build or documentation change does not update a hosted result by itself.
 | Understand data, permissions and API/Flow/MCP calls | [App platform](app-platform.md), [security](app-security.md), [shared storage](app-data-storage.md) |
 | Continue saved merchant-agent work | [Durable runs and their boundaries](durable-agent-runs.md) |
 | Understand the full product direction | [Business capabilities](business-capabilities.md) |
-| Check the latest recorded hosted release | [Release overview](current-release.md), [dated acceptance](evidence/shared-app-storage-hosted-2026-10-15.json) |
+| Check the latest recorded hosted release | [Release overview](current-release.md), [16 October public acceptance](evidence/studio-release-hosted-2026-10-16.json), [15 October storage acceptance](evidence/shared-app-storage-hosted-2026-10-15.json) |
 
 ## Implemented foundations
 
