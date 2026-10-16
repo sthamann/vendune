@@ -1,5 +1,10 @@
 # Changelog
 
+## Frozen configuration details throughout purchase — 2026-10-16
+
+- Show accepted material, dimensions and localized choices consistently in checkout, confirmation, native order details and app purchase history. Freeze only declared public labels and values with the accepted configuration, preserving the shop main-language fallback and explicit source currency. Later package or material edits do not rewrite completed orders. Existing snapshots remain readable without a current package lookup.
+- Extend the actual B2B/material/order-list/reorder integration to verify changed field labels and material names against immutable original receipts. Cover false/zero, a fifth content language, private-library exclusion, escaped text and zero-decimal currency in the shared display.
+
 - CI integration now owns a uniquely named disposable database, including the
   rollback-only outbox migration rehearsal. Its production-database refusal stays
   intact. Subscriber migration/lock checks run before the slower provider fleet;

@@ -10,6 +10,7 @@ import {
   customerSessionGeneration,
 } from "./customer-session";
 import { browserCredential } from "./browser-session";
+import type { ConfigurationSnapshot } from "./configuration-types";
 export type CurrencyDefinition = {
   code: string;
   scale: number;
@@ -185,15 +186,8 @@ export type Cart = {
     purchaseSteps: number;
     maxPurchase?: number;
     price: Price;
-    appConfigurations?: {
-      app: string;
-      productId: string;
-      fields: Record<string, unknown>;
-      feeMinor: number;
-      currency?: string;
-      appVersion: string;
-      ruleRevision: number;
-    }[];
+    appConfigurations?: ConfigurationSnapshot[];
+    configuration?: ConfigurationSnapshot;
   }[];
   shippingCosts: { totalPrice: number };
   shippingMethodOptions?: Shipping[];

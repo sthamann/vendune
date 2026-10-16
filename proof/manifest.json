@@ -1146,8 +1146,8 @@
     },
     "src/apps/cart_contributions.rs": {
       "status": "unproved",
-      "sha256": "808756debfaa4313b8d7b83c501b56da27a82ec9a951a657e674367cd6cbbca3",
-      "review": "Review combined native business capability and hardening: typed material/dimension guests remain app-owned and bounded; native CAS/FX/current B2B approval and immutable order snapshots; isolated app crate consumer preserves compiler boundary; independent per-event subscriber retry/quarantine preserves healthy events, commit gaps and explicit recovery; signed tenant/system authority, provider-native read tools and real document withdrawal, workspace image closure and source inventory. SQL/async/provider adapters remain tested, not proved."
+      "sha256": "e1a8759ec3e8afe176fcaedfa6b896f76c83dedb0b09f8f9b629a0a0262087a5",
+      "review": "Review generic immutable configuration display snapshot: declared public inputs only; shared checkout/receipt/admin display, no business-rule or authorization change. Actual B2B HTTP workflow and original-order immutability pass; two Rust tests and 612 frontend tests pass."
     },
     "src/apps/commerce_hooks.rs": {
       "status": "unproved",
@@ -1181,8 +1181,13 @@
     },
     "src/apps/configuration_selection.rs": {
       "status": "unproved",
-      "sha256": "7081616f4ed10541d45c51f6b3f3c196d9d23dade9abc2612051c2b94d36df7d",
-      "review": "Review combined native business capability and hardening: typed material/dimension guests remain app-owned and bounded; native CAS/FX/current B2B approval and immutable order snapshots; isolated app crate consumer preserves compiler boundary; independent per-event subscriber retry/quarantine preserves healthy events, commit gaps and explicit recovery; signed tenant/system authority, provider-native read tools and real document withdrawal, workspace image closure and source inventory. SQL/async/provider adapters remain tested, not proved."
+      "sha256": "a5d3a27e5c5fefe45e0f82368a42ab3516d0955f8718d5d976b053586c7d56ff",
+      "review": "Review generic immutable configuration display snapshot: declared public inputs only; shared checkout/receipt/admin display, no business-rule or authorization change. Actual B2B HTTP workflow and original-order immutability pass; two Rust tests and 612 frontend tests pass."
+    },
+    "src/apps/configuration_summary.rs": {
+      "status": "unproved",
+      "sha256": "9ac64858dc6d7ecbff97f0e64db0a7efaec5294198820328f1746358f47d2e5c",
+      "review": "Review generic immutable configuration display snapshot: declared public inputs only; shared checkout/receipt/admin display, no business-rule or authorization change. Actual B2B HTTP workflow and original-order immutability pass; two Rust tests and 612 frontend tests pass."
     },
     "src/apps/consent.rs": {
       "status": "unproved",
@@ -1311,8 +1316,8 @@
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "4c8f0e88ff11bfff13d04f1a3b3cd6ea2f4bcee08697823b4127cb77331b9e1a",
-      "review": "Review combined native business capability and hardening: typed material/dimension guests remain app-owned and bounded; native CAS/FX/current B2B approval and immutable order snapshots; isolated app crate consumer preserves compiler boundary; independent per-event subscriber retry/quarantine preserves healthy events, commit gaps and explicit recovery; signed tenant/system authority, provider-native read tools and real document withdrawal, workspace image closure and source inventory. SQL/async/provider adapters remain tested, not proved."
+      "sha256": "9ea77f8e27bc9c92cd759c1e25668a32724965e6910a284df8b4acec09ab3019",
+      "review": "Review generic immutable configuration display snapshot: declared public inputs only; shared checkout/receipt/admin display, no business-rule or authorization change. Actual B2B HTTP workflow and original-order immutability pass; two Rust tests and 612 frontend tests pass."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",

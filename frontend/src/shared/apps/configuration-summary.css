@@ -1,0 +1,36 @@
+/* Compact read-only configuration details fit checkout, confirmation and native order layouts. */
+.app-configuration-summaries {
+  grid-column: 1 / -1;
+  min-width: 0;
+  width: 100%;
+}
+.app-configuration-summary {
+  margin-top: 0.65rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--line, #d4e3f3);
+  border-radius: 0.65rem;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+.app-configuration-summary > strong {
+  display: block;
+  font-size: inherit;
+}
+.app-configuration-summary dl {
+  margin: 0.45rem 0 0;
+}
+.app-configuration-summary dl > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.75rem;
+  justify-content: space-between;
+}
+.app-configuration-summary dt {
+  font-weight: 400;
+}
+.app-configuration-summary dd {
+  margin: 0;
+  font-weight: 600;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
