@@ -55,13 +55,10 @@ try:
     http,base=start();other,base2=start()
     suffix=uuid.uuid4().hex[:12]
     account=call(base,'/api/auth/register',{'name':'Agent control fixture','email':suffix+'@example.test','password':'Synthetic-agent-control-2026!','workspaceId':'agents-'+suffix})
-    actor=account['user']['id'];tenant='workshop'
-    # The earlier durable-run suite deliberately exhausts this seeded tenant's
-    # daily quota. This suite tests a distinct lifetime allocation, with an
-    # explicit fixture allowance rather than depending on suite order.
+    tenant='agents-'+suffix
+    # Own fresh shop: neither its daily quota nor active-key count depends on
+    # earlier suites. Only this fixture's isolated shop allowance is configured.
     sql(f"INSERT INTO tenant_resource_limits(tenant,daily_ai) VALUES('{tenant}',1000) ON CONFLICT(tenant) DO UPDATE SET daily_ai=1000")
-    sql(f"DELETE FROM tenant_ai_usage WHERE tenant='{tenant}'")
-    sql(f"INSERT INTO memberships(tenant,user_id,role) VALUES('{tenant}','{actor}','owner')")
     h={'Authorization':'Bearer '+account['token'],'x-tenant':tenant}
     scopes=['assistant.use','catalog.read','orders.read','knowledge.read']
     budget={'provider':'ollama','model':'fixture-agent','tokens':1_000_000,'costMicros':1_000_000,'pricePerMillionMicros':1000}
