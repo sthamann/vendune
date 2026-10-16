@@ -52,12 +52,15 @@ scheduler or promise that a sentence automatically completes a whole campaign.
    Additional pages use lowercase letters, numbers and dashes for their addresses.
 5. Select a section in the real shared preview. Edit its heading inline or use the
    localized inspector; rich text uses the existing Tiptap/Markdown editor.
-6. Pick actual channel products, appearance, spacing, typography and images. Switch
+6. Open **Elements** and drag an illustrated card into the preview. Blue drop gutters show the insertion boundary; release to insert there. Click a card as a keyboard/touch alternative to insert after the selected section. Reorder using the section grip or its up/down controls; remove with the bin button. Undo/redo covers all these gestures. The palette also contains installed apps’ registered public elements; only their app/surface reference enters the page.
+7. Pick actual channel products, appearance, spacing, typography and images. Switch
    desktop/tablet/mobile. Preview controls cannot place orders or submit forms.
-7. Save, then choose **Review publication**. Select the intended app/page changes
+8. Save, then choose **Review publication**. Select the intended app/page changes
    in the native staging review and publish explicitly.
 
-![Shared renderer and property inspector in the native Studio](assets/shop-design-20261015/editor-desktop.png)
+![Drag directly into the storefront at the blue insertion boundary](assets/shop-design-20261016/drop.jpg)
+
+![Move grip, up/down arrows and bin on the selected section](assets/shop-design-20261016/controls.jpg)
 
 The global `*` home supplies the inherited appearance. A channel home overrides
 selected values; null/missing theme properties inherit. Editing an inherited
@@ -73,9 +76,9 @@ page rollback operation.
 
 ## References and reviewed alternatives
 
-Open **Agent**, describe the change and choose the whole page or selected section. The agent saves the current private baseline before preparing a proposal; this never publishes the page. Select **Veyndo AI** to use the centrally configured provider. Optionally supply up to three public HTTPS reference URLs and two
-PNG/JPEG/WebP screenshots (up to 1 MiB each, 16 megapixels, 8192 pixels per side).
-Choose style, structure and content separately.
+Open **Agent**, describe the change and choose the whole page or selected section. The agent saves the current private baseline before preparing a proposal; this never publishes the page. Select **Veyndo AI** to use the centrally configured provider. **Start with a design you like** is directly visible in the agent rail: enter up to three public HTTPS URLs, or upload/drop up to two PNG/JPEG/WebP screenshots/designs. The browser accepts files up to 12 MB each, validates dimensions (16 megapixels, 8192 pixels per side), reduces them to a 2000-pixel long edge and encodes a bounded WebP before sending. The API keeps its existing image/payload limits; a failed upload preserves previous references.
+
+Use **Use this design brief** or describe the desired adaptation yourself. Choose style, structure and content separately; copying content starts disabled, keeping your own products and facts. The agent saves only a private baseline, then shows reviewed alternatives. A late result after a manual edit or shop/channel change is discarded. Coding-agent export/import still uses the existing shared Codex/Claude Code handoff, without exporting browser credentials. Visual references are used by the centrally configured Veyndo AI path.
 
 The centrally configured inference provider returns two or three alternatives.
 Review its interpretation and the capture status, compare before/after in the
@@ -90,6 +93,10 @@ unsafe protocols, redirects and unavailable sources cannot be treated as success
 capture; upload a screenshot when the URL is incomplete. Provider failure preserves
 the saved page and returns an actionable error. Vision quality requires a configured
 provider/model that actually supports images; synthetic fixtures only test the contract.
+
+![Reference upload and shared agent workspace](assets/shop-design-20261016/agent.jpg)
+
+See the [16 October local acceptance notes](assets/shop-design-20261016/README.md) for browser and contract evidence.
 
 ## Blog and form workflows
 

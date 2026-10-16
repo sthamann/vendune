@@ -51,7 +51,7 @@ Commerce remains usable without a model. Hosted chat clients need their own secu
 connection and account-side setup; [connection requirements](docs/connectors.md)
 are explicit.
 
-**Visual shop design:** choose illustrated building blocks, including elements contributed by installed apps. Use the same agent controls as App Studio—Veyndo AI proposals or a credential-free Codex/Claude Code task, with native review and sandbox publication. Open a channel and see its existing storefront immediately. Click a hero or product collection, edit the private draft beside a desktop/tablet/mobile preview, then review a selected release. The editor shares native presentation components and the page renderer with the storefront. [Illustrated workflow and boundaries](docs/personal-workspace-and-shop-design.md).
+**Visual shop design:** drag illustrated building blocks directly into the shop preview, including elements contributed by installed apps. Blue insertion markers, section grips, arrows, bin controls and undo/redo share the same private document. Start design proposals from shop URLs or uploaded screenshots, with automatic image reduction and explicit before/after review. Use the same agent controls as App Studio—Veyndo AI proposals or a credential-free Codex/Claude Code task, with native review and sandbox publication. Open a channel and see its existing storefront immediately. Click a hero or product collection, edit the private draft beside a desktop/tablet/mobile preview, then review a selected release. The editor shares native presentation components and the page renderer with the storefront. [Illustrated workflow and boundaries](docs/personal-workspace-and-shop-design.md).
 
 ## Your workspace. Your shop. One change path.
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## Direct shop-design interactions
+
+- Insert illustrated built-in and installed-app elements at visible preview boundaries; reorder via captured mouse/touch drag or native drag fallback, section arrows, and page-tree controls. Remove sections with in-canvas bin controls and undo/redo using the same private draft. Published storefronts receive no editor controls.
+- Make reference URLs and design/screenshot upload visible in the existing agent rail. Bound and reduce large images locally, preserve earlier references on failure, keep source-copying opt-in, and fence delayed proposals against newer edits and workspace changes. Existing Rust inference, revision-bound tasks, rights, app storage and selective sandbox publication remain authoritative.
+
 ## Browser continuation follow-up
 
 - Add explicit same-account browser continuation for interrupted Studio editors. Recheck the native session, current shop membership, candidate proof and editor generation before accepting; retain private drafts and never replay failed writes.
