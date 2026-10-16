@@ -3,6 +3,30 @@
 For the current implementation and acceptance state, use **[Status](status.md)**.
 This page preserves dated evidence.
 
+## Connected product-preview guidance — 16 October, 23:24 Berlin
+
+Core `35e12ee`, image `thankful-name-8063`: required frontend CI passed 628 tests.
+Fresh snapshot `26-10-16-212111-backup`, successful migration and 1/1 healthy start
+passed. The public connected assistant now explains an empty selected product
+without asking for sign-in. Stop/re-enable and its visible recovery guidance also
+passed again. [Exact release and prior journey boundaries](evidence/agent-authority-hosted-2026-10-16.md).
+
+## Explicit agent admission guidance — 16 October, 23:06 Berlin
+
+Core `8b461a1`, image `bustling-bulb-1104`: required full CI passed, a fresh snapshot preceded the
+successful migration and 1/1 healthy start. The public German assistant displayed the active stop
+and recovery path directly. New work was then enabled again in the synthetic test shop. This is a
+frontend message follow-up, not a new acceptance of real payments or the whole app programme.
+[Hosted source-bound evidence](evidence/agent-authority-hosted-2026-10-16.md).
+
+## Planning-agent controls — 16 October, 22:10 Berlin
+
+Core `dac31fa`, image `foamy-passenger-5421`, successful snapshot-backed migration
+104 and healthy restricted-runtime start. Public stop/re-enable, native shopping
+during stop, fresh SaaS AI products/images, password login/reload/logout and the
+original Storyfront embedded purchase/bag clear passed. [Dated hosted receipt](evidence/agent-authority-hosted-2026-10-16.md).
+The later frontend admission-message follow-up retains its own release boundary there.
+
 ## Final merged main — 16 October, 19:17 Berlin
 
 Core `c70f246`, image `mirthful-zipper-2487`, one healthy instance, zero restarts.

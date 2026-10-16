@@ -19,7 +19,7 @@ A green test, merged code and a completed public business journey are different 
 | Restricted database runtime | [Hosted enforcement record](evidence/database-enforcement-2026-10-15.json): separate roles and strict restart. Authorization and SQL isolation are both required. |
 | Native checkout | Dated acceptance covers simulated purchases. It does not prove a real provider payment, mail delivery, invoice and refund journey. |
 | Storyfront embedded checkout | [16 October original Storyfront acceptance](evidence/storyfront-checkout-2026-10-16.json): embedded contact/address, simulated order RAC-b359e75d, German receipt and cleared original bag passed in a fresh Chrome session. The earlier controlled tab remained paused at about:blank; real provider redirects/3DS remain unaccepted. |
-| Browser login | HttpOnly implementation and registered session tests exist. Public Google sign-in, reload and logout passed on 16 October. Fresh SaaS creation and its one-use Studio handoff also passed. Password sign-in still needs its own public acceptance. Apple currently returns `invalid_request: Invalid web redirect url` for the new start.veyndo.ai callback; the Apple Service ID configuration is not repaired. |
+| Browser login | HttpOnly implementation and registered session tests exist. Public Google sign-in, reload and logout passed on 16 October. Fresh SaaS creation and its one-use Studio handoff also passed. Public password sign-in, reload persistence, logout and denied protected-route return also passed in a separate incognito session on 16 October. Apple currently returns `invalid_request: Invalid web redirect url` for the new start.veyndo.ai callback; the Apple Service ID configuration is not repaired. |
 | Legacy domains | 16 October public DNS/TLS/redirect checks passed for vendune.ai and team.vendune.ai, ending at www.veyndo.ai and team.veyndo.ai respectively. No DNS change was made. Authoritative-provider configuration and filtering-provider delisting remain separate checks. |
 | Recovery and real providers | Restore drill and real payment/mail/refund acceptance require their own recorded outcomes. No current whole-system production certification. |
 
@@ -29,7 +29,7 @@ A green test, merged code and a completed public business journey are different 
 | --- | --- | --- |
 | Commerce and channels | Native Rust owners for products, prices, stock, checkout, orders, documents, POS and selected B2B/UCP routes | Full relevant role/channel/language/currency flows, including denied cases |
 | App storage and lifecycle | Shared bounded records, references, settings, immutable definitions, private previews and selected release | Complete generated business capability across data/UI/logic; no arbitrary-source hosting claim |
-| Agent runs | Persisted native task checkpoints, leases, cancellation and explicit uncertain-call continuation. New local [planning-agent controls](agent-authority-controls.md) add distinct revocable keys, exact-model allocation envelopes and live/sandbox stop. | New controls are not yet publicly deployed; conservative token/USD allocations are not provider invoices or unrestricted financial autonomy. |
+| Agent runs | Persisted native task checkpoints, leases, cancellation and explicit uncertain-call continuation. Publicly deployed [planning-agent controls](agent-authority-controls.md) add distinct revocable keys, exact-model allocation envelopes and live/sandbox stop. | [Hosted stop/re-enable and shopping acceptance](evidence/agent-authority-hosted-2026-10-16.md); conservative token/USD allocations are not provider invoices or unrestricted financial autonomy. |
 | Provider tools | Native OpenAI Responses/Chat, Claude and Ollama read tool protocols, private conversation continuation and current per-call authorization are deployed in the 16 October Core | Local provider and durable-worker fixture suites passed; real configured provider quality/usage needs separate acceptance |
 | Prompt governance | Four central prompts are versioned files with ID, template digest and rendered-system digest in model usage | Versioned prompt IDs and content digests in model evidence, injection evaluation at actual admission |
 | Contracts | Compiled operation registry generates request OpenAPI, TypeScript and WIT contracts with drift checks | Input contract generation passes locally; broad domain objects and response DTOs are not yet completely typed |
@@ -39,8 +39,23 @@ A green test, merged code and a completed public business journey are different 
 
 ## Public delivery and current work
 
-Core image `mirthful-zipper-2487` (`c70f246`) and private Experience `b40b386` are
-publicly running. [The new hosted receipt](evidence/platform-hardening-hosted-2026-10-16.md)
+The [planning-agent release receipt](evidence/agent-authority-hosted-2026-10-16.md)
+records Core `dac31fa`, image `foamy-passenger-5421`, fresh snapshot and migration 104.
+Public stop/re-enable, native shopping during stop, a fresh SaaS shop with three AI
+products/images, password-session lifecycle and the original Storyfront embedded
+purchase/return/empty-bag flow passed. Payments remained simulated. The frontend
+admission-message follow-up `8b461a1` is also deployed as `bustling-bulb-1104`: a second fresh
+snapshot, successful migration, healthy Core and public explicit German stop/recovery message
+passed. The test stop was lifted again. Older releases below retain their own source boundaries.
+
+The current presentation follow-up is Core `35e12ee`, image `thankful-name-8063`.
+Its fresh snapshot, successful migration and 1/1 healthy start passed. Public
+stop/re-enable and the corrected connected empty-product preview passed. Its
+required frontend CI repeated 628 tests with unchanged coverage floors; the
+underlying backend remains identical to the full agent-admission release above.
+
+Earlier Core image `mirthful-zipper-2487` (`c70f246`) and private Experience `b40b386`
+were the preceding public acceptance. [The new hosted receipt](evidence/platform-hardening-hosted-2026-10-16.md)
 records migration 103, a fresh SaaS shop with three AI products and generated
 images, Studio handoff, a native purchase, the original Storyfront embedded
 checkout and cleared original bag, and a privately tested/published furniture app
@@ -72,7 +87,7 @@ hosted acceptance in this receipt.
 - [Testing](testing.md), [formal scope](formal-verification.md), [capacity measurements](benchmarks.md).
 - [Changelog](../CHANGELOG.md): implementation notes belong here, not in the README.
 
-The final merged-main frontend repeat passed 618 tests with unchanged coverage
-gates. Public offline/reload recovery preserved the session. The module-specific
+The earlier configuration/workspace release repeated 618 frontend tests with unchanged coverage
+gates. The later agent-admission release repeated 627 frontend tests in full CI; its own source and public results are recorded above. Public offline/reload recovery preserved the session. The module-specific
 message is covered by actual lazy-load failure tests; a public asset-blocking
 attempt did not reproduce that precise failure and is not counted as acceptance.

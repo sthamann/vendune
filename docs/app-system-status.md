@@ -5,7 +5,8 @@ business-capability proposal — describe an individual business model and have
 Veyndo build, verify, operate and maintain it — remains an implementation programme.
 This page maps that distinction; it is not a completion percentage.
 
-The comparison uses the 15 October proposal, the deployed Core `c70f246` and hardening baseline `7a4388d`,
+The comparison uses the 15 October proposal, the hardening baseline `7a4388d`,
+the deployed agent-control/message follow-ups linked from [current status](status.md),
 the actual source owners below and dated release receipts. Source implementation,
 local integration tests and hosted acceptance are different evidence. A later
 branch, build or documentation change does not update a hosted result by itself.
@@ -20,7 +21,7 @@ branch, build or documentation change does not update a hosted result by itself.
 | Understand the full product direction | [Business capabilities](business-capabilities.md) |
 | Check the latest recorded hosted release | [16 October hardening and app workflow](evidence/platform-hardening-hosted-2026-10-16.md), [Release overview](current-release.md), [16 October public acceptance](evidence/studio-release-hosted-2026-10-16.json), [15 October storage acceptance](evidence/shared-app-storage-hosted-2026-10-15.json) |
 
-New local [agent controls](agent-authority-controls.md) reuse existing keys/tasks and central inference. They are not yet publicly deployed and do not close arbitrary app execution or real-provider billing gates.
+[Agent controls](agent-authority-controls.md) reuse existing keys/tasks and central inference. [Hosted stop/re-enable and checkout acceptance](evidence/agent-authority-hosted-2026-10-16.md) is recorded separately; it does not close arbitrary app execution or real-provider billing gates.
 
 ## Implemented foundations
 
@@ -35,7 +36,7 @@ New local [agent controls](agent-authority-controls.md) reuse existing keys/task
 | Pure decisions | Existing WIT components receive bounded read-only snapshots and return accepted/adjustment/reason results; native money, tax, inventory and checkout validate and apply effects. | Four hooks do not constitute a generated before/after/replace contract for every commerce operation. No arbitrary WASI network/filesystem access. |
 | Executable app goals | Optional `capability` v1: localized intent/assumptions and up to twelve frozen synthetic decision examples; mismatch/trap blocks save or installation. | Expected examples are not server-proven human confirmations, historical business replay or proof over every input. |
 | Saved merchant planning | Existing PostgreSQL tasks/conversations, private completed model checkpoints, fenced Rust workers, current-right/evidence checks, cancellation and explicit continuation. | Bounded read rounds and one reviewed native proposal; no general durable executor for arbitrary app writes or external effects. |
-| Database/browser authority | Separate restricted tenant/system pools, role-bound signed scopes, forced policies; existing HttpOnly session ledgers, exact origins and build-owned Studio scripts. | Purpose-separated keys and further operational/security work remain. Selected negative tests are not exhaustive security certification. |
+| Database/browser authority | Separate restricted tenant/system pools, role-bound signed scopes, forced policies; existing HttpOnly session ledgers, exact origins and build-owned Studio scripts. Dedicated bounded planning credentials now have separate authority from ordinary integration keys. | Broader operational/security work and the Apple callback repair remain. Selected negative tests are not exhaustive security certification. |
 
 ### What “build”, “replay” and “workflow” mean today
 
