@@ -1,5 +1,10 @@
 # Changelog
 
+## Browser continuation follow-up
+
+- Add explicit same-account browser continuation for interrupted Studio editors. Recheck the native session, current shop membership, candidate proof and editor generation before accepting; retain private drafts and never replay failed writes.
+- Ignore delayed 401 responses from older accepted browser proofs and fence pending initial profile reads against explicit sign-in. Preserve refusal of cross-account browser adoption.
+
 ## Hosted acceptance follow-up
 
 - Complete the coordinated hosted shared-app-storage cutover after a fresh backup and stopped old Core. Retire eight verified legacy tables; confirm four fixed forced-RLS tables after new installations, private page publication and three public simulated checkout flows. Record results and explicit acceptance boundaries separately from local verification.
