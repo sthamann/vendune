@@ -136,7 +136,12 @@ it("compiles all four native bindings and keeps stronger custom permissions", ()
     );
     expect(
       compiled.entities[0].fields.find((f) => f.name === "native_id"),
-    ).toMatchObject({ indexed: true, unique: true, required: true });
+    ).toMatchObject({
+      indexed: true,
+      unique: true,
+      required: true,
+      label: m.entities[0].label,
+    });
     expect(compiled.entities[0].publicRead).toBe(false);
   }
 });

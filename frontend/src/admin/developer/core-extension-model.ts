@@ -29,7 +29,7 @@ export function bindExtension(entity: Entity, object?: CoreObject): Entity {
       ...entity.fields.filter((f) => f.name !== field),
       {
         name: field,
-        label: {},
+        label: { ...entity.label },
         kind: "string",
         required: true,
         indexed: true,

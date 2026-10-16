@@ -104,6 +104,14 @@ pagination, rather than filtering the current browser page.
 was edited through its native app form and then found by this server filter. This
 is a local acceptance image, not a hosted-payment or capacity claim.*
 
+![New App Studio extension installed privately and saved in the native product form](assets/core-extensions-20261017/native-app-created-in-sandbox.png)
+
+*Actual local browser flow: create an Admin app, bind its model to Product, save
+its immutable version, install in the selected private sandbox, then write its
+fields directly on the native product. The internal anchor stays hidden in this
+product form. The existing model labels, including its actual content languages,
+are retained for the generated anchor so the saved package passes server admission.*
+
 `appFilter` is a JSON array encoded as a query-string value, with one to four
 conjoined predicates:
 

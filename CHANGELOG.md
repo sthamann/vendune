@@ -2,6 +2,8 @@
 
 ## Native app object fields — implementation, 2026-10-17
 
+- Preserve actual model labels on generated native anchors; newly bound visual apps now pass full immutable-build validation. Repeat real frontend templates for all four object bindings through server admission/private previews, and illustrate actual browser creation, private installation and native-product writes.
+
 - Fix a reproduced POS status race: payment, latest job and native order are read from one database snapshot, after existing cashier/cart admission. A forced provider-commit interleaving checks coherence and preserves one completion event. Retry transient initial database connections for at most 90 seconds; malformed configuration and authority checks still fail closed.
 - Add versioned private product/customer/order/company bindings over the existing four shared app tables; keep native foreign keys, uniqueness, current native/PII/custom scopes, CAS, history and outbox. Preserve legacy package serialization and reject incompatible installed bindings.
 - Connect native detail forms, optional existing-grid columns and exact indexed product/customer/order filters before pagination. Reuse HTTP/MCP owners, generate request contracts from the registry, and give reviewed grid plans scoped field metadata plus versioned prompt provenance. Project namespaced graph context without claiming public buyer facts.
