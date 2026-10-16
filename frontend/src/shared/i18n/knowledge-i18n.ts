@@ -2,12 +2,14 @@
 import { behaviorWords } from "./behavior-i18n";
 import { cognitiveEventWords } from "./cognitive-events-i18n";
 import { experimentWords } from "./experiment-i18n";
+import { guardrailWorkspaceWords } from "./guardrail-workspace-i18n";
 import { guardrailWords } from "./guardrail-i18n";
 import { useLocale } from "./i18n";
 export const knowledgeWords = {
   behavior: behaviorWords.behavior,
   ...cognitiveEventWords,
   ...guardrailWords,
+  ...guardrailWorkspaceWords,
   ...experimentWords,
   noClaimCandidates: [
     "No candidates for this product yet.",

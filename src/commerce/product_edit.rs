@@ -22,12 +22,18 @@ pub(super) async fn save_product(
     let mut edit: Edit = serde_json::from_value(v).map_err(|_| bad("Invalid product metadata"))?;
     let mut tx = a.db.begin().await?;
     history::context(&mut tx, &h, "merchant").await?;
-    let data: Value =
-        sqlx::query_scalar("SELECT data FROM commerce_settings WHERE tenant=$1 FOR SHARE")
+    let settings_row =
+        sqlx::query("SELECT data, revision FROM commerce_settings WHERE tenant=$1 FOR SHARE")
             .bind(&t)
             .fetch_one(&mut *tx)
             .await?;
-    let settings = decode_config(data)?;
+    if edit
+        .settings_revision
+        .is_some_and(|revision| revision != settings_row.get::<i64, _>("revision"))
+    {
+        return Err(conflict("Catalogue settings changed; prepare fresh drafts"));
+    }
+    let settings = decode_config(settings_row.get("data"))?;
     if create && edit.extra.price_currency.is_none() {
         edit.extra.price_currency = Some(settings.currencies.base_currency.clone());
     }

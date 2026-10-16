@@ -1,0 +1,106 @@
+/* References are a first-class design starting point in the existing agent rail. */
+.designer-design-references {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 20px;
+  padding: 14px;
+  border: 1px solid #c8dff2;
+  border-radius: 12px;
+  background: linear-gradient(155deg, #edf7ff, var(--studio-card, #fff) 70%);
+}
+.designer-reference-heading {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #0b66b4;
+}
+.designer-reference-heading h3 {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.designer-design-references p,
+.designer-design-references small {
+  margin: 0;
+  color: var(--studio-muted, #60768d);
+  line-height: 1.6;
+  font-size: 12px;
+}
+.designer-reference-url {
+  display: grid;
+  gap: 7px;
+}
+.designer-reference-url > span {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.designer-reference-url textarea {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 66px;
+  background: var(--studio-card, #fff);
+}
+.designer-reference-drop {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 18px 10px;
+  border: 1px dashed #9ec6e8;
+  border-radius: 9px;
+  color: #1265ae;
+  background: #ffffff99;
+}
+.designer-reference-drop.is-over {
+  outline: 3px solid #0877df;
+  background: #e2f3ff;
+}
+.designer-reference-drop > span {
+  color: #60768d;
+  font-size: 11px;
+}
+.designer-reference-drop button,
+.designer-reference-brief {
+  font-size: 12px;
+  min-height: 36px;
+  border-radius: 7px;
+}
+.designer-reference-thumbnails {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.designer-reference-thumbnails figure {
+  margin: 0;
+  position: relative;
+  border: 1px solid #c6d9eb;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+.designer-reference-thumbnails img {
+  display: block;
+  width: 100%;
+  height: 100px;
+  object-fit: contain;
+}
+.designer-reference-thumbnails button {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  min-width: 30px;
+  min-height: 30px;
+  padding: 4px;
+  background: white;
+  border-radius: 50%;
+}
+.designer-reference-brief {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #0869bd;
+  background: #e4f2ff;
+  border-color: #b9d7f1;
+}

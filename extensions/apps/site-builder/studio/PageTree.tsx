@@ -4,17 +4,12 @@ import { useContentLanguage } from "../../../../frontend/src/shared/i18n/Content
 import { contentText } from "../../../../frontend/src/shared/i18n/content-language";
 import Icon from "../../../../frontend/src/shared/ui/Icon";
 import ConfirmDialog from "../../../../frontend/src/shared/ui/ConfirmDialog";
-import {
-  newPage,
-  moveBlock,
-  effectivePages,
-  type Page,
-  type BlockKind,
-} from "../model";
+import { newPage, effectivePages, type Page, type BlockKind } from "../model";
 import type { Designer } from "./useDesigner";
 import { useDesignText } from "./design-i18n";
 import { useWorkspaceText } from "./workspace-i18n";
 import BlockPreview from "./BlockPreview";
+import { useBlocks } from "./useBlockEditing";
 const art: Record<Page["kind"], BlockKind> = {
   page: "text",
   landing: "hero",
@@ -48,6 +43,7 @@ export default function PageTree({
 }) {
   const t = useDesignText(),
     w = useWorkspaceText(),
+    editing = useBlocks(),
     { language, mainLocale } = useContentLanguage();
   const [kind, setKind] = useState<Page["kind"]>("page"),
     [newTitle, setNewTitle] = useState(""),
@@ -143,6 +139,10 @@ export default function PageTree({
           >
             <button
               type="button"
+              {...editing?.pointer(b, true)}
+              draggable={writable}
+              onDragStart={(e) => editing?.begin(e, b, true)}
+              onDragEnd={() => editing?.cancel()}
               aria-pressed={d.selected === b.id}
               onClick={() => {
                 d.setSelected(b.id);
@@ -160,14 +160,7 @@ export default function PageTree({
                 disabled={!writable || !i}
                 title={t("up")}
                 aria-label={`${t("up")}: ${t(b.kind)}`}
-                onClick={() =>
-                  d.edit({
-                    ...d.draft!,
-                    content: {
-                      blocks: moveBlock(d.draft!.content.blocks, i, i - 1),
-                    },
-                  })
-                }
+                onClick={() => editing?.move(b.id, -1)}
               >
                 ↑
               </button>
@@ -176,14 +169,7 @@ export default function PageTree({
                 disabled={!writable || i === d.draft!.content.blocks.length - 1}
                 title={t("down")}
                 aria-label={`${t("down")}: ${t(b.kind)}`}
-                onClick={() =>
-                  d.edit({
-                    ...d.draft!,
-                    content: {
-                      blocks: moveBlock(d.draft!.content.blocks, i, i + 1),
-                    },
-                  })
-                }
+                onClick={() => editing?.move(b.id, 1)}
               >
                 ↓
               </button>

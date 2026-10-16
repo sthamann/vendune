@@ -7,6 +7,39 @@
 - Put the latest recorded 15 October hosted acceptance before older release history; preserve earlier receipts and distinguish later embedded simulated purchase acceptance from real settlement, restore or capacity evidence.
 - Keep isolated source compilation, complete B2B configurator, generalized entity/lifecycle extensions, historical replay, managed runtime, fleet compatibility, Shopware porting and Enterprise-cell operation explicitly open until their actual acceptance succeeds.
 
+## Connected merchant price boundaries — 2026-10-16
+
+- Replace the clipped knowledge tab strip with grouped navigation and a labelled mobile selector.
+- Rebuild AI price boundaries around approval modes, searchable native products, ordinary money/percentage units, progressive margin/cost controls and clear sandbox/revision feedback. Preserve native price-only limits and explicit per-product boundaries.
+- Connect saved policy to product editing, the shared assistant, Rules & flows, settings and staging; respect current permissions and guard pending edits within knowledge navigation.
+- Add a bounded, cursor-paged policy projection to the existing authorized commerce read operation. The merchant planner can read exact saved boundaries without an oversized whole-settings response. No new policy database, pricing engine or worker.
+- Verify money scales, invalid inputs, stale revisions, read-only admission and connected actions in frontend tests; exact native pagination in Rust; policy read/model transcript and current guardrail execution in provider fixtures.
+
+
+## Merchant-context assistant and reviewed catalogue intake
+
+- Remove shopper/hard-coded-SKU welcome prompts from merchant Studio. Give the existing planner explicit merchant, current workspace, sandbox, main-language and current-rights context; offer source-driven catalogue setup rather than generic buyer advice.
+- Add actual CSV upload, accessible product/shop URL extraction and described fictional products with editable previews, selected sandbox-only creation and optional existing media jobs. CSV remains deterministic; model output and sources are untrusted.
+- Reuse Rust native creation/history/knowledge/outbox, shared inference quotas and the canonical API/MCP contract. Add bounded input, line-specific localized CSV errors, public DNS-pinned egress, stable creation IDs, exact retry reconciliation and locked settings-revision admission. No new tables, runtime or queues.
+- Correct direct product navigation across an explicitly chosen sandbox without retaining a target on another shop. Add native CSV/release, model/image, durable-worker and browser/component regressions. Local synthetic verification is distinct from real-model quality and public deployment.
+
+
+## Understandable app ideas and explicit agent handoff
+
+- Replace the technical-first business-goal screen with a plain-language idea brief, example starting points, optional requirements, visible agent/design next steps and a three-step private-preview guide. Keep inherited fields visibly editable.
+- Reuse the existing agent drawer and composer for an explicit editable handoff. Bind pending requests to the current app/sandbox, consume once, and do not automatically invoke inference, export a task or change a Manifest. Codex/Claude retain the existing task and reviewed-import path.
+- Collapse optional pure-rule checks, distinguish frozen expectations from actual execution results, and explain an empty set without implying that the whole app failed. Existing rights, frozen cases, private versions and native runtime stay authoritative.
+
+## Guided app creation
+
+- Put app name and compact content-language context first. Group native placements by shop, purchase/account, administration, POS and B2B; illustrate each with a location sketch and specific icon. Keep a removable selected-area summary and explicit zero/six-selection guidance.
+- Collapse generated identifiers and explicit agent access into technical options; open invalid identifiers for correction. Reuse normal Manifest compilation, private editing and immutable sandbox versions. Correct missing borders and dark appearance by using Studio theme tokens.
+
+## Direct shop-design interactions
+
+- Insert illustrated built-in and installed-app elements at visible preview boundaries; reorder via captured mouse/touch drag or native drag fallback, section arrows, and page-tree controls. Remove sections with in-canvas bin controls and undo/redo using the same private draft. Published storefronts receive no editor controls.
+- Make reference URLs and design/screenshot upload visible in the existing agent rail. Bound and reduce large images locally, preserve earlier references on failure, keep source-copying opt-in, and fence delayed proposals against newer edits and workspace changes. Existing Rust inference, revision-bound tasks, rights, app storage and selective sandbox publication remain authoritative.
+
 ## Browser continuation follow-up
 
 - Add explicit same-account browser continuation for interrupted Studio editors. Recheck the native session, current shop membership, candidate proof and editor generation before accepting; retain private drafts and never replay failed writes.

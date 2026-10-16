@@ -9,3 +9,9 @@ vi.mock(
   }),
 );
 import "../../../extensions/apps/site-builder/tests/workspace-cases";
+
+import "../../../extensions/apps/site-builder/tests/interactions-cases";
+
+import "../../../extensions/apps/site-builder/tests/design-reference-cases";
+
+import "../../../extensions/apps/site-builder/tests/pointer-cases";

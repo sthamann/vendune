@@ -8,7 +8,8 @@ import {
 import AppConsent from "../../../../frontend/src/admin/apps/AppConsent";
 import ConfirmDialog from "../../../../frontend/src/shared/ui/ConfirmDialog";
 import Icon from "../../../../frontend/src/shared/ui/Icon";
-import SiteRenderer from "../Renderer";
+import type { SiteProduct } from "../Renderer";
+import DesignerPreview from "./DesignerPreview";
 import { homeDraft } from "./home-draft";
 import {
   inheritedTheme,
@@ -23,13 +24,16 @@ import PageTree from "./PageTree";
 import usePageProducts from "../usePageProducts";
 import DesignerInspector, { type DesignerMode } from "./DesignerInspector";
 import DesignerHeader from "./DesignerHeader";
-import StorefrontCanvas, { type HomeSnapshot } from "./StorefrontCanvas";
+import type { HomeSnapshot } from "./StorefrontCanvas";
 import "./designer.css";
 import "./canvas.css";
 import "./inspector.css";
 import "./workspace.css";
 import "./navigation.css";
 import "./palette.css";
+import { BlockEditingContext, useBlockEditing } from "./useBlockEditing";
+import "./interactions.css";
+import { PlacementStatus } from "./EditableSection";
 type Props = {
   request: RequestFn;
   workspace: string;
@@ -157,6 +161,22 @@ function DesignerView({
         : page.content.blocks[1].id,
     );
   };
+  const editing = useBlockEditing({
+    d,
+    enabled: writable && !comparison,
+    scope: `${workspace}:${d.channel}:${language}`,
+    prepare: () =>
+      nativeSnapshot.current
+        ? homeDraft(
+            d.channel,
+            mainLocale,
+            language,
+            d.context!.catalogue.elements,
+            nativeSnapshot.current,
+          )
+        : undefined,
+    onSelect: () => setMode("edit"),
+  });
   const theme = {
     ...inheritedTheme(d.pages, d.channel),
     ...explicitTheme(d.draft?.theme),
@@ -200,191 +220,160 @@ function DesignerView({
     </section>
   ) : null;
   return (
-    <div className="shop-designer">
-      <DesignerHeader
-        d={d}
-        rights={rights}
-        sandbox={sandbox}
-        writable={writable}
-        creating={creating}
-        selectionError={!!selection.error}
-        onChannel={(channel) => {
-          if (d.dirty) setPendingChannel(channel);
-          else d.changeChannel(channel);
-        }}
-        onSandbox={() => void createSandbox()}
-        onEnvironments={onEnvironments}
-        onAgent={() => setMode("agent")}
-        agentOpen={mode === "agent"}
-      />
-
-      <div className={`designer-layout ${showPages ? "with-pages" : ""}`}>
-        {showPages && (
-          <PageTree
-            d={d}
-            writable={writable}
-            onOpen={open}
-            onAdd={() => setMode("blocks")}
-            onEdit={() => setMode("edit")}
-            onHome={() => {
-              if (d.dirty) setPendingHome(true);
-              else d.close();
-            }}
-          />
-        )}
-        <section className="designer-canvas">
-          <div className="designer-preview-bar">
-            <button
-              aria-expanded={showPages}
-              onClick={() => setShowPages(!showPages)}
-            >
-              <Icon name="menu" size={16} />
-              {t("pagesToggle")}
-            </button>
-            <div role="group" aria-label={t("preview")}>
-              {(["desktop", "tablet", "mobile"] as const).map((k) => (
-                <button
-                  key={k}
-                  aria-pressed={device === k}
-                  onClick={() => setDevice(k)}
-                >
-                  {t(k)}
-                </button>
-              ))}
-            </div>
-            <button
-              aria-label={t("undo")}
-              disabled={!writable || !d.canUndo}
-              onClick={d.undo}
-            >
-              ↶
-            </button>
-            <button
-              aria-label={t("redo")}
-              disabled={!writable || !d.canRedo}
-              onClick={d.redo}
-            >
-              ↷
-            </button>
-          </div>
-          <StorefrontCanvas
-            key={`${workspace}:${d.channel}:${language}`}
-            request={request}
-            workspace={workspace}
-            shopName={shopName}
-            channel={d.channel}
-            language={language}
-            device={device}
-            appearance={d.draft ? theme : undefined}
-            products={d.context!.catalogue.elements}
-            onHome={customizeHome}
-            onSnapshot={(snapshot) => {
-              nativeSnapshot.current = snapshot;
-            }}
-          >
-            {d.draft ? (
-              <div>
-                <SiteRenderer
-                  page={comparison ?? d.draft}
-                  pages={effectivePages(d.pages, d.channel)}
-                  products={selection.products}
-                  theme={comparison ? { ...theme, ...comparison.theme } : theme}
-                  language={language}
-                  mainLocale={mainLocale}
-                  channel={d.channel}
-                  request={request}
-                  selected={d.selected}
-                  onSelect={(id) => {
-                    d.setSelected(id);
-                    setMode("edit");
-                  }}
-                  onInline={
-                    writable && !comparison
-                      ? (id, text) =>
-                          d.edit({
-                            ...d.draft!,
-                            content: {
-                              blocks: d.draft!.content.blocks.map((b) =>
-                                b.id === id
-                                  ? {
-                                      ...b,
-                                      text: { ...b.text, [language]: text },
-                                    }
-                                  : b,
-                              ),
-                            },
-                          })
-                      : undefined
-                  }
-                />
-              </div>
-            ) : null}
-          </StorefrontCanvas>
-        </section>
-        <DesignerInspector
+    <BlockEditingContext.Provider value={editing}>
+      <div className="shop-designer">
+        <DesignerHeader
           d={d}
-          request={request}
           rights={rights}
+          sandbox={sandbox}
           writable={writable}
-          theme={theme}
-          products={selection.products}
-          setShowPages={setShowPages}
-          setup={setup}
-          mode={mode}
-          onMode={setMode}
-          onPrepare={async () => {
-            if (!writable) {
-              if (!sandbox) await createSandbox();
-              else d.setError(t("readOnly"));
-              return;
-            }
-            if (
-              d.draft?.revision &&
-              !d.dirty &&
-              (d.draft.channel !== "*" || d.channel === "*")
-            )
-              return d.draft;
-            const candidate =
-              d.draft ??
-              (nativeSnapshot.current
-                ? homeDraft(
-                    d.channel,
-                    mainLocale,
-                    language,
-                    d.context!.catalogue.elements,
-                    nativeSnapshot.current,
-                  )
-                : undefined);
-            if (!candidate) {
-              d.setError(e("unavailable"));
-              return;
-            }
-            return d.save(candidate);
+          creating={creating}
+          selectionError={!!selection.error}
+          onChannel={(channel) => {
+            if (d.dirty) setPendingChannel(channel);
+            else d.changeChannel(channel);
           }}
-          onPreview={setComparison}
+          onSandbox={() => void createSandbox()}
+          onEnvironments={onEnvironments}
+          onAgent={() => setMode("agent")}
+          agentOpen={mode === "agent"}
         />
+
+        <div className={`designer-layout ${showPages ? "with-pages" : ""}`}>
+          {showPages && (
+            <PageTree
+              d={d}
+              writable={writable}
+              onOpen={open}
+              onAdd={() => setMode("blocks")}
+              onEdit={() => setMode("edit")}
+              onHome={() => {
+                if (d.dirty) setPendingHome(true);
+                else d.close();
+              }}
+            />
+          )}
+          <section className="designer-canvas">
+            <div className="designer-preview-bar">
+              <button
+                aria-expanded={showPages}
+                onClick={() => setShowPages(!showPages)}
+              >
+                <Icon name="menu" size={16} />
+                {t("pagesToggle")}
+              </button>
+              <div role="group" aria-label={t("preview")}>
+                {(["desktop", "tablet", "mobile"] as const).map((k) => (
+                  <button
+                    key={k}
+                    aria-pressed={device === k}
+                    onClick={() => setDevice(k)}
+                  >
+                    {t(k)}
+                  </button>
+                ))}
+              </div>
+              <button
+                aria-label={t("undo")}
+                disabled={!writable || !d.canUndo}
+                onClick={d.undo}
+              >
+                ↶
+              </button>
+              <button
+                aria-label={t("redo")}
+                disabled={!writable || !d.canRedo}
+                onClick={d.redo}
+              >
+                ↷
+              </button>
+              <PlacementStatus page={d.draft} />
+            </div>
+            <DesignerPreview
+              d={d}
+              request={request}
+              workspace={workspace}
+              shopName={shopName}
+              language={language}
+              mainLocale={mainLocale}
+              device={device}
+              theme={theme}
+              products={selection.products as SiteProduct[]}
+              comparison={comparison}
+              writable={writable}
+              onHome={customizeHome}
+              onSnapshot={(snapshot) => {
+                nativeSnapshot.current = snapshot;
+              }}
+              onEdit={() => setMode("edit")}
+            />
+          </section>
+          <DesignerInspector
+            scopeKey={`${workspace}:${d.channel}`}
+            d={d}
+            request={request}
+            rights={rights}
+            writable={writable}
+            theme={theme}
+            products={selection.products}
+            setShowPages={setShowPages}
+            setup={setup}
+            mode={mode}
+            onMode={setMode}
+            onPrepare={async () => {
+              if (!writable) {
+                if (!sandbox) await createSandbox();
+                else d.setError(t("readOnly"));
+                return;
+              }
+              if (
+                d.draft?.revision &&
+                !d.dirty &&
+                (d.draft.channel !== "*" || d.channel === "*")
+              )
+                return d.draft;
+              const candidate =
+                d.draft ??
+                (nativeSnapshot.current
+                  ? homeDraft(
+                      d.channel,
+                      mainLocale,
+                      language,
+                      d.context!.catalogue.elements,
+                      nativeSnapshot.current,
+                    )
+                  : undefined);
+              if (!candidate) {
+                d.setError(e("unavailable"));
+                return;
+              }
+              return d.save(candidate);
+            }}
+            onPreview={setComparison}
+          />
+        </div>
+        {(pending || pendingHome || pendingChannel !== undefined) && (
+          <ConfirmDialog
+            title={t("discardTitle")}
+            onCancel={() => {
+              setPending(undefined);
+              setPendingHome(false);
+              setPendingChannel(undefined);
+            }}
+            onConfirm={() => {
+              if (pending) d.open(pending);
+              if (pendingHome) d.close();
+              setPendingHome(false);
+              if (pendingChannel !== undefined) d.changeChannel(pendingChannel);
+              setPendingChannel(undefined);
+              setPending(undefined);
+            }}
+            confirmLabel={t("discardTitle")}
+          >
+            <p>{t("discardHint")}</p>
+          </ConfirmDialog>
+        )}
       </div>
-      {(pending || pendingHome || pendingChannel !== undefined) && (
-        <ConfirmDialog
-          title={t("discardTitle")}
-          onCancel={() => {
-            setPending(undefined);
-            setPendingHome(false);
-            setPendingChannel(undefined);
-          }}
-          onConfirm={() => {
-            if (pending) d.open(pending);
-            if (pendingHome) d.close();
-            setPendingHome(false);
-            if (pendingChannel !== undefined) d.changeChannel(pendingChannel);
-            setPendingChannel(undefined);
-            setPending(undefined);
-          }}
-          confirmLabel={t("discardTitle")}
-        >
-          <p>{t("discardHint")}</p>
-        </ConfirmDialog>
-      )}
-    </div>
+    </BlockEditingContext.Provider>
   );
 }

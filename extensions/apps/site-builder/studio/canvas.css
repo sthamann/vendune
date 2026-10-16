@@ -144,3 +144,9 @@
     padding: 8px;
   }
 }
+
+/* Replacing the native home with its editable document must not retain an obsolete scroll anchor. */
+.designer-canvas,
+.designer-frame-space {
+  overflow-anchor: none;
+}

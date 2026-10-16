@@ -44,6 +44,11 @@ pub(super) fn definitions() -> Vec<(&'static str, &'static str)> {
         ),
     ]);
     all.extend(crate::operations::CREATION_CAPABILITIES.iter().copied());
+    all.extend(
+        crate::commerce::catalog_intake::CAPABILITIES
+            .iter()
+            .copied(),
+    );
     all.extend(crate::pos::CAPABILITIES.iter().copied());
     all.extend(crate::b2b::CAPABILITIES.iter().copied());
     all

@@ -9,6 +9,7 @@ pub(crate) fn router(a: App) -> Router {
             get(storefront_pages::product_page_slug),
         )
         .merge(platform::router())
+        .merge(commerce::catalog_intake::router())
         .merge(shop_domains::frontends::router())
         .merge(currencies::router())
         .merge(translations::router())

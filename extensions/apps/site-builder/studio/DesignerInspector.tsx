@@ -1,11 +1,11 @@
 /** Visible edit, element, agent and history modes share the same native draft and approval path. */
-import type { ReactNode } from "react";
+import { useLayoutEffect, useRef, type ReactNode } from "react";
 import { useContentLanguage } from "../../../../frontend/src/shared/i18n/ContentLanguage";
 import ContentLanguagePicker from "../../../../frontend/src/shared/i18n/ContentLanguagePicker";
 import Icon from "../../../../frontend/src/shared/ui/Icon";
 import type { RequestFn } from "../../../../frontend/src/shared/api/types";
 import PrivateFormInbox from "../../../../frontend/src/shared/apps/PrivateFormInbox";
-import type { Page, Theme, Block } from "../model";
+import type { Page, Theme } from "../model";
 import type { SiteProduct } from "../Renderer";
 import type { Designer } from "./useDesigner";
 import PageInspector from "./PageInspector";
@@ -14,6 +14,7 @@ import DesignAgent from "./DesignAgent";
 import BlockPalette from "./BlockPalette";
 import { useDesignText } from "./design-i18n";
 import { useWorkspaceText } from "./workspace-i18n";
+import { useBlocks } from "./useBlockEditing";
 export type DesignerMode = "edit" | "blocks" | "agent" | "history";
 export default function DesignerInspector({
   d,
@@ -28,7 +29,9 @@ export default function DesignerInspector({
   mode,
   onMode,
   onPrepare,
+  scopeKey,
 }: {
+  scopeKey: string;
   setup?: ReactNode;
   d: Designer;
   request: RequestFn;
@@ -45,14 +48,12 @@ export default function DesignerInspector({
   const t = useDesignText(),
     w = useWorkspaceText(),
     { mainLocale } = useContentLanguage();
+  const panel = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    if (panel.current) panel.current.scrollTop = 0;
+  }, [mode]);
   const block = d.draft?.content.blocks.find((b) => b.id === d.selected);
-  const add = async (block: Block) => {
-    const page = d.draft ?? (await onPrepare());
-    if (!page) return;
-    d.edit({ ...page, content: { blocks: [...page.content.blocks, block] } });
-    d.setSelected(block.id);
-    onMode("edit");
-  };
+  const editing = useBlocks();
   return (
     <aside className="designer-inspector" aria-label={t("tools")}>
       <div className="designer-modes" role="tablist" aria-label={t("tools")}>
@@ -81,6 +82,7 @@ export default function DesignerInspector({
         ))}
       </div>
       <div
+        ref={panel}
         className="designer-panel-scroll"
         role="tabpanel"
         aria-label={w(mode)}
@@ -89,13 +91,18 @@ export default function DesignerInspector({
         {mode === "blocks" && (
           <BlockPalette
             elements={d.context?.elements ?? []}
-            disabled={!writable || (d.draft?.content.blocks.length ?? 0) >= 24}
-            onAdd={(block) => void add(block)}
+            disabled={
+              !writable ||
+              !editing?.enabled ||
+              (d.draft?.content.blocks.length ?? 0) >= 24
+            }
+            onAdd={(block) => editing?.insert(block)}
           />
         )}
         {
           <div hidden={mode !== "agent"}>
             <DesignAgent
+              key={scopeKey}
               request={request}
               page={d.draft}
               selected={d.selected}

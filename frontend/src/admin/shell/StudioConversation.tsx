@@ -1,4 +1,5 @@
 /** StudioConversation: focused Studio view; state and commands come from the session-scoped controller. */
+import { useCatalogIntakeText } from "../../shared/i18n/catalog-intake-i18n";
 import { useEffect, useState } from "react";
 import StudioComposer from "./StudioComposer";
 import AgentRunCard from "./AgentRunCard";
@@ -22,6 +23,7 @@ export default function StudioConversation({
   onProviderSettings?: () => void;
 }) {
   const { u } = useExperienceUIText();
+  const c = useCatalogIntakeText();
   const runText = useAgentRunText();
   const {
     t,
@@ -101,16 +103,26 @@ export default function StudioConversation({
             )}
             <div className="studio-prompts">
               {[
-                ["graph", "promptRead"],
-                ["pulse", "promptPrice"],
-                ["box", "promptExperience"],
+                ["graph", "merchantCatalogue"],
+                ["pulse", "askStock"],
+                ["box", "learningPrompt"],
               ].map(([icon, key]) => (
                 <button
                   key={key}
-                  onClick={() => intent(t(key as "promptRead"))}
+                  onClick={() =>
+                    intent(
+                      key === "merchantCatalogue"
+                        ? c("merchantPrompt")
+                        : t(key as "promptRead"),
+                    )
+                  }
                 >
                   <Icon name={icon as "graph" | "pulse" | "box"} />
-                  <span>{t(key as "promptRead")}</span>
+                  <span>
+                    {key === "merchantCatalogue"
+                      ? c("title")
+                      : t(key as "promptRead")}
+                  </span>
                   <Icon name="arrow" size={16} />
                 </button>
               ))}

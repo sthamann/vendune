@@ -55,7 +55,7 @@ Commerce remains usable without a model. Hosted chat clients need their own secu
 connection and account-side setup; [connection requirements](docs/connectors.md)
 are explicit.
 
-**Visual shop design:** choose illustrated building blocks, including elements contributed by installed apps. Use the same agent controls as App Studio—Veyndo AI proposals or a credential-free Codex/Claude Code task, with native review and sandbox publication. Open a channel and see its existing storefront immediately. Click a hero or product collection, edit the private draft beside a desktop/tablet/mobile preview, then review a selected release. The editor shares native presentation components and the page renderer with the storefront. [Illustrated workflow and boundaries](docs/personal-workspace-and-shop-design.md).
+**Visual shop design:** drag illustrated building blocks directly into the shop preview, including elements contributed by installed apps. Blue insertion markers, section grips, arrows, bin controls and undo/redo share the same private document. Start design proposals from shop URLs or uploaded screenshots, with automatic image reduction and explicit before/after review. Use the same agent controls as App Studio—Veyndo AI proposals or a credential-free Codex/Claude Code task, with native review and sandbox publication. Open a channel and see its existing storefront immediately. Click a hero or product collection, edit the private draft beside a desktop/tablet/mobile preview, then review a selected release. The editor shares native presentation components and the page renderer with the storefront. [Illustrated workflow and boundaries](docs/personal-workspace-and-shop-design.md).
 
 ## Your workspace. Your shop. One change path.
 
@@ -69,6 +69,8 @@ sandbox, publish selected pages, and keep the original Rust checkout.
 Pages, campaign layouts, blog/article sections and private form intake live in
 app-owned packages. Original Storyfront Experiences retain their original private
 editor. [Illustrated guide, contracts and current limits](docs/personal-workspace-and-shop-design.md).
+
+**Build your catalogue from the merchant assistant:** upload a CSV, extract a public product page or describe fictional sample products. Review editable drafts, create the selection in a private sandbox and optionally prepare images through the configured image provider. Native products, history, events, permissions and selected publication remain shared. [Workflow, format and verification boundaries](docs/merchant-catalogue-setup.md).
 
 ## Ask. Review. Act.
 
@@ -195,9 +197,9 @@ recordings are edited for readability and are not latency measurements.
 and keep autonomy limits visible. Retrieval is distinct from model-weight training.
 [Watch](docs/assets/showcase/connected-intelligence.mp4) · [Knowledge guide](docs/knowledge-workspace.md).
 
-[![Knowledge and explicit boundaries](docs/assets/launch-20261014/connected-knowledge.jpg)](docs/assets/showcase/connected-intelligence.mp4)
+[![Connected knowledge and merchant price boundaries](docs/assets/knowledge-controls-20261016/boundaries.jpg)](docs/knowledge-workspace.md#control-ai-price-changes)
 
-**App Studio:** visual controls and coding agents share one executable manifest.
+**App Studio:** describe an app idea in plain language, add requirements and hand it to Veyndo AI, Codex or Claude for a reviewed proposal—or open the visual editor yourself. Visual controls and coding agents share one executable manifest. Start with an app name, choose illustrated placements grouped by shop, checkout, administration, POS and B2B, and review the selected areas before creating a private draft. [Creation workflow and current screenshots](docs/app-studio-workspace.md).
 Test a product-bound record in a private preview and save an immutable draft
 version. Saving a version and publishing it are separate actions.
 [Watch](docs/assets/showcase/app-studio.mp4) · [Build five useful apps](docs/app-tutorials/README.md).
@@ -226,7 +228,10 @@ removes its eligible public evidence. Private merchant knowledge stays private.
 
 Durable Flows connect events, conditions, delays, documents and configured app
 actions. Execution traces expose results and failures. Bounded price autonomy uses
-explicit guardrails and daily budgets; enabling it is an operator decision.
+explicit guardrails and daily budgets; enabling it is an operator decision. The
+[price-boundary workspace](docs/knowledge-workspace.md#control-ai-price-changes)
+connects catalogue search, ordinary currency/percentage editing, native product
+settings, the shared merchant assistant and reviewed sandbox publication.
 
 [Connected intelligence](docs/cognitive-commerce.md) · [Automation](docs/automation.md) · [Agent commerce](docs/connectors.md).
 

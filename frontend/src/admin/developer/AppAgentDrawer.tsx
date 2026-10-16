@@ -1,5 +1,5 @@
 /** Contextual agent drawer retains the shared proposal workflow and draft while the native dialog manages focus. */
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Icon from "../../shared/ui/Icon";
 import { contentText } from "../../shared/i18n/content-language";
@@ -7,17 +7,40 @@ import { useLocale } from "../../shared/i18n/i18n";
 import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
 import type { RequestFn } from "../shell/studio-types";
 import type { AppStudio } from "./useAppStudio";
-import AppAgentPanel from "./AppAgentPanel";
+import AppAgentPanel, { type AppAgentRequest } from "./AppAgentPanel";
+export function useAppAgentEntry(studio: AppStudio, request: RequestFn) {
+  const [open, setOpen] = useState(false),
+    [requestSeed, setSeed] = useState<AppAgentRequest>();
+  return {
+    show: (prompt?: string) => {
+      if (prompt)
+        setSeed({ app: studio.manifest.id, environment: studio.env, prompt });
+      setOpen(true);
+    },
+    drawer: {
+      studio,
+      request,
+      open,
+      onClose: () => setOpen(false),
+      requestSeed,
+      onRequestConsumed: () => setSeed(undefined),
+    },
+  };
+}
 export default function AppAgentDrawer({
   open,
   onClose,
   studio,
   request,
+  requestSeed,
+  onRequestConsumed,
 }: {
   open: boolean;
   onClose: () => void;
   studio: AppStudio;
   request: RequestFn;
+  requestSeed?: AppAgentRequest;
+  onRequestConsumed?: () => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null),
     title = useId();
@@ -75,6 +98,8 @@ export default function AppAgentDrawer({
           key={studio.manifest.id}
           studio={studio}
           request={request}
+          requestSeed={requestSeed}
+          onRequestConsumed={onRequestConsumed}
         />
       </fieldset>
     </dialog>,

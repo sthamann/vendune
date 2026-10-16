@@ -28,6 +28,7 @@ function Fixture({ expired = false, busy = false } = {}) {
     busy,
     draft,
     connected: true,
+    access: [],
     sessionExpired: expired,
     send,
     setSettings,

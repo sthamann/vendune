@@ -1,7 +1,7 @@
 /* Guided extension workspace: restrained colour, clear choices and responsive setup. */
 .app-assistant {
-  background: var(--card, #fff);
-  border: 1px solid var(--line, #dce4f0);
+  background: var(--surface, #fff);
+  border: 1px solid var(--border, #dce4f0);
   border-radius: 22px;
   padding: 28px;
   margin-bottom: 24px;
@@ -35,7 +35,7 @@
   text-align: left;
   min-height: 175px;
   background: var(--surface, #f8faff);
-  border: 1px solid var(--line, #dce4f0);
+  border: 1px solid var(--border, #dce4f0);
   border-radius: 16px;
   padding: 20px;
   transition:
@@ -113,7 +113,7 @@
   width: auto;
 }
 .app-assistant-access {
-  border: 1px solid var(--line, #dce4f0);
+  border: 1px solid var(--border, #dce4f0);
   border-radius: 14px;
   padding: 18px;
   margin: 22px 0;
@@ -143,14 +143,14 @@
   gap: 16px;
   align-items: center;
   padding: 18px 0;
-  border-bottom: 1px solid var(--line, #dce4f0);
+  border-bottom: 1px solid var(--border, #dce4f0);
 }
 .app-access-row:last-child {
   border: 0;
 }
 .app-field-options {
   grid-column: 1/-1;
-  border-top: 1px solid var(--line, #dce4f0);
+  border-top: 1px solid var(--border, #dce4f0);
   padding-top: 12px;
   display: grid;
   gap: 12px;

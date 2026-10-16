@@ -17,7 +17,7 @@ record lifecycles are distinct from extensible native order/offer state machines
 
 The canonical Manifest now accepts optional `capability` version 1: localized
 `intent`, localized `assumptions` and up to twelve frozen pure-decision `examples`.
-App Studio exposes a Business goal tab in the same editor. Its compact cards show
+App Studio exposes an **App idea** tab in the same editor. Its compact cards show
 the declared input, expected money adjustment and acceptance, not fabricated pass
 badges. Goal/assumption edits use the existing content-language inheritance and
 immutable version save. A package without this field retains its old serialization.
@@ -45,10 +45,34 @@ correctness. The remaining ordered gates below still apply.
 
 ### Try the connected path
 
-![Business goal and frozen decisions in the actual Studio](screenshots/veyndo-app-business-goals.png)
+The merchant-facing entry uses plain language: describe an outcome, optionally add
+requirements, then choose **Continue with AI or a coding agent** or **Design the
+interface yourself**. Three explicit starting ideas help fill the brief. Editing a
+description does not execute or generate an app by itself.
+
+The assistant opens in the existing drawer with an editable request and the current
+Manifest, including its requirements. It does not automatically call a model or
+export a task. The merchant chooses Veyndo AI, Codex or Claude Code and explicitly
+submits. Codex/Claude prepare the existing task handoff; returned changes still
+require the normal proposal review. Pending handoffs are bound to app and sandbox,
+consumed once, and do not replace a prompt belonging to another workspace.
+When a goal or requirement lacks the shop main language, the brief explains the
+missing content before saving and offers a direct language switch. It does not
+copy a translation into another language or weaken native save validation.
+
+![Plain-language App idea brief and next steps](assets/app-idea-20261016/overview.jpg)
+
+[Shared agent handoff](assets/app-idea-20261016/agent.jpg) ·
+[Mobile brief](assets/app-idea-20261016/mobile.jpg)
+
+**Optional automatic rule checks** contains existing frozen pure-decision cases.
+They are collapsed initially and label stored expectations as expectations, never
+as successful test results. A display app with no cases is directed to its private
+preview; absent cases still do not verify business behavior. The rule-check button
+prepares an agent request, not fabricated fixtures or a replacement executor.
 
 1. Open App Studio and edit a package carrying `capability`, such as the bundled
-   snapshot-pricing lab. Pure decision packages open their Business goal directly.
+   snapshot-pricing lab. Pure decision packages open their App idea directly.
 2. Choose the content language, edit intent or assumptions and save a new version.
    These edits use the same immutable Manifest as the visual editor and agent task.
 3. Review declared synthetic cases. For example, a EUR 100.00 subtotal expects a
@@ -163,3 +187,20 @@ Shopware app/script compatibility, PHP analysis/porting and third-party hosting
 claims need separately verified scope. The product is a publicly developed
 experiment platform under the [Sustainable Use License](../LICENSE), not an
 assertion of production completeness or guaranteed maintenance for every extension.
+
+### App idea usability check — 16 October 2026
+
+The UI follow-up retains the canonical intent/assumptions/examples fields and
+native immutable save/preview/release owners. Browser acceptance uses a synthetic
+local shop: choose a product-advice brief, add a private-team requirement, open the
+shared assistant, explicitly prepare a real Codex task, return to the visual
+editor, and save the goal/requirement in a new private version. A reload retains
+both. The mobile brief remains inside its 390 px viewport. No paid model call or
+public publication is implied by this UI acceptance.
+
+The 583 frontend tests include no automatic execution on handoff, rejection of a
+seed from another app/stage, regional content edits, optional-check disclosure and
+preservation of frozen cases. Production TypeScript/Vite build, localization and
+ownership checks pass. The registered native `app_generation` suite uses a synthetic
+model HTTP fixture to exercise immutable drafts, real private preview, explicit
+staging and rejected unsafe model changes. It is not a real-model quality test.
