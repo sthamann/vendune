@@ -1,5 +1,6 @@
 //! Pure Wasmtime guest execution with bounded resources and no host imports.
 use crate::sandbox_engine::{self, MEMORY_BYTES, TABLE_ELEMENTS};
+mod configuration;
 use wasmtime::{Engine, Instance, Module, Store, StoreLimits, StoreLimitsBuilder};
 struct Limits {
     memory: StoreLimits,
@@ -88,88 +89,14 @@ impl Sandbox {
     }
     /// Generic cart contribution ABI; business acceptance belongs to the app module.
     pub fn contribution(&self, fee_minor: i64, input_length: i64) -> Result<i64, String> {
-        let mut store = Store::new(
-            &self.engine,
-            Limits {
-                memory: StoreLimitsBuilder::new()
-                    .memory_size(MEMORY_BYTES)
-                    .table_elements(TABLE_ELEMENTS)
-                    .instances(1)
-                    .memories(1)
-                    .tables(1)
-                    .build(),
-            },
-        );
-        store.limiter(|s| &mut s.memory);
-        store.set_epoch_deadline(10);
-        store.set_fuel(10_000).map_err(|e| e.to_string())?;
-        let instance = Instance::new(
-            &mut store,
-            self.module.as_ref().ok_or("Core ABI required")?,
-            &[],
-        )
-        .map_err(|e| e.to_string())?;
-        instance
-            .get_typed_func::<(i64, i64), i64>(&mut store, "configuration_fee")
-            .map_err(|e| e.to_string())?
-            .call(&mut store, (fee_minor, input_length))
-            .map_err(|e| format!("{e:#}"))
+        self.contribution_args(fee_minor, &[input_length])
     }
     /// Verify both contribution exports and let the app validate its price input.
     pub fn validate_contribution(&self, fee: i64) -> Result<bool, String> {
-        let mut store = Store::new(
-            &self.engine,
-            Limits {
-                memory: StoreLimitsBuilder::new()
-                    .memory_size(MEMORY_BYTES)
-                    .table_elements(TABLE_ELEMENTS)
-                    .instances(1)
-                    .memories(1)
-                    .tables(1)
-                    .build(),
-            },
-        );
-        store.limiter(|s| &mut s.memory);
-        store.set_epoch_deadline(10);
-        store.set_fuel(10_000).map_err(|e| e.to_string())?;
-        let instance = Instance::new(
-            &mut store,
-            self.module.as_ref().ok_or("Core ABI required")?,
-            &[],
-        )
-        .map_err(|e| e.to_string())?;
-        instance
-            .get_typed_func::<(i64, i64), i64>(&mut store, "configuration_fee")
-            .map_err(|e| e.to_string())?;
-        instance
-            .get_typed_func::<i64, i32>(&mut store, "validate_fee")
-            .map_err(|e| e.to_string())?
-            .call(&mut store, fee)
-            .map(|v| v == 1)
-            .map_err(|e| format!("{e:#}"))
+        self.validate_contribution_args(fee, 1)
     }
     pub fn approve(&self, total_minor: i64, limit_minor: i64) -> Result<bool, String> {
-        let mut store = Store::new(
-            &self.engine,
-            Limits {
-                memory: StoreLimitsBuilder::new()
-                    .memory_size(MEMORY_BYTES)
-                    .table_elements(TABLE_ELEMENTS)
-                    .instances(1)
-                    .memories(1)
-                    .tables(1)
-                    .build(),
-            },
-        );
-        store.limiter(|s| &mut s.memory);
-        store.set_epoch_deadline(10);
-        store.set_fuel(10_000).map_err(|e| e.to_string())?;
-        let instance = Instance::new(
-            &mut store,
-            self.module.as_ref().ok_or("Core ABI required")?,
-            &[],
-        )
-        .map_err(|e| e.to_string())?;
+        let (mut store, instance) = self.core_instance()?;
         let hook = instance
             .get_typed_func::<(i64, i64), i32>(&mut store, "approve")
             .map_err(|e| e.to_string())?;

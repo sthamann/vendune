@@ -9,6 +9,7 @@ export type Package = {
   active: boolean;
   revision: number;
   manifest: {
+    configuration?: import("../../shared/apps/configuration-types").ConfigurationContract;
     settings?: import("../../shared/apps/native/types").Manifest["settings"];
     paymentProvider?: import("../../shared/apps/native/types").Manifest["paymentProvider"];
     name: Record<string, string>;
@@ -28,6 +29,11 @@ export type Package = {
     runtime?: string;
     permissions: string[];
     entities: Entity[];
-    actions: { name: string; description: string; handler: string }[];
+    actions: {
+      name: string;
+      description: string;
+      handler: string;
+      inputSchema?: { properties?: Record<string, { type?: string }> };
+    }[];
   };
 };

@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import { getContentLocale, shopApi, type Cart } from "../api/shop-api";
 import { useAppText } from "../i18n/app-i18n";
 import { contentText } from "../i18n/content-language";
+import ConfigurationForm from "./ConfigurationForm";
+import type { ConfigurationContract } from "./configuration-types";
 import { useCountryCatalogue } from "../geography/useCountryCatalogue";
-type Slot = {
+export type Slot = {
   app: string;
   version: string;
   slot: { component: string; label?: Record<string, string> };
@@ -18,13 +20,9 @@ type Slot = {
       translatable?: boolean;
     }[];
   }[];
-  configuration?: {
-    inputField: string;
-    label: Record<string, string>;
-    hint: Record<string, string>;
-  };
+  configuration?: ConfigurationContract;
 };
-type Props = {
+export type Props = {
   productId: string;
   familyId?: string;
   cart?: Cart;
@@ -157,73 +155,6 @@ function PublicEntities({
             </dl>
           )),
       )}
-    </section>
-  );
-}
-function ConfigurationForm({
-  slot,
-  productId,
-  cart,
-  onCart,
-  language,
-  mainLocale,
-}: Props & { slot: Slot; language: string; mainLocale: string }) {
-  const { a } = useAppText();
-  const [text, setText] = useState("");
-  const [saved, setSaved] = useState(false);
-  const [error, setError] = useState("");
-  const [busy, setBusy] = useState(false);
-  const c = slot.configuration!;
-  const label = contentText(c.label, language, mainLocale) || slot.app;
-  const hint = contentText(c.hint, language, mainLocale);
-  return (
-    <section className="app-slot">
-      <h3>{label}</h3>
-      {hint && <p>{hint}</p>}
-      <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          if (!cart) return;
-          setBusy(true);
-          setError("");
-          try {
-            onCart(
-              await shopApi<Cart>(
-                `/store-api/apps/${slot.app}/configure`,
-                {
-                  productId,
-                  fields: { [c.inputField]: text },
-                  revision: cart.revision,
-                },
-                cart.token,
-              ),
-            );
-            setSaved(true);
-          } catch (e) {
-            setError((e as Error).message);
-          } finally {
-            setBusy(false);
-          }
-        }}
-      >
-        <label>
-          {label}
-          <input
-            value={text}
-            maxLength={2000}
-            required
-            onChange={(e) => {
-              setText(e.target.value);
-              setSaved(false);
-            }}
-          />
-        </label>
-        <button className="shop-secondary" disabled={!cart || busy || !text}>
-          {a("save")}
-        </button>
-      </form>
-      {saved && <p role="status">{a("configurationSaved")}</p>}
-      {error && <p role="alert">{error}</p>}
     </section>
   );
 }

@@ -66,7 +66,7 @@ pub(crate) fn quote(
             .values()
             .filter(|v| v.product_id == i.id)
         {
-            let gross = currencies::convert(config.fee_minor as f64 / 100., cfg, currency)?;
+            let gross = configuration_price(config, cfg, currency)?;
             let fee = calculate(&PriceInput {
                 price: if b2b {
                     gross / (1. + p.tax_rate / 100.)
@@ -113,6 +113,23 @@ pub(crate) fn quote(
     Ok(
         json!({"token":c.token,"id":c.id,"revision":c.revision,"status":c.status,"lineItems":lines,"customerGroup":c.data.group,"customerId":c.data.customer_id,"customerEmail":c.data.email,"company":c.data.company,"price":{"positionPrice":total,"totalPrice":payable,"netPrice":if b2b{total}else{math_round(total-taxes,decimals)},"tax":taxes,"taxStatus":if b2b{"net"}else{"gross"},"currency":currency.code,"currencyScale":currency.scale},"currencyContext":currencies::context(cfg,currency),"availableCurrencies":cfg.enabled,"order":c.data.order}),
     )
+}
+pub(crate) fn configuration_price(
+    config: &apps::Configuration,
+    cfg: &currencies::Config,
+    currency: &currencies::Definition,
+) -> Result<f64> {
+    if let Some(source) = &config.currency {
+        let scale = currencies::scale(source).ok_or(bad("Configuration currency unavailable"))?;
+        currencies::convert_from(
+            config.fee_minor as f64 / 10_f64.powi(scale as i32),
+            source,
+            cfg,
+            currency,
+        )
+    } else {
+        currencies::convert(config.fee_minor as f64 / 100., cfg, currency)
+    }
 }
 pub(crate) fn normalized_quantity(p: &Product, q: u32) -> Result<u32> {
     let available = p.max_purchase.unwrap_or(10000).min(10000);

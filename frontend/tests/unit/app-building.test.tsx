@@ -39,6 +39,22 @@ for (const kind of recipeIds)
           .flatMap((e) => e.fields)
           .some((f) => f.coreReference === "b2bUnit"),
       ).toBe(true);
+    } else if (kind === "furniture") {
+      expect(m.configuration?.inputs?.examples?.length).toBe(7);
+      expect(m.configuration?.inputs?.recordField).toBe("material");
+      expect(m.actions?.find((a) => a.name === "configure")).toMatchObject({
+        handler: "configure",
+        public: true,
+        readOnly: false,
+        mcp: true,
+      });
+      expect(
+        m.views?.some((v) =>
+          v.blocks.some(
+            (b) => b.kind === "form" && b.writeAction === "save_materials",
+          ),
+        ),
+      ).toBe(true);
     } else {
       expect(
         m.views?.some(
@@ -51,9 +67,14 @@ for (const kind of recipeIds)
       ).toBe(true);
       expect(m.actions?.every((a) => a.mcp === false)).toBe(true);
     }
-    expect(m.actions?.filter((a) => a.public).every((a) => a.readOnly)).toBe(
-      true,
-    );
+    expect(
+      m.actions
+        ?.filter((a) => a.public)
+        .every(
+          (a) =>
+            a.readOnly || (kind === "furniture" && a.handler === "configure"),
+        ),
+    ).toBe(true);
     if (kind === "returns") {
       expect(m.entities[0].publicRead).toBe(false);
       expect(m.surfaces![0].location).toBe("admin.order");

@@ -4,6 +4,7 @@ import { useAppCapabilityText } from "../../shared/i18n/app-capability-i18n";
 import { useAppStudioText } from "../../shared/i18n/app-studio-i18n";
 import { contentText } from "../../shared/i18n/content-language";
 import { useContentLanguage } from "../../shared/i18n/ContentLanguage";
+import AppConfigurationExamples from "./AppConfigurationExamples";
 import Icon from "../../shared/ui/Icon";
 export default function AppCapabilityChecks({
   manifest,
@@ -16,6 +17,8 @@ export default function AppCapabilityChecks({
     { locale } = useAppStudioText(),
     { language, mainLocale } = useContentLanguage();
   const examples = manifest.capability?.examples ?? [];
+  const configurationExamples = manifest.configuration?.inputs?.examples ?? [];
+  const count = examples.length + configurationExamples.length;
   const money = (v: { minor: number; currency: string; scale: number }) =>
     new Intl.NumberFormat(locale, {
       style: "currency",
@@ -28,13 +31,13 @@ export default function AppCapabilityChecks({
       <summary>
         <Icon name="check" size={18} />
         <span>{t("testsOptional")}</span>
-        <span className="studio-badge">{examples.length}</span>
+        <span className="studio-badge">{count}</span>
       </summary>
-      {!examples.length ? (
+      {!count ? (
         <p>{t("noTestsHelp")}</p>
       ) : (
         <>
-          <p>{t("testSummary").replace("{count}", String(examples.length))}</p>
+          <p>{t("testSummary").replace("{count}", String(count))}</p>
           <p>{t("checks")}</p>
           <div className="app-capability-examples">
             {examples.map((example) => (
@@ -64,6 +67,7 @@ export default function AppCapabilityChecks({
           </div>
         </>
       )}
+      <AppConfigurationExamples manifest={manifest} />
       {onAssist && (
         <button
           type="button"

@@ -45,13 +45,27 @@ export default function ProductPage({
   const [sending, setSending] = useState(false);
   const [variantsLoading, setVariantsLoading] = useState(false);
   const detailRequest = useRef(0);
+  const detailContext = JSON.stringify([
+    id,
+    locale,
+    cart?.token,
+    cart?.customerGroup,
+    cart?.checkout.country,
+  ]);
+  const loadedContext = useRef("");
   useEffect(() => {
     ++detailRequest.current;
     let active = true;
-    setData(undefined);
+    // Repricing the current cart must not unmount app controls, lose unsaved
+    // inputs or erase their saved confirmation. A changed identity still resets.
+    const reset = loadedContext.current !== detailContext;
+    loadedContext.current = detailContext;
+    if (reset) {
+      setData(undefined);
+      setImage(0);
+      setReviewed(false);
+    }
     setError("");
-    setImage(0);
-    setReviewed(false);
     shopApi<Detail>(
       `/store-api/product/${encodeURIComponent(id)}`,
       {},
@@ -60,7 +74,7 @@ export default function ProductPage({
       .then((d) => {
         if (active) {
           setData(d);
-          setQuantity(d.product.min_purchase);
+          if (reset) setQuantity(d.product.min_purchase);
         }
       })
       .catch((e) => {
@@ -73,6 +87,7 @@ export default function ProductPage({
   }, [
     id,
     locale,
+    detailContext,
     cart?.token,
     cart?.customerGroup,
     cart?.revision,

@@ -1,6 +1,7 @@
 /** AppDetails: Installed app details, activation, version, data and isolated interface. */
 import { useAppText } from "../../shared/i18n/app-i18n";
 import { useCustomerText } from "../../shared/i18n/customer-i18n";
+import type { ConfiguredOrders } from "./AppConfiguredOrders";
 import type { Package } from "./app-types";
 
 import StoryfrontConnections from "../../../../extensions/apps/storyfront/studio/StoryfrontConnections";
@@ -21,6 +22,9 @@ import ConnectorPanel from "./ConnectorPanel";
 import ProviderAccount from "./ProviderAccount";
 import MarketplacePanel from "../../../../extensions/apps/marketplaces/studio/MarketplacePanel";
 import EmailPanel from "../../../../extensions/apps/email/studio/EmailPanel";
+import { ContentLanguage } from "../../shared/i18n/ContentLanguage";
+import ContentLanguagePicker from "../../shared/i18n/ContentLanguagePicker";
+import { useCountryCatalogue } from "../../shared/geography/useCountryCatalogue";
 export type AppDetailsProps = {
   p: Package;
   mainLocale: string;
@@ -35,34 +39,7 @@ export type AppDetailsProps = {
   appCategory: (p: Package) => string;
   role: string;
   setResultApp: React.Dispatch<React.SetStateAction<string>>;
-  setResult: React.Dispatch<
-    React.SetStateAction<
-      | {
-          elements: {
-            orderId: string;
-            items: {
-              referencedId: string;
-              quantity: number;
-              configuration?:
-                | {
-                    text?: string | undefined;
-                    fields?: Record<string, string> | undefined;
-                    feeMinor: number;
-                  }
-                | undefined;
-              appConfigurations?:
-                | {
-                    app: string;
-                    fields: Record<string, string>;
-                    feeMinor: number;
-                  }[]
-                | undefined;
-            }[];
-          }[];
-        }
-      | undefined
-    >
-  >;
+  setResult: React.Dispatch<React.SetStateAction<ConfiguredOrders | undefined>>;
 };
 export default function AppDetails({
   p,
@@ -82,6 +59,7 @@ export default function AppDetails({
 }: AppDetailsProps) {
   const l = useLibraryText();
   const text = useStoryfrontText();
+  const catalogue = useCountryCatalogue(request);
   const [confirm, setConfirm] = useState(false);
   const toggle = () =>
     void run(async () => {
@@ -250,15 +228,23 @@ export default function AppDetails({
         )}
         {detailTab === "appData" &&
           p.active &&
-          p.manifest.entities.map((e) => (
-            <AppEntity
-              key={e.name}
-              app={p.id}
-              entity={e}
-              request={request}
-              canWrite={role !== "viewer"}
-            />
-          ))}
+          p.manifest.entities.length > 0 && (
+            <ContentLanguage
+              mainLocale={catalogue?.mainLocale ?? mainLocale}
+              locales={catalogue?.locales ?? [mainLocale]}
+            >
+              <ContentLanguagePicker />
+              {p.manifest.entities.map((e) => (
+                <AppEntity
+                  key={e.name}
+                  app={p.id}
+                  entity={e}
+                  request={request}
+                  canWrite={role !== "viewer"}
+                />
+              ))}
+            </ContentLanguage>
+          )}
         {detailTab === "appData" && p.active && (
           <div className="app-actions">
             {p.manifest.actions

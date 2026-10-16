@@ -50,6 +50,7 @@
     "app_shared_storage",
     "app_jobs",
     "app_components",
+    "business_capability",
     "app_assets",
     "pos",
     "b2b",

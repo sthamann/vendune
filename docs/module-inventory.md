@@ -33,6 +33,11 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/cart_contributions.rs](../src/apps/cart_contributions.rs) | Generic app contributions: configure a cart, bind package/data revisions and persist audited pricing inputs. |
 | [src/apps/commerce_hooks.rs](../src/apps/commerce_hooks.rs) | Typed pure commerce hooks share the compiled sandbox cache and receive explicit immutable snapshots, never SQL or credentials. |
 | [src/apps/compatibility.rs](../src/apps/compatibility.rs) | Explicit read adapter for persisted v0.5 engraving carts; completed order snapshots remain unchanged. |
+| [src/apps/configuration_events.rs](../src/apps/configuration_events.rs) | Configuration mutations publish minimized identifiers through the native outbox/Flows; no cart capability or shopper text is disclosed. |
+| [src/apps/configuration_examples.rs](../src/apps/configuration_examples.rs) | Frozen configuration cases use the same field validation and bounded guest as real cart configuration. |
+| [src/apps/configuration_inputs.rs](../src/apps/configuration_inputs.rs) | Structured cart configuration uses the canonical field validator and declared bounded integer guest arguments. |
+| [src/apps/configuration_orders.rs](../src/apps/configuration_orders.rs) | Paginated app-specific immutable purchase projections; filtering happens before LIMIT and never exposes buyer PII. |
+| [src/apps/configuration_selection.rs](../src/apps/configuration_selection.rs) | Reusable input-only selections resolve current package/library revisions before one native cart mutation. |
 | [src/apps/consent.rs](../src/apps/consent.rs) | Package approval binds all requested permissions to a reviewed digest; current actor rights apply before every installation path. |
 | [src/apps/core_callbacks.rs](../src/apps/core_callbacks.rs) | Narrow app callbacks delegate to the existing commerce owners and project PII only with separate consent. |
 | [src/apps/core_documents.rs](../src/apps/core_documents.rs) | Dedicated bounded order-document upload requires exact app capabilities, current actor rights and native receipt ownership. |
@@ -505,6 +510,7 @@ This lists every checked-in source module in these roots, including files with n
 | [crates/apps/src/component_runtime/abi.rs](../crates/apps/src/component_runtime/abi.rs) | Exact, operator-configured WIT namespace compatibility with the same bounded host. |
 | [crates/apps/src/component_runtime.rs](../crates/apps/src/component_runtime.rs) | WIT-typed read-only commerce guest. Snapshots are prepared by domain owners; no WASI, HTTP, DB or merchant credentials reach components. |
 | [crates/apps/src/lib.rs](../crates/apps/src/lib.rs) | Isolated app component execution; no HTTP, SQL or inference authority. |
+| [crates/apps/src/sandbox/configuration.rs](../crates/apps/src/sandbox/configuration.rs) | Bounded integer configuration arguments share the existing no-import Wasmtime engine and resource budgets. |
 | [crates/apps/src/sandbox.rs](../crates/apps/src/sandbox.rs) | Pure Wasmtime guest execution with bounded resources and no host imports. |
 | [crates/apps/src/sandbox_engine.rs](../crates/apps/src/sandbox_engine.rs) | One bounded Wasmtime engine per process, with independent fuel and wall-clock interruption. |
 | [crates/cognition/src/inference/protocol.rs](../crates/cognition/src/inference/protocol.rs) | Self-hosted chat-completions adapter and opt-in provider prompt caching; neither caches private commerce responses. |
@@ -543,6 +549,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/apps/AppAccess.tsx](../frontend/src/admin/apps/AppAccess.tsx) | Explicit consent for digest-bound server callback keys; plaintext is shown once and never persisted in the browser. |
 | [frontend/src/admin/apps/AppActivity.tsx](../frontend/src/admin/apps/AppActivity.tsx) | API-backed per-app call metadata, storage budgets and explicitly approved durable replay. |
 | [frontend/src/admin/apps/AppArtwork.tsx](../frontend/src/admin/apps/AppArtwork.tsx) | Passive app artwork with independent failed-image fallbacks and deterministic local category covers. |
+| [frontend/src/admin/apps/AppConfiguredOrders.tsx](../frontend/src/admin/apps/AppConfiguredOrders.tsx) | Immutable app purchase cards reuse native order navigation and preserve source-currency and rule snapshots. |
 | [frontend/src/admin/apps/AppConsent.tsx](../frontend/src/admin/apps/AppConsent.tsx) | Review the actual package and permission changes before installation; consent is enforced by the API. |
 | [frontend/src/admin/apps/AppDetails.tsx](../frontend/src/admin/apps/AppDetails.tsx) | AppDetails: Installed app details, activation, version, data and isolated interface. |
 | [frontend/src/admin/apps/AppEntity.tsx](../frontend/src/admin/apps/AppEntity.tsx) | Managed entity editor renders fields from the installed app contract. |
@@ -654,6 +661,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/developer/AppCapabilityChecks.tsx](../frontend/src/admin/developer/AppCapabilityChecks.tsx) | Frozen pure-decision expectations remain advanced, read-only metadata; no fake execution result is inferred. |
 | [frontend/src/admin/developer/AppCapabilityEditor.tsx](../frontend/src/admin/developer/AppCapabilityEditor.tsx) | Merchant ideas, requirements and explicit agent handoff edit the canonical versioned Manifest without executing changes. |
 | [frontend/src/admin/developer/AppCodeBuffer.ts](../frontend/src/admin/developer/AppCodeBuffer.ts) | Invalid local expressions block apply and mode changes until corrected; multiple editors report independently. |
+| [frontend/src/admin/developer/AppConfigurationExamples.tsx](../frontend/src/admin/developer/AppConfigurationExamples.tsx) | Configuration example cards expose frozen inputs and expected guest results without computing business rules in the browser. |
 | [frontend/src/admin/developer/AppConnections.tsx](../frontend/src/admin/developer/AppConnections.tsx) | Route, tool, grounding and Flow Builder switches modify the shared executable manifest directly. |
 | [frontend/src/admin/developer/AppContextBinding.tsx](../frontend/src/admin/developer/AppContextBinding.tsx) | Native UI bindings connect the open host object to an indexed app field, never to a global JS context. |
 | [frontend/src/admin/developer/AppControlProperties.tsx](../frontend/src/admin/developer/AppControlProperties.tsx) | DataField and one-level container references are edited against the current typed model rather than free text. |
@@ -925,8 +933,12 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/apps/AppFrame.tsx](../frontend/src/shared/apps/AppFrame.tsx) | Opaque-origin app UI. Its SDK can invoke only this app's declared, server-authorized actions. |
 | [frontend/src/shared/apps/AppSlot.tsx](../frontend/src/shared/apps/AppSlot.tsx) | Generic registered product configuration slot. App packages own labels, input names and business rules. |
 | [frontend/src/shared/apps/AppSurfaces.tsx](../frontend/src/shared/apps/AppSurfaces.tsx) | One registry read per workspace; app bundles load only when their surface is mounted. |
+| [frontend/src/shared/apps/ConfigurationFields.tsx](../frontend/src/shared/apps/ConfigurationFields.tsx) | Manifest-owned configuration controls and public library choices; no client price or authorization decisions. |
+| [frontend/src/shared/apps/ConfigurationForm.tsx](../frontend/src/shared/apps/ConfigurationForm.tsx) | Shared product configuration form: declared input fields use the existing cart, revision and app gateway. |
+| [frontend/src/shared/apps/ConfigurationLibrary.tsx](../frontend/src/shared/apps/ConfigurationLibrary.tsx) | Bounded keyset library selection retains the chosen record while navigating actual server pages. |
 | [frontend/src/shared/apps/PrivateFormInbox.tsx](../frontend/src/shared/apps/PrivateFormInbox.tsx) | Host composition of the app-owned private response panel, with a neutral SDK contract. |
 | [frontend/src/shared/apps/PublicFormBlock.tsx](../frontend/src/shared/apps/PublicFormBlock.tsx) | Host composition of the registered forms app; apps depend on this contract, not each other's code. |
+| [frontend/src/shared/apps/configuration-types.ts](../frontend/src/shared/apps/configuration-types.ts) | Shared configuration projection; the Manifest, storefront and Studio use the same declared input contract. |
 | [frontend/src/shared/apps/form-contract.ts](../frontend/src/shared/apps/form-contract.ts) | Public form block contract shared through the host, never by importing another app's implementation. |
 | [frontend/src/shared/apps/native/NativeAppView.tsx](../frontend/src/shared/apps/native/NativeAppView.tsx) | The same React renderer powers design preview, private sandbox, released admin modules and storefront surfaces. |
 | [frontend/src/shared/apps/native/NativeAssetField.tsx](../frontend/src/shared/apps/native/NativeAssetField.tsx) | Searchable tenant-owned files with private image preview and contextual multipart upload; no raw asset IDs need to be typed. |
@@ -1024,6 +1036,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/checkout-i18n.ts](../frontend/src/shared/i18n/checkout-i18n.ts) | Checkout vocabulary: the same purchase and payment states in every supported UI language. |
 | [frontend/src/shared/i18n/cognitive-events-i18n.ts](../frontend/src/shared/i18n/cognitive-events-i18n.ts) | Typed labels shared by the knowledge timeline and the native Flow Builder event catalogue. |
 | [frontend/src/shared/i18n/company-i18n.ts](../frontend/src/shared/i18n/company-i18n.ts) | Company identity, field inheritance and legal storefront vocabulary in four interface languages. |
+| [frontend/src/shared/i18n/configuration-errors-i18n.ts](../frontend/src/shared/i18n/configuration-errors-i18n.ts) | Actionable configuration recovery uses safe diagnostics; material input values and guest details are never displayed as errors. |
 | [frontend/src/shared/i18n/connected-i18n.ts](../frontend/src/shared/i18n/connected-i18n.ts) | Four-language vocabulary for connected apps, consent and visual automation. |
 | [frontend/src/shared/i18n/content-editors.css](../frontend/src/shared/i18n/content-editors.css) | Shared translated fields and content-language context own their styles on every direct editor entry. |
 | [frontend/src/shared/i18n/content-language.ts](../frontend/src/shared/i18n/content-language.ts) | Resolve editable translation keys without merging distinct regional locales or fabricating inherited values. |
@@ -1210,6 +1223,7 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/erp-handoff/service/main.rs](../extensions/apps/erp-handoff/service/main.rs) | Independent ERP adapter process: bounded gateway requests, app-owned receipts and explicit external outcomes. |
 | [extensions/apps/erp-handoff/service/store.rs](../extensions/apps/erp-handoff/service/store.rs) | App-private PostgreSQL receipts use forced tenant RLS, short claims and explicit uncertain outcomes after a crash. |
 | [extensions/apps/erp-handoff/tests/integration.py](../extensions/apps/erp-handoff/tests/integration.py) | Real core -> scoped callback -> Rust ERP adapter -> local ERP -> forced-RLS receipt, replay/restart and ambiguous outcome. |
+| [extensions/apps/furniture-configurator/configuration.wat](../extensions/apps/furniture-configurator/configuration.wat) | Furniture-owned dimensional validation and surcharge. Core retains money, tax, stock and purchasing approval. |
 | [extensions/apps/gift-message/configuration.wat](../extensions/apps/gift-message/configuration.wat) | Gift-message-owned rules: printable input is checked by the host; app defines length and fee. |
 | [extensions/apps/gmail/src/actions.rs](../extensions/apps/gmail/src/actions.rs) | App-owned connector capabilities and provider settings; shared host supplies tenant-bound storage. |
 | [extensions/apps/gmail/src/provider.rs](../extensions/apps/gmail/src/provider.rs) | Read-only Gmail incremental imports preserve high-water cursors, bounded windows and deletion evidence. |
@@ -1387,6 +1401,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/browser_sessions.py](../scripts/browser_sessions.py) | Real HTTP personal-cookie transport, current ledger, origin/CSRF/session fences and legacy bearer compatibility. |
 | [scripts/build_app_ui.py](../scripts/build_app_ui.py) | Export deterministic example HTML and its operator uiDigests entry; never fetch remote resources. |
 | [scripts/build_site.py](../scripts/build_site.py) | Build marketing pages and the complete Markdown documentation for GitHub Pages. |
+| [scripts/business_capability.py](../scripts/business_capability.py) | Actual app library/dimensions → exact-cart B2B approval → immutable order → saved-input reorder; no paid providers. |
 | [scripts/catalog_management.py](../scripts/catalog_management.py) | Real HTTP/PostgreSQL catalog creation, categories, multilingual editor, visibility and staging regressions. Synthetic isolated shops only. |
 | [scripts/channel_management.py](../scripts/channel_management.py) | Isolated HTTP regressions for revisioned channels, domain aliases and session-bound private previews; no providers. |
 | [scripts/check_site.py](../scripts/check_site.py) | Check the generated documentation's links and discovery metadata. |

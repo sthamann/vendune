@@ -11,6 +11,15 @@
 - Renew public original Storyfront iframe acceptance with simulated order RAC-b359e75d, German product labels, verified completion and a cleared original bag. Record the controlled-tab document pause separately; no real payment/mail/refund claim. Public Google sign-in/reload/logout passed; Apple's new callback remains rejected by its provider configuration.
 
 
+## Connected furniture configuration — local implementation, 16 October 2026
+
+- Connect an app-owned material library and dimensional surcharge to native company approval, checkout, private/shared saved-input lists, current-price reorder and selected package release. Preserve original accepted material snapshots and explicit source-currency fees on completed orders.
+- Execute frozen positive/negative configuration examples before immutable save or installation. Share form/HTTP/MCP cart admission, enforce current channel and order-read authority, and publish minimized changes through the existing outbox/Flow consumer.
+- Add the editable App Studio pattern, paginated material choices, localized expectation/purchase cards and native order navigation. Fix seeded-record staging clones and filter configured purchases before pagination.
+- Preserve configuration controls and confirmation during repricing; refresh catalogue stock/prices after cart changes and purchase. Product detail and listing share the active configuration quote; completed-cart choices do not change prices for a new purchase.
+- Use the common content-language selector and translation fields in installed app data: regional language codes, non-English main-language inheritance and untouched translations are preserved. Failed purchase-history pagination retains its current page.
+- Local Chrome completed a German walnut/special-dimension simulated purchase for EUR 517 and showed an empty cart. Automated and local browser tests are separate from pending hosted and real-provider acceptance. Generalized entity/lifecycle extension, replay, source hosting, Crater, Shopware porting and Enterprise-cell gates remain open.
+
 ## Public Studio and Experience acceptance — 16 October 2026
 
 - Deploy Core PR 141 and private Experience PR 73; verify current public Shop Knowledge, illustrated app creation and native preview controls. No design test changes were saved or published.
