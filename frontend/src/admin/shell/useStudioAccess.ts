@@ -41,6 +41,9 @@ export function useStudioAccess(
   current.current = identity;
   const [expired, setExpired] = useState(false);
   const [checking, setChecking] = useState(!!token);
+  const [redeeming, setRedeeming] = useState(() =>
+    new URL(location.href).searchParams.has("login_ticket"),
+  );
   const [error, setError] = useState("");
   const [verified, setVerified] = useState("");
   const [retry, setRetry] = useState(0);
@@ -55,6 +58,9 @@ export function useStudioAccess(
   }, [setToken, token]);
   useStudioSession(token, connected && !expired, liveRequest, expire);
   useEffect(() => {
+    // A handoff can rotate the shared cookie while an earlier tab is signed in.
+    // Do not start a workspace connection using that preceding session.
+    if (redeeming) return;
     if (!token) {
       setIdentity(undefined);
       setVerified("");
@@ -101,7 +107,7 @@ export function useStudioAccess(
     return () => {
       active = false;
     };
-  }, [token, workspace, retry]);
+  }, [token, workspace, retry, redeeming]);
   const accept = async (session: Session | MfaChallenge) => {
     if (isMfaChallenge(session)) {
       setChallenge(session);
@@ -147,7 +153,10 @@ export function useStudioAccess(
     void shopApi<Session | MfaChallenge>("/api/auth/redeem", { ticket })
       .then(accept)
       .catch((e) => setError(e.message))
-      .finally(() => setChecking(false));
+      .finally(() => {
+        setRedeeming(false);
+        setChecking(false);
+      });
   }, []);
   const logout = async () => {
     try {
@@ -192,7 +201,10 @@ export function useStudioAccess(
     },
     logout,
     active:
-      !!identity && verified === JSON.stringify([token, workspace]) && !expired,
+      !!identity &&
+      verified === JSON.stringify([token, workspace]) &&
+      !expired &&
+      !redeeming,
     retry: () => setRetry((v) => v + 1),
   };
 }
