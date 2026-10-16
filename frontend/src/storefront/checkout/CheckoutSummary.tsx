@@ -4,6 +4,8 @@ import { useShopText } from "../../shared/i18n/shop-i18n";
 import { useWorkbenchText } from "../../shared/i18n/workbench-i18n";
 import { useCheckoutText } from "../../shared/i18n/checkout-i18n";
 import { useState } from "react";
+import ConfigurationSummary from "../../shared/apps/ConfigurationSummary";
+import { configurationSnapshots } from "../../shared/api/configuration-types";
 export default function CheckoutSummary({
   cart,
   busy,
@@ -52,6 +54,9 @@ export default function CheckoutSummary({
                 {money(item.price.unitPrice)} ·{" "}
                 {s(cart.price.taxStatus === "net" ? "net" : "gross")}
               </small>
+              <ConfigurationSummary
+                configurations={configurationSnapshots(item)}
+              />
             </a>
             <strong>{money(item.price.totalPrice)}</strong>
             <div className="shop-stepper">

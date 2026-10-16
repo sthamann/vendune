@@ -38,6 +38,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/configuration_inputs.rs](../src/apps/configuration_inputs.rs) | Structured cart configuration uses the canonical field validator and declared bounded integer guest arguments. |
 | [src/apps/configuration_orders.rs](../src/apps/configuration_orders.rs) | Paginated app-specific immutable purchase projections; filtering happens before LIMIT and never exposes buyer PII. |
 | [src/apps/configuration_selection.rs](../src/apps/configuration_selection.rs) | Reusable input-only selections resolve current package/library revisions before one native cart mutation. |
+| [src/apps/configuration_summary.rs](../src/apps/configuration_summary.rs) | Immutable public configuration labels accompany accepted inputs; no current package lookup is needed on a receipt. |
 | [src/apps/consent.rs](../src/apps/consent.rs) | Package approval binds all requested permissions to a reviewed digest; current actor rights apply before every installation path. |
 | [src/apps/core_callbacks.rs](../src/apps/core_callbacks.rs) | Narrow app callbacks delegate to the existing commerce owners and project PII only with separate consent. |
 | [src/apps/core_documents.rs](../src/apps/core_documents.rs) | Dedicated bounded order-document upload requires exact app capabilities, current actor rights and native receipt ownership. |
@@ -922,6 +923,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/api/account-types.ts](../frontend/src/shared/api/account-types.ts) | Native personal account response shared by merchant and platform authentication. |
 | [frontend/src/shared/api/agent-stream.ts](../frontend/src/shared/api/agent-stream.ts) | Decode bounded UTF-8 SSE chat frames; only a completed native result reaches the existing Studio state owner. |
 | [frontend/src/shared/api/browser-session.ts](../frontend/src/shared/api/browser-session.ts) | Native browser credentials stay HttpOnly; JavaScript carries only an anti-CSRF proof and a public mode marker. |
+| [frontend/src/shared/api/configuration-types.ts](../frontend/src/shared/api/configuration-types.ts) | Accepted configuration snapshots carry frozen public labels, selected values and their original source currency. |
 | [frontend/src/shared/api/customer-session.ts](../frontend/src/shared/api/customer-session.ts) | Customer transport shares the native ledger; each tenant and browser tab has its own session fence. |
 | [frontend/src/shared/api/download.ts](../frontend/src/shared/api/download.ts) | Authenticated binary download, never placing session credentials in a URL. |
 | [frontend/src/shared/api/merchant-session.ts](../frontend/src/shared/api/merchant-session.ts) | Private merchant-session rejection signals shared by all JSON transports. |
@@ -936,8 +938,10 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/apps/ConfigurationFields.tsx](../frontend/src/shared/apps/ConfigurationFields.tsx) | Manifest-owned configuration controls and public library choices; no client price or authorization decisions. |
 | [frontend/src/shared/apps/ConfigurationForm.tsx](../frontend/src/shared/apps/ConfigurationForm.tsx) | Shared product configuration form: declared input fields use the existing cart, revision and app gateway. |
 | [frontend/src/shared/apps/ConfigurationLibrary.tsx](../frontend/src/shared/apps/ConfigurationLibrary.tsx) | Bounded keyset library selection retains the chosen record while navigating actual server pages. |
+| [frontend/src/shared/apps/ConfigurationSummary.tsx](../frontend/src/shared/apps/ConfigurationSummary.tsx) | Checkout, receipts and Studio render the same frozen configuration, without fetching a newer app or private library. |
 | [frontend/src/shared/apps/PrivateFormInbox.tsx](../frontend/src/shared/apps/PrivateFormInbox.tsx) | Host composition of the app-owned private response panel, with a neutral SDK contract. |
 | [frontend/src/shared/apps/PublicFormBlock.tsx](../frontend/src/shared/apps/PublicFormBlock.tsx) | Host composition of the registered forms app; apps depend on this contract, not each other's code. |
+| [frontend/src/shared/apps/configuration-summary.css](../frontend/src/shared/apps/configuration-summary.css) | Compact read-only configuration details fit checkout, confirmation and native order layouts. |
 | [frontend/src/shared/apps/configuration-types.ts](../frontend/src/shared/apps/configuration-types.ts) | Shared configuration projection; the Manifest, storefront and Studio use the same declared input contract. |
 | [frontend/src/shared/apps/form-contract.ts](../frontend/src/shared/apps/form-contract.ts) | Public form block contract shared through the host, never by importing another app's implementation. |
 | [frontend/src/shared/apps/native/NativeAppView.tsx](../frontend/src/shared/apps/native/NativeAppView.tsx) | The same React renderer powers design preview, private sandbox, released admin modules and storefront surfaces. |

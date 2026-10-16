@@ -10,6 +10,8 @@ import Icon from "../../shared/ui/Icon";
 import PaymentSession from "./PaymentSession";
 import CheckoutProgress from "./CheckoutProgress";
 import OrderConfetti from "./OrderConfetti";
+import ConfigurationSummary from "../../shared/apps/ConfigurationSummary";
+import { configurationSnapshots } from "../../shared/api/configuration-types";
 export default function OrderCompletion({
   order,
   onBack,
@@ -63,6 +65,9 @@ export default function OrderCompletion({
                 <small>
                   {s("quantity")}: {item.quantity}
                 </small>
+                <ConfigurationSummary
+                  configurations={configurationSnapshots(item)}
+                />
               </div>
               <strong>{money(item.price.totalPrice)}</strong>
             </article>

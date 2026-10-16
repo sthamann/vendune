@@ -13,6 +13,8 @@ import OrderWorkflow, { type OrderAction } from "./OrderWorkflow";
 import { useShipmentText } from "../../shared/i18n/shipment-i18n";
 import type { ShipmentPosition } from "./ShipmentSplit";
 import ReceiptPanel from "./ReceiptPanel";
+import ConfigurationSummary from "../../shared/apps/ConfigurationSummary";
+import { configurationSnapshots } from "../../shared/api/configuration-types";
 export default function OrderDetail({
   id,
   request,
@@ -238,6 +240,10 @@ export default function OrderDetail({
                     <strong>{item.label}</strong>
                   )}
                   <small>{item.referencedId}</small>
+                  <ConfigurationSummary
+                    configurations={configurationSnapshots(item)}
+                    language={locale}
+                  />
                 </div>
                 <span>× {item.quantity}</span>
                 <strong>{money(item.price.totalPrice)}</strong>
