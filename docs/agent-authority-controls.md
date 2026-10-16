@@ -10,8 +10,8 @@ release authority. These controls do not make the whole app-concept programme co
 
 ## Configure a planning agent
 
-Open **Developer → API & integrations** with a personal account that can manage
-team access. Choose **Dedicated agent**, give it a recognizable name and select
+Select the **Live shop**, then open **Developer → API & integrations** with a personal account that can manage
+team access. Agent credentials are live operational controls; creating one from a sandbox is rejected before issuance. Choose **Dedicated agent**, give it a recognizable name and select
 only the data it needs. The scope is the intersection of the key's grants and its
 creator's current membership; removing a role or revoking the key takes effect
 on subsequent admission and saved-run continuation.

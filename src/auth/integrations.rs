@@ -105,6 +105,14 @@ pub(crate) async fn integration_create(
     let v = json!(input);
     if let Some(budget) = &input.agent_budget {
         budget.validate().map_err(bad)?;
+        if h.access
+            .as_ref()
+            .is_some_and(|scope| scope.parent.is_some())
+        {
+            return Err(bad(
+                "Create agent credentials in the live shop, not in a sandbox",
+            ));
+        }
         if !h.principal.personal_session {
             return Err(Error(
                 StatusCode::FORBIDDEN,

@@ -121,6 +121,8 @@ try:
     passed('Two agent identities sharing a human creator cannot read each other’s tasks or conversations; request IDs deduplicate only their own work')
     status=call(base,'/api/agent/control',h=h)
     stage=call(base,'/api/environments',{'name':'Agent stop fixture'},h)['id']
+    call(base,'/api/workspace/integrations',{'name':'No sandbox credential','permissions':scopes,'expiresInDays':1,'agentBudget':budget},dict(h,**{'x-tenant':stage}),400)
+    assert sql(f"SELECT count(*) FROM integration_keys WHERE tenant='{stage}' AND agent_budget IS NOT NULL")=='0'
     queued_stage=call(base,'/api/agent/runs',{'instruction':'Read only in the private test'},dict(h,**{'x-tenant':stage}))
     call(base,'/api/agent/control',h=kh,expected=403)
     call(base,'/api/agent/control',{'stopped':True,'revision':status['revision'],'approve':False},h,400)

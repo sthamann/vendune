@@ -1626,8 +1626,8 @@
     },
     "src/auth/integrations.rs": {
       "status": "reviewed-binding",
-      "sha256": "80641dd4e0a343318db024b0923c94eb30a33fc11285c8133bbbae6dbbd3d5b1",
-      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+      "sha256": "de3fc697233ee83f6fef2ca37a0bc58bceb6eb90e249fe43f2775c5b008b0056",
+      "review": "Reviewed live-only agent-key issuance: trusted admitted sandbox parent rejects budget delegation before credential insertion; existing personal/team/current-scope authority and generic integration behavior remain. Actual separate-role allocation/stop tests and in-flight worker fence already pass; added own-sandbox negative issuance regression. No proof claim for SQL/auth/provider code."
     },
     "src/auth/invitations.rs": {
       "status": "unproved",
