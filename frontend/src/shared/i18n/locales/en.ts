@@ -62,6 +62,10 @@ export const en = {
   indexed: "{count} products indexed",
   close: "Close",
   cancel: "Cancel",
+  workspaceModuleUnavailable: "This view needs to be reloaded",
+  workspaceModuleRecovery:
+    "A shop update or interrupted connection prevented this view from loading. Reload to fetch the current version. If you have unsaved work in another view, review it before continuing.",
+  reloadWorkspace: "Reload current version",
   failure: "This request could not be completed.",
   sessionExpired: "Your Studio session has expired. Sign in again to continue.",
   details: "Technical details",

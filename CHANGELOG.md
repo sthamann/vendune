@@ -1,5 +1,10 @@
 # Changelog
 
+## Clear recovery for an open tab across releases — 2026-10-16
+
+- Distinguish a missing/interrupted lazy module from an API failure in the shared workspace boundary. Explain the version/connection boundary in EN/DE/FR/ES and offer an explicit full-version reload; never silently reload unsaved work, leak the failed URL or loop a rejected cached import. Existing ordinary render retry and permission-aware shell remain unchanged.
+- Regress the actual rejected React lazy import for Chrome, Firefox, Safari and chunk errors, plus a normal network-error counterexample.
+
 ## Frozen configuration details throughout purchase — 2026-10-16
 
 - Show accepted material, dimensions and localized choices consistently in checkout, confirmation, native order details and app purchase history. Freeze only declared public labels and values with the accepted configuration, preserving the shop main-language fallback and explicit source currency. Later package or material edits do not rewrite completed orders. Existing snapshots remain readable without a current package lookup.
