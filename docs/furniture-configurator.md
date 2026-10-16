@@ -22,7 +22,12 @@ For a standalone local Core, use its normal storefront address
 to a separately mounted Experience and is not a standalone Core storefront link.
 Product price refreshes preserve configuration inputs and their saved confirmation;
 the catalogue refreshes after cart changes and purchase. Completed-order choices
-remain on the receipt rather than affecting a new catalogue purchase.
+remain on the receipt rather than affecting a new catalogue purchase. The same
+read-only summary appears in checkout, confirmation, native order details and app
+purchase history. Accepted public field/choice/material labels and the shop main
+language are frozen with the order; later app or material edits cannot rename its
+choices. Older snapshots use their saved input values without fetching a newer
+package. Reordering resolves current rules and creates a fresh summary.
 
 1. Open **Developers → New app → Configurable furniture**. This clones the
    app-owned pattern to an editable, namespaced Manifest. Review Business goal,

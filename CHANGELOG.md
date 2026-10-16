@@ -4,6 +4,11 @@
 
 - Record the deployed shared configuration summary in native checkout, confirmation and merchant orders, including public simulated order RAC-75415aa4. Repeat original embedded Storyfront checkout, return and original-bag clearing in native Chrome and Safari; preserve tab-debug-controlled loading failures separately. Refresh current status and reviewed module counts without changing the historical published proof report.
 
+## Frozen configuration details throughout purchase — 2026-10-16
+
+- Show accepted material, dimensions and localized choices consistently in checkout, confirmation, native order details and app purchase history. Freeze only declared public labels and values with the accepted configuration, preserving the shop main-language fallback and explicit source currency. Later package or material edits do not rewrite completed orders. Existing snapshots remain readable without a current package lookup.
+- Extend the actual B2B/material/order-list/reorder integration to verify changed field labels and material names against immutable original receipts. Cover false/zero, a fifth content language, private-library exclusion, escaped text and zero-decimal currency in the shared display.
+
 ## Hosted hardening and app workflow acceptance — 2026-10-16
 
 - Record the actual snapshot-backed migration 103, healthy strict Core restart, new SaaS AI catalogue/images, Studio handoff, original embedded Storyfront purchase/bag clear and privately tested/published app with a configured public purchase. Keep simulated payment, local B2B approval/reorder and the newly found purchase-summary gap distinct. Refresh the canonical status instead of adding PR notes to README.

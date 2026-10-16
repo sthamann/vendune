@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useAppText } from "../../shared/i18n/app-i18n";
 import { contentText } from "../../shared/i18n/content-language";
 import type { Package } from "./app-types";
+import ConfigurationSummary from "../../shared/apps/ConfigurationSummary";
+import type { ConfigurationSnapshot } from "../../shared/api/configuration-types";
 export type PurchasedConfiguration = {
   app?: string;
   fields?: Record<string, unknown>;
@@ -12,6 +14,7 @@ export type PurchasedConfiguration = {
   appVersion?: string;
   ruleRevision?: number;
   ruleFields?: Record<string, unknown>;
+  presentation?: ConfigurationSnapshot["presentation"];
 };
 export type ConfiguredOrders = {
   elements: {
@@ -89,43 +92,50 @@ export default function AppConfiguredOrders({
                   <h3>
                     {item.quantity} × {item.label ?? item.referencedId}
                   </h3>
-                  <dl>
-                    {Object.entries(
-                      config.fields ?? { text: config.text ?? "" },
-                    ).map(([key, value]) => {
-                      const field = contract?.inputs?.fields.find(
-                        (f) => f.name === key,
-                      );
-                      const nameField = app.manifest.entities
-                        .find((entity) => entity.name === contract?.entity)
-                        ?.fields.find((f) => f.translatable)?.name;
-                      const name =
-                        key === contract?.inputs?.recordField && nameField
-                          ? config.ruleFields?.[nameField]
-                          : undefined;
-                      const label = field
-                        ? contentText(field.label, locale, mainLocale)
-                        : key;
-                      return (
-                        <div key={key}>
-                          <dt>{label}</dt>
-                          <dd>
-                            {name && typeof name === "object"
-                              ? contentText(
-                                  name as Record<string, string>,
-                                  locale,
-                                  mainLocale,
-                                )
-                              : String(value)}
-                          </dd>
-                        </div>
-                      );
-                    })}
-                    <div>
-                      <dt>{a("surcharge")}</dt>
-                      <dd>{amount}</dd>
-                    </div>
-                  </dl>
+                  {config.presentation ? (
+                    <ConfigurationSummary
+                      configurations={[config]}
+                      language={locale}
+                    />
+                  ) : (
+                    <dl>
+                      {Object.entries(
+                        config.fields ?? { text: config.text ?? "" },
+                      ).map(([key, value]) => {
+                        const field = contract?.inputs?.fields.find(
+                          (f) => f.name === key,
+                        );
+                        const nameField = app.manifest.entities
+                          .find((entity) => entity.name === contract?.entity)
+                          ?.fields.find((f) => f.translatable)?.name;
+                        const name =
+                          key === contract?.inputs?.recordField && nameField
+                            ? config.ruleFields?.[nameField]
+                            : undefined;
+                        const label = field
+                          ? contentText(field.label, locale, mainLocale)
+                          : key;
+                        return (
+                          <div key={key}>
+                            <dt>{label}</dt>
+                            <dd>
+                              {name && typeof name === "object"
+                                ? contentText(
+                                    name as Record<string, string>,
+                                    locale,
+                                    mainLocale,
+                                  )
+                                : String(value)}
+                            </dd>
+                          </div>
+                        );
+                      })}
+                      <div>
+                        <dt>{a("surcharge")}</dt>
+                        <dd>{amount}</dd>
+                      </div>
+                    </dl>
+                  )}
                   <small>
                     {a("version")} {config.appVersion} · {a("revision")}{" "}
                     {config.ruleRevision}

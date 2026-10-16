@@ -43,6 +43,9 @@ assert not result['result'].get('isError'),result
 c=result['result']['structuredContent']
 config=c['lineItems'][0]['appConfigurations'][0]
 assert config['fields']==fields and config['feeMinor']==6800 and config['currency']=='EUR',config
+display=config['presentation']
+assert display['mainLocale']=='en-GB' and display['title']['de']=='Gestalte dein Möbelstück',display
+assert display['fields'][0]['value']['de-DE']=='Walnuss' and display['fields'][1]['value']==260 and display['fields'][2]['value']==80,display
 detail=call('/store-api/product/lamp',h=bh)
 listed=next(p for p in call('/store-api/product',{'productIds':['lamp']},bh)['elements'] if p['id']=='lamp')
 assert detail['calculatedPrices'][0]['price']['unitPrice']==c['lineItems'][0]['price']['unitPrice']
@@ -92,6 +95,7 @@ assert config['ruleFields']['name']['de-DE']=='Walnuss'
 restricted=call('/api/workspace/integrations',{'name':'Catalog reader only','expiresInDays':1,'permissions':['catalog.read']},h)
 rh={**pub,'Authorization':'Bearer '+restricted['key']}
 upgrade=copy.deepcopy(m);upgrade['version']='1.0.1'
+upgrade['configuration']['inputs']['fields'][1]['label']['de']='Neue Breitenbezeichnung'
 next(action for action in upgrade['actions'] if action['handler']=='configurations').pop('permission')
 next(action for action in upgrade['actions'] if action['handler']=='configure')['mcp']=False
 call('/api/apps',{'manifest':upgrade},h)
@@ -101,6 +105,8 @@ assert opted_out.get('error',{}).get('code')==-32602,opted_out
 # A saved list stores inputs, never an accepted old fee. Reorder calculates current rules atomically.
 c=new_cart();c=employee('list.apply',{'id':'configured_desk','unitId':'design','revision':saved['revision'],'cartRevision':c['revision']})
 assert c['lineItems'][0]['appConfigurations'][0]['feeMinor']==6800
+assert c['lineItems'][0]['appConfigurations'][0]['presentation']['fields'][1]['label']['de']=='Neue Breitenbezeichnung'
+assert call('/api/merchant/orders/'+order_id,h=h)['cart']['lineItems'][0]['appConfigurations'][0]['presentation']==display
 call(f'/api/apps/{app}/entities/materials',{'id':'walnut','revision':1,'fields':{'name':{'en-GB':'Walnut','de-DE':'Walnuss Select'},'fee_minor':3000}},h)
 request=employee('approval.request',{'revision':c['revision']})
 employee('approval.decide',{'id':request['id'],'revision':request['revision'],'state':'approved'},ah)
@@ -110,6 +116,7 @@ assert old['cart']==immutable
 c=employee('list.apply',{'id':'configured_desk','unitId':'design','revision':saved['revision'],'cartRevision':c['revision']})
 updated=c['lineItems'][0]['appConfigurations'][0]
 assert updated['feeMinor']==7800 and updated['ruleRevision']==2 and updated['fields']==fields and updated['ruleFields']['name']['de-DE']=='Walnuss Select'
+assert updated['presentation']['fields'][0]['value']['de-DE']=='Walnuss Select'
 # A changed package uses the ordinary developer/staging/release contract.
 stage=call('/api/environments',{'name':'Furniture rule review'},h)['id']
 candidate=copy.deepcopy(m);candidate['version']='1.1.0';candidate['configuration']['wasmSource']=candidate['configuration']['wasmSource'].replace('i64.const 4800','i64.const 5800')

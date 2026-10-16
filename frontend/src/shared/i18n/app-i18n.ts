@@ -1,6 +1,14 @@
 /** App and evidence UI vocabulary, shared by store, merchant and payment components. */
 import { useLocale } from "./i18n";
 const words = {
+  configurationDetails: [
+    "Your selection",
+    "Deine Auswahl",
+    "Votre sélection",
+    "Tu selección",
+  ],
+  configurationYes: ["Yes", "Ja", "Oui", "Sí"],
+  configurationNo: ["No", "Nein", "Non", "No"],
   bundleUnavailable: [
     "App interface could not be loaded or verified. Ask the operator to check its bundle approval.",
     "Die App-Oberfläche konnte nicht geladen oder geprüft werden. Bitte den Betreiber die Bundle-Freigabe prüfen lassen.",
