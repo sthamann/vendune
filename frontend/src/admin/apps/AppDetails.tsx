@@ -1,6 +1,7 @@
 /** AppDetails: Installed app details, activation, version, data and isolated interface. */
 import { useAppText } from "../../shared/i18n/app-i18n";
 import { useCustomerText } from "../../shared/i18n/customer-i18n";
+import type { ConfiguredOrders } from "./AppConfiguredOrders";
 import type { Package } from "./app-types";
 
 import StoryfrontConnections from "../../../../extensions/apps/storyfront/studio/StoryfrontConnections";
@@ -35,34 +36,7 @@ export type AppDetailsProps = {
   appCategory: (p: Package) => string;
   role: string;
   setResultApp: React.Dispatch<React.SetStateAction<string>>;
-  setResult: React.Dispatch<
-    React.SetStateAction<
-      | {
-          elements: {
-            orderId: string;
-            items: {
-              referencedId: string;
-              quantity: number;
-              configuration?:
-                | {
-                    text?: string | undefined;
-                    fields?: Record<string, string> | undefined;
-                    feeMinor: number;
-                  }
-                | undefined;
-              appConfigurations?:
-                | {
-                    app: string;
-                    fields: Record<string, string>;
-                    feeMinor: number;
-                  }[]
-                | undefined;
-            }[];
-          }[];
-        }
-      | undefined
-    >
-  >;
+  setResult: React.Dispatch<React.SetStateAction<ConfiguredOrders | undefined>>;
 };
 export default function AppDetails({
   p,

@@ -1,6 +1,9 @@
 /** Installed package workspace: lifecycle, generated entities and shared agent actions. */
 import type { Package } from "./app-types";
 import AppConsent from "./AppConsent";
+import AppConfiguredOrders, {
+  type ConfiguredOrders,
+} from "./AppConfiguredOrders";
 import AppDetails from "./AppDetails";
 
 import { useEffect, useState } from "react";
@@ -18,13 +21,15 @@ export default function AppsManager({
   request,
   role,
   rights,
+  onOrder,
 }: {
   request: RequestFn;
   token: string;
   role: string;
   rights?: string[];
+  onOrder?: (id: string) => void;
 }) {
-  const { a, locale, money } = useAppText();
+  const { a, locale } = useAppText();
   const { c } = useCustomerText();
   const l = useLibraryText();
   const [installing, setInstalling] = useState("");
@@ -38,25 +43,7 @@ export default function AppsManager({
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [resultApp, setResultApp] = useState("");
-  const [result, setResult] = useState<{
-    elements: {
-      orderId: string;
-      items: {
-        referencedId: string;
-        quantity: number;
-        configuration?: {
-          text?: string;
-          fields?: Record<string, string>;
-          feeMinor: number;
-        };
-        appConfigurations?: {
-          app: string;
-          fields: Record<string, string>;
-          feeMinor: number;
-        }[];
-      }[];
-    }[];
-  }>();
+  const [result, setResult] = useState<ConfiguredOrders>();
   const load = async () => {
     const data = await request("/api/apps");
     setPackages(data.packages);
@@ -217,34 +204,41 @@ export default function AppsManager({
             setResult={setResult}
           />
         ))}
-      {result != null && (
-        <section className="studio-card app-card">
-          <h2>{a("actions")}</h2>
-          {!result.elements.length && <p>{a("emptyOrders")}</p>}
-          {result.elements.flatMap((order) =>
-            order.items.flatMap((row) => {
-              const configs =
-                row.appConfigurations?.filter((c) => c.app === resultApp) ??
-                (row.configuration ? [row.configuration] : []);
-              return configs.map((c, i) => (
-                <article key={`${order.orderId}:${row.referencedId}:${i}`}>
-                  <strong>
-                    {Object.values(
-                      c.fields ?? { text: "text" in c ? c.text : "" },
-                    ).join(" · ")}
-                  </strong>
-                  <p>
-                    {row.quantity} × {row.referencedId} ·{" "}
-                    {money(c.feeMinor / 100)}
-                  </p>
-                  <small>
-                    {a("orderLabel")}: {order.orderId}
-                  </small>
-                </article>
-              ));
-            }),
-          )}
-        </section>
+      {result != null && packages.find((p) => p.id === resultApp) && (
+        <AppConfiguredOrders
+          key={resultApp}
+          result={result}
+          app={packages.find((p) => p.id === resultApp)!}
+          mainLocale={mainLocale}
+          busy={busy}
+          onOrder={onOrder}
+          onPage={
+            packages
+              .find((p) => p.id === resultApp)
+              ?.manifest.actions.find((act) => act.handler === "configurations")
+              ?.inputSchema?.properties?.after?.type === "string"
+              ? async (cursor) => {
+                  const action = packages
+                    .find((p) => p.id === resultApp)
+                    ?.manifest.actions.find(
+                      (act) => act.handler === "configurations",
+                    );
+                  if (!action) return;
+                  await run(async () => {
+                    setResult(
+                      await request(
+                        `/api/apps/${resultApp}/actions/${action.name}`,
+                        {
+                          after: cursor,
+                          limit: 100,
+                        },
+                      ),
+                    );
+                  });
+                }
+              : undefined
+          }
+        />
       )}
     </div>
   );

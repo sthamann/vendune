@@ -289,6 +289,7 @@ export default function StudioRoutes() {
   ) : data ? (
     tab === "apps" ? (
       <AppsManager
+        onOrder={(id) => openEntity("orders", id)}
         key={environment || workspace}
         request={request}
         token={token}

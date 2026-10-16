@@ -53,6 +53,8 @@ Commerce remains usable without a model. Hosted chat clients need their own secu
 connection and account-side setup; [connection requirements](docs/connectors.md)
 are explicit.
 
+**Connected app case:** the [furniture configurator](docs/furniture-configurator.md) connects materials, validated dimensions, executable surcharge examples, native company approval and current-price reorder. Automated local acceptance is documented separately from hosted and real-provider acceptance.
+
 **Visual shop design:** choose illustrated building blocks, including elements contributed by installed apps. Use the same agent controls as App Studio—Veyndo AI proposals or a credential-free Codex/Claude Code task, with native review and sandbox publication. Open a channel and see its existing storefront immediately. Click a hero or product collection, edit the private draft beside a desktop/tablet/mobile preview, then review a selected release. The editor shares native presentation components and the page renderer with the storefront. [Illustrated workflow and boundaries](docs/personal-workspace-and-shop-design.md).
 
 ## Your workspace. Your shop. One change path.

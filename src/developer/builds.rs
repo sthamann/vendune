@@ -13,10 +13,12 @@ pub(super) fn validate(m: &apps::Manifest) -> Result<()> {
         "email",
     ]
     .contains(&m.id.as_str())
-        || m.configuration.is_some()
-        || m.slots
-            .iter()
-            .any(|s| !matches!(s.component.as_str(), "entity-list" | "entity-form"))
+        || m.configuration.as_ref().is_some_and(|c| c.inputs.is_none())
+        || m.slots.iter().any(|s| {
+            !matches!(s.component.as_str(), "entity-list" | "entity-form")
+                && !(s.component == "product-configuration"
+                    && m.configuration.as_ref().is_some_and(|c| c.inputs.is_some()))
+        })
     {
         return Err(bad(
             "Reserved apps and Wasm configuration require a separate reviewed package; service code remains operator deployed",

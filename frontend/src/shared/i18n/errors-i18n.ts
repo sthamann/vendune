@@ -1,7 +1,9 @@
 /** Localized request guidance across all transports; original diagnostics remain available to developer tools. */
 import { getLocale } from "./i18n";
+import { configurationErrors } from "./configuration-errors-i18n";
 import { appCapabilityWords } from "./app-capability-i18n";
 const messages: Record<string, readonly string[]> = {
+  ...configurationErrors,
   "Design provider unavailable; your page is unchanged": [
     "The design provider is unavailable. Check the central AI connection and retry; your saved page is unchanged.",
     "Der Design-Anbieter ist nicht erreichbar. Prüfe die zentrale KI-Verbindung und versuche es erneut; deine Seite bleibt unverändert.",
@@ -245,7 +247,9 @@ export function responseError(
   // Identify the declared field from structured metadata, never by parsing diagnostic prose.
   const example =
     problem?.kind === "validation_error" && typeof problem.pointer === "string"
-      ? /^\/capability\/examples\/(\d+)\/expected$/.exec(problem.pointer)
+      ? /^(?:\/capability\/examples|\/configuration\/inputs\/examples)\/(\d+)\/(?:expected|expectedFeeMinor)$/.exec(
+          problem.pointer,
+        )
       : null;
   const message =
     example && Number(example[1]) < 12

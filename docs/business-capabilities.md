@@ -115,6 +115,9 @@ rental availability need native domain implementation; a new form is not that fe
 
 ## One complete proof case
 
+The [furniture configurator](furniture-configurator.md) now implements a connected local path through native app/B2B/cart/release owners, with frozen positive/negative configuration cases. This is not hosted acceptance of the full concept or historical whole-business replay.
+
+
 Use a B2B furniture configurator as the acceptance flow:
 
 1. Describe materials, special dimensions, surcharge and purchasing approval.

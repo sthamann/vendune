@@ -966,8 +966,8 @@
     },
     "src/apps/business_capability/mod.rs": {
       "status": "unproved",
-      "sha256": "2523e791ebd864be1b59b78b77d2271a95c6c1f3100bda61cb4e898b3d2579ee",
-      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
+      "sha256": "377cb06cd1c27cd44451395aa1c2f40cf052f149428e81d58d69dc4c4dcb15c6",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
     },
     "src/apps/business_capability/snapshot.rs": {
       "status": "unproved",
@@ -981,18 +981,43 @@
     },
     "src/apps/cart_contributions.rs": {
       "status": "unproved",
-      "sha256": "e86a86f11eb4f042be06a26d9a7169c567f837ac871244c8c0a182eb4bcd9b75",
-      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
+      "sha256": "808756debfaa4313b8d7b83c501b56da27a82ec9a951a657e674367cd6cbbca3",
+      "review": "Final structured configuration review after exact HTTP/MCP/UCP/Flow/B2B/release regressions: native source-currency conversion preflights before cart writes including selections made before add-to-cart; rule snapshots project only current public fields; bounded integer guest, CAS/current permissions, minimized events and input-only reorder preserve unchanged extracted financial policies. Unproved SQL/transport/runtime adapters remain explicitly unproved."
     },
     "src/apps/commerce_hooks.rs": {
       "status": "unproved",
-      "sha256": "cb0f0fb4dd8f18cdd384ce9a5cf62cda9efd62953ffdd5b5c30d1faef25d266a",
-      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
+      "sha256": "2183c696a4c0b41d53a110cf385c619f1cc6b2e9f6c5371ffd35292e3b4d35af",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
     },
     "src/apps/compatibility.rs": {
       "status": "unproved",
       "sha256": "21f273002ef16caba98df8afe42ef5acba4211542780c0c0b9c6acaa94b731c4",
       "review": "Initial extraction of 13 production policies; surrounding Rust explicitly unproved; existing HTTP regression suites retained"
+    },
+    "src/apps/configuration_events.rs": {
+      "status": "unproved",
+      "sha256": "e0f8ddc1e21e82750bde07fb7cbd1fa1dad4e569388defe4ce3c1409c6d25e39",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
+    },
+    "src/apps/configuration_examples.rs": {
+      "status": "unproved",
+      "sha256": "a55be95c67959e67aa2c84333f99b46c38832f04ac95b5bf109c67dec20f6532",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
+    },
+    "src/apps/configuration_inputs.rs": {
+      "status": "unproved",
+      "sha256": "4781afdf05255e7b2db8133077ce7d518c010ffa1010cf957ed2ac2747cff617",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
+    },
+    "src/apps/configuration_orders.rs": {
+      "status": "unproved",
+      "sha256": "0c52ed4ff9718ab6fe3dc6435c551c6779c7f88f89d2e7458589b638fa64e07b",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
+    },
+    "src/apps/configuration_selection.rs": {
+      "status": "unproved",
+      "sha256": "7081616f4ed10541d45c51f6b3f3c196d9d23dade9abc2612051c2b94d36df7d",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
     },
     "src/apps/consent.rs": {
       "status": "unproved",
@@ -1051,8 +1076,8 @@
     },
     "src/apps/event_projection.rs": {
       "status": "unproved",
-      "sha256": "2f4914e0ee341ee766e305ee3cd6d9193ca3feadeccb619189603a4f3336a5b0",
-      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
+      "sha256": "30e073d534ff5f28231314102cb94def48509dc231083c7e14230cf5eaee2da4",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
     },
     "src/apps/events.rs": {
       "status": "unproved",
@@ -1081,8 +1106,8 @@
     },
     "src/apps/gateway.rs": {
       "status": "reviewed-binding",
-      "sha256": "07bc53137202e636af892cdf6b770adba79d5ab81bac1ecd09224517b5a3d127",
-      "review": "Reviewed quota/task single-connection admission and actor-bound resume; reviewed signed tenant scope handoff for collector tasks and common current-shop egress gate; connector no longer reads Core tables and sanitizes missing references. Existing business kernel unchanged."
+      "sha256": "09c80f8872ffe7c9e628a6bba1f96397767452850a4eac50bc536f89c0908a07",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
     },
     "src/apps/hosted.rs": {
       "status": "unproved",
@@ -1111,18 +1136,18 @@
     },
     "src/apps/manifest.rs": {
       "status": "unproved",
-      "sha256": "170422f26d10a809e09be6f2d514d2c81609b435b513a5cc43ea1438b72a49d1",
-      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
+      "sha256": "2def6783aa9efb456c9a3421e9b13ccf241e094d59e6d6fc436254e6dfead9eb",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
     },
     "src/apps/manifest_validation.rs": {
       "status": "unproved",
-      "sha256": "c9d0d1984f1fb1e78993e8c28ecf894f2654e648e7266fcca4c0630428bbfbd6",
-      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
+      "sha256": "2ff6e9879ce1890f44acd9da56db92de5b79bfe6456a8ba92e5c0b182d913065",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "7f6718dc23333bc4cf421c82365b5f4edd9f4271fb930ac5986173234daf327d",
-      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
+      "sha256": "4c8f0e88ff11bfff13d04f1a3b3cd6ea2f4bcee08697823b4127cb77331b9e1a",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
@@ -1196,13 +1221,13 @@
     },
     "src/apps/routes.rs": {
       "status": "unproved",
-      "sha256": "13f7b50a0fd1806180a3919b12395c769ec709b166c8dbe39afb0a203f82e4ed",
-      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+      "sha256": "cd9d8f9fafb88057cfc0e4746836d27360d30eaefa947a8d773da9e14dd4cbe7",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
     },
     "src/apps/runtime.rs": {
       "status": "unproved",
-      "sha256": "b0dca8166a25565389a21c16596fee2c10f8387ff595b1daf7e04f1e61884a24",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "3c48d03bd53fd5907cfc2c28f087bb95303e7fcdce3e8e27b9dee91d297ed470",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
     },
     "src/apps/schedules.rs": {
       "status": "unproved",
@@ -1546,8 +1571,8 @@
     },
     "src/b2b/lists.rs": {
       "status": "unproved",
-      "sha256": "4d9682ce1d3c3974fbab64fe0091806fb9708b3385f2e2e83f336cb731c2e81e",
-      "review": "Incremental review after passed formal run: collapsed equivalent owner/mapping guards in B2B lists and EDI import to satisfy strict Clippy; all-target Clippy, Rust units and bins now pass. Private variant filter and snapshot token stripping reviewed; B2B/EDI/POS real regressions being rerun with rebuilt binary."
+      "sha256": "0640f572c47f2e235b5039185ac7b4d975361c460e3688e23e7547d58af8d96e",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
     },
     "src/b2b/mod.rs": {
       "status": "unproved",
@@ -1711,13 +1736,13 @@
     },
     "src/cart_mutation.rs": {
       "status": "unproved",
-      "sha256": "41428b639a1e57b72dcac248cc1e326f32a71254c5056379b67642c1f5d5be53",
-      "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
+      "sha256": "fcb94aacce214074e5d8ee7a925a6a86d1f0beb9626326d03cec833d90588847",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
     },
     "src/cart_price.rs": {
       "status": "unproved",
-      "sha256": "c0a75328b18a3f13cab0b959f6fa4748c3674a2c3d0d3d81dd9a0e513bce1732",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "d2a11def1d6bf816c0ba46e798463f5970ca67231e6e78f05150ba8339d563bf",
+      "review": "Final structured configuration review after exact HTTP/MCP/UCP/Flow/B2B/release regressions: native source-currency conversion preflights before cart writes including selections made before add-to-cart; rule snapshots project only current public fields; bounded integer guest, CAS/current permissions, minimized events and input-only reorder preserve unchanged extracted financial policies. Unproved SQL/transport/runtime adapters remain explicitly unproved."
     },
     "src/cart_routes.rs": {
       "status": "unproved",
@@ -2241,8 +2266,8 @@
     },
     "src/developer/builds.rs": {
       "status": "unproved",
-      "sha256": "b000f90a17fa346ec2a134c89876ae970a5b378f7e8dcd0a5cbc387f9eccf3e8",
-      "review": "Reviewed canonical business intent and frozen decision examples: bounded typed synthetic snapshots, real isolated WIT evaluation before save/install and native staged release, immutable legacy serialization, AI retention of expected cases, main-language labels and tenant failure regressions. No extracted business policy changed."
+      "sha256": "770247800ce05f21f0711230e3683433c1e599bb55ecd312bcbdd8d85ced68ff",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
     },
     "src/developer/drafts.rs": {
       "status": "unproved",
@@ -2591,8 +2616,8 @@
     },
     "src/marketing/flows.rs": {
       "status": "unproved",
-      "sha256": "e7b91cc77a4d7929bf6d8cc6f0d116714de00c148535708417e41ce562ad3f2c",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "4884c9c7af95a7b430175558fc20cdbb495b04a59f90430ea6deb05be1e6c382",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
     },
     "src/marketing/gateway.rs": {
       "status": "unproved",
@@ -3174,10 +3199,15 @@
       "sha256": "81197386813fdcd82fcae0d66b88ec76115dafe8d70016c0ed50d7aad0eb8ff3",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
+    "src/sandbox/configuration.rs": {
+      "status": "unproved",
+      "sha256": "0b16726f38707edd4a51bc7c1315282381cafa871755e53c0525c3567eaaf6b7",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
+    },
     "src/sandbox.rs": {
       "status": "reviewed-binding",
-      "sha256": "5dbab6f829b37c51ff5037836dc07c887ad07ed8ba57243b1c7430475ea3545e",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "f91964743cb25cbfcb01c88ce1e65fe07ee6dc6c19997bc087677b7ad8587e24",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
     },
     "src/sandbox_cache.rs": {
       "status": "unproved",
@@ -3246,8 +3276,8 @@
     },
     "src/staging/clone.rs": {
       "status": "unproved",
-      "sha256": "c0fdd19296766269dc62bb493c42686618d0a6c2b3ea00285919c7508f7d0a3d",
-      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
+      "sha256": "a770c0d53f890cdc7ad21c5712c2e42d3ac29c84c8350e321b7515d9ad1f7a94",
+      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
     },
     "src/staging/company.rs": {
       "status": "unproved",

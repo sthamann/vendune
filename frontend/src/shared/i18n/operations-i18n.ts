@@ -3,6 +3,12 @@ import { b2bEventWords } from "./b2b-events-i18n";
 import { useLocale } from "./i18n";
 export const operationWords = {
   ...b2bEventWords,
+  "app.configuration.changed": [
+    "Product configuration changed",
+    "Produktkonfiguration geändert",
+    "Configuration produit modifiée",
+    "Configuración de producto cambiada",
+  ],
   "b2b.read": [
     "Read company procurement",
     "Firmeneinkauf lesen",

@@ -1,6 +1,18 @@
 /** Shared translated app recipes and reviewed AI changes; no alternate app schema. */
 import { useLocale } from "./i18n";
 export const buildingWords = {
+  furniture: [
+    "Configurable furniture",
+    "Möbel konfigurieren",
+    "Meubles configurables",
+    "Muebles configurables",
+  ],
+  furnitureHint: [
+    "Materials, dimensions, checked surcharges, purchasing approval and saved-list reorder.",
+    "Materialien, Maße, geprüfte Zuschläge, Einkaufsfreigabe und Nachbestellung aus Bestelllisten.",
+    "Matériaux, dimensions, suppléments vérifiés, approbation et nouvelle commande depuis les listes.",
+    "Materiales, medidas, recargos validados, aprobación y repetición desde listas.",
+  ],
   edi: ["EDI procurement", "EDI-Beschaffung", "Achats EDI", "Compras EDI"],
   ediHint: [
     "Map partners, validate documents and import purchase lists through an independent Rust app.",

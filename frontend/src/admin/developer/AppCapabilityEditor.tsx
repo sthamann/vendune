@@ -5,6 +5,7 @@ import { useAppCapabilityText } from "../../shared/i18n/app-capability-i18n";
 import { useAppStudioText } from "../../shared/i18n/app-studio-i18n";
 import { contentText } from "../../shared/i18n/content-language";
 import { useContentLanguage } from "../../shared/i18n/ContentLanguage";
+import AppConfigurationExamples from "./AppConfigurationExamples";
 import Icon from "../../shared/ui/Icon";
 import { textMap } from "./app-model";
 export default function AppCapabilityEditor({
@@ -90,9 +91,11 @@ export default function AppCapabilityEditor({
       </button>
       <h3>{t("examples")}</h3>
       <p>{t("checks")}</p>
-      {!contract.examples.length && (
-        <p className="studio-empty">{t("empty")}</p>
-      )}
+      {!contract.examples.length &&
+        !manifest.configuration?.inputs?.examples?.length && (
+          <p className="studio-empty">{t("empty")}</p>
+        )}
+      <AppConfigurationExamples manifest={manifest} />
       <div className="app-capability-examples">
         {contract.examples.map((example) => (
           <article key={example.id}>

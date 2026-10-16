@@ -46,7 +46,7 @@ it("preserves imported service extensions and cleans deleted model dependencies"
   const service = {
     ...m,
     runtime: "service",
-    configuration: { own: "preserved" },
+    serviceExtension: { own: "preserved" },
   };
   expect(compile(service)).toEqual(service);
 });

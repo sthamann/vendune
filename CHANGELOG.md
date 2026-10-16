@@ -1,5 +1,12 @@
 # Changelog
 
+## Connected furniture configuration — local implementation, 16 October 2026
+
+- Connect an app-owned material library and dimensional surcharge to native company approval, checkout, private/shared saved-input lists, current-price reorder and selected package release. Preserve original accepted material snapshots and explicit source-currency fees on completed orders.
+- Execute frozen positive/negative configuration examples before immutable save or installation. Share form/HTTP/MCP cart admission, enforce current channel and order-read authority, and publish minimized changes through the existing outbox/Flow consumer.
+- Add the editable App Studio pattern, paginated material choices, localized expectation/purchase cards and native order navigation. Fix seeded-record staging clones and filter configured purchases before pagination.
+- Automated local tests are separate from the pending browser/hosted and real-provider acceptance. Generalized entity/lifecycle extension, replay, source hosting, Crater, Shopware porting and Enterprise-cell gates remain open.
+
 ## App documentation reconciliation — 16 October 2026
 
 - Add one delivered/partial/open app-system map, with source owners and dated acceptance; connect it from README, handbook navigation, website and machine-readable discovery.
@@ -148,7 +155,12 @@ retry checkpoints, explicit native money/stock and actual fixture proof boundari
 - Localize handbook interface and reading-path descriptions in English, German, French and Spanish; retain and label original English technical articles.
 - Refresh README screenshots from the actual blue Veyndo UI and explain the synthetic/local-model capture boundary.
 
-## Unreleased — EDI identity and hosted RLS evidence
+## Unreleased
+
+- Connect the app-owned furniture configurator to structured fields, paginated material choices, frozen guest examples, native B2B approval, saved-input reorder and selected release. Original orders retain their accepted public material snapshot and source-currency fee.
+- Share configuration HTTP/MCP admission and current cart/channel checks; enforce purchased-configuration read rights independently of package metadata. Publish minimized configuration events through existing outbox/Flows. Fix staging clones of seeded configuration records and filter purchase history before pagination.
+- Add the App Studio furniture pattern, localized expectation/purchase cards and native order navigation. Local automated acceptance is separate from browser/hosted and real-provider acceptance.
+ — EDI identity and hosted RLS evidence
 
 - EDI exports fingerprint the actual serialized document and native source identifiers; operational notes no longer change an identical export's identity. The regression uses the existing native order-note API, and the implementation stays app-owned.
 - The 14 October read-only audit found no mandatory RLS switch or separate hosted runtime credential. The authorized 15 October hosted transition closes that dated gap; see the entry above for its targeted live verification and limits.

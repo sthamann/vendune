@@ -8,6 +8,7 @@ const icons: Record<string, IconName> = {
   returns: "box",
   erp: "link",
   edi: "layers",
+  furniture: "box",
 };
 export default function AppRecipes({
   onCreate,

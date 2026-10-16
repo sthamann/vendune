@@ -11,6 +11,8 @@ from a working pattern or assistant to product advice, private returns, customer
 fields, scheduled flows and an ERP service contract. They include current English
 screenshots, practical tests, agent prompts and the shared version/release loop.
 
+**Connected business pattern:** [configurable furniture](furniture-configurator.md) joins material records, dimensions, bounded surcharge rules, native company approval and saved-input reorder. Its local integration evidence and outstanding hosted checks are explicit.
+
 ## The development loop
 
 1. Choose a frontend/admin/combined/payment/shipping/integration/event/cron app
