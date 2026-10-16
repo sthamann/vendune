@@ -90,6 +90,35 @@ it("keeps a normal network/render failure on the ordinary retry path", () => {
     screen.queryByText("Diese Ansicht muss neu geladen werden"),
   ).not.toBeInTheDocument();
 });
+it("reloads only on explicit module recovery when the host has no retry callback", async () => {
+  vi.spyOn(console, "error").mockImplementation(() => {});
+  function Broken(): never {
+    throw new TypeError("Importing a module script failed.");
+  }
+  const reload = vi.fn();
+  const user = userEvent.setup();
+  render(
+    <WorkspaceBoundary title="Fixture failure" retryLabel="Retry">
+      <Broken />
+    </WorkspaceBoundary>,
+  );
+  expect(reload).not.toHaveBeenCalled();
+  // Intercept navigation only for this click; retain the actual jsdom Window APIs.
+  const browser = new Proxy(window, {
+    get(target, key) {
+      return key === "location" ? { reload } : Reflect.get(target, key, target);
+    },
+  });
+  vi.stubGlobal("window", browser);
+  try {
+    await user.click(
+      screen.getByRole("button", { name: "Aktuelle Version neu laden" }),
+    );
+    expect(reload).toHaveBeenCalledOnce();
+  } finally {
+    vi.unstubAllGlobals();
+  }
+});
 it("uses the host reload callback to recover a rejected cached lazy import", async () => {
   vi.spyOn(console, "error").mockImplementation(() => {});
   const reload = vi.fn();
