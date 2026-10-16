@@ -129,7 +129,7 @@ pub(crate) async fn invoke(
                 )
                 .await?;
             }
-            Ok(json!({"payment":payments::read(a,&t,id).await?,"order":order}))
+            payments::read_sale(a, &t, id, &c.id).await
         }
         "context" => Ok(
             json!({"channel":data,"options":commerce::options(State(a.clone()),h.clone()).await?.0,"policy":legal::invoke(a,&h,"privacy.policy",&json!({})).await?,"currencies":currencies::invoke(a,&h,"currency.list",&json!({})).await?}),

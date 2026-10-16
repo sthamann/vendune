@@ -1515,6 +1515,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/site_markdown.py](../scripts/site_markdown.py) | Render every tracked Markdown document with repository-aware links and search. |
 | [scripts/site_navigation.py](../scripts/site_navigation.py) | Curated reading paths and shared document navigation; Markdown remains authoritative. |
 | [scripts/staging.py](../scripts/staging.py) | Real PG proof: private sandbox, immutable app versions, selective release and conflicts. No paid inference. |
+| [scripts/startup_recovery.py](../scripts/startup_recovery.py) | An actual Core startup survives a briefly unreachable isolated PostgreSQL endpoint. |
 | [scripts/storefront_urls.py](../scripts/storefront_urls.py) | Real HTTP product deep links and host isolation in disposable shops. |
 | [scripts/structure.py](../scripts/structure.py) | Guard the documented Rust domain split and public extension examples. |
 | [scripts/studio.py](../scripts/studio.py) | Actual Studio API, localization and original-kernel consumer checks. |
@@ -1539,6 +1540,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/native_tools.py](../scripts/testing/native_tools.py) | Synthetic provider-native wire responses shared by real HTTP integration fixtures; not a model implementation. |
 | [scripts/testing/operation_contracts.py](../scripts/testing/operation_contracts.py) | Generated native operation input contracts; do not edit. |
 | [scripts/testing/outbox_cases.py](../scripts/testing/outbox_cases.py) | Disposable real-transaction counterexamples for subscriber migration and commit-order gaps. |
+| [scripts/testing/payment_snapshot.py](../scripts/testing/payment_snapshot.py) | Force a committed provider receipt between POS cart admission and its status read. |
 | [scripts/testing/plugin_ownership.py](../scripts/testing/plugin_ownership.py) | Keep app implementation in its package; preserve shared runtimes and exact safety boundaries. |
 | [scripts/testing/pooler.py](../scripts/testing/pooler.py) | Owned real PgBouncer fixture: one backend, transaction pooling, never a forced privileged user. |
 | [scripts/testing/prompt_governance.py](../scripts/testing/prompt_governance.py) | Bind prompt versions and admission fixtures without claiming semantic model accuracy. |

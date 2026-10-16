@@ -82,14 +82,45 @@ async fn customer_status(
     customer(&a, &h, &id).await?;
     Ok(Json(read(&a, &tenant(&h)?, &id).await?))
 }
-pub(crate) async fn read(a: &App, t: &str, id: &str) -> Result<Value> {
-    let r=sqlx::query("SELECT provider,provider_context,state,approval_url,amount_minor,currency,currency_scale,refunded_minor,revision,environment FROM payment_attempts WHERE tenant=$1 AND id=$2").bind(t).bind(id).fetch_optional(&a.db).await?.ok_or(Error(StatusCode::NOT_FOUND,"Payment not found".into()))?;
-    let job = sqlx::query("SELECT id,operation,state FROM payment_jobs WHERE tenant=$1 AND attempt_id=$2 ORDER BY created_at DESC,id DESC LIMIT 1")
-        .bind(t).bind(id).fetch_optional(&a.db).await?.map(|j| json!({"id":j.get::<String,_>("id"),"operation":j.get::<String,_>("operation"),"state":j.get::<String,_>("state")}));
-    Ok(
-        json!({"provider":r.get::<String,_>("provider"),"checkout":r.get::<Value,_>("provider_context")["checkout"],"job":job,"id":id,"state":r.get::<String,_>("state"),"approvalUrl":r.get::<Option<String>,_>("approval_url"),"amountMinor":r.get::<i64,_>("amount_minor"),"currency":r.get::<String,_>("currency"),"currencyScale":r.get::<i16,_>("currency_scale"),"refundedMinor":r.get::<i64,_>("refunded_minor"),"revision":r.get::<i64,_>("revision"),"environment":r.get::<String,_>("environment"),"realMoneyCharged":r.get::<String,_>("environment")=="live" && ["captured","captured_late","partially_refunded","refunded"].contains(&r.get::<String,_>("state").as_str())}),
-    )
+// All status components come from one PostgreSQL statement snapshot. A provider
+// commit must never combine a new payment with an older admitted cart/order.
+const STATUS_FIELDS: &str = "SELECT p.provider,p.provider_context,p.state,p.approval_url,p.amount_minor,p.currency,p.currency_scale,p.refunded_minor,p.revision,p.environment,(SELECT jsonb_build_object('id',j.id,'operation',j.operation,'state',j.state) FROM payment_jobs j WHERE j.tenant=p.tenant AND j.attempt_id=p.id ORDER BY j.created_at DESC,j.id DESC LIMIT 1) AS job";
+async fn status_row(
+    a: &App,
+    t: &str,
+    id: &str,
+    cart: Option<&str>,
+) -> Result<sqlx::postgres::PgRow> {
+    let mut q = sqlx::QueryBuilder::<sqlx::Postgres>::new(STATUS_FIELDS);
+    if cart.is_some() {
+        q.push(",o.data AS sale FROM payment_attempts p JOIN orders o ON o.tenant=p.tenant AND o.id=p.order_id");
+    } else {
+        q.push(" FROM payment_attempts p");
+    }
+    q.push(" WHERE p.tenant=")
+        .push_bind(t)
+        .push(" AND p.id=")
+        .push_bind(id);
+    if let Some(cart) = cart {
+        q.push(" AND o.cart_id=").push_bind(cart);
+    }
+    q.build()
+        .fetch_optional(&a.db)
+        .await?
+        .ok_or(Error(StatusCode::NOT_FOUND, "Payment not found".into()))
 }
+fn payment_status(r: &sqlx::postgres::PgRow, id: &str) -> Value {
+    json!({"provider":r.get::<String,_>("provider"),"checkout":r.get::<Value,_>("provider_context")["checkout"],"job":r.get::<Option<Value>,_>("job"),"id":id,"state":r.get::<String,_>("state"),"approvalUrl":r.get::<Option<String>,_>("approval_url"),"amountMinor":r.get::<i64,_>("amount_minor"),"currency":r.get::<String,_>("currency"),"currencyScale":r.get::<i16,_>("currency_scale"),"refundedMinor":r.get::<i64,_>("refunded_minor"),"revision":r.get::<i64,_>("revision"),"environment":r.get::<String,_>("environment"),"realMoneyCharged":r.get::<String,_>("environment")=="live" && ["captured","captured_late","partially_refunded","refunded"].contains(&r.get::<String,_>("state").as_str())})
+}
+pub(crate) async fn read(a: &App, t: &str, id: &str) -> Result<Value> {
+    Ok(payment_status(&status_row(a, t, id, None).await?, id))
+}
+/// Caller must first admit the exact cashier/cart capability through the native POS owner.
+pub(crate) async fn read_sale(a: &App, t: &str, id: &str, cart: &str) -> Result<Value> {
+    let r = status_row(a, t, id, Some(cart)).await?;
+    Ok(json!({"payment":payment_status(&r,id),"order":r.get::<Value,_>("sale")}))
+}
+
 async fn customer_command(
     State(a): State<App>,
     h: RequestContext,

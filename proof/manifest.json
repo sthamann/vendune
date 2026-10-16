@@ -3145,8 +3145,8 @@
     },
     "src/payments/routes.rs": {
       "status": "unproved",
-      "sha256": "1a80818e5e544c8d4e69107b0513e564d64b5509023ef2da715debe03c31ae26",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "295425483b5d8994a1fc0da0497486cf16dd0ba84933966736ac64137ad19030",
+      "review": "Reviewed POS/payment status reads: one statement snapshot for payment, latest job and exact cart-bound native order; existing cashier/customer/channel admission and financial writers unchanged. Reviewed bounded 90-second startup retry for transient connection errors only; strict role/RLS/identity/signing audits remain unchanged. Deterministic pre-fix POS interleaving and actual refused-database startup reproduce original failures; corrected native suites and strict runtime checks are required."
     },
     "src/payments/sessions.rs": {
       "status": "unproved",
@@ -3180,8 +3180,8 @@
     },
     "src/performance/authority.rs": {
       "status": "unproved",
-      "sha256": "b6ac3e4acc0a3d794797ef71140e5eb6d208863cff79d5121a64ea7e3b4db8c3",
-      "review": "Retain reviewed separate role-bound SQL scope and 099 staged rollout; native frontend alias allocation requires global collision visibility and atomic managed app DDL while retaining explicit tenant predicates. Added an actual-login negative case proving PUBLIC TEMP allowed table shadowing; configure now revokes PUBLIC TEMP and startup rejects effective tenant CREATE/TEMP grants. No pure Lean policies changed."
+      "sha256": "64327daffff6d2e8b7985ec57a085812cc56fb155cf163867f2b0d773baa9281",
+      "review": "Reviewed POS/payment status reads: one statement snapshot for payment, latest job and exact cart-bound native order; existing cashier/customer/channel admission and financial writers unchanged. Reviewed bounded 90-second startup retry for transient connection errors only; strict role/RLS/identity/signing audits remain unchanged. Deterministic pre-fix POS interleaving and actual refused-database startup reproduce original failures; corrected native suites and strict runtime checks are required."
     },
     "src/performance/cache.rs": {
       "status": "unproved",
@@ -3215,8 +3215,8 @@
     },
     "src/performance/pool.rs": {
       "status": "unproved",
-      "sha256": "4b55df24aab3db84dcf64d1082ff0c3046d247fdf197ec7f1ac52a966b2639b3",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "595972f8993f827b71233d8fffacb2d83254f1ed6d0e9aa0f894a57f0686bd47",
+      "review": "Reviewed POS/payment status reads: one statement snapshot for payment, latest job and exact cart-bound native order; existing cashier/customer/channel admission and financial writers unchanged. Reviewed bounded 90-second startup retry for transient connection errors only; strict role/RLS/identity/signing audits remain unchanged. Deterministic pre-fix POS interleaving and actual refused-database startup reproduce original failures; corrected native suites and strict runtime checks are required."
     },
     "src/performance/row_security.rs": {
       "status": "unproved",
@@ -3305,8 +3305,8 @@
     },
     "src/pos/gateway.rs": {
       "status": "unproved",
-      "sha256": "3d685f423ea875f7aeb5d10a3fb09e3510e1b631d1c55cc13ba7a9dfc0ee5f52",
-      "review": "POS cashier guard reviewed: exact currency/reason/actor/goods bound; native customer selection and receipt projection remain SQL adapters covered by isolated POS regressions; bound new domain futures"
+      "sha256": "f8c9628aed3b1f0b8d2a2e3b0c9906c56efc23cdb1d0cc4bc68a7fa3945d2365",
+      "review": "Reviewed POS/payment status reads: one statement snapshot for payment, latest job and exact cart-bound native order; existing cashier/customer/channel admission and financial writers unchanged. Reviewed bounded 90-second startup retry for transient connection errors only; strict role/RLS/identity/signing audits remain unchanged. Deterministic pre-fix POS interleaving and actual refused-database startup reproduce original failures; corrected native suites and strict runtime checks are required."
     },
     "src/pos/input.rs": {
       "status": "unproved",

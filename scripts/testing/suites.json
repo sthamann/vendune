@@ -18,6 +18,7 @@
     "checkout_review",
     "payments",
     "payment_providers",
+    "startup_recovery",
     "services",
     "extensions",
     "staging",

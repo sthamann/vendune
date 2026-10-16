@@ -94,6 +94,8 @@ try:
  pos('reconcile',{'cartToken':pc['token'],'requestKey':uuid.uuid4().hex});time.sleep(.2)
  assert sql("SELECT count(*) FROM outbox WHERE tenant='workshop' AND kind='pos.sale_completed' AND data->>'orderId'='"+po['id']+"';")=='1'
  print('PASS native POS provider onboarding, redirect readiness, durable reconcile/capture and exactly one completion event')
+ from testing.payment_snapshot import check_pos_snapshot
+ check_pos_snapshot(pos,pc,po['id'],pid,sql)
 
  o,h=purchase();id=o['payment']['attemptId'];wait(id,h,'ready');assert o['payment']['provider']==m['id']
  call('/store-api/payments/'+id+'/session',h={**h,'x-tenant':'atelier'},expected=404);session=call('/store-api/payments/'+id+'/session',h=h);assert session['expiresIn']==300 and secret not in json.dumps(session)
