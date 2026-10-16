@@ -31,6 +31,10 @@ Cloud selection sends the bounded catalog, graph context and conversation
 history to that provider. No silent provider fallback occurs. Failures are
 stored as explicit error messages; they never create an executable proposal.
 The server validates IDs, ranges and trusted revisions for every provider.
+Merchant planning uses bounded native provider tool-call rounds for authorized
+reads before producing the final structured proposal: OpenAI Responses/Chat,
+Claude Messages and Ollama share the native operation authorization. A tool result
+does not grant additional permissions or approve a write.
 
 Official references: [OpenAI structured outputs](https://developers.openai.com/api/docs/guides/structured-outputs),
 [Claude structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs).
@@ -56,13 +60,22 @@ the absolute checkout path. Preserve existing entries in your config.
 }
 ```
 
-This configuration exposes the customer/read tools. For merchant planning and
-approval, set `COMMERCE_SESSION_TOKEN` privately to a personal member session
-and `COMMERCE_TENANT` to its shop. A scoped integration key is another option
-through the same authenticated server path. Do not commit a filled credential/config. The tool sequence is
-`merchant.plan` → inspect the stored preview → `merchant.apply` with explicit
-approval. `knowledge.graph` and `knowledge.search` expose the actual graph and
+This configuration exposes the customer/read tools. For delegated merchant
+planning, create a **Dedicated agent** access under **Developer → API & integrations**
+using [explicit model/token/USD allowances and read scopes](agent-authority-controls.md).
+Set `COMMERCE_SESSION_TOKEN` privately to that credential and `COMMERCE_TENANT` to
+its shop. Ordinary integration keys cannot start unbudgeted native AI planning.
+Do not commit a filled credential/config. The bounded key prepares a preview;
+the merchant reviews and approves business changes through their personal Studio
+session. Interactive personal MCP sessions remain available for appropriately
+authorized native operations: `merchant.plan` → inspect the stored preview →
+`merchant.apply` with explicit approval. A delegated planning key cannot perform
+that final apply. `knowledge.graph` and `knowledge.search` expose the actual graph and
 retrieval route. The bridge is transport, not another commerce implementation.
+
+The allowance covers calls to Veyndo's central model boundary. A separate model
+run by an external MCP client has its own provider billing; these counters do not
+measure or cap that client's independent token use.
 
 ## ChatGPT / Claude remote connectors
 
@@ -102,9 +115,9 @@ Those tests do not prove live OpenAI/Anthropic inference. Real local Ollama
 inference is tested separately. Live cloud checks require your own API keys;
 no borrowed credentials or fabricated cloud results are included.
 
-## Personal workspace credentials (v0.4)
+## Personal and delegated workspace credentials
 
-For normal merchant MCP access, set `COMMERCE_SESSION_TOKEN` to that user's
+For interactive personal merchant MCP access, set `COMMERCE_SESSION_TOKEN` to that user's
 opaque login session and `COMMERCE_TENANT` to one of their memberships. The bridge
 uses this token preferentially. Knowledge and merchant tools check scoped
 authority on the server; readers cannot apply proposals. Sessions expire after
@@ -112,3 +125,8 @@ authority on the server; readers cannot apply proposals. Sessions expire after
 legacy global `MERCHANT_TOKEN` to SaaS merchants. Public product/cart tools work
 without merchant credentials; complete graph/vector tools do not. The generated
 local configuration intentionally contains no embedded credentials.
+
+Delegated native AI planning instead uses a dedicated agent key with its own
+configured expiry and model allowances. Browser Studio sign-in uses HttpOnly
+cookies; do not extract or distribute browser cookies as MCP credentials.
+[Browser-session boundary](browser-sessions.md).

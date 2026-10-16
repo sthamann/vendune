@@ -4,9 +4,10 @@ An agent receives its own revocable credential, a small set of read permissions
 and an explicit model allowance. It can inspect authorized information and prepare
 a proposal. A person still approves business changes through the native operation.
 
-**Implementation state:** local implementation and verification, 16 October 2026.
-This guide does not claim deployment. [Current public status](status.md) is the
-release authority. These controls do not make the whole app-concept programme complete.
+**Implementation state:** deployed and publicly exercised, 16 October 2026.
+[Hosted receipt and boundaries](evidence/agent-authority-hosted-2026-10-16.md) record the
+actual stop, purchase and session journeys. [Current public status](status.md) remains
+the release authority. These controls do not make the whole app-concept programme complete.
 
 ## Configure a planning agent
 

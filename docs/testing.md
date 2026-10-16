@@ -35,7 +35,19 @@ acceptance or evidence of live provider payments. The current prototype can use
 short, coordinated deployment restarts; no zero-downtime fleet migration is required
 for an ordinary UI or documentation release. Existing demo data is still retained.
 
+Build and rollout time are separate from verification time. The 16 October
+`bustling-bulb-1104` hosted release took 9m12s to build and 11m50s through the
+complete serialized workflow. Northflank displayed remote cache disabled; its
+BuildKit disk-cache option was also disabled. No cache capacity was provisioned
+in this acceptance. The existing Dockerfile separates frontend and Rust stages,
+so retaining unchanged layers is the next concrete optimization, followed by a
+measured cold/warm comparison. Northflank's [cache guide](https://northflank.com/docs/v1/application/build/build-with-a-dockerfile#layer-caching)
+requires persistent cache capacity and an initial successful population build;
+enabling a setting alone is not evidence of a faster release.
+
 **Merchant catalogue setup:** [Current source/upload workflow, native CSV/model/media suites and evidence limits](merchant-catalogue-setup.md#verification-and-limits).
+
+**Agent authority:** [Current hosted control, checkout and session acceptance](evidence/agent-authority-hosted-2026-10-16.md), including separate full/backend and frontend-only source boundaries; older measurements below retain their original dates.
 
 **Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).
 

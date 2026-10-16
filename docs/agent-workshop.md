@@ -12,6 +12,12 @@ bridge needs the Rust service already running. Hosted clients need their own
 reachable HTTPS connection and registration; localhost is not remotely reachable.
 Provider API access is separate from consumer chat subscriptions.
 
+For Veyndo's native planning operations, use a [dedicated bounded agent key](agent-authority-controls.md)
+with only the required read scopes and assistant access. It cannot apply a business
+change; perform that review in the merchant's personal Studio session. An ordinary
+integration key is not an unbudgeted model credential. The allowance covers Veyndo's
+central model calls, not independent model usage inside an external MCP client.
+
 ## Read, propose, inspect
 
 1. Ask the connected client to list a small number of products in your shop and
