@@ -1,5 +1,10 @@
 # Changelog
 
+- CI integration now owns a uniquely named disposable database, including the
+  rollback-only outbox migration rehearsal. Its production-database refusal stays
+  intact. Subscriber migration/lock checks run before the slower provider fleet;
+  a regression check prevents the workflow from reusing its named bootstrap DB.
+
 ## Workspace-wide coverage accounting — 2026-10-16
 
 - Include all workspace packages when collecting Rust reports after the crate extraction. Report unmeasured Rust files in extracted libraries and app packages alongside the root, retaining the existing coverage floors and the distinction between unmeasured files and covered behavior.

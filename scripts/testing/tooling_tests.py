@@ -17,6 +17,25 @@ from source_inventory import responsibility
 
 
 class OwnedRuntime(unittest.TestCase):
+    def test_outbox_rehearsal_refuses_named_databases_before_sql(self):
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+        from testing.outbox_cases import migration_states
+        for database in ('commerce', 'veyndo_business_ui_20261016', 'restored_shop', 'production'):
+            with self.subTest(database=database), patch.dict('os.environ', {'TEST_DATABASE': database}):
+                with patch('testing.outbox_cases.subprocess.run') as execute:
+                    with self.assertRaises(AssertionError):
+                        migration_states()
+                    execute.assert_not_called()
+
+    def test_ci_uses_owned_database_and_checks_migration_before_slow_provider_fleet(self):
+        root = Path(__file__).resolve().parents[2]
+        workflow = (root / '.github/workflows/verify.yml').read_text()
+        invocation = next(line for line in workflow.splitlines() if 'python3 scripts/verify_integration.py ' in line)
+        self.assertNotIn('--existing-database', invocation)
+        suites = json.loads((root / 'scripts/testing/suites.json').read_text())
+        self.assertEqual(suites['providers'][0], 'outbox_subscribers')
+        self.assertEqual(suites['providers'].count('outbox_subscribers'), 1)
+
     def test_occupied_port_cannot_masquerade_as_the_child_under_test(self):
         with socket.socket() as listener:
             listener.bind(('127.0.0.1',0)); listener.listen()

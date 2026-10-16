@@ -59,6 +59,7 @@
     "admin_creation"
   ],
   "providers": [
+    "outbox_subscribers",
     "providers",
     "app_surfaces",
     "durable_agents",
@@ -88,8 +89,7 @@
     "marketplaces",
     "shipping_contract",
     "grid_directory",
-    "visual_workspace",
-    "outbox_subscribers"
+    "visual_workspace"
   ],
   "browser_contracts": [
     "analytics",
