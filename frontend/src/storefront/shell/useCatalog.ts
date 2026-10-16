@@ -60,6 +60,8 @@ export function useCatalog(
     category,
     locale,
     cart?.token,
+    cart?.revision,
+    cart?.status,
     cart?.customerGroup,
     cart?.checkout.country,
     cart?.price.currency,

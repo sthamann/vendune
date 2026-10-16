@@ -1766,8 +1766,8 @@
     },
     "src/catalog_routes.rs": {
       "status": "unproved",
-      "sha256": "50290bc48e984148f553d70d0061104d7d9a1dcaf20460279d673126701b64c9",
-      "review": "Reviewed bounded native catalog IDs intersected with existing channel/B2B admission, selected-product batch hydration and configured locale context; HTTP/MCP selected-ID and foreign-channel denial regression plus Rust/catalog checks passed."
+      "sha256": "571ac66734ccbb02851d6b55ed835b6d10120843529a17a2d15a0de887f38517",
+      "review": "Reviewed catalogue/detail native quote consistency: only open-cart configurations affect new product previews; immutable completed receipt preserved. Real HTTP B2B/configuration/order/reorder/release regression passes including listing-detail equality, stock refresh and unchanged completed snapshot. No extracted money or authorization policy changed."
     },
     "src/categories/admin.rs": {
       "status": "unproved",
@@ -1996,8 +1996,8 @@
     },
     "src/commerce/detail.rs": {
       "status": "unproved",
-      "sha256": "d47d8059e7584d5daea76733a259fa5391a7959dd55c78808e3da063e3e106be",
-      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
+      "sha256": "7123d2b19377bc9e7e5e5d87e55457ef3e0f529c6d91ab384ac2970059fb3c97",
+      "review": "Reviewed catalogue/detail native quote consistency: only open-cart configurations affect new product previews; immutable completed receipt preserved. Real HTTP B2B/configuration/order/reorder/release regression passes including listing-detail equality, stock refresh and unchanged completed snapshot. No extracted money or authorization policy changed."
     },
     "src/commerce/external_order_input.rs": {
       "status": "reviewed-binding",

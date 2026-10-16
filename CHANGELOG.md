@@ -5,7 +5,8 @@
 - Connect an app-owned material library and dimensional surcharge to native company approval, checkout, private/shared saved-input lists, current-price reorder and selected package release. Preserve original accepted material snapshots and explicit source-currency fees on completed orders.
 - Execute frozen positive/negative configuration examples before immutable save or installation. Share form/HTTP/MCP cart admission, enforce current channel and order-read authority, and publish minimized changes through the existing outbox/Flow consumer.
 - Add the editable App Studio pattern, paginated material choices, localized expectation/purchase cards and native order navigation. Fix seeded-record staging clones and filter configured purchases before pagination.
-- Automated local tests are separate from the pending browser/hosted and real-provider acceptance. Generalized entity/lifecycle extension, replay, source hosting, Crater, Shopware porting and Enterprise-cell gates remain open.
+- Preserve configuration controls and confirmation during repricing; refresh catalogue stock/prices after cart changes and purchase. Product detail and listing share the active configuration quote; completed-cart choices do not change prices for a new purchase.
+- Local Chrome completed a German walnut/special-dimension simulated purchase for EUR 517 and showed an empty cart. Automated and local browser tests are separate from pending hosted and real-provider acceptance. Generalized entity/lifecycle extension, replay, source hosting, Crater, Shopware porting and Enterprise-cell gates remain open.
 
 ## App documentation reconciliation — 16 October 2026
 

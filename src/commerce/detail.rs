@@ -75,7 +75,11 @@ pub(crate) async fn product_detail(
                 b2b: None,
                 currency: currency.code.clone(),
                 sales_channel: "default".into(),
-                app_configurations: HashMap::new(),
+                app_configurations: c
+                    .as_ref()
+                    .filter(|c| c.status == "open")
+                    .map(|c| c.data.app_configurations.clone())
+                    .unwrap_or_default(),
                 items: vec![Item {
                     id: id.clone(),
                     quantity: qty,

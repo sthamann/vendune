@@ -1,11 +1,93 @@
 /** Rendered product page preserves gallery, variant, tier-price, rich content and review workflows. */
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  fireEvent,
+  act,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect, it, vi } from "vitest";
+import { useState } from "react";
 import ProductPage from "../../src/storefront/catalog/ProductPage";
 import { LocaleProvider } from "../../src/shared/i18n/i18n";
 import { cart, detail, product } from "./fixtures";
 import type { Detail } from "../../src/shared/api/shop-api";
+it("keeps a saved configuration visible while refreshing current product prices", async () => {
+  let configured = false;
+  let finishRefresh: (() => void) | undefined;
+  const normal = fixture(detail);
+  const refreshed = fixture({
+    ...detail,
+    product: { ...product, description: "Refreshed context price" },
+  });
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(async (path: string) => {
+      if (configured && path === "/store-api/product/lamp") {
+        return new Promise((resolve) => {
+          finishRefresh = async () => resolve(await refreshed(path));
+        });
+      }
+      const result =
+        path === "/store-api/countries"
+          ? { countries: [], mainLocale: "en-GB" }
+          : path === "/store-api/apps/slots"
+            ? {
+                slots: [
+                  {
+                    app: "engraving",
+                    version: "1.0.0",
+                    slot: { component: "product-configuration" },
+                    configuration: {
+                      inputField: "text",
+                      label: { en: "Engraving" },
+                      hint: { en: "Choose your text" },
+                    },
+                  },
+                ],
+              }
+            : path === "/store-api/apps/engraving/configure"
+              ? ((configured = true), { ...cart, revision: 2 })
+              : undefined;
+      return result
+        ? { ok: true, status: 200, json: async () => result }
+        : configured
+          ? refreshed(path)
+          : normal(path);
+    }),
+  );
+  function Purchase() {
+    const [current, setCurrent] = useState(cart);
+    return (
+      <ProductPage
+        id="lamp"
+        cart={current}
+        busy={false}
+        onAdd={() => {}}
+        onCart={setCurrent}
+      />
+    );
+  }
+  render(<Purchase />, { wrapper: LocaleProvider });
+  const user = userEvent.setup();
+  await user.type(
+    await screen.findByRole("textbox", { name: "Engraving" }),
+    "Made for you",
+  );
+  await user.click(screen.getByRole("button", { name: "Review & save" }));
+  await waitFor(() => expect(finishRefresh).toBeDefined());
+  await act(async () => {
+    finishRefresh!();
+  });
+  await screen.findByText("Refreshed context price", {
+    selector: ".pdp-purchase > p:not(.shop-kicker)",
+  });
+  expect(screen.getByRole("textbox", { name: "Engraving" })).toHaveValue(
+    "Made for you",
+  );
+  expect(screen.getByRole("status")).toHaveTextContent(/saved/i);
+});
 function fixture(data: Detail) {
   return vi.fn(async (path: string) => {
     const value = path.endsWith("/attachments")

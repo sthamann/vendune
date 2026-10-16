@@ -6,11 +6,20 @@ code and Manifest live in `extensions/apps/furniture-configurator/`. It adds no
 physical database table and no second cart, price calculator or approval queue.
 
 **Acceptance boundary:** the automated local HTTP/PostgreSQL workflow uses
-simulated payment and synthetic customers. Browser/hosted acceptance and real
-provider settlement are separate checks. This case does not complete the entire
+simulated payment and synthetic customers. Local Chrome also completed a German
+260 × 80 cm walnut purchase: EUR 449 base plus EUR 68 configuration, EUR 517 total,
+saved order and empty cart. Hosted acceptance and real provider settlement remain
+separate checks. This case does not complete the entire
 [business-capability programme](app-system-status.md).
 
 ## Build and try it
+
+For a standalone local Core, use its normal storefront address
+`http://127.0.0.1:<port>/?shop=<tenant>&lang=de-DE`. The `/s/<alias>` path belongs
+to a separately mounted Experience and is not a standalone Core storefront link.
+Product price refreshes preserve configuration inputs and their saved confirmation;
+the catalogue refreshes after cart changes and purchase. Completed-order choices
+remain on the receipt rather than affecting a new catalogue purchase.
 
 1. Open **Developers → New app → Configurable furniture**. This clones the
    app-owned pattern to an editable, namespaced Manifest. Review Business goal,
@@ -39,6 +48,17 @@ provider settlement are separate checks. This case does not complete the entire
 Sandbox testing excludes real orders/provider effects. The existing staging review
 selects app package and material records separately. A live purchasing approval,
 customer, order or spending record is never published from a sandbox.
+
+## Actual local browser views
+
+![German configurator retains walnut, dimensions and saved feedback while showing the native EUR 517 quote](screenshots/veyndo-furniture-configuration.jpg)
+
+![Local simulated order confirmation for EUR 517](screenshots/veyndo-furniture-order.jpg)
+
+These captures use synthetic local data and simulated payment. They do not show
+public deployment or an actual provider settlement. The standard product image
+and specifications remain catalogue data; this pattern does not generate a 3D
+render or rewrite product specifications from selected dimensions.
 
 ## The rule and its frozen checks
 

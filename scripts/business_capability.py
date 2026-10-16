@@ -43,6 +43,10 @@ assert not result['result'].get('isError'),result
 c=result['result']['structuredContent']
 config=c['lineItems'][0]['appConfigurations'][0]
 assert config['fields']==fields and config['feeMinor']==6800 and config['currency']=='EUR',config
+detail=call('/store-api/product/lamp',h=bh)
+listed=next(p for p in call('/store-api/product',{'productIds':['lamp']},bh)['elements'] if p['id']=='lamp')
+assert detail['calculatedPrices'][0]['price']['unitPrice']==c['lineItems'][0]['price']['unitPrice']
+assert listed['calculated_price']['unitPrice']==detail['calculatedPrices'][0]['price']['unitPrice']
 for _ in range(100):
     jobs=call('/api/automation',h=h)['jobs']
     if any(job['flow']=='configured' and job['state']=='completed' for job in jobs):break
@@ -75,6 +79,11 @@ stock=call('/store-api/product/lamp',h=pub)['product']['stock']
 order=call('/store-api/checkout/order',{}, {**bh,'Idempotency-Key':'capability-'+suffix})
 assert order['cart']['lineItems'][0]['appConfigurations'][0]==config
 assert call('/store-api/product/lamp',h=pub)['product']['stock']==stock-1
+completed_detail=call('/store-api/product/lamp',h=bh)
+completed_listing=next(p for p in call('/store-api/product',{'productIds':['lamp']},bh)['elements'] if p['id']=='lamp')
+assert completed_listing['stock']==stock-1
+assert completed_listing['calculated_price']['unitPrice']==completed_detail['calculatedPrices'][0]['price']['unitPrice']
+assert call('/store-api/checkout/cart',h=bh)['order']['cart']['lineItems'][0]['appConfigurations'][0]==config
 order_id=order['id'];immutable=copy.deepcopy(call('/api/merchant/orders/'+order_id,h=h)['cart'])
 projection=call(f'/api/apps/{app}/actions/orders',{'limit':1},h)
 assert projection['elements'][0]['orderId']==order_id and projection['elements'][0]['items'][0]['appConfigurations']==[config],projection

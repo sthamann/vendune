@@ -99,6 +99,11 @@ pub(crate) async fn catalog_page(
                 },
             }
         };
+        // A receipt keeps its accepted configuration, but a new catalogue view
+        // must not price another purchase with the completed cart's old choices.
+        if preview.status != "open" {
+            preview.data.app_configurations.clear();
+        }
         preview.data.currency = currency.code.clone();
         preview.data.items = vec![Item {
             id: p.id.clone(),
