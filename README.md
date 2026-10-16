@@ -18,6 +18,8 @@
 </div>
 
 **A new Rust commerce platform with AI woven into the business itself.**
+
+Studio keeps private drafts during reauthentication and offers explicit same-account continuation after another tab signs in. [Browser identity and recovery boundaries](docs/browser-sessions.md).
 Veyndo brings products, business knowledge, merchant work, shopper advice, agents,
 automation and apps onto one connected foundation. Studio, HTTP, MCP and implemented
 UCP routes call the same native commerce operations. Products, prices, inventory,

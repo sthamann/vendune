@@ -4,7 +4,11 @@ import {
   merchantRequestSuspended,
 } from "./merchant-session";
 import { readAgentStream } from "./agent-stream";
-import { browserRequest } from "./browser-session";
+import {
+  browserRequest,
+  browserSessionMarker,
+  browserSessionScope,
+} from "./browser-session";
 type JsonResponse = {
   value: any;
   ok: boolean;
@@ -28,6 +32,11 @@ export async function requestJson(
     };
   const method = (init.method ?? "GET").toUpperCase();
   const prepared = browserRequest(path, init);
+  const merchantProof =
+    new Headers(init.headers).get("authorization") ===
+    `Bearer ${browserSessionMarker}`
+      ? browserSessionScope()
+      : undefined;
   const read =
     !init.signal &&
     !path.startsWith("/api/apps/") &&
@@ -63,12 +72,13 @@ export async function requestJson(
       response.headers?.get("content-type")?.includes("text/event-stream")
         ? await readAgentStream(response)
         : await response.json();
-    reportMerchantSessionFailure(
-      path,
-      init.headers,
-      value.errors?.[0]?.status ?? response.status,
-      value.errors?.[0]?.detail,
-    );
+    if (merchantProof === undefined || merchantProof === browserSessionScope())
+      reportMerchantSessionFailure(
+        path,
+        init.headers,
+        value.errors?.[0]?.status ?? response.status,
+        value.errors?.[0]?.detail,
+      );
     return {
       value,
       ok: response.ok && !value.errors,

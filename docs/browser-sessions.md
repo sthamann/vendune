@@ -31,6 +31,15 @@ as the new account. Explicit login, one-use handoff and password/MFA rotations
 can replace the accepted session. Successful authentication JSON contains a public
 marker and proof, never the opaque browser bearer.
 
+An interrupted editor offers **Continue with the same account**. This is an explicit
+read of the existing session ledger using this browser's current anti-CSRF proof.
+The response must identify the already-open account and current shop membership;
+the candidate proof and editor generation must still match when validation completes.
+Only then does the normal acceptance path resume the editor. Another account,
+an expired session or a change during validation is refused. Drafts remain mounted;
+no failed action is replayed. Late rejection of an older accepted browser proof
+cannot suspend a newly accepted session, even though both use the public browser marker.
+
 ## Preventing late responses from changing identity
 
 Passive session/profile reads never set cookies. They cannot overwrite a newer
