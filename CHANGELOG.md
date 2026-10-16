@@ -14,6 +14,11 @@
 - Put the latest recorded 15 October hosted acceptance before older release history; preserve earlier receipts and distinguish later embedded simulated purchase acceptance from real settlement, restore or capacity evidence.
 - Keep isolated source compilation, complete B2B configurator, generalized entity/lifecycle extensions, historical replay, managed runtime, fleet compatibility, Shopware porting and Enterprise-cell operation explicitly open until their actual acceptance succeeds.
 
+## Browser continuation follow-up
+
+- Add explicit same-account browser continuation for interrupted Studio editors. Recheck the native session, current shop membership, candidate proof and editor generation before accepting; retain private drafts and never replay failed writes.
+- Ignore delayed 401 responses from older accepted browser proofs and fence pending initial profile reads against explicit sign-in. Preserve refusal of cross-account browser adoption.
+
 ## Hosted acceptance follow-up
 
 - Complete the coordinated hosted shared-app-storage cutover after a fresh backup and stopped old Core. Retire eight verified legacy tables; confirm four fixed forced-RLS tables after new installations, private page publication and three public simulated checkout flows. Record results and explicit acceptance boundaries separately from local verification.

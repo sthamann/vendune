@@ -14,6 +14,7 @@ import { useConnectedText } from "../../shared/i18n/connected-i18n";
 import type { Session } from "../team/UsersManager";
 import type { RequestFn } from "./studio-types";
 import { useStudioSession } from "./useStudioSession";
+import { resumeBrowserSession } from "./resume-browser-session";
 import {
   isMfaChallenge,
   type MfaChallenge,
@@ -36,9 +37,13 @@ export function useStudioAccess(
   const [identity, setIdentity] = useState<Session>();
   const [challenge, setChallenge] = useState<MfaChallenge>();
   const current = useRef(identity);
+  const generation = useRef(0);
   current.current = identity;
   const [expired, setExpired] = useState(false);
   const [checking, setChecking] = useState(!!token);
+  const [redeeming, setRedeeming] = useState(() =>
+    new URL(location.href).searchParams.has("login_ticket"),
+  );
   const [error, setError] = useState("");
   const [verified, setVerified] = useState("");
   const [retry, setRetry] = useState(0);
@@ -53,6 +58,9 @@ export function useStudioAccess(
   }, [setToken, token]);
   useStudioSession(token, connected && !expired, liveRequest, expire);
   useEffect(() => {
+    // A handoff can rotate the shared cookie while an earlier tab is signed in.
+    // Do not start a workspace connection using that preceding session.
+    if (redeeming) return;
     if (!token) {
       setIdentity(undefined);
       setVerified("");
@@ -61,6 +69,7 @@ export function useStudioAccess(
       return;
     }
     let active = true;
+    const attempt = ++generation.current;
     setChecking(true);
     void shopApi<Session>(
       "/api/auth/session",
@@ -70,7 +79,7 @@ export function useStudioAccess(
       token,
     )
       .then((session) => {
-        if (!active) return;
+        if (!active || attempt !== generation.current) return;
         if (current.current && session.user.id !== current.current.user.id)
           throw new Error(x("resumeSameAccount"));
         if (!session.workspaces.some((w) => w.id === workspace))
@@ -90,15 +99,15 @@ export function useStudioAccess(
         route("merchant");
       })
       .catch((e) => {
-        if (active) setError(e.message);
+        if (active && attempt === generation.current) setError(e.message);
       })
       .finally(() => {
-        if (active) setChecking(false);
+        if (active && attempt === generation.current) setChecking(false);
       });
     return () => {
       active = false;
     };
-  }, [token, workspace, retry]);
+  }, [token, workspace, retry, redeeming]);
   const accept = async (session: Session | MfaChallenge) => {
     if (isMfaChallenge(session)) {
       setChallenge(session);
@@ -113,6 +122,7 @@ export function useStudioAccess(
       member?.id ??
       session.workspaces.find((w) => w.id === session.workspace)?.id;
     if (!target) throw new Error(x("studioShopAccess"));
+    generation.current++;
     activateBrowserSession(session);
     resumeMerchantToken(session.token);
     forgetLegacyCredentials();
@@ -143,7 +153,10 @@ export function useStudioAccess(
     void shopApi<Session | MfaChallenge>("/api/auth/redeem", { ticket })
       .then(accept)
       .catch((e) => setError(e.message))
-      .finally(() => setChecking(false));
+      .finally(() => {
+        setRedeeming(false);
+        setChecking(false);
+      });
   }, []);
   const logout = async () => {
     try {
@@ -153,6 +166,7 @@ export function useStudioAccess(
       return;
     }
     forgetLegacyCredentials();
+    generation.current++;
     sessionStorage.removeItem("rac-user-token");
     sessionStorage.removeItem("rac-user-workspace");
     setToken("");
@@ -173,9 +187,24 @@ export function useStudioAccess(
     checking,
     error,
     accept,
+    resume: async () => {
+      if (!identity) throw new Error(x("resumeSameAccount"));
+      const attempt = generation.current;
+      const session = await resumeBrowserSession(
+        identity.user.id,
+        workspace,
+        x("resumeSameAccount"),
+      );
+      if (generation.current !== attempt)
+        throw new Error(x("resumeSameAccount"));
+      await accept(session);
+    },
     logout,
     active:
-      !!identity && verified === JSON.stringify([token, workspace]) && !expired,
+      !!identity &&
+      verified === JSON.stringify([token, workspace]) &&
+      !expired &&
+      !redeeming,
     retry: () => setRetry((v) => v + 1),
   };
 }

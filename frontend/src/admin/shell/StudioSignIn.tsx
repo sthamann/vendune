@@ -65,6 +65,19 @@ export default function StudioSignIn({
           <span>{auth.identity?.user.email}</span>
         </div>
       )}
+      {overlay && (
+        <div className="studio-auth-resume">
+          <p>{x("resumeBrowserHint")}</p>
+          <button
+            className="studio-primary"
+            type="button"
+            disabled={busy || auth.checking}
+            onClick={() => void run(auth.resume)}
+          >
+            {x("resumeBrowser")}
+          </button>
+        </div>
+      )}
       {!overlay && (
         <div className="account-tabs">
           {["login", "register", "join"].map((m) => (

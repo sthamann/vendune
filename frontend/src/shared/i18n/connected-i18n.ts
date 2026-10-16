@@ -1,6 +1,18 @@
 /** Four-language vocabulary for connected apps, consent and visual automation. */
 import { useLocale } from "./i18n";
 export const connectedWords: Record<string, readonly string[]> = {
+  resumeBrowser: [
+    "Continue with the same account",
+    "Mit demselben Konto fortsetzen",
+    "Continuer avec le même compte",
+    "Continuar con la misma cuenta",
+  ],
+  resumeBrowserHint: [
+    "Signed in again in another tab? Continue here with the same account. If that session has expired, sign in below. Nothing is submitted automatically.",
+    "In einem anderen Tab erneut angemeldet? Setze hier mit demselben Konto fort. Ist auch diese Sitzung abgelaufen, melde dich unten an. Es wird nichts automatisch abgesendet.",
+    "Reconnecté dans un autre onglet ? Continuez ici avec le même compte. Si cette session a expiré, reconnectez-vous ci-dessous. Aucun envoi automatique.",
+    "¿Has vuelto a iniciar sesión en otra pestaña? Continúa aquí con la misma cuenta. Si esa sesión ha caducado, inicia sesión abajo. No se envía nada automáticamente.",
+  ],
   loadingWorkspace: [
     "Loading workspace…",
     "Arbeitsbereich wird geladen…",
