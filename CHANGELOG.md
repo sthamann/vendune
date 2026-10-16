@@ -1,5 +1,9 @@
 # Changelog
 
+## Stable customer lookup regression — 2026-10-16
+
+- Search for the fixture customer’s complete name in the role/B2B acceptance test. A seeded random customer number can legitimately contain the short substring `Ada`; this must not be mistaken for a tenant/privacy or filtering failure. Keep exact identity and minimized-field assertions.
+
 ## Checkout and subscriber lock ordering — 2026-10-16
 
 - Reproduce a two-replica checkout deadlock between product locks and an event producer touching a locked subscriber schedule. Create the four schedules with the tenant instead of on every commerce event. A held-scheduler regression fails before the repair and commits the event afterwards; existing delayed/quarantined migration state and late commits remain covered.
