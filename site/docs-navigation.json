@@ -16,6 +16,7 @@
         "es": "Descubre la idea y completa tu primer flujo real."
       },
       "sources": [
+        "docs/status.md",
         "docs/first-tour.md",
         "docs/features.md",
         "docs/quickstart.md",

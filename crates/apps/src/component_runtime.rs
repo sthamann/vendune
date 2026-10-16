@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use wasmtime::component::Component;
 use wasmtime::{Engine, Store, StoreLimits, StoreLimitsBuilder};
 mod abi;
-wasmtime::component::bindgen!({path:"extensions/sdk/wit",world:"extension",imports:{default:trappable}});
+wasmtime::component::bindgen!({path:"../../extensions/sdk/wit",world:"extension",imports:{default:trappable}});
 pub use self::veyndo::commerce::context::{
     AppRecord, CartItem, CartSnapshot, Money, ProductSnapshot,
 };
@@ -208,7 +208,7 @@ mod tests {
     #[test]
     fn real_component_reads_changed_host_snapshot_for_all_hooks() {
         let module = Module::new(include_str!(
-            "../extensions/sdk/wit/snapshot-price.component.wat"
+            "../../../extensions/sdk/wit/snapshot-price.component.wat"
         ))
         .unwrap();
         for hook in [Kind::Price, Kind::Shipping, Kind::Discount] {
@@ -244,7 +244,7 @@ mod tests {
     }
     #[test]
     fn returned_money_must_match_context_and_host_calls_are_bounded() {
-        let source = include_str!("../extensions/sdk/wit/snapshot-price.component.wat");
+        let source = include_str!("../../../extensions/sdk/wit/snapshot-price.component.wat");
         let wrong = source.replace(
             "i32.const 528 i32.const 280 i32.load8_u",
             "i32.const 528 i32.const 3",

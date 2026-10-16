@@ -72,7 +72,7 @@ mod tests {
     use super::*;
     #[test]
     fn configured_older_components_keep_snapshots_money_and_resource_guards() {
-        let source = include_str!("../../extensions/sdk/wit/snapshot-price.component.wat")
+        let source = include_str!("../../../../extensions/sdk/wit/snapshot-price.component.wat")
             .replace("veyndo:commerce", "legacy:commerce");
         assert!(Module::new_with_abi(&source, "").is_err());
         let module = Module::new_with_abi(&source, "legacy").unwrap();

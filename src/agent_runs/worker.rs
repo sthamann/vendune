@@ -1,5 +1,6 @@
 //! Database claims resume only completed checkpoints; unknown model outcomes are never automatically charged again.
 use super::*;
+use tracing::Instrument;
 pub(crate) async fn once(a: &App) -> Result<bool> {
     // A dead worker can be resumed safely between calls; an in-flight provider result is ambiguous.
     sqlx::query("UPDATE tasks SET run_state=CASE WHEN run_pending IS NULL THEN 'queued' ELSE 'uncertain' END,run_error=CASE WHEN run_pending IS NULL THEN NULL ELSE '{\"code\":\"agent_model_interrupted\",\"retryable\":false}'::jsonb END,run_lease=NULL,run_until=NULL,run_revision=run_revision+1,run_updated=now() WHERE (tenant,id) IN (SELECT tenant,id FROM tasks WHERE run_state='running' AND run_until<now() ORDER BY run_updated LIMIT 20 FOR UPDATE SKIP LOCKED)").execute(&a.db).await?;
@@ -26,51 +27,56 @@ pub(crate) async fn once(a: &App) -> Result<bool> {
         .bind(&t).bind(&id).bind(&lease).execute(&mut *tx).await?;
     tx.commit().await?;
     let request: Value = row.get("run_request");
-    let result = async {
-        let h = authority::headers(a, &row).await?;
-        let scope = if h.principal.personal_session {
-            veyndo::tenant_scope::Scope::Personal {
+    let trace: String = row.get("run_trace");
+    let result = veyndo::trace::scoped(
+        trace.clone(),
+        async {
+            let h = authority::headers(a, &row).await?;
+            let scope = if h.principal.personal_session {
+                veyndo::tenant_scope::Scope::Personal {
+                    tenant: t.clone(),
+                    actor: row.get("run_actor"),
+                }
+            } else {
+                veyndo::tenant_scope::Scope::Actor {
+                    tenant: t.clone(),
+                    actor: row.get("run_actor"),
+                }
+            };
+            let run = Run {
                 tenant: t.clone(),
-                actor: row.get("run_actor"),
-            }
-        } else {
-            veyndo::tenant_scope::Scope::Actor {
-                tenant: t.clone(),
-                actor: row.get("run_actor"),
-            }
-        };
-        let run = Run {
-            tenant: t.clone(),
-            id: id.clone(),
-            lease: lease.clone(),
-        };
-        veyndo::tenant_scope::scoped(
-            scope,
-            CURRENT.scope(run, async {
-                let choice = agent::choice(&request)?;
-                tokio::time::timeout(
-                    std::time::Duration::from_secs(190),
-                    plan_with(
-                        a,
-                        &t,
-                        request["instruction"].as_str().unwrap_or(""),
-                        choice.as_ref(),
-                        request["history"].as_str().unwrap_or(""),
-                        request["locale"].as_str().unwrap_or("en-GB"),
-                        &h,
-                    ),
-                )
-                .await
-                .unwrap_or_else(|_| {
-                    Err(Error(
-                        StatusCode::GATEWAY_TIMEOUT,
-                        "Model turn timed out".into(),
-                    ))
-                })
-            }),
-        )
-        .await
-    }
+                id: id.clone(),
+                lease: lease.clone(),
+            };
+            veyndo::tenant_scope::scoped(
+                scope,
+                CURRENT.scope(run, async {
+                    let choice = agent::choice(&request)?;
+                    tokio::time::timeout(
+                        std::time::Duration::from_secs(190),
+                        plan_with(
+                            a,
+                            &t,
+                            request["instruction"].as_str().unwrap_or(""),
+                            choice.as_ref(),
+                            request["history"].as_str().unwrap_or(""),
+                            request["locale"].as_str().unwrap_or("en-GB"),
+                            &h,
+                        ),
+                    )
+                    .await
+                    .unwrap_or_else(|_| {
+                        Err(Error(
+                            StatusCode::GATEWAY_TIMEOUT,
+                            "Model turn timed out".into(),
+                        ))
+                    })
+                }),
+            )
+            .await
+        }
+        .instrument(tracing::info_span!("agent_run",trace_id=%trace,task_id=%id)),
+    )
     .await;
     if let Err(error) = result {
         // Native diagnostics stay actor-private; outbox projections contain IDs/states only.

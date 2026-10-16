@@ -4,6 +4,7 @@ use serde_json::{Value, json};
 use std::env;
 mod protocol;
 pub mod settings;
+mod tools;
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
@@ -156,6 +157,7 @@ impl Inference {
             .structured_resolved(choice, system, user, schema, images)
             .await
     }
+    #[tracing::instrument(skip_all,fields(trace_id=%veyndo_runtime::trace::current()))]
     async fn structured_resolved(
         &self,
         choice: Option<&Choice>,
@@ -228,6 +230,10 @@ impl Inference {
                 format!("{}/messages", self.anthropic_url.trim_end_matches('/')),
             ),
         };
+        let native_tools = schema.get("x-veyndo-tools").is_some();
+        if native_tools {
+            tools::request(&provider, schema, &mut request)?;
+        }
         protocol::prompt_cache(&provider, &mut request, system);
         let mut req = self.http.post(path).json(&request);
         req = match provider {
@@ -264,26 +270,40 @@ impl Inference {
             ));
         }
         let raw = crate::http_json::bounded(response, 2 * 1024 * 1024).await?;
-        let value = if matches!(provider, Provider::Openai)
+        let (native_value, continuation) = if native_tools {
+            let (v, c) = tools::parse(&provider, schema, &raw)?;
+            (Some(v), Some(c))
+        } else {
+            (None, None)
+        };
+        let value = if let Some(value) = native_value {
+            value
+        } else if matches!(provider, Provider::Openai)
             && env::var("OPENAI_PROTOCOL").as_deref() == Ok("chat")
         {
             protocol::chat_response(&raw)?
         } else {
             parse(&provider, &raw)?
         };
-        let value = if matches!(provider, Provider::Openai) {
+        let value = if matches!(provider, Provider::Openai) && !native_tools {
             schema::restore(schema, value)?
         } else {
             value
         };
+        let mut usage = raw
+            .get("usage")
+            .filter(|v| v.is_object())
+            .cloned()
+            .unwrap_or_else(|| json!({"output_tokens":raw["eval_count"]}));
+        usage["prompt"] = crate::prompts::evidence(system);
+        if let Some(continuation) = continuation {
+            usage["toolContinuation"] = continuation;
+        }
         Ok(Output {
             value,
             model: model.clone(),
             provider,
-            usage: raw
-                .get("usage")
-                .cloned()
-                .unwrap_or_else(|| json!({"output_tokens":raw["eval_count"]})),
+            usage,
         })
     }
 }

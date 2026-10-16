@@ -28,7 +28,10 @@ where
     F: Future + Send + 'static,
     F::Output: Send + 'static,
 {
-    tokio::spawn(scoped(current(), future))
+    tokio::spawn(crate::trace::scoped(
+        crate::trace::current(),
+        scoped(current(), future),
+    ))
 }
 
 #[cfg(test)]

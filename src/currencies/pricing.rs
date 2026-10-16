@@ -2,16 +2,16 @@
 use super::*;
 use veyndo::money::{Currency, Money};
 pub(crate) fn amount(value: f64, code: &str, precision: u8) -> Result<Money> {
-    let minor = (value * 10_f64.powi(precision as i32)).round();
-    if !value.is_finite() || value < 0. || !minor.is_finite() || minor >= 9_223_372_036_854_775_808.
-    {
+    if !value.is_finite() || value < 0. {
         return Err(bad("Invalid currency amount"));
     }
-    Ok(Money::new(
-        minor as i64,
+    Money::rounded(
+        &value.to_string(),
         Currency::new(code, precision).map_err(bad)?,
-    ))
+    )
+    .map_err(bad)
 }
+
 pub(crate) fn convert(value: f64, cfg: &Config, d: &Definition) -> Result<f64> {
     convert_from(value, &cfg.pricing_currency, cfg, d)
 }

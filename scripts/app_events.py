@@ -66,7 +66,7 @@ try:
  print('PASS projected filters skip delivery; cursor replay requeues eligible events and activity is tenant-private')
  # Expired attempts are reclaimable; a completion carrying the obsolete UUID cannot clear the new lease.
  old=str(uuid.uuid4());new=str(uuid.uuid4());event=emit(fast,deliver=False)
- sql(f"INSERT INTO app_deliveries(tenant,app,event_id,state,lease_token,lease_until,available_at) VALUES('{fast}','{m['id']}',{event},'running','{old}',now()-interval '1 minute',now()+interval '1 hour'); UPDATE app_deliveries SET lease_token='{new}' WHERE tenant='{fast}' AND event_id={event}; UPDATE app_deliveries SET state='delivered',lease_token=NULL WHERE tenant='{fast}' AND event_id={event} AND lease_token='{old}';")
+ sql(f"INSERT INTO app_deliveries(tenant,app,event_id,state,lease_token,lease_until,available_at) VALUES('{fast}','{m['id']}',{event},'running','{old}',now()-interval '1 minute',now()+interval '1 hour') ON CONFLICT(tenant,app,event_id) DO UPDATE SET state=EXCLUDED.state,lease_token=EXCLUDED.lease_token,lease_until=EXCLUDED.lease_until,available_at=EXCLUDED.available_at; UPDATE app_deliveries SET lease_token='{new}' WHERE tenant='{fast}' AND event_id={event}; UPDATE app_deliveries SET state='delivered',lease_token=NULL WHERE tenant='{fast}' AND event_id={event} AND lease_token='{old}';")
  assert sql(f"SELECT lease_token FROM app_deliveries WHERE tenant='{fast}' AND event_id={event}")==new
  print('PASS stale completion cannot overwrite a replacement lease')
  # Rotating app IDs cannot bypass the aggregate ceiling across two real Rust replicas.

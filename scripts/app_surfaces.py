@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Actual app UI registry/API/MCP/data/staging and slow-service isolation against Rust/PostgreSQL."""
+from testing.native_tools import response as native_response
 from testing.app_approval import consent
 from testing.app_approval import pin
 import concurrent.futures
@@ -53,8 +54,9 @@ def run():
                 request = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
                 model_requests.append(request)
                 proposal = {"summary": "Review an app-owned guide", "changes": [], "app_action": {"app": app_id, "action": "save_entry", "arguments_json": json.dumps({"id": "zz-last", "fields": {"product_id": "mug", "title": {"en": "Approved revision"}, "specification": {"care": ["handwash"]}}})}}
-                if request["text"]["format"]["schema"].get("required")==["tool_calls"]: proposal={"tool_calls":[]}
+                if request.get("tools"): proposal={"tool_calls":[]}
                 raw = json.dumps({"status":"completed","output":[{"content":[{"type":"output_text","text":json.dumps(proposal)}]}]}).encode()
+                if request.get("tools"):raw=json.dumps(native_response(request,proposal)).encode()
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json")
                 self.send_header("Content-Length", str(len(raw)))

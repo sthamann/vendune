@@ -1,5 +1,6 @@
 //! Shared HTTP/MCP capability dispatch and tool authorization.
 use crate::*;
+use tracing::Instrument;
 
 mod admission;
 mod catalog;
@@ -8,8 +9,8 @@ pub(crate) use contract::ToolContract;
 mod dispatch;
 mod registry;
 mod schema;
-pub(crate) use registry::agent_reads;
 pub(crate) use registry::{OPERATIONS, tool_schema};
+pub(crate) use registry::{agent_reads, export};
 pub(crate) async fn capabilities() -> Json<Value> {
     Json(
         json!({"capabilities":OPERATIONS.iter().map(|operation|operation.description()).collect::<Vec<_>>()}),
@@ -47,7 +48,9 @@ pub(crate) fn invoke<'a>(
     if let Err(error) = apps::validate_native_input(&operation.input_schema(), v) {
         return Box::pin(async move { Err(error) });
     }
-    operation.owner.invoke(a, h, name, v)
+    Box::pin(operation.owner.invoke(a, h, name, v).instrument(
+        tracing::info_span!("operation",operation=name,trace_id=%veyndo::trace::current()),
+    ))
 }
 
 pub(super) type CapabilityFuture<'a> =

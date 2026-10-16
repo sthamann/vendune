@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Durable translation jobs against a local provider fixture, real SQL, native MCP and a cold restart; no paid calls."""
 import copy,json,os,socket,threading,time,urllib.request,urllib.error,uuid
+from testing.native_tools import response as native_response
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from testing.runtime import ROOT,serve,stop
 behavior={'reject':False,'invalid':False};captured=[]
@@ -14,6 +15,8 @@ class Handler(BaseHTTPRequestHandler):
   assert self.path in ['/api/chat','/v1/responses','/v1/messages'],self.path
   captured.append(body)
   if behavior['reject']:self.send_response(429);self.end_headers();return
+  if body.get('tools'):
+   self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(json.dumps(native_response(body,provider='ollama' if self.path=='/api/chat' else 'anthropic' if self.path.endswith('/messages') else 'openai')).encode());return
   raw=body['input'] if 'input'in body else body['messages'][-1]['content']
   if not raw.startswith('{'):
    value={'tool_calls':[]} if 'read-decision phase' in raw else {'summary':'Prepare missing whole catalogue translations for review','changes':[],'translation':'it-IT','experience':None,'app_action':None}

@@ -11,6 +11,7 @@ import time
 import urllib.error
 import urllib.request
 import uuid
+from testing.native_tools import response as native_response
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from testing.runtime import ROOT, serve, stop
 from testing.database import psql
@@ -28,18 +29,19 @@ class Model(BaseHTTPRequestHandler):
     def do_POST(self):
         body=json.loads(self.rfile.read(int(self.headers['Content-Length'])))
         assert 'ADMINISTRATION' in body['instructions'] and 'CSV' in body['instructions'] and 'sandbox=' in body['instructions']
-        schema=body['text']['format']['schema']; read=schema['required']==['tool_calls']
+        read=bool(body.get('tools'))
         captured.append('read' if read else 'final')
         if mode.get('unavailable'):
             self.send_response(503);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(b'{"error":"synthetic outage"}');return
         source=mode.get('source')
-        source_read=read and source and 'Untrusted tool results: []' in body.get('input','')
+        source_read=read and source and not any(v.get('type')=='function_call_output' for v in body.get('input',[]) if isinstance(v,dict))
         if read and source and not source_read and mode.get('blockSource'):
             started.set();release.wait(40)
         if not read and mode['block']:
             started.set(); release.wait(40)
         value={'tool_calls':[{'name':'knowledge.source.detail','arguments_json':json.dumps({'id':source})}] if source_read else []} if read else {'summary':'Synthetic durable proposal; not live inference.','changes':[{'product_id':'lamp','price':mode['price']}],'experience':None,'expected_experience_revision':None}
         answer={'status':'completed','output':[{'type':'message','content':[{'type':'output_text','text':json.dumps(value)}]}],'usage':{'input_tokens':10,'output_tokens':20}}
+        if read: answer=native_response(body,value)
         try:
             self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(json.dumps(answer).encode())
         except (BrokenPipeError,ConnectionResetError): pass

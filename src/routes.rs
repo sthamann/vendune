@@ -294,5 +294,6 @@ pub(crate) fn router(a: App) -> Router {
         .layer(performance::delivery::compression())
         .layer(axum::middleware::from_fn(security_headers::apply))
         .layer(axum::middleware::from_fn(brand_redirect::apply))
+        .layer(axum::middleware::from_fn(observability::request))
         .with_state(a)
 }

@@ -1,4 +1,9 @@
-# Current release — 13 October 2026
+# Historical release record
+
+For the current implementation and acceptance state, use **[Status](status.md)**.
+This page preserves dated release evidence and is not a second current-status page.
+
+# Release recorded — 13 October 2026
 
 **VEYNDO deployment — 13 October:** [Core identity migration #102](https://github.com/sthamann/veyndo/pull/102) and [public documentation #103](https://github.com/sthamann/veyndo/pull/103) are merged. Northflank deployed Core `ced4a38` (`airy-wish-3827`) after a database snapshot and a successful migration-only job. Experience deployed `a6d3472` (`wiggly-crayon-7324`). Website, team, Studio, Experience and public shop routes now use `veyndo.ai` and the approved Living V identity. The checked public storefront loaded products, added a cart line and opened the simulated checkout; it did not place an order or charge a payment.
 

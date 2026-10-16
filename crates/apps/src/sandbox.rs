@@ -194,7 +194,7 @@ mod tests {
     }
     #[test]
     fn app_owns_contribution_rules() {
-        let source = include_str!("../extensions/apps/engraving/configuration.wat");
+        let source = include_str!("../../../extensions/apps/engraving/configuration.wat");
         let engraving = Sandbox::new(source).unwrap();
         assert!(engraving.validate_contribution(300).unwrap());
         assert!(!engraving.validate_contribution(-1).unwrap());
@@ -214,7 +214,7 @@ mod tests {
     }
     #[test]
     fn real_guest_execution() {
-        let s = Sandbox::new(include_str!("../extensions/company-limit.wat")).unwrap();
+        let s = Sandbox::new(include_str!("../../../extensions/company-limit.wat")).unwrap();
         assert!(s.approve(100, 200).unwrap());
         assert!(!s.approve(201, 200).unwrap());
     }
@@ -222,16 +222,20 @@ mod tests {
     fn example_policies_and_boundaries() {
         let cases = [
             (
-                include_str!("../extensions/budget-reserve.wat"),
+                include_str!("../../../extensions/budget-reserve.wat"),
                 90000,
                 90001,
             ),
             (
-                include_str!("../extensions/single-order-cap.wat"),
+                include_str!("../../../extensions/single-order-cap.wat"),
                 25000,
                 25001,
             ),
-            (include_str!("../extensions/minimum-order.wat"), 5000, 4999),
+            (
+                include_str!("../../../extensions/minimum-order.wat"),
+                5000,
+                4999,
+            ),
         ];
         for (source, allowed, blocked) in cases {
             let guest = Sandbox::new(source).unwrap();

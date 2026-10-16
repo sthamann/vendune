@@ -16,6 +16,7 @@ mod history;
 mod http_limits;
 mod localization;
 mod marketing;
+mod observability;
 mod operations;
 mod payments;
 mod pos;

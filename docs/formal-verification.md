@@ -21,7 +21,7 @@ extend its proof scope. [Release acceptance and measured gaps](release-acceptanc
 ```text
 HTTP / MCP / storefront
         ↓
-Production Rust operations → src/verified_kernel.rs and verified_kernel/fulfillment.rs
+Production Rust operations → crates/kernel/src/verified_kernel.rs and verified_kernel/fulfillment.rs
                                       ↓ closed typed extraction
                               Commerce/Generated.lean
                                       ↓
@@ -50,7 +50,7 @@ they do not prove the translator correct for every program.
 
 | Production policy | Lean guarantee | Actual consumer |
 |---|---|---|
-| `discount_cap` | Discount is bounded by both requested amount and goods total; remainder plus discount conserves the total | `src/discount.rs` |
+| `discount_cap` | Discount is bounded by both requested amount and goods total; remainder plus discount conserves the total | `crates/commerce/src/discount.rs` |
 | `stock_admissible` | Admitted quantities are positive, within stock and conserve stock under subtraction | `src/order_checkout.rs`, `src/commerce/external_orders.rs` |
 | `refund_admissible` | Prior/reserved plus requested refund cannot exceed captured amount; zero refunds fail | `src/payments/operations.rs` |
 | `revision_admissible` | Admission requires an exact positive revision | `src/commerce/fulfillment.rs` |
@@ -254,7 +254,7 @@ The provider extension adds `reservation_release_admissible`: only uncaptured at
 Three further extracted decisions add seven properties: `currency_scale_admissible`
 limits decimal precision, `resource_quota_admissible` admits positive bounded operator
 limits, and `payment_transition_admissible` defines the monotonic ledger graph,
-including late capture. `src/money.rs`, `src/platform/quotas.rs` and
+including late capture. `crates/commerce/src/money.rs`, `src/platform/quotas.rs` and
 `src/payments/state.rs` are their real consumers. The reviewed manifest now has
 34 policies and 72 named theorems; compiled Rust/Lean comparisons and negative
 mutations remain required. These proofs do not cover signed integer parsing,

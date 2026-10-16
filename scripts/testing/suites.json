@@ -87,7 +87,8 @@
     "marketplaces",
     "shipping_contract",
     "grid_directory",
-    "visual_workspace"
+    "visual_workspace",
+    "outbox_subscribers"
   ],
   "browser_contracts": [
     "analytics",

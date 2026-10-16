@@ -3,6 +3,7 @@
 from testing.app_approval import consent
 from testing.database import psql
 import os,json,pathlib,subprocess,threading,time,urllib.request,urllib.error,uuid,socket
+from testing.native_tools import response as native_response
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 root=pathlib.Path(__file__).resolve().parents[1];captured=[];behavior={'mode':'app'}
 model_waiting=threading.Event();model_release=threading.Event()
@@ -23,12 +24,13 @@ class Model(BaseHTTPRequestHandler):
     answer={'answer':{'de-DE':'Die Tasse ist spülmaschinenfest.','fr-FR':'La tasse passe au lave-vaisselle.','es-ES':'La taza es apta para lavavajillas.'}.get(behavior['mode'],'The cup is dishwasher safe.'),'source_ids':[source] if source and not behavior.get('uncited') else [],'missing_information':source is None}
    schema=b.get('text',{}).get('format',{}).get('schema') or b.get('output_config',{}).get('format',{}).get('schema') or b.get('format',{})
    if 'patch' in schema.get('properties',{}):answer={'summary':labels,'patch':[{'op':'add','path':'/views/0/blocks/-','valueJson':json.dumps({'id':'edited_note','kind':'text','title':labels})}]}
-   if schema.get('required')==['tool_calls']:answer={'tool_calls':[]}
+   if b.get('tools'):answer={'tool_calls':[]}
    out={'status':'completed','output':[{'content':[{'type':'output_text','text':json.dumps(answer)}]}]}
   if self.path.endswith('/messages'):out={'stop_reason':'end_turn','content':[{'type':'text','text':json.dumps(answer)}]}
   if self.path!='/api/embed' and behavior.get('pause'):
    model_waiting.set()
    assert model_release.wait(15),'Question race fixture was not released'
+  if b.get('tools'):out=native_response(b,answer,'anthropic' if self.path.endswith('/messages') else 'ollama' if self.path=='/api/chat' else 'openai')
   self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(json.dumps(out).encode())
 server=ThreadingHTTPServer(('127.0.0.1',0),Model);threading.Thread(target=server.serve_forever,daemon=True).start();port=server.server_address[1]
 sock=socket.socket();sock.bind(('127.0.0.1',0));test_port=sock.getsockname()[1];sock.close()

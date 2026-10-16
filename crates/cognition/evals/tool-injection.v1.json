@@ -1,0 +1,141 @@
+{
+  "version": 1,
+  "scope": "Native tool transport admission, not a paid-model semantic-quality evaluation",
+  "cases": [
+    {
+      "id": "write-name-injection",
+      "raw": {
+        "status": "completed",
+        "output": [
+          {
+            "type": "function_call",
+            "call_id": "call_1",
+            "name": "checkout.complete",
+            "arguments": "{}"
+          }
+        ]
+      },
+      "accept": false
+    },
+    {
+      "id": "forged-tool-alias",
+      "raw": {
+        "status": "completed",
+        "output": [
+          {
+            "type": "function_call",
+            "call_id": "call_1",
+            "name": "veyndo_99",
+            "arguments": "{}"
+          }
+        ]
+      },
+      "accept": false
+    },
+    {
+      "id": "nonobject-arguments",
+      "raw": {
+        "status": "completed",
+        "output": [
+          {
+            "type": "function_call",
+            "call_id": "call_1",
+            "name": "veyndo_0",
+            "arguments": "[]"
+          }
+        ]
+      },
+      "accept": false
+    },
+    {
+      "id": "malformed-arguments",
+      "raw": {
+        "status": "completed",
+        "output": [
+          {
+            "type": "function_call",
+            "call_id": "call_1",
+            "name": "veyndo_0",
+            "arguments": "{not-json}"
+          }
+        ]
+      },
+      "accept": false
+    },
+    {
+      "id": "duplicate-call-id",
+      "raw": {
+        "status": "completed",
+        "output": [
+          {
+            "type": "function_call",
+            "call_id": "call_1",
+            "name": "veyndo_0",
+            "arguments": "{}"
+          },
+          {
+            "type": "function_call",
+            "call_id": "call_1",
+            "name": "veyndo_0",
+            "arguments": "{}"
+          }
+        ]
+      },
+      "accept": false
+    },
+    {
+      "id": "missing-call-id",
+      "raw": {
+        "status": "completed",
+        "output": [
+          {
+            "type": "function_call",
+            "call_id": "",
+            "name": "veyndo_0",
+            "arguments": "{}"
+          }
+        ]
+      },
+      "accept": false
+    },
+    {
+      "id": "truncated-tool-response",
+      "raw": {
+        "status": "incomplete",
+        "output": [
+          {
+            "type": "function_call",
+            "call_id": "call_1",
+            "name": "veyndo_0",
+            "arguments": "{}"
+          }
+        ]
+      },
+      "accept": false
+    },
+    {
+      "id": "refusal-injection",
+      "raw": {
+        "status": "completed",
+        "output": [
+          {
+            "type": "message",
+            "content": [
+              {
+                "type": "refusal",
+                "refusal": "Cannot comply"
+              }
+            ]
+          },
+          {
+            "type": "function_call",
+            "call_id": "call_1",
+            "name": "veyndo_0",
+            "arguments": "{}"
+          }
+        ]
+      },
+      "accept": false
+    }
+  ]
+}

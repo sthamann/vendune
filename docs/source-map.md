@@ -124,7 +124,7 @@ See [international commerce](international-commerce.md) for the exact contract.
 | [`src/experience.rs`](../src/experience.rs) | Persisted storefront layout policy and observed synthetic rewards. | `integration.py + protocols.py + studio.py + restart.py` |
 | [`src/extensions.rs`](../src/extensions.rs) | Merchant catalogue and Wasm extension activation/state. | `integration.py + users.py + extensions.py + restart.py` |
 | [`src/foundation.rs`](../src/foundation.rs) | Application dependencies, error responses and request context helpers. | `protocols.py + integration.py + commerce.py + users.py` |
-| [`src/inference.rs`](../src/inference.rs) | Provider adapters. Credentials stay on the server; domain validation is separate. | `Rust parsing/schema tests + providers.py + live intelligence.py/studio.py` |
+| [`crates/cognition/src/inference.rs`](../crates/cognition/src/inference.rs) | Provider adapters. Credentials stay on the server; domain validation is separate. | `Rust parsing/schema tests + providers.py + live intelligence.py/studio.py` |
 | [`src/knowledge.rs`](../src/knowledge.rs) | Transactional PostgreSQL relations and private Qdrant retrieval with authoritative tenant/model/digest hydration. | `intelligence.py + studio.py + users.py + restart.py` |
 | [`src/lib.rs`](../src/lib.rs) | Reusable pricing, context, sandbox, graph and inference modules. | `server startup/build + integration.py + structure.py` |
 | [`src/localization.rs`](../src/localization.rs) | Shop locale resolution, translated catalog hydration and non-mutating merchant quote. | `studio.py + context_differential.py + commerce.py` |
@@ -134,12 +134,12 @@ See [international commerce](international-commerce.md) for the exact contract.
 | [`src/order_routes.rs`](../src/order_routes.rs) | Merchant order read adapter. | `integration.py + commerce.py + protocols.py + users.py + restart.py` |
 | [`src/outbox.rs`](../src/outbox.rs) | Durable outbox and audit projection worker. | `integration.py + protocols.py + studio.py + restart.py` |
 | [`src/planner.rs`](../src/planner.rs) | Grounded model planning, recorded inputs and proposed changes. | `providers.py + live intelligence.py/studio.py + protocols.py` |
-| [`src/pricing.rs`](../src/pricing.rs) | Behavioral port of Shopware 6.7.14.2 quantity calculators. | `differential.py + delivery_differential.py + Rust numeric regressions + commerce.py` |
+| [`crates/commerce/src/pricing.rs`](../crates/commerce/src/pricing.rs) | Behavioral port of Shopware 6.7.14.2 quantity calculators. | `differential.py + delivery_differential.py + Rust numeric regressions + commerce.py` |
 | [`src/proposal_apply.rs`](../src/proposal_apply.rs) | Transactional application of approved, revision-bound proposals. | `providers.py + live intelligence.py/studio.py + protocols.py` |
 | [`src/proposal_model.rs`](../src/proposal_model.rs) | Typed proposals and validation before persistence or execution. | `providers.py + live intelligence.py/studio.py + protocols.py` |
 | [`src/proposal_routes.rs`](../src/proposal_routes.rs) | HTTP proposal creation, approval and task listing. | `providers.py + live intelligence.py/studio.py + protocols.py` |
 | [`src/routes.rs`](../src/routes.rs) | HTTP transport registry; domain behavior lives in dedicated modules. | `protocols.py + integration.py + commerce.py + users.py` |
-| [`src/sandbox.rs`](../src/sandbox.rs) | Pure Wasmtime guest execution with bounded resources and no host imports. | `Rust guest boundary tests + protocols.py + extensions.py + restart.py` |
+| [`crates/apps/src/sandbox.rs`](../crates/apps/src/sandbox.rs) | Pure Wasmtime guest execution with bounded resources and no host imports. | `Rust guest boundary tests + protocols.py + extensions.py + restart.py` |
 | [`src/seed.rs`](../src/seed.rs) | Idempotent synthetic template catalogue initialization. | `integration.py + users.py + extensions.py + restart.py` |
 | [`src/studio.rs`](../src/studio.rs) | Verified merchant overview facts consumed by the chat and activity views. | `studio.py + users.py` |
 | [`src/ucp/`](../src/ucp/) | Checkout transport, native projection, profile/version selection and vendor B2B negotiation adapter. | `protocols.py + b2b_ucp.py + b2b.py + tenant_isolation.py` |
@@ -254,7 +254,7 @@ Shopware compatibility claim is made.
 | `src/auth/provision.rs`, `registration.rs` | Shared synthetic template provisioning for first and additional owned shops | `marketing_accounts.py`, `users.py` |
 | `src/marketing/{rules,promotions,flows,channels,routes,mod}.rs` | Bounded AST, authoritative campaigns, durable note/proposal jobs and sales-channel scope | Rust rule tests, `marketing_accounts.py`, `developer_documents.py` |
 | `src/rule_comparison.rs`, `src/bin/rules.rs`, `reference/rules.php` | Original Shopware numeric comparison behavior, independent batch oracle | `rule_differential.py`: 1,280 comparisons |
-| `src/discount.rs` | Exact-cent proportional basket discount allocation | Rust conservation/bounds tests, concurrent coupon HTTP checkout |
+| `crates/commerce/src/discount.rs` | Exact-cent proportional basket discount allocation | Rust conservation/bounds tests, concurrent coupon HTTP checkout |
 | `src/commerce/product_edit.rs` | Revision-bound translations and advanced metadata; own product/reference validation | `marketing_accounts.py` and selected release |
 | `src/experience.rs` | Persisted layout policy plus owned-session signal ranking/clearing | `intelligence.py`, `marketing_accounts.py` |
 | `frontend/src/admin/{developer,environments,storyfronts,automation,catalog}/` | Dedicated merchant workbench forms and review surfaces | Strict frontend build, actual browser review |
@@ -306,7 +306,7 @@ this does not claim every source line or every original Shopware operation is co
 
 | File | Responsibility | Verification |
 |---|---|---|
-| [`src/verified_kernel.rs`](../src/verified_kernel.rs) | 51 pure production admission/cap policies | 110 Lean theorems; compiled Rust/Lean conformance; broken-policy mutations |
+| [`crates/kernel/src/verified_kernel.rs`](../crates/kernel/src/verified_kernel.rs) | 51 pure production admission/cap policies | 110 Lean theorems; compiled Rust/Lean conformance; broken-policy mutations |
 | [`src/bin/verified_kernel.rs`](../src/bin/verified_kernel.rs) | Generated JSON comparison driver calling the real policy module | 155,347 comparison cases; generated drift guard |
 | [`src/payments/receipt_guard.rs`](../src/payments/receipt_guard.rs) | Checked amount conversion and provider receipt policy binding | `payments.py`; reviewed binding, not a proof of the parser |
 
@@ -477,7 +477,7 @@ reads, historical preservation and display. See [the measurement boundary](platf
 ## Core hardening owners
 
 - `src/request_context.rs`, `src/auth/{route_policy,identity,abuse,dto}.rs` and `identity.sql`: trusted Principal, explicit method rights, one current grant lookup, persistent login admission and typed auth requests.
-- `src/scoped_pool.rs`, `src/performance/{pool,row_security,cluster_lease}.rs`, `src/runtime_config.rs`: local transaction scope, guarded session borrows, validated startup contracts and shared resource/connection budgets.
+- `crates/runtime/src/scoped_pool.rs`, `src/performance/{pool,row_security,cluster_lease}.rs`, `src/runtime_config.rs`: local transaction scope, guarded session borrows, validated startup contracts and shared resource/connection budgets.
 - `src/sandbox_cache.rs`, `src/apps/runtime.rs`, `src/assets/image_provider.rs`: bounded Wasm compilation/execution cache and blocking-pool image processing.
 - `src/work_signal.rs`, `src/outbox.rs`, `src/outbox/{control,retention}.rs`, `retention.sql` and migration 057: commit hints, isolated retries/quarantine, permission-checked recovery and bounded retention.
 - `deploy/sql/provision-runtime.sh`, `scripts/security/core_hardening.py`, `scripts/testing/pooler.py`, `scripts/transaction_pooler.py`: least-privilege provisioning and actual two-replica/one-backend PgBouncer regression paths.
@@ -599,7 +599,7 @@ Experience owner implements email recovery/forms and rechecks current native pro
 | `src/operations/{delivery_booking,order_documents}.rs`, `src/apps/{core_documents,package_fence}.rs`, migration 092 | Native package intent and immutable private PDF admission with the existing receipt/RLS/quota owner; original app/key acknowledgement, unknown-effect fences and customer-only return documents. |
 | `src/apps/jobs.rs`, `src/marketing/app_flows.rs` | Current actor/action/digest admission for job results, minimized list projections and stable Flow-to-job identity; `shipping_contract.py` drives a real local service, restart and rights revocation. |
 | `extensions/apps/assistant-examples/shipping.json`, `admin/developer/assistant-model.ts` | One carrier-neutral job/callback declaration for coding and visual assistants. No carrier protocol or deployable provider is shipped. |
-| `src/verified_kernel/fulfillment.rs` | Extracted strict-subset and carrier-intent decisions, Lean statements, compiled conformance and negative mutations; surrounding SQL/network effects remain tested rather than proved. |
+| `crates/kernel/src/verified_kernel/fulfillment.rs` | Extracted strict-subset and carrier-intent decisions, Lean statements, compiled conformance and negative mutations; surrounding SQL/network effects remain tested rather than proved. |
 
 ## Shared agentic grids — 14 October 2026
 

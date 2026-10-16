@@ -93,6 +93,50 @@ impl Money {
             currency,
         ))
     }
+    /// Round a decimal wire amount to the configured minor unit, halfway away from zero.
+    /// Decimal digits are authoritative: multiplying a binary float never decides a tie.
+    pub fn rounded(value: &str, currency: Currency) -> Result<Self, &'static str> {
+        if value.len() > 64 {
+            return Err("Amount overflow");
+        }
+        let (negative, value) = value
+            .strip_prefix('-')
+            .map(|v| (true, v))
+            .unwrap_or((false, value));
+        let (major, fraction) = value.split_once('.').unwrap_or((value, ""));
+        if major.is_empty()
+            || !major.bytes().all(|b| b.is_ascii_digit())
+            || !fraction.bytes().all(|b| b.is_ascii_digit())
+        {
+            return Err("Decimal amount required");
+        }
+        let scale = currency.scale as usize;
+        let kept = format!(
+            "{:0<width$}",
+            fraction.chars().take(scale).collect::<String>(),
+            width = scale
+        );
+        let mut absolute = major
+            .parse::<i128>()
+            .map_err(|_| "Amount overflow")?
+            .checked_mul(currency.factor() as i128)
+            .and_then(|v| {
+                v.checked_add(if kept.is_empty() {
+                    0
+                } else {
+                    kept.parse::<i128>().ok()?
+                })
+            })
+            .ok_or("Amount overflow")?;
+        if fraction.as_bytes().get(scale).is_some_and(|d| *d >= b'5') {
+            absolute = absolute.checked_add(1).ok_or("Amount overflow")?;
+        }
+        let signed = if negative { -absolute } else { absolute };
+        Ok(Self::new(
+            i64::try_from(signed).map_err(|_| "Amount overflow")?,
+            currency,
+        ))
+    }
     pub fn decimal(&self) -> String {
         let absolute = self.minor.unsigned_abs();
         let factor = self.currency.factor() as u64;
@@ -206,6 +250,41 @@ mod tests {
                     (total * 100.).round() as i64
                 );
             }
+        }
+    }
+}
+
+#[cfg(test)]
+mod decimal_rounding {
+    use super::*;
+    #[test]
+    fn ties_signs_scales_and_overflow_are_exact() {
+        for (text, scale, expected) in [
+            ("1.005", 2, 101),
+            ("-1.005", 2, -101),
+            ("1.004999999999", 2, 100),
+            ("0.005", 2, 1),
+            ("1.5", 0, 2),
+            ("1.2345", 3, 1235),
+            ("92233720368547758.07", 2, i64::MAX),
+            ("-92233720368547758.08", 2, i64::MIN),
+        ] {
+            assert_eq!(
+                Money::rounded(text, Currency::new("EUR", scale).unwrap())
+                    .unwrap()
+                    .minor(),
+                expected
+            );
+        }
+        for text in [
+            "NaN",
+            "Infinity",
+            "1e10",
+            "1.2.3",
+            "92233720368547758.08",
+            "-92233720368547758.09",
+        ] {
+            assert!(Money::rounded(text, Currency::eur()).is_err());
         }
     }
 }

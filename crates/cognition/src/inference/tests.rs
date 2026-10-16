@@ -30,7 +30,7 @@ fn provider_protocols_and_incomplete_output() {
 #[test]
 fn app_presentation_schema_supports_strict_provider_generation() {
     let bundled: Value =
-        serde_json::from_str(include_str!("../../fixtures/app-studio-schema.json")).unwrap();
+        serde_json::from_str(include_str!("../../../../fixtures/app-studio-schema.json")).unwrap();
     let schema = strict_schema(bundled);
     let p = &schema["properties"]["manifest"]["properties"]["presentation"]["anyOf"][0];
     assert_eq!(p["required"], json!(["cover", "description", "icon"]));

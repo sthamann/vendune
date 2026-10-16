@@ -43,6 +43,7 @@ pub(crate) async fn save(a: &App, key: &str, value: &Value) -> Result<()> {
     }
     Ok(())
 }
+#[tracing::instrument(skip_all,fields(trace_id=%veyndo::trace::current()))]
 pub(crate) async fn model(
     a: &App,
     h: &RequestContext,

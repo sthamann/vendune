@@ -1,0 +1,38 @@
+{
+  "verifiedAt": "2026-10-16T12:30:06Z",
+  "scope": "Public original Storyfront, native embedded Veyndo checkout, simulated payment only",
+  "experience": "https://lumen-story-lab-15-o-98aa4751fa.veyndo.ai/",
+  "checkoutOrigin": "https://app.veyndo.ai",
+  "browser": "Chrome, fresh private session, native UI automation",
+  "result": "passed",
+  "order": {
+    "number": "RAC-b359e75d",
+    "currency": "EUR",
+    "totalMinor": 2490,
+    "quantity": 1,
+    "locale": "de-DE",
+    "payment": "simulated authorized",
+    "productName": "Synthetisches Demo-Produkt: Keramiktasse Sandweiß"
+  },
+  "observations": [
+    "Checkout stayed in the original Storyfront dialog and experience URL.",
+    "Contact, billing, shipping and simulated payment controls loaded in the iframe.",
+    "German immutable order confirmation displayed the correct product, quantity and total.",
+    "Returning to the experience showed an empty original bag and the verified-completion message."
+  ],
+  "diagnostic": {
+    "originalControlledTab": "Iframe document remained about:blank; raw browser diagnostics reported a paused document response.",
+    "control": "Fresh native-UI browser session completed the same public embedded journey without changing server configuration or security policies.",
+    "boundary": "This isolates the observed blank controlled tab from a general public checkout failure. It does not prove that every user browser or real provider redirect works."
+  },
+  "screenshots": [
+    "images/checkout-2026-10-16/embedded-review.png",
+    "images/checkout-2026-10-16/embedded-confirmation.png",
+    "images/checkout-2026-10-16/storyfront-bag-cleared.png"
+  ],
+  "limitations": [
+    "No real payment capture, order-mail delivery, invoice or refund was accepted.",
+    "The new interrupted-frame loading/retry UX is a local upstream change and is not part of this public deployment.",
+    "No merchant credentials or shopper cart capabilities are included in this record."
+  ]
+}

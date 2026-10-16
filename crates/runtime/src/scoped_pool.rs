@@ -119,8 +119,12 @@ fn begin_statement(scope: Scope, read_only: bool) -> Result<String, Error> {
     } else {
         "BEGIN"
     };
+    let trace = crate::trace::current();
+    debug_assert!(
+        trace.is_empty() || trace.len() == 32 && trace.bytes().all(|b| b.is_ascii_hexdigit())
+    );
     Ok(format!(
-        "{begin}; SET LOCAL rac.tenant = '{tenant}'; SET LOCAL rac.actor = '{actor}'; SET LOCAL rac.system = '{system}'; SET LOCAL veyndo.scope_ticket = ''"
+        "{begin}; SET LOCAL rac.tenant = '{tenant}'; SET LOCAL rac.actor = '{actor}'; SET LOCAL rac.system = '{system}'; SET LOCAL veyndo.scope_ticket = ''; SET LOCAL veyndo.trace_id = '{trace}'"
     ))
 }
 impl<'c> Executor<'c> for &'c ScopedPool {

@@ -1,5 +1,15 @@
 # Changelog
 
+## Compiler boundaries, native tools and independent subscribers — 2026-10-16
+
+- Extract real kernel, runtime, commerce, app sandbox and cognition-provider crates into a Cargo workspace. Keep existing native handlers as composition owners; dependency checks reject reverse domain imports. This is an initial compiler boundary, not a complete rewrite of every root handler.
+- Use native OpenAI Responses/Chat, Claude and Ollama read tool calls with exact tool aliases, correlation IDs, bounded private continuation and current authorization. Preserve durable native task checkpoints and proposal review.
+- Version four central prompts and record template/rendered digests in model usage. Generate request OpenAPI, TypeScript and WIT from the compiled operation registry; output DTO completion remains open.
+- Add independent cognition/apps/flows/audit outbox checkpoints, isolated retry/quarantine and fresh-snapshot aggregate acknowledgement. Correlate native requests, SQL transactions, tasks, model calls and deliveries without logging bodies or capabilities. Migration 103 is not publicly applied by this documentation update.
+- Remove binary multiplication from the final decimal-to-minor-unit currency boundary and test signed halfway/overflow cases. The broader floating-point pricing migration remains open.
+- Replace the oversized README with a concise entry point, add the canonical status page and documentation hygiene checks, and move detailed instructions into scoped AGENTS files.
+- Renew public original Storyfront iframe acceptance with simulated order RAC-b359e75d, German product labels, verified completion and a cleared original bag. Record the controlled-tab document pause separately; no real payment/mail/refund claim. Public Google sign-in/reload/logout passed; Apple's new callback remains rejected by its provider configuration.
+
 ## Connected merchant price boundaries — 2026-10-16
 
 - Replace the clipped knowledge tab strip with grouped navigation and a labelled mobile selector.

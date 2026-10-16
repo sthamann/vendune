@@ -269,8 +269,6 @@ This lists every checked-in source module in these roots, including files with n
 | [src/commerce/tax_context.rs](../src/commerce/tax_context.rs) | Tax conditions consume private authoritative pre-tax cart facts without a recursive quote. |
 | [src/commerce/tax_rules.rs](../src/commerce/tax_rules.rs) | Priority-based destination rules; current tax law is merchant configuration, not bundled tax advice. |
 | [src/commerce/types.rs](../src/commerce/types.rs) | Checkout selection and configuration data contracts. |
-| [src/component_runtime/abi.rs](../src/component_runtime/abi.rs) | Exact, operator-configured WIT namespace compatibility with the same bounded host. |
-| [src/component_runtime.rs](../src/component_runtime.rs) | WIT-typed read-only commerce guest. Snapshots are prepared by domain owners; no WASI, HTTP, DB or merchant credentials reach components. |
 | [src/concierge.rs](../src/concierge.rs) | Read-only storefront shopping advisor. |
 | [src/context.rs](../src/context.rs) | Bounded behavioral ports of Shopware 6.7.14.2 context and product-cart selection. |
 | [src/currencies/capabilities.rs](../src/currencies/capabilities.rs) | Currency MCP operations reuse the native HTTP handlers and existing settings/catalog permissions. |
@@ -282,8 +280,6 @@ This lists every checked-in source module in these roots, including files with n
 | [src/currencies/routes.rs](../src/currencies/routes.rs) | Native currency discovery, revision-safe selection and authenticated FX/price job operations. |
 | [src/currencies/tests.rs](../src/currencies/tests.rs) | Currency conversion adversaries and immutable source-price semantics, independent of live rate providers. |
 | [src/customer.rs](../src/customer.rs) | Customer credential verification and context rotation. |
-| [src/database_scope/provision.rs](../src/database_scope/provision.rs) | Migration-only authority rollout commands; role passwords never pass through command arguments or output. |
-| [src/database_scope.rs](../src/database_scope.rs) | Role-bound database scope tickets; private signing material never enters requests or app contexts. |
 | [src/demo_catalog.rs](../src/demo_catalog.rs) | Public synthetic fashion template; provisioning copies only this versioned fixture into a new tenant. |
 | [src/developer/agent_connection.rs](../src/developer/agent_connection.rs) | Credential-free local coding-agent connection shared by native editors. |
 | [src/developer/archive.rs](../src/developer/archive.rs) | Recoverable App Studio project deletion; installed packages and app records retain their independent lifecycle. |
@@ -295,7 +291,6 @@ This lists every checked-in source module in these roots, including files with n
 | [src/developer/mod.rs](../src/developer/mod.rs) | Prompt-generated declarative apps and native coding-agent handoff, never unsandboxed model code. |
 | [src/developer/preview.rs](../src/developer/preview.rs) | F5 runs the shared native app runtime in an actor-private expiring staging clone; no build/version/release is created. |
 | [src/developer/routes.rs](../src/developer/routes.rs) | Developer HTTP transport and coding-agent task export; explicit staging precedes live release. |
-| [src/discount.rs](../src/discount.rs) | Integer-cent proportional discount allocation; cumulative rounding conserves the exact basket discount. |
 | [src/documents/content.rs](../src/documents/content.rs) | Validate enabled-language source content and rebuild hash-bound chunks without inherited fabricated translations. |
 | [src/documents/ingestion.rs](../src/documents/ingestion.rs) | Typed API and bounded upload write source hashes, chunks and graph relations atomically. |
 | [src/documents/lifecycle.rs](../src/documents/lifecycle.rs) | Revision-bound source detail, editing, archive/restore and publication; edits require a new public review. |
@@ -316,13 +311,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/history/product.rs](../src/history/product.rs) | Rebuild a product edit from an audited snapshot; stock stays current and all associations/media pass normal admission. |
 | [src/history/restore.rs](../src/history/restore.rs) | Restore snapshots by replaying validated entity edits; financial effects and publication are never copied from historical state. |
 | [src/history/routes.rs](../src/history/routes.rs) | History summaries are bounded and permission-filtered; full snapshots and restore targets stay inside the owning shop. |
-| [src/http_json.rs](../src/http_json.rs) | Bound untrusted provider JSON before allocation/deserialization; connection pooling remains with each existing service owner. |
 | [src/http_limits.rs](../src/http_limits.rs) | Bounded streaming responses for extension services and payment providers. |
-| [src/inference/protocol.rs](../src/inference/protocol.rs) | Self-hosted chat-completions adapter and opt-in provider prompt caching; neither caches private commerce responses. |
-| [src/inference/schema.rs](../src/inference/schema.rs) | Provider wire adaptation for strict fixed-object schemas; dynamic JSON is encoded only on the model wire and restored before domain validation. |
-| [src/inference/settings.rs](../src/inference/settings.rs) | Shared operator settings; AES-GCM secrets are never part of merchant/operator read responses. |
-| [src/inference/tests.rs](../src/inference/tests.rs) | Provider response contracts, strict schemas and truncation rejection. |
-| [src/inference.rs](../src/inference.rs) | Provider adapters. Credentials stay on the server; domain validation is separate. |
 | [src/knowledge/embeddings.rs](../src/knowledge/embeddings.rs) | Bounded batched embeddings: Ollama and OpenAI-compatible self-hosted endpoints, model-defined dimensions. |
 | [src/knowledge/relations.rs](../src/knowledge/relations.rs) | Keep knowledge provenance and relations in the same transaction as canonical commerce data. |
 | [src/knowledge/rerank.rs](../src/knowledge/rerank.rs) | Optional TEI cross-encoder reranking on at most 24 tenant-hydrated texts; malformed or unavailable providers retain fused ordering. |
@@ -381,8 +370,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/migrations/recent_schema.rs](../src/migrations/recent_schema.rs) | Later additive migrations retain the same ordered ledger and checksum contract. |
 | [src/migrations/schema.rs](../src/migrations/schema.rs) | Append-only ordered migration source catalogue; deployed checksums are never rewritten. |
 | [src/migrations.rs](../src/migrations.rs) | Versioned setup is separate from serving; no catalog-wide startup repair. |
-| [src/money.rs](../src/money.rs) | Exact signed minor-unit amounts with explicit currency scale; legacy Shopware float pricing stays isolated. |
-| [src/network_policy.rs](../src/network_policy.rs) | Shared DNS destination classification for app HTTP egress and approved SMTP providers. |
+| [src/observability.rs](../src/observability.rs) | Server-generated request correlation and safe structured events, without tokens, query strings or bodies. |
 | [src/operations/addresses.rs](../src/operations/addresses.rs) | Merchant/MCP address operations use identical customer ownership and revision checks to the Store API. |
 | [src/operations/company_logo.rs](../src/operations/company_logo.rs) | Tenant-owned logo uploads: bounded decoding, metadata stripping, immutable PNG storage and linked public delivery. |
 | [src/operations/company_model.rs](../src/operations/company_model.rs) | Company profile admission, sparse channel inheritance and structured-address print projection. |
@@ -466,7 +454,6 @@ This lists every checked-in source module in these roots, including files with n
 | [src/pos/settlement.rs](../src/pos/settlement.rs) | Exact cash admission and order annotation execute in the existing checkout transaction. |
 | [src/pos/workspace_gateway.rs](../src/pos/workspace_gateway.rs) | Cashier workspace commands delegate to CRM, native discounts and immutable receipt projection. |
 | [src/prelude.rs](../src/prelude.rs) | Shared dependency names for native domain modules; no process setup or business rules. |
-| [src/pricing.rs](../src/pricing.rs) | Behavioral port of Shopware 6.7.14.2 quantity calculators. |
 | [src/proposal_apply.rs](../src/proposal_apply.rs) | Transactional application of approved, revision-bound proposals. |
 | [src/proposal_model.rs](../src/proposal_model.rs) | Typed proposals and validation before persistence or execution. |
 | [src/proposal_routes.rs](../src/proposal_routes.rs) | HTTP proposal creation, approval and task listing. |
@@ -474,10 +461,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/routes.rs](../src/routes.rs) | HTTP transport registry; domain behavior lives in dedicated modules. |
 | [src/rule_comparison.rs](../src/rule_comparison.rs) | Behavioral port of Shopware 6.7.14.2 RuleComparison::numeric and FloatComparator's exact epsilon boundaries. |
 | [src/runtime_config.rs](../src/runtime_config.rs) | Immutable process configuration, validated once at startup. Mutable shop/provider settings remain in PostgreSQL. |
-| [src/sandbox.rs](../src/sandbox.rs) | Pure Wasmtime guest execution with bounded resources and no host imports. |
 | [src/sandbox_cache.rs](../src/sandbox_cache.rs) | Bounded tenant-policy compilation cache. Prepare outside commerce locks; verify the digest under the lock. |
-| [src/sandbox_engine.rs](../src/sandbox_engine.rs) | One bounded Wasmtime engine per process, with independent fuel and wall-clock interruption. |
-| [src/scoped_pool.rs](../src/scoped_pool.rs) | The commerce database executor: transaction-local tenant scope, including direct queries and cancelled streams. |
 | [src/security_headers.rs](../src/security_headers.rs) | Common browser defenses on successful responses and errors, including reverse-proxy HTTPS deployments. |
 | [src/seed.rs](../src/seed.rs) | Idempotent synthetic template catalogue initialization. |
 | [src/shop_domains/frontend_bindings.rs](../src/shop_domains/frontend_bindings.rs) | Revisioned aliases point to an existing tenant-owned Experience; origin selection remains operator-only. |
@@ -501,7 +485,6 @@ This lists every checked-in source module in these roots, including files with n
 | [src/studio/personal.rs](../src/studio/personal.rs) | Actor-private workspace preferences; HTTP and MCP share CAS, bounds and the current membership. |
 | [src/studio/revenue.rs](../src/studio/revenue.rs) | Merchant turnover remains separated by invoice currency; historical values are never repriced with today's FX. |
 | [src/studio.rs](../src/studio.rs) | Verified merchant overview facts consumed by the chat and activity views. |
-| [src/tenant_scope.rs](../src/tenant_scope.rs) | Database lease context: unknown tasks fail closed; trusted workers explicitly retain their scope. |
 | [src/translations/apply.rs](../src/translations/apply.rs) | Apply at most 50 reviewed drafts per request; stale products become conflicts rather than being overwritten. |
 | [src/translations/fields.rs](../src/translations/fields.rs) | Translate only human-readable text; preserve identifiers, URLs, rich structure and source specification keys. |
 | [src/translations/mod.rs](../src/translations/mod.rs) | Tenant-scoped, resumable AI translation drafts; applying is revision checked and emits native product events. |
@@ -512,11 +495,45 @@ This lists every checked-in source module in these roots, including files with n
 | [src/ucp/mod.rs](../src/ucp/mod.rs) | UCP transport adapters reuse native cart, B2B, pricing, approval and checkout owners. |
 | [src/ucp/negotiation.rs](../src/ucp/negotiation.rs) | UCP B2B commands route to native RFQ/CAS/approval owners; a checkout token alone never identifies an employee. |
 | [src/ucp/profile.rs](../src/ucp/profile.rs) | Discover the versioned B2B extension and intersect opt-in platform profiles through bounded public HTTPS. |
-| [src/verified_kernel/app_intake.rs](../src/verified_kernel/app_intake.rs) | Pure public-intake admission; extracted independently of the surrounding SQL and HTTP. |
-| [src/verified_kernel/fulfillment.rs](../src/verified_kernel/fulfillment.rs) | Pure package allocation and carrier-intent admission; external facts and effects remain unproved. |
-| [src/verified_kernel.rs](../src/verified_kernel.rs) | Closed, side-effect-free commerce policies extracted to Lean; keep within the checked bool/u64 grammar. |
 | [src/work_signal.rs](../src/work_signal.rs) | One dedicated LISTEN connection per worker process. Commit notifications are hints; polling repairs lost hints. |
 | [src/workers.rs](../src/workers.rs) | Independently deployable worker roles; leases and durable receipts coordinate replicas. |
+
+## Compiler-enforced domain crates
+
+| Module | Responsibility |
+|---|---|
+| [crates/apps/src/component_runtime/abi.rs](../crates/apps/src/component_runtime/abi.rs) | Exact, operator-configured WIT namespace compatibility with the same bounded host. |
+| [crates/apps/src/component_runtime.rs](../crates/apps/src/component_runtime.rs) | WIT-typed read-only commerce guest. Snapshots are prepared by domain owners; no WASI, HTTP, DB or merchant credentials reach components. |
+| [crates/apps/src/lib.rs](../crates/apps/src/lib.rs) | Isolated app component execution; no HTTP, SQL or inference authority. |
+| [crates/apps/src/sandbox.rs](../crates/apps/src/sandbox.rs) | Pure Wasmtime guest execution with bounded resources and no host imports. |
+| [crates/apps/src/sandbox_engine.rs](../crates/apps/src/sandbox_engine.rs) | One bounded Wasmtime engine per process, with independent fuel and wall-clock interruption. |
+| [crates/cognition/src/inference/protocol.rs](../crates/cognition/src/inference/protocol.rs) | Self-hosted chat-completions adapter and opt-in provider prompt caching; neither caches private commerce responses. |
+| [crates/cognition/src/inference/schema.rs](../crates/cognition/src/inference/schema.rs) | Provider wire adaptation for strict fixed-object schemas; dynamic JSON is encoded only on the model wire and restored before domain validation. |
+| [crates/cognition/src/inference/settings.rs](../crates/cognition/src/inference/settings.rs) | Shared operator settings; AES-GCM secrets are never part of merchant/operator read responses. |
+| [crates/cognition/src/inference/tests.rs](../crates/cognition/src/inference/tests.rs) | Provider response contracts, strict schemas and truncation rejection. |
+| [crates/cognition/src/inference/tools/request.rs](../crates/cognition/src/inference/tools/request.rs) | Provider-native messages and correlated tool results, including opaque reasoning continuation. |
+| [crates/cognition/src/inference/tools/response.rs](../crates/cognition/src/inference/tools/response.rs) | Fail-closed normalization of bounded calls; malformed, truncated or unknown operations never execute. |
+| [crates/cognition/src/inference/tools/tests.rs](../crates/cognition/src/inference/tools/tests.rs) | Native wire and injection negative cases exercise the same parser used before dispatch. |
+| [crates/cognition/src/inference/tools.rs](../crates/cognition/src/inference/tools.rs) | Native provider read-tool transport; normalization grants no execution authority. |
+| [crates/cognition/src/inference.rs](../crates/cognition/src/inference.rs) | Provider adapters. Credentials stay on the server; domain validation is separate. |
+| [crates/cognition/src/lib.rs](../crates/cognition/src/lib.rs) | Provider protocol adapters and prompt evidence; no commerce write capability. |
+| [crates/cognition/src/prompts.rs](../crates/cognition/src/prompts.rs) | Versioned system-prompt provenance; no prompt text or private context is exposed in evidence. |
+| [crates/commerce/src/discount.rs](../crates/commerce/src/discount.rs) | Integer-cent proportional discount allocation; cumulative rounding conserves the exact basket discount. |
+| [crates/commerce/src/lib.rs](../crates/commerce/src/lib.rs) | Commerce amounts and deterministic calculation contracts; no transport or inference dependencies. |
+| [crates/commerce/src/money.rs](../crates/commerce/src/money.rs) | Exact signed minor-unit amounts with explicit currency scale; legacy Shopware float pricing stays isolated. |
+| [crates/commerce/src/pricing.rs](../crates/commerce/src/pricing.rs) | Behavioral port of Shopware 6.7.14.2 quantity calculators. |
+| [crates/kernel/src/lib.rs](../crates/kernel/src/lib.rs) | Pure extracted admission policies, without transport or database dependencies. |
+| [crates/kernel/src/verified_kernel/app_intake.rs](../crates/kernel/src/verified_kernel/app_intake.rs) | Pure public-intake admission; extracted independently of the surrounding SQL and HTTP. |
+| [crates/kernel/src/verified_kernel/fulfillment.rs](../crates/kernel/src/verified_kernel/fulfillment.rs) | Pure package allocation and carrier-intent admission; external facts and effects remain unproved. |
+| [crates/kernel/src/verified_kernel.rs](../crates/kernel/src/verified_kernel.rs) | Closed, side-effect-free commerce policies extracted to Lean; keep within the checked bool/u64 grammar. |
+| [crates/runtime/src/database_scope/provision.rs](../crates/runtime/src/database_scope/provision.rs) | Migration-only authority rollout commands; role passwords never pass through command arguments or output. |
+| [crates/runtime/src/database_scope.rs](../crates/runtime/src/database_scope.rs) | Role-bound database scope tickets; private signing material never enters requests or app contexts. |
+| [crates/runtime/src/http_json.rs](../crates/runtime/src/http_json.rs) | Bound untrusted provider JSON before allocation/deserialization; connection pooling remains with each existing service owner. |
+| [crates/runtime/src/lib.rs](../crates/runtime/src/lib.rs) | Shared scoped database and bounded network infrastructure. |
+| [crates/runtime/src/network_policy.rs](../crates/runtime/src/network_policy.rs) | Shared DNS destination classification for app HTTP egress and approved SMTP providers. |
+| [crates/runtime/src/scoped_pool.rs](../crates/runtime/src/scoped_pool.rs) | The commerce database executor: transaction-local tenant scope, including direct queries and cancelled streams. |
+| [crates/runtime/src/tenant_scope.rs](../crates/runtime/src/tenant_scope.rs) | Database lease context: unknown tasks fail closed; trusted workers explicitly retain their scope. |
+| [crates/runtime/src/trace.rs](../crates/runtime/src/trace.rs) | Private task-local correlation IDs; tracing never authorizes an operation or records payloads. |
 
 ## Studio, storefront, platform and shared frontend
 
@@ -1048,6 +1065,24 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/legal/legal-types.ts](../frontend/src/shared/legal/legal-types.ts) | Channel-scoped legal policy, explicit optional purposes and durable consumer requests. |
 | [frontend/src/shared/legal/requirements.ts](../frontend/src/shared/legal/requirements.ts) | Source-backed requirement catalogue; operational applicability is reviewed, never inferred as legal certification. |
 | [frontend/src/shared/money/fx-draft.ts](../frontend/src/shared/money/fx-draft.ts) | Draft-only FX preview matches the server rational/half-up boundary; checkout always uses its server quote. |
+| [frontend/src/shared/operations/index.ts](../frontend/src/shared/operations/index.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/inputs-0.ts](../frontend/src/shared/operations/inputs-0.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/inputs-1.ts](../frontend/src/shared/operations/inputs-1.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/inputs-10.ts](../frontend/src/shared/operations/inputs-10.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/inputs-11.ts](../frontend/src/shared/operations/inputs-11.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/inputs-12.ts](../frontend/src/shared/operations/inputs-12.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/inputs-13.ts](../frontend/src/shared/operations/inputs-13.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/inputs-14.ts](../frontend/src/shared/operations/inputs-14.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/inputs-15.ts](../frontend/src/shared/operations/inputs-15.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/inputs-2.ts](../frontend/src/shared/operations/inputs-2.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/inputs-3.ts](../frontend/src/shared/operations/inputs-3.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/inputs-4.ts](../frontend/src/shared/operations/inputs-4.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/inputs-5.ts](../frontend/src/shared/operations/inputs-5.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/inputs-6.ts](../frontend/src/shared/operations/inputs-6.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/inputs-7.ts](../frontend/src/shared/operations/inputs-7.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/inputs-8.ts](../frontend/src/shared/operations/inputs-8.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/inputs-9.ts](../frontend/src/shared/operations/inputs-9.ts) | Generated native operation input contracts; do not edit. |
+| [frontend/src/shared/operations/value.ts](../frontend/src/shared/operations/value.ts) | Generated native operation input contracts; do not edit. |
 | [frontend/src/shared/styles/app-surfaces.css](../frontend/src/shared/styles/app-surfaces.css) | app surfaces: Shared customer, app and workbench styles; application workspaces must not import each other.. |
 | [frontend/src/shared/styles/apps.css](../frontend/src/shared/styles/apps.css) | apps: Shared customer, app and workbench styles; application workspaces must not import each other.. |
 | [frontend/src/shared/styles/currencies.css](../frontend/src/shared/styles/currencies.css) | Currency cards use the Studio form grid, keyboard targets and responsive layouts. |
@@ -1406,6 +1441,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/merchant_operations.py](../scripts/merchant_operations.py) | Real HTTP/PostgreSQL CRM, receipt, scoped-access and paid-download regressions. No PSP traffic. |
 | [scripts/migrate_connector_state.py](../scripts/migrate_connector_state.py) | Explicit offline legacy-state migration; decrypted data crosses stdin only, never logs or temporary files. |
 | [scripts/money_boundary_differential.py](../scripts/money_boundary_differential.py) | Gate the exact checkout boundary using totals from original Shopware calculators, never a PHP rewrite. |
+| [scripts/outbox_subscribers.py](../scripts/outbox_subscribers.py) | Real SQL failure/row-lock isolation, quarantine, explicit retry and cold worker continuation for native outbox cursors. |
 | [scripts/payment_providers.py](../scripts/payment_providers.py) | Provider-neutral financial ledger through real HTTP/PostgreSQL and a local private-service fixture. |
 | [scripts/payments.py](../scripts/payments.py) | PayPal wire-contract and real Rust/PostgreSQL state tests. Local fixture, never real provider traffic. |
 | [scripts/platform.py](../scripts/platform.py) | Real PostgreSQL/HTTP operator control-plane regression; synthetic accounts only, no paid providers. |
@@ -1452,6 +1488,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/coverage_env.py](../scripts/testing/coverage_env.py) | Convert trusted cargo-llvm-cov environment output to GitHub's environment-file syntax. |
 | [scripts/testing/coverage_report.py](../scripts/testing/coverage_report.py) | Publish separate all-source coverage totals, untested files and enforce reviewed minimums. |
 | [scripts/testing/database.py](../scripts/testing/database.py) | Use the same PostgreSQL fixtures through Docker or an explicitly selected native psql executable. |
+| [scripts/testing/documentation_hygiene.py](../scripts/testing/documentation_hygiene.py) | Keep the README an entrance, status canonical, and scoped instructions bounded; negative controls reject former regressions. |
 | [scripts/testing/extraction.py](../scripts/testing/extraction.py) | Native document-event extraction, review boundary and shared AI quotas; local provider only. |
 | [scripts/testing/hosted_migration.py](../scripts/testing/hosted_migration.py) | Real pre-055 SQL database upgrades through the native migrator; never rewind one ledger entry on a newer store. |
 | [scripts/testing/hotpath.py](../scripts/testing/hotpath.py) | Real HTTP wire bytes and SQL tracing checks for the existing read-performance suite. |
@@ -1459,14 +1496,19 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/intent_navigation.py](../scripts/testing/intent_navigation.py) | Exercise saved fact categories through native catalog/MCP, source review and selective staging; no models. |
 | [scripts/testing/inventory_batch.py](../scripts/testing/inventory_batch.py) | Concurrent two-product allocation/release on the actual HTTP path, reused by strict runtime verification. |
 | [scripts/testing/legacy_customer_ownership.py](../scripts/testing/legacy_customer_ownership.py) | Historical guest snapshots never grant account ownership from an unverified email. |
+| [scripts/testing/native_tools.py](../scripts/testing/native_tools.py) | Synthetic provider-native wire responses shared by real HTTP integration fixtures; not a model implementation. |
+| [scripts/testing/operation_contracts.py](../scripts/testing/operation_contracts.py) | Generated native operation input contracts; do not edit. |
+| [scripts/testing/outbox_cases.py](../scripts/testing/outbox_cases.py) | Disposable real-transaction counterexamples for subscriber migration and commit-order gaps. |
 | [scripts/testing/plugin_ownership.py](../scripts/testing/plugin_ownership.py) | Keep app implementation in its package; preserve shared runtimes and exact safety boundaries. |
 | [scripts/testing/pooler.py](../scripts/testing/pooler.py) | Owned real PgBouncer fixture: one backend, transaction pooling, never a forced privileged user. |
+| [scripts/testing/prompt_governance.py](../scripts/testing/prompt_governance.py) | Bind prompt versions and admission fixtures without claiming semantic model accuracy. |
 | [scripts/testing/provider_fleet.py](../scripts/testing/provider_fleet.py) | Configure one encrypted synthetic provider for all test workers, then restore the isolated control-plane row. |
 | [scripts/testing/role_races.py](../scripts/testing/role_races.py) | Force real HTTP delegation to wait behind the same PostgreSQL lifecycle lock as role edits. |
 | [scripts/testing/runtime.py](../scripts/testing/runtime.py) | Owned synthetic server lifetime, child checks and loopback readiness for verification. |
 | [scripts/testing/sitecustomize.py](../scripts/testing/sitecustomize.py) | Opt-in subprocess instrumentation for synthetic verification; never loaded by production. |
 | [scripts/testing/source_inventory.py](../scripts/testing/source_inventory.py) | Generate/check exact production and verification module inventory; listings are not coverage. |
 | [scripts/testing/tooling_tests.py](../scripts/testing/tooling_tests.py) | Ordered Studio layout. |
+| [scripts/testing/workspace_boundaries.py](../scripts/testing/workspace_boundaries.py) | Check the real Cargo graph and reject domain dependency broadening, not just file sizes. |
 | [scripts/transaction_pooler.py](../scripts/transaction_pooler.py) | Repeat the real strict-runtime and multi-replica regressions through a one-backend transaction pooler. |
 | [scripts/translations.py](../scripts/translations.py) | Durable translation jobs against a local provider fixture, real SQL, native MCP and a cold restart; no paid calls. |
 | [scripts/users.py](../scripts/users.py) | Real multi-user, workspace isolation and role/revocation regression tests. |

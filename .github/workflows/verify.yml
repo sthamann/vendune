@@ -11,6 +11,8 @@ jobs:
       MERCHANT_TOKEN: ci-only-merchant-credential-not-for-deployment
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Start standard PostgreSQL and Qdrant
         run: DB_PASSWORD=ci-only-password docker compose -p veyndo up -d --wait postgres qdrant
       - uses: dtolnay/rust-toolchain@stable
@@ -34,7 +36,11 @@ jobs:
           sudo apt-get update && sudo apt-get install -y pgbouncer
       - name: Verify production Rust image compile-time inputs and negative control
         run: python3 scripts/testing/image_context.py
-      - run: cargo fmt --check && cargo clippy --locked --all-targets -- -D warnings
+      - run: python3 scripts/testing/documentation_hygiene.py
+      - run: python3 scripts/testing/prompt_governance.py
+        env:
+          PROMPT_BASE: ${{ github.event.pull_request.base.sha }}
+      - run: cargo fmt --all --check && cargo clippy --locked --workspace --all-targets -- -D warnings
       - name: Instrument the real Rust unit and HTTP paths
         run: |
           rustup component add llvm-tools-preview
@@ -42,7 +48,7 @@ jobs:
           echo "CARGO_LLVM_COV_TARGET_DIR=$PWD/target" >> "$GITHUB_ENV"
           CARGO_LLVM_COV_TARGET_DIR="$PWD/target" cargo llvm-cov clean --workspace
           CARGO_LLVM_COV_TARGET_DIR="$PWD/target" cargo llvm-cov show-env | python3 scripts/testing/coverage_env.py >> "$GITHUB_ENV"
-      - run: cargo test --locked && cargo build --locked --bins
+      - run: cargo test --locked --workspace && cargo build --locked --workspace --bins
       - name: Install pinned Lean toolchain
         uses: leanprover/lean-action@f061402b660e0c34644504b324e830f2991d4865 # v1
         with:
@@ -68,6 +74,8 @@ jobs:
           if-no-files-found: ignore
       - run: npm ci && npm run format:check && npm run build && npm run architecture && npm run localization && npm run test:coverage
         working-directory: frontend
+      - name: Generated contracts and source boundaries
+        run: python3 scripts/testing/operation_contracts.py --check && python3 scripts/testing/workspace_boundaries.py
       - run: composer install --working-dir=reference --no-interaction --prefer-dist
       - run: python3 scripts/differential.py && python3 scripts/context_differential.py && python3 scripts/delivery_differential.py && python3 scripts/rule_differential.py && python3 scripts/automation_registry.py && python3 scripts/automation_differential.py
       - name: Real database and local provider integration (single suite registry)

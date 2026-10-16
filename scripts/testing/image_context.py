@@ -15,7 +15,7 @@ def missing_inputs(dockerfile):
         elif copying and line.startswith('COPY '):
             inputs.extend(ROOT / value for value in line.split()[1:-1])
     missing = []
-    for source in [*(ROOT / 'src').rglob('*.rs'), *(ROOT / 'extensions').rglob('*.rs')]:
+    for source in [*(ROOT / 'src').rglob('*.rs'), *(ROOT / 'crates').rglob('*.rs'), *(ROOT / 'extensions').rglob('*.rs')]:
         for value in re.findall(r'include_(?:str|bytes)!\s*\(\s*"([^"\n]+)"', source.read_text()):
             target = (source.parent / value).resolve()
             if not target.is_file() or not any(target == p.resolve() or (p.is_dir() and target.is_relative_to(p.resolve())) for p in inputs):
