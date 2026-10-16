@@ -178,7 +178,9 @@ it("merchant chat shows source actions only with current catalogue write rights"
   });
   expect(screen.queryByRole("button", { name: "Upload CSV" })).toBeNull();
   view.unmount();
-  render(<StudioComposer />, { wrapper: wrapper() });
+  render(<StudioComposer />, {
+    wrapper: wrapper(studio({ access: ["catalog.read", "catalog.write"] })),
+  });
   expect(screen.getByRole("button", { name: "Upload CSV" })).toBeVisible();
 });
 it("CSV errors identify the actual line in German using server metadata", () => {

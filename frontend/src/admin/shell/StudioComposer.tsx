@@ -42,7 +42,9 @@ export default function StudioComposer() {
             <button
               type="button"
               key={mode}
-              disabled={busy}
+              disabled={
+                busy || (mode !== "csv" && !access.includes("assistant.use"))
+              }
               onClick={() => setIntake(mode)}
             >
               <Icon name={icon} size={15} />
