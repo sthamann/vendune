@@ -615,6 +615,21 @@
     "source": "src/assets/mod.rs"
   },
   {
+    "path": "/api/merchant/catalog/intake",
+    "method": "GET",
+    "source": "src/commerce/catalog_intake/mod.rs"
+  },
+  {
+    "path": "/api/merchant/catalog/intake",
+    "method": "POST",
+    "source": "src/commerce/catalog_intake/mod.rs"
+  },
+  {
+    "path": "/api/merchant/catalog/intake/save",
+    "method": "POST",
+    "source": "src/commerce/catalog_intake/mod.rs"
+  },
+  {
     "path": "/api/merchant/categories",
     "method": "GET",
     "source": "src/categories/mod.rs"

@@ -9,6 +9,7 @@ Files and their individual responsibilities are listed in [the generated source 
 - [`api-console.css`](api-console.css): Responsive developer key management and bounded API explorer using Studio theme tokens.
 - [`app-artwork.css`](app-artwork.css): Category cover and app icon artwork, with local deterministic fallbacks.
 - [`app-assistant.css`](app-assistant.css): Guided extension workspace: restrained colour, clear choices and responsive setup.
+- [`app-creation.css`](app-creation.css): Grouped illustrated placements, compact language context and a responsive private-draft summary.
 - [`app-catalog.css`](app-catalog.css): App library/detail presentation: bounded cards, passive artwork, accessible filters and theme-aware forms.
 - [`app-detail.css`](app-detail.css): Scoped app detail hierarchy, permission disclosure, data and integration forms.
 - [`app-studio-inspector.css`](app-studio-inspector.css): App Studio binding indicators, empty canvas and properties inspector.

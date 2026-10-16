@@ -12,7 +12,24 @@ up to six areas, for example a product detail panel, a global header banner and 
 checkout summary. Each receives an editable view and its own content model, inside
 one app package. A header does not accidentally inherit a required product context.
 
-![Choose several areas in one app](assets/app-workspace-20261015/placements.png)
+The setup now puts the localized **App name** first, followed by one compact
+content-language selector. Illustrated placement cards are grouped into Shop &
+content, Purchase & account, Administration, Point of sale and Company purchasing.
+The selected-area summary updates immediately and lets you remove individual
+areas. At six selected areas, additional cards are disabled until one is removed;
+with none selected, draft creation stays disabled and explains the next step.
+
+**Technical options & agent access** contains the generated API identifier and
+explicit MCP/public-read switches. An invalid identifier opens this section for
+correction. These presentation changes do not alter permissions, data admission or
+publication: creating a draft still opens the ordinary editable Manifest; nothing
+is installed into the live shop by selecting a placement.
+
+![Grouped illustrated placement cards and a private draft summary](assets/app-creation-20261016/desktop.jpg)
+
+[Name and language](assets/app-creation-20261016/name.jpg) ·
+[Mobile selection](assets/app-creation-20261016/mobile.jpg) ·
+[Dark appearance](assets/app-creation-20261016/dark.jpg)
 
 The catalogue includes product detail, shop homepage, global header, cart,
 checkout before details, checkout summary, customer account and existing private
@@ -162,10 +179,13 @@ claims and mutations for either missing check. That proof does not cover SQL,
 encryption, third-party services or the browser. See [testing](testing.md),
 [app security](app-security.md) and [formal verification](formal-verification.md).
 
-## Business goal and decision examples
+## App idea and optional rule checks
 
 The [business-capability guide](business-capabilities.md#executable-first-slice)
-adds a Business goal tab to the same Manifest editor. Localized intent and
+adds the App idea tab to the same Manifest editor. Describe the outcome, optionally
+add requirements and open the shared agent with that brief, or jump to visual
+design. Missing main-language goal/requirement content is explained in place with
+a direct switch to correction; no translations are silently copied. Automatic rule checks remain available under an explicit disclosure. Localized intent and
 assumptions remain editable; frozen cases show expected input and decision.
 Saving/installing executes declared pure cases in the existing WIT sandbox.
 The selected editor now omits the app library and large introduction; Back to
@@ -178,3 +198,20 @@ connected view; a connection not yet checked displays pending instead of failure
 Existing expiry, same-account resume, current permissions and server guards remain
 authoritative. Slow-sandbox, language refresh, failure and scope-change
 regressions exercise the shared controller rather than a separate editor session.
+
+## App creation UI verification — 16 October 2026
+
+The creation-dialog update passed 577 frontend tests across 104 files, the
+production build, four-language localization and the source ownership/structure
+checks. New interaction cases cover the complete placement registry, six-area
+admission with deselection, an empty selection, keyboard selection, regional names
+and opening invalid advanced inputs. The registered real Rust/PostgreSQL
+`app_studio` suite passed its six end-to-end checks, including native views,
+immutable versions, private staging, selected publication and denied access.
+
+Chrome checks use the local synthetic Nord Atelier shop: create a draft with
+product detail, header banner and checkout summary; save through the existing
+private sandbox version path. Responsive selection was checked at 1280 px and
+390 px, with no horizontal overflow in the creation card. Dark appearance uses
+the actual Studio tokens. Screenshots are from the real built UI. This is local
+acceptance; it does not imply a production rollout or external AI/provider test.

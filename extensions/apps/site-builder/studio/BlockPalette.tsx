@@ -1,5 +1,5 @@
 /** Built-in and installed-app elements share a visual insertion gallery and one document model. */
-import { useState } from "react";
+import { useState, type DragEvent } from "react";
 import Icon from "../../../../frontend/src/shared/ui/Icon";
 import {
   surfaceLabel,
@@ -10,6 +10,8 @@ import { newBlock, type Block, type BlockKind } from "../model";
 import { useDesignText } from "./design-i18n";
 import { useWorkspaceText } from "./workspace-i18n";
 import BlockPreview from "./BlockPreview";
+import { useBlocks } from "./useBlockEditing";
+import { useInteractionText } from "./interaction-i18n";
 const builtIn = [
   "hero",
   "text",
@@ -30,14 +32,16 @@ export default function BlockPalette({
   const [query, setQuery] = useState(""),
     t = useDesignText(),
     w = useWorkspaceText(),
+    i = useInteractionText(),
+    editing = useBlocks(),
     { language, mainLocale } = useContentLanguage();
   const matches = (label: string) =>
     label.toLocaleLowerCase().includes(query.toLocaleLowerCase());
-  const add = (kind: BlockKind, label: string, element?: AppSurface) => {
+  const create = (kind: BlockKind, label: string, element?: AppSurface) => {
     const block = newBlock(kind, mainLocale, label);
     if (element)
       block.extension = { app: element.app, surface: element.surface.id };
-    onAdd(block);
+    return block;
   };
   return (
     <div className="designer-palette">
@@ -48,6 +52,7 @@ export default function BlockPalette({
           <p>{w("builtIn")}</p>
         </div>
       </div>
+      <p className="designer-drag-hint">{i("dragHint")}</p>
       <label className="designer-palette-search">
         <Icon name="search" size={16} />
         <input
@@ -66,7 +71,13 @@ export default function BlockPalette({
               className="designer-element-card"
               key={kind}
               disabled={disabled}
-              onClick={() => add(kind, t(kind))}
+              {...editing?.pointer(() => create(kind, t(kind)))}
+              draggable={!disabled && !!editing}
+              onDragStart={(e: DragEvent) =>
+                editing?.begin(e, create(kind, t(kind)))
+              }
+              onDragEnd={() => editing?.cancel()}
+              onClick={() => onAdd(create(kind, t(kind)))}
             >
               <BlockPreview kind={kind} />
               <span>
@@ -87,8 +98,19 @@ export default function BlockPalette({
               className="designer-element-card"
               key={`${element.app}:${element.surface.id}`}
               disabled={disabled}
+              {...editing?.pointer(() =>
+                create("app", surfaceLabel(element, mainLocale), element),
+              )}
+              draggable={!disabled && !!editing}
+              onDragStart={(e: DragEvent) =>
+                editing?.begin(
+                  e,
+                  create("app", surfaceLabel(element, mainLocale), element),
+                )
+              }
+              onDragEnd={() => editing?.cancel()}
               onClick={() =>
-                add("app", surfaceLabel(element, mainLocale), element)
+                onAdd(create("app", surfaceLabel(element, mainLocale), element))
               }
             >
               <BlockPreview

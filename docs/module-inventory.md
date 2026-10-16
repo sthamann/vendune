@@ -227,6 +227,11 @@ This lists every checked-in source module in these roots, including files with n
 | [src/cognition/tools.rs](../src/cognition/tools.rs) | Bounded agent read rounds use the same capability dispatcher and current actor rights; never execute writes. |
 | [src/commerce/app_adjustments.rs](../src/commerce/app_adjustments.rs) | Apply admitted integer app adjustments through native pricing/tax calculation; extensions cannot replace quote JSON. |
 | [src/commerce/catalog.rs](../src/commerce/catalog.rs) | SKU loading with parent translation fallback. |
+| [src/commerce/catalog_intake/csv.rs](../src/commerce/catalog_intake/csv.rs) | Bounded UTF-8 CSV parser accepts quoted delimiters, escaped quotes and multiline fields; no formula evaluation or silent row loss. |
+| [src/commerce/catalog_intake/mod.rs](../src/commerce/catalog_intake/mod.rs) | Merchant catalogue intake prepares bounded drafts; approved saves reuse native products, history and outbox in a private stage. |
+| [src/commerce/catalog_intake/prepare.rs](../src/commerce/catalog_intake/prepare.rs) | Native CSV parsing and read-only model extraction use existing inference admission and DNS-pinned public egress. |
+| [src/commerce/catalog_intake/save.rs](../src/commerce/catalog_intake/save.rs) | One explicit sandbox-only product creation delegates to native CAS/history/outbox; stable IDs reconcile retries without overwrites. |
+| [src/commerce/catalog_intake/schema.rs](../src/commerce/catalog_intake/schema.rs) | One catalogue-intake contract is shared by HTTP, MCP and explicit UI review; it cannot publish or overwrite products. |
 | [src/commerce/configuration.rs](../src/commerce/configuration.rs) | Tenant checkout configuration loading. |
 | [src/commerce/content_text.rs](../src/commerce/content_text.rs) | Shared field-level content fallback for metadata and configurable object names. |
 | [src/commerce/context_routes.rs](../src/commerce/context_routes.rs) | Public method discovery and revision-checked checkout context changes. |
@@ -582,6 +587,8 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/b2b/reference.ts](../frontend/src/admin/b2b/reference.ts) | Native organization IDs require a lowercase letter first and at most 32 characters. |
 | [frontend/src/admin/catalog/AiImageStudio.tsx](../frontend/src/admin/catalog/AiImageStudio.tsx) | Optional image-provider jobs create private previews; applying a reviewed image is explicit and revision checked. |
 | [frontend/src/admin/catalog/CatalogDirectory.tsx](../frontend/src/admin/catalog/CatalogDirectory.tsx) | Product columns and native catalog criteria over the shared grid; media/price/content stay domain-owned. |
+| [frontend/src/admin/catalog/CatalogIntake.tsx](../frontend/src/admin/catalog/CatalogIntake.tsx) | Merchant source chooser and explicit staged creation reuse native product, media and environment owners. |
+| [frontend/src/admin/catalog/CatalogIntakeReview.tsx](../frontend/src/admin/catalog/CatalogIntakeReview.tsx) | Editable catalogue review is distinct from native creation and later publication; AI images reuse the product editor's job workflow. |
 | [frontend/src/admin/catalog/CategoriesWorkspace.tsx](../frontend/src/admin/catalog/CategoriesWorkspace.tsx) | Localized category tree editor; parent moves and revisions are validated in the API. |
 | [frontend/src/admin/catalog/CategoryFactQuery.tsx](../frontend/src/admin/catalog/CategoryFactQuery.tsx) | One saved predicate on current public evidence; reuses category CAS and the editor's selected content language. |
 | [frontend/src/admin/catalog/MediaDropzone.tsx](../frontend/src/admin/catalog/MediaDropzone.tsx) | Accessible multi-file upload with drag/drop, visible progress and the same validated asset API as attachments. |
@@ -603,6 +610,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/catalog/ReviewModeration.tsx](../frontend/src/admin/catalog/ReviewModeration.tsx) | Product-scoped review publication; authoritative authorization stays in the API. |
 | [frontend/src/admin/catalog/TaxClassSelect.tsx](../frontend/src/admin/catalog/TaxClassSelect.tsx) | Assign a product to an actual tenant tax class; legacy standard/reduced mapping remains explicit. |
 | [frontend/src/admin/catalog/VariantGenerator.tsx](../frontend/src/admin/catalog/VariantGenerator.tsx) | Reviewable, bounded batch creation uses saved parent data and keeps successful rows on partial failure. |
+| [frontend/src/admin/catalog/catalog-intake-model.ts](../frontend/src/admin/catalog/catalog-intake-model.ts) | Review state carries stable native IDs; source changes discard the entire prior proposal, never overwrite existing products. |
 | [frontend/src/admin/catalog/catalog-model.ts](../frontend/src/admin/catalog/catalog-model.ts) | Editable native product aggregate and defaults shared by creation, detail and variant workflows. |
 | [frontend/src/admin/catalog/media-model.ts](../frontend/src/admin/catalog/media-model.ts) | Pure gallery operations preserve order, explicit alt translations and upload bounds without fabricating language values. |
 | [frontend/src/admin/catalog/variant-family.ts](../frontend/src/admin/catalog/variant-family.ts) | Cursor-based family lookup for duplicate review, bounded independently of the 50-row creation limit. |
@@ -633,13 +641,15 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/developer/AppAssistant.tsx](../frontend/src/admin/developer/AppAssistant.tsx) | Guided app kinds create normal editable manifests; all changes follow private-stage versioning. |
 | [frontend/src/admin/developer/AppAutomation.tsx](../frontend/src/admin/developer/AppAutomation.tsx) | Editable triggers are declared alongside UI and actions; secrets remain operator-managed. |
 | [frontend/src/admin/developer/AppCanvas.tsx](../frontend/src/admin/developer/AppCanvas.tsx) | Accessible click-to-add canvas with selectable blocks and keyboard-accessible ordering controls. |
-| [frontend/src/admin/developer/AppCapabilityEditor.tsx](../frontend/src/admin/developer/AppCapabilityEditor.tsx) | The canonical Manifest carries merchant intent and bounded pure-decision examples; no separate app document or executor. |
+| [frontend/src/admin/developer/AppCapabilityChecks.tsx](../frontend/src/admin/developer/AppCapabilityChecks.tsx) | Frozen pure-decision expectations remain advanced, read-only metadata; no fake execution result is inferred. |
+| [frontend/src/admin/developer/AppCapabilityEditor.tsx](../frontend/src/admin/developer/AppCapabilityEditor.tsx) | Merchant ideas, requirements and explicit agent handoff edit the canonical versioned Manifest without executing changes. |
 | [frontend/src/admin/developer/AppCodeBuffer.ts](../frontend/src/admin/developer/AppCodeBuffer.ts) | Invalid local expressions block apply and mode changes until corrected; multiple editors report independently. |
 | [frontend/src/admin/developer/AppConfigurationExamples.tsx](../frontend/src/admin/developer/AppConfigurationExamples.tsx) | Configuration example cards expose frozen inputs and expected guest results without computing business rules in the browser. |
 | [frontend/src/admin/developer/AppConnections.tsx](../frontend/src/admin/developer/AppConnections.tsx) | Route, tool, grounding and Flow Builder switches modify the shared executable manifest directly. |
 | [frontend/src/admin/developer/AppContextBinding.tsx](../frontend/src/admin/developer/AppContextBinding.tsx) | Native UI bindings connect the open host object to an indexed app field, never to a global JS context. |
 | [frontend/src/admin/developer/AppControlProperties.tsx](../frontend/src/admin/developer/AppControlProperties.tsx) | DataField and one-level container references are edited against the current typed model rather than free text. |
 | [frontend/src/admin/developer/AppControlThumbnail.tsx](../frontend/src/admin/developer/AppControlThumbnail.tsx) | Lightweight control illustrations communicate structure; no sample data or runtime is executed. |
+| [frontend/src/admin/developer/AppCreationSummary.tsx](../frontend/src/admin/developer/AppCreationSummary.tsx) | Draft summary mirrors chosen locations without changing publication state or generated permissions. |
 | [frontend/src/admin/developer/AppDataEditor.tsx](../frontend/src/admin/developer/AppDataEditor.tsx) | Managed app models expose typed fields and opt-in public reads; removal cleans dependent bindings. |
 | [frontend/src/admin/developer/AppDesignPreview.tsx](../frontend/src/admin/developer/AppDesignPreview.tsx) | Schema-based, non-interactive design illustration. Never fetches data or executes app actions. |
 | [frontend/src/admin/developer/AppDesignWorkspace.tsx](../frontend/src/admin/developer/AppDesignWorkspace.tsx) | Shared design workspace composes the existing preview, palette and inspector with bounded personal panel widths. |
@@ -662,6 +672,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/developer/AppOntology.tsx](../frontend/src/admin/developer/AppOntology.tsx) | Optional graph mappings edit the canonical manifest; native authorized record lists own the projection. |
 | [frontend/src/admin/developer/AppPanelSizing.tsx](../frontend/src/admin/developer/AppPanelSizing.tsx) | Local panel widths contain presentation only; pointer and keyboard resizing never change the Manifest. |
 | [frontend/src/admin/developer/AppPayments.tsx](../frontend/src/admin/developer/AppPayments.tsx) | Visual payment contracts use the same manifest as coding agents; onboarding uses the protected API. |
+| [frontend/src/admin/developer/AppPlacementPicker.tsx](../frontend/src/admin/developer/AppPlacementPicker.tsx) | Illustrated placement selection projects the existing registry; it never grants runtime access. |
 | [frontend/src/admin/developer/AppProposalReview.tsx](../frontend/src/admin/developer/AppProposalReview.tsx) | AI generation is an explicit reviewed proposal, with conflict protection and no automatic canvas replacement. |
 | [frontend/src/admin/developer/AppRecipes.tsx](../frontend/src/admin/developer/AppRecipes.tsx) | Keyboard-accessible recipe entry points use the existing draft replacement and release controls. |
 | [frontend/src/admin/developer/AppSchemaMigrations.tsx](../frontend/src/admin/developer/AppSchemaMigrations.tsx) | Migration plans are explicit versioned agent-readable data, validated by the shared server compiler before any DDL. |
@@ -698,9 +709,12 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/intelligence/EvidenceReview.tsx](../frontend/src/admin/intelligence/EvidenceReview.tsx) | Review source-bound candidates through shared HTTP/MCP contracts; changed sources block publication. |
 | [frontend/src/admin/intelligence/ExperimentStudio.tsx](../frontend/src/admin/intelligence/ExperimentStudio.tsx) | Immutable experiment designs and lifecycle controls share the core HTTP/MCP owner and current settings rights. |
 | [frontend/src/admin/intelligence/ExternalKnowledge.tsx](../frontend/src/admin/intelligence/ExternalKnowledge.tsx) | Private connected-app evidence browser shows active-source provenance without exposing it to shoppers. |
-| [frontend/src/admin/intelligence/GuardrailSettings.tsx](../frontend/src/admin/intelligence/GuardrailSettings.tsx) | Merchant AI boundaries edit the canonical revisioned commerce settings, never a second policy store. |
+| [frontend/src/admin/intelligence/GuardrailProductCard.tsx](../frontend/src/admin/intelligence/GuardrailProductCard.tsx) | Currency-aware editing of one native product corridor, with honest product/configuration links. |
+| [frontend/src/admin/intelligence/GuardrailProductSearch.tsx](../frontend/src/admin/intelligence/GuardrailProductSearch.tsx) | Bounded native catalogue search, not the sampled dashboard; stale replies never replace current results. |
+| [frontend/src/admin/intelligence/GuardrailSettings.tsx](../frontend/src/admin/intelligence/GuardrailSettings.tsx) | Merchant AI boundaries use canonical settings revisions, native catalogue lookup and the shared assistant. |
 | [frontend/src/admin/intelligence/KnowledgeExplorer.tsx](../frontend/src/admin/intelligence/KnowledgeExplorer.tsx) | Product-centred evidence inspector reads canonical facts and graph relationships beyond overview sampling. |
 | [frontend/src/admin/intelligence/KnowledgeFacts.tsx](../frontend/src/admin/intelligence/KnowledgeFacts.tsx) | Canonical catalogue facts shown alongside graph evidence; prices and inventory come from current product state. |
+| [frontend/src/admin/intelligence/KnowledgeNavigation.tsx](../frontend/src/admin/intelligence/KnowledgeNavigation.tsx) | Stable grouped navigation replaces clipped horizontal tabs; a labelled selector serves narrow workspaces. |
 | [frontend/src/admin/intelligence/KnowledgeOverview.tsx](../frontend/src/admin/intelligence/KnowledgeOverview.tsx) | Whole-shop knowledge census, operational next steps and provenance activity; examples never masquerade as learned facts. |
 | [frontend/src/admin/intelligence/KnowledgePreview.tsx](../frontend/src/admin/intelligence/KnowledgePreview.tsx) | No-model evidence preview makes customer/private retrieval boundaries and missing facts inspectable. |
 | [frontend/src/admin/intelligence/KnowledgeSources.tsx](../frontend/src/admin/intelligence/KnowledgeSources.tsx) | Searchable cursor source library, guarded lifecycle decisions and single-language source editing. |
@@ -711,6 +725,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/intelligence/behavior/BehaviorJourney.tsx](../frontend/src/admin/intelligence/behavior/BehaviorJourney.tsx) | Authorized journey timeline links to native product, customer and order views, through permission-bound native CRM references. |
 | [frontend/src/admin/intelligence/behavior/BehaviorView.tsx](../frontend/src/admin/intelligence/behavior/BehaviorView.tsx) | Behavioral workspace makes consent, channel/window, guest journeys and semantic projections inspectable. |
 | [frontend/src/admin/intelligence/behavior/types.ts](../frontend/src/admin/intelligence/behavior/types.ts) | Bounded private read models; aggregate users and customer identities have separate rights. |
+| [frontend/src/admin/intelligence/guardrail-model.ts](../frontend/src/admin/intelligence/guardrail-model.ts) | Native policy shape and currency conversion only; admission remains in the Rust commerce owner. |
 | [frontend/src/admin/intelligence/knowledge-types.ts](../frontend/src/admin/intelligence/knowledge-types.ts) | Typed knowledge read models preserve source ownership, revisions, sampling and privacy boundaries. |
 | [frontend/src/admin/legal/ConsumerRequests.tsx](../frontend/src/admin/legal/ConsumerRequests.tsx) | Permission-scoped consumer request queue and optimistic, recorded review actions. |
 | [frontend/src/admin/legal/LegalServices.tsx](../frontend/src/admin/legal/LegalServices.tsx) | Purpose inventory and provider disclosures edited in the selected content language. |
@@ -799,8 +814,9 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/app-artwork.css](../frontend/src/admin/styles/app-artwork.css) | Category cover and app icon artwork, with local deterministic fallbacks. |
 | [frontend/src/admin/styles/app-assistant.css](../frontend/src/admin/styles/app-assistant.css) | Guided extension workspace: restrained colour, clear choices and responsive setup. |
 | [frontend/src/admin/styles/app-building.css](../frontend/src/admin/styles/app-building.css) | Modern recipe cards and structural AI review reuse Studio colors and responsive interaction rules. |
-| [frontend/src/admin/styles/app-capability.css](../frontend/src/admin/styles/app-capability.css) | Bounded business-goal cards fit the existing Studio workspace and inherit its theme. |
+| [frontend/src/admin/styles/app-capability.css](../frontend/src/admin/styles/app-capability.css) | Merchant-friendly idea brief, explicit next steps and optional bounded rule checks share Studio tokens. |
 | [frontend/src/admin/styles/app-catalog.css](../frontend/src/admin/styles/app-catalog.css) | App library/detail presentation: bounded cards, passive artwork, accessible filters and theme-aware forms. |
+| [frontend/src/admin/styles/app-creation.css](../frontend/src/admin/styles/app-creation.css) | Guided app creation: bounded reading width, illustrated native placements and a private draft summary. |
 | [frontend/src/admin/styles/app-detail.css](../frontend/src/admin/styles/app-detail.css) | Scoped app detail hierarchy, permission disclosure, data and integration forms. |
 | [frontend/src/admin/styles/app-library.css](../frontend/src/admin/styles/app-library.css) | App callback consent follows the same card and field rhythm as app configuration. |
 | [frontend/src/admin/styles/app-studio-inspector.css](../frontend/src/admin/styles/app-studio-inspector.css) | App Studio binding indicators, empty canvas and properties inspector. |
@@ -814,11 +830,13 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/b2b-settings.css](../frontend/src/admin/styles/b2b-settings.css) | Revisioned B2B settings cards, accessible switches and responsive spacing. |
 | [frontend/src/admin/styles/behavior.css](../frontend/src/admin/styles/behavior.css) | Consent-bound insights use the existing Studio tokens and a responsive, inspectable visual hierarchy. |
 | [frontend/src/admin/styles/catalog-editor.css](../frontend/src/admin/styles/catalog-editor.css) | Visual editor and category workspace responsive styles. |
+| [frontend/src/admin/styles/catalog-intake.css](../frontend/src/admin/styles/catalog-intake.css) | Catalogue setup uses the Studio palette, native modal focus containment and bounded review cards. |
 | [frontend/src/admin/styles/catalog.css](../frontend/src/admin/styles/catalog.css) | Light, precise catalog workspace with accessible tables, focused detail panels and visual authoring. |
 | [frontend/src/admin/styles/commerce-manager.css](../frontend/src/admin/styles/commerce-manager.css) | commerce manager: Studio visual system and merchant operational layouts. |
 | [frontend/src/admin/styles/company-settings.css](../frontend/src/admin/styles/company-settings.css) | Company editor: structured addresses, visible scope inheritance and compact upload controls. |
 | [frontend/src/admin/styles/creation.css](../frontend/src/admin/styles/creation.css) | Shared native creation workspaces: readable fields, predictable actions and responsive review. |
 | [frontend/src/admin/styles/forms.css](../frontend/src/admin/styles/forms.css) | Studio-owned form primitives load at the composition root, independent of lazy workspace history. |
+| [frontend/src/admin/styles/guardrails.css](../frontend/src/admin/styles/guardrails.css) | Native pricing policy workbench: merchant units, bounded product lookup and shared Studio tokens. |
 | [frontend/src/admin/styles/international-details.css](../frontend/src/admin/styles/international-details.css) | Destination rates, translation jobs and responsive international workbench layout. |
 | [frontend/src/admin/styles/international.css](../frontend/src/admin/styles/international.css) | International commerce workbench: compact master/detail records, calm colour and clear field hierarchy. |
 | [frontend/src/admin/styles/knowledge-evidence.css](../frontend/src/admin/styles/knowledge-evidence.css) | Product evidence, retrieval excerpts, observed pairs and responsive knowledge layouts. |
@@ -975,8 +993,10 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/app-assistant-i18n.ts](../frontend/src/shared/i18n/app-assistant-i18n.ts) | App assistants and extension permissions use the same EN/DE/FR/ES vocabulary. |
 | [frontend/src/shared/i18n/app-building-i18n.ts](../frontend/src/shared/i18n/app-building-i18n.ts) | Shared translated app recipes and reviewed AI changes; no alternate app schema. |
 | [frontend/src/shared/i18n/app-capability-i18n.ts](../frontend/src/shared/i18n/app-capability-i18n.ts) | Merchant intent and executable decision examples use the shared four-language Studio vocabulary. |
+| [frontend/src/shared/i18n/app-creation-i18n.ts](../frontend/src/shared/i18n/app-creation-i18n.ts) | Guided creation vocabulary: placement groups, private draft guidance and optional technical controls. |
 | [frontend/src/shared/i18n/app-events-i18n.ts](../frontend/src/shared/i18n/app-events-i18n.ts) | Subscription/filter/delivery vocabulary shared by Studio and coding agents. |
 | [frontend/src/shared/i18n/app-i18n.ts](../frontend/src/shared/i18n/app-i18n.ts) | App and evidence UI vocabulary, shared by store, merchant and payment components. |
+| [frontend/src/shared/i18n/app-intent-i18n.ts](../frontend/src/shared/i18n/app-intent-i18n.ts) | Plain-language app ideas and next steps supplement the existing versioned capability contract. |
 | [frontend/src/shared/i18n/app-library-i18n.ts](../frontend/src/shared/i18n/app-library-i18n.ts) | App library vocabulary and built-in summaries; no inferred connection or payment readiness. |
 | [frontend/src/shared/i18n/app-logic-i18n.ts](../frontend/src/shared/i18n/app-logic-i18n.ts) | Designer controls, code-behind and debugger vocabulary ships in every bundled interface language. |
 | [frontend/src/shared/i18n/app-ontology-i18n.ts](../frontend/src/shared/i18n/app-ontology-i18n.ts) | Native app graph mapping controls share the Studio vocabulary and four interface languages. |
@@ -994,6 +1014,8 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/b2b-quotes-i18n.ts](../frontend/src/shared/i18n/b2b-quotes-i18n.ts) | Negotiation vocabulary, separate from merchant content translations. |
 | [frontend/src/shared/i18n/behavior-i18n.ts](../frontend/src/shared/i18n/behavior-i18n.ts) | Typed EN/DE/FR/ES vocabulary for native consent-bound visitor behavior and semantic reports. |
 | [frontend/src/shared/i18n/catalog-i18n.ts](../frontend/src/shared/i18n/catalog-i18n.ts) | Complete four-language catalog workspace vocabulary, separate from commerce data translations. |
+| [frontend/src/shared/i18n/catalog-intake-errors.ts](../frontend/src/shared/i18n/catalog-intake-errors.ts) | Catalogue intake diagnostics retain source-line metadata while all transport clients show actionable localized guidance. |
+| [frontend/src/shared/i18n/catalog-intake-i18n.ts](../frontend/src/shared/i18n/catalog-intake-i18n.ts) | Merchant-only catalogue setup copy; shopper recommendation prompts remain separate. |
 | [frontend/src/shared/i18n/checkout-i18n.ts](../frontend/src/shared/i18n/checkout-i18n.ts) | Checkout vocabulary: the same purchase and payment states in every supported UI language. |
 | [frontend/src/shared/i18n/cognitive-events-i18n.ts](../frontend/src/shared/i18n/cognitive-events-i18n.ts) | Typed labels shared by the knowledge timeline and the native Flow Builder event catalogue. |
 | [frontend/src/shared/i18n/company-i18n.ts](../frontend/src/shared/i18n/company-i18n.ts) | Company identity, field inheritance and legal storefront vocabulary in four interface languages. |
@@ -1010,6 +1032,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/experiment-i18n.ts](../frontend/src/shared/i18n/experiment-i18n.ts) | Controlled-experiment vocabulary distinguishes observed cash from causal and margin claims. |
 | [frontend/src/shared/i18n/graph-navigation-i18n.ts](../frontend/src/shared/i18n/graph-navigation-i18n.ts) | Saved fact navigation vocabulary; content terms use the editor's shared language inheritance. |
 | [frontend/src/shared/i18n/guardrail-i18n.ts](../frontend/src/shared/i18n/guardrail-i18n.ts) | Typed four-language merchant AI policy vocabulary. |
+| [frontend/src/shared/i18n/guardrail-workspace-i18n.ts](../frontend/src/shared/i18n/guardrail-workspace-i18n.ts) | Task-oriented vocabulary for native AI pricing boundaries and their connected Studio owners. |
 | [frontend/src/shared/i18n/i18n.tsx](../frontend/src/shared/i18n/i18n.tsx) | i18n: Four-language locale context, UI dictionaries and translated API errors. |
 | [frontend/src/shared/i18n/international-i18n.ts](../frontend/src/shared/i18n/international-i18n.ts) | International settings vocabulary. Every key requires English, German, French and Spanish. |
 | [frontend/src/shared/i18n/knowledge-i18n.ts](../frontend/src/shared/i18n/knowledge-i18n.ts) | Knowledge workspace vocabulary: sources, evidence and capabilities without fabricated learning claims. |
@@ -1225,8 +1248,11 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/site-builder/studio/BlockPalette.tsx](../extensions/apps/site-builder/studio/BlockPalette.tsx) | Built-in and installed-app elements share a visual insertion gallery and one document model. |
 | [extensions/apps/site-builder/studio/BlockPreview.tsx](../extensions/apps/site-builder/studio/BlockPreview.tsx) | Miniature component layouts communicate what each element adds without loading apps or remote images. |
 | [extensions/apps/site-builder/studio/DesignAgent.tsx](../extensions/apps/site-builder/studio/DesignAgent.tsx) | Shop design uses the shared agent workspace and existing native proposal/approval owners. |
+| [extensions/apps/site-builder/studio/DesignReferences.tsx](../extensions/apps/site-builder/studio/DesignReferences.tsx) | Discoverable URL and image reference inputs; no external HTML is rendered in the editor. |
 | [extensions/apps/site-builder/studio/DesignerHeader.tsx](../extensions/apps/site-builder/studio/DesignerHeader.tsx) | Channel, private save and agent entry remain visible above the shared preview. |
 | [extensions/apps/site-builder/studio/DesignerInspector.tsx](../extensions/apps/site-builder/studio/DesignerInspector.tsx) | Visible edit, element, agent and history modes share the same native draft and approval path. |
+| [extensions/apps/site-builder/studio/DesignerPreview.tsx](../extensions/apps/site-builder/studio/DesignerPreview.tsx) | Preview composes the shared storefront renderer with editor-only gesture controls. |
+| [extensions/apps/site-builder/studio/EditableSection.tsx](../extensions/apps/site-builder/studio/EditableSection.tsx) | Preview-only controls decorate the actual storefront renderer; the published renderer has no editor UI. |
 | [extensions/apps/site-builder/studio/NativeHomePreview.tsx](../extensions/apps/site-builder/studio/NativeHomePreview.tsx) | Preview composes the actual native header, hero, product cards and footer, without a live cart or commands. |
 | [extensions/apps/site-builder/studio/PageHistory.tsx](../extensions/apps/site-builder/studio/PageHistory.tsx) | Whole-page and section restoration use retained native app revisions; restoration is an editable draft. |
 | [extensions/apps/site-builder/studio/PageInspector.tsx](../extensions/apps/site-builder/studio/PageInspector.tsx) | Property edits and WYSIWYG content update the same structured page record as agents and MCP. |
@@ -1235,17 +1261,26 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/site-builder/studio/StorefrontCanvas.tsx](../extensions/apps/site-builder/studio/StorefrontCanvas.tsx) | Isolated viewport for native presentational components and the shared app renderer; no cart, analytics or orders run here. |
 | [extensions/apps/site-builder/studio/canvas.css](../extensions/apps/site-builder/studio/canvas.css) | Canvas sizing uses real iframe viewports; mobile tools follow the preview rather than obscure it. |
 | [extensions/apps/site-builder/studio/design-i18n.ts](../extensions/apps/site-builder/studio/design-i18n.ts) | Complete interface vocabulary for the standard-shop designer, independent of page translations. |
+| [extensions/apps/site-builder/studio/design-images.ts](../extensions/apps/site-builder/studio/design-images.ts) | Bounded local screenshot preparation; only reduced raster data reaches the existing vision API. |
 | [extensions/apps/site-builder/studio/designer.css](../extensions/apps/site-builder/studio/designer.css) | Native three-panel designer; responsive canvas and independently scrollable properties. |
 | [extensions/apps/site-builder/studio/editor-i18n.ts](../extensions/apps/site-builder/studio/editor-i18n.ts) | Inspector, history and reference-agent vocabulary. |
 | [extensions/apps/site-builder/studio/home-draft.ts](../extensions/apps/site-builder/studio/home-draft.ts) | Convert the native home to an unsaved app document; retain real locale text and owned product-media selection. |
 | [extensions/apps/site-builder/studio/inspector.css](../extensions/apps/site-builder/studio/inspector.css) | Inspector and review panels, separate from the canvas layout. |
+| [extensions/apps/site-builder/studio/interaction-i18n.ts](../extensions/apps/site-builder/studio/interaction-i18n.ts) | Editor gesture and reference guidance stays localized independently of merchant content. |
+| [extensions/apps/site-builder/studio/interactions.css](../extensions/apps/site-builder/studio/interactions.css) | These controls decorate only the sandbox canvas. Stable drop gutters avoid shifting the target mid-drag. |
 | [extensions/apps/site-builder/studio/navigation.css](../extensions/apps/site-builder/studio/navigation.css) | Compact page hierarchy, section ordering and page-creation cards. |
 | [extensions/apps/site-builder/studio/palette.css](../extensions/apps/site-builder/studio/palette.css) | Graphical insertion gallery for built-in and registered app-owned elements. |
+| [extensions/apps/site-builder/studio/references.css](../extensions/apps/site-builder/studio/references.css) | References are a first-class design starting point in the existing agent rail. |
+| [extensions/apps/site-builder/studio/useBlockEditing.tsx](../extensions/apps/site-builder/studio/useBlockEditing.tsx) | Local editor gestures share one bounded document mutation path; drag payloads never contain executable/app data. |
 | [extensions/apps/site-builder/studio/useDesigner.ts](../extensions/apps/site-builder/studio/useDesigner.ts) | Explicit native saves and scope-safe reads; local undo never bypasses record CAS or staging review. |
+| [extensions/apps/site-builder/studio/usePointerPlacement.ts](../extensions/apps/site-builder/studio/usePointerPlacement.ts) | Captured mouse/touch gestures cross the iframe boundary with viewport-aware drop positions and edge scrolling. |
 | [extensions/apps/site-builder/studio/workspace-i18n.ts](../extensions/apps/site-builder/studio/workspace-i18n.ts) | Shared visual workspace vocabulary; interface choices never become untranslated content. |
 | [extensions/apps/site-builder/studio/workspace.css](../extensions/apps/site-builder/studio/workspace.css) | Visual workspace panels: one scroll region per rail, stable mode controls and graphical element cards. |
 | [extensions/apps/site-builder/tests/canvas-cases.tsx](../extensions/apps/site-builder/tests/canvas-cases.tsx) | Real sandboxed frame renders native components and sends no preview/cart/order commands. |
+| [extensions/apps/site-builder/tests/design-reference-cases.tsx](../extensions/apps/site-builder/tests/design-reference-cases.tsx) | Screenshot bounds and invalid-file recovery use the actual reference input and existing agent payload. |
 | [extensions/apps/site-builder/tests/designer-cases.tsx](../extensions/apps/site-builder/tests/designer-cases.tsx) | Initial native storefront, automatic home selection and inherited-draft copy regressions. |
+| [extensions/apps/site-builder/tests/interactions-cases.tsx](../extensions/apps/site-builder/tests/interactions-cases.tsx) | Real editor commands: insertion positions, stale/untrusted drags, caps and native undo remain consistent. |
+| [extensions/apps/site-builder/tests/pointer-cases.tsx](../extensions/apps/site-builder/tests/pointer-cases.tsx) | Mouse/touch placement converts scaled iframe coordinates and excludes clipped/outside targets. |
 | [extensions/apps/site-builder/tests/workspace-cases.tsx](../extensions/apps/site-builder/tests/workspace-cases.tsx) | Graphical insertion and shared agent controls exercise the same native editor state. |
 | [extensions/apps/site-builder/usePageProducts.ts](../extensions/apps/site-builder/usePageProducts.ts) | Resolve explicit selections through the native bounded catalogue, independent of the first catalogue/search page. |
 | [extensions/apps/site-forms/server.rs](../extensions/apps/site-forms/server.rs) | Forms validate answers against a published page's declared fields; inbox entries stay private. |
@@ -1427,6 +1462,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/advisor_privacy.py](../scripts/testing/advisor_privacy.py) | Concurrent privacy mutations across the real concierge/provider path; no live inference. |
 | [scripts/testing/advisor_sources.py](../scripts/testing/advisor_sources.py) | Actual channel-admitted advisor context and concurrent native source mutations; synthetic local model only. |
 | [scripts/testing/app_approval.py](../scripts/testing/app_approval.py) | Use the Rust manifest serializer for operator pins; never invent a second canonical digest. |
+| [scripts/testing/catalog_intake_checks.py](../scripts/testing/catalog_intake_checks.py) | Native catalogue intake through HTTP/MCP; real stage saves, exact replay, current rights and selected release, no model calls. |
 | [scripts/testing/consistency_boundaries.py](../scripts/testing/consistency_boundaries.py) | Real transport/permission regressions for knowledge publication and automation discovery. |
 | [scripts/testing/coverage_env.py](../scripts/testing/coverage_env.py) | Convert trusted cargo-llvm-cov environment output to GitHub's environment-file syntax. |
 | [scripts/testing/coverage_report.py](../scripts/testing/coverage_report.py) | Publish separate all-source coverage totals, untested files and enforce reviewed minimums. |

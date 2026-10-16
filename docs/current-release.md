@@ -1,8 +1,34 @@
 # Current release — reviewed 16 October 2026
 
-## Latest recorded deployment — 15 October
+## Latest recorded deployment — 16 October
 
-The latest documented hosted Core acceptance is the `f74f29d` source tree
+Core [PR 141](https://github.com/sthamann/veyndo/pull/141), `fa2569f`, is publicly
+running as Northflank `spiky-income-4612`, one healthy instance. Public Studio
+acceptance checked grouped Shop Knowledge navigation and understandable AI price
+boundaries, illustrated app creation, actual shop preview, section movement/undo
+and the reference-design agent rail. Test design changes were undone and not
+saved or published. The existing service builds automatically but requires an
+explicit deployment; that step has now been completed.
+
+The private Experience service is running `b40b386` (PR 73), build
+`educated-sort-2532`, with session-return repairs and visible embedded-checkout
+loading, timeout and retry. A fresh Safari session completed an actual original
+Storyfront → embedded native checkout → confirmation → empty original bag flow:
+**RAC-c10e5d2f, 24.90 EUR, one synthetic product, simulated payment**. The German
+confirmation retained the German product name. The controlled Chrome session's
+paused/empty iframe was recorded separately; its new recovery UI was visible.
+
+[Exact release receipt and captures](evidence/studio-release-hosted-2026-10-16.json).
+This does not establish real settlement, mail delivery, invoice setup, Apple OAuth,
+capacity or completion of the unmerged platform-hardening programme.
+
+![Public Shop Knowledge after deployment](evidence/images/studio-release-2026-10-16/shopwissen-live.png)
+
+![Public embedded checkout confirmation with synthetic data](evidence/images/studio-release-2026-10-16/checkout-embedded-confirmed-live.jpg)
+
+### Previous shared-storage acceptance — 15 October
+
+The preceding hosted Core acceptance is the `f74f29d` source tree
 (PRs 136–137), following the signed-database/browser/durable-agent releases.
 It records four fixed shared app tables, no retained legacy app tables, preserved
 records/references, selected private page publication and simulated purchases in
@@ -15,8 +41,8 @@ The [app-system implementation map](app-system-status.md) distinguishes these
 released foundations from the unfinished full B2B configurator, entity/lifecycle
 extensions, historical business replay, isolated source builds, managed runtimes
 and fleet compatibility. A documentation refresh does not deploy those features
-or rerun every provider/browser scenario. Follow-up authentication and original
-Storyfront localization changes require their own merge, deployment and acceptance.
+or rerun every provider/browser scenario. The 16 October entry above records the
+separate deployment of the subsequent UI and Experience fixes.
 
 The earlier observations below retain their dates and original boundaries.
 

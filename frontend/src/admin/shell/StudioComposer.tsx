@@ -1,4 +1,9 @@
 /** StudioComposer: focused Studio view; state and commands come from the session-scoped controller. */
+import { lazy, Suspense, useState } from "react";
+import { useCatalogIntakeText } from "../../shared/i18n/catalog-intake-i18n";
+import type { IntakeMode } from "../catalog/catalog-intake-model";
+import "../styles/catalog-intake.css";
+const CatalogIntake = lazy(() => import("../catalog/CatalogIntake"));
 import { locales } from "../../shared/i18n/i18n";
 import "../../shared/styles/workbench.css";
 import Icon from "../../shared/ui/Icon";
@@ -8,10 +13,55 @@ import "../styles/studio.css";
 import { useStudio } from "./StudioContext";
 
 export default function StudioComposer() {
-  const { send, t, composer, draft, setDraft, connected, busy, locale } =
-    useStudio();
+  const c = useCatalogIntakeText();
+  const [intake, setIntake] = useState<IntakeMode>();
+  const {
+    access,
+    workspace,
+    environment,
+    send,
+    t,
+    composer,
+    draft,
+    setDraft,
+    connected,
+    busy,
+    locale,
+  } = useStudio();
   return (
     <div className="composer-wrap">
+      {connected && access.includes("catalog.write") && (
+        <div className="merchant-catalog-actions">
+          {(
+            [
+              ["csv", "table"],
+              ["url", "link"],
+              ["demo", "spark"],
+            ] as const
+          ).map(([mode, icon]) => (
+            <button
+              type="button"
+              key={mode}
+              disabled={
+                busy || (mode !== "csv" && !access.includes("assistant.use"))
+              }
+              onClick={() => setIntake(mode)}
+            >
+              <Icon name={icon} size={15} />
+              {c(mode)}
+            </button>
+          ))}
+        </div>
+      )}
+      {intake && connected && access.includes("catalog.write") && (
+        <Suspense fallback={null}>
+          <CatalogIntake
+            key={`${workspace}:${environment}:${locale}`}
+            initialMode={intake}
+            onClose={() => setIntake(undefined)}
+          />
+        </Suspense>
+      )}
       <form
         className="studio-composer"
         onSubmit={(e) => {

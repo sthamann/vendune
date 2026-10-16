@@ -1691,13 +1691,13 @@
     },
     "src/capabilities/admission.rs": {
       "status": "unproved",
-      "sha256": "2529f11c83b024aa9824a95da179d6bddbad237f24e55310cea036cde42f9de7",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "170db3f4ba9b7ef149a621c6f61ee37a302f4deb6f0dc9766e3b0a7732f57b48",
+      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
-      "sha256": "f01a19a7e2d8a85fefefdac64f53f8d379ce718c69cc86b3bb94266a45240ef5",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "6dad3880662762b3149341f60cdb3eadab76579f06766a8fdf46c669fe2e3de0",
+      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
     },
     "src/capabilities/contract.rs": {
       "status": "unproved",
@@ -1711,18 +1711,18 @@
     },
     "src/capabilities/dispatch.rs": {
       "status": "unproved",
-      "sha256": "614442ddf6ad95c4e9513b0759bb4661bd03757ad1f410eb84bd3cb09513838f",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "2b9bf66209572e1f0e6c3dcaed49f7579ffa81511b13388605395bd157856451",
+      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
     },
     "src/capabilities/registry.rs": {
       "status": "unproved",
-      "sha256": "539b70efc20f5167264e0a837651c40eb8b386866fecaf4246b2e2a4c411bd8c",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "b45082e0fbdeb5c6619981b2904c51db162f6d7b85e6af75dcd5627f42531f0c",
+      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
     },
     "src/capabilities/schema.rs": {
       "status": "unproved",
-      "sha256": "55a599858537c4e4c9a0e813d8d69d05032506140bcaef5054d175ba50ccb5fd",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "a6394944bac0de00bf02c85d54aa40213b6b2373179e5ba120d143c38ad51485",
+      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
     },
     "src/capabilities.rs": {
       "status": "unproved",
@@ -1964,6 +1964,31 @@
       "sha256": "c3db6e8287d38869376f08c80e0ccdf5e5616be0520b36adbb8703b5a27d3428",
       "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
+    "src/commerce/catalog_intake/csv.rs": {
+      "status": "unproved",
+      "sha256": "dbd077e9362a830aeeed1b9610266f719ee536520b0ece2244ecb31826232ed0",
+      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
+    },
+    "src/commerce/catalog_intake/mod.rs": {
+      "status": "unproved",
+      "sha256": "249205e65048929d4bc562fff3dfee487df7790e9cc4c6bac49dfdcb7ba71da3",
+      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
+    },
+    "src/commerce/catalog_intake/prepare.rs": {
+      "status": "unproved",
+      "sha256": "b945b0e4d491d04f295d79ff77ab555910116aa23a1bad87e9cc0f689e8b7819",
+      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
+    },
+    "src/commerce/catalog_intake/save.rs": {
+      "status": "unproved",
+      "sha256": "d475baae2d19800446698bb0a53ea526845eef52a562a8f3988448929f6a1c4d",
+      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
+    },
+    "src/commerce/catalog_intake/schema.rs": {
+      "status": "unproved",
+      "sha256": "fd70aedff98525e4b26f0be1d818ce69550f36e4fac0e88ec8611b30ed340160",
+      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
+    },
     "src/commerce/configuration.rs": {
       "status": "unproved",
       "sha256": "1a93bd0f3267d7553da43c08746bbb5f8811ce2485578d7ee8d4257df3a76b46",
@@ -2026,8 +2051,8 @@
     },
     "src/commerce/international_capabilities.rs": {
       "status": "unproved",
-      "sha256": "dbfd181fd054c0304e802b50a7ffb7254bcdb575e15fec73f1bafd6defac0bc4",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "5a13200d9a6c1e76050cd01e2c2d49a9b55f048af735a60e278758ccb266fdd6",
+      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
     },
     "src/commerce/inventory.rs": {
       "status": "unproved",
@@ -2046,8 +2071,8 @@
     },
     "src/commerce/mod.rs": {
       "status": "unproved",
-      "sha256": "48cdb1a2e90df496107bc6e7beef6fd05da3156a79ddf1aa9fabf2e1a0fb116e",
-      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
+      "sha256": "4168f837fc3ddd70c46bf39805a53fb473f7c9c19436b62c46bd1a1b5724b83e",
+      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
     },
     "src/commerce/order_fields.rs": {
       "status": "unproved",
@@ -2086,8 +2111,8 @@
     },
     "src/commerce/product_edit.rs": {
       "status": "unproved",
-      "sha256": "9d21c3727a09954f587f8c0b1b3f98d8264c1c434fcec6f948c0cac859775e11",
-      "review": "Review additive product content clock and rolling-writer trigger; preserve aggregate CAS for explicit stock and legacy clients; content-only HTTP/MCP edits omit stock under the locked native owner; preserve live stock in history and release snapshots. Actual two-replica purchase/cancellation and editor regressions exercise stale writes; async SQL and UI remain outside the existing unchanged Lean proof boundary."
+      "sha256": "82da2fb8c9fbee941fa2b424187a080408c3ba04c1e8fb30de30f790cb6cbdf3",
+      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
     },
     "src/commerce/product_fields.rs": {
       "status": "unproved",
@@ -2101,8 +2126,8 @@
     },
     "src/commerce/product_metadata.rs": {
       "status": "unproved",
-      "sha256": "ee31322df4cf15a77780e2c043de557a94b0e43d6ea08b478971f200c1c84d28",
-      "review": "Review additive product content clock and rolling-writer trigger; preserve aggregate CAS for explicit stock and legacy clients; content-only HTTP/MCP edits omit stock under the locked native owner; preserve live stock in history and release snapshots. Actual two-replica purchase/cancellation and editor regressions exercise stale writes; async SQL and UI remain outside the existing unchanged Lean proof boundary."
+      "sha256": "71dbafddab190a012c43fc3acfbc2a91018722245f02c7418ceea05b04540824",
+      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
     },
     "src/commerce/review_moderation.rs": {
       "status": "unproved",
@@ -3051,8 +3076,8 @@
     },
     "src/planner.rs": {
       "status": "unproved",
-      "sha256": "97afc4cdc529f94deb6d1f9b84e115c0572ab2697b390e51d785e6a60b328279",
-      "review": "Review exact frozen document identity re-admission instead of transient retrieval equality; deterministic real-HTTP lease-switch reproducer failed before and passes after, supplied-source archival still conflicts, current scope and other source guards retained; independent security review found no concrete weakening"
+      "sha256": "397648b238ff026b3a1086a82fa8777a89f3930bef32fc76c49ac78623f9ca20",
+      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
     },
     "src/platform/ai.rs": {
       "status": "reviewed-binding",
@@ -3186,8 +3211,8 @@
     },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "91b65dcfdd4e58045ae01a08a1749ab671de2550a93641a1944b0b2e4e628c9b",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "5a0b59c8a65ba7f85e0720a065cf7ce90fe8fee160fb73c005a17c329c91725c",
+      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",

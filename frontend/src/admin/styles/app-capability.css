@@ -1,16 +1,26 @@
-/* Bounded business-goal cards fit the existing Studio workspace and inherit its theme. */
+/* Merchant-friendly idea brief, explicit next steps and optional bounded rule checks share Studio tokens. */
 .app-capability-editor {
-  padding: 24px;
-  max-width: 1100px;
+  padding: clamp(18px, 2.5vw, 32px);
+  max-width: 1220px;
   margin: auto;
   display: grid;
-  gap: 16px;
+  gap: 24px;
   min-width: 0;
 }
 .app-capability-editor > header {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 14px;
+}
+.app-intent-emblem {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  color: var(--accent);
+  background: var(--hover);
+  flex-shrink: 0;
 }
 .app-capability-editor h2,
 .app-capability-editor h3,
@@ -18,11 +28,106 @@
 .app-capability-editor p {
   margin: 0;
 }
+.app-capability-editor h2 {
+  font-size: 22px;
+  margin-bottom: 6px;
+  letter-spacing: -0.03em;
+}
+.app-capability-editor h3 {
+  font-size: 14px;
+}
 .app-capability-editor p {
   color: var(--muted);
   line-height: 1.6;
+  font-size: 13px;
 }
-.app-capability-editor > button {
+.app-intent-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 28px;
+  align-items: start;
+}
+.app-intent-main {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+.studio .app-capability-editor .intl-translated-field > textarea {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  min-height: 145px;
+  line-height: 1.65;
+  font-size: 14px;
+}
+.studio
+  .app-capability-editor
+  .intl-translated-field:has(.intl-inherit[aria-pressed="true"])
+  > textarea {
+  background: var(--surface);
+  border-style: solid;
+}
+.app-capability-editor .intl-field-heading {
+  flex-wrap: wrap;
+}
+.app-capability-editor .intl-inherit {
+  max-width: 100%;
+  white-space: normal;
+}
+.app-capability-editor .app-intent-help {
+  font-size: 12px;
+}
+.app-intent-inspiration {
+  display: grid;
+  gap: 10px;
+  margin: 6px 0 12px;
+}
+.app-intent-inspiration h3 {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 550;
+}
+.app-intent-ideas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.app-intent-ideas button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  font-size: 12px;
+}
+.app-intent-ideas button:hover,
+.app-intent-ideas button:focus-visible {
+  border-color: var(--accent);
+  background: var(--hover);
+}
+.app-intent-ideas svg {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.app-intent-ideas svg:last-child {
+  margin-left: auto;
+  width: 13px;
+}
+.app-intent-ideas span {
+  overflow-wrap: anywhere;
+}
+.app-intent-requirements {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel);
+}
+.app-intent-requirements > button {
   justify-self: start;
 }
 .app-capability-assumption {
@@ -31,6 +136,90 @@
   align-items: center;
   gap: 12px;
 }
+.studio .app-capability-assumption .intl-translated-field > textarea {
+  min-height: 80px;
+}
+.app-intent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+.app-intent-guide {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+}
+.app-intent-guide h3 {
+  font-size: 15px;
+  line-height: 1.5;
+}
+.app-intent-guide ol {
+  list-style: none;
+  counter-reset: intent;
+  padding: 0;
+  margin: 22px 0 0;
+  display: grid;
+  gap: 22px;
+}
+.app-intent-guide li {
+  position: relative;
+  padding-left: 34px;
+}
+.app-intent-guide li::before {
+  counter-increment: intent;
+  content: counter(intent);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 23px;
+  height: 23px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 11px;
+  background: var(--surface);
+}
+.app-intent-guide strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+.app-capability-editor .app-intent-guide p {
+  font-size: 12px;
+}
+.app-capability-checks {
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+  min-width: 0;
+}
+.app-capability-checks summary {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 550;
+  font-size: 13px;
+  min-height: 36px;
+}
+.app-capability-checks summary::after {
+  content: "+";
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 20px;
+}
+.app-capability-checks[open] summary::after {
+  content: "−";
+}
+.app-capability-checks > p,
+.app-capability-checks > button,
+.app-capability-examples {
+  margin-top: 14px;
+}
 .app-capability-examples {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
@@ -38,11 +227,15 @@
 }
 .app-capability-examples article {
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 20px;
+  border-radius: 12px;
+  padding: 18px;
   display: grid;
   gap: 12px;
   background: var(--surface);
+}
+.app-capability-examples small {
+  color: var(--muted);
+  font-size: 11px;
 }
 .app-capability-examples dl {
   display: grid;
@@ -68,11 +261,56 @@
   align-items: center;
   gap: 8px;
 }
+@media (max-width: 1200px) {
+  .app-intent-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .app-intent-guide ol {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+}
 @media (max-width: 600px) {
-  .app-capability-editor {
+  .app-intent-ideas,
+  .app-intent-guide ol {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .app-intent-guide,
+  .app-intent-requirements {
     padding: 16px;
   }
-  .app-capability-examples article {
-    padding: 16px;
+  .app-intent-actions {
+    flex-direction: column;
   }
+  .app-intent-actions button {
+    white-space: normal;
+  }
+  .app-capability-editor > header {
+    gap: 10px;
+  }
+  .app-intent-emblem {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+}
+
+.app-intent-main-needed {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--warning);
+  border-radius: 10px;
+  background: var(--panel);
+  padding: 14px 16px;
+}
+.app-intent-main-needed p {
+  flex: 1;
+  min-width: min(100%, 220px);
+}
+.app-intent-main-needed button {
+  flex-shrink: 0;
 }

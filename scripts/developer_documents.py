@@ -71,6 +71,14 @@ def embedding_idle(tenant):
   if idle=='t':return
   time.sleep(.1)
  raise AssertionError('Fixture embedding queue/admission did not become idle')
+def hold_embedding_slot(tenant,lease):
+ # The idle read does not reserve admission. A worker can acquire its slot
+ # before our next statement, so wait for the real atomic claim to succeed.
+ # Never remove another owner's lease or change the production budget.
+ for _ in range(300):
+  if fixture_sql(f"SELECT claim_resource_lease('{lease}','{tenant}','embedding',1,1)")=='t':return
+  time.sleep(.1)
+ raise AssertionError('Fixture could not acquire embedding admission: '+fixture_sql(f"SELECT id,expires_at FROM resource_leases WHERE tenant='{tenant}' AND class='embedding'"))
 try:
  for _ in range(100):
   try:call('/health');break
@@ -122,7 +130,7 @@ try:
  # Reproduce the unavailable-source result under actual admission contention,
  # independently of language correctness; no capacity bypass or invented citation.
  held_lease='fixture-'+uuid.uuid4().hex
- assert fixture_sql(f"SELECT claim_resource_lease('{held_lease}','{slug}','embedding',1,1)")=='t'
+ hold_embedding_slot(slug,held_lease)
  try:
   embeds=sum(p=='/api/embed' for p,_ in captured)
   unavailable=call('/store-api/product/mug/questions',{'question':'spülmaschinenfest?','inference':{'provider':'openai','model':'local-fixture'}},tenant=slug,locale='fr-FR')
@@ -205,7 +213,7 @@ try:
  # The frozen evidence stays valid when embedding admission changes during inference.
  # Force lexical preparation, then admit semantic search without editing any source.
  held_lease='planner-fixture-'+uuid.uuid4().hex
- assert fixture_sql(f"SELECT claim_resource_lease('{held_lease}','{slug}','embedding',1,1)")=='t'
+ hold_embedding_slot(slug,held_lease)
  behavior['pause']=True;model_waiting.clear();model_release.clear()
  with ThreadPoolExecutor(max_workers=1) as requests:
   pending=requests.submit(call,'/api/agent/plan',{'instruction':instruction,'inference':{'provider':'openai','model':'local-fixture'}},a)

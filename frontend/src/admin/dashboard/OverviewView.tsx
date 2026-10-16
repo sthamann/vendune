@@ -1,4 +1,5 @@
 /** OverviewView renders verified shop state and typed user actions. */
+import { useCatalogIntakeText } from "../../shared/i18n/catalog-intake-i18n";
 import { storefrontURL } from "../../shared/api/shop-scope";
 import { useLocale } from "../../shared/i18n/i18n";
 import Icon from "../../shared/ui/Icon";
@@ -13,6 +14,7 @@ export function OverviewView({
   onIntent: (s: string) => void;
   onProduct: (id: string) => void;
 }) {
+  const intakeText = useCatalogIntakeText();
   const { t, money, date, number } = useLocale();
   const format = (n: number, currency = "EUR") =>
     new Intl.NumberFormat(data.locale, { style: "currency", currency }).format(
@@ -195,7 +197,7 @@ export function OverviewView({
             {t("policy")}
             <Icon name="arrow" />
           </button>
-          <button onClick={() => onIntent(t("promptRead"))}>
+          <button onClick={() => onIntent(intakeText("knowledgePrompt"))}>
             <Icon name="graph" />
             {t("productKnowledge")}
             <Icon name="arrow" />

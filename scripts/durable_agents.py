@@ -27,6 +27,7 @@ class Model(BaseHTTPRequestHandler):
     def log_message(self,*args): pass
     def do_POST(self):
         body=json.loads(self.rfile.read(int(self.headers['Content-Length'])))
+        assert 'ADMINISTRATION' in body['instructions'] and 'CSV' in body['instructions'] and 'sandbox=' in body['instructions']
         schema=body['text']['format']['schema']; read=schema['required']==['tool_calls']
         captured.append('read' if read else 'final')
         if mode.get('unavailable'):

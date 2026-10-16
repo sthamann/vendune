@@ -1,0 +1,96 @@
+/** Guided creation vocabulary: placement groups, private draft guidance and optional technical controls. */
+export const creationWords = {
+  createIntro: [
+    "Name your app and choose where it helps. You can edit every area in the next step.",
+    "Gib deiner App einen Namen und wähle, wo sie helfen soll. Danach gestaltest du jeden Bereich im Editor.",
+    "Nommez votre app et choisissez où elle intervient. Vous modifierez chaque espace à l’étape suivante.",
+    "Nombra tu app y elige dónde ayuda. Después podrás editar cada área.",
+  ],
+  appName: ["App name", "App-Name", "Nom de l’app", "Nombre de la app"],
+  identity: ["Your app", "Deine App", "Votre app", "Tu app"],
+  shopAreas: [
+    "Shop & content",
+    "Shop & Inhalte",
+    "Boutique et contenu",
+    "Tienda y contenido",
+  ],
+  buyingAreas: [
+    "Purchase & account",
+    "Einkauf & Kundenkonto",
+    "Achat et compte",
+    "Compra y cuenta",
+  ],
+  adminAreas: [
+    "Administration",
+    "Administration",
+    "Administration",
+    "Administración",
+  ],
+  posAreas: ["Point of sale", "Kasse", "Point de vente", "Punto de venta"],
+  companyAreas: [
+    "Company purchasing",
+    "Firmeneinkauf",
+    "Achats d’entreprise",
+    "Compras de empresa",
+  ],
+  selectedAreas: [
+    "Selected areas",
+    "Gewählte Bereiche",
+    "Espaces sélectionnés",
+    "Áreas seleccionadas",
+  ],
+  selectAreas: [
+    "Choose at least one area to continue.",
+    "Wähle mindestens einen Bereich, um fortzufahren.",
+    "Choisissez au moins un espace pour continuer.",
+    "Elige al menos un área para continuar.",
+  ],
+  selectionCount: [
+    "{count} of 6 selected",
+    "{count} von 6 gewählt",
+    "{count} sur 6 sélectionnés",
+    "{count} de 6 seleccionadas",
+  ],
+  selectionLimit: [
+    "Six areas selected. Remove one to choose another.",
+    "Sechs Bereiche gewählt. Entferne einen, um einen anderen hinzuzufügen.",
+    "Six espaces sélectionnés. Retirez-en un pour en choisir un autre.",
+    "Seis áreas seleccionadas. Quita una para elegir otra.",
+  ],
+  removeArea: [
+    "Remove {area}",
+    "{area} entfernen",
+    "Retirer {area}",
+    "Quitar {area}",
+  ],
+  draftSafety: [
+    "You are creating a private draft. Nothing appears in the live shop yet.",
+    "Du erstellst einen privaten Entwurf. Im Live-Shop erscheint noch nichts.",
+    "Vous créez un brouillon privé. Rien ne paraît encore dans la boutique en ligne.",
+    "Estás creando un borrador privado. Aún no aparece nada en la tienda pública.",
+  ],
+  nextDesign: [
+    "Next: design, preview and review a version before publishing.",
+    "Danach: gestalten, Vorschau testen und eine Version vor dem Veröffentlichen prüfen.",
+    "Ensuite : concevez, testez et vérifiez une version avant publication.",
+    "Después: diseña, prueba la vista previa y revisa una versión antes de publicar.",
+  ],
+  technicalOptions: [
+    "Technical options & agent access",
+    "Technische Optionen & Agentenzugriff",
+    "Options techniques et accès des agents",
+    "Opciones técnicas y acceso de agentes",
+  ],
+  idHint: [
+    "Generated automatically. Used by APIs and integrations; independent of the translated app name.",
+    "Automatisch erzeugt. Wird von APIs und Anbindungen verwendet; unabhängig vom übersetzten App-Namen.",
+    "Généré automatiquement. Utilisé par les API, indépendamment du nom traduit.",
+    "Se genera automáticamente. Las API lo usan, independientemente del nombre traducido.",
+  ],
+  privateDraft: [
+    "Private draft",
+    "Privater Entwurf",
+    "Brouillon privé",
+    "Borrador privado",
+  ],
+} as const;

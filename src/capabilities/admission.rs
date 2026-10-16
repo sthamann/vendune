@@ -2,6 +2,9 @@
 use crate::*;
 pub(super) fn visible(a: &App, h: &RequestContext, name: &str) -> bool {
     let n = &name;
+    if name.starts_with("merchant.catalog.") {
+        return merchant(a, h).is_ok() && commerce::catalog_intake::visible(h, name);
+    }
     if n.starts_with("merchant.run.") {
         return merchant(a, h).is_ok()
             && agent::assistant_access(h).is_ok()

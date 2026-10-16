@@ -125,3 +125,157 @@ it("saves the native baseline before exporting a coding-agent task without apply
   ).toBeVisible();
   expect(request.mock.calls).toHaveLength(1);
 });
+
+it("moves and deletes blocks on the actual canvas with native undo and without saving", async () => {
+  const page = {
+    ...home,
+    content: {
+      blocks: [
+        home.content.blocks[0],
+        {
+          ...home.content.blocks[0],
+          id: "second",
+          text: { "en-GB": "Second section" },
+        },
+      ],
+    },
+  };
+  const request = vi.fn(async (path: string) =>
+    path.includes("/context") ? context : { elements: [page] },
+  );
+  render(
+    <ShopDesigner
+      request={request}
+      workspace="canvas-tools"
+      rights={["channels.manage"]}
+      sandbox
+      onEnvironments={() => {}}
+    />,
+  );
+  const first = (
+    await screen.findAllByRole("group", { name: "Element controls: Hero" })
+  )[0];
+  fireEvent.click(first.querySelector('[aria-label="Move down"]')!);
+  expect(
+    [...document.querySelectorAll("[data-block-id]")].map((e) =>
+      e.getAttribute("data-block-id"),
+    ),
+  ).toEqual(["second", home.content.blocks[0].id]);
+  fireEvent.click(first.querySelector('[aria-label="Remove element"]')!);
+  expect(document.querySelectorAll("[data-block-id]")).toHaveLength(1);
+  fireEvent.click(
+    document.querySelector('.designer-preview-bar [aria-label="Undo"]')!,
+  );
+  expect(document.querySelectorAll("[data-block-id]")).toHaveLength(2);
+  expect(
+    request.mock.calls.every(([path]) => !path.includes("save_page")),
+  ).toBe(true);
+});
+
+it("submits visible URL references through the existing native planner and preserves copy by default", async () => {
+  const request = vi.fn(async () => ({
+    interpretation: "Source analysis",
+    sources: [{ url: "https://reference.example/shop", status: "partial" }],
+    variants: [{ taskId: "review-1", fields: home, summary: "Airy" }],
+  }));
+  render(
+    <DesignAgent
+      request={request}
+      page={home}
+      selected=""
+      disabled={false}
+      onPreview={vi.fn()}
+      onApplied={vi.fn()}
+      onPrepare={async () => home}
+    />,
+  );
+  expect(
+    screen.getByRole("region", { name: "Start with a design you like" }),
+  ).toBeVisible();
+  fireEvent.change(
+    screen.getByRole("textbox", { name: "Reference URLs (one per line)" }),
+    { target: { value: "https://reference.example/shop" } },
+  );
+  fireEvent.click(
+    screen.getByRole("button", { name: "Use this design brief" }),
+  );
+  fireEvent.click(screen.getByRole("button", { name: "Prepare a proposal" }));
+  await waitFor(() =>
+    expect(request).toHaveBeenCalledWith(
+      "/api/merchant/site/plan",
+      expect.objectContaining({
+        id: home.id,
+        revision: 3,
+        urls: ["https://reference.example/shop"],
+        style: true,
+        structure: true,
+        content: false,
+      }),
+    ),
+  );
+  expect(await screen.findByText("Source analysis")).toBeVisible();
+  expect(request).toHaveBeenCalledOnce();
+});
+
+it("rejects invalid reference URLs before saving or sending a model request", async () => {
+  const request = vi.fn(),
+    prepare = vi.fn(async () => home);
+  render(
+    <DesignAgent
+      request={request}
+      page={home}
+      selected=""
+      disabled={false}
+      onPreview={vi.fn()}
+      onApplied={vi.fn()}
+      onPrepare={prepare}
+    />,
+  );
+  fireEvent.change(
+    screen.getByRole("textbox", { name: "Reference URLs (one per line)" }),
+    { target: { value: "https://secret:password@example.test" } },
+  );
+  fireEvent.click(
+    screen.getByRole("button", { name: "Use this design brief" }),
+  );
+  fireEvent.click(screen.getByRole("button", { name: "Prepare a proposal" }));
+  expect(await screen.findByRole("alert")).toHaveTextContent(
+    "HTTPS URLs without credentials",
+  );
+  expect(request).not.toHaveBeenCalled();
+  expect(prepare).not.toHaveBeenCalled();
+});
+
+it("discards a late AI proposal after a manual edit, without replacing the newer draft", async () => {
+  let finish!: (value: unknown) => void;
+  const request = vi.fn(
+      () =>
+        new Promise((resolve) => {
+          finish = resolve;
+        }),
+    ),
+    preview = vi.fn();
+  const props = {
+    request,
+    page: home,
+    selected: "",
+    disabled: false,
+    onPreview: preview,
+    onApplied: vi.fn(),
+    onPrepare: async () => home,
+  };
+  const view = render(<DesignAgent {...props} />);
+  fireEvent.click(
+    screen.getByRole("button", { name: "Use this design brief" }),
+  );
+  fireEvent.click(screen.getByRole("button", { name: "Prepare a proposal" }));
+  await waitFor(() => expect(request).toHaveBeenCalled());
+  view.rerender(
+    <LocaleScope locale="en-GB">
+      <DesignAgent {...props} page={{ ...home, theme: { spacing: 80 } }} />
+    </LocaleScope>,
+  );
+  finish({ interpretation: "Old proposal", sources: [], variants: [] });
+  await waitFor(() => expect(screen.queryByText("Old proposal")).toBeNull());
+  expect(preview.mock.calls.every(([page]) => page === null)).toBe(true);
+});

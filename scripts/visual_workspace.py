@@ -133,6 +133,15 @@ try:
  state['fields']=staged
  plan=call('/api/merchant/site/plan',{'id':'home','revision':stage_revision,'instruction':'Make it airier','urls':['http://127.0.0.1/private'],'style':True,'content':True},sh)
  assert len(plan['variants'])==2 and plan['approvalRequired'];assert rows(sh)[0]['content']['blocks'][0]['text']['de-DE']=='Neue Kollektion'
+ image='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aS5cAAAAASUVORK5CYII='
+ visual=call('/api/merchant/site/plan',{'id':'home','revision':stage_revision,'instruction':'Adapt the screenshot style','images':[image],'style':True,'content':False,'structure':False},sh)
+ assert any(s['status']=='provided' and s['kind']=='image' for s in visual['sources'])
+ assert seen[-1]['messages'][-1]['images']==[image.split(',',1)[1]]
+ assert all(v['fields']['content']==current_stage['content'] for v in visual['variants'])
+ call('/api/merchant/site/plan',{'id':'home','revision':stage_revision,'instruction':'Invalid image','images':['data:image/svg+xml;base64,PHN2Zy8+']},sh,400)
+ assert next(p for p in rows(sh) if p['id']=='home')['revision']==stage_revision
+ print('PASS reference image -> central vision request -> reviewed alternatives; content preservation and invalid image rejection without page mutation')
+
  task=plan['variants'][0]['taskId'];call('/api/merchant/site/apply',{'taskId':task,'approve':True},sh)
  assert next(p for p in rows(sh) if p['id']=='home')['content']['blocks'][0]['text']['de-DE']=='Vom Agenten vorbereitet'
  assert next(p for p in rows(public,True) if p['id']=='home')['content']['blocks'][0]['text']['de-DE']=='Neue Kollektion'

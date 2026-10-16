@@ -13,7 +13,25 @@ import {
   textMap,
 } from "../../src/admin/developer/app-model";
 import example from "../../../extensions/apps/care-studio/manifest.json";
+import furniture from "../../../extensions/apps/furniture-configurator/manifest.json";
 import type { Manifest } from "../../src/shared/apps/native/types";
+it("retains exact lookup and bounded pagination when compiling selectable libraries", () => {
+  const compiled = compile(furniture as Manifest);
+  const action = compiled.actions!.find((a) => a.name === "list_materials")!;
+  const properties = action.inputSchema.properties as Record<string, Record<string, unknown>>;
+  expect(properties.id).toEqual({
+    type: "string",
+    minLength: 1,
+    maxLength: 100,
+  });
+  expect(properties.limit).toEqual({
+    type: "integer",
+    minimum: 1,
+    maximum: 100,
+  });
+  expect(properties.after.type).toBe("string");
+  expect(compile(compiled)).toEqual(compiled);
+});
 it("compiles one manifest for visual edits, HTTP, MCP, native UI and flow actions", () => {
   const m = template(),
     v = m.views![0];

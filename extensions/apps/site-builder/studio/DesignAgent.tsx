@@ -8,6 +8,9 @@ import AgentTaskTransfer from "../../../../frontend/src/shared/agents/AgentTaskT
 import type { Page, PageFields } from "../model";
 import { useEditorText } from "./editor-i18n";
 import { useWorkspaceText } from "./workspace-i18n";
+import DesignReferences from "./DesignReferences";
+import { designUrls } from "./design-images";
+import { useInteractionText } from "./interaction-i18n";
 type Plan = {
   interpretation: string;
   sources: { url?: string; status: string; digest?: string; note?: string }[];
@@ -31,7 +34,8 @@ export default function DesignAgent({
   onPrepare: () => Promise<Page | undefined>;
 }) {
   const t = useEditorText(),
-    w = useWorkspaceText();
+    w = useWorkspaceText(),
+    i = useInteractionText();
   const [instruction, setInstruction] = useState(""),
     [engine, setEngine] = useState<AgentEngine>("platform"),
     [task, setTask] = useState<unknown>(),
@@ -39,37 +43,58 @@ export default function DesignAgent({
     [images, setImages] = useState<string[]>([]);
   const [style, setStyle] = useState(true),
     [structure, setStructure] = useState(true),
-    [content, setContent] = useState(true),
+    [content, setContent] = useState(false),
     [scope, setScope] = useState<"page" | "selected">("page");
   const [plan, setPlan] = useState<Plan>(),
     [index, setIndex] = useState(-1),
     [busy, setBusy] = useState(false),
-    [error, setError] = useState("");
-  const latest = useRef(page?.id);
-  latest.current = page?.id;
+    [error, setError] = useState(""),
+    [preparingImages, setPreparingImages] = useState(false);
+  const fingerprint = JSON.stringify(page);
+  const latest = useRef(fingerprint),
+    currentRequest = useRef(request),
+    generation = useRef(0);
+  latest.current = fingerprint;
+  currentRequest.current = request;
   const prepared = useRef<string | undefined>(undefined);
   useEffect(() => {
-    if (prepared.current && prepared.current !== page?.id) {
+    if (prepared.current && prepared.current !== fingerprint) {
       setPlan(undefined);
       setTask(undefined);
       onPreview(null);
     }
-  }, [page?.id]);
+  }, [fingerprint]);
   useEffect(() => {
+    generation.current++;
     setPlan(undefined);
     setTask(undefined);
     onPreview(null);
-  }, [selected, scope]);
+  }, [selected, scope, request]);
   const generate = async () => {
-    if (disabled || busy) return;
+    if (disabled || busy || preparingImages) return;
+    const ticket = ++generation.current;
     setBusy(true);
     setError("");
     setPlan(undefined);
     onPreview(null);
     try {
+      let references: string[] = [];
+      if (engine === "platform") {
+        try {
+          references = designUrls(urls);
+        } catch {
+          throw new Error(i("urlError"));
+        }
+      }
       const current = await onPrepare();
-      if (!current) return;
-      prepared.current = current.id;
+      if (
+        !current ||
+        ticket !== generation.current ||
+        request !== currentRequest.current
+      )
+        return;
+      const expected = JSON.stringify(current);
+      prepared.current = expected;
       const selectedId = scope === "selected" ? selected : "";
       const input = {
         id: current.id,
@@ -84,10 +109,7 @@ export default function DesignAgent({
         engine === "platform"
           ? {
               ...input,
-              urls: urls
-                .split(/\n/)
-                .map((u) => u.trim())
-                .filter(Boolean),
+              urls: references,
               images,
               style,
               structure,
@@ -95,13 +117,19 @@ export default function DesignAgent({
             }
           : { ...input, agent: engine },
       );
-      if (latest.current && latest.current !== current.id) return;
+      if (
+        ticket !== generation.current ||
+        latest.current !== expected ||
+        request !== currentRequest.current
+      )
+        return;
       if (engine === "platform") {
         setPlan(result);
         setIndex(-1);
       } else setTask(result);
     } catch (e) {
-      setError((e as Error).message);
+      if (ticket === generation.current && request === currentRequest.current)
+        setError((e as Error).message);
     } finally {
       setBusy(false);
     }
@@ -114,12 +142,24 @@ export default function DesignAgent({
           <p>{w("saveFirst")}</p>
         </div>
       </div>
+      {engine === "platform" && (
+        <DesignReferences
+          urls={urls}
+          images={images}
+          onUrls={setUrls}
+          onImages={setImages}
+          disabled={disabled || busy}
+          onBusy={setPreparingImages}
+          onError={setError}
+          onPrompt={setInstruction}
+        />
+      )}
       <AgentComposer
         prompt={instruction}
         onPrompt={setInstruction}
         engine={engine}
         onEngine={setEngine}
-        busy={busy}
+        busy={busy || preparingImages}
         disabled={disabled}
         placeholder={t("instructionHint")}
         maxLength={2000}
@@ -140,50 +180,7 @@ export default function DesignAgent({
           </label>
         )}
         {engine === "platform" && (
-          <details className="designer-agent-references">
-            <summary>{w("references")}</summary>
-            <label>
-              {t("references")}
-              <textarea
-                value={urls}
-                maxLength={6000}
-                rows={3}
-                onChange={(event) => setUrls(event.target.value)}
-              />
-            </label>
-            <label>
-              {t("upload")}
-              <input
-                type="file"
-                accept="image/png,image/jpeg,image/webp"
-                multiple
-                onChange={async (event) => {
-                  const files = [...(event.target.files ?? [])];
-                  setError("");
-                  if (files.length > 2 || files.some((f) => f.size > 1048576)) {
-                    setError(t("upload"));
-                    return;
-                  }
-                  try {
-                    setImages(
-                      await Promise.all(
-                        files.map(
-                          (file) =>
-                            new Promise<string>((resolve, reject) => {
-                              const r = new FileReader();
-                              r.onload = () => resolve(String(r.result));
-                              r.onerror = reject;
-                              r.readAsDataURL(file);
-                            }),
-                        ),
-                      ),
-                    );
-                  } catch {
-                    setError(t("upload"));
-                  }
-                }}
-              />
-            </label>
+          <div className="designer-reference-options-panel">
             <div className="designer-reference-options">
               {(
                 [
@@ -202,19 +199,7 @@ export default function DesignAgent({
                 </label>
               ))}
             </div>
-            {images.map((src, i) => (
-              <div key={i} className="designer-reference-image">
-                <img src={src} alt={t("references")} width={80} />
-                <button
-                  type="button"
-                  aria-label={t("discard")}
-                  onClick={() => setImages(images.filter((_, n) => n !== i))}
-                >
-                  ×
-                </button>
-              </div>
-            ))}
-          </details>
+          </div>
         )}
       </AgentComposer>
       {busy && <p role="status">{t("generating")}</p>}
@@ -230,6 +215,8 @@ export default function DesignAgent({
         disabled={disabled}
         onImport={async (value) => {
           if (disabled || busy) return;
+          const ticket = ++generation.current,
+            expected = fingerprint;
           setBusy(true);
           setError("");
           try {
@@ -237,10 +224,17 @@ export default function DesignAgent({
               value &&
               typeof value === "object" &&
               "id" in value &&
-              value.id !== latest.current
+              value.id !== page?.id
             )
               throw new Error(w("unavailable"));
             const result = await request("/api/merchant/site/propose", value);
+            if (
+              ticket !== generation.current ||
+              latest.current !== expected ||
+              request !== currentRequest.current
+            )
+              return;
+            prepared.current = expected;
             setPlan(result);
             setIndex(-1);
             onPreview(null);

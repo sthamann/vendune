@@ -27,6 +27,7 @@ pub(crate) static OPERATIONS: LazyLock<Vec<Operation>> = LazyLock::new(|| {
                 "knowledge.behavior"
                     | "catalog.search"
                     | "catalog.detail"
+                    | "merchant.catalog.context"
                     | "merchant.products"
                     | "merchant.product.content"
                     | "merchant.orders"

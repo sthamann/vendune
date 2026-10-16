@@ -121,8 +121,8 @@ export default function useDesigner(request: RequestFn, workspace: string) {
     setFuture([]);
     setSaved(false);
   };
-  const edit = (page: Page) => {
-    if (draft) setPast((p) => [...p, draft].slice(-30));
+  const edit = (page: Page, previous = draft) => {
+    if (previous) setPast((p) => [...p, previous].slice(-30));
     if (page.channel === "*" && channel !== "*") {
       page = { ...page, id: newPage(channel, "", "").id, revision: 0, channel };
     }
@@ -228,6 +228,7 @@ export default function useDesigner(request: RequestFn, workspace: string) {
       setFuture((f) => [draft, ...f]);
       setPast((p) => p.slice(0, -1));
       setDraft(page);
+      setSaved(false);
     },
     redo: () => {
       const page = future[0];
@@ -235,6 +236,7 @@ export default function useDesigner(request: RequestFn, workspace: string) {
       setPast((p) => [...p, draft]);
       setFuture((f) => f.slice(1));
       setDraft(page);
+      setSaved(false);
     },
   };
 }

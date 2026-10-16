@@ -1,18 +1,15 @@
 /** Merchant intent and executable decision examples use the shared four-language Studio vocabulary. */
+import { appIntentWords } from "./app-intent-i18n";
 import { useLocale } from "./i18n";
 export const appCapabilityWords = {
+  ...appIntentWords,
   exampleFailure: [
     "Business example {example} failed. Review the expected result and the component before saving or installing.",
     "Geschäftsbeispiel {example} ist fehlgeschlagen. Prüfe das erwartete Ergebnis und die Komponente vor dem Speichern oder Installieren.",
     "L’exemple métier {example} a échoué. Vérifiez le résultat attendu et le composant avant de sauvegarder ou d’installer.",
     "El ejemplo comercial {example} falló. Revisa el resultado esperado y el componente antes de guardar o instalar.",
   ],
-  capability: [
-    "Business goal",
-    "Geschäftsziel",
-    "Objectif métier",
-    "Objetivo comercial",
-  ],
+  capability: ["App idea", "App-Idee", "Idée d’app", "Idea de la app"],
   hint: [
     "Describe what this app should achieve. Its data, interface and decisions stay in one versioned definition.",
     "Beschreibe, was diese App erreichen soll. Daten, Oberfläche und Entscheidungen bleiben in einer versionierten Definition.",
@@ -26,22 +23,22 @@ export const appCapabilityWords = {
     "¿Qué debe hacer la app?",
   ],
   assumptions: [
-    "Rules and assumptions",
-    "Regeln und Annahmen",
-    "Règles et hypothèses",
-    "Reglas y supuestos",
+    "What must the app respect?",
+    "Was muss die App beachten?",
+    "Quelles consignes pour l’app ?",
+    "¿Qué debe respetar la app?",
   ],
   add: [
-    "Add an assumption",
-    "Annahme hinzufügen",
-    "Ajouter une hypothèse",
-    "Añadir un supuesto",
+    "Add a requirement",
+    "Vorgabe hinzufügen",
+    "Ajouter une consigne",
+    "Añadir un requisito",
   ],
   remove: [
-    "Remove assumption",
-    "Annahme entfernen",
-    "Supprimer l’hypothèse",
-    "Eliminar supuesto",
+    "Remove requirement",
+    "Vorgabe entfernen",
+    "Supprimer la consigne",
+    "Eliminar requisito",
   ],
   examples: [
     "Executable decision examples",
@@ -78,16 +75,16 @@ export const appCapabilityWords = {
   shipping: ["Shipping", "Versand", "Livraison", "Envío"],
   validation: ["Validation", "Prüfung", "Validation", "Validación"],
   accepted: [
-    "Accept the decision",
-    "Entscheidung annehmen",
-    "Accepter la décision",
-    "Aceptar la decisión",
+    "Expected: accepted",
+    "Erwartung: angenommen",
+    "Attendu : accepté",
+    "Esperado: aceptado",
   ],
   rejected: [
-    "Reject the decision",
-    "Entscheidung ablehnen",
-    "Refuser la décision",
-    "Rechazar la decisión",
+    "Expected: rejected",
+    "Erwartung: abgelehnt",
+    "Attendu : refusé",
+    "Esperado: rechazado",
   ],
 } as const;
 export function useAppCapabilityText() {

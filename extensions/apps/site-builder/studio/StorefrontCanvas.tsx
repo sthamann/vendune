@@ -1,5 +1,12 @@
 /** Isolated viewport for native presentational components and the shared app renderer; no cart, analytics or orders run here. */
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { createPortal } from "react-dom";
 import type { RequestFn } from "../../../../frontend/src/shared/api/types";
 import { LocaleScope } from "../../../../frontend/src/shared/i18n/i18n";
@@ -32,7 +39,9 @@ export default function StorefrontCanvas({
   appearance,
   products,
   onSnapshot,
+  pageKey,
 }: {
+  pageKey?: string;
   request: RequestFn;
   workspace: string;
   shopName?: string;
@@ -52,6 +61,10 @@ export default function StorefrontCanvas({
     [scale, setScale] = useState(1),
     [height, setHeight] = useState(900),
     [company, setCompany] = useState<Record<string, string>>({});
+  useLayoutEffect(() => {
+    const canvas = host.current?.closest<HTMLElement>(".designer-canvas");
+    if (canvas) canvas.scrollTop = 0;
+  }, [pageKey, workspace, channel]);
   const width = device === "mobile" ? 390 : device === "tablet" ? 768 : 1280;
   const snapshotListener = useRef(onSnapshot);
   snapshotListener.current = onSnapshot;
