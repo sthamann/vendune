@@ -28,12 +28,13 @@ history; no new app business rules, tables or authorization path were introduced
 Local actual PostgreSQL tests additionally cover independent B2B approval and
 current-rule reorder, changed material/field names and original-order immutability.
 All 612 frontend tests, two Rust regressions, workspace Clippy, structure/localization,
-frontend build and explicit formal source review pass. The full follow-up GitHub
-repeat is running; its outcome is recorded separately from public browser results.
+frontend build and explicit formal source review pass. The [full required follow-up GitHub repeat](https://github.com/sthamann/veyndo/actions/runs/38931681426)
+passed and PR 144 merged as `deb452d`. Public browser outcomes remain separately
+recorded above.
 
-## Original Storyfront repeated on this image
+## Original Storyfront and release-queue boundary
 
-Native Safari completed original bag → embedded contact/address → review → native
+The earlier native Safari comparison completed original bag → embedded contact/address → review → native
 confirmation **RAC-a4727b33**, EUR 24.90, German product name, simulated authorization
 → return to original Experience → verified empty original bag. The iframe also
 loads in the in-app browser. A tab-bound Chrome repeat remained at `about:blank`
@@ -54,3 +55,29 @@ server code, credential or browser security/framing setting changed between case
 ![Repeated original embedded confirmation in Safari](images/configuration-summary-2026-10-16/storyfront-repeat-confirmed-public.png)
 
 ![Original Storyfront bag after verified purchase](images/configuration-summary-2026-10-16/storyfront-repeat-empty-bag-public.png)
+
+### Final pinned-image repeat
+
+The separate Northflank main-release workflow temporarily replaced the manual
+branch deployment while those comparisons ran. The queued main releases were
+allowed to finish, then `timely-zipper-1837` was restored and the running source
+was observed again (`vendune-core-75867998d-mhtcg`, 1/1 passing). This distinction
+prevents the earlier comparisons from being silently attributed to another image.
+
+On that pinned image, native Chrome completed **RAC-08a6f8d0**, EUR 24.90, German
+confirmation **inside the original iframe**, then returned to the original
+Storyfront with bag 0 and the verified completion feedback.
+
+![Final embedded confirmation on the observed pinned image](images/configuration-summary-2026-10-16/storyfront-summary-final-confirmed-public.jpg)
+
+![Original bag cleared after the final pinned-image purchase](images/configuration-summary-2026-10-16/storyfront-summary-final-empty-bag-public.jpg)
+
+## Native Admin creation
+
+On the restored pinned image, Chrome created a synthetic CRM-only profile and
+standard address, searched and selected it for a manual order, selected German
+order language, added one demo lamp, reviewed the native quote and saved
+**RAC-41ad6146**, EUR 59. The customer received no password or shopper session;
+no external payment provider was called.
+
+![Actual native manual order after customer lookup and quote review](images/configuration-summary-2026-10-16/admin-manual-order-public.jpg)

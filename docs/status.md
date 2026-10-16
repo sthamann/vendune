@@ -54,10 +54,13 @@ passed and PR 143 merged as `1725369`; the preceding test-orchestration failure
 and its correction remain recorded in the receipt. The [configuration-summary follow-up](evidence/configuration-summary-hosted-2026-10-16.md)
 is now separately deployed: checkout, confirmation and merchant order retain
 material, dimensions and accepted surcharge on public simulated order RAC-75415aa4.
-Original Storyfront embedded purchases also passed on this image in native Chrome
-(RAC-0c3c77e8) and Safari (RAC-a4727b33), including return and original bag clear.
+The final pinned-image original Storyfront purchase also passed in native Chrome
+(RAC-08a6f8d0), including return and original bag clear. Earlier Safari/Chrome
+comparisons and the intervening main-release replacements retain separate source
+boundaries in the receipt.
 Tab-debug-controlled blank repeats are preserved separately in the receipt.
-Its full follow-up CI repeat is still running. Full B2B purchasing approval
+Its [full required follow-up CI repeat](https://github.com/sthamann/veyndo/actions/runs/38931681426)
+passed and PR 144 merged as `deb452d`. Full B2B purchasing approval
 and current-rule reorder have local connected PostgreSQL evidence, not an extra
 hosted acceptance in this receipt.
 

@@ -9,7 +9,8 @@ This page preserves dated evidence.
 Core `12b2a6b`, image `timely-zipper-1837`, no additional migration, healthy restart.
 Native checkout, confirmation and merchant order retain Eiche, 260 × 80 cm,
 EUR 48 surcharge and EUR 397 total on synthetic simulated order RAC-75415aa4.
-The required follow-up CI repeat remains separate from those browser results.
+The required follow-up CI repeat passed and PR 144 merged as `deb452d`; public
+browser results retain their explicit image boundaries.
 
 ## Hardening release and public app workflow — 16 October, evening
 

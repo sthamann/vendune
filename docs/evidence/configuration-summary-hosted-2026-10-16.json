@@ -5,11 +5,12 @@
     "source": "12b2a6b021ef8fe3bb7610dd2fa198c7ffa5a3d9",
     "build": "timely-zipper-1837",
     "duration": "8m38s",
-    "instance": "vendune-core-698476897b-tfsbj",
+    "instance": "vendune-core-75867998d-mhtcg",
     "health": "1/1 passing; zero restarts; app.veyndo.ai/health returns status ok",
     "migration": "None; migration 103 was already applied",
     "reviewHead": "4c1ee045ad28566ff6e60c35cb97e54f6bc4a657",
-    "sourceEquivalence": "Merge of main changes documentation only relative to built source; runtime/frontend/crates/migrations/Docker source unchanged"
+    "sourceEquivalence": "Merge of main changes documentation only relative to built source; runtime/frontend/crates/migrations/Docker source unchanged",
+    "releaseQueue": "Main-template releases temporarily replaced the manually deployed branch image. Restored the pinned image after those releases completed; final main publication is recorded separately."
   },
   "browser": {
     "shop": "release-abnahme-16-o-a767ebe269",
@@ -37,7 +38,8 @@
     "formal": "Explicit source review and compiled conformance passed; no new whole-adapter proof",
     "fullFollowupCi": {
       "run": 38931681426,
-      "state": "running"
+      "state": "passed: complete required suite, real database/provider integration, formal controls and unchanged coverage floors",
+      "mergeCommit": "deb452d3dcc308a41fa58eaa0caf47436be866d5"
     }
   },
   "captures": [
@@ -68,6 +70,18 @@
     {
       "path": "docs/evidence/images/configuration-summary-2026-10-16/storyfront-repeat-chrome-empty-bag-public.jpg",
       "sha256": "fe83c0e9ca383a3be3bd310ba681ad886257d654705398b382933a91d3f3ea59"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/storyfront-summary-final-confirmed-public.jpg",
+      "sha256": "f091c545f73cd02c2cab21e9733753f8617baea0a103ec9de54e086623183a42"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/storyfront-summary-final-empty-bag-public.jpg",
+      "sha256": "f808143b2f96a7f6929f3e40c4cc7d8193aff6e9023be12f7f389a3971d81497"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/admin-manual-order-public.jpg",
+      "sha256": "32c6944b40c972812880254d705f157f866373bb77ad4ade2f61483c28247931"
     }
   ],
   "storyfrontRepeat": {
@@ -84,6 +98,34 @@
       "flow": "Original bag \u2192 embedded native checkout \u2192 German confirmation \u2192 return \u2192 original bag 0 with verified completion feedback",
       "control": "Native Chrome UI; tab attached for screenshots only after completed purchase",
       "result": "passed"
+    },
+    "sourceBoundary": "Earlier Safari and Chrome comparison repeats occurred while the normal main release chain could replace the manual image; they are not the pinned-image acceptance.",
+    "finalPinnedImage": {
+      "source": "12b2a6b021ef8fe3bb7610dd2fa198c7ffa5a3d9",
+      "instance": "vendune-core-75867998d-mhtcg",
+      "engine": "Native Chrome UI, debug tab claimed for captures only after purchase",
+      "order": "RAC-08a6f8d0",
+      "amountMinor": 2490,
+      "confirmation": "German product label and simulated authorization in original embedded checkout",
+      "return": "Original Storyfront bag 0; verified confirmation message"
     }
+  },
+  "manualAdminOrder": {
+    "engine": "Chrome Studio on restored pinned Core image",
+    "customer": "Synthetic CRM-only profile; no password or storefront session issued",
+    "journey": "Create profile and standard address \u2192 search/select existing customer \u2192 German order locale \u2192 native product quote/review \u2192 manual order",
+    "order": "RAC-41ad6146",
+    "amountMinor": 5900,
+    "product": "Fiktive Demo-Schreibtischlampe \u2013 Terrakotta",
+    "externalProviderCalled": false
+  },
+  "workspaceRecovery": {
+    "pr": 147,
+    "scope": "Recognize missing/interrupted lazy modules; explicit translated reload, no automatic navigation or raw error URL",
+    "frontendTests": 618,
+    "boundaryCoverage": "100% required lines/branches/statements retained",
+    "previousCiFailure": "The first frontend run exposed an uncovered explicit-reload fallback; a real click regression now covers it without lowering the gate",
+    "passedFrontendCi": 38936146811,
+    "deployment": "not yet accepted publicly"
   }
 }
