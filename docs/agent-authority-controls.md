@@ -64,6 +64,9 @@ concurrency limits remain separate controls.
 Exhaustion returns HTTP 429 with `kind: quota_exceeded`, `retryable: false` and
 `pointer: /agentBudget`; it has no misleading short `Retry-After`. An administrator
 must review a replacement delegation rather than repeatedly retrying an exhausted key.
+Studio explains the administrator's stop and persistent allowance exhaustion in
+all four interface languages. Its localized recovery guidance is visible directly
+in the error notice, rather than hidden under a technical-details disclosure.
 
 ## Stop the shop's merchant agents
 

@@ -1016,6 +1016,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/LocalizedField.tsx](../frontend/src/shared/i18n/LocalizedField.tsx) | Single visible field for the editor's language, with main-language preview and explicit restore-to-inheritance. |
 | [frontend/src/shared/i18n/account-i18n.ts](../frontend/src/shared/i18n/account-i18n.ts) | Customer account vocabulary: one complete EN/DE/FR/ES contract for authentication and purchase care. |
 | [frontend/src/shared/i18n/admin-creation-i18n.ts](../frontend/src/shared/i18n/admin-creation-i18n.ts) | Shared settings navigation and native customer/manual-order creation vocabulary: EN/DE/FR/ES. |
+| [frontend/src/shared/i18n/agent-errors-i18n.ts](../frontend/src/shared/i18n/agent-errors-i18n.ts) | Actionable agent admission failures distinguish a deliberate stop from missing rights or transient load. |
 | [frontend/src/shared/i18n/agent-runs-i18n.ts](../frontend/src/shared/i18n/agent-runs-i18n.ts) | Durable run states and explicit ambiguous-call continuation, in the shared interface language. |
 | [frontend/src/shared/i18n/app-access-i18n.ts](../frontend/src/shared/i18n/app-access-i18n.ts) | Explicit app callback consent and short-lived key management vocabulary. |
 | [frontend/src/shared/i18n/app-assistant-i18n.ts](../frontend/src/shared/i18n/app-assistant-i18n.ts) | App assistants and extension permissions use the same EN/DE/FR/ES vocabulary. |
