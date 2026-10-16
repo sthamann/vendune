@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect, it, vi } from "vitest";
 import WorkspaceBoundary from "../../src/shared/ui/WorkspaceBoundary";
+import { lazy, Suspense } from "react";
 it("contains a render error, retries and resets when the workspace key changes", async () => {
   vi.spyOn(console, "error").mockImplementation(() => {});
   let broken = true;
@@ -37,6 +38,86 @@ it("contains a render error, retries and resets when the workspace key changes",
   broken = false;
   view.rerender(shell("apps"));
   expect(screen.getByText("Healthy module")).toBeInTheDocument();
+});
+it.each([
+  "Failed to fetch dynamically imported module: https://app.example.test/assets/old.js?private=never",
+  "error loading dynamically imported module: https://app.example.test/assets/old.js",
+  "Importing a module script failed.",
+  "Loading chunk customers failed",
+])(
+  "explains a rejected cached module without automatic reload or leaking its URL: %s",
+  async (message) => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const reload = vi.fn();
+    const MissingModule = lazy(() => Promise.reject(new TypeError(message)));
+    render(
+      <WorkspaceBoundary
+        title="Generic request failure"
+        retryLabel="Retry"
+        onRetry={reload}
+      >
+        <Suspense fallback={<p>Loading fixture</p>}>
+          <MissingModule />
+        </Suspense>
+      </WorkspaceBoundary>,
+    );
+    const notice = await screen.findByRole("alert");
+    expect(notice).toHaveTextContent("Diese Ansicht muss neu geladen werden");
+    expect(notice).toHaveTextContent("ungespeicherte Änderungen");
+    expect(notice).not.toHaveTextContent("private=never");
+    expect(notice).not.toHaveTextContent("https://");
+    expect(reload).not.toHaveBeenCalled();
+    await userEvent
+      .setup()
+      .click(
+        screen.getByRole("button", { name: "Aktuelle Version neu laden" }),
+      );
+    expect(reload).toHaveBeenCalledOnce();
+  },
+);
+it("keeps a normal network/render failure on the ordinary retry path", () => {
+  vi.spyOn(console, "error").mockImplementation(() => {});
+  function Broken(): never {
+    throw new TypeError("Failed to fetch");
+  }
+  render(
+    <WorkspaceBoundary title="Ordinary failure" retryLabel="Retry">
+      <Broken />
+    </WorkspaceBoundary>,
+  );
+  expect(screen.getByRole("alert")).toHaveTextContent("Ordinary failure");
+  expect(
+    screen.queryByText("Diese Ansicht muss neu geladen werden"),
+  ).not.toBeInTheDocument();
+});
+it("reloads only on explicit module recovery when the host has no retry callback", async () => {
+  vi.spyOn(console, "error").mockImplementation(() => {});
+  function Broken(): never {
+    throw new TypeError("Importing a module script failed.");
+  }
+  const reload = vi.fn();
+  const user = userEvent.setup();
+  render(
+    <WorkspaceBoundary title="Fixture failure" retryLabel="Retry">
+      <Broken />
+    </WorkspaceBoundary>,
+  );
+  expect(reload).not.toHaveBeenCalled();
+  // Intercept navigation only for this click; retain the actual jsdom Window APIs.
+  const browser = new Proxy(window, {
+    get(target, key) {
+      return key === "location" ? { reload } : Reflect.get(target, key, target);
+    },
+  });
+  vi.stubGlobal("window", browser);
+  try {
+    await user.click(
+      screen.getByRole("button", { name: "Aktuelle Version neu laden" }),
+    );
+    expect(reload).toHaveBeenCalledOnce();
+  } finally {
+    vi.unstubAllGlobals();
+  }
 });
 it("uses the host reload callback to recover a rejected cached lazy import", async () => {
   vi.spyOn(console, "error").mockImplementation(() => {});

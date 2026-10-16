@@ -125,7 +125,8 @@
     "frontendTests": 618,
     "boundaryCoverage": "100% required lines/branches/statements retained",
     "previousCiFailure": "The first frontend run exposed an uncovered explicit-reload fallback; a real click regression now covers it without lowering the gate",
-    "passedFrontendCi": 38936146811,
-    "deployment": "not yet accepted publicly"
+    "passedFrontendCi": 38936699203,
+    "deployment": "not yet accepted publicly",
+    "mergedMain": "c70f246a1df3162a6d9b1277691409507c1c1c68"
   }
 }

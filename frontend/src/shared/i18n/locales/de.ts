@@ -63,6 +63,10 @@ export const de: Dictionary = {
   indexed: "{count} Produkte indiziert",
   close: "Schließen",
   cancel: "Abbrechen",
+  workspaceModuleUnavailable: "Diese Ansicht muss neu geladen werden",
+  workspaceModuleRecovery:
+    "Eine Shop-Aktualisierung oder eine unterbrochene Verbindung hat das Laden verhindert. Lade die aktuelle Version neu. Wenn du in einer anderen Ansicht ungespeicherte Änderungen hast, prüfe sie vorher.",
+  reloadWorkspace: "Aktuelle Version neu laden",
   failure: "Die Anfrage konnte nicht abgeschlossen werden.",
   sessionExpired:
     "Deine Studio-Sitzung ist abgelaufen. Melde dich erneut an, um fortzufahren.",
