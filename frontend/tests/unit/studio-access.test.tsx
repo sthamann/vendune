@@ -34,7 +34,7 @@ function network() {
   const fetcher = vi.fn(async (path: RequestInfo | URL) => ({
     ok: true,
     status: 200,
-    json: async () =>
+    json: async (): Promise<unknown> =>
       String(path) === "/api/auth/session"
         ? session
         : String(path) === "/api/merchant/overview"
@@ -52,6 +52,39 @@ function controller() {
     { wrapper: LocaleProvider },
   );
 }
+it("waits for an incoming handoff before connecting an already signed-in browser", async () => {
+  sessionStorage.setItem("rac-user-token", "preceding-session");
+  history.replaceState(
+    null,
+    "",
+    "/?shop=unit-shop&login_ticket=one-use#merchant",
+  );
+  let finish!: (value: unknown) => void;
+  const redeemed = new Promise((resolve) => {
+    finish = resolve;
+  });
+  const fetcher = network();
+  const normal = fetcher.getMockImplementation()!;
+  fetcher.mockImplementation(async (path) =>
+    String(path) === "/api/auth/redeem"
+      ? { ok: true, status: 200, json: async () => redeemed }
+      : normal(path),
+  );
+  const { result } = controller();
+  await waitFor(() =>
+    expect(
+      fetcher.mock.calls.some(([p]) => String(p) === "/api/auth/redeem"),
+    ).toBe(true),
+  );
+  expect(result.current.auth.active).toBe(false);
+  expect(
+    fetcher.mock.calls.some(([p]) => String(p) === "/api/auth/access"),
+  ).toBe(false);
+  await act(async () => finish({ ...session, token: "accepted-handoff" }));
+  await waitFor(() => expect(result.current.connected).toBe(true));
+  expect(result.current.token).toBe("accepted-handoff");
+  expect(location.search).not.toContain("login_ticket");
+});
 it("redirects anonymous deep links to login without requesting protected workspaces", async () => {
   history.replaceState(
     null,
@@ -170,4 +203,40 @@ it("pauses later writes and resumes with fresh credentials without replaying the
   expect(
     fetcher.mock.calls.filter(([p]) => String(p).endsWith("products/lamp")),
   ).toHaveLength(0);
+});
+
+it("explicitly resumes the same browser account without losing the current draft", async () => {
+  sessionStorage.setItem("rac-user-token", "resume-browser-start");
+  const fetcher = network();
+  const { result } = controller();
+  await waitFor(() => expect(result.current.connected).toBe(true));
+  act(() => {
+    result.current.setDraft("Keep my unsaved draft");
+    result.current.openEntity("productData", "lamp");
+  });
+  act(() =>
+    reportMerchantSessionFailure(
+      "/api/merchant/products",
+      { Authorization: "Bearer resume-browser-start" },
+      401,
+      "Browser session changed or CSRF proof is invalid",
+    ),
+  );
+  document.cookie = `veyndo-csrf=${"e".repeat(64)}; Path=/`;
+  fetcher.mockImplementation(async (path: RequestInfo | URL) => ({
+    ok: true,
+    status: 200,
+    json: async () =>
+      String(path) === "/api/auth/session"
+        ? { ...session, token: "browser-session" }
+        : { permissions: ownerRights },
+  }));
+  await act(() => result.current.auth.resume());
+  expect(result.current.sessionExpired).toBe(false);
+  expect(result.current.token).toBe("browser-session");
+  expect(result.current.draft).toBe("Keep my unsaved draft");
+  expect(result.current.entityTarget?.id).toBe("lamp");
+  expect(
+    fetcher.mock.calls.some(([path]) => String(path).endsWith("products/lamp")),
+  ).toBe(false);
 });

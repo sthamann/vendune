@@ -777,6 +777,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/shell/navigation.ts](../frontend/src/admin/shell/navigation.ts) | Typed built-in Studio navigation and locale-specific labels. |
 | [frontend/src/admin/shell/permissions.ts](../frontend/src/admin/shell/permissions.ts) | Presentation admission mirrors named server rights. API/domain checks remain authoritative. |
 | [frontend/src/admin/shell/requests.ts](../frontend/src/admin/shell/requests.ts) | Authenticated Studio transport; staging changes only the tenant, never the principal. |
+| [frontend/src/admin/shell/resume-browser-session.ts](../frontend/src/admin/shell/resume-browser-session.ts) | Explicit same-account resume reads the existing ledger, without adopting ambient identity or replaying writes. |
 | [frontend/src/admin/shell/studio-types.ts](../frontend/src/admin/shell/studio-types.ts) | studio types: Studio layout, session/workspace controller, authenticated transport and lazy workspace navigation. |
 | [frontend/src/admin/shell/useChatTurns.ts](../frontend/src/admin/shell/useChatTurns.ts) | Durable chat commands reuse native conversations; late responses cannot cross an account/shop/stage boundary. |
 | [frontend/src/admin/shell/useEntityNavigation.ts](../frontend/src/admin/shell/useEntityNavigation.ts) | Linked entity navigation keeps native editors, browser deep links and back paths in the same tenant scope. |

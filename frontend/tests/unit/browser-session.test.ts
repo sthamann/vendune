@@ -1,5 +1,50 @@
 /** Actual shared transports retain per-tab identity fences, isolate customer scopes and never persist new bearers. */
 import { beforeEach, expect, it, vi } from "vitest";
+it("ignores a delayed rejection from a previously accepted merchant proof", async () => {
+  const b = await import("../../src/shared/api/browser-session");
+  const { requestJson } = await import("../../src/shared/api/request-json");
+  const { onMerchantSessionFailure } =
+    await import("../../src/shared/api/merchant-session");
+  b.activateBrowserSession({
+    browserSession: true,
+    browserCsrf: "a".repeat(64),
+  });
+  let finish!: (r: Response) => void;
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(
+      () =>
+        new Promise<Response>((resolve) => {
+          finish = resolve;
+        }),
+    ),
+  );
+  const expired = vi.fn();
+  const unsubscribe = onMerchantSessionFailure(expired);
+  try {
+    const pending = requestJson("/api/merchant/products", {
+      headers: { Authorization: "Bearer browser-session" },
+    });
+    b.activateBrowserSession({
+      browserSession: true,
+      browserCsrf: "b".repeat(64),
+    });
+    finish(
+      new Response(
+        JSON.stringify({
+          errors: [
+            { detail: "Browser session changed or CSRF proof is invalid" },
+          ],
+        }),
+        { status: 401 },
+      ),
+    );
+    expect((await pending).status).toBe(401);
+    expect(expired).not.toHaveBeenCalled();
+  } finally {
+    unsubscribe();
+  }
+});
 beforeEach(() => {
   vi.resetModules();
   for (const part of document.cookie.split(";"))

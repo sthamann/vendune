@@ -3,16 +3,20 @@ import { customerBrowserRequest } from "./customer-session";
 export const browserSessionMarker = "browser-session";
 let activeProof: string | undefined;
 const legacyCredentials = new Map<string, string>();
-function csrf() {
-  if (activeProof !== undefined) return activeProof;
+/** Reading a candidate never changes this tab's accepted identity. */
+export function browserSessionCandidate() {
   if (typeof document === "undefined") return "";
   const values = document.cookie
     .split(";")
     .map((part) => part.trim().split("="));
-  activeProof =
+  return (
     values.find(
       ([key]) => key === "__Host-veyndo-csrf" || key === "veyndo-csrf",
-    )?.[1] ?? "";
+    )?.[1] ?? ""
+  );
+}
+function csrf() {
+  if (activeProof === undefined) activeProof = browserSessionCandidate();
   return activeProof;
 }
 export function browserCredential(legacy = "rac-user-token") {
