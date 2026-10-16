@@ -114,11 +114,12 @@ normal privileged provisioning/migration path before rollout.
 
 ## Data models: isolation and practical limits
 
-App models use validated logical identifiers in four fixed shared tables; no
-physical table or PostgreSQL index is created for each tenant, app or model.
-Typed records and bounded lookup/unique/reference projections retain forced row
-security and tenant-aware relations. Declaring a logical index does not grant
-cross-shop access or execute arbitrary SQL. See [shared app storage](app-data-storage.md).
+App models use validated logical identifiers in four fixed shared PostgreSQL
+tables: `app_models`, `app_records`, `app_record_indexes` and
+`app_record_references`. Full tenant/app/model/record keys, forced signed row
+security and composite references isolate records. Declaring an index creates
+lookup rows in fixed indexes; it creates no physical table or index and grants no
+SQL access. See [storage and migration](app-data-storage.md).
 
 | Resource | Bound |
 | --- | --- |

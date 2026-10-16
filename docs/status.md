@@ -37,14 +37,15 @@ A green test, merged code and a completed public business journey are different 
 | Money | Exact `Money` exists; compatibility calculation paths still contain `f64` | Exact authoritative arithmetic with the original PHP differential gate |
 | Outbox | Separate cognition/apps/flows/audit checkpoints and durable request/task/event trace IDs are implemented in the hardening branch | Actual PostgreSQL poison-audit isolation, other-consumer progress, quarantine, cold restart and explicit replay passed; public migration not yet applied |
 
-## Work awaiting public delivery
+## Public delivery and current work
 
-The current development branch includes shop-preview drag and drop, clearer app
-creation/agent handoff, merchant catalogue intake and connected AI price controls.
-[PR 141](https://github.com/sthamann/veyndo/pull/141) passed its checks at the reviewed
-head. Those changes are not described here as publicly deployed. The following
-hardening branch builds on that work; its local verification will be recorded
-before claiming acceptance.
+Core PR 141 (`fa2569f`) and private Experience PR 73 (`b40b386`) are publicly
+running. The [16 October receipt](evidence/studio-release-hosted-2026-10-16.json)
+records the new Studio/Shop Knowledge, native preview and a fresh original
+Storyfront embedded purchase RAC-c10e5d2f (EUR 24.90, simulated), German product
+name and cleared original bag. The public UI is no longer waiting for deployment.
+The compiler/provider/outbox hardening on this branch is still being verified;
+its presence does not mean migration 103 or these runtime changes are public.
 
 ## Evidence and reference guides
 

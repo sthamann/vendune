@@ -79,6 +79,15 @@ public repository.
 
 ## Publication and current facts
 
+The 16 October app review reconciles shared storage, saved agent work and enforced
+database/browser authority across README, app guides, architecture notes and the
+release tracker. [App-system status](app-system-status.md) is the reader's entry
+to delivered/partial/open behavior. The app chapter now links that map, the
+business-capability direction and the exact storage guide before deeper tutorials.
+Dated receipts remain unchanged; later results explicitly supersede earlier
+observations only for the later source tree.
+
+
 The 12 October update adds [five illustrated App Studio workshops](app-tutorials/README.md)
 and twelve fresh English browser captures. It reconciles the README/app references
 with package ownership, native controls, the 280-route catalogue and 424 Rust

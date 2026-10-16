@@ -54,7 +54,10 @@ this atomic planning path and need a future explicitly approved saga contract.
 3. **Pure Wasm:** the existing B2B approval hook keeps its no-import/fuel/memory
    restrictions. It does not gain arbitrary host access from the app platform.
 
-Managed app tables use forced PostgreSQL RLS with transaction-local `rac.tenant`.
+Managed app records use four fixed tables with forced PostgreSQL RLS, full logical
+identity and role-bound signed tenant/actor scopes. `rac.tenant` alone is not
+authority. See [shared app storage](app-data-storage.md) and
+[authenticated database scope](authenticated-database-scope.md).
 Core tenant tables now also have forced policies with request-bound pool hooks;
 application object/customer checks remain required. Strict runtime startup rejects
 core ownership, bypass roles and TRUNCATE privileges. SQLx uses a checked identifier

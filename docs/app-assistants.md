@@ -23,7 +23,7 @@ Existing apps still open through their cards and **Edit app**. Regeneration pres
 
 `coreReference: "product" | "customer" | "order"` declares a required/indexable plain string holding an existing object's ID in the same shop. Native blocks bind that field with `contextBinding: {field: "product_id", key: "productId"}` (or customerId/orderId). The server validates the reference on each write. The host filters reads by its selected object. Missing context does not trigger an unfiltered read. A bound form updates the saved row with its optimistic revision; a model may also support multiple records per object through table/card blocks.
 
-Supported editor mounts are `admin.product.general`, `admin.product.tab`, `admin.product` (legacy), `admin.customer`, `admin.order` and `admin.order.general`. Product tabs appear in the central product editor; new fields reside in app-owned tables, rather than becoming ad hoc columns on core tables. `choices: [{value, label}]` creates a server-validated selection field with localized labels. Public customer/order references are rejected.
+Supported editor mounts are `admin.product.general`, `admin.product.tab`, `admin.product` (legacy), `admin.customer`, `admin.order` and `admin.order.general`. Product tabs appear in the central product editor; new fields reside in namespaced app records in the fixed shared store, rather than becoming ad hoc columns on core tables. `choices: [{value, label}]` creates a server-validated selection field with localized labels. Public customer/order references are rejected.
 
 ![Installed product app with persisted data](screenshots/app-product-tab.png)
 

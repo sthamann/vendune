@@ -92,11 +92,14 @@
         "es": "Un contrato visual y agentico: datos reales, eventos y publicaciones controladas."
       },
       "sources": [
+        "docs/app-system-status.md",
+        "docs/business-capabilities.md",
         "docs/app-studio.md",
         "docs/app-studio-workspace.md",
         "docs/app-assistants.md",
         "docs/app-tutorials/README.md",
         "docs/app-platform.md",
+        "docs/app-data-storage.md",
         "docs/automation.md",
         "docs/connected-apps.md",
         "docs/email-delivery.md",

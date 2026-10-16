@@ -19,7 +19,8 @@ confirmed unique tools, shared annotations, distinct protocol errors and an
 escaped structured field failure. The [acceptance receipt](evidence/platform-hardening-2026-10-15.json)
 contains no customer or authentication payloads. This release covers operation
 registration, errors, bounded schemas, optional app outputs, safe quoting and
-fair outbox scheduling; the security/runtime items below remain open.
+fair outbox scheduling. Later security/runtime releases are recorded below; their
+remaining limits are explicit in each row.
 
 **Capability slice:** merged as `f557631`, [PR 131](https://github.com/sthamann/veyndo/pull/131) adds
 versioned intent/assumptions and real frozen component cases to the same Manifest,
@@ -73,6 +74,18 @@ paused document response and its iframe stayed blank, although the direct native
 checkout completed. Do not substitute the earlier embedded pass for this test.
 See the [new release evidence](evidence/database-enforcement-2026-10-15.json).
 
+**Later shared-storage release:** PR 136 (`6622c6d`) and PR 137 (`f74f29d`)
+completed the hosted shared-store migration and chosen-brand presentation fix.
+The [15 October receipt](evidence/shared-app-storage-hosted-2026-10-15.json) records
+three simulated purchase paths, including original Storyfront embedded checkout
+and bag clearing, plus selected app-page publication. The earlier blocked embedded
+check above remains an honest result for its own release; it is superseded for the
+later tree by this separately recorded acceptance. Real settlement, invoice issuer
+setup, inbox delivery, restore and capacity are not established by that receipt.
+
+[Current app-system status and outstanding implementation gates](app-system-status.md)
+separates this foundation from the complete business-capability concept.
+
 ## Recent product requests
 
 | Request | Verified state | Remaining acceptance |
@@ -116,7 +129,7 @@ See the [new release evidence](evidence/database-enforcement-2026-10-15.json).
 | Typed/versioned native event catalogue | Open; existing event producers/consumers remain authoritative. | Producer/consumer parity, old-event compatibility and one registered emitter. |
 | Fair tenant outbox scheduling | Published through PR 130 with additive migration 097 and scheduling-row locks. | Quiet tenant finishes while an older noisy backlog remains, across real replicas. |
 | Independent subscriber checkpoints | Open. | One slow/failing projection cannot defer unrelated subscribers; no duplicate financial effects. |
-| Shared app storage strategy | Open; current tables are per tenant/app/entity. | Measured schema/index growth and safe existing-data migration before fleet-capacity claims. |
+| Shared app storage strategy | Published through PR 136; four fixed shared tables, signed forced RLS, scoped records/index/reference projections and no per-installation DDL. The hosted migration retired eight verified legacy tables after backup and stopped old writers. | Migration/content preservation and fresh-installation browser evidence are recorded in [shared storage](app-data-storage.md). Fleet throughput and operational restore acceptance remain separate. |
 | Request read units of work | Open; transaction-pool wrappers still scope individual queries. | Consistent bounded reads without holding database transactions across providers/models. |
 | End-to-end traces | Open beyond existing metrics/audit. | Safe correlated HTTP → operation → SQL/job/inference traces with explicit exporter configuration. |
 | Compiler-enforced crate boundaries | Incremental work open. | Preserve native API, boxed dispatch and app ownership while reducing facade coupling. |
