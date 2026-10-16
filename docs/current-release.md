@@ -3,6 +3,25 @@
 For the current implementation and acceptance state, use **[Status](status.md)**.
 This page preserves dated evidence.
 
+## Final merged main — 16 October, 19:17 Berlin
+
+Core `c70f246`, image `mirthful-zipper-2487`, one healthy instance, zero restarts.
+The protected main workflow completed exact-source build, fresh snapshot, successful
+migration job and readiness. PRs 143, 144 and 147 are merged with required checks
+passing. [Receipt and explicit test boundaries](evidence/configuration-summary-hosted-2026-10-16.md).
+The 618-test frontend repeat retains the full workspace-boundary coverage gate.
+Public offline/reload recovery retained the signed-in shop; the module-specific
+message has test-suite evidence but no successful public fault injection here.
+
+## Configuration summary follow-up — 16 October, evening
+
+[Public follow-up receipt](evidence/configuration-summary-hosted-2026-10-16.md):
+Core `12b2a6b`, image `timely-zipper-1837`, no additional migration, healthy restart.
+Native checkout, confirmation and merchant order retain Eiche, 260 × 80 cm,
+EUR 48 surcharge and EUR 397 total on synthetic simulated order RAC-75415aa4.
+The required follow-up CI repeat passed and PR 144 merged as `deb452d`; public
+browser results retain their explicit image boundaries.
+
 ## Hardening release and public app workflow — 16 October, evening
 
 [The dated hosted receipt](evidence/platform-hardening-hosted-2026-10-16.md) records

@@ -5,7 +5,7 @@ business-capability proposal — describe an individual business model and have
 Veyndo build, verify, operate and maintain it — remains an implementation programme.
 This page maps that distinction; it is not a completion percentage.
 
-The comparison uses the 15 October proposal, the deployed Core `9846807` and source-equivalent release head `7a4388d`,
+The comparison uses the 15 October proposal, the deployed Core `c70f246` and hardening baseline `7a4388d`,
 the actual source owners below and dated release receipts. Source implementation,
 local integration tests and hosted acceptance are different evidence. A later
 branch, build or documentation change does not update a hosted result by itself.
@@ -59,7 +59,7 @@ invariants, not the app's material or furniture business rules.
 
 | Gate | Current gap | Required outcome before calling it complete |
 | --- | --- | --- |
-| B2B configurator | [The connected app-owned implementation](furniture-configurator.md) joins materials, structured dimensions, frozen surcharge cases, native independent purchasing approval, saved inputs and current-rule reorder. The [16 October hosted receipt](evidence/platform-hardening-hosted-2026-10-16.md) also covers the builder, private material write, selected publication and a B2C configured purchase. Independent B2B approval/reorder remain locally accepted; the generic purchase-summary display fix is separate. | Material library → validated dimensions → traceable surcharge → exact-cart independent approval → native order → saved configuration → authorized reorder; later rule changes show their actual consequences and preserve original order snapshots. |
+| B2B configurator | [The connected app-owned implementation](furniture-configurator.md) joins materials, structured dimensions, frozen surcharge cases, native independent purchasing approval, saved inputs and current-rule reorder. The [16 October hosted receipt](evidence/platform-hardening-hosted-2026-10-16.md) also covers the builder, private material write, selected publication and a B2C configured purchase. Independent B2B approval/reorder remain locally accepted; the [purchase-summary follow-up](evidence/configuration-summary-hosted-2026-10-16.md) is separately deployed and visible in checkout, confirmation and merchant order. | Material library → validated dimensions → traceable surcharge → exact-cart independent approval → native order → saved configuration → authorized reorder; later rule changes show their actual consequences and preserve original order snapshots. |
 | Core entity extensions | Native references and contextual app views exist. | Namespaced Product/Customer/Order/Company fields share schema/version/current rights across grids, filters/search, API, MCP, supported UCP and knowledge projections; no direct app SQL or cross-tenant/PII leakage. |
 | Native lifecycle extensions | Existing app-record lifecycles and native transitions remain separate. | Reviewed declared order/offer states and transitions, pure guards, version-bound running objects and immutable traces; native payment, stock and refund invariants cannot be waived. |
 | Historical business replay | Synthetic component cases and operational event replay exist. | Admitted revision-bound real inputs repeat without mail/payment/order effects; actual money/decision/conflict diffs identify inputs, package digest and uncertainty. |

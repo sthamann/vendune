@@ -1,0 +1,153 @@
+{
+  "date": "2026-10-16",
+  "scope": "Hosted generic purchase summary; synthetic B2C order, not real payment or additional B2B approval acceptance",
+  "core": {
+    "source": "c70f246a1df3162a6d9b1277691409507c1c1c68",
+    "build": "mirthful-zipper-2487",
+    "instance": "vendune-core-55d8866f95-zv6b6",
+    "health": "1/1 passing; zero restarts; public Studio and app.veyndo.ai/health reachable",
+    "releaseWorkflow": "c0f34de3-4a4e-4fce-b478-4fd22ff049d5",
+    "buildDuration": "9m24s",
+    "freshSnapshotDuration": "1m09s",
+    "migrationJob": "Success, 22s; no new schema after migration 103",
+    "deploymentReadinessDuration": "1m35s",
+    "sourceBoundary": "Final merged main includes PRs 143, 144 and 147. Detailed purchases below retain their observed image/source; only workspace recovery and documentation changed after the pinned configuration image."
+  },
+  "browser": {
+    "shop": "release-abnahme-16-o-a767ebe269",
+    "order": "RAC-75415aa4",
+    "orderId": "75415aa4a3a34cd49cf15d796afb11d8",
+    "amountMinor": 39700,
+    "currency": "EUR",
+    "material": "Eiche",
+    "widthCm": 260,
+    "depthCm": 80,
+    "surchargeMinor": 4800,
+    "visibleIn": [
+      "checkout",
+      "order confirmation",
+      "native merchant order details"
+    ],
+    "cartEmpty": true,
+    "payment": "simulated authorized"
+  },
+  "validation": {
+    "rustTests": "Two passed: frozen declared public fields and private library exclusion",
+    "frontendTests": "612 tests, 110 files passed",
+    "postgresWorkflow": "Actual B2B independent approval, material/dimension order, current-rule saved-input reorder; changed field and material labels cannot rewrite original order",
+    "regression": "apps, business_capability, app_components, checkout_review, currencies passed against isolated PostgreSQL",
+    "formal": "Explicit source review and compiled conformance passed; no new whole-adapter proof",
+    "fullFollowupCi": {
+      "run": 38931681426,
+      "state": "passed: complete required suite, real database/provider integration, formal controls and unchanged coverage floors",
+      "mergeCommit": "deb452d3dcc308a41fa58eaa0caf47436be866d5"
+    }
+  },
+  "captures": [
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/configuration-summary-checkout-public.jpg",
+      "sha256": "fc06c269d458b181276b670032cb57e357fe97f842c362fa159bedc8f4cca8b8"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/configuration-summary-confirmed-public.jpg",
+      "sha256": "7af68bd68bce6a5ae2c5f780ed22a77efc37f2662801c30e157ed39c90c1c3e3"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/configuration-summary-admin-public.jpg",
+      "sha256": "ee4eef7b2cc7e70e7647b760d57aa37e2ff9fdcf882ca361538bcdda418449b9"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/storyfront-repeat-confirmed-public.png",
+      "sha256": "a7ce6997c56b6664f04abd63fd63ce07da3c13d0595ba4d9c3c670e060619a42"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/storyfront-repeat-empty-bag-public.png",
+      "sha256": "73ada15c7cebe65648136efb6f80933f565ad799cd373d67f7fbc8330295634b"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/storyfront-repeat-chrome-confirmed-public.jpg",
+      "sha256": "83bac4388a404e4ef0fd345c9e340076dd3e62609ab7cdc9fe33c2fc2662de99"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/storyfront-repeat-chrome-empty-bag-public.jpg",
+      "sha256": "fe83c0e9ca383a3be3bd310ba681ad886257d654705398b382933a91d3f3ea59"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/storyfront-summary-final-confirmed-public.jpg",
+      "sha256": "f091c545f73cd02c2cab21e9733753f8617baea0a103ec9de54e086623183a42"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/storyfront-summary-final-empty-bag-public.jpg",
+      "sha256": "f808143b2f96a7f6929f3e40c4cc7d8193aff6e9023be12f7f389a3971d81497"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/admin-manual-order-public.jpg",
+      "sha256": "32c6944b40c972812880254d705f157f866373bb77ad4ade2f61483c28247931"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/customers-recovered-main-public.jpg",
+      "sha256": "9e84c610fba7a3c93ebb57f053b5aef98acc0ee7c26cdbd5a84ce83c41e76b92"
+    }
+  ],
+  "storyfrontRepeat": {
+    "engine": "Native Safari; iframe also loads in in-app browser",
+    "order": "RAC-a4727b33",
+    "amountMinor": 2490,
+    "locale": "de-DE",
+    "confirmation": "Original Storyfront iframe, German product name, simulated authorization",
+    "return": "Original experience; bag empty and verified completion feedback",
+    "chromeBoundary": "Tab-bound debug-controlled repeats remained at about:blank; a native-UI Chrome tab with the same origin/profile and unchanged server completed the whole embedded flow. No security or framing policy was weakened.",
+    "chromeNative": {
+      "order": "RAC-0c3c77e8",
+      "amountMinor": 2490,
+      "flow": "Original bag → embedded native checkout → German confirmation → return → original bag 0 with verified completion feedback",
+      "control": "Native Chrome UI; tab attached for screenshots only after completed purchase",
+      "result": "passed"
+    },
+    "sourceBoundary": "Earlier Safari and Chrome comparison repeats occurred while the normal main release chain could replace the manual image; they are not the pinned-image acceptance.",
+    "finalPinnedImage": {
+      "source": "12b2a6b021ef8fe3bb7610dd2fa198c7ffa5a3d9",
+      "instance": "vendune-core-75867998d-mhtcg",
+      "engine": "Native Chrome UI, debug tab claimed for captures only after purchase",
+      "order": "RAC-08a6f8d0",
+      "amountMinor": 2490,
+      "confirmation": "German product label and simulated authorization in original embedded checkout",
+      "return": "Original Storyfront bag 0; verified confirmation message"
+    }
+  },
+  "manualAdminOrder": {
+    "engine": "Chrome Studio on restored pinned Core image",
+    "customer": "Synthetic CRM-only profile; no password or storefront session issued",
+    "journey": "Create profile and standard address → search/select existing customer → German order locale → native product quote/review → manual order",
+    "order": "RAC-41ad6146",
+    "amountMinor": 5900,
+    "product": "Fiktive Demo-Schreibtischlampe – Terrakotta",
+    "externalProviderCalled": false
+  },
+  "workspaceRecovery": {
+    "pr": 147,
+    "scope": "Recognize missing/interrupted lazy modules; explicit translated reload, no automatic navigation or raw error URL",
+    "frontendTests": 618,
+    "boundaryCoverage": "100% required lines/branches/statements retained",
+    "previousCiFailure": "The first frontend run exposed an uncovered explicit-reload fallback; a real click regression now covers it without lowering the gate",
+    "passedFrontendCi": 38936699203,
+    "deployment": "Deployed in final main c70f246; public customer view reachable after explicit reload with session preserved.",
+    "mergedMain": "c70f246a1df3162a6d9b1277691409507c1c1c68",
+    "publicFaultTest": {
+      "generalOffline": "Offline customer navigation showed the general workspace/API recovery message; after No throttling and reload the same signed-in shop customer view recovered.",
+      "moduleSpecific": "Not publicly accepted by this run: attempted browser asset-blocking rule did not cause a module load rejection. Actual React.lazy rejection, explicit reload click and ordinary-error controls pass in the 618-test frontend suite.",
+      "cleanup": "No throttling selected; request blocking disabled; DevTools closed. No server or security policy changed."
+    }
+  },
+  "configurationImage": {
+    "source": "12b2a6b021ef8fe3bb7610dd2fa198c7ffa5a3d9",
+    "build": "timely-zipper-1837",
+    "duration": "8m38s",
+    "instance": "vendune-core-75867998d-mhtcg",
+    "health": "1/1 passing; zero restarts; app.veyndo.ai/health returns status ok",
+    "migration": "None; migration 103 was already applied",
+    "reviewHead": "4c1ee045ad28566ff6e60c35cb97e54f6bc4a657",
+    "sourceEquivalence": "Merge of main changes documentation only relative to built source; runtime/frontend/crates/migrations/Docker source unchanged",
+    "releaseQueue": "Main-template releases temporarily replaced the manually deployed branch image. Restored the pinned image after those releases completed; final main publication is recorded separately."
+  }
+}

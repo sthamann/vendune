@@ -1,5 +1,9 @@
 # Changelog
 
+## Hosted configuration details and embedded checkout repeat — 2026-10-16
+
+- Record the deployed shared configuration summary in native checkout, confirmation and merchant orders, including public simulated order RAC-75415aa4. Repeat original embedded Storyfront checkout, return and original-bag clearing in native Chrome and Safari; preserve tab-debug-controlled loading failures separately. Refresh current status and reviewed module counts without changing the historical published proof report.
+
 ## Clear recovery for an open tab across releases — 2026-10-16
 
 - Distinguish a missing/interrupted lazy module from an API failure in the shared workspace boundary. Explain the version/connection boundary in EN/DE/FR/ES and offer an explicit full-version reload; never silently reload unsaved work, leak the failed URL or loop a rejected cached import. Existing ordinary render retry and permission-aware shell remain unchanged.

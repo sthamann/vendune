@@ -39,19 +39,29 @@ A green test, merged code and a completed public business journey are different 
 
 ## Public delivery and current work
 
-Core image `steep-cushion-339` (`9846807`) and private Experience `b40b386` are
+Core image `mirthful-zipper-2487` (`c70f246`) and private Experience `b40b386` are
 publicly running. [The new hosted receipt](evidence/platform-hardening-hosted-2026-10-16.md)
 records migration 103, a fresh SaaS shop with three AI products and generated
 images, Studio handoff, a native purchase, the original Storyfront embedded
 checkout and cleared original bag, and a privately tested/published furniture app
 with a real configured purchase. Payment was simulated throughout.
 
-The release head `7a4388d` changes CI/documentation only relative to that runtime.
+The hardening baseline `9846807` was runtime-equivalent to its reviewed release
+head `7a4388d`; the later configuration-summary image adds the separately tested
+follow-up. Final merged main includes that fix and the translated explicit
+workspace-module recovery; the fresh snapshot and migration/readiness chain passed.
 Its [complete required GitHub repeat](https://github.com/sthamann/veyndo/actions/runs/38926129994)
 passed and PR 143 merged as `1725369`; the preceding test-orchestration failure
-and its correction remain recorded in the receipt. Public testing found
-missing configuration detail in generic purchase screens; that separate summary
-fix is being verified and is not claimed public here. Full B2B purchasing approval
+and its correction remain recorded in the receipt. The [configuration-summary follow-up](evidence/configuration-summary-hosted-2026-10-16.md)
+is now separately deployed: checkout, confirmation and merchant order retain
+material, dimensions and accepted surcharge on public simulated order RAC-75415aa4.
+The final pinned-image original Storyfront purchase also passed in native Chrome
+(RAC-08a6f8d0), including return and original bag clear. Earlier Safari/Chrome
+comparisons and the intervening main-release replacements retain separate source
+boundaries in the receipt.
+Tab-debug-controlled blank repeats are preserved separately in the receipt.
+Its [full required follow-up CI repeat](https://github.com/sthamann/veyndo/actions/runs/38931681426)
+passed and PR 144 merged as `deb452d`. Full B2B purchasing approval
 and current-rule reorder have local connected PostgreSQL evidence, not an extra
 hosted acceptance in this receipt.
 
@@ -61,3 +71,8 @@ hosted acceptance in this receipt.
 - [Historical delivery audit](delivery-audit-2026-10-15.md) and [release record](current-release.md): dated evidence.
 - [Testing](testing.md), [formal scope](formal-verification.md), [capacity measurements](benchmarks.md).
 - [Changelog](../CHANGELOG.md): implementation notes belong here, not in the README.
+
+The final merged-main frontend repeat passed 618 tests with unchanged coverage
+gates. Public offline/reload recovery preserved the session. The module-specific
+message is covered by actual lazy-load failure tests; a public asset-blocking
+attempt did not reproduce that precise failure and is not counted as acceptance.
