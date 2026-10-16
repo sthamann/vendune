@@ -39,19 +39,25 @@ A green test, merged code and a completed public business journey are different 
 
 ## Public delivery and current work
 
-Core image `steep-cushion-339` (`9846807`) and private Experience `b40b386` are
+Core image `timely-zipper-1837` (`12b2a6b`) and private Experience `b40b386` are
 publicly running. [The new hosted receipt](evidence/platform-hardening-hosted-2026-10-16.md)
 records migration 103, a fresh SaaS shop with three AI products and generated
 images, Studio handoff, a native purchase, the original Storyfront embedded
 checkout and cleared original bag, and a privately tested/published furniture app
 with a real configured purchase. Payment was simulated throughout.
 
-The release head `7a4388d` changes CI/documentation only relative to that runtime.
+The hardening baseline `9846807` was runtime-equivalent to its reviewed release
+head `7a4388d`; the later configuration-summary image adds the separately tested
+follow-up.
 Its [complete required GitHub repeat](https://github.com/sthamann/veyndo/actions/runs/38926129994)
 passed and PR 143 merged as `1725369`; the preceding test-orchestration failure
-and its correction remain recorded in the receipt. Public testing found
-missing configuration detail in generic purchase screens; that separate summary
-fix is being verified and is not claimed public here. Full B2B purchasing approval
+and its correction remain recorded in the receipt. The [configuration-summary follow-up](evidence/configuration-summary-hosted-2026-10-16.md)
+is now separately deployed: checkout, confirmation and merchant order retain
+material, dimensions and accepted surcharge on public simulated order RAC-75415aa4.
+Original Storyfront embedded purchases also passed on this image in native Chrome
+(RAC-0c3c77e8) and Safari (RAC-a4727b33), including return and original bag clear.
+Tab-debug-controlled blank repeats are preserved separately in the receipt.
+Its full follow-up CI repeat is still running. Full B2B purchasing approval
 and current-rule reorder have local connected PostgreSQL evidence, not an extra
 hosted acceptance in this receipt.
 

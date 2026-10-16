@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-16",
+  "scope": "Hosted generic purchase summary; synthetic B2C order, not real payment or additional B2B approval acceptance",
+  "core": {
+    "source": "12b2a6b021ef8fe3bb7610dd2fa198c7ffa5a3d9",
+    "build": "timely-zipper-1837",
+    "duration": "8m38s",
+    "instance": "vendune-core-698476897b-tfsbj",
+    "health": "1/1 passing; zero restarts; app.veyndo.ai/health returns status ok",
+    "migration": "None; migration 103 was already applied",
+    "reviewHead": "4c1ee045ad28566ff6e60c35cb97e54f6bc4a657",
+    "sourceEquivalence": "Merge of main changes documentation only relative to built source; runtime/frontend/crates/migrations/Docker source unchanged"
+  },
+  "browser": {
+    "shop": "release-abnahme-16-o-a767ebe269",
+    "order": "RAC-75415aa4",
+    "orderId": "75415aa4a3a34cd49cf15d796afb11d8",
+    "amountMinor": 39700,
+    "currency": "EUR",
+    "material": "Eiche",
+    "widthCm": 260,
+    "depthCm": 80,
+    "surchargeMinor": 4800,
+    "visibleIn": [
+      "checkout",
+      "order confirmation",
+      "native merchant order details"
+    ],
+    "cartEmpty": true,
+    "payment": "simulated authorized"
+  },
+  "validation": {
+    "rustTests": "Two passed: frozen declared public fields and private library exclusion",
+    "frontendTests": "612 tests, 110 files passed",
+    "postgresWorkflow": "Actual B2B independent approval, material/dimension order, current-rule saved-input reorder; changed field and material labels cannot rewrite original order",
+    "regression": "apps, business_capability, app_components, checkout_review, currencies passed against isolated PostgreSQL",
+    "formal": "Explicit source review and compiled conformance passed; no new whole-adapter proof",
+    "fullFollowupCi": {
+      "run": 38931681426,
+      "state": "running"
+    }
+  },
+  "captures": [
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/configuration-summary-checkout-public.jpg",
+      "sha256": "fc06c269d458b181276b670032cb57e357fe97f842c362fa159bedc8f4cca8b8"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/configuration-summary-confirmed-public.jpg",
+      "sha256": "7af68bd68bce6a5ae2c5f780ed22a77efc37f2662801c30e157ed39c90c1c3e3"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/configuration-summary-admin-public.jpg",
+      "sha256": "ee4eef7b2cc7e70e7647b760d57aa37e2ff9fdcf882ca361538bcdda418449b9"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/storyfront-repeat-confirmed-public.png",
+      "sha256": "a7ce6997c56b6664f04abd63fd63ce07da3c13d0595ba4d9c3c670e060619a42"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/storyfront-repeat-empty-bag-public.png",
+      "sha256": "73ada15c7cebe65648136efb6f80933f565ad799cd373d67f7fbc8330295634b"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/storyfront-repeat-chrome-confirmed-public.jpg",
+      "sha256": "83bac4388a404e4ef0fd345c9e340076dd3e62609ab7cdc9fe33c2fc2662de99"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/storyfront-repeat-chrome-empty-bag-public.jpg",
+      "sha256": "fe83c0e9ca383a3be3bd310ba681ad886257d654705398b382933a91d3f3ea59"
+    }
+  ],
+  "storyfrontRepeat": {
+    "engine": "Native Safari; iframe also loads in in-app browser",
+    "order": "RAC-a4727b33",
+    "amountMinor": 2490,
+    "locale": "de-DE",
+    "confirmation": "Original Storyfront iframe, German product name, simulated authorization",
+    "return": "Original experience; bag empty and verified completion feedback",
+    "chromeBoundary": "Tab-bound debug-controlled repeats remained at about:blank; a native-UI Chrome tab with the same origin/profile and unchanged server completed the whole embedded flow. No security or framing policy was weakened.",
+    "chromeNative": {
+      "order": "RAC-0c3c77e8",
+      "amountMinor": 2490,
+      "flow": "Original bag \u2192 embedded native checkout \u2192 German confirmation \u2192 return \u2192 original bag 0 with verified completion feedback",
+      "control": "Native Chrome UI; tab attached for screenshots only after completed purchase",
+      "result": "passed"
+    }
+  }
+}

@@ -3,6 +3,14 @@
 For the current implementation and acceptance state, use **[Status](status.md)**.
 This page preserves dated evidence.
 
+## Configuration summary follow-up — 16 October, evening
+
+[Public follow-up receipt](evidence/configuration-summary-hosted-2026-10-16.md):
+Core `12b2a6b`, image `timely-zipper-1837`, no additional migration, healthy restart.
+Native checkout, confirmation and merchant order retain Eiche, 260 × 80 cm,
+EUR 48 surcharge and EUR 397 total on synthetic simulated order RAC-75415aa4.
+The required follow-up CI repeat remains separate from those browser results.
+
 ## Hardening release and public app workflow — 16 October, evening
 
 [The dated hosted receipt](evidence/platform-hardening-hosted-2026-10-16.md) records

@@ -6,11 +6,14 @@ code and Manifest live in `extensions/apps/furniture-configurator/`. It adds no
 physical database table and no second cart, price calculator or approval queue.
 
 **Acceptance boundary:** the automated local HTTP/PostgreSQL workflow uses
-simulated payment and synthetic customers. Local Chrome also completed a German
-260 × 80 cm walnut purchase: EUR 449 base plus EUR 68 configuration, EUR 517 total,
-saved order and empty cart. Hosted acceptance and real provider settlement remain
-separate checks. This case does not complete the entire
-[business-capability programme](app-system-status.md).
+simulated payment and synthetic customers. The [hosted app workflow](evidence/platform-hardening-hosted-2026-10-16.md)
+now covers pattern creation, actual private material writes, immutable version,
+reviewed sandbox install and selected publication. The [public summary follow-up](evidence/configuration-summary-hosted-2026-10-16.md)
+completed Eiche, 260 × 80 cm, EUR 349 plus EUR 48, EUR 397 total with the choices
+visible in checkout, confirmation and native merchant order. Independent B2B
+approval/current-rule reorder remain connected local acceptance; real provider
+settlement and the full [business-capability programme](app-system-status.md)
+remain separate.
 
 ## Build and try it
 
