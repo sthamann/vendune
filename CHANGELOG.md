@@ -1,5 +1,13 @@
 # Changelog
 
+## Merchant-context assistant and reviewed catalogue intake
+
+- Remove shopper/hard-coded-SKU welcome prompts from merchant Studio. Give the existing planner explicit merchant, current workspace, sandbox, main-language and current-rights context; offer source-driven catalogue setup rather than generic buyer advice.
+- Add actual CSV upload, accessible product/shop URL extraction and described fictional products with editable previews, selected sandbox-only creation and optional existing media jobs. CSV remains deterministic; model output and sources are untrusted.
+- Reuse Rust native creation/history/knowledge/outbox, shared inference quotas and the canonical API/MCP contract. Add bounded input, line-specific localized CSV errors, public DNS-pinned egress, stable creation IDs, exact retry reconciliation and locked settings-revision admission. No new tables, runtime or queues.
+- Correct direct product navigation across an explicitly chosen sandbox without retaining a target on another shop. Add native CSV/release, model/image, durable-worker and browser/component regressions. Local synthetic verification is distinct from real-model quality and public deployment.
+
+
 ## Understandable app ideas and explicit agent handoff
 
 - Replace the technical-first business-goal screen with a plain-language idea brief, example starting points, optional requirements, visible agent/design next steps and a three-step private-preview guide. Keep inherited fields visibly editable.

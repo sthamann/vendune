@@ -222,6 +222,11 @@ This lists every checked-in source module in these roots, including files with n
 | [src/cognition/tools.rs](../src/cognition/tools.rs) | Bounded agent read rounds use the same capability dispatcher and current actor rights; never execute writes. |
 | [src/commerce/app_adjustments.rs](../src/commerce/app_adjustments.rs) | Apply admitted integer app adjustments through native pricing/tax calculation; extensions cannot replace quote JSON. |
 | [src/commerce/catalog.rs](../src/commerce/catalog.rs) | SKU loading with parent translation fallback. |
+| [src/commerce/catalog_intake/csv.rs](../src/commerce/catalog_intake/csv.rs) | Bounded UTF-8 CSV parser accepts quoted delimiters, escaped quotes and multiline fields; no formula evaluation or silent row loss. |
+| [src/commerce/catalog_intake/mod.rs](../src/commerce/catalog_intake/mod.rs) | Merchant catalogue intake prepares bounded drafts; approved saves reuse native products, history and outbox in a private stage. |
+| [src/commerce/catalog_intake/prepare.rs](../src/commerce/catalog_intake/prepare.rs) | Native CSV parsing and read-only model extraction use existing inference admission and DNS-pinned public egress. |
+| [src/commerce/catalog_intake/save.rs](../src/commerce/catalog_intake/save.rs) | One explicit sandbox-only product creation delegates to native CAS/history/outbox; stable IDs reconcile retries without overwrites. |
+| [src/commerce/catalog_intake/schema.rs](../src/commerce/catalog_intake/schema.rs) | One catalogue-intake contract is shared by HTTP, MCP and explicit UI review; it cannot publish or overwrite products. |
 | [src/commerce/configuration.rs](../src/commerce/configuration.rs) | Tenant checkout configuration loading. |
 | [src/commerce/content_text.rs](../src/commerce/content_text.rs) | Shared field-level content fallback for metadata and configurable object names. |
 | [src/commerce/context_routes.rs](../src/commerce/context_routes.rs) | Public method discovery and revision-checked checkout context changes. |
@@ -575,6 +580,8 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/b2b/reference.ts](../frontend/src/admin/b2b/reference.ts) | Native organization IDs require a lowercase letter first and at most 32 characters. |
 | [frontend/src/admin/catalog/AiImageStudio.tsx](../frontend/src/admin/catalog/AiImageStudio.tsx) | Optional image-provider jobs create private previews; applying a reviewed image is explicit and revision checked. |
 | [frontend/src/admin/catalog/CatalogDirectory.tsx](../frontend/src/admin/catalog/CatalogDirectory.tsx) | Product columns and native catalog criteria over the shared grid; media/price/content stay domain-owned. |
+| [frontend/src/admin/catalog/CatalogIntake.tsx](../frontend/src/admin/catalog/CatalogIntake.tsx) | Merchant source chooser and explicit staged creation reuse native product, media and environment owners. |
+| [frontend/src/admin/catalog/CatalogIntakeReview.tsx](../frontend/src/admin/catalog/CatalogIntakeReview.tsx) | Editable catalogue review is distinct from native creation and later publication; AI images reuse the product editor's job workflow. |
 | [frontend/src/admin/catalog/CategoriesWorkspace.tsx](../frontend/src/admin/catalog/CategoriesWorkspace.tsx) | Localized category tree editor; parent moves and revisions are validated in the API. |
 | [frontend/src/admin/catalog/CategoryFactQuery.tsx](../frontend/src/admin/catalog/CategoryFactQuery.tsx) | One saved predicate on current public evidence; reuses category CAS and the editor's selected content language. |
 | [frontend/src/admin/catalog/MediaDropzone.tsx](../frontend/src/admin/catalog/MediaDropzone.tsx) | Accessible multi-file upload with drag/drop, visible progress and the same validated asset API as attachments. |
@@ -596,6 +603,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/catalog/ReviewModeration.tsx](../frontend/src/admin/catalog/ReviewModeration.tsx) | Product-scoped review publication; authoritative authorization stays in the API. |
 | [frontend/src/admin/catalog/TaxClassSelect.tsx](../frontend/src/admin/catalog/TaxClassSelect.tsx) | Assign a product to an actual tenant tax class; legacy standard/reduced mapping remains explicit. |
 | [frontend/src/admin/catalog/VariantGenerator.tsx](../frontend/src/admin/catalog/VariantGenerator.tsx) | Reviewable, bounded batch creation uses saved parent data and keeps successful rows on partial failure. |
+| [frontend/src/admin/catalog/catalog-intake-model.ts](../frontend/src/admin/catalog/catalog-intake-model.ts) | Review state carries stable native IDs; source changes discard the entire prior proposal, never overwrite existing products. |
 | [frontend/src/admin/catalog/catalog-model.ts](../frontend/src/admin/catalog/catalog-model.ts) | Editable native product aggregate and defaults shared by creation, detail and variant workflows. |
 | [frontend/src/admin/catalog/media-model.ts](../frontend/src/admin/catalog/media-model.ts) | Pure gallery operations preserve order, explicit alt translations and upload bounds without fabricating language values. |
 | [frontend/src/admin/catalog/variant-family.ts](../frontend/src/admin/catalog/variant-family.ts) | Cursor-based family lookup for duplicate review, bounded independently of the 50-row creation limit. |
@@ -810,6 +818,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/b2b-settings.css](../frontend/src/admin/styles/b2b-settings.css) | Revisioned B2B settings cards, accessible switches and responsive spacing. |
 | [frontend/src/admin/styles/behavior.css](../frontend/src/admin/styles/behavior.css) | Consent-bound insights use the existing Studio tokens and a responsive, inspectable visual hierarchy. |
 | [frontend/src/admin/styles/catalog-editor.css](../frontend/src/admin/styles/catalog-editor.css) | Visual editor and category workspace responsive styles. |
+| [frontend/src/admin/styles/catalog-intake.css](../frontend/src/admin/styles/catalog-intake.css) | Catalogue setup uses the Studio palette, native modal focus containment and bounded review cards. |
 | [frontend/src/admin/styles/catalog.css](../frontend/src/admin/styles/catalog.css) | Light, precise catalog workspace with accessible tables, focused detail panels and visual authoring. |
 | [frontend/src/admin/styles/commerce-manager.css](../frontend/src/admin/styles/commerce-manager.css) | commerce manager: Studio visual system and merchant operational layouts. |
 | [frontend/src/admin/styles/company-settings.css](../frontend/src/admin/styles/company-settings.css) | Company editor: structured addresses, visible scope inheritance and compact upload controls. |
@@ -988,6 +997,8 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/b2b-quotes-i18n.ts](../frontend/src/shared/i18n/b2b-quotes-i18n.ts) | Negotiation vocabulary, separate from merchant content translations. |
 | [frontend/src/shared/i18n/behavior-i18n.ts](../frontend/src/shared/i18n/behavior-i18n.ts) | Typed EN/DE/FR/ES vocabulary for native consent-bound visitor behavior and semantic reports. |
 | [frontend/src/shared/i18n/catalog-i18n.ts](../frontend/src/shared/i18n/catalog-i18n.ts) | Complete four-language catalog workspace vocabulary, separate from commerce data translations. |
+| [frontend/src/shared/i18n/catalog-intake-errors.ts](../frontend/src/shared/i18n/catalog-intake-errors.ts) | Catalogue intake diagnostics retain source-line metadata while all transport clients show actionable localized guidance. |
+| [frontend/src/shared/i18n/catalog-intake-i18n.ts](../frontend/src/shared/i18n/catalog-intake-i18n.ts) | Merchant-only catalogue setup copy; shopper recommendation prompts remain separate. |
 | [frontend/src/shared/i18n/checkout-i18n.ts](../frontend/src/shared/i18n/checkout-i18n.ts) | Checkout vocabulary: the same purchase and payment states in every supported UI language. |
 | [frontend/src/shared/i18n/cognitive-events-i18n.ts](../frontend/src/shared/i18n/cognitive-events-i18n.ts) | Typed labels shared by the knowledge timeline and the native Flow Builder event catalogue. |
 | [frontend/src/shared/i18n/company-i18n.ts](../frontend/src/shared/i18n/company-i18n.ts) | Company identity, field inheritance and legal storefront vocabulary in four interface languages. |
@@ -1430,6 +1441,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/advisor_privacy.py](../scripts/testing/advisor_privacy.py) | Concurrent privacy mutations across the real concierge/provider path; no live inference. |
 | [scripts/testing/advisor_sources.py](../scripts/testing/advisor_sources.py) | Actual channel-admitted advisor context and concurrent native source mutations; synthetic local model only. |
 | [scripts/testing/app_approval.py](../scripts/testing/app_approval.py) | Use the Rust manifest serializer for operator pins; never invent a second canonical digest. |
+| [scripts/testing/catalog_intake_checks.py](../scripts/testing/catalog_intake_checks.py) | Native catalogue intake through HTTP/MCP; real stage saves, exact replay, current rights and selected release, no model calls. |
 | [scripts/testing/consistency_boundaries.py](../scripts/testing/consistency_boundaries.py) | Real transport/permission regressions for knowledge publication and automation discovery. |
 | [scripts/testing/coverage_env.py](../scripts/testing/coverage_env.py) | Convert trusted cargo-llvm-cov environment output to GitHub's environment-file syntax. |
 | [scripts/testing/coverage_report.py](../scripts/testing/coverage_report.py) | Publish separate all-source coverage totals, untested files and enforce reviewed minimums. |

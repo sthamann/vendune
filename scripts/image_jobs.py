@@ -6,16 +6,23 @@ from testing.runtime import ROOT,serve,stop
 
 def chunk(kind,body):return struct.pack('>I',len(body))+kind+body+struct.pack('>I',zlib.crc32(kind+body)&0xffffffff)
 PNG=b'\x89PNG\r\n\x1a\n'+chunk(b'IHDR',struct.pack('>IIBBBBB',2,2,8,2,0,0,0))+chunk(b'IDAT',zlib.compress((b'\x00'+b'\x00\x7f\xff'*2)*2))+chunk(b'IEND',b'')
-state={'reject':False,'invalid':False};calls=[]
+state={'reject':False,'invalid':False,'catalog_result':{'products':[{'name':'Reading chair','description':'Fictional sample chair','price':189.0,'imageUrl':''}]}};calls=[]
 class Handler(BaseHTTPRequestHandler):
  def log_message(self,*args):pass
  def do_POST(self):
-  body=self.rfile.read(int(self.headers['Content-Length']));calls.append((self.path,self.headers['Content-Type'],body))
+  body=self.rfile.read(int(self.headers['Content-Length']))
+  if self.path=='/api/embed':
+   result={'embeddings':[[1.0]+[0.0]*1023 for _ in json.loads(body)['input']]}
+   self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(json.dumps(result).encode());return
+  calls.append((self.path,self.headers['Content-Type'],body))
   if state['reject']:self.send_response(429);self.end_headers();return
+  if self.path=='/api/chat':
+   data=json.loads(body);assert 'MERCHANT' in data['messages'][0]['content'];assert 'mainLocale=' in data['messages'][1]['content']
+   self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(json.dumps({'message':{'content':json.dumps(state['catalog_result'])}}).encode());return
   self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(json.dumps({'data':[{'b64_json':base64.b64encode(b'invalid'if state['invalid']else PNG).decode()}]}).encode())
 provider=ThreadingHTTPServer(('127.0.0.1',0),Handler);threading.Thread(target=provider.serve_forever,daemon=True).start()
 with socket.socket()as s:s.bind(('127.0.0.1',0));port=s.getsockname()[1]
-BASE=f'http://127.0.0.1:{port}';env={**os.environ,'BIND_ADDR':f'127.0.0.1:{port}','OPENAI_BASE_URL':f'http://127.0.0.1:{provider.server_address[1]}/v1','OPENAI_API_KEY':'synthetic-image-fixture','OPENAI_IMAGE_MODEL':'fixture-image','IMAGE_GENERATION_ENABLED':'true','PROCESS_ROLE':'all'}
+BASE=f'http://127.0.0.1:{port}';env={**os.environ,'BIND_ADDR':f'127.0.0.1:{port}','OPENAI_BASE_URL':f'http://127.0.0.1:{provider.server_address[1]}/v1','OPENAI_API_KEY':'synthetic-image-fixture','OLLAMA_URL':f'http://127.0.0.1:{provider.server_port}','INFERENCE_ALLOW_LOOPBACK':'true','OPENAI_IMAGE_MODEL':'fixture-image','IMAGE_GENERATION_ENABLED':'true','PROCESS_ROLE':'all'}
 log=(ROOT/'.run/image-contract.log').open('w');server=serve(env,BASE,log);public={};merchant={}
 def req(path,body=None,h=None,method=None,expected=200):
  r=urllib.request.Request(BASE+path,data=None if body is None else json.dumps(body).encode(),headers={'Content-Type':'application/json',**public,**(h or {})},method=method or ('POST' if body is not None else 'GET'))
@@ -59,5 +66,27 @@ try:
  state['invalid']=True;failed=wait(create(), 'failed');assert 'Invalid'in failed['error'];state['invalid']=False;state['reject']=True;failed=wait(create(),'failed');assert '429'in failed['error'];count=len(calls);time.sleep(1.1);assert len(calls)==count
  m=req('/mcp',{'jsonrpc':'2.0','id':1,'method':'tools/call','params':{'name':'merchant.media.detail','arguments':{'id':edited['id']}}},merchant);assert not m['result']['isError']and m['result']['structuredContent']['state']=='ready'
  stop(server);server=serve(env,BASE,log);assert req('/api/merchant/media/jobs/'+edited['id'],h=merchant)['state']=='ready';assert any(j['id']==edited['id']for j in req('/api/merchant/products/mug/media/jobs',h=merchant)['jobs']);assert len(calls)==count
+ state['reject']=False
+ stage=req('/api/environments',{'name':'Demo products and images'},merchant)['id'];sh={**merchant,'x-tenant':stage}
+ payload={'mode':'demo','source':'A compact reading corner with a chair','count':1,'inference':{'provider':'ollama','model':None}}
+ count_before=len(calls);req('/api/merchant/catalog/intake',payload,vh,expected=403);assert len(calls)==count_before
+ demo=req('/api/merchant/catalog/intake',payload,sh);assert demo['demo'] and demo['drafts'][0]['imageUrl']==''
+ pid=str(uuid.uuid4());save={'id':pid,'approve':True,'settingsRevision':demo['settingsRevision'],'mainLocale':demo['mainLocale'],'currency':demo['currency'],'taxRate':19,'demo':True,'draft':demo['drafts'][0]}
+ created=req('/api/merchant/catalog/intake/save',save,sh)
+ image=req('/api/merchant/products/'+pid+'/media/jobs',{'revision':created['revision'],'mode':'generate','prompt':'Synthetic catalogue photograph'},sh)
+ for _ in range(100):
+  draft=req('/api/merchant/media/jobs/'+image['id'],h=sh)
+  if draft['state']=='ready':break
+  time.sleep(.1)
+ assert draft['state']=='ready' and draft['preview'].startswith('data:image/png;base64,')
+ req('/store-api/assets/'+draft['assetId']+'?shop='+w['workspace'],expected=404)
+ assert req('/api/merchant/products/'+pid,h=sh)['commerce']['stock']==20
+ req('/api/merchant/products/'+pid,h=merchant,expected=404)
+ for source,status in [('http://127.0.0.1:1/private',400),('https://127.0.0.1/private',403),('https://user:secret@example.test/',400)]:
+  before=len(calls);req('/api/merchant/catalog/intake',{**payload,'mode':'url','source':source},sh,expected=status);assert len(calls)==before
+ state['catalog_result']={'products':[{'name':'Bad','description':'bad','price':-1,'imageUrl':''}]};req('/api/merchant/catalog/intake',payload,sh,expected=400)
+ state['catalog_result']={'products':[{'name':'Bad','description':'bad','price':1,'imageUrl':'https://example.test/fake.png'}]};req('/api/merchant/catalog/intake',payload,sh,expected=400)
+ state['reject']=True;req('/api/merchant/catalog/intake',payload,sh,expected=502);state['reject']=False
+ print('PASS merchant model context -> fictional product preview -> explicit native sandbox product -> real image-job bytes/private review; foreign/live writes, private URLs, invented demo images, invalid output and provider failure rejected')
  print('PASS local Images generation/edit protocols, private previews, real gallery bytes, stale apply, tenant/MCP boundaries, invalid/failed providers and cold restart without retry')
 finally:stop(server);provider.shutdown();log.close()

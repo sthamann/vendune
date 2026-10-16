@@ -1,5 +1,7 @@
 # Source responsibilities and verification map
 
+**Merchant catalogue setup:** [CSV upload, URL extraction, described demo products, private image jobs and native staged review](merchant-catalogue-setup.md).
+
 **Saved merchant planning:** [Native tasks, private checkpoints, worker restart,
 current authority and explicit continuation](durable-agent-runs.md). `agent_runs/`
 extends the existing planner/approval owner; it is not another agent backend.

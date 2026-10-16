@@ -66,6 +66,8 @@ Pages, campaign layouts, blog/article sections and private form intake live in
 app-owned packages. Original Storyfront Experiences retain their original private
 editor. [Illustrated guide, contracts and current limits](docs/personal-workspace-and-shop-design.md).
 
+**Build your catalogue from the merchant assistant:** upload a CSV, extract a public product page or describe fictional sample products. Review editable drafts, create the selection in a private sandbox and optionally prepare images through the configured image provider. Native products, history, events, permissions and selected publication remain shared. [Workflow, format and verification boundaries](docs/merchant-catalogue-setup.md).
+
 ## Ask. Review. Act.
 
 [![Ask the live order directory and review native filters](docs/assets/launch-20261014/agentic-orders.jpg)](docs/agentic-grids.md)

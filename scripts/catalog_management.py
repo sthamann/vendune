@@ -161,3 +161,7 @@ check('new category and new product publish together with assignments/visibility
 from testing.intent_navigation import verify_intent_navigation
 verify_intent_navigation(req,merchant,other,pid,check)
 print(json.dumps({'checks':len(checks),'workspace':w['workspace'],'status':'passed'}))
+
+from testing.catalog_intake_checks import check_catalog_intake
+other_intake=req('/api/auth/register',{'workspaceId':'intake-other-'+suffix,'workspaceName':'Other intake','name':'Other owner','email':'intake-other-'+suffix+'@example.test','password':'Synthetic-intake-2026!'})
+check_catalog_intake(req,merchant,other_intake)

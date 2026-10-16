@@ -1,5 +1,7 @@
 # Cognitive commerce: connected implementation and remaining work
 
+**Merchant catalogue setup:** [CSV upload, URL extraction, described demo products, private image jobs and native staged review](merchant-catalogue-setup.md).
+
 **Visitor behavior intelligence:** consent-bound guest/customer observations, native
 orders and the current semantic product graph now meet in one channel report.
 Studio charts and private timelines use the same HTTP/MCP permissions.

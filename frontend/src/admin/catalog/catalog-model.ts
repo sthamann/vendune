@@ -151,3 +151,14 @@ export function categoryDepth(
   }
   return visited.size;
 }
+
+/** A missing translated name uses the configured main language, including regional and fifth-language shops. */
+export function productName(draft: ProductDraft, language: string): string {
+  const main = draft.mainLocale ?? "en-GB";
+  return (
+    draft.translations[language]?.name ??
+    draft.translations[main]?.name ??
+    draft.translations[main.split("-")[0]]?.name ??
+    ""
+  );
+}
