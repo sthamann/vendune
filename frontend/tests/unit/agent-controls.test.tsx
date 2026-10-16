@@ -11,7 +11,7 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 );
 it("delegates a named exact-model agent only after all explicit limits and rights are set", async () => {
   const user = userEvent.setup();
-  const request = vi.fn(async (path: string, body?: any, method?: string) => {
+  const request = vi.fn(async (path: string, _body?: any, method?: string) => {
     if (path === "/api/auth/access")
       return {
         personalSession: true,
