@@ -189,6 +189,38 @@ it("rejects unsupported/oversize image batches and keeps order on an invalid mov
   ).toBe(false);
 });
 
+it("distinguishes a signed-in empty preview from a disconnected session", () => {
+  const request = vi
+    .fn()
+    .mockResolvedValue({ elements: [], mainLocale: "en-GB" });
+  const { rerender } = render(
+    <LocaleProvider>
+      <PreviewPanel
+        request={request}
+        connected
+        product={undefined}
+        onIntent={vi.fn()}
+      />
+    </LocaleProvider>,
+  );
+  expect(screen.getByText(/No product is selected yet/)).toBeVisible();
+  expect(screen.queryByText(/Sign in to Studio/)).not.toBeInTheDocument();
+  rerender(
+    <LocaleProvider>
+      <PreviewPanel
+        request={request}
+        connected={false}
+        product={undefined}
+        onIntent={vi.fn()}
+      />
+    </LocaleProvider>,
+  );
+  expect(screen.getByText(/Sign in to Studio/)).toBeVisible();
+  expect(
+    screen.queryByText(/No product is selected yet/),
+  ).not.toBeInTheDocument();
+});
+
 it("renders the assistant preview from the real gallery and removes the image when the gallery is empty", () => {
   const p = {
     id: "vase",
