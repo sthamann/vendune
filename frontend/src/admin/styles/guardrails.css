@@ -1,0 +1,362 @@
+/* Native pricing policy workbench: merchant units, bounded product lookup and shared Studio tokens. */
+.studio .guardrail-workspace {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+.studio .guardrail-heading {
+  display: flex;
+  gap: 14px;
+  align-items: start;
+}
+.studio .guardrail-heading > div {
+  flex: 1;
+  min-width: 0;
+}
+.studio .guardrail-heading h2 {
+  font-size: 24px;
+  letter-spacing: -0.035em;
+  margin: 0 0 8px;
+}
+.studio .guardrail-heading p,
+.studio .guardrail-connected p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 0;
+}
+.studio .guardrail-product-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--accent-soft);
+  border-radius: 12px;
+  color: var(--accent);
+}
+.studio .guardrail-scope {
+  display: flex;
+  gap: 10px;
+  align-items: start;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 0;
+}
+.studio .guardrail-scope svg {
+  flex-shrink: 0;
+  width: 18px;
+}
+.studio .guardrail-workspace form {
+  display: grid;
+  gap: 20px;
+}
+.studio .guardrail-workspace fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.studio .guardrail-workspace legend {
+  font-size: 15px;
+  font-weight: 650;
+  margin-bottom: 14px;
+}
+.studio .guardrail-mode-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.studio .guardrail-mode-options > label {
+  display: flex;
+  align-items: start;
+  gap: 10px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  cursor: pointer;
+}
+.studio .guardrail-mode-options > label[data-selected="true"] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.studio .guardrail-mode-options strong {
+  font-size: 14px;
+  display: block;
+  margin-bottom: 8px;
+}
+.studio .guardrail-mode-options small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+  display: block;
+}
+.studio .guardrail-workspace input[type="radio"],
+.studio .guardrail-workspace input[type="checkbox"] {
+  width: 18px;
+  min-height: 18px;
+  height: 18px;
+  margin: 2px 0 0;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+}
+.studio .guardrail-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.studio .guardrail-fields label,
+.studio .guardrail-search > label {
+  display: grid;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  min-width: 0;
+}
+.studio .guardrail-workspace input:not([type="checkbox"]):not([type="radio"]) {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 10px 12px;
+  color: var(--text);
+  background: var(--surface);
+  font: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+.studio .guardrail-workspace input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.studio .guardrail-budget {
+  margin-top: 18px;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.studio .guardrail-budget small {
+  line-height: 1.6;
+}
+.studio .guardrail-section-title {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.studio .guardrail-section-title h3 {
+  margin: 6px 0 0;
+  font-size: 17px;
+}
+.studio .guardrail-section-title > span {
+  background: var(--hover);
+  padding: 4px 9px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.studio .guardrail-empty {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 24px;
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+}
+.studio .guardrail-empty svg {
+  color: var(--accent);
+}
+.studio .guardrail-empty p {
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 520px;
+  margin: 0;
+  line-height: 1.65;
+}
+.studio .guardrail-product-card {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.studio .guardrail-product-card header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+.studio .guardrail-product-card header > div {
+  flex: 1;
+  min-width: 160px;
+}
+.studio .guardrail-product-card h3 {
+  margin: 0 0 5px;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+.studio .guardrail-product-card small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.studio .guardrail-product-card details {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  margin-top: 16px;
+}
+.studio .guardrail-product-card summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.studio .guardrail-product-card details p {
+  font-size: 12px;
+  line-height: 1.65;
+}
+.studio .guardrail-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  font-size: 13px;
+  min-height: 28px;
+}
+.studio .guardrail-remove {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 16px;
+  padding: 8px 0;
+  min-height: 44px;
+  cursor: pointer;
+}
+.studio .guardrail-remove svg {
+  width: 16px;
+}
+.studio .guardrail-search {
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.studio .guardrail-search-results {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+  max-height: 270px;
+  overflow-y: auto;
+}
+.studio .guardrail-search-product {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 66px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  text-align: start;
+  cursor: pointer;
+}
+.studio .guardrail-search-product > span:not(.guardrail-product-icon) {
+  flex: 1;
+  min-width: 0;
+}
+.studio .guardrail-search-product strong {
+  display: block;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.studio .guardrail-search-product small {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+.studio .guardrail-search-product img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.studio .guardrail-search-product > svg {
+  width: 16px;
+  flex-shrink: 0;
+  color: var(--accent);
+}
+.studio .guardrail-search-product:enabled:hover {
+  border-color: var(--accent);
+  background: var(--hover);
+}
+.studio .guardrail-save {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px 0;
+  border-top: 1px solid var(--border);
+}
+.studio .guardrail-save > span {
+  color: var(--muted);
+  font-size: 12px;
+}
+.studio .guardrail-connected {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.studio .guardrail-connected h3 {
+  font-size: 15px;
+  margin: 0 0 10px;
+}
+.studio .guardrail-connected > div {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.studio .guardrail-workspace button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+@media (max-width: 760px) {
+  .studio .knowledge-intro {
+    align-items: start;
+    flex-wrap: wrap;
+  }
+  .studio .guardrail-mode-options,
+  .studio .guardrail-fields,
+  .studio .guardrail-search-results {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .studio .guardrail-heading {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+  }
+  .studio .guardrail-heading .knowledge-badge {
+    grid-column: 2;
+    justify-self: start;
+    margin-left: 0;
+  }
+  .studio .guardrail-product-card {
+    padding: 16px;
+  }
+}

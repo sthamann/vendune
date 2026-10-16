@@ -27,3 +27,8 @@ settings and currency scales; `ExperimentStudio.tsx` registers and controls nati
 layout experiments with clear preliminary/final readouts. Each uses the shared
 typed four-language vocabulary. Revision and permission failures remain visible.
 See [cognitive commerce](../../../../docs/cognitive-commerce.md) for tested scope.
+
+The native price-boundary workspace uses `GuardrailSettings`, bounded catalogue
+lookup and currency-aware cards. `guardrail-model.ts` only checks editor structure;
+Rust owns price/autonomy admission. Grouped `KnowledgeNavigation` has a compact
+selector at narrow widths. See [the user workflow](../../../../docs/knowledge-workspace.md#control-ai-price-changes).

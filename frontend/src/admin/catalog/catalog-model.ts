@@ -157,6 +157,7 @@ export function productName(draft: ProductDraft, language: string): string {
   const main = draft.mainLocale ?? "en-GB";
   return (
     draft.translations[language]?.name ??
+    draft.translations[language.split("-")[0]]?.name ??
     draft.translations[main]?.name ??
     draft.translations[main.split("-")[0]]?.name ??
     ""

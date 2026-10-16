@@ -23,9 +23,9 @@ class Handler(BaseHTTPRequestHandler):
         if behavior['mode'] in ['extract','bad-extract']:
             quote='Ceramic capacity 500 ml.' if behavior['mode']=='extract' else 'Invented waterproof certification'
             result={'claims':[{'text':quote,'quote':quote,'nodeType':'property'}]}
-        if behavior['mode'] in ['read-tools','write-tool']:
+        if behavior['mode'] in ['read-tools','write-tool','policy-read']:
             if behavior.setdefault('round',0)==0:
-                result={**proposal,'changes':[],'tool_calls':[{'name':'merchant.orders' if behavior['mode']=='read-tools' else 'merchant.apply','arguments_json':'{}'}]}
+                result={**proposal,'changes':[],'tool_calls':[{'name':'merchant.commerce.read' if behavior['mode']=='policy-read' else 'merchant.orders' if behavior['mode']=='read-tools' else 'merchant.apply','arguments_json':'{"area":"aiPolicy"}' if behavior['mode']=='policy-read' else '{}'}]}
             behavior['round']+=1
         schema=(body.get('text',{}).get('format',{}).get('schema') or body.get('response_format',{}).get('json_schema',{}).get('schema') or body.get('output_config',{}).get('format',{}).get('schema') or body.get('format',{}))
         if schema.get('required')==['tool_calls']:
@@ -116,6 +116,14 @@ try:
     corridor={'productId':'lamp','currency':'EUR','minimumMinor':7000,'maximumMinor':8000,'minimumMarginBps':0}
     enabled={'corridors':[corridor], 'autonomy':{'enabled':True,'maxChangeBps':500,'productsPerDay':1}}
     policy(enabled)
+    behavior.update(mode='policy-read',round=0)
+    inspected=call('/api/agent/chat',{'message':'Read the saved AI price boundaries before reviewing lamp.','inference':{'provider':'openai'}})
+    trace=inspected['messages'][-1]['data']['preview']['toolTrace']
+    assert trace[0]['tool']=='merchant.commerce.read' and trace[0]['result']['data']['aiPolicy']==call('/api/merchant/commerce')['data']['aiPolicy'],trace
+    final=next(c for c in reversed(captured) if c[0] != '/api/embed')[2]
+    assert 'aiPolicy' in final['input'] and 'minimumMinor' in final['input'] and 'price-only autonomy' in final['instructions']
+    behavior['mode']='normal'
+    passed('Shared merchant agent reads current native AI boundaries through the authorized commerce capability before preparing a proposal')
     proposal['changes']=[{'product_id':'lamp','price':69}]
     rejected=call('/api/agent/chat',{'message':'Try outside price corridor','inference':{'provider':'openai'}})
     assert rejected['messages'][-1]['data']['error'];passed('Merchant price corridors reject invalid previews before executable tasks exist')

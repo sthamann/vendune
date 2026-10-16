@@ -57,7 +57,9 @@ pub(crate) fn input(name: &str) -> Value {
         "merchant.company.save" => {
             json!({"channelId":{"type":"string"},"revision":{"type":"integer","minimum":0},"baseRevision":{"type":"integer","minimum":0},"data":{"type":"object"}})
         }
-        "merchant.commerce.read" => json!({"channelId":{"type":"string"}}),
+        "merchant.commerce.read" => {
+            json!({"channelId":{"type":"string"},"area":{"type":"string","enum":["aiPolicy"]},"afterProductId":{"type":"string","maxLength":160}})
+        }
         "merchant.commerce.save" => {
             json!({"channelId":{"type":"string"},"baseRevision":{"type":"integer","minimum":0},"revision":{"type":"integer","minimum":0},"data":{"type":"object"}})
         }

@@ -256,6 +256,11 @@ Cypher, inferred semantic entailment or a full intent-planning language**.
 
 ## Merchant guardrails and optional autonomy
 
+The [merchant price-boundary workflow](knowledge-workspace.md#control-ai-price-changes)
+uses ordinary currency amounts/percentages, catalogue search and shared
+product/assistant/rules/publication entry points. A bounded `merchant.commerce.read`
+`area=aiPolicy` projection retains native settings rights and paginates eight corridors.
+
 Studio **Shop knowledge → Guardrails** edits `commerce.settings.aiPolicy` with the
 same native settings revision and currency scales. Product corridors can require
 minimum/maximum prices, net unit cost/margin, maximum discount relative to the

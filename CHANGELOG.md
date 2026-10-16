@@ -1,5 +1,14 @@
 # Changelog
 
+## Connected merchant price boundaries — 2026-10-16
+
+- Replace the clipped knowledge tab strip with grouped navigation and a labelled mobile selector.
+- Rebuild AI price boundaries around approval modes, searchable native products, ordinary money/percentage units, progressive margin/cost controls and clear sandbox/revision feedback. Preserve native price-only limits and explicit per-product boundaries.
+- Connect saved policy to product editing, the shared assistant, Rules & flows, settings and staging; respect current permissions and guard pending edits within knowledge navigation.
+- Add a bounded, cursor-paged policy projection to the existing authorized commerce read operation. The merchant planner can read exact saved boundaries without an oversized whole-settings response. No new policy database, pricing engine or worker.
+- Verify money scales, invalid inputs, stale revisions, read-only admission and connected actions in frontend tests; exact native pagination in Rust; policy read/model transcript and current guardrail execution in provider fixtures.
+
+
 ## Merchant-context assistant and reviewed catalogue intake
 
 - Remove shopper/hard-coded-SKU welcome prompts from merchant Studio. Give the existing planner explicit merchant, current workspace, sandbox, main-language and current-rights context; offer source-driven catalogue setup rather than generic buyer advice.

@@ -297,7 +297,8 @@ export function useStudioController({
   };
   const onProduct = (productId: string) => setFocus(productId);
   const selected =
-    data?.products.find((p) => p.id === focus) || data?.products[0];
+    data?.products.find((p) => p.id === focus) ||
+    (!focus ? data?.products[0] : undefined);
 
   return {
     onExit,

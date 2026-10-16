@@ -701,9 +701,12 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/intelligence/EvidenceReview.tsx](../frontend/src/admin/intelligence/EvidenceReview.tsx) | Review source-bound candidates through shared HTTP/MCP contracts; changed sources block publication. |
 | [frontend/src/admin/intelligence/ExperimentStudio.tsx](../frontend/src/admin/intelligence/ExperimentStudio.tsx) | Immutable experiment designs and lifecycle controls share the core HTTP/MCP owner and current settings rights. |
 | [frontend/src/admin/intelligence/ExternalKnowledge.tsx](../frontend/src/admin/intelligence/ExternalKnowledge.tsx) | Private connected-app evidence browser shows active-source provenance without exposing it to shoppers. |
-| [frontend/src/admin/intelligence/GuardrailSettings.tsx](../frontend/src/admin/intelligence/GuardrailSettings.tsx) | Merchant AI boundaries edit the canonical revisioned commerce settings, never a second policy store. |
+| [frontend/src/admin/intelligence/GuardrailProductCard.tsx](../frontend/src/admin/intelligence/GuardrailProductCard.tsx) | Currency-aware editing of one native product corridor, with honest product/configuration links. |
+| [frontend/src/admin/intelligence/GuardrailProductSearch.tsx](../frontend/src/admin/intelligence/GuardrailProductSearch.tsx) | Bounded native catalogue search, not the sampled dashboard; stale replies never replace current results. |
+| [frontend/src/admin/intelligence/GuardrailSettings.tsx](../frontend/src/admin/intelligence/GuardrailSettings.tsx) | Merchant AI boundaries use canonical settings revisions, native catalogue lookup and the shared assistant. |
 | [frontend/src/admin/intelligence/KnowledgeExplorer.tsx](../frontend/src/admin/intelligence/KnowledgeExplorer.tsx) | Product-centred evidence inspector reads canonical facts and graph relationships beyond overview sampling. |
 | [frontend/src/admin/intelligence/KnowledgeFacts.tsx](../frontend/src/admin/intelligence/KnowledgeFacts.tsx) | Canonical catalogue facts shown alongside graph evidence; prices and inventory come from current product state. |
+| [frontend/src/admin/intelligence/KnowledgeNavigation.tsx](../frontend/src/admin/intelligence/KnowledgeNavigation.tsx) | Stable grouped navigation replaces clipped horizontal tabs; a labelled selector serves narrow workspaces. |
 | [frontend/src/admin/intelligence/KnowledgeOverview.tsx](../frontend/src/admin/intelligence/KnowledgeOverview.tsx) | Whole-shop knowledge census, operational next steps and provenance activity; examples never masquerade as learned facts. |
 | [frontend/src/admin/intelligence/KnowledgePreview.tsx](../frontend/src/admin/intelligence/KnowledgePreview.tsx) | No-model evidence preview makes customer/private retrieval boundaries and missing facts inspectable. |
 | [frontend/src/admin/intelligence/KnowledgeSources.tsx](../frontend/src/admin/intelligence/KnowledgeSources.tsx) | Searchable cursor source library, guarded lifecycle decisions and single-language source editing. |
@@ -714,6 +717,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/intelligence/behavior/BehaviorJourney.tsx](../frontend/src/admin/intelligence/behavior/BehaviorJourney.tsx) | Authorized journey timeline links to native product, customer and order views, through permission-bound native CRM references. |
 | [frontend/src/admin/intelligence/behavior/BehaviorView.tsx](../frontend/src/admin/intelligence/behavior/BehaviorView.tsx) | Behavioral workspace makes consent, channel/window, guest journeys and semantic projections inspectable. |
 | [frontend/src/admin/intelligence/behavior/types.ts](../frontend/src/admin/intelligence/behavior/types.ts) | Bounded private read models; aggregate users and customer identities have separate rights. |
+| [frontend/src/admin/intelligence/guardrail-model.ts](../frontend/src/admin/intelligence/guardrail-model.ts) | Native policy shape and currency conversion only; admission remains in the Rust commerce owner. |
 | [frontend/src/admin/intelligence/knowledge-types.ts](../frontend/src/admin/intelligence/knowledge-types.ts) | Typed knowledge read models preserve source ownership, revisions, sampling and privacy boundaries. |
 | [frontend/src/admin/legal/ConsumerRequests.tsx](../frontend/src/admin/legal/ConsumerRequests.tsx) | Permission-scoped consumer request queue and optimistic, recorded review actions. |
 | [frontend/src/admin/legal/LegalServices.tsx](../frontend/src/admin/legal/LegalServices.tsx) | Purpose inventory and provider disclosures edited in the selected content language. |
@@ -824,6 +828,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/company-settings.css](../frontend/src/admin/styles/company-settings.css) | Company editor: structured addresses, visible scope inheritance and compact upload controls. |
 | [frontend/src/admin/styles/creation.css](../frontend/src/admin/styles/creation.css) | Shared native creation workspaces: readable fields, predictable actions and responsive review. |
 | [frontend/src/admin/styles/forms.css](../frontend/src/admin/styles/forms.css) | Studio-owned form primitives load at the composition root, independent of lazy workspace history. |
+| [frontend/src/admin/styles/guardrails.css](../frontend/src/admin/styles/guardrails.css) | Native pricing policy workbench: merchant units, bounded product lookup and shared Studio tokens. |
 | [frontend/src/admin/styles/international-details.css](../frontend/src/admin/styles/international-details.css) | Destination rates, translation jobs and responsive international workbench layout. |
 | [frontend/src/admin/styles/international.css](../frontend/src/admin/styles/international.css) | International commerce workbench: compact master/detail records, calm colour and clear field hierarchy. |
 | [frontend/src/admin/styles/knowledge-evidence.css](../frontend/src/admin/styles/knowledge-evidence.css) | Product evidence, retrieval excerpts, observed pairs and responsive knowledge layouts. |
@@ -1014,6 +1019,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/experiment-i18n.ts](../frontend/src/shared/i18n/experiment-i18n.ts) | Controlled-experiment vocabulary distinguishes observed cash from causal and margin claims. |
 | [frontend/src/shared/i18n/graph-navigation-i18n.ts](../frontend/src/shared/i18n/graph-navigation-i18n.ts) | Saved fact navigation vocabulary; content terms use the editor's shared language inheritance. |
 | [frontend/src/shared/i18n/guardrail-i18n.ts](../frontend/src/shared/i18n/guardrail-i18n.ts) | Typed four-language merchant AI policy vocabulary. |
+| [frontend/src/shared/i18n/guardrail-workspace-i18n.ts](../frontend/src/shared/i18n/guardrail-workspace-i18n.ts) | Task-oriented vocabulary for native AI pricing boundaries and their connected Studio owners. |
 | [frontend/src/shared/i18n/i18n.tsx](../frontend/src/shared/i18n/i18n.tsx) | i18n: Four-language locale context, UI dictionaries and translated API errors. |
 | [frontend/src/shared/i18n/international-i18n.ts](../frontend/src/shared/i18n/international-i18n.ts) | International settings vocabulary. Every key requires English, German, French and Spanish. |
 | [frontend/src/shared/i18n/knowledge-i18n.ts](../frontend/src/shared/i18n/knowledge-i18n.ts) | Knowledge workspace vocabulary: sources, evidence and capabilities without fabricated learning claims. |
