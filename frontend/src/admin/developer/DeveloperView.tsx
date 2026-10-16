@@ -19,13 +19,12 @@ import AppAssistant from "./AppAssistant";
 import ConfirmDialog from "../../shared/ui/ConfirmDialog";
 import { useAssistantText } from "../../shared/i18n/app-assistant-i18n";
 import AppCapabilityEditor from "./AppCapabilityEditor";
-import "../styles/app-capability.css";
 import AppSettingsEditor from "./AppSettingsEditor";
 import AppDataEditor from "./AppDataEditor";
 import AppEditorNavigation from "./AppEditorNavigation";
 import AppPayments from "./AppPayments";
 import AppConnections from "./AppConnections";
-import AppAgentDrawer from "./AppAgentDrawer";
+import AppAgentDrawer, { useAppAgentEntry } from "./AppAgentDrawer";
 import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
 import AppVersions from "./AppVersions";
 import AppLibrary from "./AppLibrary";
@@ -72,7 +71,7 @@ export default function DeveloperView({
     { w } = useWorkbenchText();
   const studio = useAppStudio(request, environments[0]?.id ?? "", onRefresh),
     m = studio.manifest;
-  const [agentOpen, setAgentOpen] = useState(false);
+  const agent = useAppAgentEntry(studio, request);
   const workspaceText = useAppWorkspaceText();
   const [section, setSection] = useState<AppStudioKey>("design"),
     [viewId, setViewId] = useState("workspace"),
@@ -217,8 +216,8 @@ export default function DeveloperView({
                   type="button"
                   className="studio-secondary app-agent-toggle"
                   aria-haspopup="dialog"
-                  aria-expanded={agentOpen}
-                  onClick={() => setAgentOpen(true)}
+                  aria-expanded={agent.drawer.open}
+                  onClick={() => agent.show()}
                 >
                   <Icon name="spark" size={17} />
                   {workspaceText("agentTitle")}
@@ -286,7 +285,7 @@ export default function DeveloperView({
             <AppEditorNavigation
               section={section}
               onSelect={(key) =>
-                key === "agent" ? setAgentOpen(true) : setSection(key)
+                key === "agent" ? agent.show() : setSection(key)
               }
               versions={studio.builds.length}
               payments={m.category === "payment" || !!m.paymentProvider}
@@ -342,12 +341,7 @@ export default function DeveloperView({
                   </div>
                 )}
               </div>
-              <AppAgentDrawer
-                open={agentOpen}
-                onClose={() => setAgentOpen(false)}
-                studio={studio}
-                request={request}
-              />
+              <AppAgentDrawer {...agent.drawer} />
               {section === "design" && (
                 <AppDesignWorkspace
                   studio={studio}
@@ -365,7 +359,12 @@ export default function DeveloperView({
                 />
               )}
               {section === "capability" && (
-                <AppCapabilityEditor manifest={m} onChange={studio.edit} />
+                <AppCapabilityEditor
+                  manifest={m}
+                  onChange={studio.edit}
+                  onAssist={agent.show}
+                  onDesign={() => setSection("design")}
+                />
               )}
               {section === "settings" && (
                 <AppSettingsEditor manifest={m} onChange={studio.edit} />

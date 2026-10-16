@@ -178,10 +178,13 @@ claims and mutations for either missing check. That proof does not cover SQL,
 encryption, third-party services or the browser. See [testing](testing.md),
 [app security](app-security.md) and [formal verification](formal-verification.md).
 
-## Business goal and decision examples
+## App idea and optional rule checks
 
 The [business-capability guide](business-capabilities.md#executable-first-slice)
-adds a Business goal tab to the same Manifest editor. Localized intent and
+adds the App idea tab to the same Manifest editor. Describe the outcome, optionally
+add requirements and open the shared agent with that brief, or jump to visual
+design. Missing main-language goal/requirement content is explained in place with
+a direct switch to correction; no translations are silently copied. Automatic rule checks remain available under an explicit disclosure. Localized intent and
 assumptions remain editable; frozen cases show expected input and decision.
 Saving/installing executes declared pure cases in the existing WIT sandbox.
 The selected editor now omits the app library and large introduction; Back to

@@ -1,5 +1,11 @@
 # Changelog
 
+## Understandable app ideas and explicit agent handoff
+
+- Replace the technical-first business-goal screen with a plain-language idea brief, example starting points, optional requirements, visible agent/design next steps and a three-step private-preview guide. Keep inherited fields visibly editable.
+- Reuse the existing agent drawer and composer for an explicit editable handoff. Bind pending requests to the current app/sandbox, consume once, and do not automatically invoke inference, export a task or change a Manifest. Codex/Claude retain the existing task and reviewed-import path.
+- Collapse optional pure-rule checks, distinguish frozen expectations from actual execution results, and explain an empty set without implying that the whole app failed. Existing rights, frozen cases, private versions and native runtime stay authoritative.
+
 ## Guided app creation
 
 - Put app name and compact content-language context first. Group native placements by shop, purchase/account, administration, POS and B2B; illustrate each with a location sketch and specific icon. Keep a removable selected-area summary and explicit zero/six-selection guidance.

@@ -626,7 +626,8 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/developer/AppAssistant.tsx](../frontend/src/admin/developer/AppAssistant.tsx) | Guided app kinds create normal editable manifests; all changes follow private-stage versioning. |
 | [frontend/src/admin/developer/AppAutomation.tsx](../frontend/src/admin/developer/AppAutomation.tsx) | Editable triggers are declared alongside UI and actions; secrets remain operator-managed. |
 | [frontend/src/admin/developer/AppCanvas.tsx](../frontend/src/admin/developer/AppCanvas.tsx) | Accessible click-to-add canvas with selectable blocks and keyboard-accessible ordering controls. |
-| [frontend/src/admin/developer/AppCapabilityEditor.tsx](../frontend/src/admin/developer/AppCapabilityEditor.tsx) | The canonical Manifest carries merchant intent and bounded pure-decision examples; no separate app document or executor. |
+| [frontend/src/admin/developer/AppCapabilityChecks.tsx](../frontend/src/admin/developer/AppCapabilityChecks.tsx) | Frozen pure-decision expectations remain advanced, read-only metadata; no fake execution result is inferred. |
+| [frontend/src/admin/developer/AppCapabilityEditor.tsx](../frontend/src/admin/developer/AppCapabilityEditor.tsx) | Merchant ideas, requirements and explicit agent handoff edit the canonical versioned Manifest without executing changes. |
 | [frontend/src/admin/developer/AppCodeBuffer.ts](../frontend/src/admin/developer/AppCodeBuffer.ts) | Invalid local expressions block apply and mode changes until corrected; multiple editors report independently. |
 | [frontend/src/admin/developer/AppConnections.tsx](../frontend/src/admin/developer/AppConnections.tsx) | Route, tool, grounding and Flow Builder switches modify the shared executable manifest directly. |
 | [frontend/src/admin/developer/AppContextBinding.tsx](../frontend/src/admin/developer/AppContextBinding.tsx) | Native UI bindings connect the open host object to an indexed app field, never to a global JS context. |
@@ -793,7 +794,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/app-artwork.css](../frontend/src/admin/styles/app-artwork.css) | Category cover and app icon artwork, with local deterministic fallbacks. |
 | [frontend/src/admin/styles/app-assistant.css](../frontend/src/admin/styles/app-assistant.css) | Guided extension workspace: restrained colour, clear choices and responsive setup. |
 | [frontend/src/admin/styles/app-building.css](../frontend/src/admin/styles/app-building.css) | Modern recipe cards and structural AI review reuse Studio colors and responsive interaction rules. |
-| [frontend/src/admin/styles/app-capability.css](../frontend/src/admin/styles/app-capability.css) | Bounded business-goal cards fit the existing Studio workspace and inherit its theme. |
+| [frontend/src/admin/styles/app-capability.css](../frontend/src/admin/styles/app-capability.css) | Merchant-friendly idea brief, explicit next steps and optional bounded rule checks share Studio tokens. |
 | [frontend/src/admin/styles/app-catalog.css](../frontend/src/admin/styles/app-catalog.css) | App library/detail presentation: bounded cards, passive artwork, accessible filters and theme-aware forms. |
 | [frontend/src/admin/styles/app-creation.css](../frontend/src/admin/styles/app-creation.css) | Guided app creation: bounded reading width, illustrated native placements and a private draft summary. |
 | [frontend/src/admin/styles/app-detail.css](../frontend/src/admin/styles/app-detail.css) | Scoped app detail hierarchy, permission disclosure, data and integration forms. |
@@ -969,6 +970,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/app-creation-i18n.ts](../frontend/src/shared/i18n/app-creation-i18n.ts) | Guided creation vocabulary: placement groups, private draft guidance and optional technical controls. |
 | [frontend/src/shared/i18n/app-events-i18n.ts](../frontend/src/shared/i18n/app-events-i18n.ts) | Subscription/filter/delivery vocabulary shared by Studio and coding agents. |
 | [frontend/src/shared/i18n/app-i18n.ts](../frontend/src/shared/i18n/app-i18n.ts) | App and evidence UI vocabulary, shared by store, merchant and payment components. |
+| [frontend/src/shared/i18n/app-intent-i18n.ts](../frontend/src/shared/i18n/app-intent-i18n.ts) | Plain-language app ideas and next steps supplement the existing versioned capability contract. |
 | [frontend/src/shared/i18n/app-library-i18n.ts](../frontend/src/shared/i18n/app-library-i18n.ts) | App library vocabulary and built-in summaries; no inferred connection or payment readiness. |
 | [frontend/src/shared/i18n/app-logic-i18n.ts](../frontend/src/shared/i18n/app-logic-i18n.ts) | Designer controls, code-behind and debugger vocabulary ships in every bundled interface language. |
 | [frontend/src/shared/i18n/app-ontology-i18n.ts](../frontend/src/shared/i18n/app-ontology-i18n.ts) | Native app graph mapping controls share the Studio vocabulary and four interface languages. |

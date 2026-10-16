@@ -19,6 +19,7 @@ export default function LocalizedField({
   disabled = false,
   externalFallback,
   externalLabel,
+  placeholder,
 }: {
   disabled?: boolean;
   label: string;
@@ -30,6 +31,7 @@ export default function LocalizedField({
   error?: string;
   externalFallback?: string;
   externalLabel?: string;
+  placeholder?: string;
 }) {
   const id = useId(),
     { language, locales, mainLocale } = useContentLanguage(),
@@ -47,7 +49,7 @@ export default function LocalizedField({
     "aria-invalid": !!error,
     "aria-describedby": error ? `${id}-error` : undefined,
     value: value[key] ?? "",
-    placeholder: inherited ? fallback : undefined,
+    placeholder: inherited ? fallback || placeholder : placeholder,
     maxLength,
     required: required && main && externalFallback === undefined,
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>

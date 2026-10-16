@@ -193,7 +193,7 @@ and keep autonomy limits visible. Retrieval is distinct from model-weight traini
 
 [![Knowledge and explicit boundaries](docs/assets/launch-20261014/connected-knowledge.jpg)](docs/assets/showcase/connected-intelligence.mp4)
 
-**App Studio:** visual controls and coding agents share one executable manifest. Start with an app name, choose illustrated placements grouped by shop, checkout, administration, POS and B2B, and review the selected areas before creating a private draft. [Creation workflow and current screenshots](docs/app-studio-workspace.md).
+**App Studio:** describe an app idea in plain language, add requirements and hand it to Veyndo AI, Codex or Claude for a reviewed proposal—or open the visual editor yourself. Visual controls and coding agents share one executable manifest. Start with an app name, choose illustrated placements grouped by shop, checkout, administration, POS and B2B, and review the selected areas before creating a private draft. [Creation workflow and current screenshots](docs/app-studio-workspace.md).
 Test a product-bound record in a private preview and save an immutable draft
 version. Saving a version and publishing it are separate actions.
 [Watch](docs/assets/showcase/app-studio.mp4) · [Build five useful apps](docs/app-tutorials/README.md).
