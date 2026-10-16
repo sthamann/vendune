@@ -125,10 +125,7 @@ export default function Merchant(props: {
                               {x("studioSignIn")}
                             </button>
                           )}
-                          <details>
-                            <summary>{t("details")}</summary>
-                            {error}
-                          </details>
+                          <p>{error}</p>
                         </>
                       ) : (
                         t(

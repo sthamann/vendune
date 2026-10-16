@@ -6,7 +6,12 @@ import {
 import { getLocale } from "./i18n";
 import { configurationErrors } from "./configuration-errors-i18n";
 import { appCapabilityWords } from "./app-capability-i18n";
+import {
+  agentAdmissionErrors,
+  agentAllowanceExhausted,
+} from "./agent-errors-i18n";
 const messages: Record<string, readonly string[]> = {
+  ...agentAdmissionErrors,
   ...configurationErrors,
   ...catalogIntakeErrors,
   "Design provider unavailable; your page is unchanged": [
@@ -264,7 +269,9 @@ export function responseError(
           "{example}",
           String(Number(example[1]) + 1),
         )
-      : (messages[detail] ?? fallback[String(status)] ?? fallback[500])[i];
+      : problem?.kind === "quota_exceeded" && problem.pointer === "/agentBudget"
+        ? agentAllowanceExhausted[i]
+        : (messages[detail] ?? fallback[String(status)] ?? fallback[500])[i];
   const error = new Error(message);
   Object.assign(error, {
     diagnostic: detail,

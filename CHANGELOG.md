@@ -1,5 +1,10 @@
 # Changelog
 
+## Actionable agent admission messages — 2026-10-16
+
+- Explain an administrator's agent stop, revoked access, an unbudgeted integration key, model mismatch and stale stop revisions in EN/DE/FR/ES. Distinguish the persistent token/USD allowance from a transient HTTP 429; waiting cannot replenish it. Keep the structured backend admission and permissions unchanged.
+- Show the existing localized Studio error directly, rather than hiding the next step under “Technical details”. Regress actual Studio transport and structured allowance metadata in every interface language.
+
 ## Bounded planning-agent delegation and live-shop stop — 2026-10-16
 
 - Reuse existing integration identities for personal, planning-only agent delegation: exact provider/model, explicit lifetime token and integer USD allocation limits, current-role intersection and revocation with retained counters. Generic integration credentials no longer start unbudgeted native AI work.
