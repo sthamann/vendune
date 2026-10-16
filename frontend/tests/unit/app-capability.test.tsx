@@ -77,6 +77,15 @@ it("uses structured case pointers for actionable errors without parsing server p
     pointer: "/capability/examples/1/expected",
   });
   expect(error.message).toContain("Business example 2 failed");
+  expect(
+    responseError("Private guest details", 400, {
+      kind: "validation_error",
+      pointer: "/configuration/inputs/examples/1/expectedFeeMinor",
+    }).message,
+  ).toContain("Business example 2 failed");
+  expect(
+    responseError("Source price currency is not configured", 400).message,
+  ).toContain("exchange rate");
   expect(error.message).not.toContain("Private original diagnostic");
   expect(error).toMatchObject({
     pointer: "/capability/examples/1/expected",

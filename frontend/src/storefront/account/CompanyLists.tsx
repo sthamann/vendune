@@ -80,12 +80,25 @@ export default function CompanyLists({
               onClick={() =>
                 void run(async () => {
                   await command("list.save", {
-                    id: crypto.randomUUID().replaceAll("-", ""),
+                    id: `list_${crypto.randomUUID().replaceAll("-", "").slice(0, 27)}`,
                     unitId: unit,
                     revision: 0,
                     data: {
                       name,
                       shared,
+                      ...(cart.lineItems.some(
+                        (item) => item.appConfigurations?.length,
+                      )
+                        ? {
+                            configurations: cart.lineItems.flatMap((item) =>
+                              (item.appConfigurations ?? []).map((config) => ({
+                                app: config.app,
+                                productId: item.id,
+                                fields: config.fields,
+                              })),
+                            ),
+                          }
+                        : {}),
                       items: cart.lineItems.map((i) => ({
                         id: i.id,
                         quantity: i.quantity,

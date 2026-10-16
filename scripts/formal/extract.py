@@ -4,10 +4,10 @@ no overflowing arithmetic, calls, casts, branches, macros or effects accepted.
 """
 from dataclasses import dataclass
 import re
-KERNEL_FILES=('src/verified_kernel.rs','src/verified_kernel/fulfillment.rs','src/verified_kernel/app_intake.rs')
+KERNEL_FILES=('crates/kernel/src/verified_kernel.rs','crates/kernel/src/verified_kernel/fulfillment.rs','crates/kernel/src/verified_kernel/app_intake.rs')
 def kernel_source(root):
     # Closed module registration; no arbitrary source/import resolution is trusted.
-    source=(root/'src/verified_kernel.rs').read_text()
+    source=(root/'crates/kernel/src/verified_kernel.rs').read_text()
     registrations=(
         'mod app_intake;\n',
         'mod fulfillment;\n',
@@ -17,7 +17,7 @@ def kernel_source(root):
     for registration in registrations:
         if source.count(registration)!=1:raise ValueError('Unreviewed pure-kernel module registration')
         source=source.replace(registration,'',1)
-    return source+'\n'+(root/'src/verified_kernel/fulfillment.rs').read_text()+'\n'+(root/'src/verified_kernel/app_intake.rs').read_text()
+    return source+'\n'+(root/'crates/kernel/src/verified_kernel/fulfillment.rs').read_text()+'\n'+(root/'crates/kernel/src/verified_kernel/app_intake.rs').read_text()
 
 MAX_U64 = 2**64 - 1
 TOKEN = re.compile(r'\s*(->|&&|\|\||==|!=|<=|>=|[A-Za-z_][A-Za-z_0-9]*|[0-9]+|[():{},.!<>])')
@@ -112,7 +112,7 @@ class Parser:
         return value
 
 def generated(functions):
-    lines = ['-- Generated from src/verified_kernel.rs; do not edit.', 'import Std', '', 'namespace CommerceKernel', '']
+    lines = ['-- Generated from crates/kernel/src/verified_kernel.rs; do not edit.', 'import Std', '', 'namespace CommerceKernel', '']
     for f in functions:
         args = ' '.join(f'({n} : {"Nat" if t == "u64" else "Bool"})' for n,t in f.args)
         lines.append(f'def {f.name} {args} : {"Nat" if f.result == "u64" else "Bool"} :=\n  {f.body.lean()}\n')

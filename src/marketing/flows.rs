@@ -12,6 +12,7 @@ pub(super) const EVENTS: &[&str] = &[
     "product.created",
     "product.updated",
     "order.placed",
+    "app.configuration.changed",
     "b2b.organization_changed",
     "b2b.employee_changed",
     "b2b.catalog_changed",
@@ -52,6 +53,7 @@ fn knowledge_event(kind: &str) -> bool {
         && (kind.starts_with("knowledge.")
             || kind.starts_with("intelligence.")
             || kind == "merchant.change.applied"
+            || kind == "app.configuration.changed"
             || kind.starts_with("consumer.")
             || kind.starts_with("privacy.")
             || kind.starts_with("b2b.")

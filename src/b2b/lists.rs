@@ -6,10 +6,32 @@ struct ListData {
     name: HashMap<String, String>,
     shared: bool,
     items: Vec<Item>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    configurations: Vec<apps::ConfigurationSelection>,
 }
 pub(super) async fn invoke(a: &App, h: &RequestContext, op: &str, v: &Value) -> Result<Value> {
     let t = tenant(h)?;
     let unit = v["unitId"].as_str().ok_or(bad("Unit required"))?;
+    let candidate = if op == "list.save" {
+        let data: ListData =
+            serde_json::from_value(v["data"].clone()).map_err(|_| bad("Invalid list fields"))?;
+        validate_items(&data.items)?;
+        apps::selection_shape(&data.items, &data.configurations)?;
+        let mut admission = a.db.begin().await?;
+        let customer = identity(&mut admission, h).await?;
+        let policy = access(&mut admission, &t, unit, &customer).await?;
+        require(&policy, "lists")?;
+        for item in &data.items {
+            catalog::admit_unit(&mut admission, &t, unit, &item.id, &policy).await?;
+        }
+        admission.rollback().await?;
+        for selection in &data.configurations {
+            apps::configuration_selection_for_list(a, &t, selection).await?;
+        }
+        Some(data)
+    } else {
+        None
+    };
     let mut tx = a.db.begin().await?;
     history::context(&mut tx, h, "b2b.procurement").await?;
     let customer = identity(&mut tx, h).await?;
@@ -69,7 +91,15 @@ pub(super) async fn invoke(a: &App, h: &RequestContext, op: &str, v: &Value) -> 
         let expected = v["cartRevision"]
             .as_i64()
             .ok_or(bad("Current cart revision required"))?;
-        let c = set_cart(a, h, data.items, Some(expected), None).await?;
+        let c = crate::cart_mutation::set_configured_cart(
+            a,
+            h,
+            data.items,
+            Some(expected),
+            None,
+            Some(&data.configurations),
+        )
+        .await?;
         return cart_json(a, &c).await;
     }
     // Shared lists are readable by peers, but only their owner can edit/delete them.
@@ -92,11 +122,11 @@ pub(super) async fn invoke(a: &App, h: &RequestContext, op: &str, v: &Value) -> 
             .execute(&mut *tx)
             .await?;
     } else {
-        let data: ListData =
-            serde_json::from_value(v["data"].clone()).map_err(|_| bad("Invalid list fields"))?;
+        let data = candidate.ok_or(bad("Invalid list operation"))?;
         let (settings, _) = commerce::scoped_locked(&mut tx, &t, marketing::channel_id(h)).await?;
         organization::name(&data.name, &settings)?;
         validate_items(&data.items)?;
+        apps::selection_shape(&data.items, &data.configurations)?;
         let ids: Vec<_> = data.items.iter().map(|i| i.id.clone()).collect();
         let count: i64 =
             sqlx::query_scalar("SELECT count(*) FROM products WHERE tenant=$1 AND id=ANY($2)")

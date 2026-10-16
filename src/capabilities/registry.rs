@@ -97,6 +97,11 @@ impl Operation {
         )
     }
 }
+/// Build-time contract export is offline and includes no actor credentials or records.
+pub(crate) fn export() -> Value {
+    json!({"version":1,"operations":OPERATIONS.iter().map(|o|json!({"name":o.name,"description":o.description,"inputSchema":o.input,"readOnly":o.effect==Effect::Read})).collect::<Vec<_>>()})
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

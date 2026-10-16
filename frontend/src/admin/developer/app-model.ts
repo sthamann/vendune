@@ -183,8 +183,9 @@ export function compile(input: Manifest): Manifest {
           inputSchema: {
             type: "object",
             properties: {
-              limit: { type: "integer" },
-              after: { type: "string" },
+              id: { type: "string", minLength: 1, maxLength: 100 },
+              limit: { type: "integer", minimum: 1, maximum: 100 },
+              after: { type: "string", maxLength: 100 },
               filter: { type: "object" },
             },
             additionalProperties: false,

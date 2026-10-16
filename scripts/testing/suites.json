@@ -50,6 +50,7 @@
     "app_shared_storage",
     "app_jobs",
     "app_components",
+    "business_capability",
     "app_assets",
     "pos",
     "b2b",
@@ -58,6 +59,7 @@
     "admin_creation"
   ],
   "providers": [
+    "outbox_subscribers",
     "providers",
     "app_surfaces",
     "durable_agents",

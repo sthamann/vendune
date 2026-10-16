@@ -3,6 +3,7 @@
 from testing.app_approval import consent
 from testing.database import psql
 import json, copy, os, pathlib, subprocess, threading, time, urllib.request, urllib.error, uuid, concurrent.futures
+from testing.native_tools import response as native_response
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 root = pathlib.Path(__file__).resolve().parents[1]
@@ -28,7 +29,7 @@ class Handler(BaseHTTPRequestHandler):
                 result={**proposal,'changes':[],'tool_calls':[{'name':'merchant.commerce.read' if behavior['mode']=='policy-read' else 'merchant.orders' if behavior['mode']=='read-tools' else 'merchant.apply','arguments_json':'{"area":"aiPolicy"}' if behavior['mode']=='policy-read' else '{}'}]}
             behavior['round']+=1
         schema=(body.get('text',{}).get('format',{}).get('schema') or body.get('response_format',{}).get('json_schema',{}).get('schema') or body.get('output_config',{}).get('format',{}).get('schema') or body.get('format',{}))
-        if schema.get('required')==['tool_calls']:
+        if body.get('tools'):
             result={'tool_calls':result.get('tool_calls',{}) if behavior['mode']=='invalid-read' else result.get('tool_calls',[])}
         elif behavior['mode']=='advisor':
             result={'explanation':'Synthetic consent-bound advice','recommended_ids':['lamp'],'layout':'discovery'}
@@ -44,6 +45,7 @@ class Handler(BaseHTTPRequestHandler):
             answer={'content':[{'type':'thinking','thinking':'contract fixture'},{'type':'text','text':json.dumps(result)}],'stop_reason':'end_turn','usage':{'input_tokens':10,'output_tokens':20}}
         else:
             self.send_response(404); self.end_headers(); return
+        if body.get('tools'): answer=native_response(body,result,'anthropic' if self.path.endswith('/messages') else 'openai-chat' if self.path.endswith('/completions') else 'openai')
         self.send_response(200); self.send_header('Content-Type','application/json'); self.end_headers(); self.wfile.write(json.dumps(answer).encode())
 server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
 threading.Thread(target=server.serve_forever,daemon=True).start()
@@ -89,7 +91,7 @@ try:
     planned=call('/api/agent/chat',{'message':'Read orders through the native tool first.','inference':{'provider':'openai'}})
     trace=planned['messages'][-1]['data']['preview']['toolTrace'];assert trace[0]['tool']=='merchant.orders' and behavior['round']==3
     assert 'gross EUR' not in next(c for c in reversed(captured) if c[0] != '/api/embed')[2]['instructions']
-    assert captured[-2][2]['text']['format']['schema']['required']==['tool_calls']
+    assert captured[-2][2]['tools'] and 'text' not in captured[-2][2]
     assert 'Current native read transcript' in next(c for c in reversed(captured) if c[0] != '/api/embed')[2]['input']
     passed('Agent reads through the current capability dispatcher before a separate final proposal, with currency-neutral planning')
     behavior['mode']='invalid-read'

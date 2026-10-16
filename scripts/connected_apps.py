@@ -6,6 +6,7 @@ Only synthetic accounts and loopback provider endpoints; never charges or sends 
 from testing.app_approval import consent
 import signal
 import base64, copy, json, os, pathlib, socket, sqlite3, subprocess, sys, tempfile, threading, time, urllib.parse, urllib.request, urllib.error, uuid
+from testing.native_tools import response as native_response
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -63,6 +64,8 @@ class Provider(BaseHTTPRequestHandler):
             else json.loads(raw or "{}")
         )
         self.server.calls.append((self.path, body))
+        if self.path == "/v1/responses" and body.get("tools"):
+            return self.answer(native_response(body))
         if self.path == "/v1/responses":
             return self.answer(
                 {

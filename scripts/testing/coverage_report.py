@@ -37,6 +37,16 @@ def read_frontend(root):
     return metrics, modules, [name for name, data in modules.items() if data['lines'] == 0]
 
 
+
+def rust_gaps(root, files):
+    """Keep extracted libraries and app-owned Rust visible in unmeasured gaps."""
+    emitted = {Path(f['filename']).resolve() for f in files}
+    return sorted(p.relative_to(root).as_posix()
+                  for directory in ('src', 'crates', 'extensions')
+                  for p in (root / directory).rglob('*.rs')
+                  if p.resolve() not in emitted)
+
+
 def read_reports(root):
     metrics, modules, missing_frontend = read_frontend(root)
     rust = json.loads((root / 'artifacts/coverage/rust.json').read_text())['data'][0]
@@ -99,8 +109,7 @@ def main():
     result = {'metrics': metrics, 'zero_hit_modules': missing, 'unmeasured': UNMEASURED,
               'errors': errors, 'entireSystemFullyCovered': False}
     rust_report = json.loads((ROOT / 'artifacts/coverage/rust.json').read_text())['data'][0]
-    rust_paths = {Path(f['filename']).resolve() for f in rust_report['files']}
-    result['rust_not_emitted_by_compiler'] = sorted(p.relative_to(ROOT).as_posix() for p in (ROOT / 'src').rglob('*.rs') if p.resolve() not in rust_paths)
+    result['rust_not_emitted_by_compiler'] = rust_gaps(ROOT, rust_report['files'])
     (output / 'summary.json').write_text(json.dumps(result, indent=2) + '\n')
     lines = ['# Measured coverage and open gaps', '',
              'These are separate source scopes, not a combined quality score or proof of bug freedom.', '',

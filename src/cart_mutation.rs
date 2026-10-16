@@ -16,6 +16,16 @@ pub(crate) async fn set_cart(
     expected: Option<i64>,
     buyer: Option<Option<Value>>,
 ) -> Result<StoredCart> {
+    set_configured_cart(a, h, items, expected, buyer, None).await
+}
+pub(crate) async fn set_configured_cart(
+    a: &App,
+    h: &RequestContext,
+    items: Vec<Item>,
+    expected: Option<i64>,
+    buyer: Option<Option<Value>>,
+    selections: Option<&[apps::ConfigurationSelection]>,
+) -> Result<StoredCart> {
     validate_items(&items)?;
     for i in &items {
         marketing::admit_product(a, h, &i.id).await?;
@@ -23,15 +33,8 @@ pub(crate) async fn set_cart(
     // Validate the candidate before taking a cart lock. These helpers use the
     // pool: holding one connection per edit while requesting another can exhaust
     // the pool and deadlock concurrent edits. The revision is checked again below.
-    let r = sqlx::query("SELECT * FROM carts WHERE tenant=$1 AND token=$2")
-        .bind(tenant(h)?)
-        .bind(token(h)?)
-        .fetch_optional(&a.db)
-        .await?
-        .ok_or(bad("Cart not found"))?;
-    let mut c = stored(&r)?;
-    pos::guard_cart(h, &c)?;
-    b2b::guard(a, h, &c).await?;
+    let mut c = load_cart(a, h).await?;
+    let before = selections.map(|_| c.data.app_configurations.clone());
     if c.status != "open" {
         return Err(conflict("Cart is terminal"));
     }
@@ -55,6 +58,15 @@ pub(crate) async fn set_cart(
     if let Some(b) = buyer {
         c.data.buyer = b;
     }
+    if let Some(selections) = selections {
+        c.data.app_configurations = apps::resolve_selections(a, &c, selections).await?;
+        apps::configuration_budget(&c.data.app_configurations)?;
+    }
+    let modules = if selections.is_some() {
+        Some(apps::prepare_configurations(a, &c).await?)
+    } else {
+        None
+    };
     cart_json(a, &c).await?;
     let mut tx = a.db.begin().await?;
     let locked =
@@ -70,6 +82,9 @@ pub(crate) async fn set_cart(
         return Err(conflict("Cart revision changed; reload before editing"));
     }
     b2b::guard_conn(&mut tx, h, &c).await?;
+    if let Some(modules) = &modules {
+        apps::validate_configurations(&mut tx, &c, modules).await?;
+    }
     c.revision += 1;
     sqlx::query("UPDATE carts SET data=$1,revision=$2 WHERE id=$3")
         .bind(json!(c.data))
@@ -77,6 +92,9 @@ pub(crate) async fn set_cart(
         .bind(&c.id)
         .execute(&mut *tx)
         .await?;
+    if let Some(before) = &before {
+        apps::configuration_events(&mut tx, &c, before).await?;
+    }
     tx.commit().await?;
     Ok(c)
 }

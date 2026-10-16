@@ -47,7 +47,7 @@ def verify(sql, call, bases, owner):
     wait(sql,f"SELECT delivered_at IS NOT NULL FROM outbox WHERE id={healthy}",'t')
     wait(sql,f"SELECT (attempts>0)::text FROM outbox WHERE id={poison}",'true')
     assert sql(f"SELECT delivered_at IS NULL FROM outbox WHERE id={poison}")=='t'
-    sql(f"UPDATE outbox SET attempts=7,available_at=now() WHERE id={poison}")
+    sql(f"UPDATE outbox SET attempts=7,available_at=now() WHERE id={poison}; UPDATE outbox_subscriber_failures SET attempts=7,available_at=now() WHERE event_id={poison}")
     wait(sql,f"SELECT dead_letter_at IS NOT NULL FROM outbox WHERE id={poison}",'t')
     call(two,f'/api/runtime/outbox/{poison}/retry',{}, {**owner,'x-tenant':'workshop'},expected=404)
     sql('DROP TRIGGER qa_poison ON projections; DROP FUNCTION qa_poison_projection();')

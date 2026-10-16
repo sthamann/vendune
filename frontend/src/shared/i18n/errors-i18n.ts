@@ -4,8 +4,10 @@ import {
   catalogCsvRowError,
 } from "./catalog-intake-errors";
 import { getLocale } from "./i18n";
+import { configurationErrors } from "./configuration-errors-i18n";
 import { appCapabilityWords } from "./app-capability-i18n";
 const messages: Record<string, readonly string[]> = {
+  ...configurationErrors,
   ...catalogIntakeErrors,
   "Design provider unavailable; your page is unchanged": [
     "The design provider is unavailable. Check the central AI connection and retry; your saved page is unchanged.",
@@ -250,7 +252,9 @@ export function responseError(
   // Identify the declared field from structured metadata, never by parsing diagnostic prose.
   const example =
     problem?.kind === "validation_error" && typeof problem.pointer === "string"
-      ? /^\/capability\/examples\/(\d+)\/expected$/.exec(problem.pointer)
+      ? /^(?:\/capability\/examples|\/configuration\/inputs\/examples)\/(\d+)\/(?:expected|expectedFeeMinor)$/.exec(
+          problem.pointer,
+        )
       : null;
   const csvRow = problem?.pointer?.match(/^\/catalogIntake\/rows\/(\d+)$/);
   const message = csvRow

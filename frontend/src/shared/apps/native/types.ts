@@ -1,4 +1,5 @@
 /** The versioned Manifest is the shared intermediate representation for visual and agent edits. */
+import type { ConfigurationContract } from "../configuration-types";
 export type Text = Record<string, string>;
 export type Field = {
   name: string;
@@ -145,6 +146,7 @@ export type Manifest = {
     kind: "string" | "secret" | "boolean" | "integer";
     required: boolean;
   }[];
+  configuration?: ConfigurationContract;
   capability?: {
     version: 1;
     intent: Text;

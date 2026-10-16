@@ -41,9 +41,9 @@ and [test coverage](testing.md). Diagram images open at full size.
 | Responsibility | Actual implementation | Authority |
 |---|---|---|
 | Merchant identity and permissions | `src/auth/`, `src/accounts/`, `src/auth/middleware.rs` | Current PostgreSQL session/membership; no client principal |
-| Tenant-scoped database leases | `src/request_context.rs`, `src/tenant_scope.rs`, `src/scoped_pool.rs`, `src/performance/{pool,row_security}.rs` | Server-derived scope; PostgreSQL row policies |
+| Tenant-scoped database leases | `src/request_context.rs`, `crates/runtime/src/tenant_scope.rs`, `crates/runtime/src/scoped_pool.rs`, `src/performance/{pool,row_security}.rs` | Server-derived scope; PostgreSQL row policies |
 | Product, category and checkout operations | `src/commerce/`, `src/order_checkout.rs`, `src/cart_*.rs` | Locked catalog/settings/cart snapshot |
-| Exact money boundary | `src/money.rs` | Checked minor integers and explicit currency scale |
+| Exact money boundary | `crates/commerce/src/money.rs` | Checked minor integers and explicit currency scale |
 | Stock allocation | `src/commerce/inventory.rs`, migration 047 | Persisted quantities linked to tenant + order + product |
 | Payments | `src/payments/{state,storage,generic_receipts,worker}.rs` | Verified receipts, immutable provider identity, fenced durable jobs |
 | Rules, flows and app events | `src/marketing/`, `src/apps/`, `src/outbox.rs` | Versioned contracts and current action permissions |

@@ -94,6 +94,23 @@ describe("Storefront API isolation", () => {
   });
 });
 describe("Catalogue lifecycle", () => {
+  it("reloads configured prices and stock when the cart revision or completion changes", async () => {
+    const fetcher = vi
+      .fn()
+      .mockResolvedValue(response({ elements: [product], nextCursor: null }));
+    vi.stubGlobal("fetch", fetcher);
+    const { rerender } = renderHook(
+      ({ context }) => useCatalog(context, "en-GB", vi.fn()),
+      {
+        initialProps: { context: cart },
+      },
+    );
+    await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(1));
+    rerender({ context: { ...cart, revision: 2 } });
+    await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(2));
+    rerender({ context: { ...cart, revision: 2, status: "completed" } });
+    await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(3));
+  });
   it("waits for checkout context, debounces search and ignores a late obsolete response", async () => {
     const pending: Array<(value: unknown) => void> = [];
     const fetcher = vi.fn(

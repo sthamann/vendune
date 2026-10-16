@@ -1,5 +1,6 @@
 """Control-plane regressions on the real HTTP/database path; disposable synthetic shops and local model wire fixtures only."""
 import json, threading, time, urllib.request, urllib.error, os, pathlib, subprocess, socket, tempfile, signal
+from testing.native_tools import response as native_response
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 
@@ -25,9 +26,9 @@ def verify(req, sql, owner, other, seed, empty, oh, h, check, base):
                 self.wfile.write(json.dumps({'embeddings':[[1.0]+[0.0]*15 for _ in data['input']]}).encode())
                 return
             answer={'summary':'Synthetic inherited provider wire fixture','changes':[],'experience':None,'expected_experience_revision':None}
-            if data['format'].get('required')==['tool_calls']:answer={'tool_calls':[]}
+            if data.get('tools'):answer={'tool_calls':[]}
             self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers()
-            self.wfile.write(json.dumps({'message':{'content':json.dumps(answer)},'done_reason':'stop'}).encode())
+            self.wfile.write(json.dumps(native_response(data,answer,'ollama') if data.get('tools') else {'message':{'content':json.dumps(answer)},'done_reason':'stop'}).encode())
     fixture=ThreadingHTTPServer(('127.0.0.1',0),Model)
     threading.Thread(target=fixture.serve_forever,daemon=True).start()
     original_data=sql('SELECT data::text FROM platform_ai WHERE id=true;')

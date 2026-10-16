@@ -224,4 +224,8 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         "102-consolidate-app-tables",
         include_str!("../../migrations/102-consolidate-app-tables.sql"),
     ),
+    (
+        "103-outbox-subscriber-checkpoints",
+        include_str!("../../migrations/103-outbox-subscriber-checkpoints.sql"),
+    ),
 ];

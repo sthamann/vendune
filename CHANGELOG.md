@@ -1,5 +1,41 @@
 # Changelog
 
+- CI integration now owns a uniquely named disposable database, including the
+  rollback-only outbox migration rehearsal. Its production-database refusal stays
+  intact. Subscriber migration/lock checks run before the slower provider fleet;
+  a regression check prevents the workflow from reusing its named bootstrap DB.
+
+## Workspace-wide coverage accounting — 2026-10-16
+
+- Include all workspace packages when collecting Rust reports after the crate extraction. Report unmeasured Rust files in extracted libraries and app packages alongside the root, retaining the existing coverage floors and the distinction between unmeasured files and covered behavior.
+
+## Stable customer lookup regression — 2026-10-16
+
+- Search for the fixture customer’s complete name in the role/B2B acceptance test. A seeded random customer number can legitimately contain the short substring `Ada`; this must not be mistaken for a tenant/privacy or filtering failure. Keep exact identity and minimized-field assertions.
+
+## Checkout and subscriber lock ordering — 2026-10-16
+
+- Reproduce a two-replica checkout deadlock between product locks and an event producer touching a locked subscriber schedule. Create the four schedules with the tenant instead of on every commerce event. A held-scheduler regression fails before the repair and commits the event afterwards; existing delayed/quarantined migration state and late commits remain covered.
+
+## Compiler boundaries, native tools and independent subscribers — 2026-10-16
+
+- Extract real kernel, runtime, commerce, app sandbox and cognition-provider crates into a Cargo workspace. Keep existing native handlers as composition owners; dependency checks reject reverse domain imports. This is an initial compiler boundary, not a complete rewrite of every root handler.
+- Use native OpenAI Responses/Chat, Claude and Ollama read tool calls with exact tool aliases, correlation IDs, bounded private continuation and current authorization. Preserve durable native task checkpoints and proposal review.
+- Version four central prompts and record template/rendered digests in model usage. Generate request OpenAPI, TypeScript and WIT from the compiled operation registry; output DTO completion remains open.
+- Add independent cognition/apps/flows/audit outbox checkpoints, isolated retry/quarantine and fresh-snapshot aggregate acknowledgement. Correlate native requests, SQL transactions, tasks, model calls and deliveries without logging bodies or capabilities. Migration 103 is not publicly applied by this documentation update.
+- Remove binary multiplication from the final decimal-to-minor-unit currency boundary and test signed halfway/overflow cases. The broader floating-point pricing migration remains open.
+- Replace the oversized README with a concise entry point, add the canonical status page and documentation hygiene checks, and move detailed instructions into scoped AGENTS files.
+- Renew public original Storyfront iframe acceptance with simulated order RAC-b359e75d, German product labels, verified completion and a cleared original bag. Record the controlled-tab document pause separately; no real payment/mail/refund claim. Public Google sign-in/reload/logout passed; Apple's new callback remains rejected by its provider configuration.
+
+
+## Connected furniture configuration — local implementation, 16 October 2026
+
+- Connect an app-owned material library and dimensional surcharge to native company approval, checkout, private/shared saved-input lists, current-price reorder and selected package release. Preserve original accepted material snapshots and explicit source-currency fees on completed orders.
+- Execute frozen positive/negative configuration examples before immutable save or installation. Share form/HTTP/MCP cart admission, enforce current channel and order-read authority, and publish minimized changes through the existing outbox/Flow consumer.
+- Add the editable App Studio pattern, paginated material choices, localized expectation/purchase cards and native order navigation. Fix seeded-record staging clones and filter configured purchases before pagination.
+- Preserve configuration controls and confirmation during repricing; refresh catalogue stock/prices after cart changes and purchase. Product detail and listing share the active configuration quote; completed-cart choices do not change prices for a new purchase.
+- Use the common content-language selector and translation fields in installed app data: regional language codes, non-English main-language inheritance and untouched translations are preserved. Failed purchase-history pagination retains its current page.
+- Local Chrome completed a German walnut/special-dimension simulated purchase for EUR 517 and showed an empty cart. Automated and local browser tests are separate from pending hosted and real-provider acceptance. Generalized entity/lifecycle extension, replay, source hosting, Crater, Shopware porting and Enterprise-cell gates remain open.
 ## Proportionate prototype verification — 16 October 2026
 
 - Run PR verification once, cancel superseded revisions of the same PR, and distinguish documentation, ordinary presentation and full-system changes through a conservative complete Git diff. Retain full verification for backend, authentication/checkout, CI-policy, unknown or unavailable changes; renamed/deleted backend paths cannot hide in a documentation change.

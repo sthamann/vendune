@@ -1,13 +1,14 @@
--- Lock scheduling metadata only: locking the tenant root would block ordinary FK inserts.
--- Other replicas skip the busy tenant; least recently served precedes older noisy event IDs.
-SELECT dispatch.tenant FROM outbox_tenant_dispatch dispatch
-WHERE EXISTS (
- SELECT 1 FROM outbox o WHERE o.tenant=dispatch.tenant AND o.delivered_at IS NULL
-  AND o.dead_letter_at IS NULL AND o.available_at<=now()
-) AND EXISTS (
- SELECT 1 FROM tenants live WHERE live.id=coalesce(
-  (SELECT live_tenant FROM shop_environments WHERE tenant=dispatch.tenant),dispatch.tenant
- ) AND live.status='active'
-)
-ORDER BY dispatch.served_order,dispatch.tenant
-LIMIT 1 FOR UPDATE OF dispatch SKIP LOCKED
+-- Lock only this subscriber schedule. A failed event does not block later work.
+SELECT c.tenant FROM outbox_checkpoints c
+WHERE c.subscriber=$1
+ AND EXISTS(SELECT 1 FROM outbox o LEFT JOIN outbox_subscriber_failures f
+  ON f.tenant=o.tenant AND f.event_id=o.id AND f.subscriber=c.subscriber
+  WHERE o.tenant=c.tenant AND (o.subscriber_mask & SUBSCRIBER_BIT::smallint)=0
+  AND o.delivered_at IS NULL AND o.payload_retired_at IS NULL
+  AND NOT o.dispatch_requires_retry AND o.dispatch_not_before<=now()
+  AND f.dead_letter_at IS NULL AND coalesce(f.available_at,'-infinity'::timestamptz)<=now())
+ AND EXISTS(SELECT 1 FROM tenants live WHERE live.id=coalesce(
+  (SELECT live_tenant FROM shop_environments WHERE tenant=c.tenant),c.tenant
+ ) AND live.status='active')
+ORDER BY c.served_order,c.tenant
+LIMIT 1 FOR UPDATE OF c SKIP LOCKED

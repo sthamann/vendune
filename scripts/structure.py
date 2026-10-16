@@ -3,7 +3,7 @@
 import subprocess
 from pathlib import Path
 root=Path(__file__).resolve().parents[1]
-files=[*(root/'src').rglob('*.rs'),*(root/'extensions').rglob('*.rs')]
+files=[*(root/'src').rglob('*.rs'),*(root/'crates').rglob('*.rs'),*(root/'extensions').rglob('*.rs')]
 for path in files:
     lines=path.read_text().splitlines()
     assert len(lines)<=320,(str(path.relative_to(root)),len(lines),'split domain before growing this module')

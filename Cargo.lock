@@ -3485,11 +3485,72 @@ dependencies = [
  "tokio",
  "tokio-rustls",
  "tower-http",
+ "tracing",
  "tracing-subscriber",
  "uuid",
+ "veyndo-apps",
+ "veyndo-cognition",
+ "veyndo-commerce",
+ "veyndo-kernel",
+ "veyndo-runtime",
  "wasmtime",
  "wat",
  "webpki-roots",
+ "zeroize",
+]
+
+[[package]]
+name = "veyndo-apps"
+version = "0.5.0"
+dependencies = [
+ "sha2 0.10.9",
+ "veyndo-kernel",
+ "wasmtime",
+ "wat",
+]
+
+[[package]]
+name = "veyndo-cognition"
+version = "0.5.0"
+dependencies = [
+ "aes-gcm",
+ "base64 0.22.1",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "sqlx",
+ "tokio",
+ "tracing",
+ "veyndo-runtime",
+]
+
+[[package]]
+name = "veyndo-commerce"
+version = "0.5.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "veyndo-kernel",
+]
+
+[[package]]
+name = "veyndo-kernel"
+version = "0.5.0"
+
+[[package]]
+name = "veyndo-runtime"
+version = "0.5.0"
+dependencies = [
+ "async-stream",
+ "futures-util",
+ "hmac 0.12.1",
+ "reqwest",
+ "serde_json",
+ "sha2 0.10.9",
+ "sqlx",
+ "tokio",
+ "uuid",
  "zeroize",
 ]
 

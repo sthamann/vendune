@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "templates": [
+    {
+      "id": "app-coding-task@1",
+      "path": "prompts/app-coding-task.v1.txt",
+      "sha256": "7516c7400c12aabb3ab171fe4092a5025a9feacab85358bf05afac9b154c8f3c"
+    },
+    {
+      "id": "app-edit@1",
+      "path": "prompts/app-edit.v1.txt",
+      "sha256": "4d953447bd9edc5a02d29e488688bba8d01678e506b869b63ea175f799aa4713"
+    },
+    {
+      "id": "app-generation@1",
+      "path": "prompts/app-generation.v1.txt",
+      "sha256": "270d9bd6499bcb156e819485cd279c1c6e918903f68f71879c9bb9481a2a64bc"
+    },
+    {
+      "id": "merchant-planner@1",
+      "path": "prompts/merchant-planner.v1.txt",
+      "sha256": "6fc1d69faed9342d8b95af531c3c3e0c597f1c4d18a311d3f62e5849236fdfaf"
+    }
+  ]
+}

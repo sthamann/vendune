@@ -117,12 +117,25 @@ async fn create_inner(
                     let mut fields = r;
                     fields.as_object_mut().unwrap().remove("revision");
                     let record = fields.as_object_mut().unwrap().remove("id").unwrap();
+                    // Installation may have seeded this exact configuration record. Update
+                    // it through its actual CAS instead of colliding with revision zero.
+                    let revision = apps::records::get(
+                        &mut tx,
+                        &id,
+                        &m.id,
+                        &entity.name,
+                        record.as_str().ok_or(bad("Invalid app record ID"))?,
+                        false,
+                    )
+                    .await?
+                    .and_then(|value| value["revision"].as_i64())
+                    .unwrap_or(0);
                     apps::data::save_tx(
                         &mut tx,
                         &id,
                         &m,
                         entity,
-                        &json!({"id":record,"revision":0,"fields":fields}),
+                        &json!({"id":record,"revision":revision,"fields":fields}),
                     )
                     .await?;
                 }

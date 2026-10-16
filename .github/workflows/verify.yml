@@ -22,12 +22,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
       - name: Verify conservative change classification and coverage helpers
         run: python3 scripts/testing/test_ci_scope.py && python3 scripts/testing/tooling_tests.py
+      - run: python3 scripts/testing/documentation_hygiene.py
+      - run: python3 scripts/testing/prompt_governance.py
+        env:
+          PROMPT_BASE: ${{ github.event.pull_request.base.sha }}
       - name: Choose required verification scope
         id: scope
         run: python3 scripts/testing/ci_scope.py
@@ -64,7 +68,7 @@ jobs:
       - name: Verify production Rust image compile-time inputs and negative control
         if: steps.scope.outputs.lane == 'full'
         run: python3 scripts/testing/image_context.py
-      - run: cargo fmt --check && cargo clippy --locked --all-targets -- -D warnings
+      - run: cargo fmt --all --check && cargo clippy --locked --workspace --all-targets -- -D warnings
         if: steps.scope.outputs.lane == 'full'
       - name: Instrument the real Rust unit and HTTP paths
         if: steps.scope.outputs.lane == 'full'
@@ -74,7 +78,7 @@ jobs:
           echo "CARGO_LLVM_COV_TARGET_DIR=$PWD/target" >> "$GITHUB_ENV"
           CARGO_LLVM_COV_TARGET_DIR="$PWD/target" cargo llvm-cov clean --workspace
           CARGO_LLVM_COV_TARGET_DIR="$PWD/target" cargo llvm-cov show-env | python3 scripts/testing/coverage_env.py >> "$GITHUB_ENV"
-      - run: cargo test --locked && cargo build --locked --bins
+      - run: cargo test --locked --workspace && cargo build --locked --workspace --bins
         if: steps.scope.outputs.lane == 'full'
       - name: Install pinned Lean toolchain
         if: steps.scope.outputs.lane == 'full'
@@ -105,6 +109,9 @@ jobs:
       - run: npm ci && npm run format:check && npm run build && npm run architecture && npm run localization && npm run test:coverage
         if: steps.scope.outputs.lane != 'docs'
         working-directory: frontend
+      - name: Generated contracts and source boundaries
+        if: steps.scope.outputs.lane == 'full'
+        run: python3 scripts/testing/operation_contracts.py --check && python3 scripts/testing/workspace_boundaries.py
       - run: composer install --working-dir=reference --no-interaction --prefer-dist
         if: steps.scope.outputs.lane == 'full'
       - run: python3 scripts/differential.py && python3 scripts/context_differential.py && python3 scripts/delivery_differential.py && python3 scripts/rule_differential.py && python3 scripts/automation_registry.py && python3 scripts/automation_differential.py
@@ -112,13 +119,13 @@ jobs:
       - name: Real database and local provider integration (single suite registry)
         if: steps.scope.outputs.lane == 'full'
         run: |
-          COVERAGE_PROCESS_START="$PWD/scripts/testing/.coveragerc" PYTHONPATH="$PWD/scripts/testing" python3 scripts/verify_integration.py --existing-database --container veyndo-postgres-1
+          COVERAGE_PROCESS_START="$PWD/scripts/testing/.coveragerc" PYTHONPATH="$PWD/scripts/testing" python3 scripts/verify_integration.py --container veyndo-postgres-1
       - name: Coverage reports and regression gates
         if: steps.scope.outputs.lane == 'full'
         run: |
           mkdir -p artifacts/coverage
-          cargo llvm-cov report --json --output-path artifacts/coverage/rust.json
-          cargo llvm-cov report --html --output-dir artifacts/coverage/rust
+          cargo llvm-cov report --workspace --json --output-path artifacts/coverage/rust.json
+          cargo llvm-cov report --workspace --html --output-dir artifacts/coverage/rust
           python3 -m coverage combine --rcfile=scripts/testing/.coveragerc
           python3 -m coverage json --rcfile=scripts/testing/.coveragerc
           python3 -m coverage html --rcfile=scripts/testing/.coveragerc

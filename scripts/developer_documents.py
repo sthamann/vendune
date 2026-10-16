@@ -3,6 +3,7 @@
 from testing.app_approval import consent
 from testing.database import psql
 import os,json,pathlib,subprocess,threading,time,urllib.request,urllib.error,uuid,socket
+from testing.native_tools import response as native_response
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 root=pathlib.Path(__file__).resolve().parents[1];captured=[];behavior={'mode':'app'}
 model_waiting=threading.Event();model_release=threading.Event()
@@ -23,12 +24,13 @@ class Model(BaseHTTPRequestHandler):
     answer={'answer':{'de-DE':'Die Tasse ist spülmaschinenfest.','fr-FR':'La tasse passe au lave-vaisselle.','es-ES':'La taza es apta para lavavajillas.'}.get(behavior['mode'],'The cup is dishwasher safe.'),'source_ids':[source] if source and not behavior.get('uncited') else [],'missing_information':source is None}
    schema=b.get('text',{}).get('format',{}).get('schema') or b.get('output_config',{}).get('format',{}).get('schema') or b.get('format',{})
    if 'patch' in schema.get('properties',{}):answer={'summary':labels,'patch':[{'op':'add','path':'/views/0/blocks/-','valueJson':json.dumps({'id':'edited_note','kind':'text','title':labels})}]}
-   if schema.get('required')==['tool_calls']:answer={'tool_calls':[]}
+   if b.get('tools'):answer={'tool_calls':[]}
    out={'status':'completed','output':[{'content':[{'type':'output_text','text':json.dumps(answer)}]}]}
   if self.path.endswith('/messages'):out={'stop_reason':'end_turn','content':[{'type':'text','text':json.dumps(answer)}]}
   if self.path!='/api/embed' and behavior.get('pause'):
    model_waiting.set()
    assert model_release.wait(15),'Question race fixture was not released'
+  if b.get('tools'):out=native_response(b,answer,'anthropic' if self.path.endswith('/messages') else 'ollama' if self.path=='/api/chat' else 'openai')
   self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(json.dumps(out).encode())
 server=ThreadingHTTPServer(('127.0.0.1',0),Model);threading.Thread(target=server.serve_forever,daemon=True).start();port=server.server_address[1]
 sock=socket.socket();sock.bind(('127.0.0.1',0));test_port=sock.getsockname()[1];sock.close()
@@ -60,6 +62,13 @@ def call(path,body=None,session=None,tenant=None,expected=200,method=None,locale
  assert status==expected,(path,status,out)
  return out
 def passed(s):checks.append(s);print('PASS',s)
+def last_provider_input():
+ # Responses tool calls carry an input-message array; final structured calls use
+ # a string. Both must contain the actual admitted evidence, not just metadata.
+ request=next(c for c in reversed(captured) if c[0] != '/api/embed')[1]
+ value=request['input']
+ return value if isinstance(value,str) else json.dumps(value)
+
 def fixture_sql(statement):
  return subprocess.check_output(psql(container,db_user,fixture_db,'-v','ON_ERROR_STOP=1','-At','-c',statement),text=True).strip()
 def embedding_idle(tenant):
@@ -94,7 +103,7 @@ try:
  original_manifest=manifest
  manifest=json.loads((root/'extensions/apps/care-studio/manifest.json').read_text());manifest['id']='native_'+uuid.uuid4().hex[:10]
  native=call('/api/developer/generate',{'environment':e['id'],'prompt':'Extend the current native app','manifest':manifest,'inference':{'provider':'openai','model':'local-fixture'}},a)
- assert native['manifest']['views'] and native['manifest']['apiRoutes'] and manifest['id'] in next(c for c in reversed(captured) if c[0] != '/api/embed')[1]['input']
+ assert native['manifest']['views'] and native['manifest']['apiRoutes'] and manifest['id'] in last_provider_input()
  call('/api/developer/builds/'+native['id']+'/stage',{'approve':True,'digest':native['digest']},a)
  assert any(v.get('native',{}).get('view',{}).get('id')=='workspace' for v in call('/api/apps/surfaces',session=a,tenant=e['id'])['surfaces'])
  manifest=original_manifest
@@ -228,13 +237,13 @@ try:
  behavior['pause']=False
  passed('Merchant planner retains its exact admitted evidence when lexical/semantic retrieval availability changes')
  assert any(s['documentId']==private['id'] for s in plan['preview']['documentSources']),plan
- assert 'FIXTURE-PRIVATE-KNOWLEDGE' in next(c for c in reversed(captured) if c[0] != '/api/embed')[1]['input']
+ assert 'FIXTURE-PRIVATE-KNOWLEDGE' in last_provider_input()
  behavior['pause']=True;model_waiting.clear();model_release.clear()
  with ThreadPoolExecutor(max_workers=1) as requests:
   pending=requests.submit(call,'/api/agent/plan',{'instruction':instruction,'inference':{'provider':'openai','model':'local-fixture'}},a,expected=409)
   try:
    assert model_waiting.wait(10),'Planner never consumed the private source'
-   assert 'FIXTURE-PRIVATE-KNOWLEDGE' in next(c for c in reversed(captured) if c[0] != '/api/embed')[1]['input']
+   assert 'FIXTURE-PRIVATE-KNOWLEDGE' in last_provider_input()
    call('/api/knowledge/documents/'+private['id']+'/lifecycle',{'approve':True,'archived':True,'revision':1},a)
   finally:model_release.set()
   rejected=pending.result(timeout=20)
@@ -243,7 +252,7 @@ try:
  passed('Archiving an actually supplied private source stops the merchant planner without an executable proposal')
  plan=call('/api/agent/plan',{'instruction':instruction,'inference':{'provider':'openai','model':'local-fixture'}},a)
  assert all(s['documentId']!=private['id'] for s in plan['preview']['documentSources'])
- assert 'FIXTURE-PRIVATE-KNOWLEDGE' not in next(c for c in reversed(captured) if c[0] != '/api/embed')[1]['input']
+ assert 'FIXTURE-PRIVATE-KNOWLEDGE' not in last_provider_input()
  passed('Private document text/hash is consumed by the actual merchant provider prompt; archive removes it on the next call')
  behavior['mode']='flow';flow={'name':labels,'active':True,'event':'order.placed','condition':{'type':'alwaysValid'},'action':'ai_proposal','instruction':{l:'Propose setting only lamp price to 69.90 EUR.' for l in labels},'locale':'de-DE','inference':{'provider':'openai','model':'local-fixture'}}
  call('/api/automation/flows/price_draft',{'revision':0,'data':flow},a,method='PUT')

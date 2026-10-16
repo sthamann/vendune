@@ -3,6 +3,7 @@ use crate::*;
 
 pub(crate) async fn bootstrap() -> App {
     tracing_subscriber::fmt()
+        .with_span_events(tracing_subscriber::fmt::format::FmtSpan::CLOSE)
         .with_env_filter(env::var("RUST_LOG").unwrap_or("info".into()))
         .init();
     let _configuration = runtime_config::get();
@@ -177,6 +178,10 @@ async fn shutdown() {
 }
 
 pub(crate) fn entry() {
+    if env::args().nth(1).as_deref() == Some("--operation-contracts") {
+        println!("{}", capabilities::export());
+        return;
+    }
     if env::args().nth(1).as_deref() == Some("--database-authority") {
         tokio::runtime::Runtime::new()
             .unwrap()

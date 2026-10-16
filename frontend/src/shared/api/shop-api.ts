@@ -185,6 +185,15 @@ export type Cart = {
     purchaseSteps: number;
     maxPurchase?: number;
     price: Price;
+    appConfigurations?: {
+      app: string;
+      productId: string;
+      fields: Record<string, unknown>;
+      feeMinor: number;
+      currency?: string;
+      appVersion: string;
+      ruleRevision: number;
+    }[];
   }[];
   shippingCosts: { totalPrice: number };
   shippingMethodOptions?: Shipping[];

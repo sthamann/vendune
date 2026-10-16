@@ -94,7 +94,8 @@
   flex-direction: column;
   gap: 8px;
 }
-.app-slot input {
+.app-slot input,
+.app-slot select {
   padding: 12px;
   border: 1px solid #c7d8e8;
   border-radius: 9px;
@@ -210,4 +211,59 @@
   .analytics-consent div {
     width: 100%;
   }
+}
+
+.configuration-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 16px;
+  margin-block: 18px;
+}
+.configuration-library {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+.configuration-pagination {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.app-slot input[type="checkbox"] {
+  width: auto;
+  align-self: flex-start;
+}
+
+.configuration-controls {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.app-configured-orders article {
+  border: 1px solid var(--studio-border, #d4e4f3);
+  border-radius: 12px;
+  padding: 20px;
+  margin-block: 16px;
+}
+.app-configured-orders header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+.app-configured-orders dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+}
+.app-configured-orders dt {
+  font-size: 13px;
+  color: var(--studio-muted, #60758b);
+}
+.app-configured-orders dd {
+  margin: 4px 0;
+  font-weight: 600;
 }

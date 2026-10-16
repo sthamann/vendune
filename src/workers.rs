@@ -82,18 +82,23 @@ pub(crate) fn start(a: &App) {
                 }
             }
         });
-        let worker = a.clone();
-        veyndo::tenant_scope::spawn(async move {
-            let mut ticks = work_signal::subscribe();
-            loop {
-                ticks.tick().await;
-                match consume_once(&worker).await {
-                    Ok(worked) => ticks.worked(worked),
-                    Err(e) => eprintln!("memory/outbox worker: {}", e.1),
+        for subscriber in outbox::SUBSCRIBERS {
+            let worker = a.clone();
+            veyndo::tenant_scope::spawn(async move {
+                let mut ticks = work_signal::subscribe();
+                loop {
+                    ticks.tick().await;
+                    match outbox::consume_subscriber(&worker, subscriber).await {
+                        Ok(worked) => ticks.worked(worked),
+                        Err(e) => {
+                            eprintln!("outbox subscriber={subscriber} status={}", e.0.as_u16())
+                        }
+                    }
                 }
-            }
-        });
+            });
+        }
     }
+
     if ["all", "payment-worker"].contains(&role.as_str()) {
         let worker = a.clone();
         veyndo::tenant_scope::spawn(async move {
