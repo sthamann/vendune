@@ -2,15 +2,16 @@
   "date": "2026-10-16",
   "scope": "Hosted generic purchase summary; synthetic B2C order, not real payment or additional B2B approval acceptance",
   "core": {
-    "source": "12b2a6b021ef8fe3bb7610dd2fa198c7ffa5a3d9",
-    "build": "timely-zipper-1837",
-    "duration": "8m38s",
-    "instance": "vendune-core-75867998d-mhtcg",
-    "health": "1/1 passing; zero restarts; app.veyndo.ai/health returns status ok",
-    "migration": "None; migration 103 was already applied",
-    "reviewHead": "4c1ee045ad28566ff6e60c35cb97e54f6bc4a657",
-    "sourceEquivalence": "Merge of main changes documentation only relative to built source; runtime/frontend/crates/migrations/Docker source unchanged",
-    "releaseQueue": "Main-template releases temporarily replaced the manually deployed branch image. Restored the pinned image after those releases completed; final main publication is recorded separately."
+    "source": "c70f246a1df3162a6d9b1277691409507c1c1c68",
+    "build": "mirthful-zipper-2487",
+    "instance": "vendune-core-55d8866f95-zv6b6",
+    "health": "1/1 passing; zero restarts; public Studio and app.veyndo.ai/health reachable",
+    "releaseWorkflow": "c0f34de3-4a4e-4fce-b478-4fd22ff049d5",
+    "buildDuration": "9m24s",
+    "freshSnapshotDuration": "1m09s",
+    "migrationJob": "Success, 22s; no new schema after migration 103",
+    "deploymentReadinessDuration": "1m35s",
+    "sourceBoundary": "Final merged main includes PRs 143, 144 and 147. Detailed purchases below retain their observed image/source; only workspace recovery and documentation changed after the pinned configuration image."
   },
   "browser": {
     "shop": "release-abnahme-16-o-a767ebe269",
@@ -82,6 +83,10 @@
     {
       "path": "docs/evidence/images/configuration-summary-2026-10-16/admin-manual-order-public.jpg",
       "sha256": "32c6944b40c972812880254d705f157f866373bb77ad4ade2f61483c28247931"
+    },
+    {
+      "path": "docs/evidence/images/configuration-summary-2026-10-16/customers-recovered-main-public.jpg",
+      "sha256": "9e84c610fba7a3c93ebb57f053b5aef98acc0ee7c26cdbd5a84ce83c41e76b92"
     }
   ],
   "storyfrontRepeat": {
@@ -95,7 +100,7 @@
     "chromeNative": {
       "order": "RAC-0c3c77e8",
       "amountMinor": 2490,
-      "flow": "Original bag \u2192 embedded native checkout \u2192 German confirmation \u2192 return \u2192 original bag 0 with verified completion feedback",
+      "flow": "Original bag → embedded native checkout → German confirmation → return → original bag 0 with verified completion feedback",
       "control": "Native Chrome UI; tab attached for screenshots only after completed purchase",
       "result": "passed"
     },
@@ -113,10 +118,10 @@
   "manualAdminOrder": {
     "engine": "Chrome Studio on restored pinned Core image",
     "customer": "Synthetic CRM-only profile; no password or storefront session issued",
-    "journey": "Create profile and standard address \u2192 search/select existing customer \u2192 German order locale \u2192 native product quote/review \u2192 manual order",
+    "journey": "Create profile and standard address → search/select existing customer → German order locale → native product quote/review → manual order",
     "order": "RAC-41ad6146",
     "amountMinor": 5900,
-    "product": "Fiktive Demo-Schreibtischlampe \u2013 Terrakotta",
+    "product": "Fiktive Demo-Schreibtischlampe – Terrakotta",
     "externalProviderCalled": false
   },
   "workspaceRecovery": {
@@ -126,7 +131,23 @@
     "boundaryCoverage": "100% required lines/branches/statements retained",
     "previousCiFailure": "The first frontend run exposed an uncovered explicit-reload fallback; a real click regression now covers it without lowering the gate",
     "passedFrontendCi": 38936699203,
-    "deployment": "not yet accepted publicly",
-    "mergedMain": "c70f246a1df3162a6d9b1277691409507c1c1c68"
+    "deployment": "Deployed in final main c70f246; public customer view reachable after explicit reload with session preserved.",
+    "mergedMain": "c70f246a1df3162a6d9b1277691409507c1c1c68",
+    "publicFaultTest": {
+      "generalOffline": "Offline customer navigation showed the general workspace/API recovery message; after No throttling and reload the same signed-in shop customer view recovered.",
+      "moduleSpecific": "Not publicly accepted by this run: attempted browser asset-blocking rule did not cause a module load rejection. Actual React.lazy rejection, explicit reload click and ordinary-error controls pass in the 618-test frontend suite.",
+      "cleanup": "No throttling selected; request blocking disabled; DevTools closed. No server or security policy changed."
+    }
+  },
+  "configurationImage": {
+    "source": "12b2a6b021ef8fe3bb7610dd2fa198c7ffa5a3d9",
+    "build": "timely-zipper-1837",
+    "duration": "8m38s",
+    "instance": "vendune-core-75867998d-mhtcg",
+    "health": "1/1 passing; zero restarts; app.veyndo.ai/health returns status ok",
+    "migration": "None; migration 103 was already applied",
+    "reviewHead": "4c1ee045ad28566ff6e60c35cb97e54f6bc4a657",
+    "sourceEquivalence": "Merge of main changes documentation only relative to built source; runtime/frontend/crates/migrations/Docker source unchanged",
+    "releaseQueue": "Main-template releases temporarily replaced the manually deployed branch image. Restored the pinned image after those releases completed; final main publication is recorded separately."
   }
 }

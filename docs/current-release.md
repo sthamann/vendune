@@ -3,6 +3,16 @@
 For the current implementation and acceptance state, use **[Status](status.md)**.
 This page preserves dated evidence.
 
+## Final merged main — 16 October, 19:17 Berlin
+
+Core `c70f246`, image `mirthful-zipper-2487`, one healthy instance, zero restarts.
+The protected main workflow completed exact-source build, fresh snapshot, successful
+migration job and readiness. PRs 143, 144 and 147 are merged with required checks
+passing. [Receipt and explicit test boundaries](evidence/configuration-summary-hosted-2026-10-16.md).
+The 618-test frontend repeat retains the full workspace-boundary coverage gate.
+Public offline/reload recovery retained the signed-in shop; the module-specific
+message has test-suite evidence but no successful public fault injection here.
+
 ## Configuration summary follow-up — 16 October, evening
 
 [Public follow-up receipt](evidence/configuration-summary-hosted-2026-10-16.md):

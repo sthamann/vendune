@@ -39,7 +39,7 @@ A green test, merged code and a completed public business journey are different 
 
 ## Public delivery and current work
 
-Core image `timely-zipper-1837` (`12b2a6b`) and private Experience `b40b386` are
+Core image `mirthful-zipper-2487` (`c70f246`) and private Experience `b40b386` are
 publicly running. [The new hosted receipt](evidence/platform-hardening-hosted-2026-10-16.md)
 records migration 103, a fresh SaaS shop with three AI products and generated
 images, Studio handoff, a native purchase, the original Storyfront embedded
@@ -48,7 +48,8 @@ with a real configured purchase. Payment was simulated throughout.
 
 The hardening baseline `9846807` was runtime-equivalent to its reviewed release
 head `7a4388d`; the later configuration-summary image adds the separately tested
-follow-up.
+follow-up. Final merged main includes that fix and the translated explicit
+workspace-module recovery; the fresh snapshot and migration/readiness chain passed.
 Its [complete required GitHub repeat](https://github.com/sthamann/veyndo/actions/runs/38926129994)
 passed and PR 143 merged as `1725369`; the preceding test-orchestration failure
 and its correction remain recorded in the receipt. The [configuration-summary follow-up](evidence/configuration-summary-hosted-2026-10-16.md)
@@ -70,3 +71,8 @@ hosted acceptance in this receipt.
 - [Historical delivery audit](delivery-audit-2026-10-15.md) and [release record](current-release.md): dated evidence.
 - [Testing](testing.md), [formal scope](formal-verification.md), [capacity measurements](benchmarks.md).
 - [Changelog](../CHANGELOG.md): implementation notes belong here, not in the README.
+
+The final merged-main frontend repeat passed 618 tests with unchanged coverage
+gates. Public offline/reload recovery preserved the session. The module-specific
+message is covered by actual lazy-load failure tests; a public asset-blocking
+attempt did not reproduce that precise failure and is not counted as acceptance.

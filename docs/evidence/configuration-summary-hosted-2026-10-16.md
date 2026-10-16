@@ -3,6 +3,30 @@
 This follow-up closes the presentation gap discovered in the [hardening acceptance](platform-hardening-hosted-2026-10-16.md).
 [Exact build, test scope and capture hashes](configuration-summary-hosted-2026-10-16.json).
 
+## Final merged main publication
+
+Final Core **`c70f246`**, image **`mirthful-zipper-2487`**, is online with one
+healthy instance and zero restarts. Its normal protected main workflow built the
+exact source (9m24s), took a fresh PostgreSQL snapshot (1m09s), ran the migration
+job successfully (22s) and waited for deployment readiness (1m35s). Separate
+system/tenant database connections and migration 103 remain enforced.
+
+PRs 143, 144 and 147 passed their required checks and merged normally. PR 147
+adds translated, explicit recovery for missing lazy modules; 618 frontend tests
+pass with the unchanged 100% workspace-boundary coverage gate. The first failed
+coverage run is retained and was fixed with an actual reload-click regression.
+
+A public general-offline navigation produced the separate API/workspace message;
+returning online and explicitly reloading recovered the same signed-in shop and
+customer view. The attempted browser asset-blocking rule did not reject a lazy
+module, so this is **not** a public acceptance of the module-specific message.
+Actual React.lazy rejection and recovery-click controls pass in the frontend
+suite. Browser throttling was removed, blocking disabled and DevTools closed.
+
+![Customer view recovered on the final merged main](images/configuration-summary-2026-10-16/customers-recovered-main-public.jpg)
+
+## Configuration purchase on its observed image
+
 Core image `timely-zipper-1837`, source `12b2a6b`, started with one healthy instance,
 zero restarts and a successful public health response. No additional migration was
 needed. The PR head `4c1ee04` differs only in merged documentation.

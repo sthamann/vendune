@@ -5,7 +5,7 @@ business-capability proposal — describe an individual business model and have
 Veyndo build, verify, operate and maintain it — remains an implementation programme.
 This page maps that distinction; it is not a completion percentage.
 
-The comparison uses the 15 October proposal, the deployed Core `12b2a6b` and hardening baseline `7a4388d`,
+The comparison uses the 15 October proposal, the deployed Core `c70f246` and hardening baseline `7a4388d`,
 the actual source owners below and dated release receipts. Source implementation,
 local integration tests and hosted acceptance are different evidence. A later
 branch, build or documentation change does not update a hosted result by itself.
