@@ -6,6 +6,8 @@
 current authority and explicit continuation](durable-agent-runs.md). `agent_runs/`
 extends the existing planner/approval owner; it is not another agent backend.
 
+**Agent delegation:** [Planning-only keys, conservative central model allocations, personal live-shop stop and actual worker fences](agent-authority-controls.md). The existing identity/task/outbox owners remain authoritative; cognition reuses the pure kernel allowance guard.
+
 **Browser authority:** [Merchant/customer HttpOnly transport, exact origins, cross-tab fences and Studio CSP](browser-sessions.md).
 
 **Personal workspace and standard-shop editor:** [Illustrated workflow, shared models, rights, history, forms and publication](personal-workspace-and-shop-design.md).

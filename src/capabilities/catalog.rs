@@ -4,6 +4,7 @@ mod core;
 pub(super) fn definitions() -> Vec<(&'static str, &'static str)> {
     let mut all = core::CORE.to_vec();
     all.extend(crate::agent_runs::CAPABILITIES.iter().copied());
+    all.extend(crate::agent_runs::controls::CAPABILITIES.iter().copied());
     all.extend(COGNITIVE.iter().copied());
     all.extend([
         (

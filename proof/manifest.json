@@ -569,10 +569,25 @@
       "sha256": "4ce2449f3aac161d6a34f1de770a83ecaa4ac8fc2b902186a458e8e422475610",
       "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
     },
+    "crates/cognition/src/inference/budget.rs": {
+      "status": "unproved",
+      "sha256": "f66c4022d9a5a7b2422ac65117a79d51c6b3ef7c826c531709f8808a4be63585",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+    },
+    "crates/cognition/src/inference/error.rs": {
+      "status": "unproved",
+      "sha256": "2bd8c6d072997c336bea0b0002126e549baff4b37a8387dbb79d8ecbc14330f9",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+    },
     "crates/cognition/src/inference/protocol.rs": {
       "status": "unproved",
       "sha256": "d81c2653d383299212245ace76a492fc252b1b52a26263f1d0ca4762374de686",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+    },
+    "crates/cognition/src/inference/request.rs": {
+      "status": "unproved",
+      "sha256": "9bf8b80dbbdb21d6c352374d78ec8780f62dae646b2bcf26cc72ecab6fc9326b",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "crates/cognition/src/inference/schema.rs": {
       "status": "unproved",
@@ -581,8 +596,8 @@
     },
     "crates/cognition/src/inference/settings.rs": {
       "status": "unproved",
-      "sha256": "8e8956dd6fe33de0c754577a8a0a2f4e323e5e2c0dc98d9f760f0fee8ddbee0c",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "63c784613f6f5d2bf5bcdcad6356913e5662b7dbac4f3f0071ef166a1cef1ccb",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "crates/cognition/src/inference/tests.rs": {
       "status": "unproved",
@@ -611,8 +626,8 @@
     },
     "crates/cognition/src/inference.rs": {
       "status": "unproved",
-      "sha256": "4d48b897dba6f0917703e8d10b7b5f4b9b8358d566e354e06cc897839fce03a4",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "ab56267d5b489543bd4036eb620d7f3bc701fbcb82d783c983e2b1d224c1b161",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "crates/cognition/src/lib.rs": {
       "status": "unproved",
@@ -1091,33 +1106,38 @@
     },
     "src/agent.rs": {
       "status": "unproved",
-      "sha256": "3d68fe64d9161ab29dab3ace4ceb25e5cf7ecf3faaa90f7155ee3922d5126d26",
-      "review": "Reviewed SSE durable admission before streaming: stored IDs, replay before quota, retained HTTP failures and one native queued run; worker restart and quota regression suite passed."
+      "sha256": "bbf8db1de7c65f5b0665cffc7cd2762c9251d31b9e2ae05dd1e5ad031551e0e3",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/agent_runs/authority.rs": {
       "status": "unproved",
-      "sha256": "cd574c227fa5ca391163eb554febbf6eeb8b9c10ab5d9b7fd977585ffc06f964",
-      "review": "Reviewed existing-task continuation, actor/scopes/credential-kind reauthorization, private context and read-result checks, UUID lease-fenced completion, request-ID deduplication before daily quota, original proposal-only approval, migration100 operational columns, and actual killed-worker/revocation/withdrawal/quota HTTP regressions; pure financial policies unchanged"
+      "sha256": "def989f12a350e28081b65e118a1e5175cd38b2b868f6853911b4a516011eb64",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/agent_runs/checkpoint.rs": {
       "status": "unproved",
-      "sha256": "665a726d3a405bf539f43a8bc0ca799f7396793686a0dc6e65e00d0e1e6f31e1",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "7fbc80d5ffb369e0d5b7d90e69ab81af531d771739cbf11445bd1ff2a23f5eb6",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/agent_runs/contract.rs": {
       "status": "unproved",
-      "sha256": "a35082e762baeb6bcd126bd54250268a4b1254fed7d3dd7f835d26114d0c767d",
-      "review": "Reviewed native quota/task atomic transactions and actor-bound continuation; removed connector Core identity reads, retained gateway/FK authority and sanitized missing references. Real one-backend PgBouncer create/resume/kill/restart and scoped connector regressions passed."
+      "sha256": "1b729de4ec3c64ddeca6a77725f54c42b9d16763f109a5263be973994015e454",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+    },
+    "src/agent_runs/controls.rs": {
+      "status": "unproved",
+      "sha256": "55b2a1287d6e3570c5a56baf2b9ee7973230b0a92a58b4db435de659dd36c496",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/agent_runs/worker.rs": {
       "status": "unproved",
-      "sha256": "974d91c923b4176ffaa5ea95ee429c8a6ae9ca5f0c2b2cfff9f917934969eeda",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "42bcae1185505795532106408bca7f85242db6aa247db28aca6dfac17e732821",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/agent_runs.rs": {
       "status": "unproved",
-      "sha256": "52efca5786882f2b75a18c90d2fd55739790ab3ed247a0b72f41e8ee87f0643b",
-      "review": "Reviewed native quota/task atomic transactions and actor-bound continuation; removed connector Core identity reads, retained gateway/FK authority and sanitized missing references. Real one-backend PgBouncer create/resume/kill/restart and scoped connector regressions passed."
+      "sha256": "ed5651ad673087811efff732ba715b3a65c4270555cdf5b5c3cabd4a38190760",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/apps/approval.rs": {
       "status": "reviewed-binding",
@@ -1591,8 +1611,8 @@
     },
     "src/auth/dto.rs": {
       "status": "unproved",
-      "sha256": "bc16211922a689cdf3d15de2a174a7b98e5735f9cfc8401be886c8e0650fccc1",
-      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+      "sha256": "fa5dd4feba74f588f4189c3d65412bf1035c40ab3ac2f0814f887b88ad55a4f1",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/auth/handoff.rs": {
       "status": "unproved",
@@ -1601,13 +1621,13 @@
     },
     "src/auth/identity.rs": {
       "status": "unproved",
-      "sha256": "fc25740c195939205d398e1c539b93dfb437ea3894c3c5b9a7ce48102e0daab6",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "5f267860cc6629effc8d3c5a15f5d72998b3f410ef637a68056a706d3afd4b83",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/auth/integrations.rs": {
       "status": "reviewed-binding",
-      "sha256": "34e497ecc287fd29d9c821e2dd8c8442c73c683cce3789ce2e9600a14c8c4c6a",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "80641dd4e0a343318db024b0923c94eb30a33fc11285c8133bbbae6dbbd3d5b1",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/auth/invitations.rs": {
       "status": "unproved",
@@ -1626,8 +1646,8 @@
     },
     "src/auth/middleware.rs": {
       "status": "reviewed-binding",
-      "sha256": "d0b094245d8ff4c752e62882a180d4aa1fc805505ef6fea3c42d6c1229c4a367",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "10b253846a3b405a17f57ac5fc19c59050b2ef03e1924527afff4d101d4bec88",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/auth/mod.rs": {
       "status": "unproved",
@@ -1861,13 +1881,13 @@
     },
     "src/capabilities/admission.rs": {
       "status": "unproved",
-      "sha256": "170db3f4ba9b7ef149a621c6f61ee37a302f4deb6f0dc9766e3b0a7732f57b48",
-      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
+      "sha256": "b3c13f0cc7aece264dd1b3dfcd9494cd5cf943cb41761a994179d28d02e1cfca",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
-      "sha256": "6dad3880662762b3149341f60cdb3eadab76579f06766a8fdf46c669fe2e3de0",
-      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
+      "sha256": "6c4e7dac3e36566ebc833ff5d630613852ace8389718d35eabe3265cca965c6d",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/capabilities/contract.rs": {
       "status": "unproved",
@@ -1881,13 +1901,13 @@
     },
     "src/capabilities/dispatch.rs": {
       "status": "unproved",
-      "sha256": "2b9bf66209572e1f0e6c3dcaed49f7579ffa81511b13388605395bd157856451",
-      "review": "Codex source review 2026-10-16: native catalogue intake CSV/HTTPS/model preparation and explicit stage-only creation reuse current permissions, stable IDs, locked settings CAS, product/history/outbox and bounded image jobs; native catalog_management, durable_agents and image_jobs checks recorded for this branch. Connected guardrail UI keeps the extracted pricing/autonomy predicates unchanged; authorized paged commerce policy read and merchant instructions verified by users, knowledge_workspace and providers plus 192 Rust tests. All changed transport/SQL/provider adapters remain unproved; no new formal correctness claim."
+      "sha256": "10b849716be3b12b267bcc715cbfed23baa66e0af33cbc6b59a85cf62e28f757",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/capabilities/registry.rs": {
       "status": "unproved",
-      "sha256": "2f4bc0e96602f353ae9549672e593b9dd959012aa2d4ffd3cb02ba66451e13b6",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "6e74bc4bf242be02b825d773e38b28288a7c689b9942d56f565941043a132da8",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/capabilities/schema.rs": {
       "status": "unproved",
@@ -1896,8 +1916,8 @@
     },
     "src/capabilities.rs": {
       "status": "unproved",
-      "sha256": "b469d73ed33897f9e12e60fcefd1e6990b57176b81f0ef66df26a1d7452837a1",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "5c42c2dd18e2a388bb1102f278954348de7609f6d9185db073cfd03c6c3056bc",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/cart_model.rs": {
       "status": "unproved",
@@ -2066,8 +2086,8 @@
     },
     "src/cognition/extraction.rs": {
       "status": "unproved",
-      "sha256": "b7ec49d633e89587d19e6f3e68810046be390ad398072f6956b74aa7a9bf3f5d",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "771552e2397996b7de57abe4a716769776185b926bb81c47eafb14541a7c0c61",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/cognition/generations.rs": {
       "status": "unproved",
@@ -2081,8 +2101,8 @@
     },
     "src/cognition/indexing.rs": {
       "status": "unproved",
-      "sha256": "56a7b923c7edc44f82459fcdf19bcaf14d52e7ccddc21d81ef790929625dce96",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "d34c70c215653c96886a4f7a4d39b5ec57008f5dbc48d3e0b2e377c2bcd48c04",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/cognition/mod.rs": {
       "status": "unproved",
@@ -2451,8 +2471,8 @@
     },
     "src/developer/generation.rs": {
       "status": "unproved",
-      "sha256": "a4aa95ac3006b8804fb484e0e62c2a02ec483e28edb77eae7343d73a17bc977f",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "28de2daf77b9d7e08b3926b4684b8bbc3f2427d1f6f89e2e25584cdc78a860da",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/developer/generation_contract.rs": {
       "status": "unproved",
@@ -2516,8 +2536,8 @@
     },
     "src/documents/questions.rs": {
       "status": "unproved",
-      "sha256": "25a067a8b4e53c592dc68ea50824e131c8a7bf468ea0aac82afce35ee2558f7f",
-      "review": "Reviewed current-source answer fence against native tenant/publication/archive/revision/hash/chunk/locale and exact product snapshot; delayed uncited provider HTTP regressions reject withdrawal/reassignment/product mutation. Registered saved-fact indexes and transactional rebuildable diagnostic deltas; isolated PostgreSQL/Qdrant tests cover 1000-job backfill, concurrent deltas/reset/delete/tenant separation. 184 Rust unit checks and format/clippy pass; SQL/async boundary remains outside extracted proofs."
+      "sha256": "166f0e9576c3a26296331ed7053d1540d827fd36afdabd867ca2614b105aaf81",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/documents/retrieval.rs": {
       "status": "unproved",
@@ -2546,13 +2566,13 @@
     },
     "src/failure.rs": {
       "status": "unproved",
-      "sha256": "19c266749fb95e87eeb379ea3b08cebe6cde78fd9df386104ab1285c6cc988d5",
-      "review": "Review additive product content clock and rolling-writer trigger; preserve aggregate CAS for explicit stock and legacy clients; content-only HTTP/MCP edits omit stock under the locked native owner; preserve live stock in history and release snapshots. Actual two-replica purchase/cancellation and editor regressions exercise stale writes; async SQL and UI remain outside the existing unchanged Lean proof boundary."
+      "sha256": "7ae57ce3b1258f1d825661c94a4979cbc79d8c172f31129a36fa455ebcc1bf8e",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/foundation.rs": {
       "status": "unproved",
-      "sha256": "39e7615dd31ef06f6f0c6dbcd8379b650b3e133fefd9505d271f29fb6898dc40",
-      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
+      "sha256": "afefaf7af725b35194168349b665e57b145fa33249f80f2a9d9b325e5638aab2",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/history/capability.rs": {
       "status": "unproved",
@@ -2756,8 +2776,8 @@
     },
     "src/marketing/flows.rs": {
       "status": "unproved",
-      "sha256": "4884c9c7af95a7b430175558fc20cdbb495b04a59f90430ea6deb05be1e6c382",
-      "review": "Review combined native business capability and hardening: typed material/dimension guests remain app-owned and bounded; native CAS/FX/current B2B approval and immutable order snapshots; isolated app crate consumer preserves compiler boundary; independent per-event subscriber retry/quarantine preserves healthy events, commit gaps and explicit recovery; signed tenant/system authority, provider-native read tools and real document withdrawal, workspace image closure and source inventory. SQL/async/provider adapters remain tested, not proved."
+      "sha256": "6c92c3465d919108fea7f8ba59f0c7effb812c7ca68ef40080624ec6292b12ef",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/marketing/gateway.rs": {
       "status": "unproved",
@@ -2851,8 +2871,8 @@
     },
     "src/mcp.rs": {
       "status": "unproved",
-      "sha256": "2ab587b48bdba567c83f848ce162eeaf0f6e45c8089d4893216a36afee8912d3",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "a36173cd8785efb5bd60abbac6a5b754498d0811496626ae8b3fdfceae333f82",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/migrations/identity_checksums.rs": {
       "status": "unproved",
@@ -2861,8 +2881,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "988eee6b9ab344750d4f1f10e9d2646569204215293b524ba486bab100eb9fbc",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "c9799127633ad29e4e5b1bd0e74f91b3bc7afa88cea037f1538cc6754af3baf9",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -2926,8 +2946,8 @@
     },
     "src/operations/grid_plan.rs": {
       "status": "unproved",
-      "sha256": "098a6aa154a984afa6ea583a76ee94a61900f007cdb77740adffc091658d1564",
-      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
+      "sha256": "75045b35adac7b33825c89131e5ad34e4ee4ba9fcda78f22de4288ff6b38d4bf",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/operations/grid_schema.rs": {
       "status": "unproved",
@@ -3311,8 +3331,8 @@
     },
     "src/request_context.rs": {
       "status": "unproved",
-      "sha256": "73048be35292c9cb94544b970f73122f92b47720c71e3bd57d7042a4d07f650b",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "533e9f34201fd092cfa8b508494a8c6d40ab7ec821d9d5fd173b8c0ea9b9bf6e",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/routes.rs": {
       "status": "unproved",
@@ -3516,8 +3536,8 @@
       "review": "Review CI integration database ownership: remove --existing-database so the suite creates and drops its own commerce_quality database. Preserve the outbox migration rehearsal refusal for UI, restore and production databases. Move the unchanged outbox suite before slow providers, exactly once, and retain all suite inventory and coverage floors."
     },
     "Cargo.lock": {
-      "sha256": "a41217051931975ae182dcdc3c308eda8d6090f90a465114af5eb2b550e682e5",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "b64d49ee406819898babd77f3a2fc667a68f78b06db0cde18002f8408113ed3c",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "Cargo.toml": {
       "sha256": "6a4e74848c4e6f9d391c804f4a1ab68c4fcb27d29ff165bd0fcfeb181d215dac",
@@ -3528,8 +3548,8 @@
       "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "crates/cognition/Cargo.toml": {
-      "sha256": "a17b8b9c95aa417a51ed22698226667f00ff12f948d8f978ddb80167fdb148c5",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "2da5c9476309e68931aad63e274dec829f8a1ed0fe140cb5cdea0e126eaf2e4a",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "crates/cognition/evals/tool-injection.v1.json": {
       "sha256": "4cf25b4a445c8df9c099efb9cdac0c2160b06e633256bc9d498edac67c11535d",
@@ -4015,6 +4035,10 @@
       "sha256": "db348d4a3053b8891eef1a55a7994eaa7703e6153fa0736831629b69b4099b8a",
       "review": "Review undeployed migration 103 lock-order repair: backfill four subscriber schedules for every existing tenant and create new schedules in the tenant insert transaction, never from a checkout outbox insert; retain forced signed tenant RLS, role grants and event-bound retries. Deterministic held-scheduler producer fails before repair and passes after rebuilding; rollback-only migration verifies existing/new tenant schedule counts plus legacy holds, delays and composite tenant containment."
     },
+    "migrations/104-agent-authority-budgets.sql": {
+      "sha256": "259186fa6af7b25396c4ff28388d7db6e4d244d6e86b98e216ae17c859ba5a13",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+    },
     "proof/Commerce/Claims.lean": {
       "sha256": "f3de8f3bdfbf76e69dc5a609a7534aa460a7dd5f6c4f6ed14a07590efbdd59ad",
       "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
@@ -4072,8 +4096,8 @@
       "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "src/auth/identity.sql": {
-      "sha256": "d30de8019090f4ae166e656aaa5daf19d51f7b7efa9ebc0702127c997723c1fe",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "0ec0ba5c629ccaff103d09302f79d77223a36cd197ea04d6b41065ecd4847b7a",
+      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
     "src/catalog_channel.sql": {
       "sha256": "2eca0d892fc281f0948daac41f59a67d1fab8443e341eb5e9bf64fded533c1e6",

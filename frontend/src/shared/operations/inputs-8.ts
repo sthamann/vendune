@@ -2,6 +2,16 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs8 {
+  "merchant.agents.control": {
+    approve: true;
+    revision: number;
+    stopped: boolean;
+  };
+  "merchant.grid.plan": {
+    entity: "orders" | "products" | "customers";
+    instruction: string;
+    locale: string;
+  };
   "merchant.customer.lookup": {
     after?: string;
     limit?: number;
@@ -184,16 +194,6 @@ export interface Inputs8 {
   "knowledge.experiments": JsonValue;
   "knowledge.experiment.create": { approve?: boolean; design?: JsonValue };
   "knowledge.experiment.start": {
-    approve?: boolean;
-    id?: string;
-    revision?: number;
-  };
-  "knowledge.experiment.stop": {
-    approve?: boolean;
-    id?: string;
-    revision?: number;
-  };
-  "knowledge.experiment.finish": {
     approve?: boolean;
     id?: string;
     revision?: number;

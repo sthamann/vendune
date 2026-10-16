@@ -23,6 +23,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/agent_runs/authority.rs](../src/agent_runs/authority.rs) | Saved runs retain an upper authority bound; every continuation rechecks credential, membership and private stage admission. |
 | [src/agent_runs/checkpoint.rs](../src/agent_runs/checkpoint.rs) | Bounded journal of prepared context and completed inference calls; ambiguous calls require explicit continuation. |
 | [src/agent_runs/contract.rs](../src/agent_runs/contract.rs) | HTTP/MCP share revision-bound run controls and safe progress; checkpoints and credentials are never exported. |
+| [src/agent_runs/controls.rs](../src/agent_runs/controls.rs) | Live-only agent stop and existing-key admission; no control becomes a sandbox release or credential snapshot. |
 | [src/agent_runs/worker.rs](../src/agent_runs/worker.rs) | Database claims resume only completed checkpoints; unknown model outcomes are never automatically charged again. |
 | [src/agent_runs.rs](../src/agent_runs.rs) | Durable continuation extends native tasks; leases fence checkpoints and publication, never approved writes. |
 | [src/apps/approval.rs](../src/apps/approval.rs) | Operator service authority is bound to immutable package content, never to a merchant-chosen ID. |
@@ -514,7 +515,10 @@ This lists every checked-in source module in these roots, including files with n
 | [crates/apps/src/sandbox/configuration.rs](../crates/apps/src/sandbox/configuration.rs) | Bounded integer configuration arguments share the existing no-import Wasmtime engine and resource budgets. |
 | [crates/apps/src/sandbox.rs](../crates/apps/src/sandbox.rs) | Pure Wasmtime guest execution with bounded resources and no host imports. |
 | [crates/apps/src/sandbox_engine.rs](../crates/apps/src/sandbox_engine.rs) | One bounded Wasmtime engine per process, with independent fuel and wall-clock interruption. |
+| [crates/cognition/src/inference/budget.rs](../crates/cognition/src/inference/budget.rs) | Durable conservative model allocations use existing agent keys and the live shop stop switch. |
+| [crates/cognition/src/inference/error.rs](../crates/cognition/src/inference/error.rs) | Typed admission failures survive provider adapters; HTTP status never depends on parsing message text. |
 | [crates/cognition/src/inference/protocol.rs](../crates/cognition/src/inference/protocol.rs) | Self-hosted chat-completions adapter and opt-in provider prompt caching; neither caches private commerce responses. |
+| [crates/cognition/src/inference/request.rs](../crates/cognition/src/inference/request.rs) | One provider request owns native wire translation, bounded model admission and network egress. |
 | [crates/cognition/src/inference/schema.rs](../crates/cognition/src/inference/schema.rs) | Provider wire adaptation for strict fixed-object schemas; dynamic JSON is encoded only on the model wire and restored before domain validation. |
 | [crates/cognition/src/inference/settings.rs](../crates/cognition/src/inference/settings.rs) | Shared operator settings; AES-GCM secrets are never part of merchant/operator read responses. |
 | [crates/cognition/src/inference/tests.rs](../crates/cognition/src/inference/tests.rs) | Provider response contracts, strict schemas and truncation rejection. |
@@ -704,8 +708,11 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/developer/DeveloperWorkspace.tsx](../frontend/src/admin/developer/DeveloperWorkspace.tsx) | Dedicated app and API workspaces retain App Studio state while switching the developer console. |
 | [frontend/src/admin/developer/SandboxContextPicker.tsx](../frontend/src/admin/developer/SandboxContextPicker.tsx) | Bounded server search selects an owned object for testing editor-bound apps in a private sandbox. |
 | [frontend/src/admin/developer/SandboxPreview.tsx](../frontend/src/admin/developer/SandboxPreview.tsx) | Preview resolves the installed registry first; a newer staged package cannot masquerade as an older build. |
+| [frontend/src/admin/developer/api/AgentBudgetFields.tsx](../frontend/src/admin/developer/api/AgentBudgetFields.tsx) | Explicit delegation limits; empty or invalid fields never create unbounded agent authority. |
+| [frontend/src/admin/developer/api/AgentControls.tsx](../frontend/src/admin/developer/api/AgentControls.tsx) | Personal current-rights stop control; operational revisions cannot be published from a sandbox. |
 | [frontend/src/admin/developer/api/ApiExplorer.tsx](../frontend/src/admin/developer/api/ApiExplorer.tsx) | Source-derived static route explorer, runtime app discovery and isolated same-origin read tests. |
 | [frontend/src/admin/developer/api/IntegrationKeys.tsx](../frontend/src/admin/developer/api/IntegrationKeys.tsx) | Personal, expiring, least-privilege integration keys; plaintext stays in component memory and is never reloaded. |
+| [frontend/src/admin/developer/api/agent-control-i18n.ts](../frontend/src/admin/developer/api/agent-control-i18n.ts) | Agent delegation and live stop controls share explicit four-language operational vocabulary. |
 | [frontend/src/admin/developer/api/api-i18n.ts](../frontend/src/admin/developer/api/api-i18n.ts) | Four-language developer API console vocabulary; no credentials are persisted in UI storage. |
 | [frontend/src/admin/developer/app-model.ts](../frontend/src/admin/developer/app-model.ts) | Pure schema edits preserve unsupported extension properties; compilation binds native UI to real actions. |
 | [frontend/src/admin/developer/app-proposal.ts](../frontend/src/admin/developer/app-proposal.ts) | Bounded semantic review summaries compare the exact current and proposed manifests. |
@@ -1371,6 +1378,7 @@ This lists every checked-in source module in these roots, including files with n
 |---|---|
 | [scripts/account_security.py](../scripts/account_security.py) | Native personal MFA acceptance through HTTP/PostgreSQL; synthetic accounts only, no external services. |
 | [scripts/admin_creation.py](../scripts/admin_creation.py) | Native Admin customer/manual-order HTTP+MCP state, isolation, replay and private token regressions. No provider calls. |
+| [scripts/agent_authorities.py](../scripts/agent_authorities.py) | Real HTTP/PostgreSQL agent-key allocations, two replicas, stop, revocation and restart; local model only. |
 | [scripts/api_catalogue.py](../scripts/api_catalogue.py) | Generate a drift-checked static HTTP route catalogue from the compiled Rust router declarations. |
 | [scripts/app_assets.py](../scripts/app_assets.py) | Actual native scoped file upload, callback read, product/digest/key fences and public-file policy. |
 | [scripts/app_assistants.py](../scripts/app_assistants.py) | Real assistant packages: editor context, rights, MCP opt-out, cron, signed webhooks, flows and local service fixtures. |

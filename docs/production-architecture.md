@@ -219,7 +219,7 @@ Platform operators configure a shop through `GET/PUT /api/platform/shops/{id}/qu
 This quota counts `/api/experience`, `/api/concierge`, agent chat/plan and product
 `/questions` and `/ask` HTTP routes, not tokens, actual
 provider spend, every MCP-derived AI action, background translation/image jobs or
-identity-broker usage on behalf of another shop. The actual model boundary also has shared concurrency leases for translation, image, developer and broker work; these limit concurrent calls, not tokens or spend. A complete tenant AI cost cap remains unimplemented.
+identity-broker usage on behalf of another shop. The actual model boundary also has shared concurrency leases for translation, image, developer and broker work; these limit concurrent calls, not tokens or spend. [Dedicated planning-agent keys](agent-authority-controls.md) add persistent per-key token and USD allocation envelopes at an explicit provider/model/tariff, plus a personal live-shop stop shared with its sandboxes. Cognition uses the pure kernel allowance guard; it does not import commerce handlers. This is not actual invoice reconciliation or a complete tenant AI cost cap.
 
 `/api/platform/infrastructure` exposes bounded latency histogram buckets, calls,
 failures, capacity and rejection counters, SQL pool/read-cache diagnostics and

@@ -53,7 +53,7 @@ with `background: true` to the same queue. Legacy planning calls wait for a boun
 interval and retain synchronous failure responses. A pending run can outlive that
 wait; no second planner is introduced.
 
-`requestId` belongs to tenant plus original actor. An identical accepted retry
+`requestId` belongs to tenant, original human actor and authenticated agent identity (or personal identity). An identical accepted retry
 returns its original task, conversation and message, including at the daily quota.
 Changed input with the same ID conflicts. Only new work consumes the shared attempt
 quota; explicit continuation consumes another attempt. This is not token/spend accounting.
@@ -95,7 +95,7 @@ does not consume an attempt; admitted provider failures still do.
 The planner supports bounded read-tool rounds and one native proposal. This is
 not a general durable executor for arbitrary writes/external effects. Lean proofs
 remain separate from SQL, authorization and provider integration. Purpose-separated
-keys and historical business replay remain tracked work.
+keys now have [planning-only identities, explicit model allocations and live-shop stop](agent-authority-controls.md). Historical business replay and general external-effect execution remain tracked work.
 
 ## Actual acceptance
 

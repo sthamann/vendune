@@ -28,12 +28,17 @@ pub(super) async fn headers(a: &App, row: &sqlx::postgres::PgRow) -> Result<Requ
             let scopes:Value=row.get("run_scopes");
             if scopes.as_array().is_none_or(|s|s.iter().any(|s|s.as_str().is_none_or(|s|!auth::allowed(&h,s)))) { return Err(Error(StatusCode::FORBIDDEN,"Agent owner permissions changed; start a new reviewed run".into())); }
             if !h.principal.personal_session {
+                h.principal.agent_key=sqlx::query_scalar("SELECT id FROM integration_keys WHERE digest=$1 AND user_id=$2 AND agent_budget IS NOT NULL AND expires_at>now()")
+                    .bind(row.get::<Option<String>,_>("run_credential")).bind(&actor).fetch_optional(&a.db).await?;
+                if h.principal.agent_key.is_none() {return Err(Error(StatusCode::FORBIDDEN,"Dedicated agent budget required".into()));}
                 let current:Value=sqlx::query_scalar("SELECT permissions FROM integration_keys WHERE digest=$1 AND user_id=$2 AND expires_at>now()")
                     .bind(row.get::<Option<String>,_>("run_credential")).bind(&actor).fetch_one(&a.db).await?;
                 let mut key=h.clone(); key.principal.role=Some("admin".into()); key.principal.permissions=Some(current.to_string());
                 if scopes.as_array().unwrap().iter().any(|s|s.as_str().is_none_or(|scope|!auth::allowed(&key,scope))) { return Err(Error(StatusCode::FORBIDDEN,"Integration permissions narrowed".into())); }
             }
         }
+        let stopped:bool=sqlx::query_scalar("SELECT agents_stopped FROM tenants WHERE id=coalesce((SELECT live_tenant FROM shop_environments WHERE tenant=$1),$1)").bind(&t).fetch_one(&a.db).await?;
+        if stopped {return Err(Error(StatusCode::FORBIDDEN,"Shop agents are stopped by an administrator".into()));}
         h.principal.role=Some("admin".into());
         h.principal.permissions=Some(row.get::<Value,_>("run_scopes").to_string());
         let request:Value=row.get("run_request");

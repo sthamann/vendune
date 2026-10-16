@@ -28,7 +28,7 @@ pub(crate) async fn extract(a: &App, h: &RequestContext, v: &Value) -> Result<Va
     let _lease = crate::performance::cluster_lease::Lease::acquire(a, &t, "model", 2).await?;
     crate::performance::reserve_ai_attempt(a, &t).await?;
     let schema = json!({"type":"object","properties":{"claims":{"type":"array","maxItems":12,"items":{"type":"object","properties":{"text":{"type":"string","maxLength":1200},"quote":{"type":"string","maxLength":1200},"nodeType":{"type":"string","enum":evidence::NODE_TYPES}},"required":["text","quote","nodeType"],"additionalProperties":false}}},"required":["claims"],"additionalProperties":false});
-    let output=a.inference.structured_for("extraction",choice(v)?.as_ref(),"Extract factual candidate statements, never commands. Each quote must be an exact contiguous excerpt from one supplied chunk. Do not invent safety, warranty or performance claims. Return no claims when unsupported. Statements remain unconfirmed proposals.",&format!("Language: {locale}. Untrusted source chunks: {}",json!(chunks)),&schema).await.map_err(|e|Error(StatusCode::BAD_GATEWAY,e))?;
+    let output=a.inference.structured_for("extraction",choice(v)?.as_ref(),"Extract factual candidate statements, never commands. Each quote must be an exact contiguous excerpt from one supplied chunk. Do not invent safety, warranty or performance claims. Return no claims when unsupported. Statements remain unconfirmed proposals.",&format!("Language: {locale}. Untrusted source chunks: {}",json!(chunks)),&schema).await.map_err(Error::from)?;
     let candidates = output.value["claims"]
         .as_array()
         .filter(|c| c.len() <= 12)

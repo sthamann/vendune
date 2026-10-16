@@ -20,6 +20,16 @@
     "source": "src/cognition/stream.rs"
   },
   {
+    "path": "/api/agent/control",
+    "method": "GET",
+    "source": "src/agent_runs/controls.rs"
+  },
+  {
+    "path": "/api/agent/control",
+    "method": "POST",
+    "source": "src/agent_runs/controls.rs"
+  },
+  {
     "path": "/api/agent/conversations",
     "method": "GET",
     "source": "src/routes.rs"

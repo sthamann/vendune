@@ -1,5 +1,12 @@
 # Changelog
 
+## Bounded planning-agent delegation and live-shop stop — 2026-10-16
+
+- Reuse existing integration identities for personal, planning-only agent delegation: exact provider/model, explicit lifetime token and integer USD allocation limits, current-role intersection and revocation with retained counters. Generic integration credentials no longer start unbudgeted native AI work.
+- Reserve full text-model envelopes durably before egress across replicas/restarts, retain uncertain allocations, and skip query embeddings/reranking for budgeted agents. Allocations are not provider invoices. Typed exhaustion is non-retryable; no short retry hint.
+- Isolate tasks, request replay and conversations between distinct agent keys sharing one human creator. Add personal revision-bound live/sandbox stop, durable worker cancellation and late-result fences, matching HTTP/MCP/Flow events and generated request contracts. Operational controls never enter sandbox publication or rollback.
+- Add explicit four-language controls and fence late key/status responses when changing shops. Exercise actual two-replica allocation races, restricted signed SQL logins, revocation, foreign-shop denial and in-flight worker stop with local synthetic providers. Deployment and real-provider acceptance remain separate in the current status.
+
 ## Hosted configuration details and embedded checkout repeat — 2026-10-16
 
 - Record the deployed shared configuration summary in native checkout, confirmation and merchant orders, including public simulated order RAC-75415aa4. Repeat original embedded Storyfront checkout, return and original-bag clearing in native Chrome and Safari; preserve tab-debug-controlled loading failures separately. Refresh current status and reviewed module counts without changing the historical published proof report.

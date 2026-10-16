@@ -63,6 +63,7 @@
     "providers",
     "app_surfaces",
     "durable_agents",
+    "agent_authorities",
     "email_tests",
     "rust_connectors",
     "connector_store_tests",

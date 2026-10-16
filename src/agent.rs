@@ -86,7 +86,8 @@ pub(super) async fn retrieve(a: &App, t: &str, q: &str) -> Result<Value> {
         None
     };
     let mut result = knowledge::search(&a.db, t, q, vector, &model).await?;
-    if env::var("RERANKER_URL").is_ok()
+    if !veyndo::inference::budget::is_budgeted()
+        && env::var("RERANKER_URL").is_ok()
         && let Ok(_slot) = a.inference_slots.clone().try_acquire_owned()
         && let Ok(_lease) =
             crate::performance::cluster_lease::Lease::acquire(a, t, "reranker", 1).await
@@ -119,7 +120,7 @@ pub(super) async fn reindex(State(a): State<App>, h: RequestContext) -> Result<J
 pub(super) async fn conversations(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {
     assistant_access(&h)?;
     let t = merchant(&a, &h)?;
-    let rows=sqlx::query("SELECT id,title,created_at::text AS created_at FROM conversations WHERE tenant=$1 AND (owner_id=$2 OR (owner_id IS NULL AND $3)) AND NOT EXISTS(SELECT 1 FROM tasks k WHERE k.tenant=conversations.tenant AND k.conversation_id=conversations.id AND k.run_scopes IS NOT NULL AND NOT(k.run_scopes <@ $4)) ORDER BY created_at DESC LIMIT 40").bind(&t).bind(header(&h,"x-rac-user")).bind(header(&h,"x-rac-role")==Some("owner")).bind(json!(auth::SCOPES.iter().filter(|s|auth::allowed(&h,s)).collect::<Vec<_>>())).fetch_all(&a.db).await?;
+    let rows=sqlx::query("SELECT id,title,created_at::text AS created_at FROM conversations WHERE tenant=$1 AND (owner_id=$2 OR (owner_id IS NULL AND $3)) AND NOT EXISTS(SELECT 1 FROM tasks k WHERE k.tenant=conversations.tenant AND k.conversation_id=conversations.id AND k.run_scopes IS NOT NULL AND NOT(k.run_scopes <@ $4)) ORDER BY created_at DESC LIMIT 40").bind(&t).bind(agent_runs::controls::conversation_actor(&h)).bind(header(&h,"x-rac-role")==Some("owner")).bind(json!(auth::SCOPES.iter().filter(|s|auth::allowed(&h,s)).collect::<Vec<_>>())).fetch_all(&a.db).await?;
     Ok(Json(
         json!({"conversations":rows.iter().map(|r|json!({"id":r.get::<String,_>("id"),"title":r.get::<String,_>("title"),"createdAt":r.get::<String,_>("created_at")})).collect::<Vec<_>>()}),
     ))
@@ -216,7 +217,7 @@ async fn admit_conversation(a: &App, t: &str, id: &str, h: &RequestContext) -> R
             .collect::<Vec<_>>()
     );
     let allowed:Option<bool>=sqlx::query_scalar("SELECT NOT EXISTS(SELECT 1 FROM tasks k WHERE k.tenant=c.tenant AND k.conversation_id=c.id AND k.run_scopes IS NOT NULL AND NOT(k.run_scopes <@ $5)) FROM conversations c WHERE tenant=$1 AND id=$2 AND (owner_id=$3 OR (owner_id IS NULL AND $4))")
-        .bind(t).bind(id).bind(header(h,"x-rac-user")).bind(header(h,"x-rac-role")==Some("owner")).bind(scopes).fetch_optional(&a.db).await?;
+        .bind(t).bind(id).bind(agent_runs::controls::conversation_actor(h)).bind(header(h,"x-rac-role")==Some("owner")).bind(scopes).fetch_optional(&a.db).await?;
     match allowed {
         None => Err(Error(
             StatusCode::NOT_FOUND,

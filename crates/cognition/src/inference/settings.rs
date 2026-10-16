@@ -85,6 +85,7 @@ fn safe_endpoint(value: &str) -> String {
 }
 impl Inference {
     pub fn with_database(mut self, db: crate::scoped_pool::ScopedPool) -> Self {
+        self.budget_db = Some(db.clone());
         self.db = Some(db);
         self
     }

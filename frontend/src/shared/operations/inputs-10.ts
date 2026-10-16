@@ -2,6 +2,21 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs10 {
+  "merchant.site.task": {
+    agent?: "codex" | "claude_code";
+    id: string;
+    instruction: string;
+    revision: number;
+    selected?: string;
+  };
+  "merchant.site.propose": {
+    fields: JsonValue;
+    id: string;
+    instruction: string;
+    revision: number;
+    selected?: string;
+    summary?: string;
+  };
   "merchant.site.plan": {
     content?: boolean;
     id: string;
@@ -49,29 +64,4 @@ export interface Inputs10 {
     totalMinor: string;
   };
   "merchant.catalog.context": JsonValue;
-  "merchant.catalog.prepare": {
-    count: number;
-    inference?: {
-      model?: string | null;
-      provider?: "platform" | "ollama" | "openai" | "anthropic";
-    } | null;
-    mode: "csv" | "url" | "demo";
-    source: string;
-  };
-  "merchant.catalog.save": {
-    approve: boolean;
-    currency: string;
-    demo: boolean;
-    draft: {
-      description: string;
-      imageUrl?: string;
-      name: string;
-      price: number;
-      productNumber?: string;
-    };
-    id: string;
-    mainLocale: string;
-    settingsRevision: number;
-    taxRate: number;
-  };
 }

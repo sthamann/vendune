@@ -5,6 +5,9 @@ pub(crate) fn model() -> String {
 }
 /// Interactive embedding reads share the same process and fleet admission as background indexing.
 pub(crate) async fn query_embedding(a: &App, t: &str, text: &str) -> Option<Vec<f32>> {
+    if veyndo::inference::budget::is_budgeted() {
+        return None;
+    }
     let _slot = a.inference_slots.clone().try_acquire_owned().ok()?;
     let _lease = crate::performance::cluster_lease::Lease::acquire(a, t, "embedding", 1)
         .await

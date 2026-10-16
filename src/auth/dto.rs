@@ -24,6 +24,8 @@ pub(crate) struct Integration {
     pub expires_in_days: u32,
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub non_expiring: bool,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub agent_budget: Option<veyndo::inference::budget::Budget>,
 }
 #[cfg(test)]
 mod tests {

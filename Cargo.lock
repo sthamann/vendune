@@ -3522,6 +3522,7 @@ dependencies = [
  "sqlx",
  "tokio",
  "tracing",
+ "veyndo-kernel",
  "veyndo-runtime",
 ]
 

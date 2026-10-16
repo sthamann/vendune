@@ -19,10 +19,14 @@ pub(crate) const CAPABILITIES: &[(&str, &str)] = &[
     ),
 ];
 pub(crate) fn schema(name: &str) -> Option<Value> {
+    if let Some(schema) = super::controls::schema(name) {
+        return Some(schema);
+    }
     CAPABILITIES.iter().any(|(n,_)|*n==name).then(||json!({"type":"object","properties":{"requestId":{"type":"string","minLength":1,"maxLength":64},"id":{"type":"string","maxLength":64},"revision":{"type":"integer","minimum":1},"approve":{"type":"boolean"},"instruction":{"type":"string","minLength":1,"maxLength":4000},"inference":{"type":"object","properties":{"provider":{"type":"string","enum":["platform","ollama","openai","anthropic"]},"model":{"type":["string","null"],"maxLength":128}},"required":["provider"],"additionalProperties":false}},"required":if name=="merchant.run.create" {vec!["instruction"]}else if name=="merchant.run.status" {vec!["id"]}else{vec!["id","revision","approve"]},"additionalProperties":false}))
 }
 pub(crate) fn router() -> Router<App> {
     Router::new()
+        .merge(super::controls::router())
         .secure_route(
             "/api/agent/runs",
             &[("POST", "assistant.use")],
@@ -79,6 +83,9 @@ async fn resume(
     Ok(Json(invoke(&a, &h, "merchant.run.resume", &v).await?))
 }
 pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -> Result<Value> {
+    if super::controls::schema(name).is_some() {
+        return super::controls::invoke(a, h, name, v).await;
+    }
     let schema = schema(name).ok_or(bad("Unknown agent run operation"))?;
     apps::validate_native_input(&schema, v)?;
     agent::assistant_access(h)?;
@@ -106,6 +113,17 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
     .await?
     .ok_or(Error(StatusCode::NOT_FOUND, "Agent run not found".into()))?;
     let actor: String = row.get("run_actor");
+    let request: Value = row.get("run_request");
+    if !h.principal.personal_session
+        && actor != "bootstrap"
+        && (h.principal.agent_key.is_none()
+            || request["agentId"].as_str() != h.principal.agent_key.as_deref())
+    {
+        return Err(Error(
+            StatusCode::FORBIDDEN,
+            "Run belongs to another agent identity".into(),
+        ));
+    }
     if header(h, "x-rac-user") != Some(actor.as_str())
         && !(name == "merchant.run.cancel"
             && h.principal.personal_session
@@ -149,6 +167,13 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
         if !["failed", "uncertain"].contains(&state.as_str()) {
             return Err(conflict("Only a stopped run can be explicitly resumed"));
         }
+        let stopped:bool=sqlx::query_scalar("SELECT agents_stopped FROM tenants WHERE id=coalesce((SELECT live_tenant FROM shop_environments WHERE tenant=$1),$1)").bind(&t).fetch_one(&mut *tx).await?;
+        if stopped {
+            return Err(Error(
+                StatusCode::FORBIDDEN,
+                "Shop agents are stopped by an administrator".into(),
+            ));
+        }
         performance::reserve_ai_attempt_tx(a, &t, &mut tx).await?;
         "queued"
     };
@@ -189,5 +214,5 @@ pub(super) fn project(row: &sqlx::postgres::PgRow) -> Value {
     let steps = cp
         .as_object()
         .map_or(0, |o| o.keys().filter(|k| k.starts_with("model-")).count());
-    json!({"taskId":row.get::<String,_>("id"),"state":state,"revision":row.get::<i64,_>("run_revision"),"completedModelSteps":steps,"error":row.get::<Option<Value>,_>("run_error"),"conversationId":row.get::<Option<String>,_>("conversation_id"),"approvalRequired":true,"preview":if state=="ready" {row.get::<Value,_>("proposal")}else{Value::Null},"updatedAt":row.get::<String,_>("updated_text")})
+    json!({"taskId":row.get::<String,_>("id"),"agentId":row.get::<Value,_>("run_request")["agentId"],"state":state,"revision":row.get::<i64,_>("run_revision"),"completedModelSteps":steps,"error":row.get::<Option<Value>,_>("run_error"),"conversationId":row.get::<Option<String>,_>("conversation_id"),"approvalRequired":true,"preview":if state=="ready" {row.get::<Value,_>("proposal")}else{Value::Null},"updatedAt":row.get::<String,_>("updated_text")})
 }

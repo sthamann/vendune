@@ -27,7 +27,7 @@ impl Owner {
     pub(super) fn for_name(name: &str) -> Self {
         if name.starts_with("merchant.catalog.") {
             Self::CatalogIntake
-        } else if name.starts_with("merchant.run.") {
+        } else if name.starts_with("merchant.run.") || name.starts_with("merchant.agents.") {
             Self::Runs
         } else if name.starts_with("studio.workspace.") {
             Self::Personal

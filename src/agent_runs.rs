@@ -3,6 +3,7 @@ use crate::*;
 mod authority;
 pub(crate) mod checkpoint;
 mod contract;
+pub(crate) mod controls;
 mod worker;
 pub(crate) use contract::{CAPABILITIES, invoke, router, schema};
 pub(crate) use worker::once;
@@ -20,11 +21,20 @@ pub(crate) fn current_id() -> Option<String> {
 pub(crate) async fn enqueue(
     a: &App,
     h: &RequestContext,
-    request: Value,
+    mut request: Value,
     conversation: Option<&str>,
 ) -> Result<Value> {
     agent::assistant_access(h)?;
     let t = merchant(a, h)?;
+    request["agentId"] = json!(h.principal.agent_key);
+    let requested = agent::choice(&request)?;
+    if h.principal.agent_key.is_some() {
+        request["inference"] = json!(
+            veyndo::inference::budget::choice(Some(&a.db), requested.as_ref())
+                .await
+                .map_err(|e| Error::from(veyndo::inference::InferenceError::Admission(e)))?
+        );
+    }
     let instruction = request["instruction"]
         .as_str()
         .filter(|s| !s.is_empty() && s.len() <= 4000)
@@ -48,6 +58,19 @@ pub(crate) async fn enqueue(
     // Quota shares the live shop across sandboxes. One admitted native transaction
     // commits both quota and work without acquiring a second pooler backend.
     let mut tx = a.db.begin_privileged().await?;
+    let stopped:bool=sqlx::query_scalar("SELECT agents_stopped FROM tenants WHERE id=coalesce((SELECT live_tenant FROM shop_environments WHERE tenant=$1),$1) FOR UPDATE").bind(&t).fetch_one(&mut *tx).await?;
+    if stopped {
+        return Err(Error(
+            StatusCode::FORBIDDEN,
+            "Shop agents are stopped by an administrator".into(),
+        ));
+    }
+    if !h.principal.personal_session && actor != "bootstrap" && h.principal.agent_key.is_none() {
+        return Err(Error(
+            StatusCode::FORBIDDEN,
+            "Use a dedicated agent key with explicit budgets".into(),
+        ));
+    }
     sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,2))")
         .bind(&t)
         .execute(&mut *tx)
@@ -76,7 +99,7 @@ pub(crate) async fn enqueue(
         ])
         .to_string(),
     );
-    if let Some(key)=request_key && let Some(existing)=sqlx::query("SELECT *,run_updated::text AS updated_text FROM tasks WHERE tenant=$1 AND run_actor=$2 AND run_key=$3").bind(&t).bind(actor).bind(key).fetch_optional(&mut *tx).await? {
+    if let Some(key)=request_key && let Some(existing)=sqlx::query("SELECT *,run_updated::text AS updated_text FROM tasks WHERE tenant=$1 AND run_actor=$2 AND run_key=$3 AND (run_request->>'agentId') IS NOT DISTINCT FROM $4").bind(&t).bind(actor).bind(key).bind(&h.principal.agent_key).fetch_optional(&mut *tx).await? {
         if existing.get::<Option<String>,_>("run_fingerprint").as_deref()!=Some(&fingerprint) {return Err(conflict("Agent request ID was already used with different input"));}
         let admitted:Value=existing.get("run_scopes");
         if admitted.as_array().is_none_or(|s|s.iter().any(|s|s.as_str().is_none_or(|s|!auth::allowed(h,s)))) {return Err(Error(StatusCode::FORBIDDEN,"Saved request evidence requires its original permissions".into()));}
@@ -96,7 +119,7 @@ pub(crate) async fn enqueue(
             .bind(&t)
             .bind(c)
             .bind(instruction.chars().take(70).collect::<String>())
-            .bind(actor)
+            .bind(controls::conversation_actor(h))
             .execute(&mut *tx)
             .await?;
     }
@@ -121,7 +144,7 @@ pub(crate) async fn enqueue(
         .execute(&a.db)
         .await?;
     Ok(
-        json!({"taskId":id,"state":"queued","revision":1,"approvalRequired":true,"conversationId":conversation}),
+        json!({"taskId":id,"agentId":h.principal.agent_key,"state":"queued","revision":1,"approvalRequired":true,"conversationId":conversation}),
     )
 }
 
@@ -194,7 +217,7 @@ pub(crate) async fn conversation_run(
     conversation: &str,
 ) -> Result<Value> {
     let t = merchant(a, h)?;
-    let id:Option<String>=sqlx::query_scalar("SELECT id FROM tasks WHERE tenant=$1 AND conversation_id=$2 AND run_actor=$3 ORDER BY created_at DESC LIMIT 1").bind(t).bind(conversation).bind(header(h,"x-rac-user")).fetch_optional(&a.db).await?;
+    let id:Option<String>=sqlx::query_scalar("SELECT id FROM tasks WHERE tenant=$1 AND conversation_id=$2 AND run_actor=$3 AND ($4::boolean OR (run_request->>'agentId') IS NOT DISTINCT FROM $5) ORDER BY created_at DESC LIMIT 1").bind(t).bind(conversation).bind(header(h,"x-rac-user")).bind(h.principal.personal_session).bind(&h.principal.agent_key).fetch_optional(&a.db).await?;
     match id {
         Some(id) => invoke(a, h, "merchant.run.status", &json!({"id":id})).await,
         None => Ok(Value::Null),

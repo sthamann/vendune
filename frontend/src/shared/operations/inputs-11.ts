@@ -2,6 +2,31 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs11 {
+  "merchant.catalog.prepare": {
+    count: number;
+    inference?: {
+      model?: string | null;
+      provider?: "platform" | "ollama" | "openai" | "anthropic";
+    } | null;
+    mode: "csv" | "url" | "demo";
+    source: string;
+  };
+  "merchant.catalog.save": {
+    approve: boolean;
+    currency: string;
+    demo: boolean;
+    draft: {
+      description: string;
+      imageUrl?: string;
+      name: string;
+      price: number;
+      productNumber?: string;
+    };
+    id: string;
+    mainLocale: string;
+    settingsRevision: number;
+    taxRate: number;
+  };
   "pos.customers": { barcode?: string; channelId: string; query?: string };
   "pos.customer": {
     cartToken: string;
@@ -32,17 +57,5 @@ export interface Inputs11 {
     cartToken?: string;
     channelId: string;
     productId: string;
-  };
-  "pos.currency": {
-    cartToken: string;
-    channelId: string;
-    currency: string;
-    revision: number;
-  };
-  "pos.coupons": {
-    cartToken: string;
-    channelId: string;
-    codes: Array<string>;
-    revision: number;
   };
 }

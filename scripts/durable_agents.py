@@ -152,7 +152,7 @@ try:
     call(base,f'/api/agent/runs/{revoked_id}/resume',{'revision':old['revision']+1,'approve':True},h,409)
     assert call(base,f'/api/agent/runs/{revoked_id}',h=h)['state']=='cancelled'
     passed('A renewed personal session can explicitly cancel its saved run; cancellation cannot be resumed or published')
-    minimal=call(base,'/api/workspace/integrations',{'name':'Durable minimal key','expiresInDays':1,'permissions':['assistant.use','catalog.read','orders.read','knowledge.read']},h)
+    minimal=call(base,'/api/workspace/integrations',{'agentBudget':{'provider':'openai','model':'gpt-6-sol','tokens':1000000,'costMicros':1000000,'pricePerMillionMicros':1000},'name':'Durable minimal key','expiresInDays':1,'permissions':['assistant.use','catalog.read','orders.read','knowledge.read']},h)
     kh={'Authorization':'Bearer '+minimal['key'],'x-tenant':tenant}
     key_run=call(base,'/api/agent/runs',{'instruction':'Prepare a bounded proposal','inference':{'provider':'openai'}},kh)
     for _ in range(150):
@@ -231,6 +231,21 @@ try:
     assert result['result']['isError'],result
     mode['unavailable']=False
     passed('Synchronous HTTP planning and MCP retain failure responses while the stopped native run remains saved')
+    mode.update(block=True,unavailable=False);mode.pop('source',None);mode.pop('blockSource',None)
+    started.clear();release.clear()
+    global_run=call(base,'/api/agent/runs',{'instruction':'Stop this actual running model turn','inference':{'provider':'openai'}},h)
+    assert started.wait(15)
+    controls=call(base,'/api/agent/control',h=h)
+    paused=call(base,'/api/agent/control',{'stopped':True,'revision':controls['revision'],'approve':True},h)
+    assert paused['stopped']
+    calls_before=len(captured);mode['block']=False;release.set();time.sleep(.3)
+    cancelled=call(base,'/api/agent/runs/'+global_run['taskId'],h=h)
+    assert cancelled['state']=='cancelled' and cancelled['preview'] is None,cancelled
+    assert len(captured)==calls_before
+    assert sql(f"SELECT proposal='{{}}'::jsonb FROM tasks WHERE tenant='{tenant}' AND id='{global_run['taskId']}'")=='t'
+    call(base,'/api/agent/control',{'stopped':False,'revision':paused['revision'],'approve':True},h)
+    assert call(base,'/api/agent/runs/'+global_run['taskId'],h=h)['state']=='cancelled'
+    passed('Global personal stop fences an actual in-flight Rust worker; its late provider result cannot persist a proposal or restart after enable')
     # A lost response must remain recoverable after the committed request consumes the final daily attempt.
     sql(f"INSERT INTO tenant_resource_limits(tenant,daily_ai) VALUES('{tenant}',1) ON CONFLICT(tenant) DO UPDATE SET daily_ai=1")
     for path,body in [('/api/agent/chat',{'message':'At most one budgeted turn','background':True,'inference':{'provider':'openai'}}),('/api/agent/runs',{'instruction':'At most one budgeted run','inference':{'provider':'openai'}})]:

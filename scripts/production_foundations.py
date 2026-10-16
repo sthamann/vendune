@@ -109,6 +109,10 @@ try:
             command=['python3',f'scripts/{suite}.py']
             if suite=='scalability':command+=['--container',env['TEST_DB_CONTAINER']]
             subprocess.run(command,cwd=ROOT,env={**env,'PROCESS_ROLE':'all','BASE_URL':one,'TEST_SERVER_LOG':str(ROOT/'artifacts/production-replica-0.log')},check=True)
+        if not tenant_pooler:
+            # Repeat bounded-key allocations and the stop switch through actual
+            # separate signed tenant/system logins, not owner SET ROLE emulation.
+            subprocess.run(['python3','scripts/agent_authorities.py'],cwd=ROOT,env=env,check=True)
         # Keep the independent protocol suite free of this deliberately unsettled event.
         # The currency checkpoint restart below also verifies first-tick retirement of these rows.
         core_hardening.before_workers(sql)

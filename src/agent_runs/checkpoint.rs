@@ -69,17 +69,19 @@ pub(crate) async fn model(
         }
     }
     agent::assistant_access(h).or_else(|e| if public { Ok(()) } else { Err(e) })?;
-    let output = a
-        .inference
-        .structured_for(
+    let authority = super::controls::model_authority(a, h).await;
+    let output = veyndo::inference::budget::scoped(
+        authority,
+        Box::pin(a.inference.structured_for(
             if public { "concierge" } else { "planner" },
             choice,
             system,
             prompt,
             schema,
-        )
-        .await
-        .map_err(|e| Error(StatusCode::BAD_GATEWAY, e))?;
+        )),
+    )
+    .await
+    .map_err(Error::from)?;
     save(a, &key, &json!(output)).await?;
     Ok(output)
 }

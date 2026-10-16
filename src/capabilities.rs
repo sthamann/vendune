@@ -25,6 +25,14 @@ pub(crate) fn invoke<'a>(
     v: &'a Value,
 ) -> CapabilityFuture<'a> {
     if name.starts_with("app.") {
+        if h.principal.agent_key.is_some() {
+            return Box::pin(async {
+                Err(Error(
+                    StatusCode::FORBIDDEN,
+                    "Budgeted planning agents use native read tools only".into(),
+                ))
+            });
+        }
         return Box::pin(async move {
             let (id, action) = name
                 .strip_prefix("app.")
