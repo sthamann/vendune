@@ -12,7 +12,7 @@ from unittest.mock import patch
 import runtime
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from coverage_report import read_reports, violations
+from coverage_report import read_frontend, read_reports, violations
 from source_inventory import responsibility
 
 
@@ -76,6 +76,11 @@ class CoverageGates(unittest.TestCase):
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_text(json.dumps(value))
             metrics, modules, missing = read_reports(root)
+            (root / 'artifacts/coverage/rust.json').unlink()
+            ui_metrics, ui_modules, _ = read_frontend(root)
+            self.assertEqual(set(ui_metrics), {'frontend'})
+            self.assertEqual(ui_modules, modules)
+            (root / 'artifacts/coverage/rust.json').write_text(json.dumps(rust))
             self.assertEqual(metrics['frontend']['lines'], 100)
             self.assertIn('frontend/src/shared/api/fixture.ts', modules)
             self.assertIn('extensions/apps/example/studio/View.tsx', modules)

@@ -1,5 +1,10 @@
 # Changelog
 
+## Proportionate prototype verification — 16 October 2026
+
+- Run PR verification once, cancel superseded revisions of the same PR, and distinguish documentation, ordinary presentation and full-system changes through a conservative complete Git diff. Retain full verification for backend, authentication/checkout, CI-policy, unknown or unavailable changes; renamed/deleted backend paths cannot hide in a documentation change.
+- Keep the required check, unchanged frontend coverage floors and full-module gates. Nightly/manual runs retain the complete suite; fast paths do not claim new Rust/Python coverage. Add real-Git routing regressions and visible per-suite timing/unbuffered integration output.
+
 ## Public Studio and Experience acceptance — 16 October 2026
 
 - Deploy Core PR 141 and private Experience PR 73; verify current public Shop Knowledge, illustrated app creation and native preview controls. No design test changes were saved or published.
