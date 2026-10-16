@@ -3417,8 +3417,8 @@
   },
   "inputs": {
     ".github/workflows/verify.yml": {
-      "sha256": "ca81e6fc0d28c9372cebc8a98068c883216e5512b76515f3f92964e7dbb230c3",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "56daa824f9cc27720f1164dcd7ab6d35c9d3f81725cb4a7c0b4b58d9b04e8b8a",
+      "review": "Review prototype CI scope: retain full checks for Rust, SQL, auth, checkout, CI and unknown diffs; preserve full scheduled/manual verification, coverage floors, formal mutations and required verify status; validate scope negative cases and workflow syntax"
     },
     "Cargo.lock": {
       "sha256": "ace45b77709d51c7869d719023201c09b09c13b23591a339511963366d10eb7c",
