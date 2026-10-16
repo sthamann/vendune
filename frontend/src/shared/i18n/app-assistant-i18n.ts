@@ -1,8 +1,10 @@
 /** App assistants and extension permissions use the same EN/DE/FR/ES vocabulary. */
+import { creationWords } from "./app-creation-i18n";
 import { workspaceWords } from "./app-workspace-i18n";
 import { useLocale } from "./i18n";
 export const assistantWords = {
   ...workspaceWords,
+  ...creationWords,
   salesChannel: [
     "Sales channel",
     "Verkaufskanal",

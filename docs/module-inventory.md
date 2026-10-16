@@ -632,6 +632,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/developer/AppContextBinding.tsx](../frontend/src/admin/developer/AppContextBinding.tsx) | Native UI bindings connect the open host object to an indexed app field, never to a global JS context. |
 | [frontend/src/admin/developer/AppControlProperties.tsx](../frontend/src/admin/developer/AppControlProperties.tsx) | DataField and one-level container references are edited against the current typed model rather than free text. |
 | [frontend/src/admin/developer/AppControlThumbnail.tsx](../frontend/src/admin/developer/AppControlThumbnail.tsx) | Lightweight control illustrations communicate structure; no sample data or runtime is executed. |
+| [frontend/src/admin/developer/AppCreationSummary.tsx](../frontend/src/admin/developer/AppCreationSummary.tsx) | Draft summary mirrors chosen locations without changing publication state or generated permissions. |
 | [frontend/src/admin/developer/AppDataEditor.tsx](../frontend/src/admin/developer/AppDataEditor.tsx) | Managed app models expose typed fields and opt-in public reads; removal cleans dependent bindings. |
 | [frontend/src/admin/developer/AppDesignPreview.tsx](../frontend/src/admin/developer/AppDesignPreview.tsx) | Schema-based, non-interactive design illustration. Never fetches data or executes app actions. |
 | [frontend/src/admin/developer/AppDesignWorkspace.tsx](../frontend/src/admin/developer/AppDesignWorkspace.tsx) | Shared design workspace composes the existing preview, palette and inspector with bounded personal panel widths. |
@@ -654,6 +655,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/developer/AppOntology.tsx](../frontend/src/admin/developer/AppOntology.tsx) | Optional graph mappings edit the canonical manifest; native authorized record lists own the projection. |
 | [frontend/src/admin/developer/AppPanelSizing.tsx](../frontend/src/admin/developer/AppPanelSizing.tsx) | Local panel widths contain presentation only; pointer and keyboard resizing never change the Manifest. |
 | [frontend/src/admin/developer/AppPayments.tsx](../frontend/src/admin/developer/AppPayments.tsx) | Visual payment contracts use the same manifest as coding agents; onboarding uses the protected API. |
+| [frontend/src/admin/developer/AppPlacementPicker.tsx](../frontend/src/admin/developer/AppPlacementPicker.tsx) | Illustrated placement selection projects the existing registry; it never grants runtime access. |
 | [frontend/src/admin/developer/AppProposalReview.tsx](../frontend/src/admin/developer/AppProposalReview.tsx) | AI generation is an explicit reviewed proposal, with conflict protection and no automatic canvas replacement. |
 | [frontend/src/admin/developer/AppRecipes.tsx](../frontend/src/admin/developer/AppRecipes.tsx) | Keyboard-accessible recipe entry points use the existing draft replacement and release controls. |
 | [frontend/src/admin/developer/AppSchemaMigrations.tsx](../frontend/src/admin/developer/AppSchemaMigrations.tsx) | Migration plans are explicit versioned agent-readable data, validated by the shared server compiler before any DDL. |
@@ -793,6 +795,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/app-building.css](../frontend/src/admin/styles/app-building.css) | Modern recipe cards and structural AI review reuse Studio colors and responsive interaction rules. |
 | [frontend/src/admin/styles/app-capability.css](../frontend/src/admin/styles/app-capability.css) | Bounded business-goal cards fit the existing Studio workspace and inherit its theme. |
 | [frontend/src/admin/styles/app-catalog.css](../frontend/src/admin/styles/app-catalog.css) | App library/detail presentation: bounded cards, passive artwork, accessible filters and theme-aware forms. |
+| [frontend/src/admin/styles/app-creation.css](../frontend/src/admin/styles/app-creation.css) | Guided app creation: bounded reading width, illustrated native placements and a private draft summary. |
 | [frontend/src/admin/styles/app-detail.css](../frontend/src/admin/styles/app-detail.css) | Scoped app detail hierarchy, permission disclosure, data and integration forms. |
 | [frontend/src/admin/styles/app-library.css](../frontend/src/admin/styles/app-library.css) | App callback consent follows the same card and field rhythm as app configuration. |
 | [frontend/src/admin/styles/app-studio-inspector.css](../frontend/src/admin/styles/app-studio-inspector.css) | App Studio binding indicators, empty canvas and properties inspector. |
@@ -963,6 +966,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/app-assistant-i18n.ts](../frontend/src/shared/i18n/app-assistant-i18n.ts) | App assistants and extension permissions use the same EN/DE/FR/ES vocabulary. |
 | [frontend/src/shared/i18n/app-building-i18n.ts](../frontend/src/shared/i18n/app-building-i18n.ts) | Shared translated app recipes and reviewed AI changes; no alternate app schema. |
 | [frontend/src/shared/i18n/app-capability-i18n.ts](../frontend/src/shared/i18n/app-capability-i18n.ts) | Merchant intent and executable decision examples use the shared four-language Studio vocabulary. |
+| [frontend/src/shared/i18n/app-creation-i18n.ts](../frontend/src/shared/i18n/app-creation-i18n.ts) | Guided creation vocabulary: placement groups, private draft guidance and optional technical controls. |
 | [frontend/src/shared/i18n/app-events-i18n.ts](../frontend/src/shared/i18n/app-events-i18n.ts) | Subscription/filter/delivery vocabulary shared by Studio and coding agents. |
 | [frontend/src/shared/i18n/app-i18n.ts](../frontend/src/shared/i18n/app-i18n.ts) | App and evidence UI vocabulary, shared by store, merchant and payment components. |
 | [frontend/src/shared/i18n/app-library-i18n.ts](../frontend/src/shared/i18n/app-library-i18n.ts) | App library vocabulary and built-in summaries; no inferred connection or payment readiness. |

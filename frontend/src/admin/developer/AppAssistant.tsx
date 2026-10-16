@@ -1,4 +1,7 @@
 /** Guided app kinds create normal editable manifests; all changes follow private-stage versioning. */
+import "../styles/app-creation.css";
+import AppPlacementPicker from "./AppPlacementPicker";
+import AppCreationSummary from "./AppCreationSummary";
 import AppRecipes from "./AppRecipes";
 import { useState } from "react";
 import LocalizedField from "../../shared/i18n/LocalizedField";
@@ -10,12 +13,7 @@ import {
   type AssistantKey,
 } from "../../shared/i18n/app-assistant-i18n";
 import type { Manifest } from "../../shared/apps/native/types";
-import {
-  appKinds,
-  assistedManifest,
-  placements,
-  type AppKind,
-} from "./assistant-model";
+import { appKinds, assistedManifest, type AppKind } from "./assistant-model";
 import { textMap } from "./app-model";
 const icons: Record<AppKind, IconName> = {
   frontend: "layers",
@@ -41,6 +39,7 @@ export default function AppAssistant({
     [id, setId] = useState(`app_${Date.now().toString(36)}`),
     [selectedLocations, setSelectedLocations] = useState(["admin.product.tab"]),
     [mcp, setMcp] = useState(false),
+    [advanced, setAdvanced] = useState(false),
     [publish, setPublish] = useState(false),
     [event, setEvent] = useState("order.placed"),
     [cron, setCron] = useState("0 */15 * * * *");
@@ -51,10 +50,10 @@ export default function AppAssistant({
         <div>
           <span className="kicker">
             <Icon name="spark" size={16} />
-            {t("setup")}
+            {kind ? t(kind) : t("identity")}
           </span>
           <h2>{t(kind ? "setup" : "start")}</h2>
-          <p>{t("hint")}</p>
+          <p>{t(kind ? "createIntro" : "hint")}</p>
         </div>
         <button
           type="button"
@@ -116,127 +115,106 @@ export default function AppAssistant({
             );
           }}
         >
-          <div className="app-assistant-fields">
-            <ContentLanguagePicker />
-            <LocalizedField
-              label={t("title")}
-              value={name}
-              onChange={(v) => setName(textMap(v))}
-              maxLength={100}
-              required
-            />
-            <label>
-              {t("appId")}
-              <input
-                required
-                pattern="[a-z][a-z0-9_]{0,31}"
-                maxLength={32}
-                value={id}
-                onChange={(e) => setId(e.target.value)}
+          <div className="app-creation-layout">
+            <div className="app-creation-main">
+              <div className="app-creation-identity">
+                <LocalizedField
+                  label={t("appName")}
+                  value={name}
+                  onChange={(v) => setName(textMap(v))}
+                  maxLength={100}
+                  required
+                />
+                <ContentLanguagePicker />
+              </div>
+              <AppPlacementPicker
+                kind={kind}
+                selected={selectedLocations}
+                onChange={setSelectedLocations}
               />
-            </label>
-            <fieldset className="app-placement-picker">
-              <legend>{t("placement")}</legend>
-              <p>{t("placementsHint")}</p>
-              <div className="app-placement-grid">
-                {Object.entries(placements)
-                  .filter(
-                    ([v]) =>
-                      kind === "combined" ||
-                      (kind === "frontend"
-                        ? !v.startsWith("admin.")
-                        : v.startsWith("admin.")),
-                  )
-                  .map(([v, k]) => (
-                    <label
-                      key={v}
-                      className="app-placement-card"
-                      data-selected={selectedLocations.includes(v)}
-                    >
+              <details
+                className="app-creation-advanced"
+                open={advanced}
+                onToggle={(e) => setAdvanced(e.currentTarget.open)}
+              >
+                <summary>{t("technicalOptions")}</summary>
+                <label>
+                  {t("appId")}
+                  <input
+                    required
+                    pattern="[a-z][a-z0-9_]{0,31}"
+                    maxLength={32}
+                    value={id}
+                    onInvalid={() => setAdvanced(true)}
+                    onChange={(e) => setId(e.target.value)}
+                  />
+                  <small>{t("idHint")}</small>
+                </label>
+                <fieldset className="app-assistant-access">
+                  <legend>{t("access")}</legend>
+                  <label className="app-check">
+                    <input
+                      type="checkbox"
+                      checked={mcp}
+                      onChange={(e) => setMcp(e.target.checked)}
+                    />
+                    {t("mcpAccess")}
+                  </label>
+                  <p>{t("mcpHint")}</p>
+                  {kind === "admin" && location?.includes("product") && (
+                    <label className="app-check">
                       <input
                         type="checkbox"
-                        checked={selectedLocations.includes(v)}
-                        disabled={
-                          !selectedLocations.includes(v) &&
-                          selectedLocations.length >= 6
-                        }
-                        onChange={(e) =>
-                          setSelectedLocations(
-                            e.target.checked
-                              ? [...selectedLocations, v]
-                              : selectedLocations.filter((x) => x !== v),
-                          )
-                        }
+                        checked={publish}
+                        onChange={(e) => setPublish(e.target.checked)}
                       />
-                      <Icon
-                        name={
-                          v.includes("header")
-                            ? "frame"
-                            : v.startsWith("checkout.")
-                              ? "card"
-                              : v.startsWith("admin.")
-                                ? "lock"
-                                : "layers"
-                        }
-                        size={22}
-                      />
-                      <strong>{t(k)}</strong>
+                      {t("storefrontAccess")}
                     </label>
-                  ))}
-              </div>
-            </fieldset>
+                  )}
+                </fieldset>
+              </details>
+              {["payment", "shipping", "integration", "event"].includes(
+                kind,
+              ) && (
+                <>
+                  <p className="app-assistant-note">{t("serviceNotice")}</p>
+                  <label>
+                    {t("eventName")}
+                    <input
+                      required
+                      value={event}
+                      onChange={(e) => setEvent(e.target.value)}
+                      pattern="[A-Za-z0-9_.]+"
+                      maxLength={100}
+                    />
+                  </label>
+                </>
+              )}
+              {kind === "scheduled" && (
+                <label>
+                  {t("cron")}
+                  <input
+                    value={cron}
+                    required
+                    maxLength={100}
+                    onChange={(e) => setCron(e.target.value)}
+                  />
+                </label>
+              )}
+              {kind === "webhook" && (
+                <p className="app-assistant-note">{t("webhookNotice")}</p>
+              )}
+            </div>
+            <AppCreationSummary
+              name={name}
+              selected={selectedLocations}
+              onRemove={(v) =>
+                setSelectedLocations((current) =>
+                  current.filter((x) => x !== v),
+                )
+              }
+            />
           </div>
-          <fieldset className="app-assistant-access">
-            <legend>{t("access")}</legend>
-            <label className="app-check">
-              <input
-                type="checkbox"
-                checked={mcp}
-                onChange={(e) => setMcp(e.target.checked)}
-              />
-              {t("mcpAccess")}
-            </label>
-            <p>{t("mcpHint")}</p>
-            {kind === "admin" && location?.includes("product") && (
-              <label className="app-check">
-                <input
-                  type="checkbox"
-                  checked={publish}
-                  onChange={(e) => setPublish(e.target.checked)}
-                />
-                {t("storefrontAccess")}
-              </label>
-            )}
-          </fieldset>
-          {["payment", "shipping", "integration", "event"].includes(kind) && (
-            <>
-              <p className="app-assistant-note">{t("serviceNotice")}</p>
-              <label>
-                {t("eventName")}
-                <input
-                  required
-                  value={event}
-                  onChange={(e) => setEvent(e.target.value)}
-                  pattern="[A-Za-z0-9_.]+"
-                  maxLength={100}
-                />
-              </label>
-            </>
-          )}
-          {kind === "scheduled" && (
-            <label>
-              {t("cron")}
-              <input
-                value={cron}
-                required
-                maxLength={100}
-                onChange={(e) => setCron(e.target.value)}
-              />
-            </label>
-          )}
-          {kind === "webhook" && (
-            <p className="app-assistant-note">{t("webhookNotice")}</p>
-          )}
           <footer>
             <button
               type="button"

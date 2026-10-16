@@ -1,5 +1,10 @@
 # Changelog
 
+## Guided app creation
+
+- Put app name and compact content-language context first. Group native placements by shop, purchase/account, administration, POS and B2B; illustrate each with a location sketch and specific icon. Keep a removable selected-area summary and explicit zero/six-selection guidance.
+- Collapse generated identifiers and explicit agent access into technical options; open invalid identifiers for correction. Reuse normal Manifest compilation, private editing and immutable sandbox versions. Correct missing borders and dark appearance by using Studio theme tokens.
+
 ## Direct shop-design interactions
 
 - Insert illustrated built-in and installed-app elements at visible preview boundaries; reorder via captured mouse/touch drag or native drag fallback, section arrows, and page-tree controls. Remove sections with in-canvas bin controls and undo/redo using the same private draft. Published storefronts receive no editor controls.
