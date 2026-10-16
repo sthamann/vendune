@@ -1,5 +1,10 @@
 # Testing, coverage and maintenance contracts
 
+The [17 October native app-field receipt](evidence/native-app-fields-hosted-2026-10-17.md)
+records the complete required Linux check, 99 registered local suites, 636 frontend
+tests, actual hosted product-app publication and the original embedded simulated
+checkout. Older measurements below retain their own source/date and coverage scope.
+
 ## Prototype feedback loop
 
 The required `verify` check selects one of three scopes from the complete Git diff:

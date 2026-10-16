@@ -1,7 +1,10 @@
 # POS status and database startup recovery — 17 October 2026
 
 This record separates reproduced failures, their repairs and hosted acceptance.
-The public rollout of these repairs is **pending**. See [current status](../status.md).
+The repairs are delivered in Core `f627f9d`, image `right-increase-7968`. The
+[hosted receipt](native-app-fields-hosted-2026-10-17.md) records successful required
+CI, backup, migration, readiness and public app/checkout smoke. No production
+database interruption was induced. See [current status](../status.md).
 
 ## Found during the native app-field release
 
@@ -48,4 +51,4 @@ The focused signed-runtime repeat also passes these cases through separately
 authenticated tenant/system logins, including strict unsafe-role rejection and
 the existing two-replica inventory/session/scope checks. Workspace tests, strict
 Clippy and complete documentation checks pass. The failed GitHub result is retained;
-the repaired head still requires its own full check before public delivery.
+the repaired head passed its own complete required GitHub check before public delivery.

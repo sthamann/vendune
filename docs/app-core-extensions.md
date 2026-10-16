@@ -177,3 +177,13 @@ writes; unique anchors; incompatible upgrades; private clone and selected releas
 without copying live customer/order records. Frontend tests exercise actual form
 submission, CAS continuation, read-only controls and typed grid filters. Existing
 app/schema/relation/ontology/staging/tenant/B2B suites remain required.
+
+## Hosted product acceptance — 17 October
+
+The [source-bound public receipt](evidence/native-app-fields-hosted-2026-10-17.md)
+records visual creation, real native field writes, a compatible 0.1.0 → 0.1.1
+upgrade with retained values, optional columns, exact positive/negative filters
+and selected package/record publication into the live synthetic shop. Customer,
+Order and Company remain locally/CI accepted, not separately walked through in
+that public receipt. Its screenshots also show the repeated original embedded
+Storyfront purchase, return and cleared bag; payment remained simulated.
