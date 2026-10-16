@@ -223,7 +223,8 @@ export default function AppsManager({
                     ?.manifest.actions.find(
                       (act) => act.handler === "configurations",
                     );
-                  if (!action) return;
+                  if (!action) return false;
+                  let loaded = false;
                   await run(async () => {
                     setResult(
                       await request(
@@ -234,7 +235,9 @@ export default function AppsManager({
                         },
                       ),
                     );
+                    loaded = true;
                   });
+                  return loaded;
                 }
               : undefined
           }

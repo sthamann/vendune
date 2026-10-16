@@ -45,6 +45,12 @@ remain on the receipt rather than affecting a new catalogue purchase.
    the original material label, dimensions, source-currency fee, package version
    and rule revision. Open the native order for fulfilment and documents.
 
+The installed app data editor uses the shared content-language selector and
+translation fields. Full regional codes such as `de-DE` and the configured main
+language work without creating short-code duplicates or copying inherited text
+into new translations. Read-only controls remain disabled. A failed purchase-
+history page request keeps the current page and its navigation position.
+
 Sandbox testing excludes real orders/provider effects. The existing staging review
 selects app package and material records separately. A live purchasing approval,
 customer, order or spending record is never published from a sandbox.

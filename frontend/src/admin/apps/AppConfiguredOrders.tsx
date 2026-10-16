@@ -40,7 +40,7 @@ export default function AppConfiguredOrders({
   app: Package;
   mainLocale: string;
   onOrder?: (id: string) => void;
-  onPage?: (cursor?: string) => void;
+  onPage?: (cursor?: string) => Promise<boolean>;
   busy: boolean;
 }) {
   const { a, locale, money } = useAppText();
@@ -142,10 +142,9 @@ export default function AppConfiguredOrders({
             type="button"
             className="studio-secondary"
             disabled={busy || cursors.length < 2}
-            onClick={() => {
+            onClick={async () => {
               const next = cursors.slice(0, -1);
-              setCursors(next);
-              onPage(next.at(-1));
+              if (await onPage(next.at(-1))) setCursors(next);
             }}
           >
             {a("previousOrders")}
@@ -154,10 +153,9 @@ export default function AppConfiguredOrders({
             type="button"
             className="studio-secondary"
             disabled={busy || !result.hasMore || !result.nextCursor}
-            onClick={() => {
+            onClick={async () => {
               const next = result.nextCursor!;
-              setCursors([...cursors, next]);
-              onPage(next);
+              if (await onPage(next)) setCursors([...cursors, next]);
             }}
           >
             {a("moreOrders")}

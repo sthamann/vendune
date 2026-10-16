@@ -2,6 +2,9 @@
 import { useEffect, useState } from "react";
 import { useAppText } from "../../shared/i18n/app-i18n";
 import type { RequestFn } from "../shell/studio-types";
+import { useContentLanguage } from "../../shared/i18n/ContentLanguage";
+import { contentText } from "../../shared/i18n/content-language";
+import LocalizedField from "../../shared/i18n/LocalizedField";
 export type Entity = {
   name: string;
   label?: Record<string, string>;
@@ -24,15 +27,13 @@ export default function AppEntity({
   request: RequestFn;
   canWrite: boolean;
 }) {
-  const { a, locale } = useAppText();
-  const lang = locale.slice(0, 2);
+  const { a } = useAppText();
+  const { language, mainLocale } = useContentLanguage();
   const label = (v: { name: string; label?: Record<string, string> }) =>
-    v.label?.[lang] ?? v.label?.en ?? a(v.name);
+    contentText(v.label ?? {}, language, mainLocale) || a(v.name);
   const fieldValue = (f: Entity["fields"][number], value: unknown) =>
     f.translatable && value && typeof value === "object"
-      ? ((value as Record<string, string>)[lang] ??
-        (value as Record<string, string>).en ??
-        "")
+      ? contentText(value as Record<string, string>, language, mainLocale)
       : value;
   const [records, setRecords] = useState<Record<string, unknown>[]>([]);
   const [id, setId] = useState("default");
@@ -131,63 +132,74 @@ export default function AppEntity({
             maxLength={100}
           />
         </label>
-        {entity.fields.map((f) => (
-          <label key={f.name}>
-            {label(f)}
-            {f.kind === "json" ? (
-              <textarea
-                value={
-                  typeof fields[f.name] === "string"
-                    ? (fields[f.name] as string)
-                    : JSON.stringify(fields[f.name] ?? {}, null, 2)
-                }
-                maxLength={8192}
-                required={f.required}
-                onChange={(e) =>
-                  setFields({ ...fields, [f.name]: e.target.value })
-                }
-              />
-            ) : (
-              <input
-                type={
-                  f.kind === "integer"
-                    ? "number"
-                    : f.kind === "boolean"
-                      ? "checkbox"
-                      : "text"
-                }
-                value={
-                  f.kind === "boolean"
-                    ? undefined
-                    : String(fieldValue(f, fields[f.name]) ?? "")
-                }
-                checked={
-                  f.kind === "boolean" ? Boolean(fields[f.name]) : undefined
-                }
-                required={f.required && f.kind !== "boolean"}
-                maxLength={2000}
-                onChange={(e) =>
-                  setFields({
-                    ...fields,
-                    [f.name]:
-                      f.kind === "integer"
-                        ? Number(e.target.value)
-                        : f.kind === "boolean"
-                          ? e.target.checked
-                          : f.translatable
-                            ? {
-                                ...(typeof fields[f.name] === "object"
-                                  ? (fields[f.name] as Record<string, string>)
-                                  : {}),
-                                [lang]: e.target.value,
-                              }
+        {entity.fields.map((f) =>
+          f.translatable ? (
+            <LocalizedField
+              key={f.name}
+              label={label(f)}
+              value={
+                typeof fields[f.name] === "object" && fields[f.name] !== null
+                  ? (fields[f.name] as Record<string, string>)
+                  : {}
+              }
+              onChange={(value) => setFields({ ...fields, [f.name]: value })}
+              required={f.required}
+              maxLength={2000}
+              disabled={!canWrite || busy}
+            />
+          ) : (
+            <label key={f.name}>
+              {label(f)}
+              {f.kind === "json" ? (
+                <textarea
+                  disabled={!canWrite || busy}
+                  value={
+                    typeof fields[f.name] === "string"
+                      ? (fields[f.name] as string)
+                      : JSON.stringify(fields[f.name] ?? {}, null, 2)
+                  }
+                  maxLength={8192}
+                  required={f.required}
+                  onChange={(e) =>
+                    setFields({ ...fields, [f.name]: e.target.value })
+                  }
+                />
+              ) : (
+                <input
+                  disabled={!canWrite || busy}
+                  type={
+                    f.kind === "integer"
+                      ? "number"
+                      : f.kind === "boolean"
+                        ? "checkbox"
+                        : "text"
+                  }
+                  value={
+                    f.kind === "boolean"
+                      ? undefined
+                      : String(fieldValue(f, fields[f.name]) ?? "")
+                  }
+                  checked={
+                    f.kind === "boolean" ? Boolean(fields[f.name]) : undefined
+                  }
+                  required={f.required && f.kind !== "boolean"}
+                  maxLength={2000}
+                  onChange={(e) =>
+                    setFields({
+                      ...fields,
+                      [f.name]:
+                        f.kind === "integer"
+                          ? Number(e.target.value)
+                          : f.kind === "boolean"
+                            ? e.target.checked
                             : e.target.value,
-                  })
-                }
-              />
-            )}
-          </label>
-        ))}
+                    })
+                  }
+                />
+              )}
+            </label>
+          ),
+        )}
         <button className="studio-primary" disabled={!canWrite || busy}>
           {a("save")}
         </button>

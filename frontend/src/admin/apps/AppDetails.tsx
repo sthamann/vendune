@@ -22,6 +22,9 @@ import ConnectorPanel from "./ConnectorPanel";
 import ProviderAccount from "./ProviderAccount";
 import MarketplacePanel from "../../../../extensions/apps/marketplaces/studio/MarketplacePanel";
 import EmailPanel from "../../../../extensions/apps/email/studio/EmailPanel";
+import { ContentLanguage } from "../../shared/i18n/ContentLanguage";
+import ContentLanguagePicker from "../../shared/i18n/ContentLanguagePicker";
+import { useCountryCatalogue } from "../../shared/geography/useCountryCatalogue";
 export type AppDetailsProps = {
   p: Package;
   mainLocale: string;
@@ -56,6 +59,7 @@ export default function AppDetails({
 }: AppDetailsProps) {
   const l = useLibraryText();
   const text = useStoryfrontText();
+  const catalogue = useCountryCatalogue(request);
   const [confirm, setConfirm] = useState(false);
   const toggle = () =>
     void run(async () => {
@@ -224,15 +228,23 @@ export default function AppDetails({
         )}
         {detailTab === "appData" &&
           p.active &&
-          p.manifest.entities.map((e) => (
-            <AppEntity
-              key={e.name}
-              app={p.id}
-              entity={e}
-              request={request}
-              canWrite={role !== "viewer"}
-            />
-          ))}
+          p.manifest.entities.length > 0 && (
+            <ContentLanguage
+              mainLocale={catalogue?.mainLocale ?? mainLocale}
+              locales={catalogue?.locales ?? [mainLocale]}
+            >
+              <ContentLanguagePicker />
+              {p.manifest.entities.map((e) => (
+                <AppEntity
+                  key={e.name}
+                  app={p.id}
+                  entity={e}
+                  request={request}
+                  canWrite={role !== "viewer"}
+                />
+              ))}
+            </ContentLanguage>
+          )}
         {detailTab === "appData" && p.active && (
           <div className="app-actions">
             {p.manifest.actions
