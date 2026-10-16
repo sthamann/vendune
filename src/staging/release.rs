@@ -179,6 +179,11 @@ pub(crate) async fn release(
                 .iter()
                 .find(|e| e.name == parts[2])
                 .ok_or(bad("App entity missing"))?;
+            if !apps::core_extensions::configuration(e) {
+                return Err(bad(
+                    "Operational customer/order extension records are never release units",
+                ));
+            }
             let revision = apps::records::get(&mut tx, &t, &m.id, &e.name, parts[3], false)
                 .await?
                 .and_then(|r| r["revision"].as_i64())

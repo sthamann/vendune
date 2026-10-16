@@ -250,13 +250,51 @@
               },
               "publicRead": {
                 "type": "boolean"
+              },
+              "extends": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "version": {
+                        "type": "integer",
+                        "enum": [
+                          1
+                        ]
+                      },
+                      "object": {
+                        "type": "string",
+                        "enum": [
+                          "product",
+                          "customer",
+                          "order",
+                          "company"
+                        ]
+                      },
+                      "field": {
+                        "type": "string",
+                        "maxLength": 32
+                      }
+                    },
+                    "required": [
+                      "version",
+                      "object",
+                      "field"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
               }
             },
             "required": [
               "name",
               "label",
               "fields",
-              "publicRead"
+              "publicRead",
+              "extends"
             ],
             "additionalProperties": false
           }

@@ -16,7 +16,11 @@ export default function NativeRecordForm({
   saved,
   boundFields,
   externalSubmit = false,
+  singleRecord = false,
+  readOnly = false,
 }: {
+  singleRecord?: boolean;
+  readOnly?: boolean;
   blockId?: string;
   externalSubmit?: boolean;
   boundFields?: Record<string, string>;
@@ -134,7 +138,7 @@ export default function NativeRecordForm({
           }
         }}
       >
-        {(!boundFields || choices.length > 0) && (
+        {!singleRecord && (!boundFields || choices.length > 0) && (
           <>
             <label>
               {a("record")}
@@ -189,8 +193,9 @@ export default function NativeRecordForm({
               key={f.name}
               className="native-field-boundary"
               disabled={
-                !!persisted &&
-                entity.workflow?.immutableFields?.includes(f.name)
+                readOnly ||
+                (!!persisted &&
+                  entity.workflow?.immutableFields?.includes(f.name))
               }
             >
               <NativeField
@@ -202,7 +207,7 @@ export default function NativeRecordForm({
           ))}
         {error && <p role="alert">{error}</p>}
         {notice && <p role="status">{a("savedRecord")}</p>}
-        {!externalSubmit && (
+        {!externalSubmit && !readOnly && (
           <button
             className="studio-primary"
             disabled={busy || runtime?.busy || pendingSource}

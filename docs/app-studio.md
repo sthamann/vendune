@@ -183,3 +183,7 @@ not historical order replay.
 ## Connected App Studio workbench
 
 See the [illustrated workbench guide](app-studio-workspace.md) for multiple placements, compact adjustable panels, the contextual AI drawer, model-backed form editing, shared Flow visuals, installed app settings and scoped integration keys. These extend the existing native Manifest, runtime and release owners.
+
+## Add fields to native shop objects
+
+In **Data models → Extend a shop object**, select Product, Customer, Order or Company. The same versioned model then supplies private native detail fields and optional directory columns. Read [core object extensions](app-core-extensions.md) for current rights, exact indexed filters, agent context and the separation of configuration from live customer/order data.

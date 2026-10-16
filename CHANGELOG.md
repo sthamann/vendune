@@ -1,5 +1,11 @@
 # Changelog
 
+## Native app object fields — implementation, 2026-10-16
+
+- Add versioned private product/customer/order/company bindings over the existing four shared app tables; keep native foreign keys, uniqueness, current native/PII/custom scopes, CAS, history and outbox. Preserve legacy package serialization and reject incompatible installed bindings.
+- Connect native detail forms, optional existing-grid columns and exact indexed product/customer/order filters before pagination. Reuse HTTP/MCP owners, generate request contracts from the registry, and give reviewed grid plans scoped field metadata plus versioned prompt provenance. Project namespaced graph context without claiming public buyer facts.
+- Clone and selectively publish product/company extension configuration; exclude operational customer/order data. Reuse the extracted release predicate, existing schema migration and sandbox publication owners. Add an app-owned four-object example and real PostgreSQL/current-role/native-MCP/sandbox regressions. Hosted acceptance remains distinct in status.md.
+
 ## Distinguish an empty product preview from sign-in — 2026-10-16
 
 - A connected merchant with no selected product now receives a product-selection explanation in EN/DE/FR/ES. Only a disconnected session receives sign-in guidance. Preserve native request authorization and pricing; cover both session states in the actual preview component.

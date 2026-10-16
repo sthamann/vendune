@@ -45,6 +45,7 @@
     "channel_management",
     "app_consent",
     "app_relations",
+    "app_core_extensions",
     "app_ontology",
     "app_schema",
     "app_shared_storage",

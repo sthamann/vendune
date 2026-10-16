@@ -176,15 +176,30 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
             )
         }
         "company.create" => onboarding::create(a, h, v).await,
-        "companies" => organization::list(a, &tenant(h)?).await,
+        "companies" => {
+            let mut value = organization::list(a, &tenant(h)?).await?;
+            if let Some(rows) = value["companies"].as_array_mut() {
+                apps::core_extensions::attach(a, h, apps::core_extensions::Object::Company, rows)
+                    .await?;
+            }
+            Ok(value)
+        }
         "company" => {
             auth::permit(h, "customers.pii")?;
-            organization::detail(
+            let mut value = organization::detail(
                 a,
                 &tenant(h)?,
                 v["id"].as_str().ok_or(bad("Company required"))?,
             )
-            .await
+            .await?;
+            apps::core_extensions::attach(
+                a,
+                h,
+                apps::core_extensions::Object::Company,
+                std::slice::from_mut(&mut value),
+            )
+            .await?;
+            Ok(value)
         }
         op @ ("company.save" | "unit.save") => organization::save(a, h, op, v).await,
         "member.save" => organization::member(a, h, v).await,

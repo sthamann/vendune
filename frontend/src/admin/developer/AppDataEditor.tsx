@@ -1,4 +1,5 @@
 /** Managed app models expose typed fields and opt-in public reads; removal cleans dependent bindings. */
+import CoreExtensionBinding from "./CoreExtensionBinding";
 import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
 import AppModelDiagram from "./AppModelDiagram";
 import AppSchemaMigrations from "./AppSchemaMigrations";
@@ -113,6 +114,7 @@ export default function AppDataEditor({
               <input
                 type="checkbox"
                 checked={entity.publicRead}
+                disabled={!!entity.extends}
                 onChange={(e) =>
                   patch(entity.name, {
                     ...entity,
@@ -123,8 +125,13 @@ export default function AppDataEditor({
               {a("public")}
             </label>
           </div>
+          <CoreExtensionBinding
+            entity={entity}
+            onChange={(next) => patch(entity.name, next)}
+          />
           <div className="app-field-list">
             {entity.fields.map((field, index) => {
+              if (field.name === entity.extends?.field) return null;
               const set = (f: Partial<Field>) =>
                 patch(entity.name, {
                   ...entity,

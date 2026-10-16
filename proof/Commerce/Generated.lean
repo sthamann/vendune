@@ -174,4 +174,7 @@ def app_submission_admissible (private_inbox : Bool) (live_scope : Bool) (curren
 def persistent_key_admissible (personal : Bool) (administrator : Bool) : Bool :=
   (personal && administrator)
 
+def app_configuration_release_admissible (extension : Bool) (product : Bool) (company : Bool) : Bool :=
+  (((!extension) || product) || company)
+
 end CommerceKernel

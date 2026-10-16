@@ -1,5 +1,6 @@
 /** CRM list and editable customer profile with linked order history. */
 import type { GridCriteria } from "../../shared/grid/types";
+import CoreExtensions from "../../shared/apps/CoreExtensions";
 import { AppSurfaceSlot } from "../../shared/apps/AppSurfaces";
 import CustomerCreate from "./CustomerCreate";
 import { useAdminCreationText } from "../../shared/i18n/admin-creation-i18n";
@@ -273,6 +274,14 @@ export default function CustomersManager({
                   </button>
                 ))}
               </>
+            )}
+            {!customer.guest && (
+              <CoreExtensions
+                objectId={customer.id}
+                extensions={customer.extensions}
+                omittedExtensions={customer.omittedExtensions}
+                request={request}
+              />
             )}
             {!customer.guest && (
               <AppSurfaceSlot

@@ -1813,6 +1813,10 @@
                               "after": {
                                 "type": "string"
                               },
+                              "appFilter": {
+                                "maxLength": 4096,
+                                "type": "string"
+                              },
                               "categoryId": {
                                 "maxLength": 200,
                                 "type": "string"
@@ -2942,6 +2946,10 @@
                                 "type": "boolean"
                               },
                               "after": {
+                                "type": "string"
+                              },
+                              "appFilter": {
+                                "maxLength": 4096,
                                 "type": "string"
                               },
                               "direction": {
@@ -5246,6 +5254,10 @@
                             "additionalProperties": false,
                             "properties": {
                               "after": {
+                                "type": "string"
+                              },
+                              "appFilter": {
+                                "maxLength": 4096,
                                 "type": "string"
                               },
                               "channelId": {

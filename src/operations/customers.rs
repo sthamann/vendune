@@ -10,14 +10,22 @@ pub(super) async fn list(
     auth::permit(&h, "customers.pii")?;
     let n = c.validate()?;
     let (sort, direction) = c.sort_for("customers")?;
-    let rows = if (c.sort.is_empty() || c.sort == "email")
+    let filters = apps::extension_filter::admit(
+        &a,
+        &h,
+        apps::core_extensions::Object::Customer,
+        &c.app_filter,
+    )
+    .await?;
+    let rows = if filters.is_empty()
+        && (c.sort.is_empty() || c.sort == "email")
         && direction == "ASC"
         && c.guest.is_none()
         && c.active.is_none()
         && c.group.is_empty()
     {
         sqlx::query_scalar::<_, Value>(include_str!("customer_directory_default.sql"))
-            .bind(t)
+            .bind(&t)
             .bind(c.after)
             .bind(c.query)
             .bind(n + 1)
@@ -53,6 +61,12 @@ pub(super) async fn list(
         if !c.group.is_empty() {
             q.push(" AND contact->>'customerGroup'=").push_bind(c.group);
         }
+        apps::extension_filter::predicate(
+            &mut q,
+            apps::core_extensions::Object::Customer,
+            &t,
+            &filters,
+        );
         q.push(format!(
             " ORDER BY {sort} {direction},email {direction} LIMIT "
         ))
@@ -60,7 +74,14 @@ pub(super) async fn list(
         q.build_query_scalar::<Value>().fetch_all(&a.db).await?
     };
     let more = rows.len() > n as usize;
-    let elements = rows.into_iter().take(n as usize).collect::<Vec<_>>();
+    let mut elements = rows.into_iter().take(n as usize).collect::<Vec<_>>();
+    apps::core_extensions::attach(
+        &a,
+        &h,
+        apps::core_extensions::Object::Customer,
+        &mut elements,
+    )
+    .await?;
     let after = elements.last().map(|v| v["email"].clone());
     Ok(Json(
         json!({"elements":elements,"hasMore":more,"nextCursor":if more{after}else{None}}),
@@ -104,6 +125,13 @@ pub(super) async fn detail(
                 .collect::<Vec<_>>()
         );
     }
+    apps::core_extensions::attach(
+        &a,
+        &h,
+        apps::core_extensions::Object::Customer,
+        std::slice::from_mut(&mut v),
+    )
+    .await?;
     Ok(Json(v))
 }
 #[derive(Deserialize)]

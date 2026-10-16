@@ -3,6 +3,7 @@
 import copy,json,os,socket,subprocess,threading,time,urllib.request,urllib.error,urllib.parse,uuid
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from testing.database import psql
+from testing.app_approval import consent
 from testing.runtime import ROOT,serve,stop
 state={'result':{'supported':True,'criteria':{'customer':'Alex Example'}}};seen=[]
 class Model(BaseHTTPRequestHandler):
@@ -114,6 +115,23 @@ try:
  state['reject']=True;call('/api/merchant/grid/plan',payload,expected=502);state['reject']=False
  assert len(call('/api/merchant/orders')['elements'])==2
  print('PASS strict OpenAI wire and native restart normalize only optional known nulls, preserve false, reject null identity, and retain manual reads after failure')
+
+ # The same provider receives only current readable app field definitions and must return a typed exact filter.
+ manifest=json.loads((ROOT/'extensions/apps/object-context/manifest.json').read_text())
+ call('/api/apps',consent({'manifest':manifest}))
+ call('/api/apps/object_context/actions/save_product_context',{'id':'mug-context','revision':0,'fields':{'native_id':'mug','segment':'wholesale','note':{'en-GB':'Private extension note'}}})
+ app_filter=json.dumps([{'app':'object_context','entity':'product_context','field':'segment','value':'wholesale'}])
+ state['result']={'supported':True,'criteria':{'appFilter':app_filter}}
+ app_payload={'entity':'products','locale':'de-DE','instruction':'Show products with segment wholesale'}
+ planned=call('/api/merchant/grid/plan',app_payload)
+ assert planned['criteria']=={'appFilter':app_filter} and planned['promptId']=='grid-filter@1'
+ assert 'registeredAppFields' in json.dumps(seen[-1]) and 'Private extension note' not in json.dumps(seen[-1])
+ assert mcp('merchant.products',planned['criteria'])['structuredContent']['elements'][0]['id']=='mug'
+ for field in ['note','tenant','not_installed']:
+  invalid=json.dumps([{'app':'object_context','entity':'product_context','field':field,'value':'wholesale'}])
+  state['result']={'supported':True,'criteria':{'appFilter':invalid}}
+  call('/api/merchant/grid/plan',app_payload,expected=400)
+ print('PASS versioned grid prompt uses scoped app-field definitions; approved filters reach native MCP reads; injected, undeclared and unindexed fields fail')
  if os.getenv('GRID_REVIEW_HOLD'):
   state['result']={'supported':True,'criteria':{'customer':'Alex Example'}}
   path=ROOT/'artifacts/grid-review-private.json'

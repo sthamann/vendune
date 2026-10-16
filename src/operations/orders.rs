@@ -9,9 +9,12 @@ pub(super) async fn list(
     auth::permit(&h, "orders.read")?;
     auth::permit(&h, "customers.pii")?;
     let n = c.validate()?;
-    let rows = order_list::rows(&a, &t, &c, n).await?;
+    let filters =
+        apps::extension_filter::admit(&a, &h, apps::core_extensions::Object::Order, &c.app_filter)
+            .await?;
+    let rows = order_list::rows(&a, &t, &c, n, &filters).await?;
     let more = rows.len() > n as usize;
-    let elements = rows
+    let mut elements = rows
         .iter()
         .take(n as usize)
         .map(|r| {
@@ -22,6 +25,8 @@ pub(super) async fn list(
             o
         })
         .collect::<Vec<_>>();
+    apps::core_extensions::attach(&a, &h, apps::core_extensions::Object::Order, &mut elements)
+        .await?;
     let after = elements.last().map(|v| v["id"].clone());
     Ok(Json(
         json!({"elements":elements,"hasMore":more,"nextCursor":if more{after}else{None}}),
@@ -44,6 +49,13 @@ pub(super) async fn detail(
     v["activity"]=json!(rows.iter().map(|r|json!({"id":r.get::<i64,_>("id"),"actor":r.get::<String,_>("actor"),"kind":r.get::<String,_>("kind"),"data":r.get::<Value,_>("data"),"createdAt":r.get::<String,_>("created")})).collect::<Vec<_>>());
     let (machine, revision) = commerce::machine(&a.db, &t).await?;
     v["workflow"] = commerce::workflow(&v, &machine, revision);
+    apps::core_extensions::attach(
+        &a,
+        &h,
+        apps::core_extensions::Object::Order,
+        std::slice::from_mut(&mut v),
+    )
+    .await?;
     Ok(Json(v))
 }
 pub(super) async fn note(

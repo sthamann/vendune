@@ -34,6 +34,11 @@ export type Field = {
   choices?: { value: string; label: Text }[];
 };
 export type Entity = {
+  extends?: {
+    version: 1;
+    object: "product" | "customer" | "order" | "company";
+    field: string;
+  };
   name: string;
   label: Text;
   fields: Field[];

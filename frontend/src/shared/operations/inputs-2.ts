@@ -28,6 +28,7 @@ export interface Inputs2 {
   "merchant.products": {
     active?: boolean;
     after?: string;
+    appFilter?: string;
     categoryId?: string;
     direction?: "asc" | "desc";
     limit?: number;

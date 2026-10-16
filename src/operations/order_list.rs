@@ -5,6 +5,7 @@ pub(super) async fn rows(
     t: &str,
     c: &Criteria,
     n: i64,
+    filters: &[apps::extension_filter::Filter],
 ) -> Result<Vec<sqlx::postgres::PgRow>> {
     let (sort, direction) = c.sort_for("orders")?;
     let mut q = sqlx::QueryBuilder::<sqlx::Postgres>::new(
@@ -59,6 +60,7 @@ pub(super) async fn rows(
             .push_bind(format!("{to}T00:00:00Z"))
             .push("::timestamptz+interval '1 day')");
     }
+    apps::extension_filter::predicate(&mut q, apps::core_extensions::Object::Order, t, filters);
     q.push(format!(
         " ORDER BY {sort} {direction},o.id {direction} LIMIT "
     ))

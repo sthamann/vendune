@@ -1,4 +1,8 @@
 /** Shared domain-independent grid shell: server criteria, sortable/draggable columns, bounded pages and reviewed AI filters. */
+import { extensionColumns, extensionFilterSummary } from "./extension-columns";
+import ExtensionFilter from "./ExtensionFilter";
+import { useLocale } from "../i18n/i18n";
+import { useCoreExtensionText } from "../i18n/core-extension-i18n";
 import { Fragment, useEffect, useState } from "react";
 import Icon from "../ui/Icon";
 import GridAgent from "./GridAgent";
@@ -16,7 +20,7 @@ import "./grid.css";
 export default function AgenticGrid<Row>({
   id,
   title,
-  columns,
+  columns: baseColumns,
   rows,
   rowKey,
   onRow,
@@ -37,6 +41,9 @@ export default function AgenticGrid<Row>({
   agent,
 }: GridProps<Row>) {
   const { g } = useGridText();
+  const { locale } = useLocale();
+  const extensionText = useCoreExtensionText();
+  const columns = [...baseColumns, ...extensionColumns(rows, locale)];
   const ids = columns.map((c) => c.id),
     hidden = columns.filter((c) => c.hidden).map((c) => c.id);
   const [saved, setSaved] = useState<GridLayout>(() =>
@@ -64,6 +71,7 @@ export default function AgenticGrid<Row>({
   );
   const labels = {
     [searchKey]: g("search"),
+    appFilter: extensionText("fields"),
     sort: g("sort"),
     direction: g("sort"),
     ...Object.fromEntries(filters.map((f) => [f.key, f.label])),
@@ -136,6 +144,11 @@ export default function AgenticGrid<Row>({
             <GridAgent
               agent={agent}
               labels={labels}
+              formatValue={(key, value) =>
+                key === "appFilter"
+                  ? extensionFilterSummary(String(value), rows, locale)
+                  : undefined
+              }
               values={{
                 ...Object.fromEntries(
                   filters.map((f) => [
@@ -157,6 +170,11 @@ export default function AgenticGrid<Row>({
       </div>
       {filterOpen && (
         <div className="agent-grid-filters">
+          <ExtensionFilter
+            rows={rows}
+            locale={locale}
+            onChange={(v) => update("appFilter", v)}
+          />
           {filters.map((f) => (
             <label key={f.key}>
               {f.label}
@@ -191,8 +209,10 @@ export default function AgenticGrid<Row>({
             return (
               <button type="button" key={k} onClick={() => update(k, "")}>
                 {labels[k] ?? k}:{" "}
-                {f?.options?.find((o) => o.value === String(v))?.label ??
-                  String(v)}
+                {k === "appFilter"
+                  ? extensionFilterSummary(String(v), rows, locale)
+                  : (f?.options?.find((o) => o.value === String(v))?.label ??
+                    String(v))}
                 <Icon name="close" size={14} />
               </button>
             );

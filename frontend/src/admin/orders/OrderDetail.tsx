@@ -1,4 +1,5 @@
 /** Order workspace: server actions, exact-once commands, provider progress and visible event history. */
+import CoreExtensions from "../../shared/apps/CoreExtensions";
 import { useCrmText } from "../../shared/i18n/crm-i18n";
 import EntityHistory from "../../shared/history/EntityHistory";
 import AddressCard from "../../shared/customer/AddressCard";
@@ -166,6 +167,12 @@ export default function OrderDetail({
           {o("refresh")}
         </button>
       </div>
+      <CoreExtensions
+        objectId={id}
+        extensions={order.extensions}
+        omittedExtensions={order.omittedExtensions}
+        request={request}
+      />
       <div className="order-heading">
         <div>
           <small>{o("order")}</small>

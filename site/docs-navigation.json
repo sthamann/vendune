@@ -102,6 +102,7 @@
         "docs/app-tutorials/README.md",
         "docs/app-platform.md",
         "docs/app-data-storage.md",
+        "docs/app-core-extensions.md",
         "docs/automation.md",
         "docs/connected-apps.md",
         "docs/email-delivery.md",

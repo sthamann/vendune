@@ -12,3 +12,8 @@ pub fn app_submission_admissible(
 pub fn persistent_key_admissible(personal: bool, administrator: bool) -> bool {
     personal && administrator
 }
+
+/// Operational customer/order extensions cannot become configuration release units.
+pub fn app_configuration_release_admissible(extension: bool, product: bool, company: bool) -> bool {
+    !extension || product || company
+}

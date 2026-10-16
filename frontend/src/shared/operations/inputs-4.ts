@@ -20,6 +20,7 @@ export interface Inputs4 {
   "merchant.customers": {
     active?: boolean;
     after?: string;
+    appFilter?: string;
     direction?: "asc" | "desc";
     group?: string;
     guest?: boolean;
