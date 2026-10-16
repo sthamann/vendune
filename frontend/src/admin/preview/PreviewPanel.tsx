@@ -222,7 +222,7 @@ export function PreviewPanel({
       ) : (
         <div className="preview-empty">
           <Icon name="graph" size={48} />
-          <p>{t("connectFirst")}</p>
+          <p>{connected ? w("previewNoProduct") : t("connectFirst")}</p>
         </div>
       )}
     </aside>

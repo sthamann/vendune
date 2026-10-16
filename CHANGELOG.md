@@ -1,5 +1,13 @@
 # Changelog
 
+## Distinguish an empty product preview from sign-in — 2026-10-16
+
+- A connected merchant with no selected product now receives a product-selection explanation in EN/DE/FR/ES. Only a disconnected session receives sign-in guidance. Preserve native request authorization and pricing; cover both session states in the actual preview component.
+
+## Hosted planning-agent controls and repeated public journeys — 2026-10-16
+
+- Record snapshot-backed migration 104, strict Core readiness, personal stop/re-enable and an actual simulated purchase while merchant agents were stopped. Repeat fresh SaaS AI-product/image creation, Studio handoff, password-session lifecycle and original embedded Storyfront purchase/return/bag clearing. Keep conservative allocations, synthetic payments and unfinished programme boundaries explicit in the canonical status and source-bound receipt.
+
 ## Actionable agent admission messages — 2026-10-16
 
 - Explain an administrator's agent stop, revoked access, an unbudgeted integration key, model mismatch and stale stop revisions in EN/DE/FR/ES. Distinguish the persistent token/USD allowance from a transient HTTP 429; waiting cannot replenish it. Keep the structured backend admission and permissions unchanged.

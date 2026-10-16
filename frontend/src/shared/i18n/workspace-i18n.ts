@@ -1,6 +1,12 @@
 /** Settings scopes, dependency confirmation and media workspace vocabulary in every supported interface language. */
 import { useLocale } from "./i18n";
 export const workspaceWords = {
+  previewNoProduct: [
+    "No product is selected yet. This panel shows the selected product's details and price preview.",
+    "Noch kein Produkt ausgewählt. Hier erscheinen die Details und die Preisvorschau des ausgewählten Produkts.",
+    "Aucun produit sélectionné. Ce panneau affiche les détails et l’aperçu du prix du produit sélectionné.",
+    "Aún no hay un producto seleccionado. Aquí aparecen sus detalles y la vista previa del precio.",
+  ],
   imageFailed: [
     "The image request failed. Review the provider configuration and create a new draft when ready. It was not retried automatically.",
     "Die Bildanfrage ist fehlgeschlagen. Prüfe die Anbieter-Konfiguration und erstelle bei Bedarf einen neuen Entwurf. Es gab keinen automatischen Wiederholungsversuch.",
