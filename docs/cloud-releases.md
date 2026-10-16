@@ -11,6 +11,13 @@ for its successful migration-only run, then deploys the same image to Core and
 waits for readiness. Core's direct CD and the builder's direct CI stay disabled.
 A failed backup, build or migration prevents the service deployment.
 
+Direct CD being off does not pause this separate main-release workflow. A manual
+feature-branch deployment is temporary and can be replaced by an already queued
+main release. Finish the verified merge and verify the final main image before
+recording the current public source. Open Studio tabs may still reference an old
+content-addressed lazy chunk: the shared boundary explains that load failure and
+offers explicit version reload, preserving ordinary unsaved-change checks.
+
 `vendune-migrate` runs `/app/veyndo` with `BOOTSTRAP_MODE=migrate`, without
 operator credentials or demo seeding. It inherits only the existing private
 PostgreSQL URI from `vendune-runtime`. Migration ledger/checksums and the database

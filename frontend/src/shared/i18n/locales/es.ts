@@ -63,6 +63,10 @@ export const es: Dictionary = {
   indexed: "{count} productos indexados",
   close: "Cerrar",
   cancel: "Cancelar",
+  workspaceModuleUnavailable: "Es necesario recargar esta vista",
+  workspaceModuleRecovery:
+    "Una actualización de la tienda o una interrupción de conexión impidió cargar la vista. Recarga la versión actual. Antes, revisa los cambios sin guardar en otras vistas.",
+  reloadWorkspace: "Recargar la versión actual",
   failure: "No se pudo completar la solicitud.",
   sessionExpired:
     "Tu sesión de Studio ha caducado. Vuelve a iniciar sesión para continuar.",
