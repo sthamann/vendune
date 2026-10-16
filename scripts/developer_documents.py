@@ -131,8 +131,16 @@ try:
  finally:fixture_sql(f"DELETE FROM resource_leases WHERE id='{held_lease}'")
  passed('Embedding contention preserves admission and reports missing source evidence instead of fabricating citations')
  for locale in ['de-DE','fr-FR','es-ES','en-GB']:
-  embedding_idle(slug)
-  behavior['mode']=locale;q=call('/store-api/product/mug/questions',{'question':'spülmaschinenfest?','inference':{'provider':'openai','model':'local-fixture'}},tenant=slug,locale=locale);assert q['sources'] and q['answer'],(locale,q)
+  behavior['mode']=locale
+  # An idle snapshot cannot reserve embedding admission: the index worker may
+  # claim the next job before this read. Wait for the actual positive consumer;
+  # keep the deliberately held-lease negative above as a single rejected read.
+  for _ in range(100):
+   embedding_idle(slug)
+   q=call('/store-api/product/mug/questions',{'question':'spülmaschinenfest?','inference':{'provider':'openai','model':'local-fixture'}},tenant=slug,locale=locale)
+   if q['sources']:break
+   time.sleep(.1)
+  assert q['sources'] and q['answer'],(locale,q)
  assert any(p=='/api/embed' and b['input']==['spülmaschinenfest?'] for p,b in captured)
  passed('Indexed semantic retrieval is actually consumed for cross-language questions with no lexical match')
  # Pause the actual provider response; mutate through the existing merchant API.
