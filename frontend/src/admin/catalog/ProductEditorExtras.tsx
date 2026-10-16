@@ -1,9 +1,13 @@
 /** Price-tax selection and permission-filtered extension slots attached to the product editor. */
+import CoreExtensions, {
+  type CoreExtensionData,
+} from "../../shared/apps/CoreExtensions";
 import { AppSurfaceSlot } from "../../shared/apps/AppSurfaces";
 import TaxClassSelect from "./TaxClassSelect";
 import type { RequestFn } from "../shell/studio-types";
 import type { ProductDraft } from "./catalog-model";
 export default function ProductEditorExtras({
+  extensions,
   id,
   tab,
   draft,
@@ -12,6 +16,7 @@ export default function ProductEditorExtras({
   selectedApp,
   canWrite = true,
 }: {
+  extensions?: CoreExtensionData;
   canWrite?: boolean;
   id: string;
   tab: string;
@@ -36,6 +41,9 @@ export default function ProductEditorExtras({
             }
           />
         </fieldset>
+      )}
+      {id && tab === "general" && (
+        <CoreExtensions objectId={id} {...extensions} request={request} />
       )}
       {id && tab === "general" && (
         <AppSurfaceSlot

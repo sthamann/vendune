@@ -122,6 +122,7 @@ interface inputs {
   record merchant-products-input {
     %active: option<bool>,
     %after: option<string>,
+    %app-filter: option<string>,
     %category-id: option<string>,
     %direction: option<string>,
     %limit: option<s64>,
@@ -199,6 +200,7 @@ interface inputs {
   record merchant-customers-input {
     %active: option<bool>,
     %after: option<string>,
+    %app-filter: option<string>,
     %direction: option<string>,
     %group: option<string>,
     %guest: option<bool>,
@@ -398,6 +400,7 @@ interface inputs {
   }
   record merchant-orders-input {
     %after: option<string>,
+    %app-filter: option<string>,
     %channel-id: option<string>,
     %customer: option<string>,
     %delivery-state: option<string>,

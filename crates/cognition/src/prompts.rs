@@ -15,6 +15,10 @@ const TEMPLATES: &[(&str, &str)] = &[
         include_str!("../prompts/app-coding-task.v1.txt"),
     ),
     ("app-edit@1", include_str!("../prompts/app-edit.v1.txt")),
+    (
+        "grid-filter@1",
+        include_str!("../prompts/grid-filter.v1.txt"),
+    ),
 ];
 pub fn evidence(system: &str) -> Value {
     let templates = TEMPLATES

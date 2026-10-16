@@ -1,4 +1,5 @@
 /** Pure schema edits preserve unsupported extension properties; compilation binds native UI to real actions. */
+import { modelActions } from "./app-model-actions";
 import { addAssetActions } from "./asset-actions";
 import { calls, inheritedContext, renameCalls } from "./control-model";
 import { isDataBlock } from "../../shared/apps/native/types";
@@ -163,58 +164,7 @@ export function compile(input: Manifest): Manifest {
           a.name === `save_${e.name.slice(0, 27)}`,
       ),
   );
-  m.actions = [
-    ...custom,
-    ...m.entities.flatMap((e) => {
-      const suffix = e.name.slice(0, 27),
-        old = m.actions?.find((a) => a.name === `save_${suffix}`),
-        read = m.actions?.find((a) => a.name === `list_${suffix}`);
-      return [
-        {
-          name: `list_${suffix}`,
-          description: `List ${e.name}`,
-          handler: "list",
-          entity: e.name,
-          public: e.publicRead,
-          readOnly: true,
-          mcp: read?.mcp,
-          permission: e.publicRead ? undefined : read?.permission,
-          requiredPermissions: read?.requiredPermissions,
-          inputSchema: {
-            type: "object",
-            properties: {
-              id: { type: "string", minLength: 1, maxLength: 100 },
-              limit: { type: "integer", minimum: 1, maximum: 100 },
-              after: { type: "string", maxLength: 100 },
-              filter: { type: "object" },
-            },
-            additionalProperties: false,
-          },
-        },
-        {
-          name: `save_${suffix}`,
-          description: `Save ${e.name}`,
-          handler: "save",
-          entity: e.name,
-          public: false,
-          flowAllowed: old?.flowAllowed ?? true,
-          permission: old?.permission,
-          requiredPermissions: old?.requiredPermissions,
-          mcp: old?.mcp,
-          inputSchema: {
-            type: "object",
-            properties: {
-              id: { type: "string" },
-              revision: { type: "integer" },
-              fields: { type: "object" },
-            },
-            required: ["id", "fields"],
-            additionalProperties: false,
-          },
-        },
-      ];
-    }),
-  ];
+  m.actions = [...custom, ...m.entities.flatMap((e) => modelActions(m, e))];
   m.views = m.views?.map((v) => ({
     ...v,
     blocks: v.blocks.map((b) =>

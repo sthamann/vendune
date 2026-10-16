@@ -255,3 +255,7 @@ updates to existing IDs remain possible at the cap. A package may declare at mos
 64 indexed/unique fields. Existing limits remain: 12 models, 16 fields/model,
 100,000 stored rows and 64 MiB per tenant/app. These controls bound logical data and projection growth; fixed indexes replace
 per-installation DDL. They do not prove unlimited capacity.
+
+## Native object fields
+
+Use the optional version-1 [core object extension contract](app-core-extensions.md) for namespaced private product, customer, order and company fields. Native details, existing directory columns, exact filters and MCP reads reuse the installed model and current rights. Operational customer/order extension records are never configuration release units.

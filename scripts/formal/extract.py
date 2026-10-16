@@ -11,6 +11,7 @@ def kernel_source(root):
     registrations=(
         'mod app_intake;\n',
         'mod fulfillment;\n',
+        'pub use app_intake::app_configuration_release_admissible;\n',
         'pub use app_intake::{app_submission_admissible, persistent_key_admissible};\n',
         'pub use fulfillment::{carrier_booking_admissible, delivery_split_admissible};\n',
     )

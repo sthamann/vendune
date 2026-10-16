@@ -40,6 +40,7 @@ pub(crate) fn fields(entity: &str) -> Result<Value> {
         }
         _ => return Err(bad("Unknown grid entity")),
     };
+    p["appFilter"] = json!({"type":"string","maxLength":4096});
     p["sort"]["enum"] = json!(sorts);
     Ok(p)
 }
@@ -69,7 +70,9 @@ pub(crate) fn validate(entity: &str, v: &Value) -> Result<Value> {
         if value.is_null() {
             continue;
         }
-        if field["type"] == "boolean" {
+        if key == "appFilter" {
+            apps::extension_filter::decode(value.as_str().ok_or(bad("Invalid app filter"))?)?;
+        } else if field["type"] == "boolean" {
             if !value.is_boolean() {
                 return Err(bad("Invalid boolean grid filter"));
             }

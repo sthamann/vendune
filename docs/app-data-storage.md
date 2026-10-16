@@ -114,3 +114,7 @@ standard shop completed simulated purchases; the evidence retains untested provi
 invoice, authentication, restore and localization boundaries explicitly.
 
 [App platform](app-platform.md) · [Authenticated SQL authority](authenticated-database-scope.md) · [Testing](testing.md)
+
+## Native object extensions
+
+[Typed product/customer/order/company extensions](app-core-extensions.md) reuse these same four fixed tables and their existing native reference and unique projections. They do not add native columns or app-specific indexes.

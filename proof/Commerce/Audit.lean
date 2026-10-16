@@ -7,6 +7,8 @@ import Commerce.Claims
 #print axioms CommerceKernel.ai_price_locked_denied
 #print axioms CommerceKernel.app_callback_exact
 #print axioms CommerceKernel.app_callback_without_consent_denied
+#print axioms CommerceKernel.app_configuration_release_exact
+#print axioms CommerceKernel.app_configuration_release_operational
 #print axioms CommerceKernel.app_core_reference_exact
 #print axioms CommerceKernel.app_core_reference_private
 #print axioms CommerceKernel.app_flow_exact

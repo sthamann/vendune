@@ -20,6 +20,11 @@
       "id": "merchant-planner@1",
       "path": "prompts/merchant-planner.v1.txt",
       "sha256": "6fc1d69faed9342d8b95af531c3c3e0c597f1c4d18a311d3f62e5849236fdfaf"
+    },
+    {
+      "id": "grid-filter@1",
+      "path": "prompts/grid-filter.v1.txt",
+      "sha256": "d3e9261f4f96530f3e47c65a1d8b320283a5a56a187f66439a00c0a13cd1e77e"
     }
   ]
 }

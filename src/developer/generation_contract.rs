@@ -16,6 +16,11 @@ pub(super) fn retain(old: &Value, next: &mut Value) -> Result<()> {
                 "AI cannot remove existing data models; use explicit schema migration",
             ))?;
         candidate["publicRead"] = entity.get("publicRead").cloned().unwrap_or(json!(false));
+        if let Some(binding) = entity.get("extends") {
+            candidate["extends"] = binding.clone();
+        } else if let Some(object) = candidate.as_object_mut() {
+            object.remove("extends");
+        }
         // Generated presentation edits must not silently remove an existing business lifecycle.
         if let Some(workflow) = entity.get("workflow") {
             candidate["workflow"] = workflow.clone();

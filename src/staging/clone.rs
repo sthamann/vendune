@@ -92,6 +92,7 @@ async fn create_inner(
             .execute(&mut *tx)
             .await?;
     }
+    crate::b2b::clone_configuration(&mut tx, &t, &id).await?;
     let rows =
         sqlx::query("SELECT manifest FROM app_packages WHERE tenant=$1 AND active ORDER BY id")
             .bind(&t)
@@ -102,7 +103,12 @@ async fn create_inner(
             serde_json::from_value(r.get("manifest")).map_err(|_| bad("Invalid app"))?;
         if m.runtime == "declarative" {
             apps::install_tx(&mut tx, &id, m.clone()).await?;
-            for entity in m.entities.iter().filter(|e| e.public_read) {
+            for entity in m.entities.iter().filter(|e| {
+                e.public_read
+                    || (e.extends.is_some()
+                        && apps::core_extensions::configuration(e)
+                        && apps::record_access(&m, e, &h, "list").is_ok())
+            }) {
                 sqlx::query("SELECT set_config('rac.tenant',$1,true)")
                     .bind(&t)
                     .execute(&mut *tx)
@@ -158,7 +164,6 @@ async fn create_inner(
     sqlx::query("INSERT INTO company_logos(tenant,id,content,digest,mime,width,height) SELECT $2,id,content,digest,mime,width,height FROM company_logos WHERE tenant=$1").bind(&t).bind(&id).execute(&mut *tx).await?;
     sqlx::query("INSERT INTO company_overrides(tenant,channel_id,data) SELECT $2,channel_id,data FROM company_overrides WHERE tenant=$1").bind(&t).bind(&id).execute(&mut *tx).await?;
     sqlx::query("INSERT INTO commerce_overrides(tenant,channel_id,data) SELECT $2,channel_id,data FROM commerce_overrides WHERE tenant=$1").bind(&t).bind(&id).execute(&mut *tx).await?;
-    crate::b2b::clone_configuration(&mut tx, &t, &id).await?;
     documents::clone_sources(&mut tx, &t, &id).await?;
     // Sandbox baseline is the actual sanitized clone, so disabled integrations aren't release changes.
     let stagebase = snapshot(&mut tx, &id).await?;

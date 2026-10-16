@@ -17,6 +17,7 @@ export interface Inputs7 {
   "merchant.apply": { approve: boolean; task_id: string };
   "merchant.orders": {
     after?: string;
+    appFilter?: string;
     channelId?: string;
     customer?: string;
     deliveryState?: string;

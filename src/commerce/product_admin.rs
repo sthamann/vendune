@@ -63,6 +63,8 @@ impl CatalogFields {
 #[derive(Default, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub(crate) struct ProductCriteria {
+    #[serde(default)]
+    app_filter: String,
     search: Option<String>,
     after: Option<String>,
     limit: Option<i64>,
@@ -86,6 +88,7 @@ impl ProductCriteria {
         {
             return Err(bad("Invalid product filters"));
         }
+        apps::extension_filter::decode(&self.app_filter)?;
         self.order()?;
         Ok(n)
     }
@@ -119,6 +122,13 @@ pub(crate) async fn list_products(
     auth::permit(&h, "catalog.read")?;
     let t = merchant(&a, &h)?;
     let limit = c.validate()?;
+    let app_filters = apps::extension_filter::admit(
+        &a,
+        &h,
+        apps::core_extensions::Object::Product,
+        &c.app_filter,
+    )
+    .await?;
     let (sort, direction) = c.order()?;
     let (_, chain) = language_context(&a, &h).await?;
     let pattern = c.search.map(|s| {
@@ -167,6 +177,12 @@ pub(crate) async fn list_products(
     if c.low_stock == Some(true) {
         q.push(" AND p.stock<=5");
     }
+    apps::extension_filter::predicate(
+        &mut q,
+        apps::core_extensions::Object::Product,
+        &t,
+        &app_filters,
+    );
     q.push(format!(
         " ORDER BY {sort} {direction},p.id {direction} LIMIT "
     ))
@@ -189,6 +205,13 @@ pub(crate) async fn list_products(
         v["categoryIds"] = json!(r.get::<Vec<String>, _>("category_ids"));
         elements.push(v);
     }
+    apps::core_extensions::attach(
+        &a,
+        &h,
+        apps::core_extensions::Object::Product,
+        &mut elements,
+    )
+    .await?;
     let cursor = has_more.then(|| elements.last().unwrap()["id"].clone());
     Ok(Json(
         json!({"elements":elements,"hasMore":has_more,"nextCursor":cursor,"limit":limit}),

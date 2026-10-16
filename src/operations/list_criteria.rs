@@ -4,6 +4,8 @@ use crate::*;
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub(crate) struct Criteria {
     #[serde(default)]
+    pub app_filter: String,
+    #[serde(default)]
     pub query: String,
     #[serde(default)]
     pub after: String,
@@ -69,6 +71,7 @@ impl Criteria {
         {
             return Err(bad("Invalid date range"));
         }
+        apps::extension_filter::decode(&self.app_filter)?;
         let n = self.limit.unwrap_or(30);
         if !(1..=100).contains(&n) {
             return Err(bad("limit must be 1..100"));

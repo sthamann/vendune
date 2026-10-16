@@ -8,11 +8,13 @@ export default function GridAgent({
   labels,
   values,
   onApply,
+  formatValue,
 }: {
   agent: NonNullable<GridProps<unknown>["agent"]>;
   labels: Record<string, string>;
   values?: Record<string, Record<string, string>>;
   onApply: (criteria: GridCriteria) => void;
+  formatValue?: (key: string, value: string | boolean) => string | undefined;
 }) {
   const { g, locale } = useGridText();
   const [open, setOpen] = useState(false),
@@ -143,7 +145,12 @@ export default function GridAgent({
               <div className="agent-grid-chips">
                 {Object.entries(plan).map(([k, v]) => (
                   <span key={k}>
-                    {labels[k]} <b>{values?.[k]?.[String(v)] ?? String(v)}</b>
+                    {labels[k]}{" "}
+                    <b>
+                      {formatValue?.(k, v) ??
+                        values?.[k]?.[String(v)] ??
+                        String(v)}
+                    </b>
                   </span>
                 ))}
               </div>

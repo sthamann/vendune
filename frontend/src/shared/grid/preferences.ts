@@ -18,7 +18,12 @@ export function normalizeLayout(
   return {
     order: [...order, ...ids.filter((id) => !order.includes(id))],
     hidden: [
-      ...new Set((value?.hidden ?? hidden).filter((id) => ids.includes(id))),
+      ...new Set(
+        [
+          ...(value?.hidden ?? hidden),
+          ...hidden.filter((id) => !value?.order?.includes(id)),
+        ].filter((id) => ids.includes(id)),
+      ),
     ].slice(0, Math.max(0, ids.length - 1)),
     compact: value?.compact === true,
   };

@@ -233,3 +233,26 @@
   color: var(--studio-muted, #61718a);
   margin: 0;
 }
+
+.core-extensions {
+  display: grid;
+  gap: 18px;
+  margin-block: 20px;
+  min-width: 0;
+}
+.core-extensions:empty {
+  display: none;
+}
+.core-extension > header {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+}
+.core-extension > header small {
+  color: var(--muted);
+}
+.core-extension .content-language-picker {
+  margin-block: 12px;
+}

@@ -1,0 +1,545 @@
+{
+  "id": "object_context",
+  "version": "1.0.0",
+  "coreApi": "1",
+  "runtime": "declarative",
+  "name": {
+    "en-GB": "Object context",
+    "de-DE": "Zusatzfelder",
+    "fr-FR": "Contexte des objets",
+    "es-ES": "Contexto de objetos"
+  },
+  "permissions": [
+    "data.read",
+    "data.write"
+  ],
+  "entities": [
+    {
+      "name": "product_context",
+      "label": {
+        "en-GB": "Product context",
+        "de-DE": "Produkt-Kontext",
+        "fr-FR": "Contexte produit",
+        "es-ES": "Contexto de producto"
+      },
+      "extends": {
+        "version": 1,
+        "object": "product",
+        "field": "native_id"
+      },
+      "publicRead": false,
+      "fields": [
+        {
+          "name": "native_id",
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "unique": true,
+          "coreReference": "product"
+        },
+        {
+          "name": "segment",
+          "kind": "string",
+          "indexed": true,
+          "label": {
+            "en-GB": "Segment",
+            "de-DE": "Segment",
+            "fr-FR": "Segment",
+            "es-ES": "Segmento"
+          }
+        },
+        {
+          "name": "note",
+          "kind": "string",
+          "translatable": true,
+          "label": {
+            "en-GB": "Note",
+            "de-DE": "Notiz",
+            "fr-FR": "Note",
+            "es-ES": "Nota"
+          }
+        }
+      ]
+    },
+    {
+      "name": "customer_context",
+      "label": {
+        "en-GB": "Customer context",
+        "de-DE": "Kunden-Kontext",
+        "fr-FR": "Contexte client",
+        "es-ES": "Contexto de cliente"
+      },
+      "extends": {
+        "version": 1,
+        "object": "customer",
+        "field": "native_id"
+      },
+      "publicRead": false,
+      "fields": [
+        {
+          "name": "native_id",
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "unique": true,
+          "coreReference": "customer"
+        },
+        {
+          "name": "segment",
+          "kind": "string",
+          "indexed": true,
+          "label": {
+            "en-GB": "Segment",
+            "de-DE": "Segment",
+            "fr-FR": "Segment",
+            "es-ES": "Segmento"
+          }
+        },
+        {
+          "name": "note",
+          "kind": "string",
+          "translatable": true,
+          "label": {
+            "en-GB": "Note",
+            "de-DE": "Notiz",
+            "fr-FR": "Note",
+            "es-ES": "Nota"
+          }
+        }
+      ]
+    },
+    {
+      "name": "order_context",
+      "label": {
+        "en-GB": "Order context",
+        "de-DE": "Bestell-Kontext",
+        "fr-FR": "Contexte commande",
+        "es-ES": "Contexto de pedido"
+      },
+      "extends": {
+        "version": 1,
+        "object": "order",
+        "field": "native_id"
+      },
+      "publicRead": false,
+      "fields": [
+        {
+          "name": "native_id",
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "unique": true,
+          "coreReference": "order"
+        },
+        {
+          "name": "segment",
+          "kind": "string",
+          "indexed": true,
+          "label": {
+            "en-GB": "Segment",
+            "de-DE": "Segment",
+            "fr-FR": "Segment",
+            "es-ES": "Segmento"
+          }
+        },
+        {
+          "name": "note",
+          "kind": "string",
+          "translatable": true,
+          "label": {
+            "en-GB": "Note",
+            "de-DE": "Notiz",
+            "fr-FR": "Note",
+            "es-ES": "Nota"
+          }
+        }
+      ]
+    },
+    {
+      "name": "company_context",
+      "label": {
+        "en-GB": "Company context",
+        "de-DE": "Firmen-Kontext",
+        "fr-FR": "Contexte entreprise",
+        "es-ES": "Contexto de empresa"
+      },
+      "extends": {
+        "version": 1,
+        "object": "company",
+        "field": "native_id"
+      },
+      "publicRead": false,
+      "fields": [
+        {
+          "name": "native_id",
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "unique": true,
+          "coreReference": "b2bCompany"
+        },
+        {
+          "name": "segment",
+          "kind": "string",
+          "indexed": true,
+          "label": {
+            "en-GB": "Segment",
+            "de-DE": "Segment",
+            "fr-FR": "Segment",
+            "es-ES": "Segmento"
+          }
+        },
+        {
+          "name": "note",
+          "kind": "string",
+          "translatable": true,
+          "label": {
+            "en-GB": "Note",
+            "de-DE": "Notiz",
+            "fr-FR": "Note",
+            "es-ES": "Nota"
+          }
+        }
+      ]
+    }
+  ],
+  "slots": [],
+  "actions": [
+    {
+      "name": "list_product_context",
+      "description": "Read product context",
+      "handler": "list",
+      "entity": "product_context",
+      "public": false,
+      "permission": "catalog.read",
+      "requiredPermissions": [],
+      "mcp": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "after": {
+            "type": "string"
+          },
+          "filter": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      },
+      "readOnly": true
+    },
+    {
+      "name": "save_product_context",
+      "description": "Save product context",
+      "handler": "save",
+      "entity": "product_context",
+      "public": false,
+      "permission": "catalog.read",
+      "requiredPermissions": [
+        "catalog.write"
+      ],
+      "mcp": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "fields": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "fields"
+        ]
+      }
+    },
+    {
+      "name": "list_customer_context",
+      "description": "Read customer context",
+      "handler": "list",
+      "entity": "customer_context",
+      "public": false,
+      "permission": "customers.read",
+      "requiredPermissions": [
+        "customers.pii"
+      ],
+      "mcp": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "after": {
+            "type": "string"
+          },
+          "filter": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      },
+      "readOnly": true
+    },
+    {
+      "name": "save_customer_context",
+      "description": "Save customer context",
+      "handler": "save",
+      "entity": "customer_context",
+      "public": false,
+      "permission": "customers.read",
+      "requiredPermissions": [
+        "customers.pii",
+        "customers.write"
+      ],
+      "mcp": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "fields": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "fields"
+        ]
+      }
+    },
+    {
+      "name": "list_order_context",
+      "description": "Read order context",
+      "handler": "list",
+      "entity": "order_context",
+      "public": false,
+      "permission": "orders.read",
+      "requiredPermissions": [
+        "customers.pii"
+      ],
+      "mcp": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "after": {
+            "type": "string"
+          },
+          "filter": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      },
+      "readOnly": true
+    },
+    {
+      "name": "save_order_context",
+      "description": "Save order context",
+      "handler": "save",
+      "entity": "order_context",
+      "public": false,
+      "permission": "orders.read",
+      "requiredPermissions": [
+        "customers.pii",
+        "orders.write"
+      ],
+      "mcp": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "fields": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "fields"
+        ]
+      }
+    },
+    {
+      "name": "list_company_context",
+      "description": "Read company context",
+      "handler": "list",
+      "entity": "company_context",
+      "public": false,
+      "permission": "b2b.read",
+      "requiredPermissions": [],
+      "mcp": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "after": {
+            "type": "string"
+          },
+          "filter": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      },
+      "readOnly": true
+    },
+    {
+      "name": "save_company_context",
+      "description": "Save company context",
+      "handler": "save",
+      "entity": "company_context",
+      "public": false,
+      "permission": "b2b.read",
+      "requiredPermissions": [
+        "b2b.manage"
+      ],
+      "mcp": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "fields": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "fields"
+        ]
+      }
+    }
+  ],
+  "intelligence": {
+    "description": {
+      "en-GB": "Object context",
+      "de-DE": "Zusatzfelder",
+      "fr-FR": "Contexte des objets",
+      "es-ES": "Contexto de objetos"
+    },
+    "tools": [
+      "list_product_context",
+      "list_customer_context",
+      "list_order_context",
+      "list_company_context"
+    ],
+    "entities": [
+      "product_context",
+      "customer_context",
+      "order_context",
+      "company_context"
+    ],
+    "ontology": [
+      {
+        "entity": "product_context",
+        "nodeType": "product_context",
+        "label": {
+          "en-GB": "Product context",
+          "de-DE": "Produkt-Kontext",
+          "fr-FR": "Contexte produit",
+          "es-ES": "Contexto de producto"
+        },
+        "fields": [
+          "native_id",
+          "segment",
+          "note"
+        ]
+      },
+      {
+        "entity": "customer_context",
+        "nodeType": "customer_context",
+        "label": {
+          "en-GB": "Customer context",
+          "de-DE": "Kunden-Kontext",
+          "fr-FR": "Contexte client",
+          "es-ES": "Contexto de cliente"
+        },
+        "fields": [
+          "native_id",
+          "segment",
+          "note"
+        ]
+      },
+      {
+        "entity": "order_context",
+        "nodeType": "order_context",
+        "label": {
+          "en-GB": "Order context",
+          "de-DE": "Bestell-Kontext",
+          "fr-FR": "Contexte commande",
+          "es-ES": "Contexto de pedido"
+        },
+        "fields": [
+          "native_id",
+          "segment",
+          "note"
+        ]
+      },
+      {
+        "entity": "company_context",
+        "nodeType": "company_context",
+        "label": {
+          "en-GB": "Company context",
+          "de-DE": "Firmen-Kontext",
+          "fr-FR": "Contexte entreprise",
+          "es-ES": "Contexto de empresa"
+        },
+        "fields": [
+          "native_id",
+          "segment",
+          "note"
+        ]
+      }
+    ]
+  }
+}

@@ -291,7 +291,13 @@ pub(crate) async fn product_editor(
         .map(|c| c["id"].clone())
         .collect::<Vec<_>>();
     let category_ids:Vec<String>=sqlx::query_scalar("SELECT category_id FROM product_categories WHERE tenant=$1 AND product_id=$2 ORDER BY category_id").bind(&t).bind(&id).fetch_all(&a.db).await?;
-    Ok(Json(
-        json!({"id":id,"mainLocale":settings.main_locale,"availableLocales":settings.locales,"channels":channels,"catalog":{"salesChannelIds":selected_channels,"active":r.get::<bool,_>("active"),"productNumber":r.get::<Option<String>,_>("product_number").unwrap_or_else(||id.clone()),"categoryIds":category_ids,"parentId":r.get::<Option<String>,_>("parent_id"),"options":r.get::<Value,_>("options")},"revision":r.get::<i64,_>("revision"),"contentRevision":r.get::<i64,_>("content_revision"),"translations":translations,"extra":({let mut extra=r.get::<Value,_>("extra");if extra["priceCurrency"].is_null(){extra["priceCurrency"]=json!(settings.currencies.pricing_currency);}extra}),"commerce":editable_fields(&r)}),
-    ))
+    let mut value = json!({"id":id,"mainLocale":settings.main_locale,"availableLocales":settings.locales,"channels":channels,"catalog":{"salesChannelIds":selected_channels,"active":r.get::<bool,_>("active"),"productNumber":r.get::<Option<String>,_>("product_number").unwrap_or_else(||id.clone()),"categoryIds":category_ids,"parentId":r.get::<Option<String>,_>("parent_id"),"options":r.get::<Value,_>("options")},"revision":r.get::<i64,_>("revision"),"contentRevision":r.get::<i64,_>("content_revision"),"translations":translations,"extra":({let mut extra=r.get::<Value,_>("extra");if extra["priceCurrency"].is_null(){extra["priceCurrency"]=json!(settings.currencies.pricing_currency);}extra}),"commerce":editable_fields(&r)});
+    apps::core_extensions::attach(
+        &a,
+        &h,
+        apps::core_extensions::Object::Product,
+        std::slice::from_mut(&mut value),
+    )
+    .await?;
+    Ok(Json(value))
 }

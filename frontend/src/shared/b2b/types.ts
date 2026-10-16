@@ -46,7 +46,12 @@ export type Member = {
     approvalAboveMinor: number | null;
   };
 };
-export type CompanyDetail = Company & { units: Unit[]; members: Member[] };
+export type CompanyDetail = Company & {
+  units: Unit[];
+  members: Member[];
+  extensions?: import("../apps/CoreExtensions").CoreExtension[];
+  omittedExtensions?: number;
+};
 export type CompanyContext = {
   id: string;
   companyId: string;

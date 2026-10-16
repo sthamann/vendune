@@ -1,6 +1,6 @@
 # App system: delivered foundations and remaining gates
 
-**Reviewed 16 October 2026.** The integrated app builder is usable. The complete
+**Reviewed 17 October 2026.** The integrated app builder is usable. The complete
 business-capability proposal — describe an individual business model and have
 Veyndo build, verify, operate and maintain it — remains an implementation programme.
 This page maps that distinction; it is not a completion percentage.
@@ -16,6 +16,7 @@ branch, build or documentation change does not update a hosted result by itself.
 | Need | Read next |
 | --- | --- |
 | Create an app visually or with agent assistance | [App Studio](app-studio.md), [workspace controls](app-studio-workspace.md), [five illustrated examples](app-tutorials/README.md) |
+| Extend native object fields | [Core object extensions](app-core-extensions.md): canonical private bindings, native details/grids/exact filters and current rights; hosted acceptance is separate |
 | Understand data, permissions and API/Flow/MCP calls | [App platform](app-platform.md), [security](app-security.md), [shared storage](app-data-storage.md) |
 | Continue saved merchant-agent work | [Durable runs and their boundaries](durable-agent-runs.md) |
 | Understand the full product direction | [Business capabilities](business-capabilities.md) |
@@ -63,7 +64,7 @@ invariants, not the app's material or furniture business rules.
 | Gate | Current gap | Required outcome before calling it complete |
 | --- | --- | --- |
 | B2B configurator | [The connected app-owned implementation](furniture-configurator.md) joins materials, structured dimensions, frozen surcharge cases, native independent purchasing approval, saved inputs and current-rule reorder. The [16 October hosted receipt](evidence/platform-hardening-hosted-2026-10-16.md) also covers the builder, private material write, selected publication and a B2C configured purchase. Independent B2B approval/reorder remain locally accepted; the [purchase-summary follow-up](evidence/configuration-summary-hosted-2026-10-16.md) is separately deployed and visible in checkout, confirmation and merchant order. | Material library → validated dimensions → traceable surcharge → exact-cart independent approval → native order → saved configuration → authorized reorder; later rule changes show their actual consequences and preserve original order snapshots. |
-| Core entity extensions | Native references and contextual app views exist. | Namespaced Product/Customer/Order/Company fields share schema/version/current rights across grids, filters/search, API, MCP, supported UCP and knowledge projections; no direct app SQL or cross-tenant/PII leakage. |
+| Core entity extensions | [Private version-1 bindings](app-core-extensions.md) now join all four object types to native details, product/customer/order columns and exact filters, current rights, HTTP/MCP and source-bound graph projections. Product/company configuration can clone and publish; customer/order records remain operational. | Namespaced Product/Customer/Order/Company fields share schema/version/current rights across grids, filters/search, API, MCP, supported UCP and knowledge projections; no direct app SQL or cross-tenant/PII leakage. |
 | Native lifecycle extensions | Existing app-record lifecycles and native transitions remain separate. | Reviewed declared order/offer states and transitions, pure guards, version-bound running objects and immutable traces; native payment, stock and refund invariants cannot be waived. |
 | Historical business replay | Synthetic component cases and operational event replay exist. | Admitted revision-bound real inputs repeat without mail/payment/order effects; actual money/decision/conflict diffs identify inputs, package digest and uncertainty. |
 | Isolated source builds | Manifest admission and component validation exist. | Supported Rust/TypeScript source → real isolated build without production secrets → validated immutable artifact → actual runtime consumer; bounded resources, malicious input/egress cases and cleanup verified. |

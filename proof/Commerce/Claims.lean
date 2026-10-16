@@ -483,4 +483,10 @@ theorem app_submission_private_live_cart (privateInbox liveScope currentCart : B
     privateInbox = true ∧ liveScope = true ∧ currentCart = true := by
   cases privateInbox <;> cases liveScope <;> cases currentCart <;> simp_all [app_submission_admissible]
 
+theorem app_configuration_release_exact (extension product company : Bool) :
+    app_configuration_release_admissible extension product company = (!extension || product || company) := by rfl
+
+theorem app_configuration_release_operational :
+    app_configuration_release_admissible true false false = false := by rfl
+
 end CommerceKernel

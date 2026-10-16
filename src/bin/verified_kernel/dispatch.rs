@@ -278,6 +278,9 @@ pub(super) fn eval(j: &Value) -> Result<Value, String> {
             b("personal")?,
             b("administrator")?
         ))),
+        Some("app_configuration_release_admissible") => Ok(json!(
+            app_configuration_release_admissible(b("extension")?, b("product")?, b("company")?)
+        )),
         _ => Err("Unknown policy".into()),
     }
 }

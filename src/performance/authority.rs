@@ -9,8 +9,7 @@ pub(crate) async fn connect(fallback: &str) -> ScopedPool {
             env::var("DB_SCOPE_REQUIRED").as_deref() != Ok("true"),
             "Authenticated SQL scope requires DATABASE_TENANT_URL and a separate system runtime connection"
         );
-        let raw = super::pool::pool_options()
-            .connect(&system_url)
+        let raw = super::pool::connect(super::pool::pool_options(), &system_url)
             .await
             .expect("commerce connection");
         return ScopedPool::new(raw, runtime_config::get().transaction_pooling);
@@ -25,12 +24,10 @@ pub(crate) async fn connect(fallback: &str) -> ScopedPool {
         "Authenticated SQL scope requires DB_POOL_MAX>=4, shared by both pools"
     );
     let system_max = (budget / 3).clamp(2, 4);
-    let system = super::pool::options(system_max, 0)
-        .connect(&system_url)
+    let system = super::pool::connect(super::pool::options(system_max, 0), &system_url)
         .await
         .expect("system runtime connection");
-    let tenant = super::pool::options(budget - system_max, 0)
-        .connect(&tenant_url)
+    let tenant = super::pool::connect(super::pool::options(budget - system_max, 0), &tenant_url)
         .await
         .expect("tenant runtime connection");
     let tenant_role: String = sqlx::query_scalar("SELECT session_user::text")

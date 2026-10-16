@@ -1,4 +1,5 @@
 /** Revision-aware product aggregate editor: one save, translation tabs and product-scoped linked capabilities. */
+import { useCoreExtensions } from "../../shared/apps/CoreExtensions";
 import ProductEditorActions from "./ProductEditorActions";
 import ProductCompliance from "../legal/ProductCompliance";
 import { useLegalText } from "../../shared/i18n/legal-i18n";
@@ -48,6 +49,7 @@ export default function ProductEditor({
   const { r } = useCrmText();
   const { l } = useLegalText();
   const [draft, setDraft] = useState<ProductDraft>(newDraft);
+  const [extensions, setExtensions] = useCoreExtensions();
   const [reloadIndex, setReloadIndex] = useState(0);
   const [baseline, setBaseline] = useState("");
   const [lang, setLang] = useState(locale.slice(0, 2));
@@ -109,6 +111,7 @@ export default function ProductEditor({
       .current(`/api/merchant/products/${id}`)
       .then((v) => {
         if (active) {
+          setExtensions(v);
           const d = hydrateDraft(v);
           setDraft(d);
           setBaseline(JSON.stringify(d));
@@ -369,6 +372,7 @@ export default function ProductEditor({
                 )}
               </fieldset>
               <ProductEditorExtras
+                extensions={extensions}
                 canWrite={canWrite}
                 id={id}
                 tab={tab}

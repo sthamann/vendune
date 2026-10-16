@@ -10,6 +10,7 @@ import { contentText } from "../../shared/i18n/content-language";
 import { useLocale } from "../../shared/i18n/i18n";
 import { useB2BText } from "../../shared/i18n/b2b-i18n";
 import Icon from "../../shared/ui/Icon";
+import CoreExtensions from "../../shared/apps/CoreExtensions";
 import { AppSurfaceSlot } from "../../shared/apps/AppSurfaces";
 import type { Company, CompanyDetail } from "../../shared/b2b/types";
 import EntityHistory from "../../shared/history/EntityHistory";
@@ -352,6 +353,14 @@ export default function B2BWorkspace({
                     await open(draft.id);
                     await load();
                   }}
+                />
+              )}
+              {draft.revision > 0 && (
+                <CoreExtensions
+                  objectId={draft.id}
+                  extensions={detail?.extensions}
+                  omittedExtensions={detail?.omittedExtensions}
+                  request={request}
                 />
               )}
               {draft.revision > 0 && (
