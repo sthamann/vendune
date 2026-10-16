@@ -18,7 +18,10 @@ import type { Manifest } from "../../src/shared/apps/native/types";
 it("retains exact lookup and bounded pagination when compiling selectable libraries", () => {
   const compiled = compile(furniture as Manifest);
   const action = compiled.actions!.find((a) => a.name === "list_materials")!;
-  const properties = action.inputSchema.properties as Record<string, Record<string, unknown>>;
+  const properties = action.inputSchema.properties as Record<
+    string,
+    Record<string, unknown>
+  >;
   expect(properties.id).toEqual({
     type: "string",
     minLength: 1,
