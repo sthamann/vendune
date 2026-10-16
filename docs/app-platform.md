@@ -1,5 +1,7 @@
 # The VEYNDO app platform
 
+**Implementation status:** [Delivered foundations and remaining business-capability gates](app-system-status.md).
+
 **Personal workspace and standard-shop editor:** [Illustrated workflow, shared models, rights, history, forms and publication](personal-workspace-and-shop-design.md).
 
 An app is an immutable, reviewed Manifest. Studio, coding agents, API, MCP, Flow
@@ -18,7 +20,7 @@ flowchart LR
   UI --> Grant[Actor and context bound surface grant]
   API[API / MCP / Flow] --> Gateway[Permission aware action gateway]
   Grant --> Gateway
-  Gateway --> Data[Tenant app tables and asset owner]
+  Gateway --> Data[Fixed shared app records and asset owner]
   Gateway --> Jobs[Durable jobs]
   Gateway --> Service[Approved independent service]
   Outbox[Commerce outbox] --> Events[Leased event deliveries]

@@ -81,7 +81,7 @@ Each island contains an independently sized Managed PostgreSQL and a bounded Cor
 6. Atomically compare-and-swap the directory from `(source, old epoch)` to `(target, new epoch)`. Target writes require the new epoch and source writes stay fenced. Invalidate router caches; require workers to re-resolve ownership before commit. Resume target traffic and replay buffered events through preserved idempotency receipts.
 7. Observe actual checkout/order/worker results. Keep the source snapshot fenced for a retention window. Rollback before target writes is simple; after target writes it requires a reverse synchronized transfer. Never reopen a stale source as writable. Retire it only after backup/restore and transfer acceptance.
 
-For a first real relocation, a short per-shop write pause is the smallest reliable approach. A later online copy adds snapshot + WAL change capture, catch-up and the same fenced cutover. CDC alone does not implement multi-writer conflict resolution or migrate every dynamic app table.
+For a first real relocation, a short per-shop write pause is the smallest reliable approach. A later online copy adds snapshot + WAL change capture, catch-up and the same fenced cutover. CDC alone does not implement multi-writer conflict resolution or move the complete tenant: shared app records, projections, assets, jobs and current identities must follow the same ownership fence.
 
 ## External Shopware imports
 

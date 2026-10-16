@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-16",
+  "scope": "Public release and synthetic browser acceptance; not full platform acceptance",
+  "core": {
+    "repository": "sthamann/veyndo",
+    "pr": 141,
+    "commit": "fa2569f88ec7c17427d66509819caab5d6ca93ac",
+    "northflankBuild": "spiky-income-4612",
+    "observed": "Running 1/1",
+    "migration": "No new migration for this release"
+  },
+  "experience": {
+    "repository": "sthamann/veyndo-experience",
+    "pr": 73,
+    "commit": "b40b3867b4f2af18dc3d41d1ce4e0f9a734fc0a7",
+    "northflankBuild": "educated-sort-2532",
+    "observed": "Running 1/1, zero restarts"
+  },
+  "browser": {
+    "studio": "Public Chrome; existing merchant access; actual grouped knowledge/price policy, illustrated app creation and native shop preview. Preview reorder/undo checked; no test draft saved or published.",
+    "checkout": "Fresh native Safari; original Storyfront product -> bag -> embedded native checkout -> review -> simulated confirmation -> original Storyfront empty bag.",
+    "order": "RAC-c10e5d2f",
+    "amountMinor": 2490,
+    "currency": "EUR",
+    "quantity": 1,
+    "locale": "de-DE",
+    "product": "Synthetisches Demo-Produkt: Keramiktasse Sandweiß",
+    "payment": "Simulated authorized; no real money",
+    "returnMessage": "Deine Bestellung ist bestätigt. Dein Warenkorb ist aktualisiert.",
+    "chromeBoundary": "Controlled Chrome reproduced a paused/empty iframe document; deployed outer-frame timeout and retry were visible. Fresh Safari completed without that automation issue."
+  },
+  "boundaries": [
+    "No real provider capture, settlement or refund",
+    "No inbox mail or invoice-issuer acceptance",
+    "Apple OAuth configuration remains an external open item",
+    "Unmerged platform-hardening work is not deployed by this release",
+    "No capacity or restore acceptance implied"
+  ],
+  "assets": [
+    {
+      "path": "images/studio-release-2026-10-16/shopwissen-live.png",
+      "sha256": "70feb1abfdfa261f83a14dbeb05ad019f0a5c1cbd3bbe08e25aa95e604f119c5"
+    },
+    {
+      "path": "images/studio-release-2026-10-16/app-creation-live.png",
+      "sha256": "78c8e0093bad3983abe6b3810f57d1be1adf867a91be2271aace33434cf7d9d1"
+    },
+    {
+      "path": "images/studio-release-2026-10-16/checkout-embedded-review-live.jpg",
+      "sha256": "614cc3f3c9cfd2198f6e807758fd41e8634f9f774210cb54df096663863650e7"
+    },
+    {
+      "path": "images/studio-release-2026-10-16/checkout-embedded-confirmed-live.jpg",
+      "sha256": "6d6b697fe6871df53d7857a56d9dfb09e8e62e332d391aad699bd34d1bab444c"
+    },
+    {
+      "path": "images/studio-release-2026-10-16/storyfront-empty-bag-live.jpg",
+      "sha256": "7aa22cccc09b55b8b7862ae4f722f5ca69970752c4f2c4956c3498ce512dd466"
+    },
+    {
+      "path": "images/studio-release-2026-10-16/checkout-recovery-live.png",
+      "sha256": "926baec941e85cf4b9dfeccf4dd2a0f44ec071925c76f628801dad5c6740ca14"
+    }
+  ]
+}

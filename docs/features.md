@@ -449,7 +449,7 @@ OAuth/token refresh and connector queues live in independent app services with t
 
 **Developers → App Studio → New app** offers storefront, admin, connected experience, payment connector, shipping connector, ERP/external systems, event/Flow actions, incoming webhook and scheduled automation. Choose placement, translated fields and explicit exposure to create an ordinary editable manifest. A template is a contract starting point, not an implementation of every provider's business logic.
 
-Editor placements include an independent admin module, product-general section/new product submenu, customer/order fields, product-detail surface and storefront page. App data lives in app-owned tables with validated same-shop core references; the host binds the currently open product/customer/order. Missing context cannot cause an unfiltered private read. [Assistant types and mounts](app-assistants.md).
+Editor placements include an independent admin module, product-general section/new product submenu, customer/order fields, product-detail surface and storefront page. App data lives in namespaced records in four fixed shared tables with validated same-shop core references; the host binds the currently open product/customer/order. Missing context cannot cause an unfiltered private read. [Assistant types and mounts](app-assistants.md).
 
 ![Current App Studio assistants and their explicit purpose](assets/feature-tour/app-assistants.jpg)
 

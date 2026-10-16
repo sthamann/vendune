@@ -553,8 +553,11 @@ non-retryable/uncertain boundary, never automatically re-run it as harmless vali
 Outbox dispatch scheduling metadata is operational, forced-RLS and never a release
 unit. Lock scheduling rows rather than tenant roots, preserve per-event savepoints
 and exact original outbox consumers. A fair tenant batch is not independent subscriber
-checkpointing. The remaining system-role/cookie/CSP issues in the tracker are not
-repaired merely by safer identifier quoting or successful ordinary isolation tests.
+checkpointing. Production signed-role separation, browser cookies and build-only CSP are recorded
+in the dated PR 134/135 evidence. Further session UX, purpose-key separation and
+general runtime work retain their own acceptance; never infer their completion
+from identifier quoting or ordinary isolation tests. Read `docs/app-system-status.md`
+for the current delivered/partial/open distinction before making new claims.
 
 Extend the canonical Manifest for complete business capabilities; reuse existing
 data, decisions, history, staged publication, Flows and central inference. No second

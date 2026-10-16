@@ -170,6 +170,14 @@ bounded EDIFACT/UBL/cXML parsing, mapped private requisition import and immutabl
 native document export; no Core codec or second ledger. [EDI profiles, deployment
 and network/certification limits](edi.md).
 
+## Current concept and implementation status
+
+The [app-system status](app-system-status.md) distinguishes the working visual/agent
+builder from the complete business-capability programme. Immutable development
+"builds" validate and store a Manifest; they do not compile arbitrary Rust/TypeScript
+source in an isolated build service. Frozen decision examples are synthetic cases,
+not historical order replay.
+
 ## Connected App Studio workbench
 
 See the [illustrated workbench guide](app-studio-workspace.md) for multiple placements, compact adjustable panels, the contextual AI drawer, model-backed form editing, shared Flow visuals, installed app settings and scoped integration keys. These extend the existing native Manifest, runtime and release owners.

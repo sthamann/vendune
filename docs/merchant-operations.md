@@ -149,7 +149,9 @@ settings, team, apps and knowledge. Explicit member scopes replace role defaults
 request-time checks re-evaluate active membership and integration-key scope.
 Delegation cannot grant rights the actor lacks, including role-default resets
 and invitations after an inviter's authority is revoked. Owners keep ownership
-invariants. Expiring per-shop API/MCP keys are shown once and persisted hashed.
+invariants. Per-shop API/MCP keys are shown once and persisted hashed. Current personal
+administrators may explicitly create a key without expiry; current membership,
+scopes and revocation still apply. See [key setup](app-studio-workspace.md#api-access-that-is-understandable-and-explicit).
 Sessions and invitations can be revoked individually.
 
 Product attachments/private digital downloads are immutable uploaded bytes

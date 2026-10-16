@@ -88,8 +88,9 @@ publishers, or prefer host-native views. No popup permission is implemented by d
   128-entry digest-checked LRU cache, 32 KiB source. Five-second response deadline.
   A timeout cannot cancel the already-running compiler thread; its admission permit
   stays held until it exits. This is a bounded compiler gate, not OS process isolation.
-- Service calls: eight slots/tenant-app and 64/process, five-second request deadline,
-  64 KiB bounded JSON input/output; excess gets 429. Slots are not globally distributed.
+- Service calls: eight slots/tenant-app, sixteen/tenant and 64/process, five-second
+  request deadline and 64 KiB bounded JSON input/output; excess gets 429. Tenant
+  and app limits also use PostgreSQL leases across replicas; the process cap is local.
 - App storage: database trigger enforces 100,000 rows and 64 MiB/tenant-app, including
   relation writes and rollback. Files use existing product asset quotas; file callback
   is explicitly requested and uploads are limited to 8 MiB. Inline previews ≤256 KiB.
@@ -106,11 +107,17 @@ no local transaction proves an external effect occurred only once.
 
 ## Migration and deployment
 
-Run normal numbered schema migrations with the dedicated provisioner. Migration 058
-copies historical shared-table records into each owning tenant/app table, updates
-relations and retains old tables. Deploy the updated runtime role grants before
-non-owner workers; forced RLS needs the existing request/worker tenant context.
-Snapshot PostgreSQL before the cutover and review retained tables afterward.
+Run numbered schema migrations with the dedicated provisioner. Migrations 101–102
+consolidate managed app data into four fixed shared tables. Drain old Core writers,
+create and verify a backup, migrate and compare original records/references, then
+retire only the verified legacy tables before starting the new runtime. The hosted
+cutover completed on 15 October; other existing installations still require this
+coordinated maintenance. Follow [the exact procedure and evidence](app-data-storage.md).
+
+Migration 058 is retained immutable history: it introduced the earlier physical
+tables. It is not the current storage architecture or a standalone upgrade plan.
+Strict serving uses separate restricted tenant/system logins, role-bound signed
+contexts and startup audits. Managed app installation never creates SQL objects.
 Migrations 059–070 add delivery fences, quota accounting, grants, drafts, activity,
 callback keys, encrypted secrets, private previews, multi-relations, recovery and jobs.
 Migration 070 stores the exact approved app capabilities separately from team

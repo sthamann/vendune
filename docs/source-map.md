@@ -291,7 +291,7 @@ caches; this is not a machine/database cold-start or failover test.
 | `src/commerce/{order_machine,order_workflow,order_fields,fulfillment}.rs` | Extensible validated state graph, eligible next actions/business guards, authoritative standard order projection and idempotent committed state transitions/events. Unit tests and actual concurrent workflow/flow/app effects. |
 | `src/commerce/product_fields.rs` | Revision-bound native priced/media/property fields; quantity/tier/media validation in the central product write transaction. Product editor integration tests. |
 | `src/assets/*`, `src/staging/assets.rs` | Immutable MIME-checked upload bytes, publication digests, paid owning order download entitlement, typed rich blocks and selective asset release. `merchant_operations.py`. |
-| `src/auth/{permissions,integrations,members,invitations,middleware}.rs` | Fifteen scopes, per-shop hashed expiring keys, immediate revocation and non-escalating delegation. Permission units and HTTP/MCP negative tests. |
+| `src/auth/{permissions,integrations,members,invitations,middleware}.rs` | Current named scopes and persisted workspace roles, hashed keys with bounded expiry or explicit personal-administrator no-expiry, immediate revocation and non-escalating delegation. Permission units and HTTP/MCP negative tests. |
 | `src/payments/{paypal,provider,storage,worker,routes}.rs` | Per-shop Sandbox/Live wallet configuration, pinned official attribution, durable jobs and pending-refund GET recovery. Local wire fixture `payments.py`; no live PSP proof. |
 | `frontend/src/shared/customer/`, `storefront/{account,checkout}/`, `admin/customers/` | Same four-language contact/address interactions in buyer account, checkout and merchant CRM. Strict frontend build, locale tests and browser review. |
 | `frontend/src/admin/orders/` | Direct eligible commands, same-job payment polling, immutable address/document views and event activity. |
@@ -310,7 +310,7 @@ this does not claim every source line or every original Shopware operation is co
 | [`src/bin/verified_kernel.rs`](../src/bin/verified_kernel.rs) | Generated JSON comparison driver calling the real policy module | 155,347 comparison cases; generated drift guard |
 | [`src/payments/receipt_guard.rs`](../src/payments/receipt_guard.rs) | Checked amount conversion and provider receipt policy binding | `payments.py`; reviewed binding, not a proof of the parser |
 
-All 497 Rust modules have explicit status and review inventory in
+The current Rust module status and review inventory are maintained in
 [`proof/manifest.json`](../proof/manifest.json). The 50 consumer modules are
 reviewed bindings, not whole-module proofs. See the
 [exact formal coverage and remaining gaps](formal-verification.md).
