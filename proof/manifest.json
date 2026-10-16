@@ -3507,8 +3507,8 @@
   },
   "inputs": {
     ".github/workflows/verify.yml": {
-      "sha256": "bd1548814e9f03f731398d4c18e89e8661bcc45c87bfdfe1f272a22f398bea9d",
-      "review": "Review combined CI fast lanes against the compiler workspace: full checks remain mandatory for backend, migrations, authorization, contracts, prompts, workflow and unknown changes; doc hygiene and prompt governance always run, workspace cargo and generated-contract checks retain full coverage; main-only push plus same-PR cancellation removes duplicate verification, and complete Git history preserves prompt review admission"
+      "sha256": "30967edbc32bde537eabe3b29332a70cede06dc27912731b771b8cb2d48b61fe",
+      "review": "Review coverage collection after crate extraction: workspace unit and real HTTP profiles now feed workspace-wide reports; unmeasured extracted libraries and app Rust remain explicit gaps, no threshold lowered. Existing conservative verification lanes, current permissions and formal mutation gates remain unchanged."
     },
     "Cargo.lock": {
       "sha256": "a41217051931975ae182dcdc3c308eda8d6090f90a465114af5eb2b550e682e5",

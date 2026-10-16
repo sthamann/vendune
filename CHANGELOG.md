@@ -1,5 +1,9 @@
 # Changelog
 
+## Workspace-wide coverage accounting — 2026-10-16
+
+- Include all workspace packages when collecting Rust reports after the crate extraction. Report unmeasured Rust files in extracted libraries and app packages alongside the root, retaining the existing coverage floors and the distinction between unmeasured files and covered behavior.
+
 ## Stable customer lookup regression — 2026-10-16
 
 - Search for the fixture customer’s complete name in the role/B2B acceptance test. A seeded random customer number can legitimately contain the short substring `Ada`; this must not be mistaken for a tenant/privacy or filtering failure. Keep exact identity and minimized-field assertions.

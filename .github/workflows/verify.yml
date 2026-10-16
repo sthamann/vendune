@@ -124,8 +124,8 @@ jobs:
         if: steps.scope.outputs.lane == 'full'
         run: |
           mkdir -p artifacts/coverage
-          cargo llvm-cov report --json --output-path artifacts/coverage/rust.json
-          cargo llvm-cov report --html --output-dir artifacts/coverage/rust
+          cargo llvm-cov report --workspace --json --output-path artifacts/coverage/rust.json
+          cargo llvm-cov report --workspace --html --output-dir artifacts/coverage/rust
           python3 -m coverage combine --rcfile=scripts/testing/.coveragerc
           python3 -m coverage json --rcfile=scripts/testing/.coveragerc
           python3 -m coverage html --rcfile=scripts/testing/.coveragerc

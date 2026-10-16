@@ -306,7 +306,7 @@ this does not claim every source line or every original Shopware operation is co
 
 | File | Responsibility | Verification |
 |---|---|---|
-| [`crates/kernel/src/verified_kernel.rs`](../crates/kernel/src/verified_kernel.rs) | 51 pure production admission/cap policies | 110 Lean theorems; compiled Rust/Lean conformance; broken-policy mutations |
+| [`crates/kernel/src/verified_kernel.rs`](../crates/kernel/src/verified_kernel.rs) | 57 pure production admission/cap policies | 123 Lean theorems; compiled Rust/Lean conformance; broken-policy mutations |
 | [`src/bin/verified_kernel.rs`](../src/bin/verified_kernel.rs) | Generated JSON comparison driver calling the real policy module | 155,347 comparison cases; generated drift guard |
 | [`src/payments/receipt_guard.rs`](../src/payments/receipt_guard.rs) | Checked amount conversion and provider receipt policy binding | `payments.py`; reviewed binding, not a proof of the parser |
 
@@ -427,7 +427,7 @@ App assistants compile the shared Manifest in `frontend/src/admin/developer/assi
 | Modules | Responsibility | Verification |
 |---|---|---|
 | `src/platform/{ai,lifecycle,shop_detail,infrastructure,resources}.rs` | Encrypted shared inference settings, reversible shop admission, dossiers and actual diagnostics | `platform.py` → `platform_control.py`; resources/crypto Rust tests; availability policy extracted to Lean |
-| `src/inference/{settings,tests}.rs` | Replica cache, authenticated encryption, inherited provider readiness and native protocol contracts | Rust tests + two-shop/fresh-process local provider fixture + provider/document/image/translation suites |
+| `crates/cognition/src/inference/{settings,tests}.rs` | Replica cache, authenticated encryption, inherited provider readiness and native protocol contracts | Rust tests + two-shop/fresh-process local provider fixture + provider/document/image/translation suites |
 | `frontend/src/platform/{AdminHub,PlatformAI,PlatformShopDetail,PlatformInfrastructure}.tsx` | Public service directory and independent operator workspaces | `platform-control.test.tsx`, real browser review, build/architecture/localization |
 | `src/shop_domains.rs`, `frontend/src/shared/api/shop-scope.ts` | Canonical shop links and actual hostname admission; protected URLs retain origin | HTTP Host regressions + `shop-scope.test.ts` |
 | `src/channel_metrics.rs`, `src/studio.rs` | Bounded diagnostic counters and measured HTTP timings | Rust unit tests + actual persisted timing fixture |
