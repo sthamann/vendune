@@ -1,5 +1,12 @@
 # Changelog
 
+## App documentation reconciliation — 16 October 2026
+
+- Add one delivered/partial/open app-system map, with source owners and dated acceptance; connect it from README, handbook navigation, website and machine-readable discovery.
+- Correct obsolete per-app-table and migration instructions to the fixed shared storage contract. Update durable-agent and enforced-database status without declaring the full business-capability concept complete.
+- Put the latest recorded 15 October hosted acceptance before older release history; preserve earlier receipts and distinguish later embedded simulated purchase acceptance from real settlement, restore or capacity evidence.
+- Keep isolated source compilation, complete B2B configurator, generalized entity/lifecycle extensions, historical replay, managed runtime, fleet compatibility, Shopware porting and Enterprise-cell operation explicitly open until their actual acceptance succeeds.
+
 ## Hosted acceptance follow-up
 
 - Complete the coordinated hosted shared-app-storage cutover after a fresh backup and stopped old Core. Retire eight verified legacy tables; confirm four fixed forced-RLS tables after new installations, private page publication and three public simulated checkout flows. Record results and explicit acceptance boundaries separately from local verification.
@@ -34,7 +41,7 @@
 
 - Separate restricted tenant/system connection pools within the existing process and fleet budget. Ordinary serving no longer requires the migration credential.
 - Bind transaction-local tenant, actor and personal-session context to the actual SQL login through short-lived signed tickets; keep tickets out of SQL query text. Add restrictive policies alongside existing row/actor checks, narrowly admitted identity reads and canonical language registration.
-- Keep app schema changes in the native system owner. Protect and grant new app entity/relation tables atomically; tenant SQL cannot own tables, disable RLS or create schema objects. HTTP and MCP developer staging share trusted native admission.
+- Keep app model changes in the native system owner; tenant SQL cannot own tables, disable RLS or create schema objects. HTTP and MCP developer staging share trusted native admission. The subsequent migrations 101–102 replace the earlier per-model tables with the fixed shared store; see the shared-storage release above.
 - Add migration-only configure/activate/status/rotate commands, staged rollout, startup role/policy audits, minute refresh and retiring-key overlap. No production credential is created by migration or application startup.
 - Repeat actual two-replica runtime, restart, current-rights, inventory, documents, app and selective release flows with separate logins. Add actual tenant-connection attacks, private actor substitution and signing-key rotation tests. SQL/cryptographic integration remains tested, outside the selected pure Lean proofs.
 - Complete the approved hosted cutover: restricted distinct logins, effective PUBLIC TEMP removal, signed pools, connector upgrade and removal of its obsolete Core-table grant. Activate database enforcement and restart without the staged exception. Native status reports `enforced=true`; the temporary maintenance administrator reference is removed. A new simulated checkout, Studio session reload/order read and saved agent task passed. The new embedded-browser checkout check remains blocked in Browser Use and is not counted as a pass; the prior release's embedded check remains historical evidence.

@@ -1,4 +1,28 @@
-# Current release — 13 October 2026
+# Current release — reviewed 16 October 2026
+
+## Latest recorded deployment — 15 October
+
+The latest documented hosted Core acceptance is the `f74f29d` source tree
+(PRs 136–137), following the signed-database/browser/durable-agent releases.
+It records four fixed shared app tables, no retained legacy app tables, preserved
+records/references, selected private page publication and simulated purchases in
+new SaaS, new Experience and existing original Storyfront shops. Embedded checkout
+returned confirmation and cleared the Storyfront bag.
+[Hosted evidence](evidence/shared-app-storage-hosted-2026-10-15.json) ·
+[Shared storage and maintenance](app-data-storage.md).
+
+The [app-system implementation map](app-system-status.md) distinguishes these
+released foundations from the unfinished full B2B configurator, entity/lifecycle
+extensions, historical business replay, isolated source builds, managed runtimes
+and fleet compatibility. A documentation refresh does not deploy those features
+or rerun every provider/browser scenario. Follow-up authentication and original
+Storyfront localization changes require their own merge, deployment and acceptance.
+
+The earlier observations below retain their dates and original boundaries.
+
+## Deployment and acceptance history
+
+### 13 October
 
 **VEYNDO deployment — 13 October:** [Core identity migration #102](https://github.com/sthamann/veyndo/pull/102) and [public documentation #103](https://github.com/sthamann/veyndo/pull/103) are merged. Northflank deployed Core `ced4a38` (`airy-wish-3827`) after a database snapshot and a successful migration-only job. Experience deployed `a6d3472` (`wiggly-crayon-7324`). Website, team, Studio, Experience and public shop routes now use `veyndo.ai` and the approved Living V identity. The checked public storefront loaded products, added a cart line and opened the simulated checkout; it did not place an order or charge a payment.
 

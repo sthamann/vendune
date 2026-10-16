@@ -30,8 +30,12 @@ Built in public, self-hostable and adaptable under the [Sustainable Use License]
 
 **Next implementation direction:** [your business model becomes software](docs/business-capabilities.md) — one reviewed capability across data, shop, decisions, workflows and agents. The [connected hardening tracker](docs/platform-hardening.md) distinguishes delivered foundations from the remaining managed-runtime and compatibility work.
 
-The [15 October delivery audit](docs/delivery-audit-2026-10-15.md) records what is
-published, what is still being verified and the concrete acceptance gaps.
+**App-system status — 16 October:** the integrated builder, fixed shared data store,
+reviewed releases and saved merchant-agent work are implemented. The full B2B
+configurator, cross-consumer core entity extensions, historical business replay,
+isolated source builds, managed services and fleet compatibility remain unfinished.
+[Delivered, partial and open capabilities](docs/app-system-status.md) ·
+[15 October release evidence](docs/delivery-audit-2026-10-15.md).
 
 ## AI-first, all the way through
 
@@ -282,7 +286,9 @@ A killed worker's ambiguous model call is never automatically repeated; the orig
 native proposal approval still owns business changes. PR 135 passed the registered
 integration suite and is publicly deployed; a saved read-only task survived browser
 reload and returned current stock. See the [dated deployment evidence](docs/evidence/database-enforcement-2026-10-15.json)
-for the exact scope and the embedded-browser check that remains unaccepted.
+for that release's scope. The later [shared-storage acceptance](docs/evidence/shared-app-storage-hosted-2026-10-15.json)
+separately passed original Storyfront embedded checkout and bag clearing with
+simulated payments; it does not certify real provider settlement.
 
 Personal merchant and operator accounts share optional authenticator protection,
 one-use recovery codes and revision-checked password recovery through the existing

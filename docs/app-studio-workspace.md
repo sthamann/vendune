@@ -97,10 +97,12 @@ normal privileged provisioning/migration path before rollout.
 
 ## Data models: isolation and practical limits
 
-App models use validated identifiers and hashed tenant/app table names. Tables
-retain forced PostgreSQL row security; core references and indexes remain
-bound to the same tenant. Declaring an index does not grant cross-shop access or
-execute arbitrary SQL.
+App models use validated logical identifiers in four fixed shared PostgreSQL
+tables: `app_models`, `app_records`, `app_record_indexes` and
+`app_record_references`. Full tenant/app/model/record keys, forced signed row
+security and composite references isolate records. Declaring an index creates
+lookup rows in fixed indexes; it creates no physical table or index and grants no
+SQL access. See [storage and migration](app-data-storage.md).
 
 | Resource | Bound |
 | --- | --- |

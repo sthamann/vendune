@@ -9,6 +9,10 @@ that managed build/microVM hosting, tenant-wide compatibility replay or automati
 canary rollback is already available. The [platform hardening programme](platform-hardening.md)
 records the connected prerequisites and their actual implementation state.
 
+[Current app-system status](app-system-status.md) maps the proposal to delivered,
+partial and open behavior, with source owners and dated acceptance. Existing app
+record lifecycles are distinct from extensible native order/offer state machines.
+
 ## Executable first slice
 
 The canonical Manifest now accepts optional `capability` version 1: localized

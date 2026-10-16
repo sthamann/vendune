@@ -80,11 +80,11 @@ work; a failed subscriber can still defer the other projections for that event.
 
 | Area | Current evidence / next connected change |
 | --- | --- |
-| System database authority | The implemented [authenticated scope](authenticated-database-scope.md) adds separate restricted tenant/system logins, role-bound tickets, restrictive policies and a coordinated staged/enforced rollout. Local actual-login and two-replica checks precede production provisioning; the older runtime is not silently upgraded by merging code. |
+| System database authority | Production enforced on 15 October through PR 135: separate restricted tenant/system logins, role-bound scopes, restrictive policies and strict startup. [Hosted status and boundaries](evidence/database-enforcement-2026-10-15.json); purpose-key separation remains open. |
 | Browser sessions and Studio CSP | Published through PR 134 after migration 099: [existing session ledgers](browser-sessions.md), HttpOnly cookies, exact origins, per-tab fences, customer generation checks and build-only credential-origin CSP. Public Studio reads/reload, native simulated checkout and original Storyfront embedded checkout/bag-clear passed; see the [release receipt](evidence/browser-release-2026-10-15.json). |
 | Cryptographic separation | Inventory encryption/signing uses; introduce explicit purpose keys/key IDs and a supported decrypt/verify rotation overlap without destroying existing ciphertext. |
 | Reviewed changesets | Generalize the existing proposal/apply owner to registered revision-bound operations. Keep domain previews and explicit approvals; no second proposal queue. |
-| Durable agent work | Extend existing tasks/jobs with leases, checkpoints, cancellation, usage/trace and resume; do not add an in-memory authoritative runner. |
+| Durable agent work | Published through PR 135: existing tasks/conversations, private completed model checkpoints, fenced leases, cancellation and explicit continuation. [Actual worker/reload acceptance](durable-agent-runs.md). General app-effect continuation, token/spend accounting and broader traces remain open. |
 | Provider tools | Replace JSON-emulated read rounds with native tool calls and conversation history through central inference. Prompt-cache support already exists and is opt-in; source review is not proof it is enabled or economically beneficial. |
 | Evals and injection | Version prompts and retain negative/source-scope/provider fixtures; add task replay/evaluations without credentials or paid provider requirements in CI. |
 | Agent authority and goals | Explicit principals, current scopes, budgets, emergency stop and reviewed goal experiments; no instruction text grants new authority. |
