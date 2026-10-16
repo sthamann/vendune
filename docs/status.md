@@ -15,6 +15,7 @@ A green test, merged code and a completed public business journey are different 
 
 | Journey or boundary | Evidence and present limitation |
 | --- | --- |
+| Native app product journey | [17 October hosted acceptance](evidence/native-app-fields-hosted-2026-10-17.md): visual creation, native product writes, compatible upgrade with retained data, optional grid column, exact positive/negative filters and selected live publication passed. Original embedded Storyfront purchase/return/bag clearing also passed on that image; payment remained simulated. |
 | Shared app storage | [15 October hosted migration](evidence/shared-app-storage-hosted-2026-10-15.json): four fixed physical tables, checked data migration and simulated purchases. This does not establish unbounded capacity. |
 | Restricted database runtime | [Hosted enforcement record](evidence/database-enforcement-2026-10-15.json): separate roles and strict restart. Authorization and SQL isolation are both required. |
 | Native checkout | Dated acceptance covers simulated purchases. It does not prove a real provider payment, mail delivery, invoice and refund journey. |
@@ -31,8 +32,8 @@ A green test, merged code and a completed public business journey are different 
 | App storage and lifecycle | Shared bounded records, references, settings, immutable definitions, private previews and selected release | Complete generated business capability across data/UI/logic; no arbitrary-source hosting claim |
 | Agent runs | Persisted native task checkpoints, leases, cancellation and explicit uncertain-call continuation. Publicly deployed [planning-agent controls](agent-authority-controls.md) add distinct revocable keys, exact-model allocation envelopes and live/sandbox stop. | [Hosted stop/re-enable and shopping acceptance](evidence/agent-authority-hosted-2026-10-16.md); conservative token/USD allocations are not provider invoices or unrestricted financial autonomy. |
 | Provider tools | Native OpenAI Responses/Chat, Claude and Ollama read tool protocols, private conversation continuation and current per-call authorization are deployed in the 16 October Core | Local provider and durable-worker fixture suites passed; real configured provider quality/usage needs separate acceptance |
-| Native app extensions | [Version-1 private product/customer/order/company fields](app-core-extensions.md) integrate native details, existing grids, exact filters, current permissions and selected configuration release | New local branch acceptance; hosted acceptance has not yet been recorded |
-| POS status and database recovery | [Reproduced read-race and startup repairs](evidence/startup-pos-recovery-2026-10-17.md) keep payment/order snapshots coherent and retry transient initial database connections | Deterministic regressions and full required checks precede hosted acceptance; no failover or uncertain-write retry claim |
+| Native app extensions | [Version-1 private product/customer/order/company fields](app-core-extensions.md) integrate native details, existing grids, exact filters, current permissions and selected configuration release | [17 October hosted product lifecycle](evidence/native-app-fields-hosted-2026-10-17.md) passed; all four object types have local/required-CI coverage, not four separate hosted walkthroughs |
+| POS status and database recovery | [Reproduced read-race and startup repairs](evidence/startup-pos-recovery-2026-10-17.md) keep payment/order snapshots coherent and retry transient initial database connections | Deterministic regressions and full required CI passed; repairs are deployed in the [17 October image](evidence/native-app-fields-hosted-2026-10-17.md). No induced production outage, failover or uncertain-write retry claim |
 | Prompt governance | Central prompts are versioned files with ID, template digest and rendered-system digest in model usage | Versioned prompt IDs and content digests in model evidence, injection evaluation at actual admission |
 | Contracts | Compiled operation registry generates request OpenAPI, TypeScript and WIT contracts with drift checks | Input contract generation passes locally; broad domain objects and response DTOs are not yet completely typed |
 | Module boundaries | Five real workspace libraries extract kernel, runtime, commerce, apps and provider inference; HTTP/domain composition remains in the root | Compiler checks and dependency-DAG negative controls passed locally; not every domain handler has moved |
@@ -40,6 +41,13 @@ A green test, merged code and a completed public business journey are different 
 | Outbox | Separate cognition/apps/flows/audit checkpoints and durable request/task/event trace IDs are deployed in the 16 October Core | Actual PostgreSQL poison-audit isolation, other-consumer progress, quarantine, cold restart and explicit replay passed; public migration 103 applied successfully after a fresh snapshot |
 
 ## Public delivery and current work
+
+The current Core is `f627f9d`, image `right-increase-7968`, source-tree equivalent
+to merged main `be4d6cf`. Its [17 October receipt](evidence/native-app-fields-hosted-2026-10-17.md)
+records full required CI, fresh snapshot, successful migration/readiness, the public
+product-extension lifecycle and selected publication, and original embedded
+Storyfront order **RAC-9f0f00ad** with return and cleared original bag. Payments
+remained simulated. The private Experience service remains `b40b386`.
 
 The [planning-agent release receipt](evidence/agent-authority-hosted-2026-10-16.md)
 records Core `dac31fa`, image `foamy-passenger-5421`, fresh snapshot and migration 104.
@@ -50,7 +58,7 @@ admission-message follow-up `8b461a1` is also deployed as `bustling-bulb-1104`: 
 snapshot, successful migration, healthy Core and public explicit German stop/recovery message
 passed. The test stop was lifted again. Older releases below retain their own source boundaries.
 
-The current presentation follow-up is Core `35e12ee`, image `thankful-name-8063`.
+The preceding presentation follow-up was Core `35e12ee`, image `thankful-name-8063`.
 Its fresh snapshot, successful migration and 1/1 healthy start passed. Public
 stop/re-enable and the corrected connected empty-product preview passed. Its
 required frontend CI repeated 628 tests with unchanged coverage floors; the

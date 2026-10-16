@@ -20,7 +20,7 @@ branch, build or documentation change does not update a hosted result by itself.
 | Understand data, permissions and API/Flow/MCP calls | [App platform](app-platform.md), [security](app-security.md), [shared storage](app-data-storage.md) |
 | Continue saved merchant-agent work | [Durable runs and their boundaries](durable-agent-runs.md) |
 | Understand the full product direction | [Business capabilities](business-capabilities.md) |
-| Check the latest recorded hosted release | [16 October hardening and app workflow](evidence/platform-hardening-hosted-2026-10-16.md), [Release overview](current-release.md), [16 October public acceptance](evidence/studio-release-hosted-2026-10-16.json), [15 October storage acceptance](evidence/shared-app-storage-hosted-2026-10-15.json) |
+| Check the latest recorded hosted release | [17 October native product app lifecycle and repeated original checkout](evidence/native-app-fields-hosted-2026-10-17.md), [16 October hardening and app workflow](evidence/platform-hardening-hosted-2026-10-16.md), [Release overview](current-release.md), [16 October public acceptance](evidence/studio-release-hosted-2026-10-16.json), [15 October storage acceptance](evidence/shared-app-storage-hosted-2026-10-15.json) |
 
 [Agent controls](agent-authority-controls.md) reuse existing keys/tasks and central inference. [Hosted stop/re-enable and checkout acceptance](evidence/agent-authority-hosted-2026-10-16.md) is recorded separately; it does not close arbitrary app execution or real-provider billing gates.
 

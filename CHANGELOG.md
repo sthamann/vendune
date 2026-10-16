@@ -1,5 +1,9 @@
 # Changelog
 
+## Hosted native product-app lifecycle — 2026-10-17
+
+- Deliver the verified native-field and POS/startup repairs after a fresh database snapshot, successful migration and healthy restart. Publicly accept visual app creation, native product writes, compatible upgrade with retained data, exact grid filters and selected package/record publication. Repeat the original Storyfront embedded simulated purchase, return and cleared bag; add source-bound screenshots and current status. Real-provider acceptance remains separate.
+
 ## Native app object fields — implementation, 2026-10-17
 
 - Preserve actual model labels on generated native anchors; newly bound visual apps now pass full immutable-build validation. Repeat real frontend templates for all four object bindings through server admission/private previews, and illustrate actual browser creation, private installation and native-product writes.

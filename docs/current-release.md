@@ -3,6 +3,16 @@
 For the current implementation and acceptance state, use **[Status](status.md)**.
 This page preserves dated evidence.
 
+## Native product-app lifecycle — 17 October, 01:45 Berlin
+
+Core `f627f9d`, image `right-increase-7968`, is source-tree equivalent to merged
+main `be4d6cf`. Complete required CI, a fresh snapshot, successful migration and
+1/1 healthy start passed. Public app creation, native product writes, compatible
+upgrade with retained data, exact grid filters and selected package/record
+publication passed. Original embedded Storyfront order **RAC-9f0f00ad**, return
+and cleared original bag also passed; payment remained simulated.
+[Source, screenshots and exact acceptance boundary](evidence/native-app-fields-hosted-2026-10-17.md).
+
 ## Connected product-preview guidance — 16 October, 23:24 Berlin
 
 Core `35e12ee`, image `thankful-name-8063`: required frontend CI passed 628 tests.
