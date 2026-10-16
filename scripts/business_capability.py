@@ -31,7 +31,7 @@ call('/api/apps',{'manifest':m},h)
 material=call(f'/api/apps/{app}/entities/materials',{'id':'walnut','revision':0,'fields':{'name':{'en-GB':'Walnut','de-DE':'Walnuss'},'fee_minor':2000}},h)
 assert material['revision']==1
 slots=call('/store-api/apps/slots',h=pub)['slots'];slot=next(s for s in slots if s['app']==app)
-assert slot['configuration']['inputs']['recordField']=='material' and 'wasmSource'not in slot['configuration']
+assert slot['configuration']['inputs']['recordField']=='material' and 'wasmSource'not in slot['configuration'] and 'examples'not in slot['configuration']['inputs']
 def new_cart():
     c=call('/store-api/checkout/cart',{},bh);bh['sw-context-token']=c['token']
     return employee('select',{'unitId':'design','revision':c['revision'],'purchaseOrder':'PO-FURNITURE'})

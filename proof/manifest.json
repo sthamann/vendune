@@ -1006,8 +1006,8 @@
     },
     "src/apps/configuration_inputs.rs": {
       "status": "unproved",
-      "sha256": "4781afdf05255e7b2db8133077ce7d518c010ffa1010cf957ed2ac2747cff617",
-      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
+      "sha256": "3a88e8d6f255a6967f98cfa3c2652bd3940db69c3c9e16282dda5b5e67894a89",
+      "review": "Final configuration contract projection review: explicit nullable expected results cannot be omitted; frozen cases stay out of public storefront metadata; declared labels and integer wire ranges are bounded. Actual cart/MCP/UCP/Flow/B2B/release cases, immutable public-field snapshots and native FX preflight retain the unchanged extracted financial policies; adapters remain unproved."
     },
     "src/apps/configuration_orders.rs": {
       "status": "unproved",
@@ -1221,8 +1221,8 @@
     },
     "src/apps/routes.rs": {
       "status": "unproved",
-      "sha256": "cd9d8f9fafb88057cfc0e4746836d27360d30eaefa947a8d773da9e14dd4cbe7",
-      "review": "Structured app configuration: reviewed bounded typed input ABI and frozen cases; current cart/channel/CAS and B2B guards; input-only reorder re-resolves package/library and native FX; public-field-only immutable material snapshots; minimized atomic Flow events; independent orders.read and app-filtered purchase pagination. Actual HTTP/MCP/UCP/approval/release negatives, legacy app, POS/currency/manual-order regressions and Rust/UI tests retain unchanged extracted policies; async adapters remain unproved."
+      "sha256": "50dd831dfcb3e03da107c953822af9214fe0a460d03c6eabd0c446fb1ce9f398",
+      "review": "Final configuration contract projection review: explicit nullable expected results cannot be omitted; frozen cases stay out of public storefront metadata; declared labels and integer wire ranges are bounded. Actual cart/MCP/UCP/Flow/B2B/release cases, immutable public-field snapshots and native FX preflight retain the unchanged extracted financial policies; adapters remain unproved."
     },
     "src/apps/runtime.rs": {
       "status": "unproved",
