@@ -121,6 +121,6 @@ requires a quiet tenant to finish while noisy events remain pending.
 Existing HTTP/PostgreSQL CRM, tenant-isolation, roles, POS, B2B, automation and App
 Studio suites remain required. Formal policies and mutation controls are retained;
 SQL scheduling, transport parsing and provider behavior remain tested adapters,
-not newly proved whole-system properties. Hosted acceptance for this hardening
-batch is recorded only after its release, separately from the already published
-App Studio workspace UI.
+not newly proved whole-system properties. The [16 October hosted receipt](evidence/platform-hardening-hosted-2026-10-16.md)
+records the actual image, snapshot, migration 103 and public browser journeys. It
+preserves the remaining CI/provider/feature acceptance boundaries separately.

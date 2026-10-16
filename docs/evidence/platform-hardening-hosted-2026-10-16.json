@@ -1,0 +1,113 @@
+{
+  "date": "2026-10-16",
+  "observedAt": "2026-10-16T16:10:05.055657+00:00",
+  "scope": "Hosted runtime cutover and synthetic browser journeys; not completion of the entire app-concept programme",
+  "core": {
+    "source": "984680706bd0ba63d12ca6432dac8d843bfb72fa",
+    "build": "steep-cushion-339",
+    "instance": "vendune-core-69b5bc76f9-wjqmj",
+    "observed": "Running 1/1 passing; zero restarts; public /health HTTP 200",
+    "migration": {
+      "version": "103-outbox-subscriber-checkpoints",
+      "run": "a9e0323a-a877-40bc-b21a-88e92d7610d4",
+      "result": "Migration-only setup complete; process exit 0"
+    },
+    "preMigrationSnapshot": "pre-platform-hardening-20261016",
+    "runtimeSourceEquivalentTo": "7a4388d1789d2026ae09f3c94a13f03ebf75de0a",
+    "equivalenceBoundary": "Differences affect CI, verification scripts, proof review metadata and documentation, not runtime/frontend/SQL/Docker source."
+  },
+  "ci": {
+    "run": 38926129994,
+    "state": "running; update after its actual outcome",
+    "previousRun": 38921275020,
+    "previousFailure": "Final outbox fixture refused the named CI bootstrap database; no runtime failure. Workflow now creates its own commerce_quality database; refusal is retained and negatively tested. The unchanged outbox suite now runs first in the provider fleet."
+  },
+  "browser": {
+    "engine": "Fresh Chrome tabs on deployed runtime",
+    "saas": {
+      "url": "https://release-abnahme-16-o-a767ebe269.veyndo.ai/",
+      "products": 3,
+      "productSource": "Real configured AI text generation, explicitly reviewed fictional German Homeoffice catalogue; three actual image-generation jobs",
+      "studioHandoff": "Personal sign-in ticket consumed, URL cleaned, merchant workspace opened",
+      "order": "RAC-a1751108",
+      "amountMinor": 5900,
+      "cartEmpty": true
+    },
+    "storyfront": {
+      "url": "https://lumen-story-lab-15-o-98aa4751fa.veyndo.ai/collections/all-products",
+      "flow": "Original bag -> embedded native iframe contact/address -> review -> confirmation -> original bag empty",
+      "order": "RAC-879424a9",
+      "amountMinor": 2490,
+      "locale": "de-DE",
+      "productLabel": "Synthetisches Demo-Produkt: Keramiktasse Sandweiß"
+    },
+    "app": {
+      "id": "furniture_mvb59zya",
+      "version": "1.0.0",
+      "digestPrefix": "76bb1b9d9ba4",
+      "flow": "App-owned pattern -> private environment -> immutable version -> real actor-private F5 material write -> staged install -> selected app-package publication -> actual product configuration -> native simulated checkout",
+      "privateMaterial": "Walnut, fee 2000 EUR cents; remains absent from the published material selector",
+      "publicConfiguration": {
+        "material": "oak",
+        "width_cm": 260,
+        "depth_cm": 80,
+        "basePriceMinor": 34900,
+        "surchargeMinor": 4800
+      },
+      "order": "RAC-03606a05",
+      "amountMinor": 39700,
+      "foundGap": "Checkout/confirmation currently omit a readable dimension/material summary; follow-up source fix is being verified separately. This receipt does not claim that fix is public."
+    },
+    "currency": "EUR",
+    "payment": "Simulated authorization only; no real money"
+  },
+  "localVerification": {
+    "connectedSuites": "57 HTTP, 31 provider-fixture, four browser-contract groups exercised; original-money fixture rerun with its original PHP autoloader after the full local run reached its missing-autoloader boundary",
+    "originalMoneyCases": 1344,
+    "originalPricingComparisons": 2144,
+    "pricingComparisonFailures": 0,
+    "documentation": {
+      "pages": 257,
+      "markdownSources": 250,
+      "localLinksAndAssets": 24732
+    }
+  },
+  "boundaries": [
+    "No real settlement, inbox delivery, invoice issuer or provider refund acceptance",
+    "No hosted independent B2B purchasing approval or current-rule reorder claim from this B2C browser purchase; complete connected B2B flow is local PostgreSQL/provider-fixture evidence",
+    "Required CI repeat still running when this receipt was prepared",
+    "Per-agent budgets, general entity/native lifecycle extensions, historical whole-business replay, arbitrary isolated source builds and operated enterprise cells remain separate implementation work",
+    "Apple OAuth provider redirect configuration remains open",
+    "Old failed dump schedule removal still awaits user confirmation; a daily seven-day snapshot schedule is configured"
+  ],
+  "assets": [
+    {
+      "path": "images/platform-hardening-2026-10-16/saas-ai-shop-public.jpg",
+      "sha256": "4d0add1267b926b35b4011a0d0d82a95eca83f8ad5868df61cad4154f7002e45"
+    },
+    {
+      "path": "images/platform-hardening-2026-10-16/saas-confirmed-public.jpg",
+      "sha256": "52a3981e08292f532b1390747643dffd689663c8b75974446189ecd325453820"
+    },
+    {
+      "path": "images/platform-hardening-2026-10-16/storyfront-confirmed-public.jpg",
+      "sha256": "da7cf87c7ca7c6b9239b26f455c4440413e84df89f364ba389dd07505b846249"
+    },
+    {
+      "path": "images/platform-hardening-2026-10-16/storyfront-empty-bag-public.jpg",
+      "sha256": "b930fe0e09bd1fed3120304a1fe0c9e1b4316645dca1074b60b20426effb5b01"
+    },
+    {
+      "path": "images/platform-hardening-2026-10-16/app-working-preview-public.jpg",
+      "sha256": "9ae35f8cbc9c0a76f5a502f9f400a9d3f23821ec4c8951fb857d22b0fd41f439"
+    },
+    {
+      "path": "images/platform-hardening-2026-10-16/configurator-public.jpg",
+      "sha256": "f6f1bae83b83a8ac79cf3c3d2ad93db9296a0f4287a17df6d3b22e2f996a5a5f"
+    },
+    {
+      "path": "images/platform-hardening-2026-10-16/configured-order-public.jpg",
+      "sha256": "bfa10bf73e1b9c421c8a2eea0832f68167931486bd2686726bf49e761c4347c4"
+    }
+  ]
+}

@@ -1,5 +1,9 @@
 # Changelog
 
+## Hosted hardening and app workflow acceptance — 2026-10-16
+
+- Record the actual snapshot-backed migration 103, healthy strict Core restart, new SaaS AI catalogue/images, Studio handoff, original embedded Storyfront purchase/bag clear and privately tested/published app with a configured public purchase. Keep simulated payment, local B2B approval/reorder and the newly found purchase-summary gap distinct. Refresh the canonical status instead of adding PR notes to README.
+
 - CI integration now owns a uniquely named disposable database, including the
   rollback-only outbox migration rehearsal. Its production-database refusal stays
   intact. Subscriber migration/lock checks run before the slower provider fleet;
