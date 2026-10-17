@@ -631,3 +631,7 @@ See the [illustrated workbench guide](app-studio-workspace.md) for multiple plac
 ## Fixed app storage
 
 `apps/records.rs`, `data.rs`, native schema migration and PostgreSQL migrations 101–102 own logical models, record CAS, fixed index/reference projections and existing-data consolidation. App-specific business code stays package-owned. See [storage, maintenance cutover and tests](app-data-storage.md).
+
+### Native app lifecycles
+
+`apps/native_lifecycle` owns bounded declarations, compilation, accepted snapshots and policy facts. `commerce/fulfillment` and `b2b/quote_lifecycle` retain native transition admission; quote offer/accept/checkout stay with their existing owners. `b2b/contract` owns the shared native operation catalogue. The example vocabulary stays in `extensions/apps/production-review`. See [the workflow guide](app-native-lifecycles.md).

@@ -105,8 +105,8 @@ call('/store-api/checkout/cart/line-item',{'items':[{'referencedId':'chair','qua
 c=call('/store-api/checkout/cart/line-item',{'items':[{'referencedId':'lamp','quantity':1}]},bh)
 # A second owned cart competes for the same period budget. Exactly one transaction fits.
 c2=call('/store-api/checkout/cart',{},bh);h2={**bh,'sw-context-token':c2['token']};c2=employee('select',{'unitId':'it','revision':c2['revision'],'purchaseOrder':'PO-789'},h2);c2=call('/store-api/checkout/cart/line-item',{'items':[{'referencedId':'lamp','quantity':1}]},h2)
-with concurrent.futures.ThreadPoolExecutor(max_workers=2)as pool:
-    results=list(pool.map(lambda h:call('/store-api/checkout/order',{}, {**h,'Idempotency-Key':'budget-'+h['sw-context-token']},status=(200,409)),[bh,h2]))
+from testing.b2b_checkout_race import purchases
+results=purchases(call,bh,h2,mh['x-tenant'])
 assert sum('id'in r for r in results)==1,results
 assert call('/store-api/product/lamp',h=pub)['product']['stock']==stock-3
 # A policy edit must not erase spending by switching its accounting currency or period.

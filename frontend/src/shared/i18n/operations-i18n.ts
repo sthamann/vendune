@@ -1,7 +1,9 @@
 /** Operational commerce labels in all supported languages. */
+import { lifecycleOperationWords } from "./native-lifecycle-i18n";
 import { b2bEventWords } from "./b2b-events-i18n";
 import { useLocale } from "./i18n";
 export const operationWords = {
+  ...lifecycleOperationWords,
   ...b2bEventWords,
   "app.configuration.changed": [
     "Product configuration changed",

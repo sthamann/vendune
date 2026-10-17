@@ -9,6 +9,15 @@ pub(super) async fn validate(
     actual: &Value,
     base: &mut Value,
 ) -> Result<()> {
+    if keys.iter().any(|key| key == "settings") {
+        let settings = commerce::decode_config(
+            sqlx::query_scalar("SELECT data FROM commerce_settings WHERE tenant=$1")
+                .bind(t)
+                .fetch_one(&mut **tx)
+                .await?,
+        )?;
+        apps::native_lifecycle::validate_active_locale(tx, t, &settings.main_locale).await?;
+    }
     // Validate references against the final aggregate, including jointly selected new rules.
     for key in keys {
         if let Some((kind, unit)) = key.split_once(':') {

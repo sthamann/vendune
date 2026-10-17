@@ -1034,6 +1034,12 @@ interface inputs {
     %state: option<string>,
     %unit-id: option<string>,
   }
+  record b2b-quote-transition-input {
+    %action: string,
+    %id: string,
+    %message: option<string>,
+    %revision: s64,
+  }
   record b2b-quote-message-input-lines-item {
     %quantity: s64,
     %sku: string,
@@ -1561,6 +1567,7 @@ interface inputs {
   b2b-quotes-merchant: func(input: b2b-quotes-merchant-input) -> result<string, string>;
   b2b-quote-request: func(input: b2b-quote-request-input) -> result<string, string>;
   b2b-quote-offer: func(input: b2b-quote-offer-input) -> result<string, string>;
+  b2b-quote-transition: func(input: b2b-quote-transition-input) -> result<string, string>;
   b2b-quote-message: func(input: b2b-quote-message-input) -> result<string, string>;
   b2b-quote-reject: func(input: b2b-quote-reject-input) -> result<string, string>;
   b2b-quote-accept: func(input: b2b-quote-accept-input) -> result<string, string>;

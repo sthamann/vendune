@@ -5,8 +5,9 @@ pub(super) async fn get(State(a): State<App>, h: RequestContext) -> Result<Json<
     auth::permit(&h, "orders.read")?;
     let (m, r) = commerce::machine(&a.db, &t).await?;
     let (settings, _) = commerce::config(&a, &t).await?;
+    let effective = apps::native_lifecycle::current_order(&a.db, &t).await?;
     Ok(Json(
-        json!({"data":m,"revision":r,"mainLocale":settings.main_locale}),
+        json!({"data":m,"revision":r,"mainLocale":settings.main_locale,"effectiveStates":effective.states}),
     ))
 }
 pub(super) async fn save(
@@ -19,8 +20,14 @@ pub(super) async fn save(
     let m: commerce::OrderMachine =
         serde_json::from_value(v["data"].clone()).map_err(|_| bad("Invalid workflow schema"))?;
     m.validate()?;
+    if m.transitions.iter().any(|edge| edge.policy.is_some()) {
+        return Err(bad(
+            "App transition policies belong to a reviewed app package",
+        ));
+    }
     let revision = v["revision"].as_i64().ok_or(bad("revision required"))?;
     let mut tx = a.db.begin().await?;
+    marketing::lock_config(&mut tx, &t).await?;
     sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,27))")
         .bind(&t)
         .execute(&mut *tx)
@@ -38,6 +45,7 @@ pub(super) async fn save(
             return Err(bad("Workflow source app is not installed"));
         }
     }
+    apps::native_lifecycle::validate_order_base(&mut tx, &t, m.clone()).await?;
     let old: Option<i64> =
         sqlx::query_scalar("SELECT revision FROM order_state_machines WHERE tenant=$1 FOR UPDATE")
             .bind(&t)
@@ -46,9 +54,10 @@ pub(super) async fn save(
     if old.unwrap_or(0) != revision {
         return Err(conflict("Workflow revision changed"));
     }
+    // Accepted snapshots retain their original state graph. Legacy orders still need representation.
     // Keep every persisted state represented so changing a definition cannot strand existing orders.
     let states = m.states.iter().map(|s| s.id.clone()).collect::<Vec<_>>();
-    let stranded:bool=sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM orders WHERE tenant=$1 AND NOT (data->>'state'=ANY($2)) AND data->>'state' NOT IN ('expired','payment_review'))").bind(&t).bind(&states).fetch_one(&mut *tx).await?;
+    let stranded:bool=sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM orders WHERE tenant=$1 AND NOT (data ? 'nativeLifecycle') AND NOT (data->>'state'=ANY($2)) AND data->>'state' NOT IN ('expired','payment_review'))").bind(&t).bind(&states).fetch_one(&mut *tx).await?;
     if stranded {
         return Err(conflict("Workflow removes an active order state"));
     }

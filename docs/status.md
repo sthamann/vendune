@@ -42,6 +42,8 @@ A green test, merged code and a completed public business journey are different 
 
 ## Public delivery and current work
 
+The next source change adds [native app order/RFQ lifecycles](app-native-lifecycles.md), with accepted per-object versions and existing native admission. Its local acceptance and public delivery are separate; the hosted image below remains the last verified release until a new receipt is recorded.
+
 The current Core is `f627f9d`, image `right-increase-7968`, source-tree equivalent
 to merged main `be4d6cf`. Its [17 October receipt](evidence/native-app-fields-hosted-2026-10-17.md)
 records full required CI, fresh snapshot, successful migration/readiness, the public

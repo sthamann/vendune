@@ -172,6 +172,7 @@ pub(crate) async fn import_external(
         .as_object_mut()
         .unwrap()
         .extend(customer.as_object().unwrap().clone());
+    apps::native_lifecycle::bind_order(&mut tx, &t, &mut order).await?;
     super::order_fields(&mut order);
     let mut cart = json!(c.data);
     cart["order"] = order.clone();

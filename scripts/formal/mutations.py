@@ -5,6 +5,9 @@ from registry import check
 from axioms import source_check,dependency_check
 
 MUTANTS=[
+ ("native_lifecycle_admissible", "native &&", "true &&"),
+ ("native_lifecycle_admissible", "&& rights &&", "&& true &&"),
+ ("native_lifecycle_admissible", "&& guards", "&& true"),
  ("app_submission_admissible","private_inbox &&","true &&"),
  ("app_submission_admissible","&& live_scope","&& true"),
  ("app_submission_admissible","&& current_cart","&& true"),

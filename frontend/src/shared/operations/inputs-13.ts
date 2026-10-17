@@ -152,22 +152,13 @@ export interface Inputs13 {
     state?: "approved" | "rejected";
     unitId?: string;
   };
-  "b2b.quote.message": {
-    cartRevision?: number;
-    companyId?: string;
-    customerId?: string;
-    data?: JsonValue;
-    id?: string;
-    lines?: Array<{ quantity: number; sku: string }>;
+  "b2b.quote.transition": {
+    action: string;
+    id: string;
     message?: string;
-    parentId?: string | null;
-    productIds?: Array<string>;
-    purchaseOrder?: string;
-    revision?: number;
-    state?: "approved" | "rejected";
-    unitId?: string;
+    revision: number;
   };
-  "b2b.quote.reject": {
+  "b2b.quote.message": {
     cartRevision?: number;
     companyId?: string;
     customerId?: string;

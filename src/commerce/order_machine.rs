@@ -22,6 +22,8 @@ pub(crate) struct MachineEdge {
     pub from: String,
     pub to: String,
     pub label: HashMap<String, String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub policy: Option<apps::native_lifecycle::Policy>,
 }
 fn labels(w: [&str; 4]) -> HashMap<String, String> {
     ["en", "de", "fr", "es"]
@@ -112,6 +114,7 @@ pub(crate) fn default_machine() -> OrderMachine {
         from: from.into(),
         to: to.into(),
         label: labels(w),
+        policy: None,
     })
     .collect();
     OrderMachine {
@@ -178,9 +181,16 @@ impl OrderMachine {
     }
 }
 pub(crate) async fn machine(db: &PgPool, t: &str) -> Result<(OrderMachine, i64)> {
+    let mut conn = db.begin().await?;
+    machine_conn(&mut conn, t).await
+}
+pub(crate) async fn machine_conn(
+    conn: &mut sqlx::PgConnection,
+    t: &str,
+) -> Result<(OrderMachine, i64)> {
     let r = sqlx::query("SELECT data,revision FROM order_state_machines WHERE tenant=$1")
         .bind(t)
-        .fetch_optional(db)
+        .fetch_optional(conn)
         .await?;
     match r {
         Some(r) => Ok((

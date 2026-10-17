@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import type { RequestFn } from "../../shared/api/types";
 import { useB2BQuoteText } from "../../shared/i18n/b2b-quotes-i18n";
+import { useOperationsText } from "../../shared/i18n/operations-i18n";
+import { contentText } from "../../shared/i18n/content-language";
 import { useLocale } from "../../shared/i18n/i18n";
 import type { Quote } from "../../shared/b2b/quote-types";
 export default function Quotes({
@@ -47,6 +49,14 @@ export default function Quotes({
             await reload();
           }}
           run={run}
+          advance={async (action) => {
+            await request("/api/b2b/quote.transition", {
+              id: q.id,
+              revision: q.revision,
+              action,
+            });
+            await reload();
+          }}
         />
       ))}
     </section>
@@ -57,14 +67,17 @@ function Offer({
   busy,
   submit,
   run,
+  advance,
 }: {
+  advance: (action: string) => Promise<void>;
   quote: Quote;
   busy: boolean;
   submit: (data: Record<string, unknown>) => Promise<void>;
   run: (fn: () => Promise<void>) => Promise<void>;
 }) {
   const t = useB2BQuoteText(),
-    { locale } = useLocale();
+    { locale } = useLocale(),
+    { o } = useOperationsText();
   const [message, setMessage] = useState(""),
     [until, setUntil] = useState(
       localDate(
@@ -94,9 +107,32 @@ function Offer({
         <strong>
           {q.unitId} · {q.data.currency}
         </strong>
-        <span>{t(q.state)}</span>
+        <span>
+          {contentText(
+            q.workflow?.label ?? {},
+            locale,
+            q.workflow?.mainLocale ?? "en-GB",
+          ) ||
+            t(q.state as Parameters<typeof t>[0]) ||
+            q.state}
+        </span>
       </header>
       <p>{q.data.message}</p>
+      {q.workflow?.actions.map((action) => (
+        <div className="workflow-choice" key={action.id}>
+          <button
+            disabled={busy || !action.enabled}
+            onClick={() => void run(() => advance(action.id))}
+          >
+            {contentText(
+              action.label,
+              locale,
+              q.workflow?.mainLocale ?? "en-GB",
+            ) || action.id}
+          </button>
+          {action.reason && <small>{o(action.reason)}</small>}
+        </div>
+      ))}
       {q.data.messages.map((m, i) => (
         <p key={i}>
           <strong>{t(m.merchant ? "merchant" : "buyer")}</strong> · {m.message}{" "}

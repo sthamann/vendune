@@ -18,6 +18,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/accounts/mod.rs](../src/accounts/mod.rs) | Independent customer sessions, profile/password management and owning-account order history. |
 | [src/accounts/order_snapshot.rs](../src/accounts/order_snapshot.rs) | Checkout-owned immutable customer and address records; future account edits cannot rewrite an order. |
 | [src/accounts/orders.rs](../src/accounts/orders.rs) | Customer-owned order reads and receipts share one tenant/identity predicate and a public projection. |
+| [src/accounts/payment_preference.rs](../src/accounts/payment_preference.rs) | Optional last-used payment preference is written after purchase commit, without holding cart/unit/product locks. |
 | [src/accounts/profile.rs](../src/accounts/profile.rs) | Typed customer-owned profile updates; price groups, email and merchant roles cannot be self-assigned. |
 | [src/agent.rs](../src/agent.rs) | Persistent grounded conversations and tenant-scoped semantic knowledge HTTP adapters. |
 | [src/agent_runs/authority.rs](../src/agent_runs/authority.rs) | Saved runs retain an upper authority bound; every continuation rechecks credential, membership and private stage admission. |
@@ -70,6 +71,10 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/manifest_validation.rs](../src/apps/manifest_validation.rs) | Package capability, schema and action validation; no executable behavior is inferred from names. |
 | [src/apps/mod.rs](../src/apps/mod.rs) | Versioned app packages: managed data, UI slots, agent tools and isolated service calls. |
 | [src/apps/native_data.rs](../src/apps/native_data.rs) | App record translations use configured shop languages and field-level main-language inheritance. |
+| [src/apps/native_lifecycle/compile.rs](../src/apps/native_lifecycle/compile.rs) | Compile bounded app-local state graphs into the native machine; conflicts and stranded paths fail closed. |
+| [src/apps/native_lifecycle/storage.rs](../src/apps/native_lifecycle/storage.rs) | Capture accepted definitions in existing operational JSON under native package locks; no app-specific tables. |
+| [src/apps/native_lifecycle/tests.rs](../src/apps/native_lifecycle/tests.rs) | Contract and native-boundary negative controls; operational tests exercise the actual owners separately. |
+| [src/apps/native_lifecycle.rs](../src/apps/native_lifecycle.rs) | Versioned declarative native lifecycles; packages narrow native admission and never execute effects. |
 | [src/apps/native_view_tests.rs](../src/apps/native_view_tests.rs) | Native schema security regressions: bindings, public writes, allowlists, bounded blocks and legacy digests. |
 | [src/apps/native_views.rs](../src/apps/native_views.rs) | Bounded native view definitions; every data binding resolves to the same authorized app action gateway. |
 | [src/apps/observability.rs](../src/apps/observability.rs) | Bounded metadata-only app telemetry, storage usage and explicitly approved cursor-based event replay. |
@@ -152,6 +157,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/b2b/access.rs](../src/b2b/access.rs) | Re-resolves active customer sessions, company policy and unit membership at every procurement boundary. |
 | [src/b2b/approval.rs](../src/b2b/approval.rs) | Revision-bound purchasing approval inbox; approvers must be active peers and cannot approve themselves. |
 | [src/b2b/catalog.rs](../src/b2b/catalog.rs) | Private unit catalog scope is derived from the current employee/cart, never caller criteria; indexed before pagination. |
+| [src/b2b/contract.rs](../src/b2b/contract.rs) | Native B2B operation catalogue and bounded request schema shared by HTTP, MCP and UCP adapters. |
 | [src/b2b/gateway.rs](../src/b2b/gateway.rs) | One native command contract for Store API, merchant API and MCP; actor identity never comes from arguments. |
 | [src/b2b/lists.rs](../src/b2b/lists.rs) | Reusable private/shared procurement lists; applying them reuses native cart admission and pricing. |
 | [src/b2b/mod.rs](../src/b2b/mod.rs) | Native modular company procurement; protocol-specific EDI adapters remain in their app packages. |
@@ -162,6 +168,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/b2b/purchase.rs](../src/b2b/purchase.rs) | Serializes unit spending and binds an approved purchase to the authoritative native checkout quote. |
 | [src/b2b/quick_order.rs](../src/b2b/quick_order.rs) | Bounded SKU bulk entry resolves native products then uses the ordinary cart's permissions, quantities and prices. |
 | [src/b2b/quote_contract.rs](../src/b2b/quote_contract.rs) | Accepted offer prices feed the existing currency/tax calculator; checkout consumes the offer atomically. |
+| [src/b2b/quote_lifecycle.rs](../src/b2b/quote_lifecycle.rs) | App-owned RFQ preparation states reuse native quote CAS, ownership, history and outbox; only native offer/accept moves money. |
 | [src/b2b/quotes.rs](../src/b2b/quotes.rs) | RFQ lifecycle binds merchant offers to a specific company buyer, cart, currency, expiry and revision. |
 | [src/b2b/requisition.rs](../src/b2b/requisition.rs) | Explicit integration permission imports requisitions into native lists; it never impersonates checkout buyers. |
 | [src/b2b/settings.rs](../src/b2b/settings.rs) | B2B feature switches live in shared commerce settings; disabling never relaxes existing financial policy. |
@@ -694,6 +701,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/developer/AppMenuEditor.tsx](../frontend/src/admin/developer/AppMenuEditor.tsx) | Menu and injection sites are the existing surfaces, with explicit action allowlists and live role scopes. |
 | [frontend/src/admin/developer/AppModelDiagram.tsx](../frontend/src/admin/developer/AppModelDiagram.tsx) | Relationships use the same typed field.references contract as the form editor; no separate diagram state or database model. |
 | [frontend/src/admin/developer/AppModules.tsx](../frontend/src/admin/developer/AppModules.tsx) | Pure server modules edit the same WIT component contract consumed by quotes and checkout; no browser eval or live service code. |
+| [frontend/src/admin/developer/AppNativeLifecycles.tsx](../frontend/src/admin/developer/AppNativeLifecycles.tsx) | Visual native lifecycle contract editor; execution remains in native order/RFQ owners and accepted snapshots. |
 | [frontend/src/admin/developer/AppOntology.tsx](../frontend/src/admin/developer/AppOntology.tsx) | Optional graph mappings edit the canonical manifest; native authorized record lists own the projection. |
 | [frontend/src/admin/developer/AppPanelSizing.tsx](../frontend/src/admin/developer/AppPanelSizing.tsx) | Local panel widths contain presentation only; pointer and keyboard resizing never change the Manifest. |
 | [frontend/src/admin/developer/AppPayments.tsx](../frontend/src/admin/developer/AppPayments.tsx) | Visual payment contracts use the same manifest as coding agents; onboarding uses the protected API. |
@@ -1084,6 +1092,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/locales/shop-en.ts](../frontend/src/shared/i18n/locales/shop-en.ts) | Storefront and operational interface strings: en. |
 | [frontend/src/shared/i18n/locales/shop-es.ts](../frontend/src/shared/i18n/locales/shop-es.ts) | Storefront and operational interface strings: es. |
 | [frontend/src/shared/i18n/locales/shop-fr.ts](../frontend/src/shared/i18n/locales/shop-fr.ts) | Storefront and operational interface strings: fr. |
+| [frontend/src/shared/i18n/native-lifecycle-i18n.ts](../frontend/src/shared/i18n/native-lifecycle-i18n.ts) | Shared native lifecycle editor vocabulary; state labels remain merchant content. |
 | [frontend/src/shared/i18n/operations-i18n.ts](../frontend/src/shared/i18n/operations-i18n.ts) | Operational commerce labels in all supported languages. |
 | [frontend/src/shared/i18n/payment-provider-i18n.ts](../frontend/src/shared/i18n/payment-provider-i18n.ts) | Payment contract editor and account onboarding vocabulary. |
 | [frontend/src/shared/i18n/platform-i18n.ts](../frontend/src/shared/i18n/platform-i18n.ts) | Operator console translations. Every visible control has an explicit translation in all supported locales. |
@@ -1480,6 +1489,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/merchant_operations.py](../scripts/merchant_operations.py) | Real HTTP/PostgreSQL CRM, receipt, scoped-access and paid-download regressions. No PSP traffic. |
 | [scripts/migrate_connector_state.py](../scripts/migrate_connector_state.py) | Explicit offline legacy-state migration; decrypted data crosses stdin only, never logs or temporary files. |
 | [scripts/money_boundary_differential.py](../scripts/money_boundary_differential.py) | Gate the exact checkout boundary using totals from original Shopware calculators, never a PHP rewrite. |
+| [scripts/native_lifecycles.py](../scripts/native_lifecycles.py) | Native accepted app lifecycles through real HTTP/PostgreSQL/MCP and selected release. Synthetic shops only. |
 | [scripts/outbox_subscribers.py](../scripts/outbox_subscribers.py) | Real SQL failure/row-lock isolation, quarantine, explicit retry and cold worker continuation for native outbox cursors. |
 | [scripts/payment_providers.py](../scripts/payment_providers.py) | Provider-neutral financial ledger through real HTTP/PostgreSQL and a local private-service fixture. |
 | [scripts/payments.py](../scripts/payments.py) | PayPal wire-contract and real Rust/PostgreSQL state tests. Local fixture, never real provider traffic. |
@@ -1523,6 +1533,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/advisor_privacy.py](../scripts/testing/advisor_privacy.py) | Concurrent privacy mutations across the real concierge/provider path; no live inference. |
 | [scripts/testing/advisor_sources.py](../scripts/testing/advisor_sources.py) | Actual channel-admitted advisor context and concurrent native source mutations; synthetic local model only. |
 | [scripts/testing/app_approval.py](../scripts/testing/app_approval.py) | Use the Rust manifest serializer for operator pins; never invent a second canonical digest. |
+| [scripts/testing/b2b_checkout_race.py](../scripts/testing/b2b_checkout_race.py) | Force the real customer-share/unit-update checkout interleaving; no business handler is mocked. |
 | [scripts/testing/catalog_intake_checks.py](../scripts/testing/catalog_intake_checks.py) | Native catalogue intake through HTTP/MCP; real stage saves, exact replay, current rights and selected release, no model calls. |
 | [scripts/testing/ci_scope.py](../scripts/testing/ci_scope.py) | Choose prototype CI by the complete Git diff; unknown or sensitive changes retain full verification. |
 | [scripts/testing/consistency_boundaries.py](../scripts/testing/consistency_boundaries.py) | Real transport/permission regressions for knowledge publication and automation discovery. |
@@ -1537,6 +1548,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/intent_navigation.py](../scripts/testing/intent_navigation.py) | Exercise saved fact categories through native catalog/MCP, source review and selective staging; no models. |
 | [scripts/testing/inventory_batch.py](../scripts/testing/inventory_batch.py) | Concurrent two-product allocation/release on the actual HTTP path, reused by strict runtime verification. |
 | [scripts/testing/legacy_customer_ownership.py](../scripts/testing/legacy_customer_ownership.py) | Historical guest snapshots never grant account ownership from an unverified email. |
+| [scripts/testing/native_lifecycle_race.py](../scripts/testing/native_lifecycle_race.py) | Force native workflow editing against app installation at the real database boundary. |
 | [scripts/testing/native_tools.py](../scripts/testing/native_tools.py) | Synthetic provider-native wire responses shared by real HTTP integration fixtures; not a model implementation. |
 | [scripts/testing/operation_contracts.py](../scripts/testing/operation_contracts.py) | Generated native operation input contracts; do not edit. |
 | [scripts/testing/outbox_cases.py](../scripts/testing/outbox_cases.py) | Disposable real-transaction counterexamples for subscriber migration and commit-order gaps. |

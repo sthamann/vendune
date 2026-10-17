@@ -1,4 +1,5 @@
 /** Order workspace: server actions, exact-once commands, provider progress and visible event history. */
+import { contentText } from "../../shared/i18n/content-language";
 import CoreExtensions from "../../shared/apps/CoreExtensions";
 import { useCrmText } from "../../shared/i18n/crm-i18n";
 import EntityHistory from "../../shared/history/EntityHistory";
@@ -371,7 +372,7 @@ export default function OrderDetail({
                       ? shipmentText("splitEvent")
                       : event.kind === "receipt"
                         ? `${o(event.data.kind)} ${event.data.number}`
-                        : `${o(event.data.kind)} → ${order.workflow.states.find((s: any) => s.id === event.data.state)?.label?.[locale.slice(0, 2)] ?? o(event.data.state)}`}
+                        : `${o(event.data.kind)} → ${contentText(order.workflow.states.find((s: any) => s.id === event.data.state)?.label ?? {}, locale, order.workflow.mainLocale ?? "en-GB") || o(event.data.state)}`}
                 </p>
                 {event.kind === "flow" && (
                   <span className="operation-status">

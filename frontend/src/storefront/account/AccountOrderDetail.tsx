@@ -1,5 +1,6 @@
 /** Purchase detail uses immutable addresses, current fulfillment, issued PDFs and paid order entitlements. */
 import { useEffect, useState } from "react";
+import { contentText } from "../../shared/i18n/content-language";
 import { useAccountText } from "../../shared/i18n/account-i18n";
 import { useCustomerText } from "../../shared/i18n/customer-i18n";
 import { useOperationsText } from "../../shared/i18n/operations-i18n";
@@ -63,9 +64,11 @@ export default function AccountOrderDetail({
     };
   }, [path]);
   const stateLabel = (state: string) =>
-    order?.stateLabels?.[state]?.[locale.slice(0, 2)] ??
-    order?.stateLabels?.[state]?.en ??
-    o(state);
+    contentText(
+      order?.stateLabels?.[state] ?? {},
+      locale,
+      order?.stateMainLocale ?? "en-GB",
+    ) || o(state);
   const date = (value?: string) =>
     value
       ? new Date(value).toLocaleDateString(locale, {

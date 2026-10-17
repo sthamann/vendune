@@ -177,4 +177,7 @@ def persistent_key_admissible (personal : Bool) (administrator : Bool) : Bool :=
 def app_configuration_release_admissible (extension : Bool) (product : Bool) (company : Bool) : Bool :=
   (((!extension) || product) || company)
 
+def native_lifecycle_admissible (native : Bool) (rights : Bool) (guards : Bool) : Bool :=
+  ((native && rights) && guards)
+
 end CommerceKernel

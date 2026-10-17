@@ -4,7 +4,18 @@ export type Quote = {
   id: string;
   unitId: string;
   buyerId: string;
-  state: "requested" | "offered" | "accepted" | "ordered" | "rejected";
+  state: string;
+  workflow?: {
+    mainLocale?: string;
+    preparation?: boolean;
+    label?: Record<string, string>;
+    actions: {
+      id: string;
+      label: Record<string, string>;
+      enabled: boolean;
+      reason?: string;
+    }[];
+  } | null;
   revision: number;
   data: {
     quote: Cart;

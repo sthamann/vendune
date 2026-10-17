@@ -1,0 +1,124 @@
+{
+  "id": "production_review",
+  "version": "1.0.0",
+  "coreApi": "1",
+  "runtime": "declarative",
+  "name": {
+    "en-GB": "Production review",
+    "de-DE": "Produktionspr\u00fcfung",
+    "fr-FR": "Contr\u00f4le production",
+    "es-ES": "Revisi\u00f3n producci\u00f3n"
+  },
+  "permissions": [
+    "commerce.lifecycle"
+  ],
+  "entities": [],
+  "slots": [],
+  "actions": [],
+  "events": [],
+  "lifecycles": [
+    {
+      "version": 1,
+      "object": "order",
+      "states": [
+        {
+          "id": "quality",
+          "label": {
+            "en-GB": "Quality review",
+            "de-DE": "Qualit\u00e4tspr\u00fcfung",
+            "fr-FR": "Contr\u00f4le qualit\u00e9",
+            "es-ES": "Control de calidad"
+          }
+        }
+      ],
+      "transitions": [
+        {
+          "id": "review",
+          "from": "in_progress",
+          "to": "quality",
+          "replaces": "complete",
+          "label": {
+            "en-GB": "Review quality",
+            "de-DE": "Qualit\u00e4t pr\u00fcfen",
+            "fr-FR": "V\u00e9rifier qualit\u00e9",
+            "es-ES": "Revisar calidad"
+          }
+        },
+        {
+          "id": "approve",
+          "from": "quality",
+          "to": "completed",
+          "requiredPermissions": [
+            "documents.read"
+          ],
+          "guards": [
+            "payment.ready",
+            "delivery.delivered"
+          ],
+          "label": {
+            "en-GB": "Approve completion",
+            "de-DE": "Abschluss freigeben",
+            "fr-FR": "Valider fin",
+            "es-ES": "Aprobar finalizaci\u00f3n"
+          }
+        },
+        {
+          "id": "cancel",
+          "from": "quality",
+          "to": "cancelled",
+          "label": {
+            "en-GB": "Cancel order",
+            "de-DE": "Bestellung stornieren",
+            "fr-FR": "Annuler commande",
+            "es-ES": "Cancelar pedido"
+          }
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "object": "quote",
+      "states": [
+        {
+          "id": "technical",
+          "label": {
+            "en-GB": "Technical review",
+            "de-DE": "Technische Pr\u00fcfung",
+            "fr-FR": "Contr\u00f4le technique",
+            "es-ES": "Revisi\u00f3n t\u00e9cnica"
+          }
+        }
+      ],
+      "transitions": [
+        {
+          "id": "assess",
+          "from": "requested",
+          "to": "technical",
+          "guards": [
+            "quote.message"
+          ],
+          "label": {
+            "en-GB": "Review request",
+            "de-DE": "Anfrage pr\u00fcfen",
+            "fr-FR": "Examiner demande",
+            "es-ES": "Revisar solicitud"
+          }
+        },
+        {
+          "id": "ready",
+          "from": "technical",
+          "to": "requested",
+          "requiredPermissions": [
+            "documents.read"
+          ],
+          "label": {
+            "en-GB": "Ready to offer",
+            "de-DE": "Angebot vorbereiten",
+            "fr-FR": "Pr\u00eat pour devis",
+            "es-ES": "Preparar oferta"
+          }
+        }
+      ]
+    }
+  ]
+}

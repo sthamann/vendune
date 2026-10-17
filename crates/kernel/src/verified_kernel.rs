@@ -2,6 +2,7 @@
 mod app_intake;
 mod fulfillment;
 pub use app_intake::app_configuration_release_admissible;
+pub use app_intake::native_lifecycle_admissible;
 pub use app_intake::{app_submission_admissible, persistent_key_admissible};
 pub use fulfillment::{carrier_booking_admissible, delivery_split_admissible};
 pub fn discount_cap(total: u64, requested: u64) -> u64 {
