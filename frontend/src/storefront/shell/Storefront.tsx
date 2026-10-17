@@ -161,6 +161,7 @@ export default function Storefront(props: { onMerchant: () => void }) {
                 )}
                 {account && !channelPreview() && (
                   <CustomerAccount
+                    initialPage={account}
                     cart={cart}
                     onCart={save}
                     onClose={() => setAccount(false)}

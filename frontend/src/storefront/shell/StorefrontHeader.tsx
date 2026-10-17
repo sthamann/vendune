@@ -1,6 +1,5 @@
 /** StorefrontHeader: storefront view composed from the scoped cart/controller. */
 import { openConsent } from "../../shared/legal/consent-store";
-import { shopApi, type Cart } from "../../shared/api/shop-api";
 import { StorefrontAppNavigation } from "../../shared/apps/AppSurfaces";
 import StorefrontHeaderView from "./StorefrontHeaderView";
 import StorefrontCurrency from "./StorefrontCurrency";
@@ -17,8 +16,6 @@ export default function StorefrontHeader() {
     s,
     busy,
     cart,
-    run,
-    save,
     setAccount,
     onMerchant,
     adaptation,
@@ -47,22 +44,11 @@ export default function StorefrontHeader() {
           : (cart?.lineItems.reduce((n, i) => n + i.quantity, 0) ?? 0)
       }
       navigation={<StorefrontAppNavigation />}
-      onAccount={() => setAccount(true)}
+      onAccount={() => setAccount("overview")}
       onMerchant={onMerchant}
       onConsent={openConsent}
       onBag={openBag}
-      onBusiness={() =>
-        void run(async () => {
-          if (!cart || cart.customerGroup === "business") return;
-          save(
-            await shopApi<Cart>(
-              "/store-api/account/login",
-              { email: "buyer@example.test", password: "demo-business" },
-              cart.token,
-            ),
-          );
-        })
-      }
+      onBusiness={() => setAccount("business")}
     >
       <StorefrontLanguage />
       <StorefrontCurrency />

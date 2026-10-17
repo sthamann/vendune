@@ -1,5 +1,10 @@
 # Changelog
 
+## Business-account entry uses the buyer's own identity — 2026-10-17
+
+- Remove the shared demo-credential login from the storefront header. Business account opens the existing customer workspace, prompts unsigned buyers to sign in explicitly and retains the company-purchasing destination after authentication. Already signed-in buyers use their own current session.
+- Ordinary My account still opens the overview. Merely opening or cancelling either entry does not submit credentials, rotate a cart or select a purchasing unit. Company access, quotes, approvals and pricing remain under the native current-membership checks.
+
 ## Native workflow captions and hosted model acceptance — 2026-10-17
 
 - Reuse native B2B state captions in the visual lifecycle editor and AI proposal review instead of raw requested/rejected IDs; merchant content and stored IDs remain unchanged.
