@@ -124,7 +124,7 @@ settlement.
 [PR 158](https://github.com/sthamann/veyndo/pull/158) merged as `97c981f`.
 Candidate `e9369cfce69fca0f4eb36ab2578013f67c84c3df` and main have the same
 Git tree `07dbed74fe241aff4abf1531e0d6809ee6dc4b2d`. Source comparison against
-`d939257` shows no changes in Rust, schemas, migrations, extensions or runtime
+`d939257` shows no changes in Rust, schemas, migrations, extensions or backend
 build inputs; the change is frontend captions and documentation.
 
 - [Required UI CI 39035006117](https://github.com/sthamann/veyndo/actions/runs/39035006117) passed: 114 frontend files / 641 tests, TypeScript/production build, unchanged coverage floors, architecture, localization and formatting. This 3-minute-12-second lane is not a new full-backend coverage measurement; the full 100-suite run above retains that boundary.
