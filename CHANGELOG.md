@@ -1,5 +1,10 @@
 # Changelog
 
+## Native workflow captions and hosted model acceptance — 2026-10-17
+
+- Reuse native B2B state captions in the visual lifecycle editor and AI proposal review instead of raw requested/rejected IDs; merchant content and stored IDs remain unchanged.
+- Record actual configured-model acceptance: unchanged natural-language request, HTTP 200, exact preservation of existing package sections, explicit private install and selected publication of 0.1.3, with the old native order unchanged. Earlier failed attempts retain their own evidence.
+
 ## Native workflow context and visible assistant failures — 2026-10-17
 
 - Reproduce a public configured-model refusal on the workflow-proposal release. Feed the actual native graph, per-domain guard/replacement restrictions and registered team scopes into the shared generation schema, which is also used by app editing and coding-agent task exports. The versioned `app-edit@3` prompt consumes that context; earlier templates remain immutable, and rendered-system provenance binds the actual context.

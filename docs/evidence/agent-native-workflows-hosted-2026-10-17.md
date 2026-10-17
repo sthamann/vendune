@@ -4,7 +4,7 @@ This receipt separates the public Core release, a configured-model walkthrough,
 and deterministic provider fixtures. All business data belongs to the existing
 synthetic **Release Abnahme 16 Oktober** shop. Payments are simulated.
 
-## Released source and verification
+## Original release and verification
 
 | Item | Observed result |
 | --- | --- |
@@ -50,9 +50,74 @@ The failure message was also hidden behind the open assistant dialog. Closing it
 revealed only generic input guidance. The shared schema supplied shape/limits,
 but lacked the complete domain-specific native graph/replacement/scope context.
 The follow-up derives that read-only context from the validator, distinguishes
-failure categories and displays the localized refusal inside the dialog. It needs
-its own release and fresh configured-model acceptance; local fixture success is
-not a replacement for that missing public outcome.
+failure categories and displays the localized refusal inside the dialog. Its
+separate release and configured-model acceptance are recorded below; local fixture
+success alone did not close the original public failure.
+
+## Follow-up accepted on d939257
+
+[PR 157](https://github.com/sthamann/veyndo/pull/157) merged as `80d4cd0`.
+Candidate `d93925737b451498c7081273e57fdd8106fffaf4` and main share Git tree
+`893782a4b43900409b1d26ebcd48c948da8d1c7c`.
+
+| Item | Observed result |
+| --- | --- |
+| Required CI | [39031379568](https://github.com/sthamann/veyndo/actions/runs/39031379568), successful: all 100 registered suites, 114 frontend files / 640 tests, unchanged coverage floors, connected native generation/install/release/order tests and eight adversarial outputs |
+| Prompt | Immutable `app-edit@3`; native graph, guards, replacement restrictions and scopes come from existing validation owners. Prior templates/corpus remain intact |
+| Formal boundary | 59 extracted policies / 156,693 compiled Rust–Lean comparisons, no mismatch; mutation/binding/shortcut controls passed. No new pure policy or whole-adapter proof claim |
+| Image | `fresh-corn-7134`, successful in 8 minutes 25 seconds |
+| Snapshot | `app-agent-context-20261017-d939257`, 6 GB, completed 14:13:50–14:14:59 Europe/Berlin |
+| Maintenance | `b1b4724b-5240-4507-a173-2ebbefdd10b8`, successful in 11 seconds; migration-only setup complete at 12:50:40 UTC, exit 0; no new migration/app table |
+| Core | `vendune-core-59c66cdd5c`, pod `vendune-core-59c66cdd5c-7tl85`, started 14:51:20 Europe/Berlin; exactly one active instance, 1/1 passing, zero restarts; old deployment 0/1 |
+| Health/session | PostgreSQL returned `ok`; the existing merchant session, selected app and saved build survived a fresh reload |
+
+The redundant automatic release `6b4c90c2-449f-4252-b683-5735701a84b9` was
+aborted during its first build; it did not execute the later backup/job/Core nodes.
+
+### Original request, actual configured model
+
+After the public reload, the **same original German request** was sent once to
+the configured platform model `gpt-6.1-sol`. No JSON example, extra repair hint,
+manual model-output correction or validation bypass was added. It returned HTTP
+200 and a reviewable immutable draft **0.1.3**, build
+`08c2ab9725bb41578a9f0c7e840ef3f0`, digest
+`88d0381c6afd516a9059e556df466042424e3ccb8be7dbeef9650d61fdb7dbff`.
+
+The new quote state **Technical review** uses
+`requested → technical_review` with guard `quote.message`;
+**Prepare quote** returns `technical_review → requested` with additional
+`documents.read`. The new state/actions have en-GB, de-DE, fr-FR and es-ES labels.
+Quote transitions omit `replaces`. The [captured result](agent-native-workflow-result-2026-10-17.json) records only synthetic workflow data and the actual build/digest, without credentials.
+
+The old immutable 0.1.2 package was opened through its visible package contract
+and compared directly with the returned proposal. Only **lifecycles** and
+**version** changed; the existing order contract was exactly equal. Data models,
+actions, access, surfaces and views were unchanged. Order completion retained its
+payment and delivered-shipment guards.
+
+![Actual model proposal before adoption](../assets/app-workflows-agent-20261017/proposal.png)
+
+### Explicit adoption, private install and selected publication
+
+The proposal was explicitly adopted. Version 0.1.3 was installed in
+**App-Felder Abnahme 17.10.**; native review selected only `app:app_mvc6ah4c`.
+Explicit publication returned **Ausgewählte Änderungen veröffentlicht**.
+Test records and unrelated sandbox changes were not selected.
+
+![Selected package publication](../assets/app-workflows-agent-20261017/published.png)
+
+Public order **RAC-ed46f0cf** was reloaded afterwards: EUR 63.90, its German
+fictitious lamp label, delivered shipment, completed status and original
+**Qualitätsprüfung V2** history were unchanged. The mounted app now uses 0.1.3;
+that does not relabel the order's historical accepted workflow.
+
+![Existing order after the app update](../assets/app-workflows-agent-20261017/old-order.png)
+
+This accepts the configured-model proposal and real version/install/release path.
+One successful request is not a model-quality rate. Native RFQ buyer/merchant
+execution, guard denials and immutable snapshots have connected local/restricted
+CI coverage; this receipt does not claim a hosted RFQ buyer negotiation or real
+settlement.
 
 ## Acceptance limits
 

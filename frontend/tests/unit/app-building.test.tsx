@@ -113,6 +113,20 @@ it("requires explicit AI review and denies applying after a concurrent draft edi
         },
       ],
     },
+    {
+      version: 1,
+      object: "quote",
+      states: [{ id: "technical", label: { "en-GB": "Technical review" } }],
+      transitions: [
+        {
+          id: "review",
+          from: "requested",
+          to: "technical",
+          label: { "en-GB": "Check request" },
+          guards: ["quote.message"],
+        },
+      ],
+    },
   ];
   after.entities[0].fields.push({
     name: "approved",
@@ -136,6 +150,7 @@ it("requires explicit AI review and denies applying after a concurrent draft edi
   expect(studio.acceptProposal).not.toHaveBeenCalled();
   expect(screen.getByText("Order & quote workflows")).toBeVisible();
   expect(screen.getByText(/Quality review →/)).toBeVisible();
+  expect(screen.getByText(/Requested → Technical review/)).toBeVisible();
   expect(screen.getByText("All shipments delivered")).toBeVisible();
   expect(screen.getByText(/\(documents.read\)/)).toBeVisible();
   expect(proposalChanges(before, after)).toContainEqual({

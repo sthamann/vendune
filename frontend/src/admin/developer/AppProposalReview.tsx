@@ -6,7 +6,7 @@ import { contentText } from "../../shared/i18n/content-language";
 import { useLocale } from "../../shared/i18n/i18n";
 import type { NativeLifecycle } from "../../shared/apps/native/types";
 import { useLifecycleText } from "../../shared/i18n/native-lifecycle-i18n";
-import { useOperationsText } from "../../shared/i18n/operations-i18n";
+import { useWorkflowStateText } from "../../shared/i18n/workflow-state-text";
 import { usePermissionText } from "../team/permission-i18n";
 export default function AppProposalReview({ studio }: { studio: AppStudio }) {
   const t = useBuildingText(),
@@ -90,7 +90,7 @@ function WorkflowSummary({
   mainLocale: string;
 }) {
   const life = useLifecycleText(),
-    { o } = useOperationsText(),
+    nativeState = useWorkflowStateText(),
     permission = usePermissionText(),
     { locale } = useLocale();
   const name = (id: string) =>
@@ -98,7 +98,7 @@ function WorkflowSummary({
       contract.states.find((s) => s.id === id)?.label ?? {},
       locale,
       mainLocale,
-    ) || o(id);
+    ) || nativeState(contract.object, id);
   return (
     <div className="app-workflow-edges">
       {contract.transitions.map((edge) => (

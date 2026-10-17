@@ -15,7 +15,7 @@ A green test, merged code and a completed public business journey are different 
 
 | Journey or boundary | Evidence and present limitation |
 | --- | --- |
-| Native app order workflows | [17 October public acceptance](evidence/native-app-workflows-hosted-2026-10-17.md): visual creation, private installation, selected publication, guarded completion, 0.1.1 → 0.1.2 upgrade and distinct old/new order workflows passed. Payments remained simulated; RFQ buyer hosting is a separate acceptance. |
+| Native app workflows and AI proposals | [17 October public acceptance](evidence/native-app-workflows-hosted-2026-10-17.md): visual creation, private installation, selected publication, guarded completion, 0.1.1 → 0.1.2 upgrade and distinct old/new order workflows passed. The [configured-model follow-up](evidence/agent-native-workflows-hosted-2026-10-17.md#follow-up-accepted-on-d939257) also passed exact preservation, private install and selected publication of a missing quote workflow. Payments remained simulated; hosted RFQ buyer execution is a separate acceptance. |
 | Native app product journey | [17 October hosted acceptance](evidence/native-app-fields-hosted-2026-10-17.md): visual creation, native product writes, compatible upgrade with retained data, optional grid column, exact positive/negative filters and selected live publication passed. Original embedded Storyfront purchase/return/bag clearing also passed on that image; payment remained simulated. |
 | Shared app storage | [15 October hosted migration](evidence/shared-app-storage-hosted-2026-10-15.json): four fixed physical tables, checked data migration and simulated purchases. This does not establish unbounded capacity. |
 | Restricted database runtime | [Hosted enforcement record](evidence/database-enforcement-2026-10-15.json): separate roles and strict restart. Authorization and SQL isolation are both required. |
@@ -43,17 +43,18 @@ A green test, merged code and a completed public business journey are different 
 
 ## Public delivery and current work
 
-The current Core is `7eb82c8`, image `distinct-roll-3524`, source-tree identical
-to merged main `6537ed1`. Its [release and configured-model receipt](evidence/agent-native-workflows-hosted-2026-10-17.md)
+The current Core is `d939257`, image `fresh-corn-7134`, source-tree identical
+to merged main `80d4cd0`. Its [release and configured-model receipt](evidence/agent-native-workflows-hosted-2026-10-17.md#follow-up-accepted-on-d939257)
 records full required CI, snapshot, successful maintenance/readiness and preserved
-merchant sign-in. The deterministic AI workflow chain passed, but the configured
-public model proposal was rejected; that walkthrough remains unaccepted. A
-follow-up adds validator-owned context and visible localized refusal messages.
+merchant sign-in. The original natural-language request now produced a valid
+0.1.3 quote-review proposal through the configured model. Direct package comparison
+preserved the old order contract and every data/UI/access section. Explicit private
+installation and selected publication passed; the old order remained unchanged.
+The prior two public refusals retain their earlier image and evidence.
 The [preceding native order receipt](evidence/native-app-workflows-hosted-2026-10-17.md)
-retains its accepted visual publication, guarded purchases and old/new workflow
-versions. This Core release did not redeploy the private Experience service or
-newly accept the original embedded Storyfront checkout; earlier results retain
-their own source boundary.
+retains its guarded purchases and old/new workflow versions. This release did not
+redeploy the private Experience service or newly accept the original embedded
+Storyfront checkout; earlier results retain their own source boundary.
 
 Earlier deliveries retain their source and acceptance boundaries:
 [product fields and original embedded checkout, 17 October](evidence/native-app-fields-hosted-2026-10-17.md),

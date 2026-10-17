@@ -8,7 +8,7 @@ import {
 import { useContentLanguage } from "../../shared/i18n/ContentLanguage";
 import { contentText } from "../../shared/i18n/content-language";
 import LocalizedField from "../../shared/i18n/LocalizedField";
-import { useOperationsText } from "../../shared/i18n/operations-i18n";
+import { useWorkflowStateText } from "../../shared/i18n/workflow-state-text";
 import PermissionPicker from "../team/PermissionPicker";
 import { permissionScopes } from "../team/permission-i18n";
 import { nextId, textMap } from "./app-model";
@@ -21,7 +21,7 @@ export default function AppNativeLifecycles({
 }) {
   const t = useLifecycleText(),
     { language, mainLocale } = useContentLanguage(),
-    { o } = useOperationsText();
+    nativeState = useWorkflowStateText();
   const [object, setObject] = useState<"order" | "quote">("order");
   const contracts = manifest.lifecycles ?? [];
   const set = (next: NativeLifecycle[]) =>
@@ -110,7 +110,7 @@ export default function AppNativeLifecycles({
             c.states.find((s) => s.id === id)?.label ?? {},
             language,
             mainLocale,
-          ) || o(id);
+          ) || nativeState(c.object, id);
         const updateEdge = (
           i: number,
           delta: Partial<NativeLifecycle["transitions"][number]>,
