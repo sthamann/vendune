@@ -1,5 +1,11 @@
 # Changelog
 
+## Review native workflow proposals from the App Studio assistant — 2026-10-17
+
+- Let ordinary bounded AI edits add a missing native order or quote workflow. Preserve existing domains and reject changes to their states, edges or guards atomically; explicit capability consent, current rights, immutable versions and selected sandbox publication remain mandatory.
+- Show translated action paths, fixed guards and additional permission scopes in the proposal review; explain protected-workflow failures in EN/DE/FR/ES. Version the prompt as `app-edit@2` without changing its predecessor.
+- Exercise the actual model HTTP → private install → selected release → native simulated order path. A versioned six-case adversarial provider-output corpus rejects weakened or executable contracts without saved partial builds. Local fixture evidence is separate from hosted model quality and real payment acceptance.
+
 ## Native app lifecycles — 2026-10-17
 
 - App-owned order and RFQ review states, fixed native guards and current extra scopes share native transitions, API/MCP/Flow, history and the existing outbox.

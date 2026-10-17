@@ -31,9 +31,19 @@ merchant prepares an offer. Its business vocabulary belongs to the app package.
    order or quote view. Reload after each decision to use its current revision.
 
 Visual edits, agent JSON and exported coding-agent tasks use the same `lifecycles`
-property. Existing AI presentation edits preserve an accepted lifecycle contract;
-they cannot silently remove its rules. A new source-agent proposal remains a
-reviewed version change, not an automatic live migration.
+property. The ordinary App Studio assistant can also add a **missing** order or
+quote workflow: describe the review step, required delivery/payment facts and
+additional team rights. Its proposal shows the translated paths, guards and
+permission scopes before you choose **Use this proposal**. Installation and
+selected publication remain separate explicit steps.
+
+The versioned `app-edit@2` prompt advertises this contract. Existing workflows
+cannot be rewritten by a normal AI patch: omitted domains are retained, and
+changed existing states, edges or guards reject the entire proposal, including
+otherwise valid presentation edits. Use the versioned workflow editor for an
+intentional change. Adding the other missing domain preserves the existing one.
+The host includes `commerce.lifecycle` in the candidate's permission review; it
+does not grant installation authority or publish anything automatically.
 
 ![Native order in the app-owned Quality review step; completion remains blocked until delivery.](assets/native-lifecycles-20261017/quality-review.png)
 
@@ -118,6 +128,15 @@ Database-lock interleaving also checks a native workflow edit against concurrent
 app installation, including the actual version-bound MCP save operation.
 Rust tests add malformed/dead graphs and unsupported guards; UI
 tests cover shared compilation, connected editing and regional label fallback.
+
+The registered `app_generation` provider fixture exercises the ordinary model
+HTTP patch through private installation, selected release and a real native
+simulated order. Missing delivery blocks completion. The versioned
+`app-native-workflows.v1.json` corpus rejects six adversarial provider outputs,
+including weakened guards/permissions, removed states, identity swaps and an
+executable guard. This tests admission and connected effects with a local model
+fixture; it is not an evaluation of a paid model's output quality or a separate
+hosted AI acceptance.
 
 Read [current status](status.md) for the deployed image and hosted acceptance.
 A successful local run or an updated guide does not deploy a runtime. Historical

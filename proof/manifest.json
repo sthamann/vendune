@@ -654,8 +654,8 @@
     },
     "crates/cognition/src/prompts.rs": {
       "status": "unproved",
-      "sha256": "ee5196b2e7891ff0541eaba5eeeae8eb2ec5266138950edbf1ef9783cbbcbc8b",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "857204596c15bb2ceed5e040bba60969c497fc950ae1c1d149a66e2f473a1502",
+      "review": "Reviewed ordinary AI patch admission for missing order/quote lifecycle domains: existing domain definitions are retained or atomically rejected on alteration; candidate commerce.lifecycle consent remains explicit and does not grant native installation authority. Versioned app-edit@2 provenance preserves v1. Real local provider HTTP, private install, selected release, native simulated order guard and six adversarial outputs pass; no new pure policy or whole-adapter proof claim."
     },
     "crates/commerce/src/discount.rs": {
       "status": "reviewed-binding",
@@ -2544,13 +2544,13 @@
     },
     "src/developer/generation_contract.rs": {
       "status": "unproved",
-      "sha256": "6fa062dc769cabb735aa5c5bb2bd88b3d4a97f198f083ec34206fef5644fe24b",
-      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
+      "sha256": "66636c1b45c63c08214e64389bffb55d7c8943cd7bc88097fe93a79b85748f73",
+      "review": "Reviewed ordinary AI patch admission for missing order/quote lifecycle domains: existing domain definitions are retained or atomically rejected on alteration; candidate commerce.lifecycle consent remains explicit and does not grant native installation authority. Versioned app-edit@2 provenance preserves v1. Real local provider HTTP, private install, selected release, native simulated order guard and six adversarial outputs pass; no new pure policy or whole-adapter proof claim."
     },
     "src/developer/generation_edits.rs": {
       "status": "unproved",
-      "sha256": "72ceda183ee108508f2feae65686ad0119d1d3b2d5e284e70cbbfd6bf25d5707",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "1f32dc3ff2c45ae59078268dfa478c07e0a73db9a9bc6c965913a3a8cb8999c5",
+      "review": "Reviewed ordinary AI patch admission for missing order/quote lifecycle domains: existing domain definitions are retained or atomically rejected on alteration; candidate commerce.lifecycle consent remains explicit and does not grant native installation authority. Versioned app-edit@2 provenance preserves v1. Real local provider HTTP, private install, selected release, native simulated order guard and six adversarial outputs pass; no new pure policy or whole-adapter proof claim."
     },
     "src/developer/mod.rs": {
       "status": "unproved",
@@ -3619,6 +3619,10 @@
       "sha256": "2da5c9476309e68931aad63e274dec829f8a1ed0fe140cb5cdea0e126eaf2e4a",
       "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
+    "crates/cognition/evals/app-native-workflows.v1.json": {
+      "sha256": "66dd2c2ddcdaf749fe4aaff4e9e4a23cfeb6dff3e0a1b13445d3415763614f59",
+      "review": "Reviewed ordinary AI patch admission for missing order/quote lifecycle domains: existing domain definitions are retained or atomically rejected on alteration; candidate commerce.lifecycle consent remains explicit and does not grant native installation authority. Versioned app-edit@2 provenance preserves v1. Real local provider HTTP, private install, selected release, native simulated order guard and six adversarial outputs pass; no new pure policy or whole-adapter proof claim."
+    },
     "crates/cognition/evals/tool-injection.v1.json": {
       "sha256": "4cf25b4a445c8df9c099efb9cdac0c2160b06e633256bc9d498edac67c11535d",
       "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
@@ -3631,6 +3635,10 @@
       "sha256": "4d953447bd9edc5a02d29e488688bba8d01678e506b869b63ea175f799aa4713",
       "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
+    "crates/cognition/prompts/app-edit.v2.txt": {
+      "sha256": "e95daeb345d84d643f3075a64e024e46b5e125b397ac4c247b43c58177a47a82",
+      "review": "Reviewed ordinary AI patch admission for missing order/quote lifecycle domains: existing domain definitions are retained or atomically rejected on alteration; candidate commerce.lifecycle consent remains explicit and does not grant native installation authority. Versioned app-edit@2 provenance preserves v1. Real local provider HTTP, private install, selected release, native simulated order guard and six adversarial outputs pass; no new pure policy or whole-adapter proof claim."
+    },
     "crates/cognition/prompts/app-generation.v1.txt": {
       "sha256": "270d9bd6499bcb156e819485cd279c1c6e918903f68f71879c9bb9481a2a64bc",
       "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
@@ -3640,8 +3648,8 @@
       "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
     },
     "crates/cognition/prompts/manifest.json": {
-      "sha256": "3f17ad08cf02a96d9d8ffa8b80e83761b2e19ea450a455c3d069dc3d0f8f7502",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "1ff3daf312728a884922eedc7efd3c7e583fcc67783d0a7838497ead0734548a",
+      "review": "Reviewed ordinary AI patch admission for missing order/quote lifecycle domains: existing domain definitions are retained or atomically rejected on alteration; candidate commerce.lifecycle consent remains explicit and does not grant native installation authority. Versioned app-edit@2 provenance preserves v1. Real local provider HTTP, private install, selected release, native simulated order guard and six adversarial outputs pass; no new pure policy or whole-adapter proof claim."
     },
     "crates/cognition/prompts/merchant-planner.v1.txt": {
       "sha256": "6fc1d69faed9342d8b95af531c3c3e0c597f1c4d18a311d3f62e5849236fdfaf",

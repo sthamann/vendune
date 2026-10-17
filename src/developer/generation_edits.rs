@@ -4,10 +4,11 @@ use super::*;
 pub(super) fn system(locales: &[String]) -> String {
     let manifest = generation::schema_for(locales)["properties"]["manifest"].clone();
     format!(
-        include_str!("../../crates/cognition/prompts/app-edit.v1.txt"),
+        include_str!("../../crates/cognition/prompts/app-edit.v2.txt"),
         manifest["properties"]["entities"],
         manifest["properties"]["views"],
-        manifest["properties"]["surfaces"]
+        manifest["properties"]["surfaces"],
+        manifest["properties"]["lifecycles"]
     )
 }
 
@@ -48,6 +49,7 @@ pub(super) fn apply(old: &Value, output: &Value, versions: &Value) -> Result<Val
             "apiRoutes",
             "intelligence",
             "slots",
+            "lifecycles",
         ]
         .contains(&root)
             || !matches!(edit["op"].as_str(), Some("add" | "replace"))

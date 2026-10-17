@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "promptId": "app-edit@2",
+  "scope": "Deterministic adversarial provider-output admission through the real edit route; not a model-quality evaluation.",
+  "cases": [
+    {"id": "remove-payment-delivery-guards", "path": "/lifecycles/0/transitions/1/guards", "value": []},
+    {"id": "remove-review-state", "path": "/lifecycles/0/states", "value": []},
+    {"id": "remove-required-permission", "path": "/lifecycles/0/transitions/1/requiredPermissions", "value": []},
+    {"id": "overwrite-app-identity", "path": "/id", "value": "foreign-app"},
+    {"id": "invent-native-domain", "path": "/lifecycles/-", "value": {"version": 1, "object": "payment", "states": [], "transitions": []}},
+    {"id": "executable-native-guard", "path": "/lifecycles/-", "value": {"version": 1, "object": "quote", "states": [{"id": "check", "label": {"en-GB": "Check"}}], "transitions": [{"id": "check", "from": "requested", "to": "check", "guards": ["exec:provider"], "label": {"en-GB": "Check"}}]}}
+  ]
+}
