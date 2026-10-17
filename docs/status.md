@@ -43,8 +43,8 @@ A green test, merged code and a completed public business journey are different 
 
 ## Public delivery and current work
 
-The current Core is `d939257`, image `fresh-corn-7134`, source-tree identical
-to merged main `80d4cd0`. Its [release and configured-model receipt](evidence/agent-native-workflows-hosted-2026-10-17.md#follow-up-accepted-on-d939257)
+The current Core is `e9369cf`, image `cool-grape-9915`, source-tree identical
+to merged main `97c981f`. Its [UI-caption receipt](evidence/agent-native-workflows-hosted-2026-10-17.md#ui-caption-follow-up-accepted-on-e9369cf) records 641 frontend tests, successful maintenance/readiness and live native quote captions. Rust, schema and runtime contracts are unchanged from the fully tested `d939257` backend. The [release and configured-model receipt](evidence/agent-native-workflows-hosted-2026-10-17.md#follow-up-accepted-on-d939257)
 records full required CI, snapshot, successful maintenance/readiness and preserved
 merchant sign-in. The original natural-language request now produced a valid
 0.1.3 quote-review proposal through the configured model. Direct package comparison

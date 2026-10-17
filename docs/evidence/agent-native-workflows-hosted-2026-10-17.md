@@ -119,6 +119,40 @@ execution, guard denials and immutable snapshots have connected local/restricted
 CI coverage; this receipt does not claim a hosted RFQ buyer negotiation or real
 settlement.
 
+## UI-caption follow-up accepted on e9369cf
+
+[PR 158](https://github.com/sthamann/veyndo/pull/158) merged as `97c981f`.
+Candidate `e9369cfce69fca0f4eb36ab2578013f67c84c3df` and main have the same
+Git tree `07dbed74fe241aff4abf1531e0d6809ee6dc4b2d`. Source comparison against
+`d939257` shows no changes in Rust, schemas, migrations, extensions or runtime
+build inputs; the change is frontend captions and documentation.
+
+- [Required UI CI 39035006117](https://github.com/sthamann/veyndo/actions/runs/39035006117) passed: 114 frontend files / 641 tests, TypeScript/production build, unchanged coverage floors, architecture, localization and formatting. This 3-minute-12-second lane is not a new full-backend coverage measurement; the full 100-suite run above retains that boundary.
+- Image **cool-grape-9915** built successfully in 8 minutes 16 seconds. The build metadata explicitly reported remote cache disabled.
+- Snapshot **workflow-ui-20261017-e9369cf**, 6 GB, completed 15:04:46–15:05:47 Europe/Berlin, includes the published 0.1.3 app.
+- Maintenance **5c978f1e-9175-4b09-8f34-d433100b7ed2** succeeded in 9 seconds; migration-only setup completed at 13:14:44 UTC, exit 0.
+- Core **vendune-core-74445f5d59**, pod **vendune-core-74445f5d59-8gd7v**, started 15:15:38 Europe/Berlin: exactly one active instance, 1/1 passing, no restarts; the previous deployment is 0/1.
+- Public Studio reloaded with the existing session and app 0.1.3. Both quote directions now show **Angefragt**, the rejected option **Abgelehnt**, and the merchant's **Technische Prüfung** label remains intact. The package wire IDs are unchanged. RAC-ed46f0cf still has EUR 63.90, completed status and its original review history after a fresh reload.
+
+The redundant automatic release `5da76ba4-8e8b-4d39-993d-dae4fa6fbf18` was
+aborted during its first build; the checked equivalent image followed the
+successful snapshot/maintenance/readiness path instead.
+
+![Native quote captions in the live Studio](../assets/app-workflows-agent-20261017/native-captions.png)
+
+### Separate repeat of the original embedded checkout
+
+On **d939257**, a fresh original Lumen Storyfront tab was also operated using
+ordinary native browser actions. Its existing unpurchased synthetic mug remained
+one item at EUR 24.90. The checkout document again returned HTTP 200 but was held
+at `Fetch.requestPaused` by the browser controller, leaving the iframe at
+about:blank. The parent displayed its explicit retry message. Returning retained
+the original one-item bag; no new purchase was created. This alternative attempt
+is a recorded limit, not a new accepted embedded purchase or proof of a server
+failure. The paused document was not bypassed or forcibly resumed.
+
+![Controlled original checkout timeout](../assets/app-workflows-agent-20261017/original-checkout-timeout.png)
+
 ## Acceptance limits
 
 This release does not compile arbitrary app source, replay historical business
