@@ -2,6 +2,7 @@
 
 ## Actionable receipt setup guidance — 2026-10-17
 
+- [Public delivery and acceptance](docs/evidence/buyer-pos-hosted-2026-10-17.md): complete required CI, preserved own-account/cart entry, German simulated purchase, POS invoice retry without duplicate, actual parsed PDF and version-bound guarded completion. Known PDF punctuation and embedded-browser limitations remain explicit.
 - Explain the native missing-seller refusal in EN/DE/FR/ES: complete and save Company details, then retry only the receipt. The recorded POS sale must not be submitted again. Native receipt validation, permissions and idempotency remain unchanged.
 - Check the exact generated source inventory before expensive CI work. Include the previously omitted native-workflow caption module; keep the full structure and coverage gates.
 

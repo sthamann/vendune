@@ -1,5 +1,10 @@
 # Native point of sale
 
+[17 October hosted acceptance](evidence/buyer-pos-hosted-2026-10-17.md) records
+channel creation, parked/resumed carts, preserved cart across rollout, fictional
+cash sales, native invoice/PDF and app-bound guarded completion. No physical
+printer, fiscal certification or real provider settlement is inferred.
+
 POS is a **sales-channel type in the existing VEYNDO commerce system**. A register
 uses the same products, inventory, prices, taxes, currencies, promotions, orders,
 provider ledger and immutable documents as a storefront. It has no second checkout

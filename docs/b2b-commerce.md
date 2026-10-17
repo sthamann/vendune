@@ -23,7 +23,10 @@ Without a current assignment the portal explains that company access must first
 be enabled. Unit selection, RFQs, approval, budgets and purchases continue through
 the same authorized native operations described below. Component regressions
 exercise both entry routes and real session transport; hosted buyer acceptance is
-recorded separately in the [current status](status.md).
+recorded separately in the [current status](status.md). The [17 October hosted
+follow-up](evidence/buyer-pos-hosted-2026-10-17.md) accepts the unsigned entry without
+automatic login and a preserved native checkout. It does not newly accept a
+hosted signed-buyer RFQ/approval journey.
 
 ## Build only the modules a buyer needs
 

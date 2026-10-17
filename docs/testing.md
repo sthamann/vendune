@@ -1,5 +1,11 @@
 # Testing, coverage and maintenance contracts
 
+The [17 October buyer/POS follow-up](evidence/buyer-pos-hosted-2026-10-17.md)
+records the complete required 100-suite check and 115 frontend files / 648 tests,
+plus public preserved-cart, simulated checkout and native POS invoice acceptance.
+Coverage floors remain unchanged. Public provider payments and a fresh original
+embedded checkout are not inferred from these local/CI results.
+
 The [17 October native app-field receipt](evidence/native-app-fields-hosted-2026-10-17.md)
 records the complete required Linux check, 99 registered local suites, 636 frontend
 tests, actual hosted product-app publication and the original embedded simulated

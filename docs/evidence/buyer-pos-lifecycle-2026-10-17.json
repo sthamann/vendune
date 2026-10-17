@@ -1,0 +1,161 @@
+{
+  "orderNumber": "RAC-5e78c602",
+  "revision": 6,
+  "state": "completed",
+  "salesChannelId": "shop_2f0dee6f3c24",
+  "totalMinor": 12900,
+  "currency": "EUR",
+  "nativeLifecycle": {
+    "machine": {
+      "sourceApp": null,
+      "states": [
+        {
+          "id": "placed",
+          "label": {
+            "de": "Eingegangen",
+            "en": "Received",
+            "es": "Recibido",
+            "fr": "Reçue"
+          },
+          "terminal": false
+        },
+        {
+          "id": "in_progress",
+          "label": {
+            "de": "In Bearbeitung",
+            "en": "In progress",
+            "es": "En proceso",
+            "fr": "En cours"
+          },
+          "terminal": false
+        },
+        {
+          "id": "completed",
+          "label": {
+            "de": "Abgeschlossen",
+            "en": "Completed",
+            "es": "Completado",
+            "fr": "Terminée"
+          },
+          "terminal": true
+        },
+        {
+          "id": "cancelled",
+          "label": {
+            "de": "Storniert",
+            "en": "Cancelled",
+            "es": "Cancelado",
+            "fr": "Annulée"
+          },
+          "terminal": true
+        },
+        {
+          "id": "a00386787_review",
+          "label": {
+            "de-DE": "Qualitätsprüfung V2",
+            "en-GB": "Quality review",
+            "es-ES": "Paso de revisión",
+            "fr-FR": "Étape de contrôle"
+          },
+          "terminal": false
+        }
+      ],
+      "transitions": [
+        {
+          "from": "placed",
+          "id": "start",
+          "label": {
+            "de": "Bearbeitung starten",
+            "en": "Start processing",
+            "es": "Iniciar gestión",
+            "fr": "Commencer le traitement"
+          },
+          "to": "in_progress"
+        },
+        {
+          "from": "placed",
+          "id": "cancel_new",
+          "label": {
+            "de": "Bestellung stornieren",
+            "en": "Cancel order",
+            "es": "Cancelar pedido",
+            "fr": "Annuler la commande"
+          },
+          "to": "cancelled"
+        },
+        {
+          "from": "in_progress",
+          "id": "cancel_active",
+          "label": {
+            "de": "Bestellung stornieren",
+            "en": "Cancel order",
+            "es": "Cancelar pedido",
+            "fr": "Annuler la commande"
+          },
+          "to": "cancelled"
+        },
+        {
+          "from": "in_progress",
+          "id": "a00386787_review",
+          "label": {
+            "de-DE": "Prüfschritt",
+            "en-GB": "Review step",
+            "es-ES": "Paso de revisión",
+            "fr-FR": "Étape de contrôle"
+          },
+          "policy": {
+            "app": "app_mvc6ah4c",
+            "digest": "88d0381c6afd516a9059e556df466042424e3ccb8be7dbeef9650d61fdb7dbff",
+            "guards": [],
+            "requiredPermissions": [],
+            "version": "0.1.3"
+          },
+          "to": "a00386787_review"
+        },
+        {
+          "from": "a00386787_review",
+          "id": "a00386787_continue",
+          "label": {
+            "de-DE": "Prüfung V2 bestätigen",
+            "en-GB": "Next step",
+            "es-ES": "Paso siguiente",
+            "fr-FR": "Étape suivante"
+          },
+          "policy": {
+            "app": "app_mvc6ah4c",
+            "digest": "88d0381c6afd516a9059e556df466042424e3ccb8be7dbeef9650d61fdb7dbff",
+            "guards": [
+              "payment.ready",
+              "delivery.delivered"
+            ],
+            "requiredPermissions": [],
+            "version": "0.1.3"
+          },
+          "to": "completed"
+        },
+        {
+          "from": "a00386787_review",
+          "id": "a00386787_cancel",
+          "label": {
+            "de-DE": "Bestellung stornieren",
+            "en-GB": "Cancel order",
+            "es-ES": "Cancelar pedido",
+            "fr-FR": "Annuler commande"
+          },
+          "policy": {
+            "app": "app_mvc6ah4c",
+            "digest": "88d0381c6afd516a9059e556df466042424e3ccb8be7dbeef9650d61fdb7dbff",
+            "guards": [],
+            "requiredPermissions": [],
+            "version": "0.1.3"
+          },
+          "to": "cancelled"
+        }
+      ]
+    },
+    "mainLocale": "en-GB",
+    "object": "order",
+    "revision": 0,
+    "version": 1
+  }
+}
