@@ -1,0 +1,126 @@
+{
+  "source": "d93925737b451498c7081273e57fdd8106fffaf4",
+  "model": "gpt-6.1-sol",
+  "requestStatus": 200,
+  "buildId": "08c2ab9725bb41578a9f0c7e840ef3f0",
+  "digest": "88d0381c6afd516a9059e556df466042424e3ccb8be7dbeef9650d61fdb7dbff",
+  "app": "app_mvc6ah4c",
+  "version": "0.1.3",
+  "lifecycles": [
+    {
+      "object": "order",
+      "states": [
+        {
+          "id": "review",
+          "label": {
+            "de-DE": "Qualitätsprüfung V2",
+            "en-GB": "Quality review",
+            "es-ES": "Paso de revisión",
+            "fr-FR": "Étape de contrôle"
+          }
+        }
+      ],
+      "transitions": [
+        {
+          "from": "in_progress",
+          "id": "review",
+          "label": {
+            "de-DE": "Prüfschritt",
+            "en-GB": "Review step",
+            "es-ES": "Paso de revisión",
+            "fr-FR": "Étape de contrôle"
+          },
+          "replaces": "complete",
+          "to": "review"
+        },
+        {
+          "from": "review",
+          "guards": [
+            "payment.ready",
+            "delivery.delivered"
+          ],
+          "id": "continue",
+          "label": {
+            "de-DE": "Prüfung V2 bestätigen",
+            "en-GB": "Next step",
+            "es-ES": "Paso siguiente",
+            "fr-FR": "Étape suivante"
+          },
+          "to": "completed"
+        },
+        {
+          "from": "review",
+          "id": "cancel",
+          "label": {
+            "de-DE": "Bestellung stornieren",
+            "en-GB": "Cancel order",
+            "es-ES": "Cancelar pedido",
+            "fr-FR": "Annuler commande"
+          },
+          "to": "cancelled"
+        }
+      ],
+      "version": 1
+    },
+    {
+      "object": "quote",
+      "states": [
+        {
+          "id": "technical_review",
+          "label": {
+            "de-DE": "Technische Prüfung",
+            "en-GB": "Technical review",
+            "es-ES": "Revisión técnica",
+            "fr-FR": "Vérification technique"
+          }
+        }
+      ],
+      "transitions": [
+        {
+          "from": "requested",
+          "guards": [
+            "quote.message"
+          ],
+          "id": "review",
+          "label": {
+            "de-DE": "Technische Prüfung",
+            "en-GB": "Technical review",
+            "es-ES": "Revisión técnica",
+            "fr-FR": "Vérification technique"
+          },
+          "to": "technical_review"
+        },
+        {
+          "from": "technical_review",
+          "id": "prepare_quote",
+          "label": {
+            "de-DE": "Angebot vorbereiten",
+            "en-GB": "Prepare quote",
+            "es-ES": "Preparar presupuesto",
+            "fr-FR": "Préparer le devis"
+          },
+          "requiredPermissions": [
+            "documents.read"
+          ],
+          "to": "requested"
+        }
+      ],
+      "version": 1
+    }
+  ],
+  "comparison": {
+    "priorVersion": "0.1.2",
+    "changedTopLevelKeys": [
+      "lifecycles",
+      "version"
+    ],
+    "oldOrderContractExactlyEqual": true
+  },
+  "publication": {
+    "privateEnvironment": "App-Felder Abnahme 17.10.",
+    "selected": [
+      "app:app_mvc6ah4c"
+    ],
+    "confirmedByUI": true
+  }
+}

@@ -99,3 +99,17 @@ it("offers one native lifecycle workspace within shared connections", () => {
     screen.getAllByRole("heading", { name: "Order & quote workflows" }),
   ).toHaveLength(1);
 });
+
+it("names native quote states through the buyer vocabulary while retaining their wire IDs", () => {
+  render(
+    <AppNativeLifecycles manifest={example as Manifest} onChange={vi.fn()} />,
+    { wrapper: LocaleProvider },
+  );
+  expect(screen.getAllByRole("option", { name: "Requested" })[0]).toHaveValue(
+    "requested",
+  );
+  expect(screen.getAllByRole("option", { name: "Rejected" })[0]).toHaveValue(
+    "rejected",
+  );
+  expect(screen.queryByRole("option", { name: "requested" })).toBeNull();
+});
