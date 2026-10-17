@@ -8,10 +8,10 @@ export const lifecycleWords = {
     "Flujos de pedidos y presupuestos",
   ],
   hint: [
-    "Add review steps to native workflows. Each new order or quote keeps its accepted app version; payment, inventory and buyer approval remain native.",
-    "Ergänze Prüfschritte im normalen Ablauf. Jede neue Bestellung und Anfrage behält ihre angenommene App-Version; Zahlung, Bestand und Käuferfreigabe bleiben verbindlich.",
-    "Ajoute des étapes de contrôle. Chaque commande ou devis conserve sa version acceptée ; paiement, stock et accord acheteur restent natifs.",
-    "Añade pasos de revisión. Cada pedido o presupuesto conserva su versión aceptada; pago, inventario y aprobación siguen siendo nativos.",
+    "Add review steps to native workflows. Each new order or quote keeps its accepted app version; payment, inventory and buyer approval remain native. Name every new step and action in the shop main language before saving.",
+    "Ergänze Prüfschritte im normalen Ablauf. Jede neue Bestellung und Anfrage behält ihre angenommene App-Version; Zahlung, Bestand und Käuferfreigabe bleiben verbindlich. Benenne alle neuen Schritte und Aktionen vor dem Speichern in der Hauptsprache des Shops.",
+    "Ajoute des étapes de contrôle. Chaque commande ou devis conserve sa version acceptée ; paiement, stock et accord acheteur restent natifs. Nomme chaque étape et action dans la langue principale de la boutique avant de sauvegarder.",
+    "Añade pasos de revisión. Cada pedido o presupuesto conserva su versión aceptada; pago, inventario y aprobación siguen siendo nativos. Nombra cada paso y acción en el idioma principal de la tienda antes de guardar.",
   ],
   order: ["Order", "Bestellung", "Commande", "Pedido"],
   quote: [

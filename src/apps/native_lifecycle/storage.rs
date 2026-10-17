@@ -10,10 +10,28 @@ async fn packages(conn: &mut sqlx::PgConnection, t: &str) -> Result<Vec<Manifest
         .map(|v| serde_json::from_value(v).map_err(|_| bad("Invalid installed lifecycle")))
         .collect()
 }
+/// Called under the existing aggregate configuration lock, including selected publication.
+pub(crate) async fn validate_active_locale(
+    conn: &mut sqlx::PgConnection,
+    t: &str,
+    main: &str,
+) -> Result<()> {
+    for m in packages(conn, t).await? {
+        validate_locale(&m, main)?;
+    }
+    Ok(())
+}
 pub(crate) async fn admission(conn: &mut sqlx::PgConnection, t: &str, m: &Manifest) -> Result<()> {
     if m.lifecycles.is_empty() {
         return Ok(());
     }
+    let main: Option<String> = sqlx::query_scalar(
+        "SELECT coalesce(data->>'mainLocale','en-GB') FROM commerce_settings WHERE tenant=$1",
+    )
+    .bind(t)
+    .fetch_optional(&mut *conn)
+    .await?;
+    validate_locale(m, main.as_deref().unwrap_or("en-GB"))?;
     let mut apps = packages(conn, t).await?;
     apps.retain(|old| old.id != m.id);
     apps.push(m.clone());

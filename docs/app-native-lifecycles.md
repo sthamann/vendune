@@ -14,6 +14,12 @@ merchant prepares an offer. Its business vocabulary belongs to the app package.
 1. Open an app in **App Studio → Connections → Order & quote workflows**.
 2. Choose Order or Quote request and add a review workflow. Rename its steps,
    edit their labels in the selected content language and connect them.
+   Every new state and action needs a label in the shop main language. Both
+   immutable development builds and installation reject incomplete labels; other
+   languages inherit the accepted main-language value.
+   Changing the shop main language or publishing that change also checks active
+   workflow labels. Translate the app first; existing accepted objects retain
+   their original language snapshot.
 3. For an order, optionally insert a step instead of the native **Start
    processing** or **Complete order** edge. Competing replacements are rejected.
    Cancellation and financial operations cannot be replaced.
@@ -101,7 +107,9 @@ The registered `native_lifecycles` HTTP/PostgreSQL suite covers real app consent
 orders, native completion denials, stale revisions, foreign shops, current role
 changes, MCP completion, pinned old/new versions, conflicting replacements,
 invalid financial quote states, real buyer/company/cart RFQs and selected package
-publication. Rust tests add malformed/dead graphs and unsupported guards; UI
+publication. A fifth main-language case rejects missing Italian state/action
+labels in builds and installation, then creates an Italian-bound native order.
+Rust tests add malformed/dead graphs and unsupported guards; UI
 tests cover shared compilation, connected editing and regional label fallback.
 
 Read [current status](status.md) for the deployed image and hosted acceptance.

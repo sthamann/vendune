@@ -5,7 +5,7 @@ mod storage;
 pub(crate) use compile::{compile, quote_machine};
 pub(crate) use storage::{
     admission, bind_order, capture, current_order, order_machine, project_labels, snapshot,
-    state_labels, validate_order_base,
+    state_labels, validate_active_locale, validate_order_base,
 };
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
@@ -78,6 +78,29 @@ pub(super) fn validate(m: &Manifest) -> Result<()> {
             quote_machine()
         };
         compile(base, std::slice::from_ref(m), &c.object)?;
+    }
+    Ok(())
+}
+/// Native displays always fall back to the accepted shop main language, never an arbitrary translation.
+pub(crate) fn validate_locale(m: &Manifest, main: &str) -> Result<()> {
+    let base = main.split('-').next().unwrap_or(main);
+    for c in &m.lifecycles {
+        for label in c
+            .states
+            .iter()
+            .map(|s| &s.label)
+            .chain(c.transitions.iter().map(|e| &e.label))
+        {
+            if label
+                .get(main)
+                .or_else(|| label.get(base))
+                .is_none_or(|s| s.trim().is_empty())
+            {
+                return Err(bad(
+                    "App lifecycle labels need the shop main language; other languages inherit",
+                ));
+            }
+        }
     }
     Ok(())
 }

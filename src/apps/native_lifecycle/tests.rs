@@ -7,6 +7,25 @@ fn package() -> Manifest {
     .unwrap()
 }
 #[test]
+fn requires_native_labels_in_the_configured_main_language() {
+    let mut m = package();
+    validate_locale(&m, "de-DE").unwrap();
+    assert!(validate_locale(&m, "it-IT").is_err());
+    for c in &mut m.lifecycles {
+        for s in &mut c.states {
+            s.label.insert("it".into(), "Controllo".into());
+        }
+        for e in &mut c.transitions {
+            e.label.insert("it".into(), "Prosegui".into());
+        }
+    }
+    validate_locale(&m, "it-IT").unwrap();
+    m.lifecycles[0].states[0]
+        .label
+        .insert("it-IT".into(), " ".into());
+    assert!(validate_locale(&m, "it-IT").is_err());
+}
+#[test]
 fn package_local_graphs_cannot_replace_payment_or_buyer_acceptance() {
     let m = package();
     validate(&m).unwrap();

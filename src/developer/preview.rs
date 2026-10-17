@@ -62,6 +62,7 @@ async fn run(
             .to_owned()
     };
     let mut tx = a.db.begin().await?;
+    marketing::lock_config(&mut tx, &environment).await?;
     sqlx::query("SELECT tenant FROM shop_environments WHERE tenant=$1 AND live_tenant=$2 AND preview_owner=$3 FOR UPDATE").bind(&environment).bind(&t).bind(actor).fetch_one(&mut *tx).await?;
     let count: i64 =
         sqlx::query_scalar("SELECT count(*) FROM app_packages WHERE tenant=$1 AND id<>$2")

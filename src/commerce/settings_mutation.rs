@@ -15,6 +15,7 @@ pub(crate) async fn save_config(
         .ok_or(bad("Configuration revision required"))?;
     let mut tx = a.db.begin().await?;
     history::context(&mut tx, &h, "merchant").await?;
+    marketing::lock_config(&mut tx, &t).await?;
     // Serialize configuration with product assignments and translation apply, so
     // a concurrently removed class/language cannot be committed from an older read.
     let previous =
@@ -23,6 +24,9 @@ pub(crate) async fn save_config(
             .fetch_one(&mut *tx)
             .await?;
     let previous = decode_config(previous.get("data"))?;
+    if previous.main_locale != s.main_locale {
+        apps::native_lifecycle::validate_active_locale(&mut tx, &t, &s.main_locale).await?;
+    }
     currencies::routes_guard(&mut tx, &t, &previous.currencies, &s.currencies).await?;
     super::group_usage::guard(&mut tx, &t, &previous, &s).await?;
     super::method_usage::guard(&mut tx, &t, &previous, &s, None).await?;

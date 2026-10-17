@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Native accepted app lifecycles through real HTTP/PostgreSQL/MCP and selected release. Synthetic shops only."""
-import copy, datetime, json, os, time, urllib.request, urllib.error, uuid
+import concurrent.futures, copy, datetime, json, os, time, urllib.request, urllib.error, uuid
 from testing.app_approval import consent
 from testing.runtime import ROOT
 base=os.environ['BASE_URL']; tag=uuid.uuid4().hex[:10]; password='Synthetic-native-lifecycle-2026!'
@@ -108,6 +108,59 @@ c=call('/store-api/b2b/quote.accept',{'id':q['id'],'revision':q['revision'],'car
 assert c['b2b']['quoteId']==q['id']
 assert 'nativeLifecycle' not in order()
 print('PASS quote preparation cannot forge offers/acceptance; selected sandbox release does not rewrite running native orders or RFQs',flush=True)
+
+# A fifth shop main language must be present in every native state/action label.
+ih=owner('italian-lifecycle');ipub={'x-tenant':ih['x-tenant']}
+settings=call('/api/merchant/commerce',h=ih)
+settings['data']['locales'].append('it-IT');settings['data']['mainLocale']='it-IT'
+call('/api/merchant/commerce',settings,ih,method='PUT')
+italian=copy.deepcopy(manifest);italian['name']['it-IT']='Controlli di produzione'
+call('/api/apps',{'manifest':italian},ih,status=400)
+istage=call('/api/environments',{'name':'Italian lifecycle review'},ih)['id']
+build={'environment':istage,'prompt':'Verifica dei controlli di produzione','summary':{'it-IT':'Controlli di produzione'},'manifest':italian}
+call('/api/developer/import',build,ih,status=400)
+for contract in italian['lifecycles']:
+    for state in contract['states']:state['label']['it-IT']='Controllo di produzione'
+    for edge in contract['transitions']:edge['label']['it-IT']='Prosegui con la verifica'
+call('/api/developer/import',build,ih)
+call('/api/apps',{'manifest':italian},ih)
+ic=call('/store-api/checkout/cart',{},ipub);ich={**ipub,'sw-context-token':ic['token']}
+call('/store-api/checkout/cart/line-item',{'items':[{'referencedId':'mug','quantity':1}]},ich)
+io=call('/store-api/checkout/order',{}, {**ich,'Idempotency-Key':'italian-'+tag})
+io=call('/api/merchant/orders/'+io['id'],h=ih)
+assert io['nativeLifecycle']['mainLocale']=='it-IT'
+assert any(s['label'].get('it-IT')=='Controllo di produzione' for s in io['workflow']['states'])
+print('PASS fifth main language: incomplete native labels block install/build; translated package creates an Italian-bound order',flush=True)
+
+# A later language change, including selected publication, cannot strand active labels.
+lh=owner('locale-change');ls=call('/api/environments',{'name':'Italian settings'},lh)['id'];lsh={**lh,'x-tenant':ls}
+lc=call('/api/merchant/commerce',h=lsh);lc['data']['locales'].append('it-IT');lc['data']['mainLocale']='it-IT'
+call('/api/merchant/commerce',lc,lsh,method='PUT')
+call('/api/apps',{'manifest':manifest},lh)
+live_config=call('/api/merchant/commerce',h=lh);live_config['data']=lc['data']
+call('/api/merchant/commerce',live_config,lh,status=400,method='PUT')
+choice=next(d for d in call('/api/environments/'+ls+'/diff',h=lh)['changes'] if d['key']=='settings')
+release={'approve':True,'selections':[{'key':'settings','digest':choice['digest']}]}
+call('/api/environments/'+ls+'/release',release,lh,status=400)
+assert call('/api/merchant/commerce',h=lh)['data']['mainLocale']=='en-GB'
+translated=copy.deepcopy(italian);translated['version']='1.0.1';call('/api/apps',{'manifest':translated},lh)
+call('/api/environments/'+ls+'/release',release,lh)
+assert call('/api/merchant/commerce',h=lh)['data']['mainLocale']=='it-IT'
+print('PASS main-language changes and selected publication require compatible active workflow labels and preserve atomic rollback',flush=True)
+
+race_owner=owner('locale-race');race_config=call('/api/merchant/commerce',h=race_owner)
+race_config['data']['locales'].append('it-IT');race_config['data']['mainLocale']='it-IT'
+def locale_race(kind):
+    try:
+        if kind=='settings':call('/api/merchant/commerce',race_config,race_owner,method='PUT')
+        else:call('/api/apps',{'manifest':manifest},race_owner)
+        return 200
+    except AssertionError as e:
+        assert e.args[0][1]==400,e
+        return 400
+with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:outcomes=list(pool.map(locale_race,['settings','app']))
+assert sorted(outcomes)==[200,400],outcomes
+print('PASS concurrent main-language edit and app installation cannot jointly commit incompatible native labels',flush=True)
 
 if os.getenv('NATIVE_LIFECYCLE_REVIEW_HOLD'):
     reviewed=copy.deepcopy(manifest);reviewed['version']='1.0.3'

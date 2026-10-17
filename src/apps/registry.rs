@@ -51,6 +51,7 @@ async fn install_inner(
     validate(&m)?;
     approval::installation(&m)?;
     commerce_hooks::verify_package(&m).await?;
+    crate::marketing::lock_config(tx, t).await?;
     crate::payments::install_methods(tx, t, &m).await?;
     if let Some(c) = &m.configuration {
         let entity = m.entities.iter().find(|e| e.name == c.entity).unwrap();

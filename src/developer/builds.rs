@@ -62,6 +62,7 @@ pub(super) async fn save(
         .ok_or(bad("Prompt required, maximum 8000 bytes"))?;
     let (settings, _) = commerce::config(a, t).await?;
     let main = &settings.main_locale;
+    apps::native_lifecycle::validate_locale(&m, main)?;
     let base = main.split('-').next().unwrap_or(main);
     let labels = std::iter::once(&m.name)
         .chain(m.entities.iter().map(|e| &e.label))
