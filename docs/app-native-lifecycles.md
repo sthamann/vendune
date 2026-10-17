@@ -124,3 +124,7 @@ A successful local run or an updated guide does not deploy a runtime. Historical
 whole-business replay, arbitrary isolated Rust/TypeScript builds and managed
 service/cell provisioning remain separate parts of the
 [full app programme](app-system-status.md).
+
+## Public acceptance
+
+The [17 October hosted walkthrough](evidence/native-app-workflows-hosted-2026-10-17.md) records visual creation, immutable versions 0.1.1/0.1.2, private installation, selected publication, two guarded native purchases and the original running order retaining its accepted workflow after the update. Both payments were simulated. RFQ preparation has separate local/required-CI evidence; this is not a hosted RFQ buyer acceptance.

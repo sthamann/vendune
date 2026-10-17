@@ -6,7 +6,7 @@ The `vendune-main-release` Northflank workflow listens to pushes to `main` only.
 GitHub branch protection requires the complete `verify` check, an up-to-date
 branch and pull requests; enforcement applies to administrators as well.
 The workflow queues releases, builds the exact triggering SHA, waits for a
-PostgreSQL native backup, deploys that exact image to `vendune-migrate`, waits
+PostgreSQL disk snapshot, deploys that exact image to `vendune-migrate`, waits
 for its successful migration-only run, then deploys the same image to Core and
 waits for readiness. Core's direct CD and the builder's direct CI stay disabled.
 A failed backup, build or migration prevents the service deployment.
@@ -27,6 +27,8 @@ A database backup is not automatic rollback: restore is an operator decision,
 and backward-incompatible changes require a staged rollout. Release backups are
 additional to the daily seven-day retention schedule; manage their retention as
 catalog size grows.
+
+On 17 October the persisted daily schedule was verified as **Snapshot at 00:00 UTC, seven-day retention**. The old failing daily dump schedule was removed after explicit approval; backup history and databases were retained. The main-release workflow also uses Snapshot and waits for completion. A successful snapshot does not replace an isolated restore test.
 
 The manual `vendune-benchmark` job builds `deploy/Dockerfile.benchmark`. It has
 no public port or schedule. Runtime-only database linkage must never be granted

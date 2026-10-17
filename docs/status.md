@@ -15,6 +15,7 @@ A green test, merged code and a completed public business journey are different 
 
 | Journey or boundary | Evidence and present limitation |
 | --- | --- |
+| Native app order workflows | [17 October public acceptance](evidence/native-app-workflows-hosted-2026-10-17.md): visual creation, private installation, selected publication, guarded completion, 0.1.1 → 0.1.2 upgrade and distinct old/new order workflows passed. Payments remained simulated; RFQ buyer hosting is a separate acceptance. |
 | Native app product journey | [17 October hosted acceptance](evidence/native-app-fields-hosted-2026-10-17.md): visual creation, native product writes, compatible upgrade with retained data, optional grid column, exact positive/negative filters and selected live publication passed. Original embedded Storyfront purchase/return/bag clearing also passed on that image; payment remained simulated. |
 | Shared app storage | [15 October hosted migration](evidence/shared-app-storage-hosted-2026-10-15.json): four fixed physical tables, checked data migration and simulated purchases. This does not establish unbounded capacity. |
 | Restricted database runtime | [Hosted enforcement record](evidence/database-enforcement-2026-10-15.json): separate roles and strict restart. Authorization and SQL isolation are both required. |
@@ -42,55 +43,20 @@ A green test, merged code and a completed public business journey are different 
 
 ## Public delivery and current work
 
-The next source change adds [native app order/RFQ lifecycles](app-native-lifecycles.md), with accepted per-object versions and existing native admission. Its local acceptance and public delivery are separate; the hosted image below remains the last verified release until a new receipt is recorded.
+The current Core is `fdc70a2`, image `carefree-home-2228`, source-tree equivalent
+to merged main `c7c3afe`. Its [hosted workflow receipt](evidence/native-app-workflows-hosted-2026-10-17.md)
+records full required CI, a fresh 6 GB snapshot, successful migration 105/readiness,
+visual App Studio publication, two simulated native purchases and guarded completion.
+An existing order kept its accepted 0.1.1 workflow after 0.1.2 was published; a
+later order adopted 0.1.2. The private Experience service remains `b40b386`.
+The original Storyfront repeat on this exact Core image remains unaccepted: the browser controller held its HTTP-200 iframe document; the parent showed its explicit timeout/retry message. The earlier successful embedded purchase keeps its own source boundary.
 
-The current Core is `f627f9d`, image `right-increase-7968`, source-tree equivalent
-to merged main `be4d6cf`. Its [17 October receipt](evidence/native-app-fields-hosted-2026-10-17.md)
-records full required CI, fresh snapshot, successful migration/readiness, the public
-product-extension lifecycle and selected publication, and original embedded
-Storyfront order **RAC-9f0f00ad** with return and cleared original bag. Payments
-remained simulated. The private Experience service remains `b40b386`.
-
-The [planning-agent release receipt](evidence/agent-authority-hosted-2026-10-16.md)
-records Core `dac31fa`, image `foamy-passenger-5421`, fresh snapshot and migration 104.
-Public stop/re-enable, native shopping during stop, a fresh SaaS shop with three AI
-products/images, password-session lifecycle and the original Storyfront embedded
-purchase/return/empty-bag flow passed. Payments remained simulated. The frontend
-admission-message follow-up `8b461a1` is also deployed as `bustling-bulb-1104`: a second fresh
-snapshot, successful migration, healthy Core and public explicit German stop/recovery message
-passed. The test stop was lifted again. Older releases below retain their own source boundaries.
-
-The preceding presentation follow-up was Core `35e12ee`, image `thankful-name-8063`.
-Its fresh snapshot, successful migration and 1/1 healthy start passed. Public
-stop/re-enable and the corrected connected empty-product preview passed. Its
-required frontend CI repeated 628 tests with unchanged coverage floors; the
-underlying backend remains identical to the full agent-admission release above.
-
-Earlier Core image `mirthful-zipper-2487` (`c70f246`) and private Experience `b40b386`
-were the preceding public acceptance. [The new hosted receipt](evidence/platform-hardening-hosted-2026-10-16.md)
-records migration 103, a fresh SaaS shop with three AI products and generated
-images, Studio handoff, a native purchase, the original Storyfront embedded
-checkout and cleared original bag, and a privately tested/published furniture app
-with a real configured purchase. Payment was simulated throughout.
-
-The hardening baseline `9846807` was runtime-equivalent to its reviewed release
-head `7a4388d`; the later configuration-summary image adds the separately tested
-follow-up. Final merged main includes that fix and the translated explicit
-workspace-module recovery; the fresh snapshot and migration/readiness chain passed.
-Its [complete required GitHub repeat](https://github.com/sthamann/veyndo/actions/runs/38926129994)
-passed and PR 143 merged as `1725369`; the preceding test-orchestration failure
-and its correction remain recorded in the receipt. The [configuration-summary follow-up](evidence/configuration-summary-hosted-2026-10-16.md)
-is now separately deployed: checkout, confirmation and merchant order retain
-material, dimensions and accepted surcharge on public simulated order RAC-75415aa4.
-The final pinned-image original Storyfront purchase also passed in native Chrome
-(RAC-08a6f8d0), including return and original bag clear. Earlier Safari/Chrome
-comparisons and the intervening main-release replacements retain separate source
-boundaries in the receipt.
-Tab-debug-controlled blank repeats are preserved separately in the receipt.
-Its [full required follow-up CI repeat](https://github.com/sthamann/veyndo/actions/runs/38931681426)
-passed and PR 144 merged as `deb452d`. Full B2B purchasing approval
-and current-rule reorder have local connected PostgreSQL evidence, not an extra
-hosted acceptance in this receipt.
+Earlier deliveries retain their source and acceptance boundaries:
+[product fields and original embedded checkout, 17 October](evidence/native-app-fields-hosted-2026-10-17.md),
+[agent authority, 16 October](evidence/agent-authority-hosted-2026-10-16.md),
+[configuration summaries](evidence/configuration-summary-hosted-2026-10-16.md),
+[platform hardening](evidence/platform-hardening-hosted-2026-10-16.md) and
+[Studio release](evidence/studio-release-hosted-2026-10-16.json).
 
 ## Evidence and reference guides
 
@@ -98,8 +64,3 @@ hosted acceptance in this receipt.
 - [Historical delivery audit](delivery-audit-2026-10-15.md) and [release record](current-release.md): dated evidence.
 - [Testing](testing.md), [formal scope](formal-verification.md), [capacity measurements](benchmarks.md).
 - [Changelog](../CHANGELOG.md): implementation notes belong here, not in the README.
-
-The earlier configuration/workspace release repeated 618 frontend tests with unchanged coverage
-gates. The later agent-admission release repeated 627 frontend tests in full CI; its own source and public results are recorded above. Public offline/reload recovery preserved the session. The module-specific
-message is covered by actual lazy-load failure tests; a public asset-blocking
-attempt did not reproduce that precise failure and is not counted as acceptance.
