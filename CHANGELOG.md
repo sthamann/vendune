@@ -1,5 +1,10 @@
 # Changelog
 
+## Actionable receipt setup guidance — 2026-10-17
+
+- Explain the native missing-seller refusal in EN/DE/FR/ES: complete and save Company details, then retry only the receipt. The recorded POS sale must not be submitted again. Native receipt validation, permissions and idempotency remain unchanged.
+- Check the exact generated source inventory before expensive CI work. Include the previously omitted native-workflow caption module; keep the full structure and coverage gates.
+
 ## Business-account entry uses the buyer's own identity — 2026-10-17
 
 - Remove the shared demo-credential login from the storefront header. Business account opens the existing customer workspace, prompts unsigned buyers to sign in explicitly and retains the company-purchasing destination after authentication. Already signed-in buyers use their own current session.
