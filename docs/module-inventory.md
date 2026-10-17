@@ -1103,6 +1103,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/shop-i18n.ts](../frontend/src/shared/i18n/shop-i18n.ts) | Shared shop text hook; dictionaries live in focused locale files. |
 | [frontend/src/shared/i18n/studio-ui-i18n.ts](../frontend/src/shared/i18n/studio-ui-i18n.ts) | Studio navigation and settings guidance in all four supported interface languages. |
 | [frontend/src/shared/i18n/workbench-i18n.ts](../frontend/src/shared/i18n/workbench-i18n.ts) | Complete four-language vocabulary for environments, developer tools and knowledge ingestion. |
+| [frontend/src/shared/i18n/workflow-state-text.ts](../frontend/src/shared/i18n/workflow-state-text.ts) | Native workflow captions reuse their domain vocabulary; package IDs and merchant labels stay unchanged. |
 | [frontend/src/shared/i18n/workspace-i18n.ts](../frontend/src/shared/i18n/workspace-i18n.ts) | Settings scopes, dependency confirmation and media workspace vocabulary in every supported interface language. |
 | [frontend/src/shared/legal/ExternalVideo.tsx](../frontend/src/shared/legal/ExternalVideo.tsx) | Optional external video is not contacted until the same shop privacy choice allows it. |
 | [frontend/src/shared/legal/consent-store.ts](../frontend/src/shared/legal/consent-store.ts) | Live consent registry starts denied; only validated server receipts unlock integrations. No legacy grant is trusted. |

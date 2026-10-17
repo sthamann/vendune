@@ -34,6 +34,9 @@ does not fabricate fresh Rust/Python measurements or change their full-run floor
 Full runs retain both native separate-login and pooler/multi-replica regressions.
 Each integration child logs its start and elapsed time, with unbuffered Python
 output, so a slow suite is visible instead of hidden inside one long CI block.
+The exact generated source inventory is checked before compilation or integration
+tests, as well as in the existing structure gate. Missing inventory updates fail
+immediately without waiting for the database suites; no verification is skipped.
 
 This optimizes development feedback. A green fast check is not a new whole-system
 acceptance or evidence of live provider payments. The current prototype can use
