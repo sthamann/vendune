@@ -1,8 +1,15 @@
 /** User-facing multi-placement, drag/drop, model-backed fields, settings and bounded shared flow visuals. */
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { it, expect, vi } from "vitest";
 import { LocaleProvider } from "../../src/shared/i18n/i18n";
+import { responseError } from "../../src/shared/i18n/errors-i18n";
 import { ContentLanguage } from "../../src/shared/i18n/ContentLanguage";
 import { compile, template } from "../../src/admin/developer/app-model";
 import AppAssistant from "../../src/admin/developer/AppAssistant";
@@ -286,6 +293,18 @@ it("keeps the agent in a separate dialog and preserves an unfinished prompt when
     name: "What would you like to change?",
   });
   await user.type(prompt, "Add a welcome banner");
+  studio.error = responseError(
+    "Unsupported guard for this native lifecycle",
+    400,
+  ).message;
+  rerender(<AppAgentDrawer {...props} open />);
+  expect(
+    within(screen.getByRole("dialog")).getByRole("alert"),
+  ).toHaveTextContent(studio.error);
+  expect(prompt).toHaveValue("Add a welcome banner");
+  expect(
+    within(screen.getByRole("dialog")).getByRole("alert"),
+  ).toHaveTextContent("Orders support confirmed payment");
   await user.click(screen.getByRole("button", { name: "Close assistant" }));
   expect(close).toHaveBeenCalled();
   rerender(<AppAgentDrawer {...props} open={false} />);

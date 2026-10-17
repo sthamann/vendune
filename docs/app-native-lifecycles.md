@@ -37,13 +37,17 @@ additional team rights. Its proposal shows the translated paths, guards and
 permission scopes before you choose **Use this proposal**. Installation and
 selected publication remain separate explicit steps.
 
-The versioned `app-edit@2` prompt advertises this contract. Existing workflows
+The versioned `app-edit@3` prompt advertises this contract and consumes the native context. Previous prompt revisions remain immutable. Existing workflows
 cannot be rewritten by a normal AI patch: omitted domains are retained, and
 changed existing states, edges or guards reject the entire proposal, including
 otherwise valid presentation edits. Use the versioned workflow editor for an
 intentional change. Adding the other missing domain preserves the existing one.
 The host includes `commerce.lifecycle` in the candidate's permission review; it
 does not grant installation authority or publish anything automatically.
+The shared generation schema includes read-only native graph context and the
+registered permission names from the same validator. Quote review has no native
+replacement edge and supports only the buyer-message guard; order checks remain
+payment/delivery facts. Refusals appear inside the assistant, preserving the prompt.
 
 ![Native order in the app-owned Quality review step; completion remains blocked until delivery.](assets/native-lifecycles-20261017/quality-review.png)
 
@@ -132,9 +136,9 @@ tests cover shared compilation, connected editing and regional label fallback.
 The registered `app_generation` provider fixture exercises the ordinary model
 HTTP patch through private installation, selected release and a real native
 simulated order. Missing delivery blocks completion. The versioned
-`app-native-workflows.v1.json` corpus rejects six adversarial provider outputs,
+`app-native-workflows.v2.json` corpus rejects eight adversarial provider outputs,
 including weakened guards/permissions, removed states, identity swaps and an
-executable guard. This tests admission and connected effects with a local model
+executable guard, quote replacement and oversized action ID. This tests admission and connected effects with a local model
 fixture; it is not an evaluation of a paid model's output quality or a separate
 hosted AI acceptance.
 

@@ -93,6 +93,11 @@ export default function AppAgentDrawer({
         </button>
       </header>
       <p className="app-agent-drawer-hint">{t("agentHint")}</p>
+      {studio.error && (
+        <p role="alert" className="studio-notice is-error">
+          {studio.error}
+        </p>
+      )}
       <fieldset disabled={studio.busy} className="app-agent-drawer-body">
         <AppAgentPanel
           key={studio.manifest.id}

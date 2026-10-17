@@ -654,8 +654,8 @@
     },
     "crates/cognition/src/prompts.rs": {
       "status": "unproved",
-      "sha256": "857204596c15bb2ceed5e040bba60969c497fc950ae1c1d149a66e2f473a1502",
-      "review": "Reviewed ordinary AI patch admission for missing order/quote lifecycle domains: existing domain definitions are retained or atomically rejected on alteration; candidate commerce.lifecycle consent remains explicit and does not grant native installation authority. Versioned app-edit@2 provenance preserves v1. Real local provider HTTP, private install, selected release, native simulated order guard and six adversarial outputs pass; no new pure policy or whole-adapter proof claim."
+      "sha256": "96000673ef059569a01eb4f5349a58d482940cadee1f7a4297d3c0cd84b61024",
+      "review": "Reviewed model-refusal repair against native validator and connected app-generation/native-lifecycle fixtures: graph, guards, replacement limits and scope metadata share the existing owners; admission predicates, financial boundaries and quote acceptance are unchanged. app-edit@3 preserves immutable prior revisions and binds prompt provenance. Eight hostile provider outputs remain atomic refusals, modal errors preserve the draft, workspace tests and strict Clippy pass. No new pure policy or whole-adapter proof claim."
     },
     "crates/commerce/src/discount.rs": {
       "status": "reviewed-binding",
@@ -1384,8 +1384,8 @@
     },
     "src/apps/native_lifecycle/compile.rs": {
       "status": "unproved",
-      "sha256": "919b11e7975e5e5be98c4f941aa7e6ae15f3de4e31cdd7fbbaebb893b84776da",
-      "review": "Final safety review rejects app edges to manual/reserved terminal states, strips internal RFQ policies from buyer projections and preserves legacy no-app workflow behavior. Existing app_intake extraction, native completion/refund/inventory owners and accepted version boundaries retained."
+      "sha256": "4e0f44255e7f36efdc00c62dd2bb6b12b8c2eb9a9a8f80b0853c3e9ef790ac12",
+      "review": "Reviewed public model-refusal follow-up: generation schema reads native machines, guard/replacement catalogues and registered team scopes from the existing validator; financial, terminal, quote acceptance and graph predicates are unchanged. Failure categories remain fail-closed and are localized inside the assistant. Real native lifecycle and provider-edit/private-release/order suites pass, including eight adversarial outputs; source/context and modal-error tests pass. No new pure policy or whole-adapter proof claim."
     },
     "src/apps/native_lifecycle/storage.rs": {
       "status": "unproved",
@@ -1399,8 +1399,8 @@
     },
     "src/apps/native_lifecycle.rs": {
       "status": "reviewed-binding",
-      "sha256": "dd47fe28717db83fa4105d9c9ec187dc4b26f6c68d791d8dc59e5b4e9bb3d60d",
-      "review": "Review native lifecycle labels across immutable builds, atomic installation, settings main-language edits and final selected-release validation. Existing aggregate configuration lock precedes package admission and private preview resets. Accepted historical snapshots retain their original language; the pure native-admission conjunction is unchanged."
+      "sha256": "880e1e5fa87077eee40dd0203aa0499d599a9c322102713106cadd5c0ba4a22e",
+      "review": "Reviewed public model-refusal follow-up: generation schema reads native machines, guard/replacement catalogues and registered team scopes from the existing validator; financial, terminal, quote acceptance and graph predicates are unchanged. Failure categories remain fail-closed and are localized inside the assistant. Real native lifecycle and provider-edit/private-release/order suites pass, including eight adversarial outputs; source/context and modal-error tests pass. No new pure policy or whole-adapter proof claim."
     },
     "src/apps/native_view_tests.rs": {
       "status": "unproved",
@@ -2539,8 +2539,8 @@
     },
     "src/developer/generation.rs": {
       "status": "unproved",
-      "sha256": "28de2daf77b9d7e08b3926b4684b8bbc3f2427d1f6f89e2e25584cdc78a860da",
-      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+      "sha256": "74ac259f0351f4857b34ec44a759797c453019681584dd21b2dc138b58e960c8",
+      "review": "Reviewed public model-refusal follow-up: generation schema reads native machines, guard/replacement catalogues and registered team scopes from the existing validator; financial, terminal, quote acceptance and graph predicates are unchanged. Failure categories remain fail-closed and are localized inside the assistant. Real native lifecycle and provider-edit/private-release/order suites pass, including eight adversarial outputs; source/context and modal-error tests pass. No new pure policy or whole-adapter proof claim."
     },
     "src/developer/generation_contract.rs": {
       "status": "unproved",
@@ -2549,8 +2549,8 @@
     },
     "src/developer/generation_edits.rs": {
       "status": "unproved",
-      "sha256": "1f32dc3ff2c45ae59078268dfa478c07e0a73db9a9bc6c965913a3a8cb8999c5",
-      "review": "Reviewed ordinary AI patch admission for missing order/quote lifecycle domains: existing domain definitions are retained or atomically rejected on alteration; candidate commerce.lifecycle consent remains explicit and does not grant native installation authority. Versioned app-edit@2 provenance preserves v1. Real local provider HTTP, private install, selected release, native simulated order guard and six adversarial outputs pass; no new pure policy or whole-adapter proof claim."
+      "sha256": "34b8564d797682b58ebfa7a48db96f6133a3ae4d1e3c8d908bf5acca12ab44e3",
+      "review": "Reviewed model-refusal repair against native validator and connected app-generation/native-lifecycle fixtures: graph, guards, replacement limits and scope metadata share the existing owners; admission predicates, financial boundaries and quote acceptance are unchanged. app-edit@3 preserves immutable prior revisions and binds prompt provenance. Eight hostile provider outputs remain atomic refusals, modal errors preserve the draft, workspace tests and strict Clippy pass. No new pure policy or whole-adapter proof claim."
     },
     "src/developer/mod.rs": {
       "status": "unproved",
@@ -3623,6 +3623,10 @@
       "sha256": "66dd2c2ddcdaf749fe4aaff4e9e4a23cfeb6dff3e0a1b13445d3415763614f59",
       "review": "Reviewed ordinary AI patch admission for missing order/quote lifecycle domains: existing domain definitions are retained or atomically rejected on alteration; candidate commerce.lifecycle consent remains explicit and does not grant native installation authority. Versioned app-edit@2 provenance preserves v1. Real local provider HTTP, private install, selected release, native simulated order guard and six adversarial outputs pass; no new pure policy or whole-adapter proof claim."
     },
+    "crates/cognition/evals/app-native-workflows.v2.json": {
+      "sha256": "47e06a6a8b792e07d2c37d6bb41e5c553cdcb36d1884e86c2339659ae84e1056",
+      "review": "Reviewed model-refusal repair against native validator and connected app-generation/native-lifecycle fixtures: graph, guards, replacement limits and scope metadata share the existing owners; admission predicates, financial boundaries and quote acceptance are unchanged. app-edit@3 preserves immutable prior revisions and binds prompt provenance. Eight hostile provider outputs remain atomic refusals, modal errors preserve the draft, workspace tests and strict Clippy pass. No new pure policy or whole-adapter proof claim."
+    },
     "crates/cognition/evals/tool-injection.v1.json": {
       "sha256": "4cf25b4a445c8df9c099efb9cdac0c2160b06e633256bc9d498edac67c11535d",
       "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
@@ -3639,6 +3643,10 @@
       "sha256": "e95daeb345d84d643f3075a64e024e46b5e125b397ac4c247b43c58177a47a82",
       "review": "Reviewed ordinary AI patch admission for missing order/quote lifecycle domains: existing domain definitions are retained or atomically rejected on alteration; candidate commerce.lifecycle consent remains explicit and does not grant native installation authority. Versioned app-edit@2 provenance preserves v1. Real local provider HTTP, private install, selected release, native simulated order guard and six adversarial outputs pass; no new pure policy or whole-adapter proof claim."
     },
+    "crates/cognition/prompts/app-edit.v3.txt": {
+      "sha256": "d0b24e854a0144584813040d7e86f738dfed27b3c62ba94a71abde66b7ba30a8",
+      "review": "Reviewed model-refusal repair against native validator and connected app-generation/native-lifecycle fixtures: graph, guards, replacement limits and scope metadata share the existing owners; admission predicates, financial boundaries and quote acceptance are unchanged. app-edit@3 preserves immutable prior revisions and binds prompt provenance. Eight hostile provider outputs remain atomic refusals, modal errors preserve the draft, workspace tests and strict Clippy pass. No new pure policy or whole-adapter proof claim."
+    },
     "crates/cognition/prompts/app-generation.v1.txt": {
       "sha256": "270d9bd6499bcb156e819485cd279c1c6e918903f68f71879c9bb9481a2a64bc",
       "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
@@ -3648,8 +3656,8 @@
       "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
     },
     "crates/cognition/prompts/manifest.json": {
-      "sha256": "1ff3daf312728a884922eedc7efd3c7e583fcc67783d0a7838497ead0734548a",
-      "review": "Reviewed ordinary AI patch admission for missing order/quote lifecycle domains: existing domain definitions are retained or atomically rejected on alteration; candidate commerce.lifecycle consent remains explicit and does not grant native installation authority. Versioned app-edit@2 provenance preserves v1. Real local provider HTTP, private install, selected release, native simulated order guard and six adversarial outputs pass; no new pure policy or whole-adapter proof claim."
+      "sha256": "b03f28817733e68d9d4c31ab6c417f3a8fbbbf916460aacd8158cec696007379",
+      "review": "Reviewed model-refusal repair against native validator and connected app-generation/native-lifecycle fixtures: graph, guards, replacement limits and scope metadata share the existing owners; admission predicates, financial boundaries and quote acceptance are unchanged. app-edit@3 preserves immutable prior revisions and binds prompt provenance. Eight hostile provider outputs remain atomic refusals, modal errors preserve the draft, workspace tests and strict Clippy pass. No new pure policy or whole-adapter proof claim."
     },
     "crates/cognition/prompts/merchant-planner.v1.txt": {
       "sha256": "6fc1d69faed9342d8b95af531c3c3e0c597f1c4d18a311d3f62e5849236fdfaf",
@@ -3672,8 +3680,8 @@
       "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "fixtures/app-studio-schema.json": {
-      "sha256": "2447f3778922c420ff6a7e1dbb122bb2e42e75b57bca630580b2d40f696a5a86",
-      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
+      "sha256": "f9a84dcb9492ef9ef7fc1863dca313f9298d8641781431a92b9b44d58109f459",
+      "review": "Reviewed public model-refusal follow-up: generation schema reads native machines, guard/replacement catalogues and registered team scopes from the existing validator; financial, terminal, quote acceptance and graph predicates are unchanged. Failure categories remain fail-closed and are localized inside the assistant. Real native lifecycle and provider-edit/private-release/order suites pass, including eight adversarial outputs; source/context and modal-error tests pass. No new pure policy or whole-adapter proof claim."
     },
     "fixtures/demo-catalog.json": {
       "sha256": "e5d5eea04a7693b3f92fa58be66ad36b7ad01d5920029c29f303693aa0032ba2",

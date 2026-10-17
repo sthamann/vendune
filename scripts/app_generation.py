@@ -61,19 +61,21 @@ try:
  workflow_build=call('/api/developer/generate',{**payload,'prompt':'Add an order quality review requiring confirmed payment and delivered shipments. Preserve the current app and its data.'})
  assert workflow_build['manifest']['lifecycles']==[lifecycle]
  assert 'commerce.lifecycle' in workflow_build['manifest']['permissions']
- assert seen[-1]['messages'][0]['content'].startswith('[prompt:app-edit@2]\n')
+ assert seen[-1]['messages'][0]['content'].startswith('[prompt:app-edit@3]\n')
  assert 'lifecycles' in seen[-1]['messages'][0]['content'] and 'delivery.delivered' in seen[-1]['messages'][0]['content']
+ assert 'allowedNativeTo' in seen[-1]['messages'][0]['content'] and 'replaceableActions' in seen[-1]['messages'][0]['content']
  call('/api/developer/builds/'+workflow_build['id']+'/stage',{'approve':True,'digest':workflow_build['digest']})
  assert any(x['id']==workflow_build['id'] and x['state']=='staged' for x in call('/api/developer')['builds'])
  print('PASS normal model patch adds a native review workflow, carries explicit capability consent and stages the immutable result through the existing owner')
  current=workflow_build['manifest']; state['manifest']=current
- corpus=json.loads((ROOT/'crates/cognition/evals/app-native-workflows.v1.json').read_text())
- assert corpus['promptId']=='app-edit@2'
+ corpus=json.loads((ROOT/'crates/cognition/evals/app-native-workflows.v2.json').read_text())
+ assert corpus['promptId']=='app-edit@3'
  count=len(call('/api/developer')['builds'])
  for case in corpus['cases']:
   # Mix every hostile change with a valid presentation edit: a partial useful edit must not hide a weakened contract.
   state['edits']=[('/name',{'en-GB':'Harmless presentation edit'}),(case['path'],case['value'])]
-  call('/api/developer/generate',{**payload,'manifest':current,'prompt':case['id']},400)
+  refused=call('/api/developer/generate',{**payload,'manifest':current,'prompt':case['id']},400)
+  if 'expectedDetail' in case:assert refused['errors'][0]['detail']==case['expectedDetail'],refused
   assert len(call('/api/developer')['builds'])==count,case['id']
  quote=json.loads((ROOT/'extensions/apps/production-review/manifest.json').read_text())['lifecycles'][1]
  state['edits']=[('/lifecycles',[quote])]

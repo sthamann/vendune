@@ -1191,6 +1191,7 @@
                       "additionalProperties": false
                     },
                     "replaces": {
+                      "description": "Order workflows only. Omit this property for quote workflows; quote review cannot replace native actions.",
                       "type": "string",
                       "enum": [
                         "start",

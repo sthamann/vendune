@@ -1,0 +1,168 @@
+{
+  "version": 2,
+  "promptId": "app-edit@3",
+  "scope": "Deterministic adversarial provider-output admission through the real edit route; not a model-quality evaluation.",
+  "cases": [
+    {
+      "id": "remove-payment-delivery-guards",
+      "path": "/lifecycles/0/transitions/1/guards",
+      "value": []
+    },
+    {
+      "id": "remove-review-state",
+      "path": "/lifecycles/0/states",
+      "value": []
+    },
+    {
+      "id": "remove-required-permission",
+      "path": "/lifecycles/0/transitions/1/requiredPermissions",
+      "value": []
+    },
+    {
+      "id": "overwrite-app-identity",
+      "path": "/id",
+      "value": "foreign-app"
+    },
+    {
+      "id": "invent-native-domain",
+      "path": "/lifecycles/-",
+      "value": {
+        "version": 1,
+        "object": "payment",
+        "states": [],
+        "transitions": []
+      }
+    },
+    {
+      "id": "executable-native-guard",
+      "path": "/lifecycles/-",
+      "value": {
+        "version": 1,
+        "object": "quote",
+        "states": [
+          {
+            "id": "check",
+            "label": {
+              "en-GB": "Check"
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "id": "check",
+            "from": "requested",
+            "to": "check",
+            "guards": [
+              "exec:provider"
+            ],
+            "label": {
+              "en-GB": "Check"
+            }
+          }
+        ]
+      },
+      "expectedDetail": "Unsupported guard for this native lifecycle"
+    },
+    {
+      "id": "quote-cannot-replace-native-action",
+      "path": "/lifecycles/-",
+      "value": {
+        "version": 1,
+        "object": "quote",
+        "states": [
+          {
+            "id": "technical",
+            "label": {
+              "en-GB": "Technical review",
+              "de-DE": "Technische Pr\u00fcfung",
+              "fr-FR": "Contr\u00f4le technique",
+              "es-ES": "Revisi\u00f3n t\u00e9cnica"
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "id": "assess",
+            "from": "requested",
+            "to": "technical",
+            "guards": [
+              "quote.message"
+            ],
+            "label": {
+              "en-GB": "Review request",
+              "de-DE": "Anfrage pr\u00fcfen",
+              "fr-FR": "Examiner demande",
+              "es-ES": "Revisar solicitud"
+            },
+            "replaces": "start"
+          },
+          {
+            "id": "ready",
+            "from": "technical",
+            "to": "requested",
+            "requiredPermissions": [
+              "documents.read"
+            ],
+            "label": {
+              "en-GB": "Ready to offer",
+              "de-DE": "Angebot vorbereiten",
+              "fr-FR": "Pr\u00eat pour devis",
+              "es-ES": "Preparar oferta"
+            }
+          }
+        ]
+      },
+      "expectedDetail": "Unsupported native lifecycle transition"
+    },
+    {
+      "id": "action-id-exceeds-native-limit",
+      "path": "/lifecycles/-",
+      "value": {
+        "version": 1,
+        "object": "quote",
+        "states": [
+          {
+            "id": "technical",
+            "label": {
+              "en-GB": "Technical review",
+              "de-DE": "Technische Pr\u00fcfung",
+              "fr-FR": "Contr\u00f4le technique",
+              "es-ES": "Revisi\u00f3n t\u00e9cnica"
+            }
+          }
+        ],
+        "transitions": [
+          {
+            "id": "start_technical_review",
+            "from": "requested",
+            "to": "technical",
+            "guards": [
+              "quote.message"
+            ],
+            "label": {
+              "en-GB": "Review request",
+              "de-DE": "Anfrage pr\u00fcfen",
+              "fr-FR": "Examiner demande",
+              "es-ES": "Revisar solicitud"
+            }
+          },
+          {
+            "id": "ready",
+            "from": "technical",
+            "to": "requested",
+            "requiredPermissions": [
+              "documents.read"
+            ],
+            "label": {
+              "en-GB": "Ready to offer",
+              "de-DE": "Angebot vorbereiten",
+              "fr-FR": "Pr\u00eat pour devis",
+              "es-ES": "Preparar oferta"
+            }
+          }
+        ]
+      },
+      "expectedDetail": "Lifecycle actions require short unique IDs and translated labels"
+    }
+  ]
+}

@@ -4,7 +4,7 @@ use super::*;
 pub(super) fn system(locales: &[String]) -> String {
     let manifest = generation::schema_for(locales)["properties"]["manifest"].clone();
     format!(
-        include_str!("../../crates/cognition/prompts/app-edit.v2.txt"),
+        include_str!("../../crates/cognition/prompts/app-edit.v3.txt"),
         manifest["properties"]["entities"],
         manifest["properties"]["views"],
         manifest["properties"]["surfaces"],
