@@ -57,8 +57,18 @@ pub(crate) async fn transition_order(
                 policy != Some("lifecyclePermission"),
                 policy != Some("lifecycleGuard"),
             ) {
-                return Err(conflict(
-                    native.or(policy).unwrap_or("Invalid order transition"),
+                return Err(Error(
+                    if policy == Some("lifecyclePermission") {
+                        StatusCode::FORBIDDEN
+                    } else {
+                        StatusCode::CONFLICT
+                    },
+                    if policy == Some("lifecyclePermission") {
+                        "lifecyclePermission"
+                    } else {
+                        native.or(policy).unwrap_or("Invalid order transition")
+                    }
+                    .into(),
                 ));
             }
             if target == "cancelled" {

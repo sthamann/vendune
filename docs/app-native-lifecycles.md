@@ -51,6 +51,9 @@ its existing operational record. It includes the native machine revision, main
 content language, namespaced states/edges and the exact app version and canonical
 digest behind each contributed edge. Package rows are locked through object
 creation, so an upgrade cannot replace a definition halfway through acceptance.
+App installation, manual native workflow edits and selected publication share the
+existing configuration fence. A concurrent edit therefore cannot admit a native
+base that no longer supports the app's declared replacement edges.
 
 **Updating, publishing or deactivating an app affects future objects. Existing
 objects keep their accepted declarative definition.** They still require the
@@ -80,6 +83,8 @@ declared transition permission. Native order mutation also requires current
 `customers.pii`, matching its full private response. Quote transitions require
 current merchant B2B and PII authority; buyers cannot invoke merchant review steps.
 Extra scopes are checked again when an edge is offered and executed.
+Missing action authority returns HTTP 403 for both order and quote transitions;
+state, guard and stale-revision conflicts return 409.
 
 Version 1 supports these **fixed, host-derived facts**:
 
@@ -109,6 +114,8 @@ changes, MCP completion, pinned old/new versions, conflicting replacements,
 invalid financial quote states, real buyer/company/cart RFQs and selected package
 publication. A fifth main-language case rejects missing Italian state/action
 labels in builds and installation, then creates an Italian-bound native order.
+Database-lock interleaving also checks a native workflow edit against concurrent
+app installation, including the actual version-bound MCP save operation.
 Rust tests add malformed/dead graphs and unsupported guards; UI
 tests cover shared compilation, connected editing and regional label fallback.
 

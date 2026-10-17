@@ -2294,8 +2294,8 @@
     },
     "src/commerce/fulfillment.rs": {
       "status": "reviewed-binding",
-      "sha256": "c373f2d6305df08447e252f3a165aeab411755edd1fc5d2ce33e688d7e7ce355",
-      "review": "Final integration review: lifecycle trace metadata attaches only to actual order edges, never to unrelated payment or shipment transitions; native financial guards and approved-version snapshots remain unchanged. Deterministic B2B deadlock regression and strict signed runtime passed."
+      "sha256": "21ac3456c78725bcd4becf6e154ddc86b631b2ccc0de7bf33f4b9bd2aa8beca3",
+      "review": "Final native lifecycle integration review: base workflow edits and package installation share the aggregate fence before row locks; the real forced interleaving rejected the incompatible pair. Extra current-edge authority returns 403 consistently for native orders and RFQs, while financial/state/revision guards remain 409. Accepted definitions and pure admission conjunction are unchanged."
     },
     "src/commerce/geography.rs": {
       "status": "unproved",
@@ -3094,8 +3094,8 @@
     },
     "src/operations/workflow.rs": {
       "status": "unproved",
-      "sha256": "a9199d628e0e4c13b5e438c7f510566237a677ff6465f1b444cc8f8597048b2b",
-      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
+      "sha256": "f198182fb9922a5cbc7d589c4db3205e6b6680ca244e0d877819586ae2987c04",
+      "review": "Review forced native workflow versus app-install race: the native base writer now acquires the same aggregate configuration fence before its existing workflow lock. Installer and selected release already hold that fence. This closes incompatible jointly accepted replacement graphs; the pure admission decision and financial guards are unchanged."
     },
     "src/order_checkout.rs": {
       "status": "reviewed-binding",

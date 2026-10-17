@@ -55,7 +55,7 @@ operator=call('/api/auth/accept',{'name':'Operator','password':password,'invitat
 rh={'x-tenant':h['x-tenant'],'Authorization':'Bearer '+operator['token']}
 o=transition(o,'shipped','delivery'); o=transition(o,'delivered','delivery')
 assert action(call('/api/merchant/orders/'+o['id'],h=rh),'approve')['reason']=='lifecyclePermission'
-transition(o,'completed',headers=rh,status=409)
+transition(o,'completed',headers=rh,status=403)
 role['permissions'].append('documents.read'); call('/api/workspace/roles/lifecycle_operator',{'revision':1,'data':role},h,method='PUT')
 assert action(call('/api/merchant/orders/'+o['id'],h=rh),'approve')['enabled']
 role['permissions'].remove('customers.pii'); call('/api/workspace/roles/lifecycle_operator',{'revision':2,'data':role},h,method='PUT')
@@ -161,6 +161,8 @@ def locale_race(kind):
 with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:outcomes=list(pool.map(locale_race,['settings','app']))
 assert sorted(outcomes)==[200,400],outcomes
 print('PASS concurrent main-language edit and app installation cannot jointly commit incompatible native labels',flush=True)
+from testing.native_lifecycle_race import workflow_installation
+workflow_installation(call,owner('workflow-race'),manifest)
 
 if os.getenv('NATIVE_LIFECYCLE_REVIEW_HOLD'):
     reviewed=copy.deepcopy(manifest);reviewed['version']='1.0.3'

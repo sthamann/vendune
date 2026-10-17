@@ -5,6 +5,7 @@
 - App-owned order and RFQ review states, fixed native guards and current extra scopes share native transitions, API/MCP/Flow, history and the existing outbox.
 - New native objects pin their accepted app version and digest; package upgrades and selected sandbox releases preserve running work.
 - App Studio edits the same translated lifecycle contract. Native grids and customer accounts show accepted labels, while public customer projections exclude private policies.
+- Require native labels in the configured main language on build, install, settings edits and selected release. Serialize native base edits with app installation; forced database races reject incompatible pairs. Order and RFQ action-authority denials consistently return 403.
 - Reproduced and fixed a native B2B customer/unit deadlock: the non-financial last-payment preference no longer updates while checkout holds purchasing locks. A deterministic real-database interleaving preserves the failure and regression.
 - Migration 105 admits bounded namespaced RFQ preparation states; offer pricing, buyer acceptance, stock and financial invariants remain native. Hosted delivery is tracked in the current status and release receipts.
 

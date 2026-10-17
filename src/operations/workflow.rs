@@ -27,6 +27,7 @@ pub(super) async fn save(
     }
     let revision = v["revision"].as_i64().ok_or(bad("revision required"))?;
     let mut tx = a.db.begin().await?;
+    marketing::lock_config(&mut tx, &t).await?;
     sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,27))")
         .bind(&t)
         .execute(&mut *tx)
