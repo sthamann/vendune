@@ -24,6 +24,12 @@ branch, build or documentation change does not update a hosted result by itself.
 
 [Agent controls](agent-authority-controls.md) reuse existing keys/tasks and central inference. [Hosted stop/re-enable and checkout acceptance](evidence/agent-authority-hosted-2026-10-16.md) is recorded separately; it does not close arbitrary app execution or real-provider billing gates.
 
+The [18:26 hosted buyer/POS follow-up](evidence/buyer-pos-hosted-2026-10-17.md)
+also accepts a preserved POS cart, one native invoice/PDF and completion through
+the accepted 0.1.3 app snapshot. Current payment/delivery guards remain enforced.
+It fixes the standard storefront's shared-demo login attempt, but does not newly
+accept a hosted signed-buyer RFQ or original embedded Storyfront purchase.
+
 ## Implemented foundations
 
 | Capability | Actual implementation | Boundary |

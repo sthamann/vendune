@@ -15,6 +15,7 @@ A green test, merged code and a completed public business journey are different 
 
 | Journey or boundary | Evidence and present limitation |
 | --- | --- |
+| Buyer entry and native POS receipt | [17 October hosted follow-up](evidence/buyer-pos-hosted-2026-10-17.md): own-account sign-in entry, preserved carts across rollout, German simulated purchase RAC-7bd54019, fictional POS sale RAC-5e78c602, actionable seller setup, single native invoice/PDF and guarded app-bound completion passed. Hosted signed-buyer RFQs, real settlement and physical printers remain separate. The compact PDF still loses some punctuation. |
 | Native app workflows and AI proposals | [17 October public acceptance](evidence/native-app-workflows-hosted-2026-10-17.md): visual creation, private installation, selected publication, guarded completion, 0.1.1 → 0.1.2 upgrade and distinct old/new order workflows passed. The [configured-model follow-up](evidence/agent-native-workflows-hosted-2026-10-17.md#follow-up-accepted-on-d939257) also passed exact preservation, private install and selected publication of a missing quote workflow. Payments remained simulated; hosted RFQ buyer execution is a separate acceptance. |
 | Native app product journey | [17 October hosted acceptance](evidence/native-app-fields-hosted-2026-10-17.md): visual creation, native product writes, compatible upgrade with retained data, optional grid column, exact positive/negative filters and selected live publication passed. Original embedded Storyfront purchase/return/bag clearing also passed on that image; payment remained simulated. |
 | Shared app storage | [15 October hosted migration](evidence/shared-app-storage-hosted-2026-10-15.json): four fixed physical tables, checked data migration and simulated purchases. This does not establish unbounded capacity. |
@@ -43,8 +44,18 @@ A green test, merged code and a completed public business journey are different 
 
 ## Public delivery and current work
 
-The current Core is `e9369cf`, image `cool-grape-9915`, source-tree identical
-to merged main `97c981f`. Its [UI-caption receipt](evidence/agent-native-workflows-hosted-2026-10-17.md#ui-caption-follow-up-accepted-on-e9369cf) records 641 frontend tests, successful maintenance/readiness and live native quote captions. Rust, schema and runtime contracts are unchanged from the fully tested `d939257` backend. The [release and configured-model receipt](evidence/agent-native-workflows-hosted-2026-10-17.md#follow-up-accepted-on-d939257)
+The current Core is `ce5a710`, image `busy-machine-7486`. Its
+[buyer/POS receipt](evidence/buyer-pos-hosted-2026-10-17.md) records the full required
+100-suite/648-frontend-test check on `eab3534`, merged as `0460521` with an identical
+Git tree. All Dockerfile inputs in the image are identical to that verified tree;
+later differences are CI review metadata and test documentation. One healthy Core,
+preserved carts/session, a native simulated purchase and a fictional POS sale with
+one invoice/PDF passed publicly. No migration or new runtime right was required.
+Before this rollout, the original embedded Storyfront recheck on `e9369cf` was
+held by the browser controller. No new embedded purchase is accepted on the current
+image; the receipt preserves the exact diagnostic and earlier successes.
+
+The preceding `e9369cf` [UI-caption receipt](evidence/agent-native-workflows-hosted-2026-10-17.md#ui-caption-follow-up-accepted-on-e9369cf) retains its 641 frontend tests, maintenance/readiness and native quote captions. Rust, schema and runtime contracts remain unchanged from the fully tested `d939257` backend. The [release and configured-model receipt](evidence/agent-native-workflows-hosted-2026-10-17.md#follow-up-accepted-on-d939257)
 records full required CI, snapshot, successful maintenance/readiness and preserved
 merchant sign-in. The original natural-language request now produced a valid
 0.1.3 quote-review proposal through the configured model. Direct package comparison
