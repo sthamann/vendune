@@ -1,7 +1,7 @@
 /** Bounded semantic review summaries compare the exact current and proposed manifests. */
 import type { Manifest } from "../../shared/apps/native/types";
 export type Difference = {
-  group: "models" | "surfaces" | "access";
+  group: "models" | "surfaces" | "workflows" | "access";
   kind: "added" | "changed" | "removed";
   id: string;
 };
@@ -59,6 +59,11 @@ export function proposalChanges(
     commerceHooks: m.commerceHooks,
     presentation: m.presentation,
   });
+  compare(
+    "workflows",
+    Object.fromEntries((before.lifecycles ?? []).map((c) => [c.object, c])),
+    Object.fromEntries((after.lifecycles ?? []).map((c) => [c.object, c])),
+  );
   compare("access", access(before), access(after));
   return changes;
 }

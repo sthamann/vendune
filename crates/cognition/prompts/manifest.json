@@ -12,6 +12,11 @@
       "sha256": "4d953447bd9edc5a02d29e488688bba8d01678e506b869b63ea175f799aa4713"
     },
     {
+      "id": "app-edit@2",
+      "path": "prompts/app-edit.v2.txt",
+      "sha256": "e95daeb345d84d643f3075a64e024e46b5e125b397ac4c247b43c58177a47a82"
+    },
+    {
       "id": "app-generation@1",
       "path": "prompts/app-generation.v1.txt",
       "sha256": "270d9bd6499bcb156e819485cd279c1c6e918903f68f71879c9bb9481a2a64bc"

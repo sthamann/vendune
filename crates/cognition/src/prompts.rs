@@ -15,6 +15,7 @@ const TEMPLATES: &[(&str, &str)] = &[
         include_str!("../prompts/app-coding-task.v1.txt"),
     ),
     ("app-edit@1", include_str!("../prompts/app-edit.v1.txt")),
+    ("app-edit@2", include_str!("../prompts/app-edit.v2.txt")),
     (
         "grid-filter@1",
         include_str!("../prompts/grid-filter.v1.txt"),
@@ -31,6 +32,20 @@ pub fn evidence(system: &str) -> Value {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn workflow_edit_revision_binds_its_own_template_and_rendered_context() {
+        let template = include_str!("../prompts/app-edit.v2.txt");
+        let rendered = format!("{template} untrusted shop context");
+        let proof = evidence(&rendered);
+        assert_eq!(proof["templates"][0]["id"], "app-edit@2");
+        assert_eq!(proof["templates"].as_array().unwrap().len(), 1);
+        assert_eq!(
+            proof["templates"][0]["sha256"],
+            format!("{:x}", Sha256::digest(template.as_bytes()))
+        );
+        assert_ne!(proof["systemSha256"], evidence(template)["systemSha256"]);
+        assert!(!proof.to_string().contains("untrusted shop context"));
+    }
     #[test]
     fn revision_and_rendered_context_are_both_bound_without_leaking_context() {
         let s = format!("{} private shop context", TEMPLATES[0].1);

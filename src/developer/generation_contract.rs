@@ -8,6 +8,7 @@ pub(super) fn retain(old: &Value, next: &mut Value) -> Result<()> {
     if old["id"] != next["id"] {
         return Err(bad("AI must preserve the current app ID"));
     }
+    retain_lifecycles(old, next)?;
     for entity in old["entities"].as_array().into_iter().flatten() {
         let candidate = next["entities"]
             .as_array_mut()
@@ -89,7 +90,6 @@ pub(super) fn retain(old: &Value, next: &mut Value) -> Result<()> {
     // The generation schema intentionally does not own these advanced/manual integrations.
     for key in [
         "commerceHooks",
-        "lifecycles",
         "capability",
         "distribution",
         "configuration",
@@ -113,6 +113,43 @@ pub(super) fn retain(old: &Value, next: &mut Value) -> Result<()> {
     }
     Ok(())
 }
+/// A normal AI edit may add a missing native domain, but cannot rewrite an accepted contract.
+fn retain_lifecycles(old: &Value, next: &mut Value) -> Result<()> {
+    if old.get("lifecycles").is_none() && next.get("lifecycles").is_none() {
+        return Ok(());
+    }
+    let mut contracts = next.get("lifecycles").cloned().unwrap_or(json!([]));
+    let candidates = contracts
+        .as_array_mut()
+        .ok_or(bad("AI native workflows must be an array"))?;
+    for prior in old["lifecycles"].as_array().into_iter().flatten() {
+        if let Some(candidate) = candidates.iter().find(|c| c["object"] == prior["object"]) {
+            if candidate != prior {
+                return Err(bad(
+                    "AI cannot change an existing native workflow; use its versioned workflow editor",
+                ));
+            }
+        } else {
+            candidates.push(prior.clone());
+        }
+    }
+    if candidates.is_empty() && old.get("lifecycles").is_none() {
+        next.as_object_mut()
+            .ok_or(bad("AI requires an app object"))?
+            .remove("lifecycles");
+    } else {
+        if !candidates.is_empty() {
+            let permissions = next["permissions"]
+                .as_array_mut()
+                .ok_or(bad("AI native workflow requires an app permission list"))?;
+            if !permissions.iter().any(|p| p == "commerce.lifecycle") {
+                permissions.push(json!("commerce.lifecycle"));
+            }
+        }
+        next["lifecycles"] = contracts;
+    }
+    Ok(())
+}
 /// Nested frames and tabs use the same handler contract as top-level controls.
 fn retain_handlers(old: &Value, next: &mut Value) {
     for block in next.as_array_mut().into_iter().flatten() {
@@ -132,6 +169,38 @@ fn retain_handlers(old: &Value, next: &mut Value) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn native_workflow_additions_retain_prior_domains_and_explicit_consent() {
+        let order =
+            json!({"object":"order","states":[],"transitions":[{"guards":["delivery.delivered"]}]});
+        let quote = json!({"object":"quote","states":[],"transitions":[]});
+        let mut original = old();
+        original["permissions"] = json!(["commerce.lifecycle"]);
+        original["lifecycles"] = json!([order]);
+        let mut generated = original.clone();
+        generated["lifecycles"] = json!([quote]);
+        retain(&original, &mut generated).unwrap();
+        assert_eq!(generated["lifecycles"], json!([quote, order]));
+        assert_eq!(generated["permissions"], original["permissions"]);
+        generated["lifecycles"][1]["transitions"][0]["guards"] = json!([]);
+        assert!(retain(&original, &mut generated).is_err());
+        generated = original.clone();
+        generated.as_object_mut().unwrap().remove("lifecycles");
+        retain(&original, &mut generated).unwrap();
+        assert_eq!(generated, original);
+    }
+    #[test]
+    fn first_native_workflow_adds_consent_and_empty_declarations_are_noops() {
+        let mut original = old();
+        original["permissions"] = json!([]);
+        let mut generated = original.clone();
+        generated["lifecycles"] = json!([]);
+        retain(&original, &mut generated).unwrap();
+        assert_eq!(generated, original);
+        generated["lifecycles"] = json!([{"object":"order"}]);
+        retain(&original, &mut generated).unwrap();
+        assert_eq!(generated["permissions"], json!(["commerce.lifecycle"]));
+    }
     fn old() -> Value {
         json!({"id":"same","entities":[{"name":"cases","publicRead":false,"fields":[{"name":"order_id","kind":"string","coreReference":"order","indexed":true}]}],"surfaces":[{"id":"editor","location":"admin.order","permission":"orders.write"}],"events":["order.placed"],"views":[{"id":"main","blocks":[{"id":"save","handlers":{"click":[{"op":"refresh","target":"table"}]}}]}]})
     }

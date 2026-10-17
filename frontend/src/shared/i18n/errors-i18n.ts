@@ -14,6 +14,13 @@ const messages: Record<string, readonly string[]> = {
   ...agentAdmissionErrors,
   ...configurationErrors,
   ...catalogIntakeErrors,
+  "AI cannot change an existing native workflow; use its versioned workflow editor":
+    [
+      "This proposal changes an existing order or quote workflow. Edit it under Connections → Order & quote workflows, then review and save a new version. Your app is unchanged.",
+      "Dieser Vorschlag verändert einen bestehenden Bestell- oder Angebotsablauf. Bearbeite ihn unter Verbindungen → Bestell- & Angebotsabläufe, prüfe ihn und speichere eine neue Version. Deine App bleibt unverändert.",
+      "Cette proposition modifie un workflow existant. Modifiez-le dans Connexions → Workflows commandes et devis, vérifiez et enregistrez une nouvelle version. L’app reste inchangée.",
+      "Esta propuesta modifica un flujo existente. Edítalo en Conexiones → Flujos de pedidos y presupuestos, revísalo y guarda una nueva versión. La app no ha cambiado.",
+    ],
   "Design provider unavailable; your page is unchanged": [
     "The design provider is unavailable. Check the central AI connection and retry; your saved page is unchanged.",
     "Der Design-Anbieter ist nicht erreichbar. Prüfe die zentrale KI-Verbindung und versuche es erneut; deine Seite bleibt unverändert.",

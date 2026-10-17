@@ -112,6 +112,10 @@ not full regeneration. Identity and version stay host-controlled; native validat
 access preservation and proposal review still run before staging. Patch values are
 JSON-encoded only on the model wire. The server rejects no-op and invalid edits;
 no paid automatic repair loop is introduced. See the [workbench test boundaries](connected-workbench.md).
+The assistant can add a missing native order/quote review workflow; proposal
+review displays its steps, conditions and additional rights. Existing workflows
+remain protected from AI patches. See [native app workflows](app-native-lifecycles.md)
+for deliberate version changes, consent and the connected verification boundary.
 
 An extra input for an existing record joins its form's local buffer only when
 the model and record ID identify exactly one form. Saving still uses that form's
