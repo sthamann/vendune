@@ -43,9 +43,9 @@ const cart = {
 describe("native POS", () => {
   it.each([
     ["en-GB", "Settings → Company details"],
-    ["de-DE", "Einstellungen → Firmendaten"],
-    ["fr-FR", "Paramètres → Coordonnées de l’entreprise"],
-    ["es-ES", "Ajustes → Datos de la empresa"],
+    ["de-DE", "Einstellungen → Stammdaten"],
+    ["fr-FR", "Paramètres → Informations de l’entreprise"],
+    ["es-ES", "Configuración → Datos de la empresa"],
   ])(
     "explains the missing seller configuration in %s",
     async (locale, hint) => {

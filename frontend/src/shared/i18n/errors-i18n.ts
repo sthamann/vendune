@@ -18,9 +18,9 @@ const messages: Record<string, readonly string[]> = {
   ...lifecycleValidationErrors,
   "Configure seller details before creating receipts": [
     "Complete and save the seller details under Settings → Company details, then create the receipt again. The sale is already recorded; do not submit it again.",
-    "Vervollständige und speichere die Verkäuferdaten unter Einstellungen → Firmendaten und erstelle dann den Beleg erneut. Der Verkauf ist bereits erfasst; schließe ihn nicht noch einmal ab.",
-    "Complétez et enregistrez les coordonnées du vendeur dans Paramètres → Coordonnées de l’entreprise, puis créez à nouveau le justificatif. La vente est déjà enregistrée ; ne la validez pas une seconde fois.",
-    "Completa y guarda los datos del vendedor en Ajustes → Datos de la empresa y vuelve a crear el comprobante. La venta ya está registrada; no la envíes otra vez.",
+    "Vervollständige und speichere die Verkäuferdaten unter Einstellungen → Stammdaten und erstelle dann den Beleg erneut. Der Verkauf ist bereits erfasst; schließe ihn nicht noch einmal ab.",
+    "Complétez et enregistrez les coordonnées du vendeur dans Paramètres → Informations de l’entreprise, puis créez à nouveau le justificatif. La vente est déjà enregistrée ; ne la validez pas une seconde fois.",
+    "Completa y guarda los datos del vendedor en Configuración → Datos de la empresa y vuelve a crear el comprobante. La venta ya está registrada; no la envíes otra vez.",
   ],
   "AI cannot change an existing native workflow; use its versioned workflow editor":
     [
