@@ -6,6 +6,7 @@ import {
 import { getLocale } from "./i18n";
 import { configurationErrors } from "./configuration-errors-i18n";
 import { appCapabilityWords } from "./app-capability-i18n";
+import { lifecycleValidationErrors } from "./native-lifecycle-i18n";
 import {
   agentAdmissionErrors,
   agentAllowanceExhausted,
@@ -14,6 +15,7 @@ const messages: Record<string, readonly string[]> = {
   ...agentAdmissionErrors,
   ...configurationErrors,
   ...catalogIntakeErrors,
+  ...lifecycleValidationErrors,
   "AI cannot change an existing native workflow; use its versioned workflow editor":
     [
       "This proposal changes an existing order or quote workflow. Edit it under Connections → Order & quote workflows, then review and save a new version. Your app is unchanged.",

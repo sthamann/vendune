@@ -59,6 +59,9 @@
   line-height: 1.6;
   color: var(--muted);
 }
+.app-agent-drawer > .studio-notice {
+  margin-bottom: 16px;
+}
 .app-agent-drawer-body {
   margin: 0;
   padding: 0;

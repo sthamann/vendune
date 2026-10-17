@@ -125,6 +125,10 @@ pub(super) fn schema_for(locales: &[String]) -> Value {
     }
     let mut v = schema();
     walk(&mut v, locales);
+    let lifecycle = &mut v["properties"]["manifest"]["properties"]["lifecycles"];
+    lifecycle["description"] = json!(apps::native_lifecycle::generation_context().to_string());
+    lifecycle["items"]["properties"]["transitions"]["items"]["properties"]["requiredPermissions"]
+        ["items"]["enum"] = json!(auth::SCOPES);
     v
 }
 
@@ -150,5 +154,24 @@ mod tests {
             ["description"];
         assert_eq!(description["required"], json!(["es-ES", "it-IT", "en-US"]));
         assert!(description["properties"].get("en").is_none());
+    }
+    #[test]
+    fn workflow_generation_context_comes_from_native_validation_and_scope_owners() {
+        let schema = schema_for(&["it-IT".into()]);
+        let c = &schema["properties"]["manifest"]["properties"]["lifecycles"];
+        let context: Value = serde_json::from_str(c["description"].as_str().unwrap()).unwrap();
+        assert_eq!(context, apps::native_lifecycle::generation_context());
+        assert_eq!(context["quote"]["replaceableActions"], json!([]));
+        assert_eq!(
+            context["quote"]["allowedNativeTo"],
+            json!(["requested", "rejected"])
+        );
+        assert_eq!(context["quote"]["guards"], json!(["quote.message"]));
+        assert_eq!(
+            c["items"]["properties"]["transitions"]["items"]["properties"]["requiredPermissions"]["items"]
+                ["enum"],
+            json!(auth::SCOPES)
+        );
+        assert!(c.to_string().contains("it-IT"));
     }
 }

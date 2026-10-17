@@ -2,9 +2,9 @@
 
 The current source declares **57 extracted policies used in production Rust paths**
 and **123 named properties**. This is **not a certificate that the entire commerce
-core is correct or bug-free**. The reviewed inventory contains **594 Rust modules**:
-three extracted policy modules, 57 reviewed binding modules, one comparison driver
-and 533 unproved modules. Binding review is not proof of the surrounding modules.
+core is correct or bug-free**. The reviewed inventory contains **608 Rust modules**:
+three extracted policy modules, 59 reviewed binding modules, one comparison driver
+and 545 unproved modules. Binding review is not proof of the surrounding modules.
 The [manifest](../proof/manifest.json) and per-revision CI artifact are authoritative.
 The local 16 October configuration-summary revision compares **156,677 compiled Rust/Lean cases
 without mismatches**. Local verification remains distinct from the historical

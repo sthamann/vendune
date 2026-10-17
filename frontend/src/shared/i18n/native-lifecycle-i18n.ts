@@ -143,3 +143,30 @@ export const lifecycleOperationWords = {
     "Ampliar flujos de pedidos y presupuestos",
   ],
 } as const;
+
+export const lifecycleValidationErrors: Record<string, readonly string[]> = {
+  "Lifecycle actions require short unique IDs and translated labels": [
+    "A workflow action has an invalid identifier or missing label. Use a unique ID of up to 16 characters and name the action in the shop main language. Your app is unchanged.",
+    "Eine Ablaufaktion hat eine ungültige Kennung oder keinen Namen. Verwende eine eindeutige Kennung mit höchstens 16 Zeichen und benenne die Aktion in der Shop-Hauptsprache. Deine App bleibt unverändert.",
+    "Une action a un identifiant invalide ou un libellé absent. Utilisez un identifiant unique de 16 caractères maximum et nommez l’action dans la langue principale. L’app reste inchangée.",
+    "Una acción tiene un identificador inválido o no tiene nombre. Usa un ID único de hasta 16 caracteres y nombra la acción en el idioma principal. La app no ha cambiado.",
+  ],
+  "Unknown native lifecycle permission": [
+    "This workflow requests an unknown team permission. Select an existing permission under Connections → Order & quote workflows. Your app is unchanged.",
+    "Dieser Ablauf verlangt ein unbekanntes Teamrecht. Wähle ein vorhandenes Recht unter Verbindungen → Bestell- & Angebotsabläufe. Deine App bleibt unverändert.",
+    "Ce workflow demande une autorisation inconnue. Choisissez une autorisation existante dans Connexions → Workflows commandes et devis. L’app reste inchangée.",
+    "Este flujo solicita un permiso desconocido. Selecciona un permiso existente en Conexiones → Flujos de pedidos y presupuestos. La app no ha cambiado.",
+  ],
+  "Unsupported guard for this native lifecycle": [
+    "This check is unavailable for this workflow. Orders support confirmed payment and delivered shipments; quote requests support a buyer message. Your app is unchanged.",
+    "Diese Bedingung ist für diesen Ablauf nicht verfügbar. Bestellungen unterstützen bestätigte Zahlungen und zugestellte Lieferungen; Angebotsanfragen eine vorhandene Käufernachricht. Deine App bleibt unverändert.",
+    "Ce contrôle ne convient pas à ce workflow. Commandes : paiement confirmé et livraison ; devis : message acheteur présent. L’app reste inchangée.",
+    "Esta condición no está disponible. Pedidos: pago confirmado y entregas recibidas; presupuestos: mensaje del comprador. La app no ha cambiado.",
+  ],
+  "Unsupported native lifecycle transition": [
+    "This transition bypasses a native step. Quote review must return to the request or reject it; it cannot replace native actions or accept an offer. Review the connections; your app is unchanged.",
+    "Dieser Übergang überspringt einen verbindlichen Schritt. Eine Angebotsprüfung muss zur Anfrage zurückführen oder sie ablehnen; sie darf keine nativen Aktionen ersetzen oder Angebote annehmen. Prüfe die Verbindungen; deine App bleibt unverändert.",
+    "Cette transition contourne une étape native. Un contrôle de devis revient à la demande ou la rejette ; il ne remplace pas les actions natives et n’accepte pas d’offre. L’app reste inchangée.",
+    "Esta transición omite un paso nativo. La revisión vuelve a la solicitud o la rechaza; no puede sustituir acciones nativas ni aceptar ofertas. La app no ha cambiado.",
+  ],
+};

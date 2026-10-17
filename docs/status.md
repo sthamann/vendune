@@ -43,13 +43,17 @@ A green test, merged code and a completed public business journey are different 
 
 ## Public delivery and current work
 
-The current Core is `fdc70a2`, image `carefree-home-2228`, source-tree equivalent
-to merged main `c7c3afe`. Its [hosted workflow receipt](evidence/native-app-workflows-hosted-2026-10-17.md)
-records full required CI, a fresh 6 GB snapshot, successful migration 105/readiness,
-visual App Studio publication, two simulated native purchases and guarded completion.
-An existing order kept its accepted 0.1.1 workflow after 0.1.2 was published; a
-later order adopted 0.1.2. The private Experience service remains `b40b386`.
-The original Storyfront repeat on this exact Core image remains unaccepted: the browser controller held its HTTP-200 iframe document; the parent showed its explicit timeout/retry message. The earlier successful embedded purchase keeps its own source boundary.
+The current Core is `7eb82c8`, image `distinct-roll-3524`, source-tree identical
+to merged main `6537ed1`. Its [release and configured-model receipt](evidence/agent-native-workflows-hosted-2026-10-17.md)
+records full required CI, snapshot, successful maintenance/readiness and preserved
+merchant sign-in. The deterministic AI workflow chain passed, but the configured
+public model proposal was rejected; that walkthrough remains unaccepted. A
+follow-up adds validator-owned context and visible localized refusal messages.
+The [preceding native order receipt](evidence/native-app-workflows-hosted-2026-10-17.md)
+retains its accepted visual publication, guarded purchases and old/new workflow
+versions. This Core release did not redeploy the private Experience service or
+newly accept the original embedded Storyfront checkout; earlier results retain
+their own source boundary.
 
 Earlier deliveries retain their source and acceptance boundaries:
 [product fields and original embedded checkout, 17 October](evidence/native-app-fields-hosted-2026-10-17.md),

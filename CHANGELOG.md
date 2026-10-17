@@ -1,5 +1,11 @@
 # Changelog
 
+## Native workflow context and visible assistant failures — 2026-10-17
+
+- Reproduce a public configured-model refusal on the workflow-proposal release. Feed the actual native graph, per-domain guard/replacement restrictions and registered team scopes into the shared generation schema, which is also used by app editing and coding-agent task exports. The versioned `app-edit@3` prompt consumes that context; earlier templates remain immutable, and rendered-system provenance binds the actual context.
+- Distinguish invalid action labels/IDs, unknown rights, unsupported guards and forbidden native transitions. Show the localized failure inside the open assistant dialog while preserving the unfinished prompt.
+- Extend the versioned adversarial corpus with quote replacement and oversized-action failures; keep the prior corpus unchanged. No new route, storage table or native financial permission.
+
 ## Review native workflow proposals from the App Studio assistant — 2026-10-17
 
 - Let ordinary bounded AI edits add a missing native order or quote workflow. Preserve existing domains and reject changes to their states, edges or guards atomically; explicit capability consent, current rights, immutable versions and selected sandbox publication remain mandatory.
