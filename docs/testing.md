@@ -37,6 +37,8 @@ output, so a slow suite is visible instead of hidden inside one long CI block.
 The exact generated source inventory is checked before compilation or integration
 tests, as well as in the existing structure gate. Missing inventory updates fail
 immediately without waiting for the database suites; no verification is skipped.
+The existing reviewed source/build-input registry is also checked before compiling.
+The later complete formal proof, conformance and mutation checks remain required.
 
 This optimizes development feedback. A green fast check is not a new whole-system
 acceptance or evidence of live provider payments. The current prototype can use
