@@ -9,6 +9,22 @@ shared selling context; an unrelated SaaS merchant remains a separate tenant.
 
 **UCP buyers:** [Discoverable offer negotiation](b2b-ucp-negotiation.md) connects the same RFQs, merchant inbox and purchasing approvals to UCP checkout. This is a versioned VEYNDO extension, not an official UCP price-negotiation capability.
 
+## Enter company purchasing as a buyer
+
+Choose **Business account** in the standard storefront. It opens the existing
+customer account at company purchasing. If unsigned, sign in with your own
+customer account first; the dialog retains the destination after authentication.
+An existing session is reused. **My account** still opens the ordinary overview.
+
+The entry does not log into a shared demonstration account, assign a company,
+select a unit or change prices. Merchants link the customer's existing identity
+to purchasing units under **Companies & purchasing → Customers & employees**.
+Without a current assignment the portal explains that company access must first
+be enabled. Unit selection, RFQs, approval, budgets and purchases continue through
+the same authorized native operations described below. Component regressions
+exercise both entry routes and real session transport; hosted buyer acceptance is
+recorded separately in the [current status](status.md).
+
 ## Build only the modules a buyer needs
 
 | Module | Configuration / actual behavior |

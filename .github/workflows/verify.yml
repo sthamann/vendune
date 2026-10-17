@@ -29,6 +29,13 @@ jobs:
       - name: Verify conservative change classification and coverage helpers
         run: python3 scripts/testing/test_ci_scope.py && python3 scripts/testing/tooling_tests.py
       - run: python3 scripts/testing/documentation_hygiene.py
+      - name: Check exact source inventory before compiling or integration tests
+        run: python3 scripts/testing/source_inventory.py
+      - name: Check reviewed source and build inputs before compiling
+        run: >-
+          PYTHONPATH=scripts/formal python3 -c
+          'import json; from pathlib import Path; from registry import check;
+          print(check(Path.cwd(), json.loads(Path("proof/manifest.json").read_text())))'
       - run: python3 scripts/testing/prompt_governance.py
         env:
           PROMPT_BASE: ${{ github.event.pull_request.base.sha }}

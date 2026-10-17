@@ -4,6 +4,7 @@ import { renderHook, waitFor, act } from "@testing-library/react";
 import { inputMinor, decimalMinor } from "../../src/admin/pos/pos-model";
 import { useRegister } from "../../src/admin/pos/useRegister";
 import type { Channel } from "../../src/admin/channels/channel-model";
+import { createStudioRequest } from "../../src/admin/shell/requests";
 vi.mock("../../src/admin/pos/pos-i18n", () => ({
   usePosText: () => (key: string) => key,
 }));
@@ -40,6 +41,38 @@ const cart = {
   },
 };
 describe("native POS", () => {
+  it.each([
+    ["en-GB", "Settings → Company details"],
+    ["de-DE", "Einstellungen → Stammdaten"],
+    ["fr-FR", "Paramètres → Informations de l’entreprise"],
+    ["es-ES", "Configuración → Datos de la empresa"],
+  ])(
+    "explains the missing seller configuration in %s",
+    async (locale, hint) => {
+      localStorage.setItem("rac-locale", locale);
+      const diagnostic = "Configure seller details before creating receipts";
+      vi.stubGlobal(
+        "fetch",
+        vi.fn().mockResolvedValue({
+          ok: false,
+          status: 400,
+          statusText: "Bad Request",
+          json: async () => ({ errors: [{ detail: diagnostic, status: 400 }] }),
+        }),
+      );
+      await expect(
+        createStudioRequest(
+          "fixture",
+          "shop",
+          locale,
+        )("/api/merchant/orders/fixture/receipts", { kind: "invoice" }),
+      ).rejects.toMatchObject({
+        diagnostic,
+        status: 400,
+        message: expect.stringContaining(hint),
+      });
+    },
+  );
   it("parses tender without hidden rounding for 0, 2, 3 and 6 decimal currencies", () => {
     expect(inputMinor("12", 0)).toBe(12n);
     expect(inputMinor("12.1", 0)).toBeNull();

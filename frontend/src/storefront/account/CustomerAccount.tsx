@@ -39,10 +39,12 @@ const pageIcons: Record<AccountPage, IconName> = {
   business: "people",
 };
 export default function CustomerAccount({
+  initialPage = "overview",
   cart,
   onCart,
   onClose,
 }: {
+  initialPage?: AccountPage;
   cart?: Cart;
   onCart: (cart: Cart) => void;
   onClose: () => void;
@@ -53,7 +55,7 @@ export default function CustomerAccount({
     { c } = useCustomerText();
   const b = useB2BText();
   const account = useCustomerAccount(cart, onCart);
-  const [page, setPage] = useState<AccountPage>("overview"),
+  const [page, setPage] = useState<AccountPage>(initialPage),
     [orderId, setOrderId] = useState<string>();
   useEffect(() => {
     const node = dialog.current;

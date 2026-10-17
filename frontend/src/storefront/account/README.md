@@ -1,8 +1,17 @@
 # Customer account workspace
 
-The native dialog gives shoppers six connected views: overview, orders, addresses,
-downloads, personal details and security. Sign-in and account creation use distinct
-forms. The account token is independent of Studio credentials and scoped to the shop.
+The native dialog gives shoppers seven connected views: overview, orders, addresses,
+downloads, personal details, security and company purchasing. Sign-in and account
+creation use distinct forms. The customer session is independent of Studio
+credentials and scoped to the shop. Hosted browser sessions use the native HttpOnly
+ledger; no newly issued bearer token is persisted in browser storage.
+
+The storefront's Business account entry opens this same dialog at company
+purchasing. Unsigned buyers first use their own sign-in form; the selected
+destination survives successful sign-in. My account opens the overview. Neither
+entry submits demo credentials, creates company membership or changes pricing.
+Company contexts, budgets, quote actions and approvals still require the customer's
+current native employee grants.
 
 | File                     | Responsibility                                                           |
 | ------------------------ | ------------------------------------------------------------------------ |
@@ -29,7 +38,9 @@ from account order responses.
 
 Component tests exercise actual `shopApi` requests, sign-in without an existing
 cart, registration, detail navigation, address defaults, PDF/download retrieval,
-unsafe links and expired-session recovery. `scripts/customer_accounts.py` checks
+unsafe links and expired-session recovery. The full Storefront composition also
+checks unsigned/signed business entry, explicit login, current session transport,
+cancel and return to the ordinary overview. `scripts/customer_accounts.py` checks
 real PostgreSQL ownership, immutable receipts and live delivery transitions.
 `developer_documents.py` additionally verifies paid digital entitlements and
 foreign/anonymous rejection. See [operations](../../../../docs/merchant-operations.md)

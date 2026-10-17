@@ -17,6 +17,7 @@ import {
   type Selection,
 } from "../../shared/api/shop-api";
 import { placeCheckoutOrder } from "../checkout/checkout-order";
+import type { AccountPage } from "../account/account-types";
 import { useShopText } from "../../shared/i18n/shop-i18n";
 import { useWorkbenchText } from "../../shared/i18n/workbench-i18n";
 import "../../shared/styles/apps.css";
@@ -61,7 +62,7 @@ export function useStorefrontController({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [bag, setBag] = useState(false);
-  const [account, setAccount] = useState(false);
+  const [account, setAccount] = useState<AccountPage | false>(false);
   const [order, setOrder] = useState<Order>();
   const [wish, setWish] = useState("");
   const [advice, setAdvice] = useState<{

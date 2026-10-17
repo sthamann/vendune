@@ -30,4 +30,8 @@ invoice text into a user-gesture popup and opens the OS print dialog. Dedicated
 `cashier-i18n` keys share EN/DE/FR/ES and the Studio locale. No plugin-owned feature or
 new order/payment/document/AI owner is introduced.
 
+Receipt creation requires saved seller details in Settings → Company details.
+The shared request-error vocabulary explains this refusal in EN/DE/FR/ES and
+directs the cashier to retry the receipt, preserving the already recorded sale.
+
 `RegisterCheckoutOptions` keeps payment/contact settings in the tools pane; `RegisterCheckout` keeps final tender and completion separate. `useRegisterViewport` measures actual available register height after translation, wrapping and viewport changes.

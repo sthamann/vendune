@@ -3600,8 +3600,8 @@
   },
   "inputs": {
     ".github/workflows/verify.yml": {
-      "sha256": "7b0aa864bf479f09681e4b512edfc021d25b097d9d27646f16259b78480427a2",
-      "review": "Review CI integration database ownership: remove --existing-database so the suite creates and drops its own commerce_quality database. Preserve the outbox migration rehearsal refusal for UI, restore and production databases. Move the unchanged outbox suite before slow providers, exactly once, and retain all suite inventory and coverage floors."
+      "sha256": "059d920d86a2bae0c9866c0b768577b2fc7018c5f5a16b3680b250660f3b9426",
+      "review": "Reviewed CI-only change: add exact source inventory and existing reviewed source/build-input registry checks before compilation, while preserving all scope classification, full Lean/conformance/mutation, integration and coverage steps unchanged. The registry gate is fail-fast only; no production policy, adapter, threshold or runtime artifact is changed."
     },
     "Cargo.lock": {
       "sha256": "b64d49ee406819898babd77f3a2fc667a68f78b06db0cde18002f8408113ed3c",
