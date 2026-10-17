@@ -77,6 +77,7 @@ async fn install_inner(
     }
     distribution::dependencies(tx, t, &m).await?;
     commerce_hooks::admission(tx, t, &m).await?;
+    native_lifecycle::admission(tx, t, &m).await?;
     let value = json!(m);
     let digest = hash(&value.to_string());
     if versions

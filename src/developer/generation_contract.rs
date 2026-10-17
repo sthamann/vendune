@@ -89,6 +89,7 @@ pub(super) fn retain(old: &Value, next: &mut Value) -> Result<()> {
     // The generation schema intentionally does not own these advanced/manual integrations.
     for key in [
         "commerceHooks",
+        "lifecycles",
         "capability",
         "distribution",
         "configuration",

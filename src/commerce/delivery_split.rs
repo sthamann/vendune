@@ -31,6 +31,7 @@ pub(crate) async fn split_delivery(
             .fetch_optional(&mut *tx)
             .await?
             .ok_or(Error(StatusCode::NOT_FOUND, "Order not found".into()))?;
+    let (m, mr) = apps::native_lifecycle::order_machine(&o, m, mr)?;
     let revision = o["revision"].as_u64().unwrap_or(1);
     if !verified_kernel::revision_admissible(revision, v["revision"].as_u64().unwrap_or(0)) {
         return Err(conflict("Order revision changed"));
@@ -80,7 +81,7 @@ pub(crate) async fn split_delivery(
     if let Some(c) = response["cart"].as_object_mut() {
         c.remove("token");
     }
-    response["workflow"] = workflow(&response, &m, mr);
+    response["workflow"] = workflow(&response, &m, mr, &h);
     order_mutation::remember(&mut tx, &t, &id, key, &fingerprint, &response).await?;
     tx.commit().await?;
     Ok(Json(response))

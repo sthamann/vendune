@@ -48,7 +48,8 @@ pub(super) async fn detail(
     let rows=sqlx::query("SELECT id,actor,kind,data,created_at::text AS created FROM order_activity WHERE tenant=$1 AND order_id=$2 ORDER BY id DESC LIMIT 100").bind(&t).bind(&id).fetch_all(&a.db).await?;
     v["activity"]=json!(rows.iter().map(|r|json!({"id":r.get::<i64,_>("id"),"actor":r.get::<String,_>("actor"),"kind":r.get::<String,_>("kind"),"data":r.get::<Value,_>("data"),"createdAt":r.get::<String,_>("created")})).collect::<Vec<_>>());
     let (machine, revision) = commerce::machine(&a.db, &t).await?;
-    v["workflow"] = commerce::workflow(&v, &machine, revision);
+    let (machine, revision) = apps::native_lifecycle::order_machine(&v, machine, revision)?;
+    v["workflow"] = commerce::workflow(&v, &machine, revision, &h);
     apps::core_extensions::attach(
         &a,
         &h,

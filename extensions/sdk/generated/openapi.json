@@ -10986,6 +10986,70 @@
                         "additionalProperties": false,
                         "properties": {
                           "name": {
+                            "const": "b2b.quote.transition"
+                          },
+                          "arguments": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "action": {
+                                "maxLength": 32,
+                                "type": "string"
+                              },
+                              "id": {
+                                "maxLength": 100,
+                                "type": "string"
+                              },
+                              "message": {
+                                "maxLength": 4000,
+                                "type": "string"
+                              },
+                              "revision": {
+                                "minimum": 1,
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "revision",
+                              "action"
+                            ],
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "jsonrpc",
+                      "id",
+                      "method",
+                      "params"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "jsonrpc": {
+                        "const": "2.0"
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "integer"
+                        ]
+                      },
+                      "method": {
+                        "const": "tools/call"
+                      },
+                      "params": {
+                        "type": "object",
+                        "required": [
+                          "name",
+                          "arguments"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "name": {
                             "const": "b2b.quote.message"
                           },
                           "arguments": {

@@ -4,6 +4,10 @@ pub(crate) fn order_fields(o: &mut Value) {
     if !o.is_object() {
         return;
     }
+    if let Some((labels, main)) = apps::native_lifecycle::state_labels(o) {
+        o["stateLabels"] = labels;
+        o["stateMainLocale"] = main;
+    }
     o["amountTotal"] = o["cart"]["price"]["totalPrice"].clone();
     o["amountNet"] = o["cart"]["price"]["netPrice"].clone();
     o["shippingTotal"] = o["cart"]["shippingCosts"]["totalPrice"].clone();

@@ -1,6 +1,7 @@
 /** Route, tool, grounding and Flow Builder switches modify the shared executable manifest directly. */
 import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
 import { useAppStudioText } from "../../shared/i18n/app-studio-i18n";
+import AppNativeLifecycles from "./AppNativeLifecycles";
 import AppModules from "./AppModules";
 import AppOntology from "./AppOntology";
 import AppMenuEditor from "./AppMenuEditor";
@@ -33,9 +34,54 @@ export default function AppConnections({
         <summary>{a("menuEditor")}</summary>
         <AppMenuEditor manifest={manifest} onChange={onChange} />
       </details>
+      <AppNativeLifecycles manifest={manifest} onChange={onChange} />
       <details>
         <summary>{a("flow")}</summary>
         <AppAutomation manifest={manifest} onChange={onChange} />
+        <section className="app-model-card">
+          <header>
+            <Icon name="pulse" />
+            <h2>{a("flow")}</h2>
+          </header>
+          <div className="app-flow-chain">
+            <span>{a("flow")}</span>
+            <Icon name="arrow" />
+            <span>{manifest.id}</span>
+            <Icon name="arrow" />
+            <span>{`app.record.changed`}</span>
+          </div>
+          <p>{a("flowHint")}</p>
+          {manifest.actions
+            ?.filter(
+              (action) =>
+                ["save", "service", "emit"].includes(action.handler) &&
+                !action.public &&
+                !action.readOnly,
+            )
+            .map((action) => (
+              <label className="app-check" key={action.name}>
+                <input
+                  type="checkbox"
+                  checked={action.flowAllowed ?? false}
+                  onChange={(e) =>
+                    onChange({
+                      ...manifest,
+                      actions: manifest.actions?.map((n) =>
+                        n.name === action.name
+                          ? { ...n, flowAllowed: e.target.checked }
+                          : n,
+                      ),
+                    })
+                  }
+                />
+                {a("enableFlow")} · <code>{action.name}</code>
+              </label>
+            ))}
+          <button className="studio-secondary" onClick={onFlows}>
+            {a("openFlows")}
+            <Icon name="arrow" size={16} />
+          </button>
+        </section>
       </details>
       <details>
         <summary>{a("api")}</summary>
@@ -196,53 +242,6 @@ export default function AppConnections({
           </div>
         </section>
         <AppOntology manifest={manifest} onChange={onChange} />
-      </details>
-      <details>
-        <summary>{a("flow")}</summary>
-        <section className="app-model-card">
-          <header>
-            <Icon name="pulse" />
-            <h2>{a("flow")}</h2>
-          </header>
-          <div className="app-flow-chain">
-            <span>{a("flow")}</span>
-            <Icon name="arrow" />
-            <span>{manifest.id}</span>
-            <Icon name="arrow" />
-            <span>{`app.record.changed`}</span>
-          </div>
-          <p>{a("flowHint")}</p>
-          {manifest.actions
-            ?.filter(
-              (action) =>
-                ["save", "service", "emit"].includes(action.handler) &&
-                !action.public &&
-                !action.readOnly,
-            )
-            .map((action) => (
-              <label className="app-check" key={action.name}>
-                <input
-                  type="checkbox"
-                  checked={action.flowAllowed ?? false}
-                  onChange={(e) =>
-                    onChange({
-                      ...manifest,
-                      actions: manifest.actions?.map((n) =>
-                        n.name === action.name
-                          ? { ...n, flowAllowed: e.target.checked }
-                          : n,
-                      ),
-                    })
-                  }
-                />
-                {a("enableFlow")} · <code>{action.name}</code>
-              </label>
-            ))}
-          <button className="studio-secondary" onClick={onFlows}>
-            {a("openFlows")}
-            <Icon name="arrow" size={16} />
-          </button>
-        </section>
       </details>
       <details>
         <summary>{a("serverModules")}</summary>

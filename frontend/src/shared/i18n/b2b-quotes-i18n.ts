@@ -104,5 +104,5 @@ export function useB2BQuoteText() {
       : locale.startsWith("es")
         ? 3
         : 0;
-  return (key: B2BQuoteWord) => b2bQuoteWords[key][i];
+  return (key: B2BQuoteWord) => b2bQuoteWords[key]?.[i];
 }

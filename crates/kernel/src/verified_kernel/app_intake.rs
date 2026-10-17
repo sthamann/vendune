@@ -17,3 +17,8 @@ pub fn persistent_key_admissible(personal: bool, administrator: bool) -> bool {
 pub fn app_configuration_release_admissible(extension: bool, product: bool, company: bool) -> bool {
     !extension || product || company
 }
+
+/// Declarative app lifecycles can only narrow the current native transition authority.
+pub fn native_lifecycle_admissible(native: bool, rights: bool, guards: bool) -> bool {
+    native && rights && guards
+}

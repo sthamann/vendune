@@ -281,6 +281,11 @@ pub(super) fn eval(j: &Value) -> Result<Value, String> {
         Some("app_configuration_release_admissible") => Ok(json!(
             app_configuration_release_admissible(b("extension")?, b("product")?, b("company")?)
         )),
+        Some("native_lifecycle_admissible") => Ok(json!(native_lifecycle_admissible(
+            b("native")?,
+            b("rights")?,
+            b("guards")?
+        ))),
         _ => Err("Unknown policy".into()),
     }
 }

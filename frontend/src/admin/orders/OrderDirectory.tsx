@@ -29,7 +29,7 @@ export default function OrderDirectory({
     request("/api/merchant/order-state-machine")
       .then((v) => {
         if (current) {
-          setStates(v.data?.states ?? []);
+          setStates(v.effectiveStates ?? v.data?.states ?? []);
           setMainLocale(v.mainLocale ?? "en-GB");
         }
       })
@@ -148,7 +148,13 @@ export default function OrderDirectory({
           label: o("state"),
           sort: "state",
           render: (r) => (
-            <span className="agent-grid-tag">{stateName(r.state)}</span>
+            <span className="agent-grid-tag">
+              {contentText(
+                r.stateLabels?.[r.state] ?? {},
+                locale,
+                r.stateMainLocale ?? mainLocale,
+              ) || stateName(r.state)}
+            </span>
           ),
         },
         {

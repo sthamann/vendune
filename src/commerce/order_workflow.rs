@@ -46,16 +46,17 @@ pub(crate) fn guard(o: &Value, m: &OrderMachine, kind: &str, target: &str) -> Op
         _ => None,
     }
 }
-pub(crate) fn workflow(o: &Value, m: &OrderMachine, revision: i64) -> Value {
+pub(crate) fn workflow(o: &Value, m: &OrderMachine, revision: i64, h: &RequestContext) -> Value {
     let mut actions = Vec::new();
     let current = o["state"].as_str().unwrap_or("placed");
     if m.states.iter().any(|s| s.id == current && s.terminal) {
-        return json!({"revision":revision,"states":m.states,"actions":[]});
+        return json!({"revision":revision,"mainLocale":o["nativeLifecycle"]["mainLocale"],"states":m.states,"actions":[]});
     }
     if !m.states.iter().any(|s| s.id == current && s.terminal) {
         for e in m.transitions.iter().filter(|e| e.from == current) {
-            let reason = guard(o, m, "order", &e.to);
-            actions.push(json!({"id":e.id,"kind":"order","from":e.from,"state":e.to,"label":e.label,"enabled":reason.is_none(),"reason":reason}));
+            let reason =
+                guard(o, m, "order", &e.to).or_else(|| apps::native_lifecycle::reason(h, e, o));
+            actions.push(json!({"id":e.id,"kind":"order","from":e.from,"state":e.to,"label":e.label,"enabled":reason.is_none(),"reason":reason,"source":e.policy}));
         }
     }
     if ["pending", "authorized"].contains(&o["payment"]["state"].as_str().unwrap_or(""))
@@ -85,5 +86,5 @@ pub(crate) fn workflow(o: &Value, m: &OrderMachine, revision: i64) -> Value {
         let quantity = d["positions"].as_array().map(|ps| ps.iter().filter_map(|p| p["quantity"].as_u64()).sum::<u64>()).unwrap_or(0);
         json!({"deliveryIndex":index,"enabled":verified_kernel::delivery_split_admissible(d["state"]=="open",guard(o,m,"delivery","shipped").is_some(),quantity,1) && d["label"].is_null() && d["booking"].is_null() && ds.len()<30})
     }).collect::<Vec<_>>()).unwrap_or_default();
-    json!({"revision":revision,"states":m.states,"actions":actions,"shipmentSplits":splits})
+    json!({"revision":revision,"mainLocale":o["nativeLifecycle"]["mainLocale"],"states":m.states,"actions":actions,"shipmentSplits":splits})
 }

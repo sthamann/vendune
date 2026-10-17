@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — native app lifecycles
+
+- App-owned order and RFQ review states, fixed native guards and current extra scopes share native transitions, API/MCP/Flow, history and the existing outbox.
+- New native objects pin their accepted app version and digest; package upgrades and selected sandbox releases preserve running work.
+- App Studio edits the same translated lifecycle contract. Native grids and customer accounts show accepted labels, while public customer projections exclude private policies.
+- Reproduced and fixed a native B2B customer/unit deadlock: the non-financial last-payment preference no longer updates while checkout holds purchasing locks. A deterministic real-database interleaving preserves the failure and regression.
+- Migration 105 admits bounded namespaced RFQ preparation states; offer pricing, buyer acceptance, stock and financial invariants remain native. Hosted delivery is tracked in the current status and release receipts.
+
 ## Hosted native product-app lifecycle — 2026-10-17
 
 - Deliver the verified native-field and POS/startup repairs after a fresh database snapshot, successful migration and healthy restart. Publicly accept visual app creation, native product writes, compatible upgrade with retained data, exact grid filters and selected package/record publication. Repeat the original Storyfront embedded simulated purchase, return and cleared bag; add source-bound screenshots and current status. Real-provider acceptance remains separate.

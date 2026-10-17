@@ -78,6 +78,8 @@ import Commerce.Claims
 #print axioms CommerceKernel.manual_payment_safe
 #print axioms CommerceKernel.native_asset_bypass_exact
 #print axioms CommerceKernel.native_asset_hosted_denied
+#print axioms CommerceKernel.native_lifecycle_exact
+#print axioms CommerceKernel.native_lifecycle_safe
 #print axioms CommerceKernel.notification_ambiguous_never_retry
 #print axioms CommerceKernel.notification_retry_exact
 #print axioms CommerceKernel.order_edit_exact

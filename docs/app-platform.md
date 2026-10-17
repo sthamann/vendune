@@ -259,3 +259,7 @@ per-installation DDL. They do not prove unlimited capacity.
 ## Native object fields
 
 Use the optional version-1 [core object extension contract](app-core-extensions.md) for namespaced private product, customer, order and company fields. Native details, existing directory columns, exact filters and MCP reads reuse the installed model and current rights. Operational customer/order extension records are never configuration release units.
+
+## Native operational workflows
+
+Optional [version-1 native lifecycles](app-native-lifecycles.md) add app-owned order and RFQ review steps through existing native transitions, current rights and per-object accepted version snapshots. They do not replace native payment, stock, refund or buyer acceptance.

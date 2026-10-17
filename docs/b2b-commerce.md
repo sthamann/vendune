@@ -160,3 +160,7 @@ reject a change that passed in the empty sandbox. Stale digests or live policy
 changes reject the entire release. Existing generic deletion limitations remain.
 B2B-referenced shipping/payment methods and currencies cannot be removed from
 configuration without resolving dependencies. [Full audit](feature-integration.md).
+
+## Concurrent checkout and customer preferences
+
+The native budget allocation remains in the purchase transaction. The optional last-used payment-method preference is saved after commit, only when changed, and its failure cannot turn a committed purchase into an error. This avoids the customer-SHARE/unit-UPDATE inversion exposed by two parallel original-cart checkouts. `scripts/testing/b2b_checkout_race.py` holds the actual product row, observes both blocked native backends and then releases the gate; the original implementation returned HTTP 500. The corrected path must return one successful budgeted order and one native budget rejection, including with the separate signed tenant/system logins. It does not weaken active-customer checks or retry a financial effect.

@@ -113,7 +113,22 @@ export type Action = {
   permission?: string;
   requiredPermissions?: string[];
 };
+export type NativeLifecycle = {
+  version: 1;
+  object: "order" | "quote";
+  states: { id: string; label: Text }[];
+  transitions: {
+    id: string;
+    from: string;
+    to: string;
+    label: Text;
+    replaces?: string;
+    requiredPermissions?: string[];
+    guards?: string[];
+  }[];
+};
 export type Manifest = {
+  lifecycles?: NativeLifecycle[];
   id: string;
   version: string;
   coreApi: string;

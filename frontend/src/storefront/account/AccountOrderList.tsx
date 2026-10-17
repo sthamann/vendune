@@ -1,4 +1,5 @@
 /** Clickable purchase cards show the live server status and lead to a protected order detail. */
+import { contentText } from "../../shared/i18n/content-language";
 import { useAccountText } from "../../shared/i18n/account-i18n";
 import { useOperationsText } from "../../shared/i18n/operations-i18n";
 import type { CustomerOrder } from "./account-types";
@@ -66,9 +67,11 @@ export default function AccountOrderList({
           </div>
           <div className="account-order-footer">
             <span className="account-badge">
-              {order.stateLabels?.[order.state]?.[locale.slice(0, 2)] ??
-                order.stateLabels?.[order.state]?.en ??
-                o(order.state)}
+              {contentText(
+                order.stateLabels?.[order.state] ?? {},
+                locale,
+                order.stateMainLocale ?? "en-GB",
+              ) || o(order.state)}
             </span>
             <span>
               {a("viewOrder")} <span aria-hidden="true">↗</span>

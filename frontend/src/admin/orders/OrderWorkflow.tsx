@@ -1,4 +1,5 @@
 /** Server-owned transitions: one source for permitted actions, labels and business guards. */
+import { contentText } from "../../shared/i18n/content-language";
 import { useOperationsText } from "../../shared/i18n/operations-i18n";
 export type OrderAction = {
   id: string;
@@ -28,7 +29,8 @@ export default function OrderWorkflow({
     (a: OrderAction) => a.kind === "order",
   ) as OrderAction[];
   const title = (label?: Record<string, string>, fallback = "") =>
-    label?.[locale.slice(0, 2)] ?? o(fallback);
+    contentText(label ?? {}, locale, workflow?.mainLocale ?? "en-GB") ||
+    o(fallback);
   return (
     <section className="order-workflow studio-card">
       <div className="workflow-current">

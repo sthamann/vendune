@@ -37,6 +37,7 @@ export type CustomerOrder = Omit<Order, "cart"> & {
   billingAddress?: Address;
   shippingAddress?: Address;
   receipts?: CustomerReceipt[];
+  stateMainLocale?: string;
   stateLabels?: Record<string, Record<string, string>>;
 };
 export type AccountPage =

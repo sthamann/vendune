@@ -545,6 +545,15 @@
         "app_configuration_release_exact",
         "app_configuration_release_operational"
       ]
+    },
+    "native_lifecycle_admissible": {
+      "bindings": [
+        "src/apps/native_lifecycle.rs"
+      ],
+      "theorems": [
+        "native_lifecycle_safe",
+        "native_lifecycle_exact"
+      ]
     }
   },
   "sources": {
@@ -675,8 +684,8 @@
     },
     "crates/kernel/src/verified_kernel/app_intake.rs": {
       "status": "extracted-policy",
-      "sha256": "352aa98bf2052ad2d1855b6b114dff2cddf30455fb6f069e42da9a1939de447f",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "001b11b33657b0674dbe10afd3f245f47f260c7a4e9bc26e8f14ff442c25bd1a",
+      "review": "Review app-only accepted lifecycle snapshots and private RFQ projection, with native rights/payment/stock/buyer guards; move the extracted lifecycle conjunction into the existing app_intake pure owner and explicitly update its closed extraction registration. No expanded proof boundary."
     },
     "crates/kernel/src/verified_kernel/fulfillment.rs": {
       "status": "extracted-policy",
@@ -685,8 +694,8 @@
     },
     "crates/kernel/src/verified_kernel.rs": {
       "status": "extracted-policy",
-      "sha256": "6ec07d0dc27169cfac5b77ee1a2232b6750be6b73295549470212d8f4ee9d3cb",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "581ae298f1723e7ee2cb8c6bdcb5fd54b2882737fe9e5f647b59b182b11b037e",
+      "review": "Review app-only accepted lifecycle snapshots and private RFQ projection, with native rights/payment/stock/buyer guards; move the extracted lifecycle conjunction into the existing app_intake pure owner and explicitly update its closed extraction registration. No expanded proof boundary."
     },
     "crates/runtime/src/database_scope/provision.rs": {
       "status": "unproved",
@@ -1095,8 +1104,8 @@
     },
     "src/accounts/mod.rs": {
       "status": "unproved",
-      "sha256": "025889b8817adf8653aabbb34ced9fb717308da204f52ed096823df2b792ea2c",
-      "review": "Reviewed browser adapters against existing personal/customer ledgers, exact host/origin/CSRF admission, passive-response races, current database scopes, explicit MCP compatibility and intersecting build-owned credential-origin CSP; no pure money or authorization policy changed"
+      "sha256": "c6c8a2dfadfd091c8bfe105404fa41de5e6641193a8eac496309dd012b6bef1e",
+      "review": "Native lifecycle and B2B deadlock repair reviewed: accepted package snapshots, current scopes and private projections preserve existing native invariants. Optional last-payment preference now updates after financial commit and only if changed, removing the proved customer/unit lock inversion without relaxing active-session/budget checks or retrying uncertain effects."
     },
     "src/accounts/order_snapshot.rs": {
       "status": "unproved",
@@ -1105,8 +1114,13 @@
     },
     "src/accounts/orders.rs": {
       "status": "unproved",
-      "sha256": "1107f44dea07ef34c23ebdfc3c82af08ab7f04462917c297d2419506824bf2c4",
-      "review": "Remove unverified legacy email ownership from account order history/receipts and paid downloads. One native immutable customer-ID SQL fragment uses static QueryBuilder text and bound values; original scoped cart bearer access is preserved. Legacy signup/order counterexample reproduced before repair, modern account and historical binary/PDF denied/positive paths passed; no extracted financial predicate changed."
+      "sha256": "7d855fecbc101eafa1404e5d2d6ff8fcf3ff1c5330b3ca3aaa0aca8f2889590f",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
+    },
+    "src/accounts/payment_preference.rs": {
+      "status": "unproved",
+      "sha256": "b55712f61d45535d6bab728d590a58300ced25bbe7ddda09f90cc10f7d44a3c1",
+      "review": "Native lifecycle and B2B deadlock repair reviewed: accepted package snapshots, current scopes and private projections preserve existing native invariants. Optional last-payment preference now updates after financial commit and only if changed, removing the proved customer/unit lock inversion without relaxing active-session/budget checks or retrying uncertain effects."
     },
     "src/accounts/profile.rs": {
       "status": "unproved",
@@ -1220,8 +1234,8 @@
     },
     "src/apps/consent.rs": {
       "status": "unproved",
-      "sha256": "b287208784ac982c43ccd262daebdfef82177da96a084850d6f429d990b3c6de",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "490db214797052272bdf91b365531235bfc49f69c6077517d5e26025860360f4",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/apps/core_callbacks.rs": {
       "status": "unproved",
@@ -1350,23 +1364,43 @@
     },
     "src/apps/manifest.rs": {
       "status": "unproved",
-      "sha256": "4453f844cbc97a89a445b00efa4f122efc21a601d9630e7c1141d683af3c8178",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "f974154d251378c5bf8c081c0d4fcbc7dcb33571232b6afd4b697918c38e4400",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/apps/manifest_validation.rs": {
       "status": "unproved",
-      "sha256": "b9e154da42e0830c3cf1da9dfc7165ca6d1f948a3b389654fe51d7758e5a6f7e",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "a3e84acbaa19e7a3498ff503ebcb7b8ec8e7ee9d372b36d7ad6359f2fe12c0a0",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "14567da95e1af5f4f11634a5622b8a351c971a440a71196077f1becc1ddb27fa",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "150d7115227644e5f006c005a2641a5a20724ad80a7ebce355d22a7fd9e8c8e5",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
       "sha256": "34db1cfbba1e8401e8f5ffcf954c68ed0cee3551aae854af32f9ea1f9e0a2424",
       "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+    },
+    "src/apps/native_lifecycle/compile.rs": {
+      "status": "unproved",
+      "sha256": "919b11e7975e5e5be98c4f941aa7e6ae15f3de4e31cdd7fbbaebb893b84776da",
+      "review": "Final safety review rejects app edges to manual/reserved terminal states, strips internal RFQ policies from buyer projections and preserves legacy no-app workflow behavior. Existing app_intake extraction, native completion/refund/inventory owners and accepted version boundaries retained."
+    },
+    "src/apps/native_lifecycle/storage.rs": {
+      "status": "unproved",
+      "sha256": "8b8c7ca2fc91da83c44abded52f3123cb4f465754ae8980bd4786a0b54fd3d3c",
+      "review": "Review bounded native order/RFQ lifecycle declarations, backwards-compatible app-only snapshots, native financial and compound permission admission, display-only customer projection, migration 105 and source-bound traces; no proof claim for SQL/UI/provider adapters."
+    },
+    "src/apps/native_lifecycle/tests.rs": {
+      "status": "unproved",
+      "sha256": "9a2c6c6fc14a29389b50397d41ad5cd5d3570d3b65ef457fa4bd60dd901f8b44",
+      "review": "Final safety review rejects app edges to manual/reserved terminal states, strips internal RFQ policies from buyer projections and preserves legacy no-app workflow behavior. Existing app_intake extraction, native completion/refund/inventory owners and accepted version boundaries retained."
+    },
+    "src/apps/native_lifecycle.rs": {
+      "status": "reviewed-binding",
+      "sha256": "2fdc717037a11b360abc9c429fe2cf24f8f156dc2a8ad0d596a88344c1feb621",
+      "review": "Review bounded native order/RFQ lifecycle declarations, backwards-compatible app-only snapshots, native financial and compound permission admission, display-only customer projection, migration 105 and source-bound traces; no proof claim for SQL/UI/provider adapters."
     },
     "src/apps/native_view_tests.rs": {
       "status": "unproved",
@@ -1425,8 +1459,8 @@
     },
     "src/apps/registry.rs": {
       "status": "unproved",
-      "sha256": "7db47528b2c8a40ed261a5dcebbcda1124b0c08dd7e6c2578564ba2090b1e48f",
-      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
+      "sha256": "2107025644550af78962e1ba2fa8fd2f7a56604dcd8182d7af4fe9e97e2cb0c8",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/apps/relations.rs": {
       "status": "unproved",
@@ -1435,8 +1469,8 @@
     },
     "src/apps/routes.rs": {
       "status": "unproved",
-      "sha256": "50dd831dfcb3e03da107c953822af9214fe0a460d03c6eabd0c446fb1ce9f398",
-      "review": "Review combined native business capability and hardening: typed material/dimension guests remain app-owned and bounded; native CAS/FX/current B2B approval and immutable order snapshots; isolated app crate consumer preserves compiler boundary; independent per-event subscriber retry/quarantine preserves healthy events, commit gaps and explicit recovery; signed tenant/system authority, provider-native read tools and real document withdrawal, workspace image closure and source inventory. SQL/async/provider adapters remain tested, not proved."
+      "sha256": "67f037aea3e35783f597b45517f46e06d912900acbf4b76750de4de004e3740a",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/apps/runtime.rs": {
       "status": "unproved",
@@ -1778,10 +1812,15 @@
       "sha256": "4ea5558d61608a0b37644ca4ed0343935397f9e0a6e80f1f37003fb7590d0724",
       "review": "Reviewed selective-publication domain rights, transactional channel and current installed Flow action admission, shared B2B configuration writers with history and staging, method/currency dependency guards, and inherited consent-bound analytics. PostgreSQL and frontend regressions exercise successful effects, denied access, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
     },
+    "src/b2b/contract.rs": {
+      "status": "unproved",
+      "sha256": "9440f5d3354d1c9b7f18931cd15cff845e713939de8a666d96242bfbfe3e0cd7",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
+    },
     "src/b2b/gateway.rs": {
       "status": "unproved",
-      "sha256": "7e5e6ddde805129dd46fbcb5c0fe1b120f67a7b3a00c95f75ab2094d9701c37a",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "0c4830c4355800723cab4bc2c851a08226c8a9b5f2eb53dda3099ea8673d1ab4",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/b2b/lists.rs": {
       "status": "unproved",
@@ -1790,8 +1829,8 @@
     },
     "src/b2b/mod.rs": {
       "status": "unproved",
-      "sha256": "70cda13986f06938fd19728cbce38732a43576645f6f03b39fe71347ed8d2f6b",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "142da0784601796c254e7c0bf09a4f1cc411c25c69c2afe49068d0cfe6010067",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/b2b/model.rs": {
       "status": "unproved",
@@ -1828,10 +1867,15 @@
       "sha256": "23b36df91b07e375f8b801b24535d2b4b6f46ecf7f4550637f4c64253b725c97",
       "review": "Reviewed native B2B authority, unit-first locking, revision-bound approvals and offers, exact budget allocation/release, private variant pagination, current app callbacks and forced tenant FKs/RLS; EDI codecs remain app-owned and bounded. Real PostgreSQL approval/concurrent budget/revocation/PDF/MCP and app/checkout baseline suites passed; schema/build/proof and changed Rust owners reviewed. Two extracted decisions add four Lean properties, not whole-server verification."
     },
+    "src/b2b/quote_lifecycle.rs": {
+      "status": "unproved",
+      "sha256": "5539882fe70056e390591f4bd3ab2af9d520ea334d29f60a19d5c98577a7d45d",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
+    },
     "src/b2b/quotes.rs": {
       "status": "unproved",
-      "sha256": "b59c5d7a163e9837ac35005aba1fbc6d8e413fd98967cc06ef8cc462653251df",
-      "review": "Reviewed native UCP B2B transport: exact public schema only; bounded namespace/version profile selection without authority; current employee and original-cart RFQ reads; unchanged quote CAS, expiry, pricing, budget and separate approval owners; single-use native checkout handoff; shared idempotent order/outbox. New UCP adapters remain unproved."
+      "sha256": "be2f1385b9e8868b8a0daab208f431dff6bd99af7f7b48151064eb1c1b018a26",
+      "review": "Review app-only accepted lifecycle snapshots and private RFQ projection, with native rights/payment/stock/buyer guards; move the extracted lifecycle conjunction into the existing app_intake pure owner and explicitly update its closed extraction registration. No expanded proof boundary."
     },
     "src/b2b/requisition.rs": {
       "status": "unproved",
@@ -1885,8 +1929,8 @@
     },
     "src/bin/verified_kernel/dispatch.rs": {
       "status": "unproved",
-      "sha256": "c4227d5221c7bb4766ed84a522dd1783c4ef1d991e7866ed937590b04f39555b",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "31f8596b79e98083cbdb14b839e69b3fbb42f26150dd05fcf7c5d53aa17e34c4",
+      "review": "Review app-only accepted lifecycle snapshots and private RFQ projection, with native rights/payment/stock/buyer guards; move the extracted lifecycle conjunction into the existing app_intake pure owner and explicitly update its closed extraction registration. No expanded proof boundary."
     },
     "src/bin/verified_kernel.rs": {
       "status": "conformance-driver",
@@ -2230,8 +2274,8 @@
     },
     "src/commerce/delivery_split.rs": {
       "status": "reviewed-binding",
-      "sha256": "b887741b43f021a0c76de8ab0858a917b271e415a109db5209aec5a085ad5af5",
-      "review": "Review 2026-10-14: bounded modular fulfillment predicates; native carrier intent freezes allocation/dispatch across unknown effects and cross-provider calls, confirmed rejection releases its own intent, exact PDFs acknowledge the original intent. Reviewed split/machine binding, tenant/package/CAS/quota checks and local paid-effect negative fixtures; SQL, crypto and carrier protocols remain unproved."
+      "sha256": "003b619fb77d1c18910c4d4e6836efde52dec1f59e02f825879a10969b7bfc1c",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/commerce/detail.rs": {
       "status": "unproved",
@@ -2245,13 +2289,13 @@
     },
     "src/commerce/external_orders.rs": {
       "status": "reviewed-binding",
-      "sha256": "dccb86ecf9113fd5202d48f10d8bf29ea461591fb0caab86feeaa80623c607f8",
-      "review": "Reviewed marketplace integration and translated externally recorded payment label; exact paid snapshot validation, native stock/customer/order/outbox/receipt reuse, actor additional rights across HTTP/MCP/plans/jobs and App Studio retention tested. Existing pure guards unchanged; async SQL/providers/taxation remain unproved."
+      "sha256": "e4797f454d39bfbd11593f1a8118685496acc5e1fd9cfbf0689bf2905d67d774",
+      "review": "Review bounded native order/RFQ lifecycle declarations, backwards-compatible app-only snapshots, native financial and compound permission admission, display-only customer projection, migration 105 and source-bound traces; no proof claim for SQL/UI/provider adapters."
     },
     "src/commerce/fulfillment.rs": {
       "status": "reviewed-binding",
-      "sha256": "5c1642730a0c0737dd6783e7e05f63371da19a379ee53b57dcdb9efd919c47d2",
-      "review": "Review 2026-10-14: bounded modular fulfillment predicates; native carrier intent freezes allocation/dispatch across unknown effects and cross-provider calls, confirmed rejection releases its own intent, exact PDFs acknowledge the original intent. Reviewed split/machine binding, tenant/package/CAS/quota checks and local paid-effect negative fixtures; SQL, crypto and carrier protocols remain unproved."
+      "sha256": "c373f2d6305df08447e252f3a165aeab411755edd1fc5d2ce33e688d7e7ce355",
+      "review": "Final integration review: lifecycle trace metadata attaches only to actual order edges, never to unrelated payment or shipment transitions; native financial guards and approved-version snapshots remain unchanged. Deterministic B2B deadlock regression and strict signed runtime passed."
     },
     "src/commerce/geography.rs": {
       "status": "unproved",
@@ -2290,13 +2334,13 @@
     },
     "src/commerce/order_fields.rs": {
       "status": "unproved",
-      "sha256": "134e5a19ad220e5bd3c3bd2d2c86b3850ac098186a7ce26b994be253d14d63f9",
-      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+      "sha256": "141e4e29014e386743691de0880c4589d597270c4e65656e57bf23f0df43e5c6",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/commerce/order_machine.rs": {
       "status": "unproved",
-      "sha256": "30fa6822c640177210057abfc13b1e82ee67e300123ba1d7c4dce5077f82ed0e",
-      "review": "Initial extraction of 13 production policies; surrounding Rust explicitly unproved; existing HTTP regression suites retained"
+      "sha256": "101f14e7aa5f99a9111ef5429caacf4bbc4e106e3a6006f1146e8bc019368c7e",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/commerce/order_mutation.rs": {
       "status": "unproved",
@@ -2305,8 +2349,8 @@
     },
     "src/commerce/order_workflow.rs": {
       "status": "reviewed-binding",
-      "sha256": "2e22811cb0ec831a0382cbf238ed653cb6da848fed2a2b6127f95da4e0c22691",
-      "review": "Review 2026-10-14: bounded modular fulfillment predicates; native carrier intent freezes allocation/dispatch across unknown effects and cross-provider calls, confirmed rejection releases its own intent, exact PDFs acknowledge the original intent. Reviewed split/machine binding, tenant/package/CAS/quota checks and local paid-effect negative fixtures; SQL, crypto and carrier protocols remain unproved."
+      "sha256": "3c5126794199d1799aed0a15dc4081d6eba5ddb388af9639dfdef84c4d238471",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/commerce/product_admin.rs": {
       "status": "unproved",
@@ -2500,8 +2544,8 @@
     },
     "src/developer/generation_contract.rs": {
       "status": "unproved",
-      "sha256": "37e4af760154c66a1d2ac8c30696ab058f4a5952c2f6c883f0a135f0159e0185",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "6fa062dc769cabb735aa5c5bb2bd88b3d4a97f198f083ec34206fef5644fe24b",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/developer/generation_edits.rs": {
       "status": "unproved",
@@ -2520,8 +2564,8 @@
     },
     "src/developer/routes.rs": {
       "status": "unproved",
-      "sha256": "a4ed2b9a6782f3a4eb8282b92d09ef2bc81fcfff60ae0230d3cd28365eccc4e6",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "1207c061186d12a5fbc5eea669fbfad748b302b7ead2b13b91f1af310557c735",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/documents/content.rs": {
       "status": "unproved",
@@ -2905,8 +2949,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "c9799127633ad29e4e5b1bd0e74f91b3bc7afa88cea037f1538cc6754af3baf9",
-      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+      "sha256": "2be007a7856d31ed2f85926b7873289699227da47bec5d5ebe51f1f058dfd5f1",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -3020,8 +3064,8 @@
     },
     "src/operations/orders.rs": {
       "status": "unproved",
-      "sha256": "1d877bff4455967bbf872823aab37f51972af69998107aab509b2ca26d668ff4",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "fd99de8c9b9e782fcc269171f7e5719ba42d4f156b8ef585b925909eb282d304",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/operations/receipt_pdf.rs": {
       "status": "unproved",
@@ -3050,13 +3094,13 @@
     },
     "src/operations/workflow.rs": {
       "status": "unproved",
-      "sha256": "a248e7213f69b05a4046d444fb6d7acd71d100c4f2fdaaa97d95521c557b7a3e",
-      "review": "Reviewed bounded native directory criteria, constant allowlisted SQL sorts and tenant tuple cursors, localized product-name ordering, read-only central model planning with current domain and PII grants, and HTTP/MCP discovery parity. Isolated PostgreSQL/provider suites cover native checkout-created records, denied foreign tenant/cursor access, stage boundaries and provider failures. Existing pure financial policies remain unchanged; SQL, model semantics and UI remain unproved adapters."
+      "sha256": "a9199d628e0e4c13b5e438c7f510566237a677ff6465f1b444cc8f8597048b2b",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "src/order_checkout.rs": {
       "status": "reviewed-binding",
-      "sha256": "ae02f06bbd78ad7b59e7a5f1e7b5721e4f010137831a7aaacce01b7e251d19e0",
-      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
+      "sha256": "fb8369912516bdc3339585ea8d3540839cfae79830cedf0761f31b75f1678c90",
+      "review": "Native lifecycle and B2B deadlock repair reviewed: accepted package snapshots, current scopes and private projections preserve existing native invariants. Optional last-payment preference now updates after financial commit and only if changed, removing the proved customer/unit lock inversion without relaxing active-session/budget checks or retrying uncertain effects."
     },
     "src/order_routes.rs": {
       "status": "unproved",
@@ -3620,8 +3664,8 @@
       "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "fixtures/app-studio-schema.json": {
-      "sha256": "870e71f52837081a7298ca2026cbeccbbbd8e2305b5bc2ca85ffae16a004f46c",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "2447f3778922c420ff6a7e1dbb122bb2e42e75b57bca630580b2d40f696a5a86",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "fixtures/demo-catalog.json": {
       "sha256": "e5d5eea04a7693b3f92fa58be66ad36b7ad01d5920029c29f303693aa0032ba2",
@@ -4067,9 +4111,13 @@
       "sha256": "259186fa6af7b25396c4ff28388d7db6e4d244d6e86b98e216ae17c859ba5a13",
       "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
     },
+    "migrations/105-native-app-lifecycles.sql": {
+      "sha256": "ee4961ddc2b41d3b3157560b60afbf7a33ab2c87b5a6b07ec22872c36851afb4",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
+    },
     "proof/Commerce/Claims.lean": {
-      "sha256": "92b42684f2a786a41428dd689a7bd452509e3da32e16db2e21138a8e0bb619ae",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "9d993b6df0c7252330b6ebf49db68f44a2cea939444a003770ae31b34bad7ffc",
+      "review": "Review native lifecycle decision extraction and unchanged native financial owners; accepted definitions, bounded projections, source digest traces, current scopes, migration 105 and B2B catalogue split reviewed with real native positive/negative tests."
     },
     "proof/lakefile.toml": {
       "sha256": "1cda05bac02223024b93388cf858edad4719c46f8d37a826a73a6a6e15d79432",
@@ -4100,12 +4148,12 @@
       "review": "Reviewed marketplace money guard consumers and exact properties, cap-neighbour comparison cases, native stock binding and local regressions; external protocols and tax law remain tested unproved boundaries"
     },
     "scripts/formal/extract.py": {
-      "sha256": "6e55ea9d1f913d610bc3cf3d08984044f85d2e8fbf3f9c9d8e24bf69adff6859",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "4859f9a538cfcf2f54e2414ed1ed3b0aa4cea7aa4eade07a98f9d8dbed952a6f",
+      "review": "Review app-only accepted lifecycle snapshots and private RFQ projection, with native rights/payment/stock/buyer guards; move the extracted lifecycle conjunction into the existing app_intake pure owner and explicitly update its closed extraction registration. No expanded proof boundary."
     },
     "scripts/formal/mutations.py": {
-      "sha256": "2fb743d7582f5d6bc883cf12514791b40ff5592d1db7fa09a2cfa941e9bd691f",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "c324c821b26766a8c1a63043c7dc7a6c7ab0a0079217563530e27abf7e28a9d4",
+      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
     },
     "scripts/formal/registry.py": {
       "sha256": "ed29f96108760ecc2cfd61cd953905a1c092a1fb41519167fc426915b5932004",

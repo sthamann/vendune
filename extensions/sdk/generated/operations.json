@@ -5624,6 +5624,38 @@
       "readOnly": false
     },
     {
+      "description": "Advance an accepted app-owned quote preparation state",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "maxLength": 32,
+            "type": "string"
+          },
+          "id": {
+            "maxLength": 100,
+            "type": "string"
+          },
+          "message": {
+            "maxLength": 4000,
+            "type": "string"
+          },
+          "revision": {
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "revision",
+          "action"
+        ],
+        "type": "object"
+      },
+      "name": "b2b.quote.transition",
+      "readOnly": false
+    },
+    {
       "description": "Continue a scoped quote negotiation",
       "inputSchema": {
         "additionalProperties": false,

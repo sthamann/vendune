@@ -9,10 +9,11 @@ pub(super) struct OfferLine {
 }
 pub(super) async fn invoke(a: &App, h: &RequestContext, op: &str, v: &Value) -> Result<Value> {
     let t = tenant(h)?;
-    let admin = op == "quotes.merchant" || op == "quote.offer";
+    let admin = ["quotes.merchant", "quote.offer", "quote.transition"].contains(&op);
     if admin {
         merchant(a, h)?;
         auth::permit(h, "b2b.manage")?;
+        auth::permit(h, "customers.pii")?;
     }
     let c = if ["quote.request", "quote.get", "quote.current"].contains(&op) {
         Some(load_cart(a, h).await?)
@@ -43,14 +44,14 @@ pub(super) async fn invoke(a: &App, h: &RequestContext, op: &str, v: &Value) -> 
     if op == "quotes.merchant" {
         auth::permit(h, "customers.pii")?;
         let rows=sqlx::query("SELECT id,unit_id,buyer_id,state,revision,data FROM b2b_quotes WHERE tenant=$1 ORDER BY created_at DESC LIMIT 100").bind(&t).fetch_all(&mut *tx).await?;
-        return Ok(json!({"elements":rows.iter().map(wire).collect::<Vec<_>>()}));
+        return Ok(json!({"elements":rows.iter().map(|r| wire(r, h, admin)).collect::<Vec<_>>()}));
     }
     if op == "quotes" {
         let unit = v["unitId"].as_str().ok_or(bad("Unit required"))?;
         let policy = access(&mut tx, &t, unit, customer.as_ref().unwrap()).await?;
         require(&policy, "quotes")?;
         let rows=sqlx::query("SELECT id,unit_id,buyer_id,state,revision,data FROM b2b_quotes WHERE tenant=$1 AND unit_id=$2 AND buyer_id=$3 ORDER BY created_at DESC LIMIT 100").bind(&t).bind(unit).bind(customer).fetch_all(&mut *tx).await?;
-        return Ok(json!({"elements":rows.iter().map(wire).collect::<Vec<_>>()}));
+        return Ok(json!({"elements":rows.iter().map(|r| wire(r, h, admin)).collect::<Vec<_>>()}));
     }
     if ["quote.get", "quote.current"].contains(&op) {
         let c = c.as_ref().unwrap();
@@ -67,12 +68,14 @@ pub(super) async fn invoke(a: &App, h: &RequestContext, op: &str, v: &Value) -> 
         let rows = sqlx::query("SELECT id,unit_id,buyer_id,state,revision,data FROM b2b_quotes WHERE tenant=$1 AND cart_id=$2 AND buyer_id=$3 AND unit_id=$4 AND ($5::text IS NULL OR id=$5) ORDER BY created_at DESC,id DESC LIMIT 20")
             .bind(&t).bind(&c.id).bind(&context.customer_id).bind(&context.unit_id).bind(id).fetch_all(&mut *tx).await?;
         if op == "quote.get" {
-            return rows.first().map(wire).ok_or(Error(
+            return rows.first().map(|r| wire(r, h, admin)).ok_or(Error(
                 StatusCode::NOT_FOUND,
                 "Quote not found in this cart".into(),
             ));
         }
-        return Ok(json!({"elements":rows.iter().map(wire).collect::<Vec<_>>(),"limit":20}));
+        return Ok(
+            json!({"elements":rows.iter().map(|r| wire(r, h, admin)).collect::<Vec<_>>(),"limit":20}),
+        );
     }
     if let Some(c) = &c {
         if c.status != "open"
@@ -102,7 +105,8 @@ pub(super) async fn invoke(a: &App, h: &RequestContext, op: &str, v: &Value) -> 
         }
         let id = uid();
         let context = c.data.b2b.as_ref().unwrap();
-        sqlx::query("INSERT INTO b2b_quotes(tenant,id,unit_id,buyer_id,cart_id,data) VALUES($1,$2,$3,$4,$5,$6)").bind(&t).bind(&id).bind(&context.unit_id).bind(&context.customer_id).bind(&c.id).bind(json!({"quote":q,"currency":c.data.currency,"items":c.data.items,"message":message(v)?,"messages":[]})).execute(&mut *tx).await?;
+        let accepted = apps::native_lifecycle::capture(&mut tx, &t, "quote").await?;
+        sqlx::query("INSERT INTO b2b_quotes(tenant,id,unit_id,buyer_id,cart_id,data) VALUES($1,$2,$3,$4,$5,$6)").bind(&t).bind(&id).bind(&context.unit_id).bind(&context.customer_id).bind(&c.id).bind(json!({"quote":q,"currency":c.data.currency,"items":c.data.items,"message":message(v)?,"messages":[],"nativeLifecycle":accepted})).execute(&mut *tx).await?;
         organization::event(
             &mut tx,
             &t,
@@ -137,7 +141,20 @@ pub(super) async fn invoke(a: &App, h: &RequestContext, op: &str, v: &Value) -> 
         return Err(conflict("Quote changed; reload before editing"));
     }
     let mut data: Value = r.get("data");
+    let mut lifecycle = Value::Null;
+    let custom_state;
     let next = match op {
+        "quote.transition" => {
+            (custom_state, lifecycle) = quote_lifecycle::transition(
+                h,
+                &data,
+                &state,
+                v["action"]
+                    .as_str()
+                    .ok_or(bad("Transition action required"))?,
+            )?;
+            custom_state.as_str()
+        }
         "quote.offer" => {
             if !["requested", "offered"].contains(&state.as_str()) {
                 return Err(conflict("This quote cannot be revised"));
@@ -184,13 +201,13 @@ pub(super) async fn invoke(a: &App, h: &RequestContext, op: &str, v: &Value) -> 
             "offered"
         }
         "quote.message" => {
-            if !["requested", "offered"].contains(&state.as_str()) {
+            if state != "offered" && !quote_lifecycle::preparation(&data, &state) {
                 return Err(conflict("Quote is closed"));
             }
             state.as_str()
         }
         "quote.reject" => {
-            if !["requested", "offered"].contains(&state.as_str()) {
+            if state != "offered" && !quote_lifecycle::preparation(&data, &state) {
                 return Err(conflict("Quote is closed"));
             }
             "rejected"
@@ -203,7 +220,7 @@ pub(super) async fn invoke(a: &App, h: &RequestContext, op: &str, v: &Value) -> 
     if messages.len() >= 100 {
         return Err(bad("Quote conversation is full"));
     }
-    messages.push(json!({"actor":if admin{header(h,"x-rac-user").unwrap_or("merchant")}else{&buyer},"merchant":admin,"message":message(v)?,"operation":op,"createdAt":chrono::Utc::now().to_rfc3339()}));
+    messages.push(json!({"actor":if admin{header(h,"x-rac-user").unwrap_or("merchant")}else{&buyer},"merchant":admin,"message":message(v)?,"operation":op,"lifecycle":lifecycle,"from":state,"to":next,"createdAt":chrono::Utc::now().to_rfc3339()}));
     sqlx::query(
         "UPDATE b2b_quotes SET state=$3,revision=revision+1,data=$4 WHERE tenant=$1 AND id=$2",
     )
@@ -217,7 +234,7 @@ pub(super) async fn invoke(a: &App, h: &RequestContext, op: &str, v: &Value) -> 
         &mut tx,
         &t,
         "b2b.quote_changed",
-        json!({"quoteId":id,"state":next,"revision":revision+1}),
+        json!({"quoteId":id,"state":next,"from":state,"revision":revision+1,"lifecycle":lifecycle}),
     )
     .await?;
     tx.commit().await?;
@@ -233,6 +250,19 @@ fn message(v: &Value) -> Result<&str> {
     }
     Ok(s)
 }
-fn wire(r: &sqlx::postgres::PgRow) -> Value {
-    json!({"id":r.get::<String,_>("id"),"unitId":r.get::<String,_>("unit_id"),"buyerId":r.get::<String,_>("buyer_id"),"state":r.get::<String,_>("state"),"revision":r.get::<i64,_>("revision"),"data":r.get::<Value,_>("data")})
+fn wire(r: &sqlx::postgres::PgRow, h: &RequestContext, admin: bool) -> Value {
+    let mut data: Value = r.get("data");
+    let state: String = r.get("state");
+    let workflow = quote_lifecycle::projection(&data, &state, h, admin);
+    if !admin {
+        if let Some(object) = data.as_object_mut() {
+            object.remove("nativeLifecycle");
+        }
+        for message in data["messages"].as_array_mut().into_iter().flatten() {
+            if let Some(object) = message.as_object_mut() {
+                object.remove("lifecycle");
+            }
+        }
+    }
+    json!({"id":r.get::<String,_>("id"),"unitId":r.get::<String,_>("unit_id"),"buyerId":r.get::<String,_>("buyer_id"),"state":state,"revision":r.get::<i64,_>("revision"),"data":data,"workflow":workflow})
 }

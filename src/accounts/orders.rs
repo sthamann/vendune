@@ -47,6 +47,7 @@ pub(crate) fn project(raw: &Value, created: &str) -> Value {
     v["payment"] = json!({"state":raw["payment"]["state"], "provider":raw["payment"]["provider"], "method":raw["payment"]["method"]});
     v["createdAt"] = json!(created);
     commerce::order_fields(&mut v);
+    apps::native_lifecycle::project_labels(raw, &mut v);
     v
 }
 #[derive(Default, Deserialize)]
@@ -81,7 +82,9 @@ pub(super) async fn list(
             .collect::<HashMap<_, _>>()
     );
     for v in &mut elements {
-        v["stateLabels"] = labels.clone();
+        if !v["stateLabels"].is_object() {
+            v["stateLabels"] = labels.clone();
+        }
     }
     Ok(Json(json!({"elements":elements,"nextCursor":next})))
 }
@@ -99,13 +102,15 @@ pub(super) async fn detail(
         .bind(&t).bind(&id).fetch_all(&a.db).await?;
     v["receipts"] = json!(rows.iter().map(|r| json!({"id":r.get::<String,_>("id"), "kind":r.get::<String,_>("kind"), "number":r.get::<String,_>("number"), "locale":r.get::<String,_>("locale"), "createdAt":r.get::<String,_>("created"), "pdfPath":format!("/store-api/account/orders/{id}/receipts/{}/pdf", r.get::<String,_>("id"))})).collect::<Vec<_>>());
     let (machine, _) = commerce::machine(&a.db, &t).await?;
-    v["stateLabels"] = json!(
-        machine
-            .states
-            .iter()
-            .map(|s| (&s.id, &s.label))
-            .collect::<HashMap<_, _>>()
-    );
+    if !v["stateLabels"].is_object() {
+        v["stateLabels"] = json!(
+            machine
+                .states
+                .iter()
+                .map(|s| (&s.id, &s.label))
+                .collect::<HashMap<_, _>>()
+        );
+    }
     Ok(Json(v))
 }
 pub(super) async fn receipt(

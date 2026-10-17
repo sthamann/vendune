@@ -9,6 +9,7 @@ pub(crate) async fn transition_order(
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "orders.write")?;
+    auth::permit(&h, "customers.pii")?;
     let (machine, machine_revision) = machine(&a.db, &t).await?;
     let mut tx = a.db.begin().await?;
     history::context(&mut tx, &h, "merchant").await?;
@@ -26,6 +27,8 @@ pub(crate) async fn transition_order(
         .await?
         .ok_or(Error(StatusCode::NOT_FOUND, "Order not found".into()))?;
     let mut o: Value = r.get("data");
+    let (machine, machine_revision) =
+        apps::native_lifecycle::order_machine(&o, machine, machine_revision)?;
     let revision = o["revision"].as_i64().unwrap_or(1);
     if !verified_kernel::revision_admissible(
         u64::try_from(revision).unwrap_or(0),
@@ -38,15 +41,25 @@ pub(crate) async fn transition_order(
     match kind {
         "order" => {
             let current = o["state"].as_str().unwrap_or("placed");
-            if !machine.transitions.iter().any(|e| {
-                e.from == current
-                    && e.to == target
-                    && v["action"].as_str().is_none_or(|id| id == e.id)
-            }) {
-                return Err(conflict("Invalid order transition"));
-            }
-            if let Some(reason) = guard(&o, &machine, kind, target) {
-                return Err(conflict(reason));
+            let edge = machine
+                .transitions
+                .iter()
+                .find(|e| {
+                    e.from == current
+                        && e.to == target
+                        && v["action"].as_str().is_none_or(|id| id == e.id)
+                })
+                .ok_or(conflict("Invalid order transition"))?;
+            let native = guard(&o, &machine, kind, target);
+            let policy = apps::native_lifecycle::reason(&h, edge, &o);
+            if !apps::native_lifecycle::allowed(
+                native.is_none(),
+                policy != Some("lifecyclePermission"),
+                policy != Some("lifecycleGuard"),
+            ) {
+                return Err(conflict(
+                    native.or(policy).unwrap_or("Invalid order transition"),
+                ));
             }
             if target == "cancelled" {
                 if crate::payments::external(&o)
@@ -147,7 +160,7 @@ pub(crate) async fn transition_order(
     }
     order_mutation::persist(&mut tx, &t, &h, &mut o, order_mutation::Audit {
         kind:"transition",
-        data:json!({"kind":kind,"state":target,"revision":revision+1,"trackingCode":v["trackingCode"],"trackingUrl":v["trackingUrl"],"deliveryIndex":v["deliveryIndex"],"requestKey":request_key}),
+        data:json!({"kind":kind,"state":target,"revision":revision+1,"trackingCode":v["trackingCode"],"trackingUrl":v["trackingUrl"],"deliveryIndex":v["deliveryIndex"],"requestKey":request_key,"lifecycle":if kind=="order" {machine.transitions.iter().find(|e|e.to==target && e.from==from["state"]).and_then(|e|e.policy.as_ref())} else {None}}),
         event_kind,
         event:json!({"orderId":id,"kind":kind,"from":if kind=="order" {from["state"].clone()} else if kind=="payment" {from["payment"]["state"].clone()} else {from["deliveries"][v["deliveryIndex"].as_u64().unwrap_or(0) as usize]["state"].clone()},"state":target,"revision":revision+1,"requestKey":request_key,"order":event_order}),
     }).await?;
@@ -155,7 +168,7 @@ pub(crate) async fn transition_order(
     if let Some(cart) = response["cart"].as_object_mut() {
         cart.remove("token");
     }
-    response["workflow"] = workflow(&response, &machine, machine_revision);
+    response["workflow"] = workflow(&response, &machine, machine_revision, &h);
     if let Some(key) = request_key {
         order_mutation::remember(&mut tx, &t, &id, key, &fingerprint, &response).await?;
     }

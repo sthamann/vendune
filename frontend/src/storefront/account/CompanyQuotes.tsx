@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { shopApi, type Cart } from "../../shared/api/shop-api";
 import { useLocale } from "../../shared/i18n/i18n";
 import { useB2BQuoteText } from "../../shared/i18n/b2b-quotes-i18n";
+import { contentText } from "../../shared/i18n/content-language";
 import type { Quote } from "../../shared/b2b/quote-types";
 export default function CompanyQuotes({
   unit,
@@ -91,7 +92,14 @@ export default function CompanyQuotes({
       {quotes.map((q) => (
         <article key={q.id}>
           <strong>
-            {t(q.state)} · {q.data.currency}
+            {contentText(
+              q.workflow?.label ?? {},
+              locale,
+              q.workflow?.mainLocale ?? "en-GB",
+            ) ||
+              t(q.state as Parameters<typeof t>[0]) ||
+              q.state}{" "}
+            · {q.data.currency}
           </strong>
           <ul>
             {q.data.quote.lineItems.map((i) => (
@@ -128,7 +136,8 @@ export default function CompanyQuotes({
               {m.message}
             </p>
           ))}
-          {["requested", "offered"].includes(q.state) && (
+          {(["requested", "offered"].includes(q.state) ||
+            q.workflow?.preparation) && (
             <nav>
               <button
                 disabled={busy || !message.trim()}

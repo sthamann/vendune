@@ -1,5 +1,7 @@
 //! Independent customer sessions, profile/password management and owning-account order history.
 use crate::*;
+mod payment_preference;
+pub(crate) use payment_preference::remember_payment;
 mod address_restore;
 pub(crate) mod browser;
 pub(crate) use address_restore::restore_book;

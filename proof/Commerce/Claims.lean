@@ -489,4 +489,14 @@ theorem app_configuration_release_exact (extension product company : Bool) :
 theorem app_configuration_release_operational :
     app_configuration_release_admissible true false false = false := by rfl
 
+/-- An app may only narrow native authority with current rights and pure guards. -/
+theorem native_lifecycle_safe (native rights guards : Bool)
+    (h : native_lifecycle_admissible native rights guards = true) :
+    native = true ∧ rights = true ∧ guards = true := by
+  simpa [native_lifecycle_admissible, Bool.and_eq_true, and_assoc] using h
+
+theorem native_lifecycle_exact (native rights guards : Bool) :
+    native_lifecycle_admissible native rights guards =
+    (native && rights && guards) := by rfl
+
 end CommerceKernel

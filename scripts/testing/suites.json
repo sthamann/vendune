@@ -47,6 +47,7 @@
     "app_consent",
     "app_relations",
     "app_core_extensions",
+    "native_lifecycles",
     "app_ontology",
     "app_schema",
     "app_shared_storage",
